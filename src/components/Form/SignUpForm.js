@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import Link from 'next/link';
-import Input from '../FormInput/formInputs';
-import { FormHeader } from '../FormHeader/FormHeader';
-import CustomButton from '../CustomButton/CustomButton';
-import { KgtinIcon } from '../Icons';
-import { useSelector, shallowEqual, useDispatch } from 'react-redux';
-import { signUp, resetSubmitting } from '../../redux/signup/signup.actions';
-import Loader from 'react-loader-spinner';
-import { useRouter } from 'next/router';
+import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import Link from "next/link";
+import Input from "../FormInput/formInputs";
+import { FormHeader } from "../FormHeader/FormHeader";
+import CustomButton from "../CustomButton/CustomButton";
+import { KgtinIcon } from "../Icons";
+import { useSelector, shallowEqual, useDispatch } from "react-redux";
+import { signUp, resetSubmitting } from "../../redux/signup/signup.actions";
+import Loader from "react-loader-spinner";
+import { useRouter } from "next/router";
 
 const SignUpForm = () => {
   const dispatch = useDispatch();
@@ -25,14 +25,14 @@ const SignUpForm = () => {
   );
   useEffect(() => {
     if (isValid) {
-      router.push('/signup/auth');
+      router.push("/signup/auth");
     }
     dispatch(resetSubmitting());
   }, [isValid]);
 
   const { register, handleSubmit, errors } = useForm({
-    mode: 'onChange',
-    reValidateMode: 'onChange',
+    mode: "onChange",
+    reValidateMode: "onChange",
   });
   const SubmitHandler = (taxId) => {
     dispatch(signUp(taxId));
@@ -48,13 +48,13 @@ const SignUpForm = () => {
           </p>
         )}
         <Input
-          name={'kgtin'}
+          name={"kgtin"}
           ref={register({
             minLength: 10,
             maxLength: 10,
             pattern: {
               value: /^[0-9]*[.]?[0-9]*$/,
-              message: 'Tax Id must be a number',
+              message: "Tax Id must be a number",
             },
           })}
           label={<KgtinIcon />}
@@ -64,10 +64,10 @@ const SignUpForm = () => {
           disabled={enableInput}
           type="text"
         />
-        {errors.kgtin && errors.kgtin.type === 'minLength' && (
+        {errors.kgtin && errors.kgtin.type === "minLength" && (
           <p className="text-red-600">Tax Id must be 10 digits</p>
         )}
-        {errors.kgtin && errors.kgtin.type === 'maxLength' && (
+        {errors.kgtin && errors.kgtin.type === "maxLength" && (
           <p className="text-red-600">Tax Id must be 10 digits</p>
         )}
         {errors.kgtin && (

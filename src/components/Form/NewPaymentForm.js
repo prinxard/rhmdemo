@@ -76,6 +76,7 @@ const NewPaymentForm = () => {
 
   //submit handler
   const SubmitHandler = (data) => {
+    console.log(data);
     const year = new Date().getFullYear();
     let month = new Date().getMonth() + 1;
     let day = new Date().getDate();
@@ -111,6 +112,7 @@ const NewPaymentForm = () => {
         taxPayer: data.KGTIN,
         amount: data.amount,
         station: data.taxOffice,
+        // description: data.description,
         status: "2",
         paymentMethod: data.channel,
         name: data.name,
@@ -368,6 +370,14 @@ const NewPaymentForm = () => {
                 <p className="text-red-600 bg-white">{errors.amount.message}</p>
               )}
             </div>
+            {/* <div className="w-full lg:w-1/4">
+              <NewFormInput
+                label="Description"
+                required
+                ref={register()}
+                name="description"
+              />
+            </div> */}
 
             <div className="w-full lg:w-1/4 lg:mt-6">
               <select
@@ -451,6 +461,10 @@ const NewPaymentForm = () => {
                                   <td>Amount</td>
                                   <td>{formatNumber(dat.amount)}</td>
                                 </tr>
+                                {/* <tr>
+                                  <td>Description</td>
+                                  <td>{dat.description}</td>
+                                </tr> */}
                               </tbody>
                             </table>
                           </div>

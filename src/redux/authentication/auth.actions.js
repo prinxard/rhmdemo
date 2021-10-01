@@ -1,6 +1,6 @@
-import axios from 'axios';
-import authActionTypes from './auth.types';
-import url from '../../config/url';
+import axios from "axios";
+import authActionTypes from "./auth.types";
+import url from "../../config/url";
 export const login = (data) => async (dispatch) => {
   dispatch({ type: authActionTypes.SET_LOGIN_SUBMITTING });
   try {
@@ -12,12 +12,15 @@ export const login = (data) => async (dispatch) => {
     dispatch({ type: authActionTypes.SET_LOGIN_SUBMITTING });
     if (e.response) {
       const errors = e.response.data.message;
-      dispatch({ type: authActionTypes.SET_LOGIN_ERRORS, payload: errors });
+      dispatch({
+        type: authActionTypes.SET_LOGIN_ERRORS,
+        payload: "Invalid login credentials",
+      });
       setTimeout(() => {
         dispatch({ type: authActionTypes.SET_LOGIN_ERRORS, payload: null });
       }, 6000);
     } else if (e.request) {
-      alert('Cannot carry out this request at this time. Please try again');
+      alert("Cannot carry out this request at this time. Please try again");
     }
   }
 };
