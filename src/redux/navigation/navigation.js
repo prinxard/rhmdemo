@@ -68,6 +68,17 @@ const initialState = [
               },
             ],
           },
+          // {
+          //   title: 'PAYE Annual',
+          //   items: [
+          //     { title: 'Upload', url: '/uploads/annual', items: [] },
+          //     {
+          //       title: 'View',
+          //       url: '/view/annual',
+          //       items: [],
+          //     },
+          //   ],
+          // },
           {
             title: 'Withholding',
             items: [
@@ -80,6 +91,53 @@ const initialState = [
               },
             ],
           },
+        ],
+      },
+      {
+        url: '/',
+        icon: <FileReturns />,
+        title: 'ANNUAL RETURNS',
+        items: [
+          {
+            title: 'Upload',
+            items: [
+              // { title: 'PAYE annual', url: '/uploads/annual', items: [] },
+              { title: 'Upload Document', url: '/uploads/annual', items: [] },
+              {
+                title: 'Upload CSV',
+                url: '/uploads/annualcsv',
+                items: [],
+              },
+            ],
+          },
+          {
+            title: 'View',
+            items: [],
+            url: '/view/annual',
+          },
+        ],
+      },
+
+      {
+        url: '/',
+        icon: <Invoice />,
+        title: 'TCC',
+        items: [
+          {
+            url: '',
+            title: 'Apply',
+            items: [],
+          },
+          {
+            url: '',
+            title: 'View',
+            items: [],
+          },
+          // {
+          //   url: '/payment/pending-invoice',
+          //   title: 'Unpaid Assessment',
+          //   items: [],
+          // },
         ],
       },
 

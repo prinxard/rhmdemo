@@ -144,6 +144,7 @@ const FormValidation = ({items, onSubmit, alerts}) => {
               <div className="form-element">
                 {item.label && <div className="form-label">{item.label}</div>}
                 <input
+                  disabled
                   ref={item.ref}
                   name={item.name}
                   type={item.type}
@@ -160,10 +161,10 @@ const FormValidation = ({items, onSubmit, alerts}) => {
           )
         })}
       </div>
-      <input
+      {/* <input
         type="submit"
         className="btn btn-default bg-blue-500 hover:bg-blue-600 text-white btn-rounded"
-      />
+      /> */}
     </form>
   )
 }

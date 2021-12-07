@@ -16,12 +16,12 @@ const AccountLinks = () => {
   );
 
   const items = [
-    // {
-    //   url: '/extras/user-profile',
-    //   icon: <FiUser size={18} className="stroke-current" />,
-    //   name: 'Profile',
-    //   badge: null,
-    // },
+    {
+      url: '/user-page/user-profile',
+      icon: <FiUser size={18} className="stroke-current" />,
+      name: 'Profile',
+      badge: null,
+    },
   ];
 
   useEffect(() => {

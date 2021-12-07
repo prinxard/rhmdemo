@@ -1,62 +1,91 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
+import url from "../../config/url";
+import axios from 'axios';
 import Validation from '../forms/validation'
 import Alert from '../alerts'
+import setAuthToken from '../../functions/setAuthToken';
 
 const AccountSettings = ({message = null}) => {
   const [data, onSubmit] = useState(null)
+  const [details, setDetails] = useState('');
+  setAuthToken();
+  useEffect(() => {
+    const fetchInfo = async () => {
+      try {
+        const result = await axios.get(`${url.BASE_URL}user/view-user`);
+        let userDet = result.data.body.taxpayerDetails;
+        setDetails(userDet);
+        
+        console.log(details);
+        // console.log(userDet);
+      } catch (error) {
+        console.log('Error', error);
+      }
+    };
+    fetchInfo();
+  }, []);
+  
   let items = [
     {
-      label: 'First name',
+     
+      label: 'KGTIN',
       error: {required: 'Please enter a valid first name'},
       name: 'first-name',
       type: 'text',
-      placeholder: 'Enter you first name'
+      placeholder: `${details.KGTIN}`
     },
     {
-      label: 'Last name',
+      label: 'Taxpayer Name',
       error: {required: 'Please enter a valid last name'},
       name: 'last-name',
       type: 'text',
-      placeholder: 'Enter you last name'
+      placeholder: `${details.tp_name}`
+    },
+    {
+      label: 'TaxPayer Type',
+      error: {required: 'Please enter a valid last name'},
+      name: 'last-name',
+      type: 'text',
+      placeholder: `${details.tp_type}`
     },
     {
       label: 'Email address',
       error: {required: 'Please enter a valid email address'},
       name: 'email',
       type: 'email',
-      placeholder: 'Enter you email address'
+      placeholder: `${details.email}`
     },
     {
-      label: 'Company',
+      label: 'Phone number',
       error: {required: 'Please enter a valid company'},
       name: 'company',
       type: 'text',
-      placeholder: 'Enter you company'
+      placeholder: `${details.phone_number}`
     },
     {
-      label: 'Position',
+      label: 'Tax office',
       error: {required: 'Please enter a valid position'},
       name: 'position',
       type: 'text',
-      placeholder: 'Enter you position'
+      placeholder: `${details.tax_office}`
     },
-    {
-      label: 'Language',
-      error: {
-        required: 'Language is required',
-        validate: value =>
-          ['english', 'spanish', 'portuguese'].includes(value) ||
-          'Language is required'
-      },
-      name: 'language',
-      type: 'select',
-      options: [
-        {value: null, label: 'Select language'},
-        {value: 'english', label: 'English'},
-        {value: 'spanish', label: 'Spanish'},
-        {value: 'portuguese', label: 'Portuguese'}
-      ]
-    }
+    // {
+    //   label: 'Language',
+    //   error: {
+    //     required: 'Language is required',
+    //     validate: value =>
+    //       ['english', 'spanish', 'portuguese'].includes(value) ||
+    //       'Language is required'
+    //   },
+    //   name: 'language',
+    //   type: 'select',
+    //   options: [
+    //     {value: null, label: 'Select language'},
+    //     {value: 'english', label: 'English'},
+    //     {value: 'spanish', label: 'Spanish'},
+    //     {value: 'portuguese', label: 'Portuguese'}
+    //   ]
+    // }
   ]
   return (
     <>

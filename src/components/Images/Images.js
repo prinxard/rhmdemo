@@ -55,8 +55,8 @@ export const SampleCsv = () => {
       layout="intrinsic"
       src="/images/csv/csv.PNG"
       alt="sample csv"
-      width={900}
-      height={114}
+      width={1272}
+      height={82}
     />
   );
 };
