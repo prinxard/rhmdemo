@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from "react";
+import { TokenModals, TokenModalsOverlay } from '../../components/modals/Modal-annual';
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
@@ -32,10 +33,20 @@ const AnnualCSVUploadForm = () => {
     }
   };
   return (
+
+
     <form>
+
       {/* <SectionTitle title="Schedule Uploads" subtitle="Annual PAYE Returns" /> */}
       <SectionTitle subtitle="UPLOAD ANNUAL RETURNS DOCUMENTS" />
       <Widget>
+        <div>
+          <TokenModalsOverlay>
+            <TokenModals />
+          </TokenModalsOverlay>
+
+
+        </div>
         {/* <div className="flex flex-col lg:flex-row lg:flex-wrap w-full lg:space-x-4">
           <div className="w-full lg:w-1/12">
             <Select label="Select Year" required />
@@ -44,7 +55,7 @@ const AnnualCSVUploadForm = () => {
         <div>
           <div>
             <div className="flex justify-between mb-5">
-              <h6>Monthly payroll receipt & evidence of PAYE remittance schedule (Excel) *</h6>
+              <p>Monthly payroll receipt & evidence of PAYE remittance schedule (Excel) *</p>
               <input
                 required
                 type="file"
@@ -68,7 +79,7 @@ const AnnualCSVUploadForm = () => {
             </div>
             <hr className="mb-2" />
             <div className="flex justify-between mb-5">
-              <h6>Schedule of withholding tax deductions  *</h6>
+              <p>Schedule of withholding tax deductions  *</p>
               <input
                 required
                 type="file"
@@ -91,7 +102,7 @@ const AnnualCSVUploadForm = () => {
             </div>
             <hr className="mb-2" />
             <div className="flex justify-between mb-5">
-              <h6>Employer’s annual declaration certificate FORM H1 (Excel) *</h6>
+              <p>Employer’s annual declaration certificate FORM H1 (Excel) *</p>
               <input
                 required
                 type="file"
@@ -114,7 +125,7 @@ const AnnualCSVUploadForm = () => {
             </div>
             <hr className="mb-2" />
             <div className="flex justify-between mb-5">
-              <h6>Withholding tax receipts (corporate & Individual) *</h6>
+              <p>Withholding tax receipts (corporate & Individual) *</p>
               <input
                 required
                 type="file"
@@ -137,7 +148,7 @@ const AnnualCSVUploadForm = () => {
             </div>
             <hr className="mb-2" />
             <div className="flex justify-between mb-5">
-              <h6>Development levy receipts (corporate & Individual) *</h6>
+              <p>Development levy receipts (corporate & Individual) *</p>
               <input
                 required
                 type="file"
@@ -160,7 +171,7 @@ const AnnualCSVUploadForm = () => {
             </div>
             <hr className="mb-2" />
             <div className="flex justify-between mb-5">
-              <h6>Business premises receipts (corporate & Individual) *</h6>
+              <p>Business premises receipts (corporate & Individual) *</p>
               <input
                 required
                 type="file"
@@ -183,7 +194,7 @@ const AnnualCSVUploadForm = () => {
             </div>
             <hr className="mb-2" />
             <div className="flex justify-between mb-5">
-              <h6>Ground rent receipts (corporate & Individual) *</h6>
+              <p>Ground rent receipts (corporate & Individual) *</p>
               <input
                 required
                 type="file"
@@ -206,7 +217,7 @@ const AnnualCSVUploadForm = () => {
             </div>
             <hr className="mb-2" />
             <div className="flex justify-between mb-5">
-              <h6>Social service contributions levy (SSCL) (corporate & Individual) *</h6>
+              <p>Social service contributions levy (SSCL) (corporate & Individual) *</p>
               <input
                 required
                 type="file"
@@ -229,7 +240,7 @@ const AnnualCSVUploadForm = () => {
             </div>
             <hr className="mb-2" />
             <div className="flex justify-between mb-5">
-              <h6>List of exit staff *</h6>
+              <p>List of exit staff *</p>
               <input
                 required
                 type="file"
@@ -252,7 +263,7 @@ const AnnualCSVUploadForm = () => {
             </div>
             <hr className="mb-2" />
             <div className="flex justify-between mb-5">
-              <h6>Evidence of remittance of pension *</h6>
+              <p>Evidence of remittance of pension *</p>
               <input
                 required
                 type="file"
@@ -275,7 +286,7 @@ const AnnualCSVUploadForm = () => {
             </div>
             <hr className="mb-2" />
             <div className="flex justify-between mb-5">
-              <h6>Evidence of remittance of NHF *</h6>
+              <p>Evidence of remittance of NHF *</p>
               <input
                 required
                 type="file"
@@ -298,7 +309,7 @@ const AnnualCSVUploadForm = () => {
             </div>
             <hr className="mb-2" />
             <div className="flex justify-between mb-5">
-              <h6>Evidence of remittance of NHIS *</h6>
+              <p>Evidence of remittance of NHIS *</p>
               <input
                 required
                 type="file"
@@ -321,7 +332,7 @@ const AnnualCSVUploadForm = () => {
             </div>
             <hr className="mb-2" />
             <div className="flex justify-between mb-5">
-              <h6>Evidence of remittance of LAP *</h6>
+              <p>Evidence of remittance of LAP *</p>
               <input
                 required
                 type="file"
@@ -343,7 +354,7 @@ const AnnualCSVUploadForm = () => {
               </div>
             </div>
             <div className="flex justify-between mb-5">
-              <h6>Monthly immigration returns *</h6>
+              <p>Monthly immigration returns *</p>
               <input
                 required
                 type="file"
@@ -365,7 +376,7 @@ const AnnualCSVUploadForm = () => {
               </div>
             </div>
             <div className="flex justify-between mb-5">
-              <h6>Letter of expatriate order *</h6>
+              <p>Letter of expatriate order *</p>
               <input
                 required
                 type="file"
@@ -387,7 +398,7 @@ const AnnualCSVUploadForm = () => {
               </div>
             </div>
             <div className="flex justify-between mb-5">
-              <h6>Copy of letter mandating employees to file individual tax returns *</h6>
+              <p>Copy of letter mandating employees to file individual tax returns *</p>
               <input
                 required
                 type="file"
