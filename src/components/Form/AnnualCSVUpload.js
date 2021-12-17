@@ -36,26 +36,17 @@ const AnnualCSVUploadForm = () => {
 
 
     <form>
-
+      <TokenModalsOverlay>
+        <TokenModals />
+      </TokenModalsOverlay>
       {/* <SectionTitle title="Schedule Uploads" subtitle="Annual PAYE Returns" /> */}
-      <SectionTitle subtitle="UPLOAD ANNUAL RETURNS DOCUMENTS" />
+      {/* <SectionTitle subtitle="UPLOAD ANNUAL RETURNS DOCUMENTS" /> */}
+      <h6 className="p-2">Correspondence</h6>
       <Widget>
         <div>
-          <TokenModalsOverlay>
-            <TokenModals />
-          </TokenModalsOverlay>
-
-
-        </div>
-        {/* <div className="flex flex-col lg:flex-row lg:flex-wrap w-full lg:space-x-4">
-          <div className="w-full lg:w-1/12">
-            <Select label="Select Year" required />
-          </div>
-        </div> */}
-        <div>
           <div>
             <div className="flex justify-between mb-5">
-              <p>Monthly payroll receipt & evidence of PAYE remittance schedule (Excel) *</p>
+              <p>Cover letter of submission of annual returns * (pdf, jpg, png)</p>
               <input
                 required
                 type="file"
@@ -79,7 +70,29 @@ const AnnualCSVUploadForm = () => {
             </div>
             <hr className="mb-2" />
             <div className="flex justify-between mb-5">
-              <p>Schedule of withholding tax deductions  *</p>
+              <p>Copy of letter mandating employees to file individual tax returns * (pdf, jpg, png)</p>
+              <input
+                required
+                type="file"
+                className="hidden"
+                ref={fileInputRef}
+                onChange={fileHandler}
+              />
+              <div className="flex items-center">
+                <button
+                  className="btn btn-default btn-outlined bg-transparent mr-4"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    fileInputRef.current.click();
+                  }}
+                >
+                  select file
+                </button>
+                <p>{file ? file.name : "no file chosen yet"}</p>
+              </div>
+            </div>
+            <div className="flex justify-between mb-5">
+              <p>Letter of expatriate order [where applicable]  (pdf, jpg, png)</p>
               <input
                 required
                 type="file"
@@ -101,355 +114,266 @@ const AnnualCSVUploadForm = () => {
               </div>
             </div>
             <hr className="mb-2" />
-            <div className="flex justify-between mb-5">
-              <p>Employer’s annual declaration certificate FORM H1 (Excel) *</p>
-              <input
-                required
-                type="file"
-                className="hidden"
-                ref={fileInputRef}
-                onChange={fileHandler}
-              />
-              <div className="flex items-center">
-                <button
-                  className="btn btn-default btn-outlined bg-transparent mr-4"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    fileInputRef.current.click();
-                  }}
-                >
-                  select file
-                </button>
-                <p>{file ? file.name : "no file chosen yet"}</p>
-              </div>
-            </div>
-            <hr className="mb-2" />
-            <div className="flex justify-between mb-5">
-              <p>Withholding tax receipts (corporate & Individual) *</p>
-              <input
-                required
-                type="file"
-                className="hidden"
-                ref={fileInputRef}
-                onChange={fileHandler}
-              />
-              <div className="flex items-center">
-                <button
-                  className="btn btn-default btn-outlined bg-transparent mr-4"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    fileInputRef.current.click();
-                  }}
-                >
-                  select file
-                </button>
-                <p>{file ? file.name : "no file chosen yet"}</p>
-              </div>
-            </div>
-            <hr className="mb-2" />
-            <div className="flex justify-between mb-5">
-              <p>Development levy receipts (corporate & Individual) *</p>
-              <input
-                required
-                type="file"
-                className="hidden"
-                ref={fileInputRef}
-                onChange={fileHandler}
-              />
-              <div className="flex items-center">
-                <button
-                  className="btn btn-default btn-outlined bg-transparent mr-4"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    fileInputRef.current.click();
-                  }}
-                >
-                  select file
-                </button>
-                <p>{file ? file.name : "no file chosen yet"}</p>
-              </div>
-            </div>
-            <hr className="mb-2" />
-            <div className="flex justify-between mb-5">
-              <p>Business premises receipts (corporate & Individual) *</p>
-              <input
-                required
-                type="file"
-                className="hidden"
-                ref={fileInputRef}
-                onChange={fileHandler}
-              />
-              <div className="flex items-center">
-                <button
-                  className="btn btn-default btn-outlined bg-transparent mr-4"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    fileInputRef.current.click();
-                  }}
-                >
-                  select file
-                </button>
-                <p>{file ? file.name : "no file chosen yet"}</p>
-              </div>
-            </div>
-            <hr className="mb-2" />
-            <div className="flex justify-between mb-5">
-              <p>Ground rent receipts (corporate & Individual) *</p>
-              <input
-                required
-                type="file"
-                className="hidden"
-                ref={fileInputRef}
-                onChange={fileHandler}
-              />
-              <div className="flex items-center">
-                <button
-                  className="btn btn-default btn-outlined bg-transparent mr-4"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    fileInputRef.current.click();
-                  }}
-                >
-                  select file
-                </button>
-                <p>{file ? file.name : "no file chosen yet"}</p>
-              </div>
-            </div>
-            <hr className="mb-2" />
-            <div className="flex justify-between mb-5">
-              <p>Social service contributions levy (SSCL) (corporate & Individual) *</p>
-              <input
-                required
-                type="file"
-                className="hidden"
-                ref={fileInputRef}
-                onChange={fileHandler}
-              />
-              <div className="flex items-center">
-                <button
-                  className="btn btn-default btn-outlined bg-transparent mr-4"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    fileInputRef.current.click();
-                  }}
-                >
-                  select file
-                </button>
-                <p>{file ? file.name : "no file chosen yet"}</p>
-              </div>
-            </div>
-            <hr className="mb-2" />
-            <div className="flex justify-between mb-5">
-              <p>List of exit staff *</p>
-              <input
-                required
-                type="file"
-                className="hidden"
-                ref={fileInputRef}
-                onChange={fileHandler}
-              />
-              <div className="flex items-center">
-                <button
-                  className="btn btn-default btn-outlined bg-transparent mr-4"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    fileInputRef.current.click();
-                  }}
-                >
-                  select file
-                </button>
-                <p>{file ? file.name : "no file chosen yet"}</p>
-              </div>
-            </div>
-            <hr className="mb-2" />
-            <div className="flex justify-between mb-5">
-              <p>Evidence of remittance of pension *</p>
-              <input
-                required
-                type="file"
-                className="hidden"
-                ref={fileInputRef}
-                onChange={fileHandler}
-              />
-              <div className="flex items-center">
-                <button
-                  className="btn btn-default btn-outlined bg-transparent mr-4"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    fileInputRef.current.click();
-                  }}
-                >
-                  select file
-                </button>
-                <p>{file ? file.name : "no file chosen yet"}</p>
-              </div>
-            </div>
-            <hr className="mb-2" />
-            <div className="flex justify-between mb-5">
-              <p>Evidence of remittance of NHF *</p>
-              <input
-                required
-                type="file"
-                className="hidden"
-                ref={fileInputRef}
-                onChange={fileHandler}
-              />
-              <div className="flex items-center">
-                <button
-                  className="btn btn-default btn-outlined bg-transparent mr-4"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    fileInputRef.current.click();
-                  }}
-                >
-                  select file
-                </button>
-                <p>{file ? file.name : "no file chosen yet"}</p>
-              </div>
-            </div>
-            <hr className="mb-2" />
-            <div className="flex justify-between mb-5">
-              <p>Evidence of remittance of NHIS *</p>
-              <input
-                required
-                type="file"
-                className="hidden"
-                ref={fileInputRef}
-                onChange={fileHandler}
-              />
-              <div className="flex items-center">
-                <button
-                  className="btn btn-default btn-outlined bg-transparent mr-4"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    fileInputRef.current.click();
-                  }}
-                >
-                  select file
-                </button>
-                <p>{file ? file.name : "no file chosen yet"}</p>
-              </div>
-            </div>
-            <hr className="mb-2" />
-            <div className="flex justify-between mb-5">
-              <p>Evidence of remittance of LAP *</p>
-              <input
-                required
-                type="file"
-                className="hidden"
-                ref={fileInputRef}
-                onChange={fileHandler}
-              />
-              <div className="flex items-center">
-                <button
-                  className="btn btn-default btn-outlined bg-transparent mr-4"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    fileInputRef.current.click();
-                  }}
-                >
-                  select file
-                </button>
-                <p>{file ? file.name : "no file chosen yet"}</p>
-              </div>
-            </div>
-            <div className="flex justify-between mb-5">
-              <p>Monthly immigration returns *</p>
-              <input
-                required
-                type="file"
-                className="hidden"
-                ref={fileInputRef}
-                onChange={fileHandler}
-              />
-              <div className="flex items-center">
-                <button
-                  className="btn btn-default btn-outlined bg-transparent mr-4"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    fileInputRef.current.click();
-                  }}
-                >
-                  select file
-                </button>
-                <p>{file ? file.name : "no file chosen yet"}</p>
-              </div>
-            </div>
-            <div className="flex justify-between mb-5">
-              <p>Letter of expatriate order *</p>
-              <input
-                required
-                type="file"
-                className="hidden"
-                ref={fileInputRef}
-                onChange={fileHandler}
-              />
-              <div className="flex items-center">
-                <button
-                  className="btn btn-default btn-outlined bg-transparent mr-4"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    fileInputRef.current.click();
-                  }}
-                >
-                  select file
-                </button>
-                <p>{file ? file.name : "no file chosen yet"}</p>
-              </div>
-            </div>
-            <div className="flex justify-between mb-5">
-              <p>Copy of letter mandating employees to file individual tax returns *</p>
-              <input
-                required
-                type="file"
-                className="hidden"
-                ref={fileInputRef}
-                onChange={fileHandler}
-              />
-              <div className="flex items-center">
-                <button
-                  className="btn btn-default btn-outlined bg-transparent mr-4"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    fileInputRef.current.click();
-                  }}
-                >
-                  select file
-                </button>
-                <p>{file ? file.name : "no file chosen yet"}</p>
-              </div>
-            </div>
           </div>
         </div>
-        {/* <div className="mt-4">
-          <SubmitButton text="Submit" type="submit" disabled={true} />
-        </div> */}
-
-        <div className="flex justify-end">
-          <div>
-            {/* <p className="text-center text-xl">Sample Csv</p>
-            <SampleCsv />
-            <div className="flex justify-center">
-              <div className=""> */}
-            {/* <NewButton
-                  title={`Download csv sheet`}
-                  icon={<FiArrowDown size="16" />}
-                  color="green"
-                  type="button"
-                /> */}
-
-            {/* <Link href="/csv/annual_returns.csv">
-                  <a className="flex overflow-hidden btn btn-default btn-outlined  mr-4 bg-transparent text-green-500 hover:text-green-700 border-green-500 hover:border-green-700">
-                    <FiArrowDown size="16" className="animate-bounce" />
-                    Download sample CSV
-                  </a>
-                </Link> */}
-
-            {/* <NewButton title="user guide" color="blue" type="button" /> */}
-
-
-            {/* </div>
-            </div> */}
+      </Widget>
+      <div className="mt-12">
+        <h6 className="p-2">Remittance</h6>
+      </div>
+      <Widget className="mt-8">
+        <div className="flex justify-between mb-5">
+          <p>Schedule of withholding tax deductions * (excel)</p>
+          <input
+            required
+            type="file"
+            className="hidden"
+            ref={fileInputRef}
+            onChange={fileHandler}
+          />
+          <div className="flex items-center">
+            <button
+              className="btn btn-default btn-outlined bg-transparent mr-4"
+              onClick={(event) => {
+                event.preventDefault();
+                fileInputRef.current.click();
+              }}
+            >
+              select file
+            </button>
+            <p>{file ? file.name : "no file chosen yet"}</p>
+          </div>
+        </div>
+        <hr className="mb-2" />
+        <div className="flex justify-between mb-5">
+          <p>Withholding tax receipts (corporate & Individual) * (pdf, jpg, png)</p>
+          <input
+            required
+            type="file"
+            className="hidden"
+            ref={fileInputRef}
+            onChange={fileHandler}
+          />
+          <div className="flex items-center">
+            <button
+              className="btn btn-default btn-outlined bg-transparent mr-4"
+              onClick={(event) => {
+                event.preventDefault();
+                fileInputRef.current.click();
+              }}
+            >
+              select file
+            </button>
+            <p>{file ? file.name : "no file chosen yet"}</p>
+          </div>
+        </div>
+        <hr className="mb-2" />
+        <div className="flex justify-between mb-5">
+          <p>Monthly Immigration returns [where applicable] (pdf, jpg, png)</p>
+          <input
+            required
+            type="file"
+            className="hidden"
+            ref={fileInputRef}
+            onChange={fileHandler}
+          />
+          <div className="flex items-center">
+            <button
+              className="btn btn-default btn-outlined bg-transparent mr-4"
+              onClick={(event) => {
+                event.preventDefault();
+                fileInputRef.current.click();
+              }}
+            >
+              select file
+            </button>
+            <p>{file ? file.name : "no file chosen yet"}</p>
+          </div>
+        </div>
+        <hr className="mb-2" />
+      </Widget>
+      <div className="mt-12"><h6 className="p-2">Contributions and levies</h6></div>
+      <Widget>
+        <div className="flex justify-between mb-5">
+          <p>Development levy receipts (corporate & Individual) * (pdf, jpg, png) </p>
+          <input
+            required
+            type="file"
+            className="hidden"
+            ref={fileInputRef}
+            onChange={fileHandler}
+          />
+          <div className="flex items-center">
+            <button
+              className="btn btn-default btn-outlined bg-transparent mr-4"
+              onClick={(event) => {
+                event.preventDefault();
+                fileInputRef.current.click();
+              }}
+            >
+              select file
+            </button>
+            <p>{file ? file.name : "no file chosen yet"}</p>
+          </div>
+        </div>
+        <hr className="mb-2" />
+        <div className="flex justify-between mb-5">
+          <p>Business premises receipts (corporate & Individual) * (pdf, jpg, png) </p>
+          <input
+            required
+            type="file"
+            className="hidden"
+            ref={fileInputRef}
+            onChange={fileHandler}
+          />
+          <div className="flex items-center">
+            <button
+              className="btn btn-default btn-outlined bg-transparent mr-4"
+              onClick={(event) => {
+                event.preventDefault();
+                fileInputRef.current.click();
+              }}
+            >
+              select file
+            </button>
+            <p>{file ? file.name : "no file chosen yet"}</p>
+          </div>
+        </div>
+        <hr className="mb-2" />
+        <div className="flex justify-between mb-5">
+          <p>Ground rent receipts (corporate & Individual) * (pdf, jpg, png)</p>
+          <input
+            required
+            type="file"
+            className="hidden"
+            ref={fileInputRef}
+            onChange={fileHandler}
+          />
+          <div className="flex items-center">
+            <button
+              className="btn btn-default btn-outlined bg-transparent mr-4"
+              onClick={(event) => {
+                event.preventDefault();
+                fileInputRef.current.click();
+              }}
+            >
+              select file
+            </button>
+            <p>{file ? file.name : "no file chosen yet"}</p>
+          </div>
+        </div>
+        <hr className="mb-2" />
+        <div className="flex justify-between mb-5">
+          <p>Social service contributions levy (SSCL) (corporate & Individual) * (pdf, jpg, png) </p>
+          <input
+            required
+            type="file"
+            className="hidden"
+            ref={fileInputRef}
+            onChange={fileHandler}
+          />
+          <div className="flex items-center">
+            <button
+              className="btn btn-default btn-outlined bg-transparent mr-4"
+              onClick={(event) => {
+                event.preventDefault();
+                fileInputRef.current.click();
+              }}
+            >
+              select file
+            </button>
+            <p>{file ? file.name : "no file chosen yet"}</p>
+          </div>
+        </div>
+      </Widget>
+      <div className="mt-12"><h6 className="p-2">Deductions</h6></div>
+      <Widget>
+        <div className="flex justify-between mb-5">
+          <p>Evidence of remittance of pension * (pdf, jpg, png) </p>
+          <input
+            required
+            type="file"
+            className="hidden"
+            ref={fileInputRef}
+            onChange={fileHandler}
+          />
+          <div className="flex items-center">
+            <button
+              className="btn btn-default btn-outlined bg-transparent mr-4"
+              onClick={(event) => {
+                event.preventDefault();
+                fileInputRef.current.click();
+              }}
+            >
+              select file
+            </button>
+            <p>{file ? file.name : "no file chosen yet"}</p>
+          </div>
+        </div>
+        <hr className="mb-2" />
+        <div className="flex justify-between mb-5">
+          <p>Evidence of remittance of NHF * (pdf, jpg, png) </p>
+          <input
+            required
+            type="file"
+            className="hidden"
+            ref={fileInputRef}
+            onChange={fileHandler}
+          />
+          <div className="flex items-center">
+            <button
+              className="btn btn-default btn-outlined bg-transparent mr-4"
+              onClick={(event) => {
+                event.preventDefault();
+                fileInputRef.current.click();
+              }}
+            >
+              select file
+            </button>
+            <p>{file ? file.name : "no file chosen yet"}</p>
+          </div>
+        </div>
+        <div className="flex justify-between mb-5">
+          <p>Evidence of remittance of NHIS *</p>
+          <input
+            required
+            type="file"
+            className="hidden"
+            ref={fileInputRef}
+            onChange={fileHandler}
+          />
+          <div className="flex items-center">
+            <button
+              className="btn btn-default btn-outlined bg-transparent mr-4"
+              onClick={(event) => {
+                event.preventDefault();
+                fileInputRef.current.click();
+              }}
+            >
+              select file
+            </button>
+            <p>{file ? file.name : "no file chosen yet"}</p>
+          </div>
+        </div>
+        <div className="flex justify-between mb-5">
+          <p>Evidence of remittance of LAP * (pdf, jpg, png)</p>
+          <input
+            required
+            type="file"
+            className="hidden"
+            ref={fileInputRef}
+            onChange={fileHandler}
+          />
+          <div className="flex items-center">
+            <button
+              className="btn btn-default btn-outlined bg-transparent mr-4"
+              onClick={(event) => {
+                event.preventDefault();
+                fileInputRef.current.click();
+              }}
+            >
+              select file
+            </button>
+            <p>{file ? file.name : "no file chosen yet"}</p>
           </div>
         </div>
       </Widget>
