@@ -24,6 +24,7 @@ const View = () => {
       try {
         let res = await axios.get(`${url.BASE_URL}monthly/view-returns`);
         res = res.data.body;
+        // console.log(res);
         let records = [];
         let sum = [];
         for (let i = 0; i < res.length; i++) {

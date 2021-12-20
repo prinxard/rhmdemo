@@ -35,9 +35,9 @@ const AnnualCSVUploadForm = () => {
 
   return (
     <form>
-      <TokenModalsOverlay>
+      {/* <TokenModalsOverlay>
         <TokenModals />
-      </TokenModalsOverlay>
+      </TokenModalsOverlay> */}
       <h6 className="p-2 font-bold">Correspondence</h6>
       <Widget>
         <div>
@@ -54,7 +54,7 @@ const AnnualCSVUploadForm = () => {
               />
               <div className="flex items-center">
                 <button style={{ backgroundColor: "#84abeb" }}
-                  className="btn btn-default btn-outlined bg-transparent rounded-md mr-4"
+                  className="btn btn-default text-white btn-outlined bg-transparent rounded-md mr-4"
                   onClick={(event) => {
                     event.preventDefault();
                     fileInputRef.current.click();
@@ -79,7 +79,7 @@ const AnnualCSVUploadForm = () => {
               <div className="flex items-center">
                 <button
                   style={{ backgroundColor: "#84abeb" }}
-                  className="btn btn-default rounded-md btn-outlined bg-transparent mr-4"
+                  className="btn btn-default text-white rounded-md btn-outlined bg-transparent mr-4"
                   onClick={(event) => {
                     event.preventDefault();
                     fileInputRef.current.click();
@@ -103,7 +103,7 @@ const AnnualCSVUploadForm = () => {
               <div className="flex items-center">
                 <button
                   style={{ backgroundColor: "#84abeb" }}
-                  className="btn btn-default rounded-md btn-outlined bg-transparent mr-4"
+                  className="btn btn-default text-white rounded-md btn-outlined bg-transparent mr-4"
                   onClick={(event) => {
                     event.preventDefault();
                     fileInputRef.current.click();
@@ -134,7 +134,7 @@ const AnnualCSVUploadForm = () => {
           <div className="flex items-center">
             <button
               style={{ backgroundColor: "#84abeb" }}
-              className="btn btn-default rounded-md btn-outlined bg-transparent mr-4"
+              className="btn btn-default text-white rounded-md btn-outlined bg-transparent mr-4"
               onClick={(event) => {
                 event.preventDefault();
                 fileInputRef.current.click();
@@ -158,7 +158,7 @@ const AnnualCSVUploadForm = () => {
           <div className="flex items-center">
             <button
               style={{ backgroundColor: "#84abeb" }}
-              className="btn btn-default rounded-md btn-outlined bg-transparent mr-4"
+              className="btn btn-default text-white rounded-md btn-outlined bg-transparent mr-4"
               onClick={(event) => {
                 event.preventDefault();
                 fileInputRef.current.click();
@@ -182,7 +182,7 @@ const AnnualCSVUploadForm = () => {
           <div className="flex items-center">
             <button
               style={{ backgroundColor: "#84abeb" }}
-              className="btn btn-default rounded-md btn-outlined bg-transparent mr-4"
+              className="btn btn-default text-white rounded-md btn-outlined bg-transparent mr-4"
               onClick={(event) => {
                 event.preventDefault();
                 fileInputRef.current.click();
@@ -209,7 +209,7 @@ const AnnualCSVUploadForm = () => {
           <div className="flex items-center">
             <button
               style={{ backgroundColor: "#84abeb" }}
-              className="btn btn-default rounded-md btn-outlined bg-transparent mr-4"
+              className="btn btn-default text-white rounded-md btn-outlined bg-transparent mr-4"
               onClick={(event) => {
                 event.preventDefault();
                 fileInputRef.current.click();
@@ -233,7 +233,7 @@ const AnnualCSVUploadForm = () => {
           <div className="flex items-center">
             <button
               style={{ backgroundColor: "#84abeb" }}
-              className="btn btn-default rounded-md btn-outlined bg-transparent mr-4"
+              className="btn btn-default text-white rounded-md btn-outlined bg-transparent mr-4"
               onClick={(event) => {
                 event.preventDefault();
                 fileInputRef.current.click();
@@ -257,7 +257,7 @@ const AnnualCSVUploadForm = () => {
           <div className="flex items-center">
             <button
               style={{ backgroundColor: "#84abeb" }}
-              className="btn btn-default rounded-md btn-outlined bg-transparent mr-4"
+              className="btn btn-default text-white rounded-md btn-outlined bg-transparent mr-4"
               onClick={(event) => {
                 event.preventDefault();
                 fileInputRef.current.click();
@@ -281,7 +281,7 @@ const AnnualCSVUploadForm = () => {
           <div className="flex items-center">
             <button
               style={{ backgroundColor: "#84abeb" }}
-              className="btn btn-default rounded-md btn-outlined bg-transparent mr-4"
+              className="btn btn-default text-white rounded-md btn-outlined bg-transparent mr-4"
               onClick={(event) => {
                 event.preventDefault();
                 fileInputRef.current.click();
@@ -307,7 +307,7 @@ const AnnualCSVUploadForm = () => {
           <div className="flex items-center">
             <button
               style={{ backgroundColor: "#84abeb" }}
-              className="btn btn-default rounded-md btn-outlined bg-transparent mr-4"
+              className="btn btn-default text-white rounded-md btn-outlined bg-transparent mr-4"
               onClick={(event) => {
                 event.preventDefault();
                 fileInputRef.current.click();
@@ -331,7 +331,7 @@ const AnnualCSVUploadForm = () => {
           <div className="flex items-center">
             <button
               style={{ backgroundColor: "#84abeb" }}
-              className="btn btn-default rounded-md btn-outlined bg-transparent mr-4"
+              className="btn btn-default text-white rounded-md btn-outlined bg-transparent mr-4"
               onClick={(event) => {
                 event.preventDefault();
                 fileInputRef.current.click();
@@ -354,7 +354,7 @@ const AnnualCSVUploadForm = () => {
           <div className="flex items-center">
             <button
               style={{ backgroundColor: "#84abeb" }}
-              className="btn btn-default rounded-md btn-outlined bg-transparent mr-4"
+              className="btn btn-default text-white rounded-md btn-outlined bg-transparent mr-4"
               onClick={(event) => {
                 event.preventDefault();
                 fileInputRef.current.click();
@@ -377,7 +377,7 @@ const AnnualCSVUploadForm = () => {
           <div className="flex items-center">
             <button
               style={{ backgroundColor: "#84abeb" }}
-              className="btn btn-default rounded-md btn-outlined bg-transparent mr-4"
+              className="btn btn-default text-white rounded-md btn-outlined bg-transparent mr-4"
               onClick={(event) => {
                 event.preventDefault();
                 fileInputRef.current.click();
