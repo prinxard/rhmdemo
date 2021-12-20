@@ -118,6 +118,109 @@ const AnnualCSVUploadForm = () => {
           </div>
         </div>
       </Widget>
+      <h6 className="p-2 font-bold">Employee Schedule</h6>
+      <Widget>
+        <div>
+          <div>
+            <div className="flex justify-between mb-5">
+              <p>Monthly payroll schedule <span className="font-bold" style={{ color: "red" }}> * </span><small>(excel)</small> </p>
+              <input
+                required
+                type="file"
+                multiple
+                className="hidden"
+                ref={fileInputRef}
+                onChange={fileHandler}
+              />
+              <div className="flex items-center">
+                <button style={{ backgroundColor: "#84abeb" }}
+                  className="btn btn-default text-white btn-outlined bg-transparent rounded-md mr-4"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    fileInputRef.current.click();
+                  }}
+                >
+                  select file
+                </button>
+                <p>{file ? file.name : "no file chosen yet"}</p>
+              </div>
+
+            </div>
+            <hr className="mb-2" />
+            <div className="flex justify-between mb-5">
+              <p>Evidence of PAYE remittance <span className="font-bold" style={{ color: "red" }}> * </span> <small>(pdf, jpg, png)</small></p>
+              <input
+                required
+                type="file"
+                className="hidden"
+                ref={fileInputRef}
+                onChange={fileHandler}
+              />
+              <div className="flex items-center">
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn btn-default text-white rounded-md btn-outlined bg-transparent mr-4"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    fileInputRef.current.click();
+                  }}
+                >
+                  select file
+                </button>
+                <p>{file ? file.name : "no file chosen yet"}</p>
+              </div>
+            </div>
+            <hr className="mb-2" />
+            <div className="flex justify-between mb-5">
+              <p>List of exit staff  <small>(pdf, word, excel)</small> </p>
+              <input
+                required
+                type="file"
+                className="hidden"
+                ref={fileInputRef}
+                onChange={fileHandler}
+              />
+              <div className="flex items-center">
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn btn-default text-white rounded-md btn-outlined bg-transparent mr-4"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    fileInputRef.current.click();
+                  }}
+                >
+                  select file
+                </button>
+                <p>{file ? file.name : "no file chosen yet"}</p>
+              </div>
+            </div>
+            <div className="flex justify-between mb-5">
+              <p>Trial balance for the year ended 31st Dec. 2021 </p>
+              <input
+                required
+                type="file"
+                className="hidden"
+                ref={fileInputRef}
+                onChange={fileHandler}
+              />
+              <div className="flex items-center">
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn btn-default text-white rounded-md btn-outlined bg-transparent mr-4"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    fileInputRef.current.click();
+                  }}
+                >
+                  select file
+                </button>
+                <p>{file ? file.name : "no file chosen yet"}</p>
+              </div>
+            </div>
+            <hr className="mb-2" />
+          </div>
+        </div>
+      </Widget>
       <div className="mt-12">
         <h6 className="p-2 font-bold">Remittance</h6>
       </div>
