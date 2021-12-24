@@ -23,6 +23,7 @@ const AnnualCSVUploadForm = () => {
   const [uploadErrors, setUploadErrors] = useState(() => []);
   const [submitting, setSubmitting] = useState(() => false);
   const [disabled, setDisabled] = useState(true);
+  const [disabled2, setDisabled2] = useState(true);
   const modalRef = useRef(null);
   const [open, setOpen] = useState(false);
   const [uploadSuccessful, setUploadSuccessful] = useState(() => false);
@@ -80,11 +81,16 @@ const AnnualCSVUploadForm = () => {
         return;
       }
       if (file.type !== "image/jpeg" && file.type !== "application/pdf" && file.type !== "image/png") {
-        alert("file type not allowed. only csv(delimited comma) are allowed.");
+        alert("file type not allowed. only pdf, png and jpeg are allowed");
         setFile(null);
         setDisabled(true);
         return;
-      } else {
+      }
+      if (file.size > 1024 * 300) {
+        alert("file too large..file size not exceed 300kb");
+        return
+      }
+      else {
         setFile(file);
         setDisabled(false);
       }
@@ -99,20 +105,25 @@ const AnnualCSVUploadForm = () => {
     if (file2) {
       if (!file2) {
         setFile2(null);
-        setDisabled(true);
+        setDisabled2(true);
         return;
       }
       if (file2.type !== "image/jpeg" && file2.type !== "application/pdf" && file2.type !== "image/png") {
-        alert("file type not allowed. only pdf, jpeg and png are allowed.");
+        alert("file type not allowed. only pdf, png and jpeg are allowed");
         setFile2(null);
-        setDisabled(true);
+        setDisabled2(true);
         return;
-      } else {
+      }
+      if (file2.size > 1024 * 300) {
+        alert("file too large..file size should not exceed 300kb");
+        return
+      }
+      else {
         setFile2(file2);
-        setDisabled(false);
+        setDisabled2(false);
       }
     } else {
-      setFile("no file chosen yet");
+      setFile2("no file chosen yet");
     }
   };
 
@@ -180,16 +191,16 @@ const AnnualCSVUploadForm = () => {
         },
       });
       setUploadPercentage(0);
-      setFile(null);
-      setDisabled(true);
+      setFile2(null);
+      setDisabled2(true);
       setSubmitting(() => false);
       setUploadSuccessful(() => true);
       show();
       console.log(data.response.body);
     } catch (error) {
       setUploadPercentage(0);
-      setFile(null);
-      setDisabled(true);
+      setFile2(null);
+      setDisabled2(true);
       setSubmitting(false);
       if (error.response) {
         console.log(error.response.data);
@@ -257,7 +268,7 @@ const AnnualCSVUploadForm = () => {
 
           <form onSubmit={handleSubmit(handleUpload2)}>
             <div className="flex justify-between mb-5">
-            <p>Copy of letter mandating employees to file individual tax returns <span className="font-bold" style={{ color: "red" }}> * </span> <small>(pdf, jpg, png)</small></p>
+              <p>Copy of letter mandating employees to file individual tax returns <span className="font-bold" style={{ color: "red" }}> * </span> <small>(pdf, jpg, png)</small></p>
               <input
                 required
                 type="file"
@@ -282,14 +293,14 @@ const AnnualCSVUploadForm = () => {
                   style={{ backgroundColor: "#84abeb" }}
                   className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
                   type="submit"
-                  disabled={disabled}>
+                  disabled={disabled2}>
                   Submit
                 </button>
               </div>
             </div>
           </form>
 
-          
+
 
 
           <hr className="mb-2" />
@@ -753,70 +764,70 @@ const AnnualCSVUploadForm = () => {
         </form>
       </Widget> */}
 
-{open && (
-            <>
-              <div className="modal-backdrop fade-in"></div>
-              <div
-                className={`modal show ${background === 'dark' ? 'dark' : ''}`}
-                data-background={background}
-              >
-                <div
-                  className="relative w-auto lg:my-4 mx-auto lg:max-w-lg max-w-sm"
-                  ref={modalRef}
-                >
-                  <div className="bg-white  text-gray-900 border-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-700 border-0 rounded-lg shadow-lg relative flex flex-col w-full outline-none">
-                    <div className="relative p-4 flex-auto">
-                      <div className="flex items-start justify-start p-2 space-x-4">
-                        <div className="flex-shrink-0 w-12">
-                          {uploadErrors.length > 0 ? (
-                            <span className="h-10 w-10 bg-red-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                              <FiX
-                                size={18}
-                                className="stroke-current text-red-500"
-                              />
-                            </span>
-                          ) : uploadSuccessful ? (
-                            <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                              <FiCheck
-                                size={18}
-                                className="stroke-current text-green-500"
-                              />
-                            </span>
-                          ) : null}
-                        </div>
-                        <div className="w-full">
-                          <div className="text-lg mb-2 font-bold">
-                            {uploadErrors.length > 0 ? (
-                              <span>Failed to Upload</span>
-                            ) : uploadSuccessful ? (
-                              <span>Upload Successful</span>
-                            ) : <span>Unexpected Field</span>}
-                          </div>
-                          <div className="overflow-auto max-h-64">
-                            {uploadErrors.length > 0 &&
-                              uploadErrors.map((err, i) => (
-                                <li className="text-red-500" key={i}>
-                                  {err}
-                                </li>
-                              ))}
-                          </div>
-                        </div>
-                      </div>
+      {open && (
+        <>
+          <div className="modal-backdrop fade-in"></div>
+          <div
+            className={`modal show ${background === 'dark' ? 'dark' : ''}`}
+            data-background={background}
+          >
+            <div
+              className="relative w-auto lg:my-4 mx-auto lg:max-w-lg max-w-sm"
+              ref={modalRef}
+            >
+              <div className="bg-white  text-gray-900 border-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-700 border-0 rounded-lg shadow-lg relative flex flex-col w-full outline-none">
+                <div className="relative p-4 flex-auto">
+                  <div className="flex items-start justify-start p-2 space-x-4">
+                    <div className="flex-shrink-0 w-12">
+                      {uploadErrors.length > 0 ? (
+                        <span className="h-10 w-10 bg-red-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                          <FiX
+                            size={18}
+                            className="stroke-current text-red-500"
+                          />
+                        </span>
+                      ) : uploadSuccessful ? (
+                        <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                          <FiCheck
+                            size={18}
+                            className="stroke-current text-green-500"
+                          />
+                        </span>
+                      ) : null}
                     </div>
-                    <div className="flex items-center justify-end p-4 border-t border-gray-200 dark:border-gray-700 border-solid rounded-b space-x-2">
-                      <button
-                        className="btn btn-default btn-rounded bg-white hover:bg-gray-100 text-gray-900"
-                        type="button"
-                        onClick={hide}
-                      >
-                        Ok
-                      </button>
+                    <div className="w-full">
+                      <div className="text-lg mb-2 font-bold">
+                        {uploadErrors.length > 0 ? (
+                          <span>Failed to Upload</span>
+                        ) : uploadSuccessful ? (
+                          <span>Upload Successful</span>
+                        ) : null}
+                      </div>
+                      <div className="overflow-auto max-h-64">
+                        {uploadErrors.length > 0 &&
+                          uploadErrors.map((err, i) => (
+                            <li className="text-red-500" key={i}>
+                              {err}
+                            </li>
+                          ))}
+                      </div>
                     </div>
                   </div>
                 </div>
+                <div className="flex items-center justify-end p-4 border-t border-gray-200 dark:border-gray-700 border-solid rounded-b space-x-2">
+                  <button
+                    className="btn btn-default btn-rounded bg-white hover:bg-gray-100 text-gray-900"
+                    type="button"
+                    onClick={hide}
+                  >
+                    Ok
+                  </button>
+                </div>
               </div>
-            </>
-          )}
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 };
