@@ -12,6 +12,14 @@ const fields = [
     key: "staff_names",
   },
   {
+    name: "Number of Months",
+    key: "no_months",
+  },
+  {
+    name: "Gross Salary",
+    key: "gross_income",
+  },
+  {
     name: "Pension",
     key: "pension",
   },
@@ -26,14 +34,6 @@ const fields = [
   {
     name: "NHF",
     key: "nhf",
-  },
-  {
-    name: "Gross Salary",
-    key: "gross_income",
-  },
-  {
-    name: "Number of Months",
-    key: "no_months",
   },
   {
     name: "Consolidated Relief Allowance",

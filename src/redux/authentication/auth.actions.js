@@ -5,6 +5,7 @@ export const login = (data) => async (dispatch) => {
   dispatch({ type: authActionTypes.SET_LOGIN_SUBMITTING });
   try {
     const login = await axios.post(`${url.BASE_URL}user/login`, data);
+    // console.log(data.kgtin);
     const auth = login.data.body;
     dispatch({ type: authActionTypes.SET_LOGIN_SUBMITTING });
     dispatch({ type: authActionTypes.LOGIN, payload: auth });

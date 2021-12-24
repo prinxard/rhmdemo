@@ -25,7 +25,7 @@ const ViewAnnual = () => {
       try {
         let res = await axios.get(`${url.BASE_URL}annual/view-annual`);
         res = res.data.body;
-        // console.log(res);
+        console.log(res);
         let records = [];
         let sum = [];
         for (let i = 0; i < res.length; i++) {

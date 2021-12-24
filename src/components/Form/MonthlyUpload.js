@@ -27,6 +27,7 @@ const MonthlyUploadForm = () => {
   const [uploadPercentage, setUploadPercentage] = useState(0);
   const { register, handleSubmit } = useForm();
   const router = useRouter();
+  
   const { palettes } = useSelector(
     (state) => ({
       palettes: state.palettes,
@@ -137,13 +138,12 @@ const MonthlyUploadForm = () => {
       {submitting && (
         <ProcessorSpinner
           visible={true}
-          text={`${
-            uploadPercentage === 0
+          text={`${uploadPercentage === 0
               ? 'Uploading...'
               : uploadPercentage === 100
-              ? 'Processing...'
-              : null
-          }`}
+                ? 'Processing...'
+                : null
+            }`}
         />
       )}
 
