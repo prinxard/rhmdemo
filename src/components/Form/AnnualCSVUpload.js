@@ -243,7 +243,15 @@ const AnnualCSVUploadForm = () => {
                 onClick={(e) => (e.target.value = null)}
               />
               <div className="flex justify-evenly">
+                {uploadSuccessful ? ( 
+                  <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <FiCheck
+                      size={18}
+                      className="stroke-current text-green-500"
+                    />
+                  </span>) : null}
                 <p >{file ? file.name : "no file chosen yet"}</p>
+
                 <button style={{ backgroundColor: "#84abeb" }}
                   className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
                   onClick={(event) => {
@@ -279,7 +287,13 @@ const AnnualCSVUploadForm = () => {
                 onClick={(e) => (e.target.value = null)}
               />
               <div className="flex justify-evenly">
-                <p >{file2 ? file2.name : "no file chosen yet"}</p>
+                {/* {uploadSuccessful ? (
+                  <p>   <FiCheck
+                    size={18}
+                    className="stroke-current text-green-500"
+                  /></p>
+
+                ) : <p >{file2 ? file2.name : "no file chosen yet"}</p>} */}
                 <button style={{ backgroundColor: "#84abeb" }}
                   className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
                   onClick={(event) => {
