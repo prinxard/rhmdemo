@@ -1,20 +1,12 @@
 import { useRef, useEffect, useState } from 'react';
-import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { useSelector, shallowEqual } from 'react-redux';
-import { useRouter } from 'next/router';
-import SectionTitle from '../section-title';
 import Widget from '../widget';
-import { SubmitButton } from '../CustomButton/CustomButton';
 import axios from 'axios';
 import url from '../../config/url';
 import { FiX, FiCheck } from 'react-icons/fi';
-import { Select, SelectMonth } from '../forms/selects';
-import { SampleCsvMonthly } from '../Images/Images';
-import { FiArrowDown } from 'react-icons/fi';
 import setAuthToken from '../../functions/setAuthToken';
 import { ProcessorSpinner } from '../spiner/index';
-
 
 const AnnualCSVUploadForm = () => {
   //handle file
@@ -86,8 +78,8 @@ const AnnualCSVUploadForm = () => {
         setDisabled(true);
         return;
       }
-      if (file.size > 1024 * 300) {
-        alert("file too large..file size not exceed 300kb");
+      if (file.size > 1024 * 200) {
+        alert("file too large..file size shoulde not exceed 200kb");
         return
       }
       else {
@@ -114,8 +106,8 @@ const AnnualCSVUploadForm = () => {
         setDisabled2(true);
         return;
       }
-      if (file2.size > 1024 * 300) {
-        alert("file too large..file size should not exceed 300kb");
+      if (file2.size > 1024 * 200) {
+        alert("file too large..file size should not exceed 200kb");
         return
       }
       else {
@@ -128,7 +120,6 @@ const AnnualCSVUploadForm = () => {
   };
 
   const handleUpload = async (data) => {
-    // let payPeriod = `${data.year}-${data.month}-01`;
     let employer_id = 1004124549
     const formData = new FormData();
     formData.append('employer_id', employer_id);
@@ -169,7 +160,6 @@ const AnnualCSVUploadForm = () => {
     }
   };
   const handleUpload2 = async (data) => {
-    // let payPeriod = `${data.year}-${data.month}-01`;
     let employer_id = 1004124549
     const formData = new FormData();
     formData.append('employer_id', employer_id);
@@ -243,7 +233,7 @@ const AnnualCSVUploadForm = () => {
                 onClick={(e) => (e.target.value = null)}
               />
               <div className="flex justify-evenly">
-                {uploadSuccessful ? ( 
+                {uploadSuccessful ? (
                   <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
                     <FiCheck
                       size={18}
@@ -287,13 +277,13 @@ const AnnualCSVUploadForm = () => {
                 onClick={(e) => (e.target.value = null)}
               />
               <div className="flex justify-evenly">
-                {/* {uploadSuccessful ? (
-                  <p>   <FiCheck
+                {uploadSuccessful ? (
+                  <p> <FiCheck
                     size={18}
                     className="stroke-current text-green-500"
                   /></p>
 
-                ) : <p >{file2 ? file2.name : "no file chosen yet"}</p>} */}
+                ) : <p >{file2 ? file2.name : "no file chosen yet"}</p>}
                 <button style={{ backgroundColor: "#84abeb" }}
                   className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
                   onClick={(event) => {
