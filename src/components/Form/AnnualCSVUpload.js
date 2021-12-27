@@ -284,7 +284,7 @@ const AnnualCSVUploadForm = () => {
                       className="stroke-current text-green-500"
                     />
                   </span>) : null}
-                <p >{file ? file.name : "no file chosen yet"}</p>
+                <p >{file2 ? file2.name : "no file chosen yet"}</p>
                 <button style={{ backgroundColor: "#84abeb" }}
                   className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
                   onClick={(event) => {
