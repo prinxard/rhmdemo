@@ -12,13 +12,31 @@ const AnnualCSVUploadForm = () => {
   //handle file
   const [file, setFile] = useState(null);
   const [file2, setFile2] = useState(null);
+  const [file3, setFile3] = useState(null);
+  const [file4, setFile4] = useState(null);
+  const [file5, setFile5] = useState(null);
+  const [file6, setFile6] = useState(null);
+  const [file7, setFile7] = useState(null);
+  const [file8, setFile8] = useState(null);
+  const [file9, setFile9] = useState(null);
+  const [file10, setFile10] = useState(null);
+  const [file11, setFile11] = useState(null);
+  const [file12, setFile12] = useState(null);
+  const [file13, setFile13] = useState(null);
+  const [file14, setFile14] = useState(null);
+  const [file15, setFile15] = useState(null);
+  const [file16, setFile16] = useState(null);
+  const [file17, setFile17] = useState(null);
+  const [file18, setFile18] = useState(null);
   const [uploadErrors, setUploadErrors] = useState(() => []);
   const [submitting, setSubmitting] = useState(() => false);
   const [disabled, setDisabled] = useState(true);
   const [disabled2, setDisabled2] = useState(true);
   const modalRef = useRef(null);
   const [open, setOpen] = useState(false);
+  const [open2, setOpen2] = useState(false);
   const [uploadSuccessful, setUploadSuccessful] = useState(() => false);
+  const [uploadSuccessful2, setUploadSuccessful2] = useState(() => false);
   const [uploadPercentage, setUploadPercentage] = useState(0);
   const { register, handleSubmit } = useForm();
 
@@ -38,8 +56,18 @@ const AnnualCSVUploadForm = () => {
   const hide = () => {
     setOpen(false);
     setUploadErrors([]);
-    setUploadSuccessful(false);
+    // setUploadSuccessful(false);
+    setUploadSuccessful(true);
     if (uploadSuccessful) {
+      // router.push('/view/monthly');
+    }
+  };
+  const hide2 = () => {
+    setOpen(false);
+    setUploadErrors([]);
+    // setUploadSuccessful(false);
+    setUploadSuccessful2(true);
+    if (uploadSuccessful2) {
       // router.push('/view/monthly');
     }
   };
@@ -184,7 +212,7 @@ const AnnualCSVUploadForm = () => {
       setFile2(null);
       setDisabled2(true);
       setSubmitting(() => false);
-      setUploadSuccessful(() => true);
+      setUploadSuccessful2(() => true);
       show();
       console.log(data.response.body);
     } catch (error) {
@@ -233,14 +261,8 @@ const AnnualCSVUploadForm = () => {
                 onClick={(e) => (e.target.value = null)}
               />
               <div className="flex justify-evenly">
-                {uploadSuccessful ? (
-                  <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                    <FiCheck
-                      size={18}
-                      className="stroke-current text-green-500"
-                    />
-                  </span>) : null}
-                <p >{file ? file.name : "no file chosen yet"}</p>
+
+                <p >{file ? file.name : ""}</p>
 
                 <button style={{ backgroundColor: "#84abeb" }}
                   className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
@@ -258,6 +280,13 @@ const AnnualCSVUploadForm = () => {
                   disabled={disabled}>
                   Submit
                 </button>
+                {uploadSuccessful ? (
+                  <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <FiCheck
+                      size={18}
+                      className="stroke-current text-green-500"
+                    />
+                  </span>) : null}
               </div>
             </div>
           </form>
@@ -277,14 +306,8 @@ const AnnualCSVUploadForm = () => {
                 onClick={(e) => (e.target.value = null)}
               />
               <div className="flex justify-evenly">
-                {uploadSuccessful ? (
-                  <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                    <FiCheck
-                      size={18}
-                      className="stroke-current text-green-500"
-                    />
-                  </span>) : null}
-                <p >{file2 ? file2.name : "no file chosen yet"}</p>
+
+                <p >{file2 ? file2.name : ""}</p>
                 <button style={{ backgroundColor: "#84abeb" }}
                   className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
                   onClick={(event) => {
@@ -301,6 +324,13 @@ const AnnualCSVUploadForm = () => {
                   disabled={disabled2}>
                   Submit
                 </button>
+                {uploadSuccessful2 ? (
+                  <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <FiCheck
+                      size={18}
+                      className="stroke-current text-green-500"
+                    />
+                  </span>) : null}
               </div>
             </div>
           </form>
@@ -824,6 +854,71 @@ const AnnualCSVUploadForm = () => {
                     className="btn btn-default btn-rounded bg-white hover:bg-gray-100 text-gray-900"
                     type="button"
                     onClick={hide}
+                  >
+                    Ok
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+
+      {open && (
+        <>
+          <div className="modal-backdrop fade-in"></div>
+          <div
+            className={`modal show ${background === 'dark' ? 'dark' : ''}`}
+            data-background={background}
+          >
+            <div
+              className="relative w-auto lg:my-4 mx-auto lg:max-w-lg max-w-sm"
+              ref={modalRef}
+            >
+              <div className="bg-white  text-gray-900 border-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-700 border-0 rounded-lg shadow-lg relative flex flex-col w-full outline-none">
+                <div className="relative p-4 flex-auto">
+                  <div className="flex items-start justify-start p-2 space-x-4">
+                    <div className="flex-shrink-0 w-12">
+                      {uploadErrors.length > 0 ? (
+                        <span className="h-10 w-10 bg-red-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                          <FiX
+                            size={18}
+                            className="stroke-current text-red-500"
+                          />
+                        </span>
+                      ) : uploadSuccessful2 ? (
+                        <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                          <FiCheck
+                            size={18}
+                            className="stroke-current text-green-500"
+                          />
+                        </span>
+                      ) : null}
+                    </div>
+                    <div className="w-full">
+                      <div className="text-lg mb-2 font-bold">
+                        {uploadErrors.length > 0 ? (
+                          <span>Failed to Upload</span>
+                        ) : uploadSuccessful2 ? (
+                          <span>Upload Successful</span>
+                        ) : null}
+                      </div>
+                      <div className="overflow-auto max-h-64">
+                        {uploadErrors.length > 0 &&
+                          uploadErrors.map((err, i) => (
+                            <li className="text-red-500" key={i}>
+                              {err}
+                            </li>
+                          ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-center justify-end p-4 border-t border-gray-200 dark:border-gray-700 border-solid rounded-b space-x-2">
+                  <button
+                    className="btn btn-default btn-rounded bg-white hover:bg-gray-100 text-gray-900"
+                    type="button"
+                    onClick={hide2}
                   >
                     Ok
                   </button>

@@ -102,6 +102,30 @@ export const ViewAnnualTable = ({ remittance, total }) => {
                 ))}
               </tr>
             ))}
+              
+            {items.length > 0 && (            
+              <tr className="font-semibold">
+                
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+               
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Total</td>
+                {/* <td>{formatNumber(total)}</td> */}
+              </tr>
+            )}
 
             {/* {posts.map((post, i) => (
               <tr key={post.id} className="">
@@ -116,6 +140,9 @@ export const ViewAnnualTable = ({ remittance, total }) => {
             ))} */}
           </tbody>
         </table>
+        <hr />
+        <div className="flex">Total</div>
+        <p>{total}</p>
       </Widget>
     </>
   );
