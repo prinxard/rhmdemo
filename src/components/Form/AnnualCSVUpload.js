@@ -15,26 +15,31 @@ const AnnualCSVUploadForm = () => {
   const [file3, setFile3] = useState(null);
   const [file4, setFile4] = useState(null);
   const [file5, setFile5] = useState(null);
+  const [file6, setFile6] = useState(null);
   const [uploadedFile, setUploadedFile] = useState(false);
   const [uploadedFile2, setUploadedFile2] = useState(false);
   const [uploadedFile3, setUploadedFile3] = useState(false);
   const [uploadedFile4, setUploadedFile4] = useState(false);
   const [uploadedFile5, setUploadedFile5] = useState(false);
+  const [uploadedFile6, setUploadedFile6] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [disabled2, setDisabled2] = useState(true);
   const [disabled3, setDisabled3] = useState(true);
   const [disabled4, setDisabled4] = useState(true);
   const [disabled5, setDisabled5] = useState(true);
+  const [disabled6, setDisabled6] = useState(true);
   const [uploadPercentage, setUploadPercentage] = useState(0);
   const [uploadPercentage2, setUploadPercentage2] = useState(0);
   const [uploadPercentage3, setUploadPercentage3] = useState(0);
   const [uploadPercentage4, setUploadPercentage4] = useState(0);
   const [uploadPercentage5, setUploadPercentage5] = useState(0);
+  const [uploadPercentage6, setUploadPercentage6] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [submitting2, setSubmitting2] = useState(false);
   const [submitting3, setSubmitting3] = useState(false);
   const [submitting4, setSubmitting4] = useState(false);
   const [submitting5, setSubmitting5] = useState(false);
+  const [submitting6, setSubmitting6] = useState(false);
 
 
 
@@ -159,6 +164,32 @@ const AnnualCSVUploadForm = () => {
       else {
         setFile5(file5);
         setDisabled5(false);
+      }
+    }
+  };
+
+  const onChange6 = e => {
+    const file6 = e.target.files[0]
+    if (file6) {
+      if (!file6) {
+        setFile6(null);
+        setDisabled6(true);
+        return;
+      }
+      if (file6.type !== "application/vnd.ms-excel" && file6.type !== "application/pdf" && file6.type !== "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+        alert("file type not allowed. only pdf word or excel are allowed");
+        setFile6(null);
+        setDisabled6(true);
+        return;
+      }
+      if (file6.size > 1024 * 200) {
+        alert("file too large..file size shoulde not exceed 200kb");
+        return
+      }
+      else {
+        console.log(file6.type);
+        setFile6(file6);
+        setDisabled6(false);
       }
     }
   };
@@ -364,6 +395,49 @@ const AnnualCSVUploadForm = () => {
         setDisabled5(true)
         setUploadPercentage5(0)
         setSubmitting5(false)
+      }
+    }
+  };
+
+  const onSubmit6 = async data => {
+    data.preventDefault();
+    let employer_id = 1004124549
+    const formData = new FormData();
+    formData.append('employer_id', employer_id);
+    formData.append('paye_remittance', file6);
+
+    setAuthToken();
+    setSubmitting6(true)
+
+    try {
+      const res = await axios.post(`${url.BASE_URL}annual/upload-annual-doc`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        onUploadProgress: progressEvent => {
+          setUploadPercentage6(
+            parseInt(
+              Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            )
+          );
+        }
+
+      });
+
+      setSubmitting6(false)
+      setUploadedFile6(true);
+      setFile6(null)
+      setDisabled6(true)
+      console.log(data.response.body);
+    } catch (err) {
+      if (err.response === 500) {
+        console.log('There was a problem with the server');
+      } else {
+        console.log(err);
+        setFile6(null)
+        setDisabled6(true)
+        setUploadPercentage6(0)
+        setSubmitting6(false)
       }
     }
   };
@@ -645,32 +719,54 @@ const AnnualCSVUploadForm = () => {
 
           <hr className="mb-2" />
 
-          {/* <form>
+          <form onSubmit={onSubmit6}>
             <div className="flex justify-between mb-5">
-              <p>List of exit staff  <small>(pdf, word, excel)</small> </p>
+            <p>List of exit staff  <small>(pdf, word, excel)</small> </p>
               <input
-                required
+                id="customFile6"
                 type="file"
                 className="hidden"
-                ref={fileInputRef}
-                onChange={fileHandler}
-              />
+                onChange={onChange6}
+                onClick={(e) => (e.target.value = null)}
+                />
               <div className="flex items-center">
-                <button
+
+                <p>{file6 ? file6.name : ""}</p>
+
+                <label
+                  htmlFor='customFile6'
                   style={{ backgroundColor: "#84abeb" }}
-                  className="btn btn-default text-white rounded-md btn-outlined bg-transparent mr-4"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    fileInputRef.current.click();
-                  }}
+                  className="btn btn-default text-white rounded-md btn-outlined bg-transparent mx-2"
                 >
                   select file
+                </label>
+
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                  type="submit"
+                  disabled={disabled6}
+                >
+                  Submit
                 </button>
-                <p>{file ? file.name : "no file chosen yet"}</p>
+
+                {submitting6 ?
+                  <div className='mb-2 w-24'>
+                    <Progress percentage={uploadPercentage6} />
+                  </div>
+                  : ''}
+
+                {uploadedFile6 ? (
+                  <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <FiCheck
+                      size={18}
+                      className="stroke-current text-green-500"
+                    />
+                  </span>) : null}
+
               </div>
             </div>
-          </form> */}
-
+          </form>
           <hr className="mb-2" />
 
           {/* <form>
