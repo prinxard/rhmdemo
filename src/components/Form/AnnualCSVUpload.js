@@ -242,7 +242,7 @@ const AnnualCSVUploadForm = () => {
                 className="hidden"
                 id='customFile'
                 onChange={onChange}
-              // onClick={(e) => (e.target.value = null)}
+                onClick={(e) => (e.target.value = null)}
               />
 
               <div className="flex justify-evenly">
@@ -290,7 +290,7 @@ const AnnualCSVUploadForm = () => {
                 className="hidden"
                 id='customFile2'
                 onChange={onChange2}
-              // onClick={(e) => (e.target.value = null)}
+                onClick={(e) => (e.target.value = null)}
               />
 
               <div className="flex justify-evenly">
@@ -340,7 +340,7 @@ const AnnualCSVUploadForm = () => {
                 className="hidden"
                 id='customFile3'
                 onChange={onChange3}
-              // onClick={(e) => (e.target.value = null)}
+              onClick={(e) => (e.target.value = null)}
               />
 
               <div className="flex justify-evenly">
@@ -369,7 +369,7 @@ const AnnualCSVUploadForm = () => {
                     <Progress percentage={uploadPercentage3} />
                   </div>
                   : ''}
-                  
+
                 {uploadedFile3 ? (
                   <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
                     <FiCheck
