@@ -17,6 +17,7 @@ const AnnualCSVUploadForm = () => {
   const [file5, setFile5] = useState(null);
   const [file6, setFile6] = useState(null);
   const [file7, setFile7] = useState(null);
+  const [file8, setFile8] = useState(null);
   const [uploadedFile, setUploadedFile] = useState(false);
   const [uploadedFile2, setUploadedFile2] = useState(false);
   const [uploadedFile3, setUploadedFile3] = useState(false);
@@ -24,6 +25,7 @@ const AnnualCSVUploadForm = () => {
   const [uploadedFile5, setUploadedFile5] = useState(false);
   const [uploadedFile6, setUploadedFile6] = useState(false);
   const [uploadedFile7, setUploadedFile7] = useState(false);
+  const [uploadedFile8, setUploadedFile8] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [disabled2, setDisabled2] = useState(true);
   const [disabled3, setDisabled3] = useState(true);
@@ -31,6 +33,7 @@ const AnnualCSVUploadForm = () => {
   const [disabled5, setDisabled5] = useState(true);
   const [disabled6, setDisabled6] = useState(true);
   const [disabled7, setDisabled7] = useState(true);
+  const [disabled8, setDisabled8] = useState(true);
   const [uploadPercentage, setUploadPercentage] = useState(0);
   const [uploadPercentage2, setUploadPercentage2] = useState(0);
   const [uploadPercentage3, setUploadPercentage3] = useState(0);
@@ -38,6 +41,7 @@ const AnnualCSVUploadForm = () => {
   const [uploadPercentage5, setUploadPercentage5] = useState(0);
   const [uploadPercentage6, setUploadPercentage6] = useState(0);
   const [uploadPercentage7, setUploadPercentage7] = useState(0);
+  const [uploadPercentage8, setUploadPercentage8] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [submitting2, setSubmitting2] = useState(false);
   const [submitting3, setSubmitting3] = useState(false);
@@ -45,6 +49,7 @@ const AnnualCSVUploadForm = () => {
   const [submitting5, setSubmitting5] = useState(false);
   const [submitting6, setSubmitting6] = useState(false);
   const [submitting7, setSubmitting7] = useState(false);
+  const [submitting8, setSubmitting8] = useState(false);
 
 
 
@@ -220,6 +225,31 @@ const AnnualCSVUploadForm = () => {
       else {
         setFile7(file7);
         setDisabled7(false);
+      }
+    }
+  };
+
+  const onChange8 = e => {
+    const file8 = e.target.files[0]
+    if (file8) {
+      if (!file8) {
+        setFile8(null);
+        setDisabled8(true);
+        return;
+      }
+      if (file8.type !== "application/vnd.ms-excel" && file8.type !== "application/pdf") {
+        alert("file type not allowed. only pdf or excel are allowed");
+        setFile8(null);
+        setDisabled8(true);
+        return;
+      }
+      if (file8.size > 1024 * 200) {
+        alert("file too large..file size shoulde not exceed 200kb");
+        return
+      }
+      else {
+        setFile8(file8);
+        setDisabled8(false);
       }
     }
   };
@@ -511,6 +541,49 @@ const AnnualCSVUploadForm = () => {
         setDisabled7(true)
         setUploadPercentage7(0)
         setSubmitting7(false)
+      }
+    }
+  };
+
+  const onSubmit8 = async data => {
+    data.preventDefault();
+    let employer_id = 1004124549
+    const formData = new FormData();
+    formData.append('employer_id', employer_id);
+    formData.append('wht_tax_deduct', file8);
+
+    setAuthToken();
+    setSubmitting8(true)
+
+    try {
+      const res = await axios.post(`${url.BASE_URL}annual/upload-annual-doc`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        onUploadProgress: progressEvent => {
+          setUploadPercentage8(
+            parseInt(
+              Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            )
+          );
+        }
+
+      });
+
+      setSubmitting8(false)
+      setUploadedFile8(true);
+      setFile8(null)
+      setDisabled8(true)
+      console.log(data.response.body);
+    } catch (err) {
+      if (err.response === 500) {
+        console.log('There was a problem with the server');
+      } else {
+        console.log(err);
+        setFile8(null)
+        setDisabled8(true)
+        setUploadPercentage8(0)
+        setSubmitting8(false)
       }
     }
   };
@@ -898,37 +971,61 @@ const AnnualCSVUploadForm = () => {
         <h6 className="p-2 font-bold">Remittance</h6>
       </div>
 
-      {/* <Widget>
-        <form>
-          <div className="flex justify-between mb-5">
-            <p>Schedule of withholding tax deductions <span className="font-bold" style={{ color: "red" }}> * </span> <small> (excel, pdf)</small><br /><span className="flex justify-end" style={{ color: "blue" }}><Link href="/csv/wht.csv"> download </Link></span></p>
-            <input
-              required
-              type="file"
-              className="hidden"
-              ref={fileInputRef}
-              onChange={fileHandler}
-            />
-            <div className="flex items-center">
-              <button
-                style={{ backgroundColor: "#84abeb" }}
-                className="btn btn-default text-white rounded-md btn-outlined bg-transparent mr-4"
-                onClick={(event) => {
-                  event.preventDefault();
-                  fileInputRef.current.click();
-                }}
-              >
-                select file
-              </button>
-              <p>{file ? file.name : "no file chosen yet"}</p>
-            </div>
-          </div>
-        </form>
+            
+       <Widget>
+       <form onSubmit={onSubmit8}>
+            <div className="flex justify-between mb-5">
+            {/* <p>Schedule of withholding tax deductions <span className="font-bold" style={{ color: "red" }}> * </span> <small> (excel, pdf)</small><br /><span className="flex justify-end" style={{ color: "blue" }}><Link href="/csv/wht.csv"> download </Link></span></p> */}
+            <p>Schedule of withholding tax deductions <span className="font-bold" style={{ color: "red" }}> * </span> <small> (excel, pdf)</small><br /><span className="flex justify-end" style={{ color: "blue" }}></span></p>
+              <input
+                id="customFile8"
+                type="file"
+                className="hidden"
+                onChange={onChange8}
+                onClick={(e) => (e.target.value = null)}
+                />
+              <div className="flex items-center">
 
+                <p>{file8 ? file8.name : ""}</p>
+
+                <label
+                  htmlFor='customFile8'
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn btn-default text-white rounded-md btn-outlined bg-transparent mx-2"
+                >
+                  select file
+                </label>
+
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                  type="submit"
+                  disabled={disabled8}
+                >
+                  Submit
+                </button>
+
+                {submitting8 ?
+                  <div className='mb-2 w-24'>
+                    <Progress percentage={uploadPercentage8} />
+                  </div>
+                  : ''}
+
+                {uploadedFile8 ? (
+                  <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <FiCheck
+                      size={18}
+                      className="stroke-current text-green-500"
+                    />
+                  </span>) : null}
+
+              </div>
+            </div>
+          </form>
 
         <hr className="mb-2" />
 
-        <form>
+        {/* <form>
           <div className="flex justify-between mb-5">
             <p>Withholding tax receipts (corporate & Individual) <span className="font-bold" style={{ color: "red" }}> * </span> <small>(pdf, jpg, png)</small></p>
             <input
@@ -952,11 +1049,11 @@ const AnnualCSVUploadForm = () => {
               <p>{file ? file.name : "no file chosen yet"}</p>
             </div>
           </div>
-        </form>
+        </form> */}
 
         <hr className="mb-2" />
 
-        <form>
+        {/* <form>
           <div className="flex justify-between mb-5">
             <p>Monthly Immigration returns [where applicable] <small>(pdf, jpg, png)</small></p>
             <input
@@ -980,8 +1077,8 @@ const AnnualCSVUploadForm = () => {
               <p>{file ? file.name : "no file chosen yet"}</p>
             </div>
           </div>
-        </form>
-      </Widget> */}
+        </form> */}
+      </Widget> 
 
       <div className="mt-12"><h6 className="p-2 font-bold">Contributions and levies</h6></div>
 
