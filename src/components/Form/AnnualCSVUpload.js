@@ -282,6 +282,8 @@ const AnnualCSVUploadForm = () => {
             </div>
           </form>
 
+          <hr className="mb-2" />
+          
           <form onSubmit={onSubmit2}>
             <div className="flex justify-between mb-5">
               <p>Copy of letter mandating employees to file individual tax returns <span className="font-bold" style={{ color: "red" }}> * </span> <small>(pdf, jpg, png)</small></p>
@@ -331,6 +333,8 @@ const AnnualCSVUploadForm = () => {
               </div>
             </div>
           </form>
+
+          <hr className="mb-2" />
 
           <form onSubmit={onSubmit3}>
             <div className="flex justify-between mb-5">
