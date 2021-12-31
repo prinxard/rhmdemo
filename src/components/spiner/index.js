@@ -1,4 +1,7 @@
 import Loader from 'react-loader-spinner';
+import PropTypes from 'prop-types';
+
+
 const Spinner = () => {
   return (
     <div className="w-full h-full fixed block top-0 left-0 bg-white opacity-100 z-50">
@@ -49,6 +52,30 @@ export const ProcessorSpinner = ({ disabled, text }) => {
       </p>
     </div>
   );
+};
+
+export const Progress = ({ percentage }) => {
+  return (
+    <div className="bg-gray-200 rounded-full">
+      <div className="bg-blue-600 text-xs font-medium text-blue-100 text-center leading-none rounded-2-full"
+          style={{ width: `${percentage}%` }}>
+        {percentage}%
+      </div>
+    </div>
+    // <div className='progress'>
+    //   <div
+    //     className='progress-bar progress-bar-striped bg-success'
+    //     role='progressbar'
+    //     style={{ width: `${percentage}%` }}
+    //   >
+    //     {percentage}
+    //   </div>
+    // </div>
+  );
+};
+
+Progress.propTypes = {
+  percentage: PropTypes.number.isRequired
 };
 
 

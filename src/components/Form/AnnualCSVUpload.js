@@ -6,19 +6,26 @@ import axios from 'axios';
 import url from '../../config/url';
 import { FiX, FiCheck } from 'react-icons/fi';
 import setAuthToken from '../../functions/setAuthToken';
-import { ProcessorSpinner } from '../spiner/index';
+import { ProcessorSpinner, Progress } from '../spiner/index';
 
 const AnnualCSVUploadForm = () => {
   //handle file
   const [file, setFile] = useState(null);
-  const [uploadedFile, setUploadedFile] = useState(false);
-  const [disabled, setDisabled] = useState(true);
   const [file2, setFile2] = useState(null);
-  const [uploadedFile2, setUploadedFile2] = useState(false);
-  const [disabled2, setDisabled2] = useState(true);
   const [file3, setFile3] = useState(null);
+  const [uploadedFile, setUploadedFile] = useState(false);
+  const [uploadedFile2, setUploadedFile2] = useState(false);
   const [uploadedFile3, setUploadedFile3] = useState(false);
+  const [disabled2, setDisabled2] = useState(true);
+  const [disabled, setDisabled] = useState(true);
   const [disabled3, setDisabled3] = useState(true);
+  const [uploadPercentage, setUploadPercentage] = useState(0);
+  const [uploadPercentage2, setUploadPercentage2] = useState(0);
+  const [uploadPercentage3, setUploadPercentage3] = useState(0);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitting2, setSubmitting2] = useState(false);
+  const [submitting3, setSubmitting3] = useState(false);
+
 
 
   const onChange = e => {
@@ -102,16 +109,23 @@ const AnnualCSVUploadForm = () => {
     const formData = new FormData();
     formData.append('employer_id', employer_id);
     formData.append('cover_letter', file);
-    setAuthToken();
 
+    setAuthToken();
+    setSubmitting(true)
     try {
       const res = await axios.post(`${url.BASE_URL}annual/upload-annual-doc`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         },
-
+        onUploadProgress: progressEvent => {
+          setUploadPercentage(
+            parseInt(
+              Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            )
+          );
+        }
       });
-
+      setSubmitting(false)
       setUploadedFile(true);
       setFile(null)
       setDisabled(true)
@@ -123,6 +137,7 @@ const AnnualCSVUploadForm = () => {
         console.log(err);
         setFile(null)
         setDisabled(true)
+        setSubmitting(false)
       }
     }
   };
@@ -134,15 +149,23 @@ const AnnualCSVUploadForm = () => {
     formData.append('employer_id', employer_id);
     formData.append('indv_return_letter', file2);
     setAuthToken();
-
+    setSubmitting2(true)
     try {
       const res = await axios.post(`${url.BASE_URL}annual/upload-annual-doc`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         },
+        onUploadProgress: progressEvent => {
+          setUploadPercentage2(
+            parseInt(
+              Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            )
+          );
+        }
 
       });
 
+      setSubmitting2(false)
       setUploadedFile2(true);
       setFile2(null)
       setDisabled2(true)
@@ -154,6 +177,8 @@ const AnnualCSVUploadForm = () => {
         console.log(err);
         setFile2(null)
         setDisabled2(true)
+        setUploadPercentage2(0)
+        setSubmitting2(false)
       }
     }
   };
@@ -163,17 +188,25 @@ const AnnualCSVUploadForm = () => {
     let employer_id = 1004124549
     const formData = new FormData();
     formData.append('employer_id', employer_id);
-    formData.append('exp_order_letter', file3);
+    formData.append('indv_return_letter', file2);
     setAuthToken();
-
+    setSubmitting3(true)
     try {
       const res = await axios.post(`${url.BASE_URL}annual/upload-annual-doc`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         },
+        onUploadProgress: progressEvent => {
+          setUploadPercentage3(
+            parseInt(
+              Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            )
+          );
+        }
 
       });
 
+      setSubmitting3(false)
       setUploadedFile3(true);
       setFile3(null)
       setDisabled3(true)
@@ -185,6 +218,8 @@ const AnnualCSVUploadForm = () => {
         console.log(err);
         setFile3(null)
         setDisabled3(true)
+        setUploadPercentage3(0)
+        setSubmitting3(false)
       }
     }
   };
@@ -199,6 +234,7 @@ const AnnualCSVUploadForm = () => {
       <Widget>
         <div>
           <form onSubmit={onSubmit}>
+
             <div className="flex justify-between mb-5">
               <p>Cover letter of submission of annual returns <span className="font-bold" style={{ color: "red" }}> * </span><small>(pdf, jpg, png)</small> </p>
               <input
@@ -228,6 +264,12 @@ const AnnualCSVUploadForm = () => {
                 >
                   Submit
                 </button>
+                {submitting ?
+                  <div className='mb-2 w-24'>
+                    <Progress percentage={uploadPercentage} />
+                  </div>
+                  : ''}
+
                 {uploadedFile ? (
                   <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
                     <FiCheck
@@ -242,7 +284,7 @@ const AnnualCSVUploadForm = () => {
 
           <form onSubmit={onSubmit2}>
             <div className="flex justify-between mb-5">
-              <p>Cover letter of submission of annual returns <span className="font-bold" style={{ color: "red" }}> * </span><small>(pdf, jpg, png)</small> </p>
+              <p>Copy of letter mandating employees to file individual tax returns <span className="font-bold" style={{ color: "red" }}> * </span> <small>(pdf, jpg, png)</small></p>
               <input
                 type="file"
                 className="hidden"
@@ -271,6 +313,13 @@ const AnnualCSVUploadForm = () => {
                 >
                   Submit
                 </button>
+
+                {submitting2 ?
+                  <div className='mb-2 w-24'>
+                    <Progress percentage={uploadPercentage2} />
+                  </div>
+                  : ''}
+
                 {uploadedFile2 ? (
                   <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
                     <FiCheck
@@ -285,7 +334,7 @@ const AnnualCSVUploadForm = () => {
 
           <form onSubmit={onSubmit3}>
             <div className="flex justify-between mb-5">
-              <p>Cover letter of submission of annual returns <span className="font-bold" style={{ color: "red" }}> * </span><small>(pdf, jpg, png)</small> </p>
+              <p>Letter of expertriate order <small>[where applicable]</small> <span className="font-bold" style={{ color: "red" }}> * </span><small>(pdf, jpg, png)</small> </p>
               <input
                 type="file"
                 className="hidden"
@@ -314,6 +363,13 @@ const AnnualCSVUploadForm = () => {
                 >
                   Submit
                 </button>
+
+                {submitting3 ?
+                  <div className='mb-2 w-24'>
+                    <Progress percentage={uploadPercentage3} />
+                  </div>
+                  : ''}
+                  
                 {uploadedFile3 ? (
                   <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
                     <FiCheck
