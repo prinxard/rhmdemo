@@ -14,22 +14,27 @@ const AnnualCSVUploadForm = () => {
   const [file2, setFile2] = useState(null);
   const [file3, setFile3] = useState(null);
   const [file4, setFile4] = useState(null);
+  const [file5, setFile5] = useState(null);
   const [uploadedFile, setUploadedFile] = useState(false);
   const [uploadedFile2, setUploadedFile2] = useState(false);
   const [uploadedFile3, setUploadedFile3] = useState(false);
   const [uploadedFile4, setUploadedFile4] = useState(false);
+  const [uploadedFile5, setUploadedFile5] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [disabled2, setDisabled2] = useState(true);
   const [disabled3, setDisabled3] = useState(true);
   const [disabled4, setDisabled4] = useState(true);
+  const [disabled5, setDisabled5] = useState(true);
   const [uploadPercentage, setUploadPercentage] = useState(0);
   const [uploadPercentage2, setUploadPercentage2] = useState(0);
   const [uploadPercentage3, setUploadPercentage3] = useState(0);
   const [uploadPercentage4, setUploadPercentage4] = useState(0);
+  const [uploadPercentage5, setUploadPercentage5] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [submitting2, setSubmitting2] = useState(false);
   const [submitting3, setSubmitting3] = useState(false);
   const [submitting4, setSubmitting4] = useState(false);
+  const [submitting5, setSubmitting5] = useState(false);
 
 
 
@@ -133,6 +138,31 @@ const AnnualCSVUploadForm = () => {
     }
   };
 
+  const onChange5 = e => {
+    const file5 = e.target.files[0]
+    if (file5) {
+      if (!file5) {
+        setFile5(null);
+        setDisabled5(true);
+        return;
+      }
+      if (file5.type !== "image/jpeg" && file5.type !== "application/pdf" && file5.type !== "image/png") {
+        alert("file type not allowed. only excel is allowed");
+        setFile5(null);
+        setDisabled5(true);
+        return;
+      }
+      if (file5.size > 1024 * 200) {
+        alert("file too large..file size shoulde not exceed 200kb");
+        return
+      }
+      else {
+        setFile5(file5);
+        setDisabled5(false);
+      }
+    }
+  };
+
   const onSubmit = async data => {
     data.preventDefault();
     let employer_id = 1004124549
@@ -218,7 +248,7 @@ const AnnualCSVUploadForm = () => {
     let employer_id = 1004124549
     const formData = new FormData();
     formData.append('employer_id', employer_id);
-    formData.append('indv_return_letter', file2);
+    formData.append('exp_order_letter', file3);
     setAuthToken();
     setSubmitting3(true)
     try {
@@ -259,7 +289,7 @@ const AnnualCSVUploadForm = () => {
     let employer_id = 1004124549
     const formData = new FormData();
     formData.append('employer_id', employer_id);
-    formData.append('indv_return_letter', file2);
+    formData.append('mnthly_pay_sched', file4);
     setAuthToken();
     setSubmitting4(true)
     try {
@@ -291,6 +321,49 @@ const AnnualCSVUploadForm = () => {
         setDisabled4(true)
         setUploadPercentage4(0)
         setSubmitting4(false)
+      }
+    }
+  };
+
+  const onSubmit5 = async data => {
+    data.preventDefault();
+    let employer_id = 1004124549
+    const formData = new FormData();
+    formData.append('employer_id', employer_id);
+    formData.append('paye_remittance', file5);
+
+    setAuthToken();
+    setSubmitting5(true)
+
+    try {
+      const res = await axios.post(`${url.BASE_URL}annual/upload-annual-doc`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        onUploadProgress: progressEvent => {
+          setUploadPercentage5(
+            parseInt(
+              Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            )
+          );
+        }
+
+      });
+
+      setSubmitting5(false)
+      setUploadedFile5(true);
+      setFile5(null)
+      setDisabled5(true)
+      console.log(data.response.body);
+    } catch (err) {
+      if (err.response === 500) {
+        console.log('There was a problem with the server');
+      } else {
+        console.log(err);
+        setFile5(null)
+        setDisabled5(true)
+        setUploadPercentage5(0)
+        setSubmitting5(false)
       }
     }
   };
@@ -519,31 +592,56 @@ const AnnualCSVUploadForm = () => {
 
           <hr className="mb-2" />
 
-          {/* <form>
+          <form onSubmit={onSubmit5}>
             <div className="flex justify-between mb-5">
               <p>Evidence of PAYE remittance <span className="font-bold" style={{ color: "red" }}> * </span> <small>(pdf, jpg, png)</small></p>
+
+
               <input
-                required
+                id="customFile5"
                 type="file"
                 className="hidden"
-                ref={fileInputRef}
-                onChange={fileHandler}
-              />
+                onChange={onChange5}
+                onClick={(e) => (e.target.value = null)}
+                />
               <div className="flex items-center">
-                <button
+
+                <p>{file5 ? file5.name : ""}</p>
+
+                <label
+                  htmlFor='customFile5'
                   style={{ backgroundColor: "#84abeb" }}
-                  className="btn btn-default text-white rounded-md btn-outlined bg-transparent mr-4"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    fileInputRef.current.click();
-                  }}
+                  className="btn btn-default text-white rounded-md btn-outlined bg-transparent mx-2"
                 >
                   select file
+                </label>
+
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                  type="submit"
+                  disabled={disabled5}
+                >
+                  Submit
                 </button>
-                <p>{file ? file.name : "no file chosen yet"}</p>
+
+                {submitting5 ?
+                  <div className='mb-2 w-24'>
+                    <Progress percentage={uploadPercentage5} />
+                  </div>
+                  : ''}
+
+                {uploadedFile5 ? (
+                  <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <FiCheck
+                      size={18}
+                      className="stroke-current text-green-500"
+                    />
+                  </span>) : null}
+
               </div>
             </div>
-          </form> */}
+          </form>
 
           <hr className="mb-2" />
 
