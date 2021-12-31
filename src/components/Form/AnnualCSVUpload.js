@@ -404,7 +404,7 @@ const AnnualCSVUploadForm = () => {
     let employer_id = 1004124549
     const formData = new FormData();
     formData.append('employer_id', employer_id);
-    formData.append('paye_remittance', file6);
+    formData.append('exit_staff_list', file6);
 
     setAuthToken();
     setSubmitting6(true)
