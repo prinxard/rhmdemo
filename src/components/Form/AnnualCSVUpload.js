@@ -13,18 +13,23 @@ const AnnualCSVUploadForm = () => {
   const [file, setFile] = useState(null);
   const [file2, setFile2] = useState(null);
   const [file3, setFile3] = useState(null);
+  const [file4, setFile4] = useState(null);
   const [uploadedFile, setUploadedFile] = useState(false);
   const [uploadedFile2, setUploadedFile2] = useState(false);
   const [uploadedFile3, setUploadedFile3] = useState(false);
-  const [disabled2, setDisabled2] = useState(true);
+  const [uploadedFile4, setUploadedFile4] = useState(false);
   const [disabled, setDisabled] = useState(true);
+  const [disabled2, setDisabled2] = useState(true);
   const [disabled3, setDisabled3] = useState(true);
+  const [disabled4, setDisabled4] = useState(true);
   const [uploadPercentage, setUploadPercentage] = useState(0);
   const [uploadPercentage2, setUploadPercentage2] = useState(0);
   const [uploadPercentage3, setUploadPercentage3] = useState(0);
+  const [uploadPercentage4, setUploadPercentage4] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [submitting2, setSubmitting2] = useState(false);
   const [submitting3, setSubmitting3] = useState(false);
+  const [submitting4, setSubmitting4] = useState(false);
 
 
 
@@ -99,6 +104,31 @@ const AnnualCSVUploadForm = () => {
       else {
         setFile3(file3);
         setDisabled3(false);
+      }
+    }
+  };
+
+  const onChange4 = e => {
+    const file4 = e.target.files[0]
+    if (file4) {
+      if (!file4) {
+        setFile4(null);
+        setDisabled4(true);
+        return;
+      }
+      if (file4.type !== "application/vnd.ms-excel") {
+        alert("file type not allowed. only excel is allowed");
+        setFile4(null);
+        setDisabled4(true);
+        return;
+      }
+      if (file4.size > 1024 * 200) {
+        alert("file too large..file size shoulde not exceed 200kb");
+        return
+      }
+      else {
+        setFile4(file4);
+        setDisabled4(false);
       }
     }
   };
@@ -224,6 +254,47 @@ const AnnualCSVUploadForm = () => {
     }
   };
 
+  const onSubmit4 = async data => {
+    data.preventDefault();
+    let employer_id = 1004124549
+    const formData = new FormData();
+    formData.append('employer_id', employer_id);
+    formData.append('indv_return_letter', file2);
+    setAuthToken();
+    setSubmitting4(true)
+    try {
+      const res = await axios.post(`${url.BASE_URL}annual/upload-annual-doc`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        onUploadProgress: progressEvent => {
+          setUploadPercentage4(
+            parseInt(
+              Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            )
+          );
+        }
+
+      });
+
+      setSubmitting4(false)
+      setUploadedFile4(true);
+      setFile4(null)
+      setDisabled4(true)
+      console.log(data.response.body);
+    } catch (err) {
+      if (err.response === 500) {
+        console.log('There was a problem with the server');
+      } else {
+        console.log(err);
+        setFile4(null)
+        setDisabled4(true)
+        setUploadPercentage4(0)
+        setSubmitting4(false)
+      }
+    }
+  };
+
   return (
     <>
 
@@ -283,7 +354,7 @@ const AnnualCSVUploadForm = () => {
           </form>
 
           <hr className="mb-2" />
-          
+
           <form onSubmit={onSubmit2}>
             <div className="flex justify-between mb-5">
               <p>Copy of letter mandating employees to file individual tax returns <span className="font-bold" style={{ color: "red" }}> * </span> <small>(pdf, jpg, png)</small></p>
@@ -344,7 +415,7 @@ const AnnualCSVUploadForm = () => {
                 className="hidden"
                 id='customFile3'
                 onChange={onChange3}
-              onClick={(e) => (e.target.value = null)}
+                onClick={(e) => (e.target.value = null)}
               />
 
               <div className="flex justify-evenly">
@@ -396,31 +467,55 @@ const AnnualCSVUploadForm = () => {
 
       <Widget>
         <div>
-          {/* <form>
+          <form onSubmit={onSubmit4}>
             <div className="flex justify-between mb-5">
               <p>Monthly payroll schedule <span className="font-bold" style={{ color: "red" }}> * </span><small>(excel)</small> </p>
               <input
                 required
                 type="file"
-                multiple
                 className="hidden"
-                ref={fileInputRef}
-                onChange={fileHandler}
+                id='customFile4'
+                onChange={onChange4}
+                onClick={(e) => (e.target.value = null)}
+
               />
               <div className="flex items-center">
-                <button style={{ backgroundColor: "#84abeb" }}
-                  className="btn btn-default text-white btn-outlined bg-transparent rounded-md mr-4"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    fileInputRef.current.click();
-                  }}
+
+                <p>{file4 ? file4.name : ""}</p>
+                <label
+                  htmlFor='customFile4'
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+
                 >
                   select file
+                </label>
+
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                  type="submit"
+                  disabled={disabled4}
+                >
+                  Submit
                 </button>
-                <p>{file ? file.name : "no file chosen yet"}</p>
+
+                {submitting4 ?
+                  <div className='mb-2 w-24'>
+                    <Progress percentage={uploadPercentage4} />
+                  </div>
+                  : ''}
+
+                {uploadedFile4 ? (
+                  <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <FiCheck
+                      size={18}
+                      className="stroke-current text-green-500"
+                    />
+                  </span>) : null}
               </div>
             </div>
-          </form> */}
+          </form>
 
           <hr className="mb-2" />
 
