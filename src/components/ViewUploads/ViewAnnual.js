@@ -15,7 +15,7 @@ import Loader from "react-loader-spinner";
 const ViewAnnual = () => {
   const [post, setPost] = useState(() => []);
   const [sum, setSum] = useState(() => null);
-  const [totalemp, settotalemp] = useState(() => null);
+  const [totalemp, settotalemp] = useState('');
   const [isFetching, setIsFetching] = useState(() => true);
   const [currentPage, setCurrentPage] = useState(() => 1);
   const [postPerPage, setPostPerPage] = useState(() => 10);
@@ -26,7 +26,9 @@ const ViewAnnual = () => {
       try {
         let res = await axios.get(`${url.BASE_URL}annual/view-annual`);
         res = res.data.body;
-        let totalemp = res.length
+        console.log(res);
+        let totalmp = res.length
+        settotalemp(totalmp)
         console.log(totalemp);
         let records = [];
         let sum = [];
@@ -119,7 +121,7 @@ const ViewAnnual = () => {
             </>
           ) : (
             <>
-              <ViewAnnualTable remittance={currentPosts} total={sum}/>
+              <ViewAnnualTable remittance={currentPosts} total={totalemp}/>
               <CustomPagination
                 paginate={paginate}
                 totalPosts={post.length}

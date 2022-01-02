@@ -37,7 +37,7 @@ const fields = [
   },
   {
     name: "Consolidated Relief Allowance",
-    key: "relief-allowance",
+    key: "con_rel_cal",
   },
   {
     name: "Net tax deducted",
@@ -45,11 +45,11 @@ const fields = [
   },
   {
     name: "Expected tax",
-    key: "exp-tax",
+    key: "tax_pay_cal",
   },
   {
     name: "Variance",
-    key: "variance",
+    key: "variance_cal",
   },
   {
     name: "Year",
@@ -103,7 +103,7 @@ export const ViewAnnualTable = ({ remittance, total }) => {
               </tr>
             ))}
               
-            {items.length > 0 && (            
+            {/* {items.length > 0 && (            
               <tr className="font-semibold">
                 
                  <tr><td></td></tr>
@@ -123,9 +123,9 @@ export const ViewAnnualTable = ({ remittance, total }) => {
                 <td></td>
                 <td></td>
                 <td>Total</td>
-                {/* <td>{formatNumber(total)}</td> */}
+                <td>{formatNumber(total)}</td>
               </tr>
-            )}
+            )} */}
 
             {/* {posts.map((post, i) => (
               <tr key={post.id} className="">
@@ -140,6 +140,7 @@ export const ViewAnnualTable = ({ remittance, total }) => {
             ))} */}
           </tbody>
         </table>
+        <div className="mt-10"></div>
         <hr />
         <div className="flex">Total</div>
         <p>{total}</p>
