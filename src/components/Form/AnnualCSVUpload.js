@@ -18,6 +18,16 @@ const AnnualCSVUploadForm = () => {
   const [file6, setFile6] = useState(null);
   const [file7, setFile7] = useState(null);
   const [file8, setFile8] = useState(null);
+  const [file9, setFile9] = useState(null);
+  const [file10, setFile10] = useState(null);
+  const [file11, setFile11] = useState(null);
+  const [file12, setFile12] = useState(null);
+  const [file13, setFile13] = useState(null);
+  const [file14, setFile14] = useState(null);
+  const [file15, setFile15] = useState(null);
+  const [file16, setFile16] = useState(null);
+  const [file17, setFile17] = useState(null);
+  const [file18, setFile18] = useState(null);
   const [uploadedFile, setUploadedFile] = useState(false);
   const [uploadedFile2, setUploadedFile2] = useState(false);
   const [uploadedFile3, setUploadedFile3] = useState(false);
@@ -26,6 +36,16 @@ const AnnualCSVUploadForm = () => {
   const [uploadedFile6, setUploadedFile6] = useState(false);
   const [uploadedFile7, setUploadedFile7] = useState(false);
   const [uploadedFile8, setUploadedFile8] = useState(false);
+  const [uploadedFile9, setUploadedFile9] = useState(false);
+  const [uploadedFile10, setUploadedFile10] = useState(false);
+  const [uploadedFile11, setUploadedFile11] = useState(false);
+  const [uploadedFile12, setUploadedFile12] = useState(false);
+  const [uploadedFile13, setUploadedFile13] = useState(false);
+  const [uploadedFile14, setUploadedFile14] = useState(false);
+  const [uploadedFile15, setUploadedFile15] = useState(false);
+  const [uploadedFile16, setUploadedFile16] = useState(false);
+  const [uploadedFile17, setUploadedFile17] = useState(false);
+  const [uploadedFile18, setUploadedFile18] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [disabled2, setDisabled2] = useState(true);
   const [disabled3, setDisabled3] = useState(true);
@@ -34,6 +54,16 @@ const AnnualCSVUploadForm = () => {
   const [disabled6, setDisabled6] = useState(true);
   const [disabled7, setDisabled7] = useState(true);
   const [disabled8, setDisabled8] = useState(true);
+  const [disabled9, setDisabled9] = useState(true);
+  const [disabled10, setDisabled10] = useState(true);
+  const [disabled11, setDisabled11] = useState(true);
+  const [disabled12, setDisabled12] = useState(true);
+  const [disabled13, setDisabled13] = useState(true);
+  const [disabled14, setDisabled14] = useState(true);
+  const [disabled15, setDisabled15] = useState(true);
+  const [disabled16, setDisabled16] = useState(true);
+  const [disabled17, setDisabled17] = useState(true);
+  const [disabled18, setDisabled18] = useState(true);
   const [uploadPercentage, setUploadPercentage] = useState(0);
   const [uploadPercentage2, setUploadPercentage2] = useState(0);
   const [uploadPercentage3, setUploadPercentage3] = useState(0);
@@ -42,6 +72,16 @@ const AnnualCSVUploadForm = () => {
   const [uploadPercentage6, setUploadPercentage6] = useState(0);
   const [uploadPercentage7, setUploadPercentage7] = useState(0);
   const [uploadPercentage8, setUploadPercentage8] = useState(0);
+  const [uploadPercentage9, setUploadPercentage9] = useState(0);
+  const [uploadPercentage10, setUploadPercentage10] = useState(0);
+  const [uploadPercentage11, setUploadPercentage11] = useState(0);
+  const [uploadPercentage12, setUploadPercentage12] = useState(0);
+  const [uploadPercentage13, setUploadPercentage13] = useState(0);
+  const [uploadPercentage14, setUploadPercentage14] = useState(0);
+  const [uploadPercentage15, setUploadPercentage15] = useState(0);
+  const [uploadPercentage16, setUploadPercentage16] = useState(0);
+  const [uploadPercentage17, setUploadPercentage17] = useState(0);
+  const [uploadPercentage18, setUploadPercentage18] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [submitting2, setSubmitting2] = useState(false);
   const [submitting3, setSubmitting3] = useState(false);
@@ -50,6 +90,16 @@ const AnnualCSVUploadForm = () => {
   const [submitting6, setSubmitting6] = useState(false);
   const [submitting7, setSubmitting7] = useState(false);
   const [submitting8, setSubmitting8] = useState(false);
+  const [submitting9, setSubmitting9] = useState(false);
+  const [submitting10, setSubmitting10] = useState(false);
+  const [submitting11, setSubmitting11] = useState(false);
+  const [submitting12, setSubmitting12] = useState(false);
+  const [submitting13, setSubmitting13] = useState(false);
+  const [submitting14, setSubmitting14] = useState(false);
+  const [submitting15, setSubmitting15] = useState(false);
+  const [submitting16, setSubmitting16] = useState(false);
+  const [submitting17, setSubmitting17] = useState(false);
+  const [submitting18, setSubmitting18] = useState(false);
 
 
 
@@ -254,9 +304,258 @@ const AnnualCSVUploadForm = () => {
     }
   };
 
+  const onChange9 = e => {
+    const file9 = e.target.files[0]
+    if (file9) {
+      if (!file9) {
+        setFile9(null);
+        setDisabled9(true);
+        return;
+      }
+      if (file9.type !== "image/jpeg" && file9.type !== "application/pdf" && file9.type !== "image/png") {
+        alert("file type not allowed. only pdf or excel are allowed");
+        setFile9(null);
+        setDisabled9(true);
+        return;
+      }
+      if (file9.size > 1024 * 200) {
+        alert("file too large..file size shoulde not exceed 200kb");
+        return
+      }
+      else {
+        setFile9(file9);
+        setDisabled9(false);
+      }
+    }
+  };
+
+  const onChange10 = e => {
+    const file10 = e.target.files[0]
+    if (file10) {
+      if (!file10) {
+        setFile10(null);
+        setDisabled10(true);
+        return;
+      }
+      if (file10.type !== "image/jpeg" && file10.type !== "application/pdf" && file10.type !== "image/png") {
+        alert("file type not allowed. only pdf or excel are allowed");
+        setFile10(null);
+        setDisabled10(true);
+        return;
+      }
+      if (file10.size > 1024 * 200) {
+        alert("file too large..file size shoulde not exceed 200kb");
+        return
+      }
+      else {
+        setFile10(file10);
+        setDisabled10(false);
+      }
+    }
+  };
+
+  const onChange11 = e => {
+    const file11 = e.target.files[0]
+    if (file11) {
+      if (!file11) {
+        setFile11(null);
+        setDisabled11(true);
+        return;
+      }
+      if (file11.type !== "image/jpeg" && file11.type !== "application/pdf" && file11.type !== "image/png") {
+        alert("file type not allowed. only pdf or excel are allowed");
+        setFile11(null);
+        setDisabled11(true);
+        return;
+      }
+      if (file11.size > 1024 * 200) {
+        alert("file too large..file size shoulde not exceed 200kb");
+        return
+      }
+      else {
+        setFile11(file11);
+        setDisabled11(false);
+      }
+    }
+  };
+
+  const onChange12 = e => {
+    const file12 = e.target.files[0]
+    if (file12) {
+      if (!file12) {
+        setFile12(null);
+        setDisabled12(true);
+        return;
+      }
+      if (file12.type !== "image/jpeg" && file12.type !== "application/pdf" && file12.type !== "image/png") {
+        alert("file type not allowed. only pdf or excel are allowed");
+        setFile12(null);
+        setDisabled12(true);
+        return;
+      }
+      if (file12.size > 1024 * 200) {
+        alert("file too large..file size shoulde not exceed 200kb");
+        return
+      }
+      else {
+        setFile12(file12);
+        setDisabled12(false);
+      }
+    }
+  };
+  const onChange13 = e => {
+    const file13 = e.target.files[0]
+    if (file13) {
+      if (!file13) {
+        setFile13(null);
+        setDisabled13(true);
+        return;
+      }
+      if (file13.type !== "image/jpeg" && file13.type !== "application/pdf" && file13.type !== "image/png") {
+        alert("file type not allowed. only pdf or excel are allowed");
+        setFile13(null);
+        setDisabled13(true);
+        return;
+      }
+      if (file13.size > 1024 * 200) {
+        alert("file too large..file size shoulde not exceed 200kb");
+        return
+      }
+      else {
+        setFile13(file13);
+        setDisabled13(false);
+      }
+    }
+  };
+
+  const onChange14 = e => {
+    const file14 = e.target.files[0]
+    if (file14) {
+      if (!file14) {
+        setFile14(null);
+        setDisabled14(true);
+        return;
+      }
+      if (file14.type !== "image/jpeg" && file14.type !== "application/pdf" && file14.type !== "image/png") {
+        alert("file type not allowed. only pdf or excel are allowed");
+        setFile14(null);
+        setDisabled14(true);
+        return;
+      }
+      if (file14.size > 1024 * 200) {
+        alert("file too large..file size shoulde not exceed 200kb");
+        return
+      }
+      else {
+        setFile14(file14);
+        setDisabled14(false);
+      }
+    }
+  };
+
+  const onChange15 = e => {
+    const file15 = e.target.files[0]
+    if (file15) {
+      if (!file15) {
+        setFile15(null);
+        setDisabled15(true);
+        return;
+      }
+      if (file15.type !== "image/jpeg" && file15.type !== "application/pdf" && file15.type !== "image/png") {
+        alert("file type not allowed. only pdf or excel are allowed");
+        setFile15(null);
+        setDisabled15(true);
+        return;
+      }
+      if (file15.size > 1024 * 200) {
+        alert("file too large..file size shoulde not exceed 200kb");
+        return
+      }
+      else {
+        setFile15(file15);
+        setDisabled15(false);
+      }
+    }
+  };
+
+  const onChange16 = e => {
+    const file16 = e.target.files[0]
+    if (file16) {
+      if (!file16) {
+        setFile16(null);
+        setDisabled16(true);
+        return;
+      }
+      if (file16.type !== "image/jpeg" && file16.type !== "application/pdf" && file16.type !== "image/png") {
+        alert("file type not allowed. only pdf or excel are allowed");
+        setFile16(null);
+        setDisabled16(true);
+        return;
+      }
+      if (file16.size > 1024 * 200) {
+        alert("file too large..file size shoulde not exceed 200kb");
+        return
+      }
+      else {
+        setFile16(file16);
+        setDisabled16(false);
+      }
+    }
+  };
+
+  const onChange17 = e => {
+    const file17 = e.target.files[0]
+    if (file17) {
+      if (!file17) {
+        setFile17(null);
+        setDisabled17(true);
+        return;
+      }
+      if (file17.type !== "image/jpeg" && file17.type !== "application/pdf" && file17.type !== "image/png") {
+        alert("file type not allowed. only pdf or excel are allowed");
+        setFile17(null);
+        setDisabled17(true);
+        return;
+      }
+      if (file17.size > 1024 * 200) {
+        alert("file too large..file size shoulde not exceed 200kb");
+        return
+      }
+      else {
+        setFile17(file17);
+        setDisabled17(false);
+      }
+    }
+  };
+
+  const onChange18 = e => {
+    const file18 = e.target.files[0]
+    if (file18) {
+      if (!file18) {
+        setFile18(null);
+        setDisabled18(true);
+        return;
+      }
+      if (file18.type !== "image/jpeg" && file18.type !== "application/pdf" && file18.type !== "image/png") {
+        alert("file type not allowed. only pdf or excel are allowed");
+        setFile18(null);
+        setDisabled18(true);
+        return;
+      }
+      if (file18.size > 1024 * 200) {
+        alert("file too large..file size shoulde not exceed 200kb");
+        return
+      }
+      else {
+        setFile18(file18);
+        setDisabled18(false);
+      }
+    }
+  };
+
   const onSubmit = async data => {
     data.preventDefault();
-    let employer_id = 1004124549
+    let employer_id = 104124549
     const formData = new FormData();
     formData.append('employer_id', employer_id);
     formData.append('cover_letter', file);
@@ -588,6 +887,436 @@ const AnnualCSVUploadForm = () => {
     }
   };
 
+  const onSubmit9 = async data => {
+    data.preventDefault();
+    let employer_id = 1004124549
+    const formData = new FormData();
+    formData.append('employer_id', employer_id);
+    formData.append('wht_tax_receipts', file9);
+
+    setAuthToken();
+    setSubmitting9(true)
+
+    try {
+      const res = await axios.post(`${url.BASE_URL}annual/upload-annual-doc`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        onUploadProgress: progressEvent => {
+          setUploadPercentage9(
+            parseInt(
+              Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            )
+          );
+        }
+
+      });
+
+      setSubmitting9(false)
+      setUploadedFile9(true);
+      setFile9(null)
+      setDisabled9(true)
+      console.log(data.response.body);
+    } catch (err) {
+      if (err.response === 500) {
+        console.log('There was a problem with the server');
+      } else {
+        console.log(err);
+        setFile9(null)
+        setDisabled9(true)
+        setUploadPercentage9(0)
+        setSubmitting9(false)
+      }
+    }
+  };
+
+  const onSubmit10 = async data => {
+    data.preventDefault();
+    let employer_id = 1004124549
+    const formData = new FormData();
+    formData.append('employer_id', employer_id);
+    formData.append('mnthly_immi_returns', file10);
+
+    setAuthToken();
+    setSubmitting10(true)
+
+    try {
+      const res = await axios.post(`${url.BASE_URL}annual/upload-annual-doc`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        onUploadProgress: progressEvent => {
+          setUploadPercentage10(
+            parseInt(
+              Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            )
+          );
+        }
+
+      });
+
+      setSubmitting10(false)
+      setUploadedFile10(true);
+      setFile10(null)
+      setDisabled10(true)
+      console.log(data.response.body);
+    } catch (err) {
+      if (err.response === 500) {
+        console.log('There was a problem with the server');
+      } else {
+        console.log(err);
+        setFile10(null)
+        setDisabled10(true)
+        setUploadPercentage10(0)
+        setSubmitting10(false)
+      }
+    }
+  };
+
+  const onSubmit11 = async data => {
+    data.preventDefault();
+    let employer_id = 1004124549
+    const formData = new FormData();
+    formData.append('employer_id', employer_id);
+    formData.append('dev_levy_receipts', file11);
+
+    setAuthToken();
+    setSubmitting11(true)
+
+    try {
+      const res = await axios.post(`${url.BASE_URL}annual/upload-annual-doc`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        onUploadProgress: progressEvent => {
+          setUploadPercentage11(
+            parseInt(
+              Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            )
+          );
+        }
+
+      });
+
+      setSubmitting11(false)
+      setUploadedFile11(true);
+      setFile11(null)
+      setDisabled11(true)
+      console.log(data.response.body);
+    } catch (err) {
+      if (err.response === 500) {
+        console.log('There was a problem with the server');
+      } else {
+        console.log(err);
+        setFile11(null)
+        setDisabled11(true)
+        setUploadPercentage11(0)
+        setSubmitting11(false)
+      }
+    }
+  };
+
+  const onSubmit12 = async data => {
+    data.preventDefault();
+    let employer_id = 1004124549
+    const formData = new FormData();
+    formData.append('employer_id', employer_id);
+    formData.append('bus_premises_receipt', file12);
+
+    setAuthToken();
+    setSubmitting12(true)
+
+    try {
+      const res = await axios.post(`${url.BASE_URL}annual/upload-annual-doc`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        onUploadProgress: progressEvent => {
+          setUploadPercentage12(
+            parseInt(
+              Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            )
+          );
+        }
+
+      });
+
+      setSubmitting12(false)
+      setUploadedFile12(true);
+      setFile12(null)
+      setDisabled12(true)
+      console.log(data.response.body);
+    } catch (err) {
+      if (err.response === 500) {
+        console.log('There was a problem with the server');
+      } else {
+        console.log(err);
+        setFile12(null)
+        setDisabled12(true)
+        setUploadPercentage12(0)
+        setSubmitting12(false)
+      }
+    }
+  };
+
+  const onSubmit13= async data => {
+    data.preventDefault();
+    let employer_id = 1004124549
+    const formData = new FormData();
+    formData.append('employer_id', employer_id);
+    formData.append('grnd_rent_receipts', file13);
+
+    setAuthToken();
+    setSubmitting13(true)
+
+    try {
+      const res = await axios.post(`${url.BASE_URL}annual/upload-annual-doc`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        onUploadProgress: progressEvent => {
+          setUploadPercentage13(
+            parseInt(
+              Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            )
+          );
+        }
+
+      });
+
+      setSubmitting13(false)
+      setUploadedFile13(true);
+      setFile13(null)
+      setDisabled13(true)
+      console.log(data.response.body);
+    } catch (err) {
+      if (err.response === 500) {
+        console.log('There was a problem with the server');
+      } else {
+        console.log(err);
+        setFile13(null)
+        setDisabled13(true)
+        setUploadPercentage13(0)
+        setSubmitting13(false)
+      }
+    }
+  };
+
+  const onSubmit14= async data => {
+    data.preventDefault();
+    let employer_id = 1004124549
+    const formData = new FormData();
+    formData.append('employer_id', employer_id);
+    formData.append('sscl_levy', file14);
+
+    setAuthToken();
+    setSubmitting14(true)
+
+    try {
+      const res = await axios.post(`${url.BASE_URL}annual/upload-annual-doc`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        onUploadProgress: progressEvent => {
+          setUploadPercentage14(
+            parseInt(
+              Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            )
+          );
+        }
+
+      });
+
+      setSubmitting14(false)
+      setUploadedFile14(true);
+      setFile14(null)
+      setDisabled14(true)
+      console.log(data.response.body);
+    } catch (err) {
+      if (err.response === 500) {
+        console.log('There was a problem with the server');
+      } else {
+        console.log(err);
+        setFile14(null)
+        setDisabled14(true)
+        setUploadPercentage14(0)
+        setSubmitting14(false)
+      }
+    }
+  };
+
+  const onSubmit15= async data => {
+    data.preventDefault();
+    let employer_id = 1004124549
+    const formData = new FormData();
+    formData.append('employer_id', employer_id);
+    formData.append('pension_remittance', file15);
+
+    setAuthToken();
+    setSubmitting15(true)
+
+    try {
+      const res = await axios.post(`${url.BASE_URL}annual/upload-annual-doc`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        onUploadProgress: progressEvent => {
+          setUploadPercentage15(
+            parseInt(
+              Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            )
+          );
+        }
+
+      });
+
+      setSubmitting15(false)
+      setUploadedFile15(true);
+      setFile15(null)
+      setDisabled15(true)
+      console.log(data.response.body);
+    } catch (err) {
+      if (err.response === 500) {
+        console.log('There was a problem with the server');
+      } else {
+        console.log(err);
+        setFile15(null)
+        setDisabled15(true)
+        setUploadPercentage15(0)
+        setSubmitting15(false)
+      }
+    }
+  };
+
+  const onSubmit16= async data => {
+    data.preventDefault();
+    let employer_id = 1004124549
+    const formData = new FormData();
+    formData.append('employer_id', employer_id);
+    formData.append('nhf_remittance', file16);
+
+    setAuthToken();
+    setSubmitting16(true)
+
+    try {
+      const res = await axios.post(`${url.BASE_URL}annual/upload-annual-doc`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        onUploadProgress: progressEvent => {
+          setUploadPercentage16(
+            parseInt(
+              Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            )
+          );
+        }
+
+      });
+
+      setSubmitting16(false)
+      setUploadedFile16(true);
+      setFile16(null)
+      setDisabled16(true)
+      console.log(data.response.body);
+    } catch (err) {
+      if (err.response === 500) {
+        console.log('There was a problem with the server');
+      } else {
+        console.log(err);
+        setFile16(null)
+        setDisabled16(true)
+        setUploadPercentage16(0)
+        setSubmitting16(false)
+      }
+    }
+  };
+
+  const onSubmit17= async data => {
+    data.preventDefault();
+    let employer_id = 1004124549
+    const formData = new FormData();
+    formData.append('employer_id', employer_id);
+    formData.append('nhis_remittance', file17);
+
+    setAuthToken();
+    setSubmitting17(true)
+
+    try {
+      const res = await axios.post(`${url.BASE_URL}annual/upload-annual-doc`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        onUploadProgress: progressEvent => {
+          setUploadPercentage17(
+            parseInt(
+              Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            )
+          );
+        }
+
+      });
+
+      setSubmitting17(false)
+      setUploadedFile17(true);
+      setFile17(null)
+      setDisabled17(true)
+      console.log(data.response.body);
+    } catch (err) {
+      if (err.response === 500) {
+        console.log('There was a problem with the server');
+      } else {
+        console.log(err);
+        setFile17(null)
+        setDisabled17(true)
+        setUploadPercentage17(0)
+        setSubmitting17(false)
+      }
+    }
+  };
+
+  const onSubmit18= async data => {
+    data.preventDefault();
+    let employer_id = 1004124549
+    const formData = new FormData();
+    formData.append('employer_id', employer_id);
+    formData.append('lap_remittance', file18);
+
+    setAuthToken();
+    setSubmitting18(true)
+
+    try {
+      const res = await axios.post(`${url.BASE_URL}annual/upload-annual-doc`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        onUploadProgress: progressEvent => {
+          setUploadPercentage18(
+            parseInt(
+              Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            )
+          );
+        }
+
+      });
+
+      setSubmitting18(false)
+      setUploadedFile18(true);
+      setFile18(null)
+      setDisabled18(true)
+      console.log(data.response.body);
+    } catch (err) {
+      if (err.response === 500) {
+        console.log('There was a problem with the server');
+      } else {
+        console.log(err);
+        setFile18(null)
+        setDisabled18(true)
+        setUploadPercentage18(0)
+        setSubmitting18(false)
+      }
+    }
+  };
+
   return (
     <>
 
@@ -823,7 +1552,7 @@ const AnnualCSVUploadForm = () => {
                 className="hidden"
                 onChange={onChange5}
                 onClick={(e) => (e.target.value = null)}
-                />
+              />
               <div className="flex items-center">
 
                 <p>{file5 ? file5.name : ""}</p>
@@ -867,14 +1596,14 @@ const AnnualCSVUploadForm = () => {
 
           <form onSubmit={onSubmit6}>
             <div className="flex justify-between mb-5">
-            <p>List of exit staff  <small>(pdf, word, excel)</small> </p>
+              <p>List of exit staff  <small>(pdf, word, excel)</small> </p>
               <input
                 id="customFile6"
                 type="file"
                 className="hidden"
                 onChange={onChange6}
                 onClick={(e) => (e.target.value = null)}
-                />
+              />
               <div className="flex items-center">
 
                 <p>{file6 ? file6.name : ""}</p>
@@ -914,18 +1643,18 @@ const AnnualCSVUploadForm = () => {
             </div>
           </form>
           <hr className="mb-2" />
-         
+
 
           <form onSubmit={onSubmit7}>
             <div className="flex justify-between mb-5">
-            <p>Trial balance for the year ended 31st Dec. 2021 </p>
+              <p>Trial balance for the year ended 31st Dec. 2021 </p>
               <input
                 id="customFile7"
                 type="file"
                 className="hidden"
                 onChange={onChange7}
                 onClick={(e) => (e.target.value = null)}
-                />
+              />
               <div className="flex items-center">
 
                 <p>{file7 ? file7.name : ""}</p>
@@ -971,339 +1700,574 @@ const AnnualCSVUploadForm = () => {
         <h6 className="p-2 font-bold">Remittance</h6>
       </div>
 
-            
-       <Widget>
-       <form onSubmit={onSubmit8}>
-            <div className="flex justify-between mb-5">
+
+      <Widget>
+        <form onSubmit={onSubmit8}>
+          <div className="flex justify-between mb-5">
             {/* <p>Schedule of withholding tax deductions <span className="font-bold" style={{ color: "red" }}> * </span> <small> (excel, pdf)</small><br /><span className="flex justify-end" style={{ color: "blue" }}><Link href="/csv/wht.csv"> download </Link></span></p> */}
             <p>Schedule of withholding tax deductions <span className="font-bold" style={{ color: "red" }}> * </span> <small> (excel, pdf)</small><br /><span className="flex justify-end" style={{ color: "blue" }}></span></p>
-              <input
-                id="customFile8"
-                type="file"
-                className="hidden"
-                onChange={onChange8}
-                onClick={(e) => (e.target.value = null)}
-                />
-              <div className="flex items-center">
+            <input
+              id="customFile8"
+              type="file"
+              className="hidden"
+              onChange={onChange8}
+              onClick={(e) => (e.target.value = null)}
+            />
+            <div className="flex items-center">
 
-                <p>{file8 ? file8.name : ""}</p>
+              <p>{file8 ? file8.name : ""}</p>
 
-                <label
-                  htmlFor='customFile8'
-                  style={{ backgroundColor: "#84abeb" }}
-                  className="btn btn-default text-white rounded-md btn-outlined bg-transparent mx-2"
-                >
-                  select file
-                </label>
+              <label
+                htmlFor='customFile8'
+                style={{ backgroundColor: "#84abeb" }}
+                className="btn btn-default text-white rounded-md btn-outlined bg-transparent mx-2"
+              >
+                select file
+              </label>
 
-                <button
-                  style={{ backgroundColor: "#84abeb" }}
-                  className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
-                  type="submit"
-                  disabled={disabled8}
-                >
-                  Submit
-                </button>
+              <button
+                style={{ backgroundColor: "#84abeb" }}
+                className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                type="submit"
+                disabled={disabled8}
+              >
+                Submit
+              </button>
 
-                {submitting8 ?
-                  <div className='mb-2 w-24'>
-                    <Progress percentage={uploadPercentage8} />
-                  </div>
-                  : ''}
+              {submitting8 ?
+                <div className='mb-2 w-24'>
+                  <Progress percentage={uploadPercentage8} />
+                </div>
+                : ''}
 
-                {uploadedFile8 ? (
-                  <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                    <FiCheck
-                      size={18}
-                      className="stroke-current text-green-500"
-                    />
-                  </span>) : null}
+              {uploadedFile8 ? (
+                <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                  <FiCheck
+                    size={18}
+                    className="stroke-current text-green-500"
+                  />
+                </span>) : null}
 
-              </div>
             </div>
-          </form>
+          </div>
+        </form>
 
         <hr className="mb-2" />
 
-        {/* <form>
+
+        <form onSubmit={onSubmit9}>
           <div className="flex justify-between mb-5">
             <p>Withholding tax receipts (corporate & Individual) <span className="font-bold" style={{ color: "red" }}> * </span> <small>(pdf, jpg, png)</small></p>
             <input
-              required
+              id="customFile9"
               type="file"
               className="hidden"
-              ref={fileInputRef}
-              onChange={fileHandler}
+              onChange={onChange9}
+              onClick={(e) => (e.target.value = null)}
             />
             <div className="flex items-center">
-              <button
+
+              <p>{file9 ? file9.name : ""}</p>
+
+              <label
+                htmlFor='customFile9'
                 style={{ backgroundColor: "#84abeb" }}
-                className="btn btn-default text-white rounded-md btn-outlined bg-transparent mr-4"
-                onClick={(event) => {
-                  event.preventDefault();
-                  fileInputRef.current.click();
-                }}
+                className="btn btn-default text-white rounded-md btn-outlined bg-transparent mx-2"
               >
                 select file
+              </label>
+
+              <button
+                style={{ backgroundColor: "#84abeb" }}
+                className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                type="submit"
+                disabled={disabled9}
+              >
+                Submit
               </button>
-              <p>{file ? file.name : "no file chosen yet"}</p>
+
+              {submitting9 ?
+                <div className='mb-2 w-24'>
+                  <Progress percentage={uploadPercentage9} />
+                </div>
+                : ''}
+
+              {uploadedFile9 ? (
+                <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                  <FiCheck
+                    size={18}
+                    className="stroke-current text-green-500"
+                  />
+                </span>) : null}
+
             </div>
           </div>
-        </form> */}
-
+        </form>
         <hr className="mb-2" />
 
-        {/* <form>
+        <form onSubmit={onSubmit10}>
           <div className="flex justify-between mb-5">
-            <p>Monthly Immigration returns [where applicable] <small>(pdf, jpg, png)</small></p>
+            <p>Monthly Immigration returns <span className="font-bold" style={{ color: "red" }}> * </span> <small>(pdf, jpg, png)</small></p>
             <input
-              required
+              id="customFile10"
               type="file"
               className="hidden"
-              ref={fileInputRef}
-              onChange={fileHandler}
+              onChange={onChange10}
+              onClick={(e) => (e.target.value = null)}
             />
             <div className="flex items-center">
-              <button
+
+              <p>{file10 ? file10.name : ""}</p>
+
+              <label
+                htmlFor='customFile10'
                 style={{ backgroundColor: "#84abeb" }}
-                className="btn btn-default text-white rounded-md btn-outlined bg-transparent mr-4"
-                onClick={(event) => {
-                  event.preventDefault();
-                  fileInputRef.current.click();
-                }}
+                className="btn btn-default text-white rounded-md btn-outlined bg-transparent mx-2"
               >
                 select file
+              </label>
+
+              <button
+                style={{ backgroundColor: "#84abeb" }}
+                className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                type="submit"
+                disabled={disabled10}
+              >
+                Submit
               </button>
-              <p>{file ? file.name : "no file chosen yet"}</p>
+
+              {submitting10 ?
+                <div className='mb-2 w-24'>
+                  <Progress percentage={uploadPercentage10} />
+                </div>
+                : ''}
+
+              {uploadedFile10 ? (
+                <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                  <FiCheck
+                    size={18}
+                    className="stroke-current text-green-500"
+                  />
+                </span>) : null}
+
             </div>
           </div>
-        </form> */}
-      </Widget> 
+        </form>
+        <hr className="mb-2" />
+      </Widget>
 
-      <div className="mt-12"><h6 className="p-2 font-bold">Contributions and levies</h6></div>
+      <div className="mt-12">
+        <h6 className="p-2 font-bold">Contributions and Levies</h6>
+      </div>
 
-      {/* <Widget>
-        <form>
+      <Widget>
+        <form onSubmit={onSubmit11}>
           <div className="flex justify-between mb-5">
-            <p>Development levy receipts (corporate & Individual) <span className="font-bold" style={{ color: "red" }}> * </span> <small>(pdf, jpg, png)</small>  </p>
+            <p>Development levy receipts (corporate & Individual)  <span className="font-bold" style={{ color: "red" }}> * </span> <small> (jpg, pdf, png)</small><br /><span className="flex justify-end" style={{ color: "blue" }}></span></p>
             <input
-              required
+              id="customFile11"
               type="file"
               className="hidden"
-              ref={fileInputRef}
-              onChange={fileHandler}
+              onChange={onChange11}
+              onClick={(e) => (e.target.value = null)}
             />
             <div className="flex items-center">
-              <button
+
+              <p>{file11 ? file11.name : ""}</p>
+
+              <label
+                htmlFor='customFile11'
                 style={{ backgroundColor: "#84abeb" }}
-                className="btn btn-default text-white rounded-md btn-outlined bg-transparent mr-4"
-                onClick={(event) => {
-                  event.preventDefault();
-                  fileInputRef.current.click();
-                }}
+                className="btn btn-default text-white rounded-md btn-outlined bg-transparent mx-2"
               >
                 select file
+              </label>
+
+              <button
+                style={{ backgroundColor: "#84abeb" }}
+                className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                type="submit"
+                disabled={disabled11}
+              >
+                Submit
               </button>
-              <p>{file ? file.name : "no file chosen yet"}</p>
+
+              {submitting11 ?
+                <div className='mb-2 w-24'>
+                  <Progress percentage={uploadPercentage11} />
+                </div>
+                : ''}
+
+              {uploadedFile11 ? (
+                <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                  <FiCheck
+                    size={18}
+                    className="stroke-current text-green-500"
+                  />
+                </span>) : null}
+
             </div>
           </div>
         </form>
 
         <hr className="mb-2" />
 
-        <form>
+
+        <form onSubmit={onSubmit12}>
           <div className="flex justify-between mb-5">
-            <p>Business premises receipts (corporate & Individual) <span className="font-bold" style={{ color: "red" }}> * </span> <small>(pdf, jpg, png</small> ) </p>
+            <p>Withholding tax receipts (corporate & Individual) <span className="font-bold" style={{ color: "red" }}> * </span> <small>(pdf, jpg, png)</small></p>
             <input
-              required
+              id="customFile12"
               type="file"
               className="hidden"
-              ref={fileInputRef}
-              onChange={fileHandler}
+              onChange={onChange12}
+              onClick={(e) => (e.target.value = null)}
             />
             <div className="flex items-center">
-              <button
+
+              <p>{file12 ? file12.name : ""}</p>
+
+              <label
+                htmlFor='customFile12'
                 style={{ backgroundColor: "#84abeb" }}
-                className="btn btn-default text-white rounded-md btn-outlined bg-transparent mr-4"
-                onClick={(event) => {
-                  event.preventDefault();
-                  fileInputRef.current.click();
-                }}
+                className="btn btn-default text-white rounded-md btn-outlined bg-transparent mx-2"
               >
                 select file
+              </label>
+
+              <button
+                style={{ backgroundColor: "#84abeb" }}
+                className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                type="submit"
+                disabled={disabled12}
+              >
+                Submit
               </button>
-              <p>{file ? file.name : "no file chosen yet"}</p>
+
+              {submitting12 ?
+                <div className='mb-2 w-24'>
+                  <Progress percentage={uploadPercentage12} />
+                </div>
+                : ''}
+
+              {uploadedFile12 ? (
+                <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                  <FiCheck
+                    size={18}
+                    className="stroke-current text-green-500"
+                  />
+                </span>) : null}
+
             </div>
           </div>
         </form>
 
         <hr className="mb-2" />
 
-        <form>
+        <form onSubmit={onSubmit13}>
           <div className="flex justify-between mb-5">
-            <p>Ground rent receipts (corporate & Individual) <span className="font-bold" style={{ color: "red" }}> * </span> <small>(pdf, jpg, png)</small> </p>
+            <p>Ground rent receipts (corporate & Individual)  <span className="font-bold" style={{ color: "red" }}> * </span> <small>(pdf, jpg, png)</small></p>
             <input
-              required
+              id="customFile13"
               type="file"
               className="hidden"
-              ref={fileInputRef}
-              onChange={fileHandler}
+              onChange={onChange13}
+              onClick={(e) => (e.target.value = null)}
             />
             <div className="flex items-center">
-              <button
+
+              <p>{file13 ? file13.name : ""}</p>
+
+              <label
+                htmlFor='customFile13'
                 style={{ backgroundColor: "#84abeb" }}
-                className="btn btn-default text-white rounded-md btn-outlined bg-transparent mr-4"
-                onClick={(event) => {
-                  event.preventDefault();
-                  fileInputRef.current.click();
-                }}
+                className="btn btn-default text-white rounded-md btn-outlined bg-transparent mx-2"
               >
                 select file
+              </label>
+
+              <button
+                style={{ backgroundColor: "#84abeb" }}
+                className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                type="submit"
+                disabled={disabled13}
+              >
+                Submit
               </button>
-              <p>{file ? file.name : "no file chosen yet"}</p>
+
+              {submitting13 ?
+                <div className='mb-2 w-24'>
+                  <Progress percentage={uploadPercentage13} />
+                </div>
+                : ''}
+
+              {uploadedFile13 ? (
+                <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                  <FiCheck
+                    size={18}
+                    className="stroke-current text-green-500"
+                  />
+                </span>) : null}
+
             </div>
           </div>
         </form>
 
         <hr className="mb-2" />
-        <form>
+
+        <form onSubmit={onSubmit14}>
           <div className="flex justify-between mb-5">
-            <p>Social service contributions levy (SSCL) (corporate & Individual) <span className="font-bold" style={{ color: "red" }}> * </span> <small>(pdf, jpg, png</small> ) </p>
+            <p>Social service contributions levy (SSCL) (corporate & Individual)  <span className="font-bold" style={{ color: "red" }}> * </span> <small>(pdf, jpg, png)</small></p>
             <input
-              required
+              id="customFile14"
               type="file"
               className="hidden"
-              ref={fileInputRef}
-              onChange={fileHandler}
+              onChange={onChange14}
+              onClick={(e) => (e.target.value = null)}
             />
             <div className="flex items-center">
-              <button
+
+              <p>{file14 ? file14.name : ""}</p>
+
+              <label
+                htmlFor='customFile14'
                 style={{ backgroundColor: "#84abeb" }}
-                className="btn btn-default text-white rounded-md btn-outlined bg-transparent mr-4"
-                onClick={(event) => {
-                  event.preventDefault();
-                  fileInputRef.current.click();
-                }}
+                className="btn btn-default text-white rounded-md btn-outlined bg-transparent mx-2"
               >
                 select file
+              </label>
+
+              <button
+                style={{ backgroundColor: "#84abeb" }}
+                className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                type="submit"
+                disabled={disabled14}
+              >
+                Submit
               </button>
-              <p>{file ? file.name : "no file chosen yet"}</p>
+
+              {submitting14 ?
+                <div className='mb-2 w-24'>
+                  <Progress percentage={uploadPercentage14} />
+                </div>
+                : ''}
+
+              {uploadedFile14 ? (
+                <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                  <FiCheck
+                    size={18}
+                    className="stroke-current text-green-500"
+                  />
+                </span>) : null}
+
             </div>
           </div>
         </form>
-      </Widget> */}
+      </Widget>
 
       <div className="mt-12"><h6 className="p-2 font-bold">Deductions</h6></div>
 
-      {/* <Widget>
-        <div className="flex justify-between mb-5">
-          <p>Evidence of remittance of pension <span className="font-bold" style={{ color: "red" }}> * </span> <small>(pdf, jpg, png)</small>  </p>
-          <input
-            required
-            type="file"
-            className="hidden"
-            ref={fileInputRef}
-            onChange={fileHandler}
-          />
-          <div className="flex items-center">
-            <button
-              style={{ backgroundColor: "#84abeb" }}
-              className="btn btn-default text-white rounded-md btn-outlined bg-transparent mr-4"
-              onClick={(event) => {
-                event.preventDefault();
-                fileInputRef.current.click();
-              }}
-            >
-              select file
-            </button>
-            <p>{file ? file.name : "no file chosen yet"}</p>
-          </div>
-        </div>
-
-        <hr className="mb-2" />
-
-        <form>
+      <Widget>
+      <form onSubmit={onSubmit15}>
           <div className="flex justify-between mb-5">
-            <p>Evidence of remittance of NHF <span className="font-bold" style={{ color: "red" }}> * </span> <small>(pdf, jpg, png)</small>  </p>
+            <p>Evidence of remittance of pension <span className="font-bold" style={{ color: "red" }}> * </span> <small>(pdf, jpg, png)</small></p>
             <input
-              required
+              id="customFile15"
               type="file"
               className="hidden"
-              ref={fileInputRef}
-              onChange={fileHandler}
+              onChange={onChange15}
+              onClick={(e) => (e.target.value = null)}
             />
             <div className="flex items-center">
-              <button
+
+              <p>{file15 ? file15.name : ""}</p>
+
+              <label
+                htmlFor='customFile15'
                 style={{ backgroundColor: "#84abeb" }}
-                className="btn btn-default text-white rounded-md btn-outlined bg-transparent mr-4"
-                onClick={(event) => {
-                  event.preventDefault();
-                  fileInputRef.current.click();
-                }}
+                className="btn btn-default text-white rounded-md btn-outlined bg-transparent mx-2"
               >
                 select file
+              </label>
+
+              <button
+                style={{ backgroundColor: "#84abeb" }}
+                className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                type="submit"
+                disabled={disabled15}
+              >
+                Submit
               </button>
-              <p>{file ? file.name : "no file chosen yet"}</p>
+
+              {submitting15 ?
+                <div className='mb-2 w-24'>
+                  <Progress percentage={uploadPercentage15} />
+                </div>
+                : ''}
+
+              {uploadedFile15 ? (
+                <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                  <FiCheck
+                    size={18}
+                    className="stroke-current text-green-500"
+                  />
+                </span>) : null}
+
             </div>
           </div>
         </form>
 
         <hr className="mb-2" />
 
-        <form>
+        <form onSubmit={onSubmit16}>
           <div className="flex justify-between mb-5">
-            <p>Evidence of remittance of NHIS <span className="font-bold" style={{ color: "red" }}> * </span></p>
+            <p>Evidence of remittance of NHF <span className="font-bold" style={{ color: "red" }}> * </span> <small>(pdf, jpg, png)</small></p>
             <input
-              required
+              id="customFile16"
               type="file"
               className="hidden"
-              ref={fileInputRef}
-              onChange={fileHandler}
+              onChange={onChange16}
+              onClick={(e) => (e.target.value = null)}
             />
             <div className="flex items-center">
-              <button
+
+              <p>{file16 ? file16.name : ""}</p>
+
+              <label
+                htmlFor='customFile16'
                 style={{ backgroundColor: "#84abeb" }}
-                className="btn btn-default text-white rounded-md btn-outlined bg-transparent mr-4"
-                onClick={(event) => {
-                  event.preventDefault();
-                  fileInputRef.current.click();
-                }}
+                className="btn btn-default text-white rounded-md btn-outlined bg-transparent mx-2"
               >
                 select file
+              </label>
+
+              <button
+                style={{ backgroundColor: "#84abeb" }}
+                className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                type="submit"
+                disabled={disabled16}
+              >
+                Submit
               </button>
-              <p>{file ? file.name : "no file chosen yet"}</p>
+
+              {submitting16 ?
+                <div className='mb-2 w-24'>
+                  <Progress percentage={uploadPercentage16} />
+                </div>
+                : ''}
+
+              {uploadedFile16 ? (
+                <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                  <FiCheck
+                    size={18}
+                    className="stroke-current text-green-500"
+                  />
+                </span>) : null}
+
             </div>
           </div>
         </form>
 
         <hr className="mb-2" />
 
-        <form>
+        <form onSubmit={onSubmit17}>
           <div className="flex justify-between mb-5">
-            <p>Evidence of remittance of LAP <span className="font-bold" style={{ color: "red" }}> * </span> <small>(pdf, jpg, png)</small> </p>
+            <p>Evidence of remittance of NHIS  <span className="font-bold" style={{ color: "red" }}> * </span> <small>(pdf, jpg, png)</small></p>
             <input
-              required
+              id="customFile17"
               type="file"
               className="hidden"
-              ref={fileInputRef}
-              onChange={fileHandler}
+              onChange={onChange17}
+              onClick={(e) => (e.target.value = null)}
             />
             <div className="flex items-center">
-              <button
+
+              <p>{file17 ? file17.name : ""}</p>
+
+              <label
+                htmlFor='customFile17'
                 style={{ backgroundColor: "#84abeb" }}
-                className="btn btn-default text-white rounded-md btn-outlined bg-transparent mr-4"
-                onClick={(event) => {
-                  event.preventDefault();
-                  fileInputRef.current.click();
-                }}
+                className="btn btn-default text-white rounded-md btn-outlined bg-transparent mx-2"
               >
                 select file
+              </label>
+
+              <button
+                style={{ backgroundColor: "#84abeb" }}
+                className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                type="submit"
+                disabled={disabled17}
+              >
+                Submit
               </button>
-              <p>{file ? file.name : "no file chosen yet"}</p>
+
+              {submitting17 ?
+                <div className='mb-2 w-24'>
+                  <Progress percentage={uploadPercentage17} />
+                </div>
+                : ''}
+
+              {uploadedFile17 ? (
+                <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                  <FiCheck
+                    size={18}
+                    className="stroke-current text-green-500"
+                  />
+                </span>) : null}
+
             </div>
           </div>
         </form>
-      </Widget> */}
+
+        <form onSubmit={onSubmit18}>
+          <div className="flex justify-between mb-5">
+            <p>Evidence of remittance of LAP  <span className="font-bold" style={{ color: "red" }}> * </span> <small>(pdf, jpg, png)</small></p>
+            <input
+              id="customFile18"
+              type="file"
+              className="hidden"
+              onChange={onChange18}
+              onClick={(e) => (e.target.value = null)}
+            />
+            <div className="flex items-center">
+
+              <p>{file18 ? file18.name : ""}</p>
+
+              <label
+                htmlFor='customFile18'
+                style={{ backgroundColor: "#84abeb" }}
+                className="btn btn-default text-white rounded-md btn-outlined bg-transparent mx-2"
+              >
+                select file
+              </label>
+
+              <button
+                style={{ backgroundColor: "#84abeb" }}
+                className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                type="submit"
+                disabled={disabled18}
+              >
+                Submit
+              </button>
+
+              {submitting18 ?
+                <div className='mb-2 w-24'>
+                  <Progress percentage={uploadPercentage18} />
+                </div>
+                : ''}
+
+              {uploadedFile18 ? (
+                <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                  <FiCheck
+                    size={18}
+                    className="stroke-current text-green-500"
+                  />
+                </span>) : null}
+
+            </div>
+          </div>
+        </form>
+      </Widget>
 
     </>
   );
