@@ -102,7 +102,7 @@ export const ViewAnnualTable = ({ remittance, total }) => {
                 ))}
               </tr>
             ))}
-              
+
             {/* {items.length > 0 && (            
               <tr className="font-semibold">
                 
@@ -142,8 +142,19 @@ export const ViewAnnualTable = ({ remittance, total }) => {
         </table>
         <div className="mt-10"></div>
         <hr />
-        <div className="flex">Total</div>
-        <p>{total}</p>
+        <div className="flex justify-end">         
+          <p className="px-6">Total</p>
+
+          <div className="flex flex-col">
+            <p className="px-6 pb-1">employees</p>
+            <p className="self-center">{total}</p>
+          </div>
+
+          <p className="px-6">Gross Salary</p>
+          <p className="px-6">Expected</p>
+          <p className="px-6">Variance</p>
+        </div>
+        {/* <div>{total}</div> */}
       </Widget>
     </>
   );
