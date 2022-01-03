@@ -2263,7 +2263,6 @@ const AnnualCSVUploadForm = () => {
                     className="stroke-current text-green-500"
                   />
                 </span>) : null}
-
             </div>
           </div>
         </form>
