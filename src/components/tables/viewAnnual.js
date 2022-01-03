@@ -62,7 +62,7 @@ const fields = [
 ];
 // const fields = [{ name: "title" }, { name: "userId" }];
 
-export const ViewAnnualTable = ({ remittance, total }) => {
+export const ViewAnnualTable = ({ remittance, totalemployees, totaltax }) => {
   let items = remittance;
   remittance.map((remittance) => {
     remittance["amount"] = formatNumber(remittance["amount"]);
@@ -140,18 +140,23 @@ export const ViewAnnualTable = ({ remittance, total }) => {
             ))} */}
           </tbody>
         </table>
-        <div className="mt-10"></div>
+        <div className="mt-16"></div>
         <hr />
-        <div className="flex justify-end">         
-          <p className="px-6">Total</p>
+        <div className="flex justify-end">
+          <p className="px-6 font-semibold">Total</p>
 
           <div className="flex flex-col">
             <p className="px-6 pb-1">employees</p>
-            <p className="self-center">{total}</p>
+            <p className="self-center font-semibold">{totalemployees}</p>
           </div>
 
           <p className="px-6">Gross Salary</p>
-          <p className="px-6">Expected</p>
+
+          <div className="flex flex-col">
+            <p className="px-6 pb-1">Expected</p>
+            <p className="self-center font-semibold">{formatNumber(totaltax)}</p>
+          </div>
+
           <p className="px-6">Variance</p>
         </div>
         {/* <div>{total}</div> */}

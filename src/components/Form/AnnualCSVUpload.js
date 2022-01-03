@@ -1107,7 +1107,7 @@ const AnnualCSVUploadForm = () => {
     let employer_id = 1004124549
     const formData = new FormData();
     formData.append('employer_id', employer_id);
-    formData.append('sscl_levy', file14);
+    formData.append('sscl', file14);
 
     setAuthToken();
     setSubmitting14(true)
@@ -2263,6 +2263,7 @@ const AnnualCSVUploadForm = () => {
                     className="stroke-current text-green-500"
                   />
                 </span>) : null}
+
             </div>
           </div>
         </form>

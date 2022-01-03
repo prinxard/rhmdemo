@@ -96,7 +96,6 @@ const AnnualUploadForm = () => {
   const handleUpload = async (data) => {
     // let payPeriod = `${data.year}-${data.month}-01`;
     let payPeriod = `${data.year}`;
-    console.log(payPeriod);
     const formData = new FormData();
     formData.append('payPeriod', payPeriod);
     formData.append('csv', file);
