@@ -1,4 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
+import Widget1 from '../../components/dashboard/widget-1';
+import * as Icons from '../../components/Icons/index';
 import { useForm } from 'react-hook-form';
 import { useSelector, shallowEqual } from 'react-redux';
 import Widget from '../widget';
@@ -8,7 +10,7 @@ import { FiX, FiCheck } from 'react-icons/fi';
 import setAuthToken from '../../functions/setAuthToken';
 import { ProcessorSpinner, Progress } from '../spiner/index';
 
-const AnnualCSVUploadForm = () => {
+const ViewAnnualDoc = () => {
   //handle file
   const [file, setFile] = useState(null);
   const [file2, setFile2] = useState(null);
@@ -1361,7 +1363,43 @@ const AnnualCSVUploadForm = () => {
       {/* <TokenModalsOverlay>
         <TokenModals />
       </TokenModalsOverlay> */}
-      <h6 className="p-2 font-bold">Correspondence</h6>
+       <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
+            <div className="w-full lg:w-1/4">
+              <Widget1
+                color="green"
+                title="Total remittance"
+                // description={formatNumber(data[0].totalRemittance)}
+                right={<Icons.TotalRemittance />}
+              />
+            </div>
+
+            <div className="w-full lg:w-1/4">
+              <Widget1
+                color="red"
+                title="Pending Remittance"
+                // description={formatNumber(data[0].pendingRemittance)}
+                right={<Icons.PendingRemittance />}
+              />
+            </div>
+
+            <div className="w-full lg:w-1/4">
+              <Widget1
+                color="blue"
+                title="Revenue Items"
+                // description={formatNumber(data[0].revenueItems)}
+                right={<Icons.RevenueItems />}
+              />
+            </div>
+
+            <div className="w-full lg:w-1/4">
+              <Widget1
+                color="yellow"
+                title="Tax receipts"
+                // description={formatNumber(data[0].taxReceipts)}
+                right={<Icons.TaxReceipt />}
+              />
+            </div>
+          </div>
       <Widget>
         <div>
           <form onSubmit={onSubmit}>
@@ -2311,4 +2349,4 @@ const AnnualCSVUploadForm = () => {
   );
 };
 
-export default AnnualCSVUploadForm;
+export default ViewAnnualDoc;

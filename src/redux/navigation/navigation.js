@@ -72,12 +72,14 @@ const initialState = [
             title: 'PAYE Annual',
             items: [
               { title: 'Upload CSV', url: '/uploads/annual', items: [] },
-              { title: 'Upload Document', url: '/uploads/annualcsv', items: [] },
               {
                 title: 'View',
                 url: '/view/annual',
                 items: [],
               },
+              { title: 'Upload Document', url: '/uploads/annualcsv', items: [] },
+              { title: 'View document', url: '/view/documentation', items: [] },
+            
             ],
           },
           {
