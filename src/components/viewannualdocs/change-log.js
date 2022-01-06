@@ -1,6 +1,9 @@
+import React, {useEffect, useState} from 'react'
 import Widget from "../widget";
-import { formatNumber } from "../../functions/numbers";
+import axios from 'axios';
+import url from "../../config/url";
 import Link from "next/link";
+import setAuthToken from '../../functions/setAuthToken';
 
 const fields = [
   {
@@ -336,20 +339,30 @@ let remittance = [
 ]
 
 export const ChangeLog = () => {
-  let items = remittance;
-  items.map(item => {
-    console.log(item.sscl);
-  })
-  // remittance.map((remittance) => {
-  //   remittance["amount"] = formatNumber(remittance["amount"]);
-  //   if (remittance["status"] === 1) {
-  //     remittance["status"] = "success";
-  //   } else if (remittance["status"] === 0) {
-  //     remittance["status"] = "failed";
-  //   }
-  //   return remittance;
-  // });
-  // console.log(items);
+  const [uploadedDocs, setDocuments] = useState([])
+  setAuthToken();
+  useEffect(() => {
+    const fetchDocs = async () => {
+      const year = {
+        "year": 2021
+      }
+      try {
+        const result = await axios.post(`${url.BASE_URL}annual/view-annual-uploads`, year);
+        let docs = result.data.body;
+        let uploadedDocs = docs;
+        console.log(uploadedDocs);
+        // console.log(docs);
+        // console.log(userDet);
+      } catch (error) {
+        console.log('Error', error);
+      }
+    };
+    fetchDocs();
+  }, []);
+  // let items = remittance;
+  // items.map(item => {
+  //   console.log(item.sscl);
+  // })
 
   return (
     <>
@@ -365,24 +378,14 @@ export const ChangeLog = () => {
             </tr>
           </thead> */}
           <tbody className="divide-y">
-            {/* {items.map((remittance, i) => (
-              <tr key={i} className="">
-                {fields.map((field, j) => (
-                  <td key={j} className="">
-                    {remittance[field.key]}
-                  </td>
-                ))}
-              </tr>
-            ))} */}
             <tr>
-
               <td>Submission letter</td>
-              {/* {remittance.map((field, i) => (
+              {uploadedDocs.map((field, i) => (
                 
                 <Link href={`https://annualuploads.bespoque.dev/annual-returns/mnthly_pay_sched/${field.mnthly_pay_sched}`}>
                   <a ><td key={i}></td>Download</a>
                 </Link>
-              ))} */}
+              ))}
               {/* https://annualuploads.bespoque.dev/annual-returns/cover_letter/cover_letter_1641284594671.png */}
 
             </tr>

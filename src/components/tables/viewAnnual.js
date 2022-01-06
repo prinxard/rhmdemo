@@ -3,10 +3,10 @@ import { formatNumber } from "../../functions/numbers";
 import Link from "next/link";
 
 const fields = [
-  {
-    name: "Tax ID",
-    key: "id",
-  },
+  // {
+  //   name: "Tax ID",
+  //   key: "id",
+  // },
   {
     name: "Staff names",
     key: "staff_names",
@@ -103,42 +103,6 @@ export const ViewAnnualTable = ({ remittance, totalemployees, totaltax, grosssum
                 ))}
               </tr>
             ))}
-
-            {/* {items.length > 0 && (            
-              <tr className="font-semibold">
-                
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-               
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>Total</td>
-                <td>{formatNumber(total)}</td>
-              </tr>
-            )} */}
-
-            {/* {posts.map((post, i) => (
-              <tr key={post.id} className="">
-                {fields.map((field, j) => (
-                  <td key={j} className="">
-                    <Link href={`/view/annual/${post.id}`}>
-                      <a className="hover:text-blue-500">{post.title}</a>
-                    </Link>
-                  </td>
-                ))}
-              </tr>
-            ))} */}
           </tbody>
         </table>
         <div className="mt-16"></div>
