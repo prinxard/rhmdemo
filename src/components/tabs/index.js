@@ -142,7 +142,7 @@ export const UnderlinedTabs = ({ tabs }) => {
   const [openTab, setOpenTab] = useState(0);
   return (
     <div className="flex flex-wrap flex-col w-full tabs">
-      <div className="flex lg:flex-wrap flex-row lg:space-x-2">
+      <div className="flex lg:flex-wrap flex-row lg:space-x-2 justify-evenly mt-3">
         {tabs.map((tab, key) => (
           <div key={key} className="flex-none">
             <button
@@ -188,7 +188,7 @@ UnderlinedTabs.propTypes = {
 export const DefaultTabs = ({ tabs }) => {
   const [openTab, setOpenTab] = useState(0);
   return (
-    <div className="flex flex-wrap flex-col w-full tabs">
+    <div className="flex flex-wrap flex-col w-full ">
       <div className="flex lg:flex-wrap flex-row lg:space-x-2">
         {tabs.map((tab, key) => (
           <div key={key} className="flex-none">

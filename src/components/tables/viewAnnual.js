@@ -62,7 +62,7 @@ const fields = [
 ];
 // const fields = [{ name: "title" }, { name: "userId" }];
 
-export const ViewAnnualTable = ({ remittance, totalemployees, totaltax }) => {
+export const ViewAnnualTable = ({ remittance, totalemployees, totaltax, grosssum }) => {
   let items = remittance;
   remittance.map((remittance) => {
     remittance["amount"] = formatNumber(remittance["amount"]);
@@ -93,11 +93,12 @@ export const ViewAnnualTable = ({ remittance, totalemployees, totaltax }) => {
               <tr key={i} className="">
                 {fields.map((field, j) => (
                   <td key={j} className="">
-                    <Link href={`/dashboard/${remittance["ref"]}`}>
+                    {remittance[field.key]}
+                    {/* <Link href={`/dashboard/${remittance["ref"]}`}>
                       <a className="hover:text-blue-500">
                         {remittance[field.key]}
                       </a>
-                    </Link>
+                    </Link> */}
                   </td>
                 ))}
               </tr>
@@ -150,7 +151,10 @@ export const ViewAnnualTable = ({ remittance, totalemployees, totaltax }) => {
             <p className="self-center font-semibold">{totalemployees}</p>
           </div>
 
-          <p className="px-6">Gross Salary</p>
+          <div className="flex flex-col">
+            <p className="px-6 pb-1">Gross Salary</p>
+            {/* <p className="self-center font-semibold">{formatNumber(grosssum)}</p> */}
+          </div>
 
           <div className="flex flex-col">
             <p className="px-6 pb-1">Expected</p>

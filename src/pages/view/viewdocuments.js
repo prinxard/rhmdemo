@@ -4,17 +4,17 @@ import {
   Intro,
   Instructions,
   TemplateStructure
-} from '../../components/documentation/installation'
+} from '../../components/viewannualdocs/installation'
 import {
   CodeStructure,
   NamingConventions,
   Folders,
   Files
-} from '../../components/documentation/code-structure'
-import {Customization} from '../../components/documentation/faq'
-// import {Credits} from '../.../components/documentation/credits'
-import {ChangeLog} from '../../components/documentation/change-log'
-import {Tree} from '../../components/documentation/tree'
+} from '../../components/viewannualdocs/code-structure'
+import {Customization} from '../../components/viewannualdocs/faq'
+import {Credits} from '../../components/viewannualdocs/credits'
+import {ChangeLog} from '../../components/viewannualdocs/change-log'
+import {Tree} from '../../components/viewannualdocs/tree'
 
 const InstallationTab = () => (
   <div className="w-full">
@@ -42,7 +42,7 @@ const FaqTab = () => (
 
 const CreditsTab = () => (
   <div className="w-full">
-    {/* <Credits /> */}
+    <Credits />
   </div>
 )
 
@@ -54,16 +54,16 @@ const ChangeLogTab = () => (
 
 const Index = () => {
   const tabs = [
-    {index: 0, title: '2017', content: <InstallationTab />},
-    {index: 1, title: 'Code structure', content: <CodeStructureTab />},
-    {index: 2, title: 'FAQ', content: <FaqTab />},
-    {index: 3, title: 'Credits', content: <CreditsTab />},
-    {index: 4, title: 'Change log', content: <ChangeLogTab />}
+    // {index: 0, title: '2017', content: <InstallationTab />},
+    // {index: 1, title: '2018', content: <CodeStructureTab />},
+    // {index: 2, title: '2019', content: <FaqTab />},
+    // {index: 4, title: '2020', content: <CreditsTab />},
+    {index: 0, title: '2021', content: <ChangeLogTab />}
   ]
   return (
     <>
-      <SectionTitle title="Documentation" subtitle="Dashboard documentation" />
-      <div className="flex flex-wrap">
+      <SectionTitle title="" subtitle="View uploaded documents" />
+      <div className="flex ">
         <div className="w-full">
           <UnderlinedTabs tabs={tabs} />
         </div>

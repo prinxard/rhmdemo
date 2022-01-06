@@ -78,7 +78,7 @@ const initialState = [
                 items: [],
               },
               { title: 'Upload Document', url: '/uploads/annualcsv', items: [] },
-              { title: 'View document', url: '/view/documentation', items: [] },
+              { title: 'View document', url: '/view/viewdocuments', items: [] },
             
             ],
           },
