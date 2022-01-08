@@ -4,9 +4,11 @@ import axios from 'axios';
 import url from "../../config/url";
 import Link from "next/link";
 import setAuthToken from '../../functions/setAuthToken';
+import Loader from 'react-loader-spinner';
 
-export const ChangeLog = () => {
+export const ViewDocs = () => {
   const [uploadedDocs, setDocuments] = useState([])
+  const [isFetching, setIsFetching] = useState(() => true);
   setAuthToken();
   useEffect(() => {
     const fetchDocs = async () => {
@@ -17,9 +19,12 @@ export const ChangeLog = () => {
         const result = await axios.post(`${url.BASE_URL}annual/view-annual-uploads`, year);
         let docs = result.data.body;
         setDocuments(docs)
-        // console.log(uploadedDocs);
-      } catch (error) {
+        setIsFetching(false);
+      }
+
+      catch (error) {
         console.log('Error', error);
+        setIsFetching(false);
       }
     };
     fetchDocs();
@@ -138,6 +143,21 @@ export const ChangeLog = () => {
 
   return (
     <>
+      {isFetching && (
+        <div className="flex justify-center item mb-2">
+          <Loader
+            visible={isFetching}
+            type="BallTriangle"
+            color="#00FA9A"
+            height={19}
+            width={19}
+            timeout={0}
+            className="ml-2"
+          />
+          <p>Fetching data...</p>
+        </div>
+      )}
+
       <div className="grid justify-items-start">
 
         <div className="font-semibold">

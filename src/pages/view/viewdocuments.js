@@ -13,7 +13,7 @@ import {
 } from '../../components/viewannualdocs/code-structure'
 import {Customization} from '../../components/viewannualdocs/faq'
 import {Credits} from '../../components/viewannualdocs/credits'
-import {ChangeLog} from '../../components/viewannualdocs/change-log'
+import {ChangeLog, ViewDocs} from '../../components/viewannualdocs/view-annual-doc'
 import {Tree} from '../../components/viewannualdocs/tree'
 
 const InstallationTab = () => (
@@ -48,7 +48,7 @@ const CreditsTab = () => (
 
 const ChangeLogTab = () => (
   <div className="w-full">
-    <ChangeLog />
+    <ViewDocs />
   </div>
 )
 
