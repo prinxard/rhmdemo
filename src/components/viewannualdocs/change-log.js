@@ -67,6 +67,74 @@ export const ChangeLog = () => {
   })
   const TrialBal21 = TrialBal.filter(item => item !== null && item !== "")
 
+  const withHoldingTaxDeduct = uploadedDocs.map(function (doc) {
+    let withTax = doc.wht_tax_deduct
+    return withTax
+  })
+  const withTaxD = withHoldingTaxDeduct.filter(item => item !== null && item !== "")
+
+  const withHoldingTaxReceipt = uploadedDocs.map(function (doc) {
+    let withTaxRec = doc.wht_tax_receipts
+    return withTaxRec
+  })
+  const withTaxR = withHoldingTaxReceipt.filter(item => item !== null && item !== "")
+
+  const monthlyImmigrationReturn = uploadedDocs.map(function (doc) {
+    let monthlyImm = doc.mnthly_immi_returns
+    return monthlyImm
+  })
+  const monthlyImmR = monthlyImmigrationReturn.filter(item => item !== null && item !== "")
+
+  const devLevyReceipts = uploadedDocs.map(function (doc) {
+    let devLevy = doc.dev_levy_receipts
+    return devLevy
+  })
+  const devLevyR = devLevyReceipts.filter(item => item !== null && item !== "")
+
+  const busPremReceipts = uploadedDocs.map(function (doc) {
+    let busPrem = doc.bus_premises_receipt
+    return busPrem
+  })
+  const busPremisesR = busPremReceipts.filter(item => item !== null && item !== "")
+
+  const groundRentReceipts = uploadedDocs.map(function (doc) {
+    let groundRen = doc.grnd_rent_receipts
+    return groundRen
+  })
+  const groundRentR = groundRentReceipts.filter(item => item !== null && item !== "")
+
+  const sscl = uploadedDocs.map(function (doc) {
+    let ssclR = doc.sscl
+    return ssclR
+  })
+  const SSCLevy = sscl.filter(item => item !== null && item !== "")
+
+  const pensionRemittance = uploadedDocs.map(function (doc) {
+    let pensionRem = doc.pension_remittance
+    return pensionRem
+  })
+  const pensionR = pensionRemittance.filter(item => item !== null && item !== "")
+
+  const nhfRemittance = uploadedDocs.map(function (doc) {
+    let nhfRem = doc.nhf_remittance
+    return nhfRem
+  })
+  const nhfR = nhfRemittance.filter(item => item !== null && item !== "")
+
+  const nhisRemittance = uploadedDocs.map(function (doc) {
+    let nhisRem = doc.nhis_remittance
+    return nhisRem
+  })
+  const nhisR = nhisRemittance.filter(item => item !== null && item !== "")
+
+  const lapRemittance = uploadedDocs.map(function (doc) {
+    let lapRem = doc.lap_remittance
+    return lapRem
+  })
+  const lapR = lapRemittance.filter(item => item !== null && item !== "")
+
+
+
 
   return (
     <>
@@ -203,41 +271,190 @@ export const ChangeLog = () => {
 
       <hr />
 
-      {/* <div className="grid justify-items-start">
-
+      <div className="grid justify-items-start">
         <div className="font-semibold">
-          Monthly payroll schedule
+          Schedule of withholding tax deductions
         </div>
-
-        <div>
-          {monthlyPayrollS.map((element, i) => (
+        <div className="flex">
+          {withTaxD.map((element, i) => (
             <div key={i} className="p-2">
-              <Link href={`https://annualuploads.bespoque.dev/annual-returns/mnthly_pay_sched/${element}`}>
+              <Link href={`https://annualuploads.bespoque.dev/annual-returns/wht_tax_deduct/${element}`}>
                 <a className="underline underline-offset-4 text-blue-600">Download</a>
               </Link>
             </div>
           ))}
         </div>
-
-      </div> */}
+      </div>
 
       <hr />
 
+      <div className="grid justify-items-start">
+        <div className="font-semibold">
+          Withholding tax receipts
+        </div>
+        <div className="flex">
+          {withTaxR.map((element, i) => (
+            <div key={i} className="p-2">
+              <Link href={`https://annualuploads.bespoque.dev/annual-returns/wht_tax_receipts/${element}`}>
+                <a className="underline underline-offset-4 text-blue-600">Download</a>
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
 
+      <hr />
 
+      <div className="grid justify-items-start">
+        <div className="font-semibold">
+          Monthly Immigration returns
+        </div>
+        <div className="flex">
+          {monthlyImmR.map((element, i) => (
+            <div key={i} className="p-2">
+              <Link href={`https://annualuploads.bespoque.dev/annual-returns/mnthly_immi_returns/${element}`}>
+                <a className="underline underline-offset-4 text-blue-600">Download</a>
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
 
+      <hr />
 
+      <div className="grid justify-items-start">
+        <div className="font-semibold">
+          Development levy receipts
+        </div>
+        <div className="flex">
+          {devLevyR.map((element, i) => (
+            <div key={i} className="p-2">
+              <Link href={`https://annualuploads.bespoque.dev/annual-returns/dev_levy_receipts/${element}`}>
+                <a className="underline underline-offset-4 text-blue-600">Download</a>
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
 
+      <hr />
 
+      <div className="grid justify-items-start">
+        <div className="font-semibold">
+          Business premises receipts
+        </div>
+        <div className="flex">
+          {busPremisesR.map((element, i) => (
+            <div key={i} className="p-2">
+              <Link href={`https://annualuploads.bespoque.dev/annual-returns/bus_premises_receipt/${element}`}>
+                <a className="underline underline-offset-4 text-blue-600">Download</a>
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
 
+      <hr />
 
+      <div className="grid justify-items-start">
+        <div className="font-semibold">
+          Ground rent receipts
+        </div>
+        <div className="flex">
+          {groundRentR.map((element, i) => (
+            <div key={i} className="p-2">
+              <Link href={`https://annualuploads.bespoque.dev/annual-returns/grnd_rent_receipts/${element}`}>
+                <a className="underline underline-offset-4 text-blue-600">Download</a>
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
 
+      <hr />
 
+      <div className="grid justify-items-start">
+        <div className="font-semibold">
+          Social service contributions levy
+        </div>
+        <div className="flex">
+          {SSCLevy.map((element, i) => (
+            <div key={i} className="p-2">
+              <Link href={`https://annualuploads.bespoque.dev/annual-returns/sscl/${element}`}>
+                <a className="underline underline-offset-4 text-blue-600">Download</a>
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
 
+      <hr />
 
+      <div className="grid justify-items-start">
+        <div className="font-semibold">
+          Evidence of remittance of pension
+        </div>
+        <div className="flex">
+          {pensionR.map((element, i) => (
+            <div key={i} className="p-2">
+              <Link href={`https://annualuploads.bespoque.dev/annual-returns/pension_remittance/${element}`}>
+                <a className="underline underline-offset-4 text-blue-600">Download</a>
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
 
+      <hr />
 
+      <div className="grid justify-items-start">
+        <div className="font-semibold">
+          Evidence of remittance of NHF
+        </div>
+        <div className="flex">
+          {nhfR.map((element, i) => (
+            <div key={i} className="p-2">
+              <Link href={`https://annualuploads.bespoque.dev/annual-returns/nhf_remittance/${element}`}>
+                <a className="underline underline-offset-4 text-blue-600">Download</a>
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
 
+      <hr />
+
+      <div className="grid justify-items-start">
+        <div className="font-semibold">
+          Evidence of remittance of NHIS
+        </div>
+        <div className="flex">
+          {nhisR.map((element, i) => (
+            <div key={i} className="p-2">
+              <Link href={`https://annualuploads.bespoque.dev/annual-returns/nhis_remittance/${element}`}>
+                <a className="underline underline-offset-4 text-blue-600">Download</a>
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <hr />
+
+      <div className="grid justify-items-start">
+        <div className="font-semibold">
+          Evidence of remittance of LAP
+        </div>
+        <div className="flex">
+          {lapR.map((element, i) => (
+            <div key={i} className="p-2">
+              <Link href={`https://annualuploads.bespoque.dev/annual-returns/lap_remittance/${element}`}>
+                <a className="underline underline-offset-4 text-blue-600">Download</a>
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
     </>
   );
 };

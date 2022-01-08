@@ -1953,7 +1953,7 @@ const AnnualCSVUploadForm = () => {
 
         <form onSubmit={onSubmit12}>
           <div className="flex justify-between mb-5">
-            <p>Withholding tax receipts (corporate & Individual) <span className="font-bold" style={{ color: "red" }}> * </span> <small>(pdf, jpg, png)</small></p>
+            <p>Business premises receipts (corporate & Individual) <span className="font-bold" style={{ color: "red" }}> * </span> <small>(pdf, jpg, png)</small></p>
             <input
               id="customFile12"
               type="file"
