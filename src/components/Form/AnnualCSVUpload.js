@@ -559,7 +559,7 @@ const AnnualCSVUploadForm = () => {
     const year = String(new Date().getFullYear() - 1);
     const formData = new FormData();
     formData.append('employer_id', employer_id);
-    formData.append('indv_return_letter', file);
+    formData.append('cover_letter', file);
     formData.append('year', year);
     setAuthToken();
     setSubmitting(true)

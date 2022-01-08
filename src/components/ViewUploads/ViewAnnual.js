@@ -25,7 +25,8 @@ const ViewAnnual = () => {
     const fetchPost = async () => {
       try {
         let res = await axios.get(`${url.BASE_URL}annual/view-annual`);
-        res = res.data.body;
+        // res = res.data.body;
+        console.log(res)
         let employeessTotal = res.length
         setTotalemp(employeessTotal)
         let records = [];
@@ -120,7 +121,7 @@ const ViewAnnual = () => {
             </>
           ) : (
             <>
-              <ViewAnnualTable remittance={currentPosts} totalemployees={totalemp} totaltax = {sum}/>
+              <ViewAnnualTable remittance={currentPosts} totalemployees={totalemp} totaltax={sum} />
               <CustomPagination
                 paginate={paginate}
                 totalPosts={post.length}

@@ -55,15 +55,12 @@ const fields = [
     name: "Year",
     key: "year",
   },
-  // {
-  //   name: "Remark",
-  //   key: "remark",
-  // },
+
 ];
-// const fields = [{ name: "title" }, { name: "userId" }];
 
 export const ViewAnnualTable = ({ remittance, totalemployees, totaltax, grosssum }) => {
   let items = remittance;
+  // console.log(items)
   remittance.map((remittance) => {
     remittance["amount"] = formatNumber(remittance["amount"]);
     if (remittance["status"] === 1) {
@@ -73,7 +70,6 @@ export const ViewAnnualTable = ({ remittance, totalemployees, totaltax, grosssum
     }
     return remittance;
   });
-  // console.log(items);
 
   return (
     <>
