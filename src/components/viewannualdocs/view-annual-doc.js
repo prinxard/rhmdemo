@@ -167,9 +167,7 @@ export const ViewDocs = () => {
         <div className="flex">
           {coverL.map((element, i) => (
             <div key={i} className="p-2">
-              <Link href={`https://annualuploads.bespoque.dev/annual-returns/cover_letter/${element}`} >
-                <a className="underline underline-offset-4 text-blue-600">Download</a>
-              </Link>
+              <a href={`https://annualuploads.bespoque.dev/annual-returns/cover_letter/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
             </div>
           ))}
         </div>
@@ -190,9 +188,7 @@ export const ViewDocs = () => {
         <div className="flex">
           {indReturnL.map((element, i) => (
             <div key={i} className="p-2">
-              <Link href={`https://annualuploads.bespoque.dev/annual-returns/indv_return_letter/${element}`} target="_blank">
-                <a className="underline underline-offset-4 text-blue-600">Download</a>
-              </Link>
+              <a href={`https://annualuploads.bespoque.dev/annual-returns/indv_return_letter/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
             </div>
           ))}
         </div>
@@ -208,9 +204,7 @@ export const ViewDocs = () => {
         <div className="flex">
           {expertriateL.map((element, i) => (
             <div key={i} className="p-2">
-              <Link href={`https://annualuploads.bespoque.dev/annual-returns/exp_order_letter/${element}`}>
-                <a className="underline underline-offset-4 text-blue-600">Download</a>
-              </Link>
+              <a href={`https://annualuploads.bespoque.dev/annual-returns/exp_order_letter/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
             </div>
           ))}
         </div>
@@ -227,9 +221,7 @@ export const ViewDocs = () => {
         <div className="flex">
           {monthlyPayrollS.map((element, i) => (
             <div key={i} className="p-2">
-              <Link href={`https://annualuploads.bespoque.dev/annual-returns/mnthly_pay_sched/${element}`}>
-                <a className="underline underline-offset-4 text-blue-600">Download</a>
-              </Link>
+              <a href={`https://annualuploads.bespoque.dev/annual-returns/mnthly_pay_sched/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
             </div>
           ))}
         </div>
@@ -246,9 +238,7 @@ export const ViewDocs = () => {
         <div className="flex">
           {evidenceOfPayeR.map((element, i) => (
             <div key={i} className="p-2">
-              <Link href={`https://annualuploads.bespoque.dev/annual-returns/paye_remittance/${element}`}>
-                <a className="underline underline-offset-4 text-blue-600">Download</a>
-              </Link>
+              <a href={`https://annualuploads.bespoque.dev/annual-returns/paye_remittance/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
             </div>
           ))}
         </div>
@@ -264,9 +254,7 @@ export const ViewDocs = () => {
         <div className="flex">
           {exitStaffL.map((element, i) => (
             <div key={i} className="p-2">
-              <Link href={`https://annualuploads.bespoque.dev/annual-returns/exit_staff_list/${element}`}>
-                <a className="underline underline-offset-4 text-blue-600">Download</a>
-              </Link>
+              <a target="_blank" href={`https://annualuploads.bespoque.dev/annual-returns/exit_staff_list/${element}`} className="underline underline-offset-4 text-blue-600">Download</a>
             </div>
           ))}
         </div>
@@ -281,9 +269,7 @@ export const ViewDocs = () => {
         <div className="flex">
           {TrialBal21.map((element, i) => (
             <div key={i} className="p-2">
-              <Link href={`https://annualuploads.bespoque.dev/annual-returns/endyr_trial_bal/${element}`}>
-                <a className="underline underline-offset-4 text-blue-600">Download</a>
-              </Link>
+              <a target="_blank" href={`https://annualuploads.bespoque.dev/annual-returns/endyr_trial_bal/${element}`} className="underline underline-offset-4 text-blue-600">Download</a>
             </div>
           ))}
         </div>
@@ -298,9 +284,7 @@ export const ViewDocs = () => {
         <div className="flex">
           {withTaxD.map((element, i) => (
             <div key={i} className="p-2">
-              <Link href={`https://annualuploads.bespoque.dev/annual-returns/wht_tax_deduct/${element}`}>
-                <a className="underline underline-offset-4 text-blue-600">Download</a>
-              </Link>
+              <a href={`https://annualuploads.bespoque.dev/annual-returns/wht_tax_deduct/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
             </div>
           ))}
         </div>
@@ -315,9 +299,7 @@ export const ViewDocs = () => {
         <div className="flex">
           {withTaxR.map((element, i) => (
             <div key={i} className="p-2">
-              <Link href={`https://annualuploads.bespoque.dev/annual-returns/wht_tax_receipts/${element}`}>
-                <a className="underline underline-offset-4 text-blue-600">Download</a>
-              </Link>
+              <a href={`https://annualuploads.bespoque.dev/annual-returns/wht_tax_receipts/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
             </div>
           ))}
         </div>
@@ -332,9 +314,7 @@ export const ViewDocs = () => {
         <div className="flex">
           {monthlyImmR.map((element, i) => (
             <div key={i} className="p-2">
-              <Link href={`https://annualuploads.bespoque.dev/annual-returns/mnthly_immi_returns/${element}`}>
-                <a className="underline underline-offset-4 text-blue-600">Download</a>
-              </Link>
+              <a target="_blank" href={`https://annualuploads.bespoque.dev/annual-returns/mnthly_immi_returns/${element}`} className="underline underline-offset-4 text-blue-600">Download</a>
             </div>
           ))}
         </div>
@@ -349,9 +329,7 @@ export const ViewDocs = () => {
         <div className="flex">
           {devLevyR.map((element, i) => (
             <div key={i} className="p-2">
-              <Link href={`https://annualuploads.bespoque.dev/annual-returns/dev_levy_receipts/${element}`}>
-                <a className="underline underline-offset-4 text-blue-600">Download</a>
-              </Link>
+              <a target="_blank" href={`https://annualuploads.bespoque.dev/annual-returns/dev_levy_receipts/${element}`} className="underline underline-offset-4 text-blue-600">Download</a>
             </div>
           ))}
         </div>
@@ -366,9 +344,7 @@ export const ViewDocs = () => {
         <div className="flex">
           {busPremisesR.map((element, i) => (
             <div key={i} className="p-2">
-              <Link href={`https://annualuploads.bespoque.dev/annual-returns/bus_premises_receipt/${element}`}>
-                <a className="underline underline-offset-4 text-blue-600">Download</a>
-              </Link>
+              <a href={`https://annualuploads.bespoque.dev/annual-returns/bus_premises_receipt/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
             </div>
           ))}
         </div>
@@ -383,9 +359,7 @@ export const ViewDocs = () => {
         <div className="flex">
           {groundRentR.map((element, i) => (
             <div key={i} className="p-2">
-              <Link href={`https://annualuploads.bespoque.dev/annual-returns/grnd_rent_receipts/${element}`}>
-                <a className="underline underline-offset-4 text-blue-600">Download</a>
-              </Link>
+              <a href={`https://annualuploads.bespoque.dev/annual-returns/grnd_rent_receipts/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
             </div>
           ))}
         </div>
@@ -400,9 +374,7 @@ export const ViewDocs = () => {
         <div className="flex">
           {SSCLevy.map((element, i) => (
             <div key={i} className="p-2">
-              <Link href={`https://annualuploads.bespoque.dev/annual-returns/sscl/${element}`}>
-                <a className="underline underline-offset-4 text-blue-600">Download</a>
-              </Link>
+              <a href={`https://annualuploads.bespoque.dev/annual-returns/sscl/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
             </div>
           ))}
         </div>
@@ -417,9 +389,7 @@ export const ViewDocs = () => {
         <div className="flex">
           {pensionR.map((element, i) => (
             <div key={i} className="p-2">
-              <Link href={`https://annualuploads.bespoque.dev/annual-returns/pension_remittance/${element}`}>
-                <a className="underline underline-offset-4 text-blue-600">Download</a>
-              </Link>
+              <a href={`https://annualuploads.bespoque.dev/annual-returns/pension_remittance/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
             </div>
           ))}
         </div>
@@ -434,9 +404,7 @@ export const ViewDocs = () => {
         <div className="flex">
           {nhfR.map((element, i) => (
             <div key={i} className="p-2">
-              <Link href={`https://annualuploads.bespoque.dev/annual-returns/nhf_remittance/${element}`}>
-                <a className="underline underline-offset-4 text-blue-600">Download</a>
-              </Link>
+              <a href={`https://annualuploads.bespoque.dev/annual-returns/nhf_remittance/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
             </div>
           ))}
         </div>
@@ -451,9 +419,7 @@ export const ViewDocs = () => {
         <div className="flex">
           {nhisR.map((element, i) => (
             <div key={i} className="p-2">
-              <Link href={`https://annualuploads.bespoque.dev/annual-returns/nhis_remittance/${element}`}>
-                <a className="underline underline-offset-4 text-blue-600">Download</a>
-              </Link>
+              <a href={`https://annualuploads.bespoque.dev/annual-returns/nhis_remittance/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
             </div>
           ))}
         </div>
@@ -468,9 +434,7 @@ export const ViewDocs = () => {
         <div className="flex">
           {lapR.map((element, i) => (
             <div key={i} className="p-2">
-              <Link href={`https://annualuploads.bespoque.dev/annual-returns/lap_remittance/${element}`}>
-                <a className="underline underline-offset-4 text-blue-600">Download</a>
-              </Link>
+              <a href={`https://annualuploads.bespoque.dev/annual-returns/lap_remittance/${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
             </div>
           ))}
         </div>
