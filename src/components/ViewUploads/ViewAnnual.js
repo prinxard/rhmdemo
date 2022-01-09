@@ -25,7 +25,7 @@ const ViewAnnual = () => {
     const fetchPost = async () => {
       try {
         let res = await axios.get(`${url.BASE_URL}annual/view-annual`);
-        // res = res.data.body;
+        res = res.data.body.calculatedValues;
         console.log(res)
         let employeessTotal = res.length
         setTotalemp(employeessTotal)
@@ -36,6 +36,13 @@ const ViewAnnual = () => {
           console.log(rec.tax_pay_cal);
           sum.push(rec.tax_pay_cal);
           rec.tax_pay_cal = formatNumber(rec.tax_pay_cal);
+          rec.net_tax_ded = formatNumber(rec.net_tax_ded);
+          rec.con_rel_cal = formatNumber(rec.con_rel_cal);
+          rec.gross_income = formatNumber(rec.gross_income);
+          rec.nhf = formatNumber(rec.nhf);
+          rec.lap = formatNumber(rec.lap);
+          rec.nhis = formatNumber(rec.nhis);
+          rec.pension = formatNumber(rec.pension);
           rec.totalSalary = formatNumber(rec.totalSalary);
           rec.totalChargeable = rec.totalChargeable / 12;
           rec.totalChargeable = formatNumber(rec.totalChargeable);
