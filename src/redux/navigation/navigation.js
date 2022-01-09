@@ -97,28 +97,28 @@ const initialState = [
         ],
       },
 
-      {
-        url: '/',
-        icon: <Invoice />,
-        title: 'TCC',
-        items: [
-          {
-            url: '',
-            title: 'Apply',
-            items: [],
-          },
-          {
-            url: '',
-            title: 'View',
-            items: [],
-          },
-          // {
-          //   url: '/payment/pending-invoice',
-          //   title: 'Unpaid Assessment',
-          //   items: [],
-          // },
-        ],
-      },
+      // {
+      //   url: '/',
+      //   icon: <Invoice />,
+      //   title: 'TCC',
+      //   items: [
+      //     {
+      //       url: '',
+      //       title: 'Apply',
+      //       items: [],
+      //     },
+      //     {
+      //       url: '',
+      //       title: 'View',
+      //       items: [],
+      //     },
+      //     {
+      //       url: '/payment/pending-invoice',
+      //       title: 'Unpaid Assessment',
+      //       items: [],
+      //     },
+      //   ],
+      // },
 
       {
         url: '#',
