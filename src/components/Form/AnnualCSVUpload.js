@@ -555,7 +555,7 @@ const AnnualCSVUploadForm = () => {
 
   const onSubmit = async data => {
     data.preventDefault();
-    let employer_id = 1004124549
+    let employer_id = localStorage.getItem("kgtin")
     const year = String(new Date().getFullYear() - 1);
     const formData = new FormData();
     formData.append('employer_id', employer_id);
@@ -598,7 +598,7 @@ const AnnualCSVUploadForm = () => {
 
   const onSubmit2 = async data => {
     data.preventDefault();
-    let employer_id = 1004124549
+    let employer_id = localStorage.getItem("kgtin")
     const year = String(new Date().getFullYear() - 1);
     const formData = new FormData();
     formData.append('employer_id', employer_id);
@@ -641,7 +641,7 @@ const AnnualCSVUploadForm = () => {
 
   const onSubmit3 = async data => {
     data.preventDefault();
-    let employer_id = 1004124549
+    let employer_id = localStorage.getItem("kgtin")
     const year = String(new Date().getFullYear() - 1);
     const formData = new FormData();
     formData.append('exp_order_letter', file3);
@@ -684,7 +684,7 @@ const AnnualCSVUploadForm = () => {
 
   const onSubmit4 = async data => {
     data.preventDefault();
-    let employer_id = 1004124549
+    let employer_id = localStorage.getItem("kgtin")
     const year = String(new Date().getFullYear() - 1);
     const formData = new FormData();
     formData.append('employer_id', employer_id);
@@ -727,7 +727,7 @@ const AnnualCSVUploadForm = () => {
 
   const onSubmit5 = async data => {
     data.preventDefault();
-    let employer_id = 1004124549
+    let employer_id = localStorage.getItem("kgtin")
     const year = String(new Date().getFullYear() - 1);
     const formData = new FormData();
     formData.append('employer_id', employer_id);
@@ -772,7 +772,7 @@ const AnnualCSVUploadForm = () => {
 
   const onSubmit6 = async data => {
     data.preventDefault();
-    let employer_id = 1004124549
+    let employer_id = localStorage.getItem("kgtin")
     const year = String(new Date().getFullYear() - 1);
     const formData = new FormData();
     formData.append('employer_id', employer_id);
@@ -817,7 +817,7 @@ const AnnualCSVUploadForm = () => {
 
   const onSubmit7 = async data => {
     data.preventDefault();
-    let employer_id = 1004124549
+    let employer_id = localStorage.getItem("kgtin")
     const year = String(new Date().getFullYear() - 1);
     const formData = new FormData();
     formData.append('employer_id', employer_id);
@@ -862,7 +862,7 @@ const AnnualCSVUploadForm = () => {
 
   const onSubmit8 = async data => {
     data.preventDefault();
-    let employer_id = 1004124549
+    let employer_id = localStorage.getItem("kgtin")
     const year = String(new Date().getFullYear() - 1);
     const formData = new FormData();
     formData.append('employer_id', employer_id);
@@ -907,7 +907,7 @@ const AnnualCSVUploadForm = () => {
 
   const onSubmit9 = async data => {
     data.preventDefault();
-    let employer_id = 1004124549
+    let employer_id = localStorage.getItem("kgtin")
     const year = String(new Date().getFullYear() - 1);
     const formData = new FormData();
     formData.append('employer_id', employer_id);
@@ -952,7 +952,7 @@ const AnnualCSVUploadForm = () => {
 
   const onSubmit10 = async data => {
     data.preventDefault();
-    let employer_id = 1004124549
+    let employer_id = localStorage.getItem("kgtin")
     const year = String(new Date().getFullYear() - 1);
     const formData = new FormData();
     formData.append('employer_id', employer_id);
@@ -997,7 +997,7 @@ const AnnualCSVUploadForm = () => {
 
   const onSubmit11 = async data => {
     data.preventDefault();
-    let employer_id = 1004124549
+    let employer_id = localStorage.getItem("kgtin")
     const year = String(new Date().getFullYear() - 1);
     const formData = new FormData();
     formData.append('employer_id', employer_id);
@@ -1042,7 +1042,7 @@ const AnnualCSVUploadForm = () => {
 
   const onSubmit12 = async data => {
     data.preventDefault();
-    let employer_id = 1004124549
+    let employer_id = localStorage.getItem("kgtin")
     const year = String(new Date().getFullYear() - 1);
     const formData = new FormData();
     formData.append('employer_id', employer_id);
@@ -1087,7 +1087,7 @@ const AnnualCSVUploadForm = () => {
 
   const onSubmit13= async data => {
     data.preventDefault();
-    let employer_id = 1004124549
+    let employer_id = localStorage.getItem("kgtin")
     const year = String(new Date().getFullYear() - 1);
     const formData = new FormData();
     formData.append('employer_id', employer_id);
@@ -1132,7 +1132,7 @@ const AnnualCSVUploadForm = () => {
 
   const onSubmit14= async data => {
     data.preventDefault();
-    let employer_id = 1004124549
+    let employer_id = localStorage.getItem("kgtin")
     const year = String(new Date().getFullYear() - 1);
     const formData = new FormData();
     formData.append('employer_id', employer_id);
@@ -1177,7 +1177,7 @@ const AnnualCSVUploadForm = () => {
 
   const onSubmit15= async data => {
     data.preventDefault();
-    let employer_id = 1004124549
+    let employer_id = localStorage.getItem("kgtin")
     const year = String(new Date().getFullYear() - 1);
     const formData = new FormData();
     formData.append('employer_id', employer_id);
@@ -1222,7 +1222,7 @@ const AnnualCSVUploadForm = () => {
 
   const onSubmit16= async data => {
     data.preventDefault();
-    let employer_id = 1004124549
+    let employer_id = localStorage.getItem("kgtin")
     const year = String(new Date().getFullYear() - 1);
     const formData = new FormData();
     formData.append('employer_id', employer_id);
@@ -1267,7 +1267,7 @@ const AnnualCSVUploadForm = () => {
 
   const onSubmit17= async data => {
     data.preventDefault();
-    let employer_id = 1004124549
+    let employer_id = localStorage.getItem("kgtin")
     const year = String(new Date().getFullYear() - 1);
     const formData = new FormData();
     formData.append('employer_id', employer_id);
@@ -1312,7 +1312,7 @@ const AnnualCSVUploadForm = () => {
 
   const onSubmit18= async data => {
     data.preventDefault();
-    let employer_id = 1004124549
+    let employer_id = localStorage.getItem("kgtin")
     const year = String(new Date().getFullYear() - 1);
     const formData = new FormData();
     formData.append('employer_id', employer_id);

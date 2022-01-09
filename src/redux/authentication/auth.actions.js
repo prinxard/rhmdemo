@@ -2,10 +2,13 @@ import axios from "axios";
 import authActionTypes from "./auth.types";
 import url from "../../config/url";
 export const login = (data) => async (dispatch) => {
+
   dispatch({ type: authActionTypes.SET_LOGIN_SUBMITTING });
   try {
     const login = await axios.post(`${url.BASE_URL}user/login`, data);
-    // console.log(data.kgtin);
+    let userKGTIN = data.kgtin
+    localStorage.setItem("kgtin", userKGTIN)
+
     const auth = login.data.body;
     dispatch({ type: authActionTypes.SET_LOGIN_SUBMITTING });
     dispatch({ type: authActionTypes.LOGIN, payload: auth });
@@ -29,11 +32,11 @@ export const login = (data) => async (dispatch) => {
 export const logout = () => async (dispatch) => {
   try {
     dispatch({ type: authActionTypes.LOGOUT });
-  } catch (e) {}
+  } catch (e) { }
 };
 
 export const disableSubmitting = () => async (dispatch) => {
   try {
     dispatch({ type: authActionTypes.SET_LOGIN_SUBMITTING_FALSE });
-  } catch (e) {}
+  } catch (e) { }
 };
