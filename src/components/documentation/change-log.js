@@ -1,5 +1,5 @@
 import SectionTitle from '../section-title'
-import {Badge} from '../badges'
+import {Badge} from '../../components/badges'
 
 const items = [
   {
