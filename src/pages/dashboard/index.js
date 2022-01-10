@@ -7,6 +7,7 @@ import * as Icons from '../../components/Icons/index';
 import { formatNumber } from '../../functions/numbers';
 import url from '../../config/url';
 import UseFetcher from '../../components/fetcher/useFetcher';
+import Link from 'next/link';
 
 const Index = () => {
   const { data, isLoading, error } = UseFetcher(
@@ -20,6 +21,7 @@ const Index = () => {
         <>
           <SectionTitle title="Overview" subtitle="Dashboard" />
           <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
+
             <div className="w-full lg:w-1/4">
               <Widget1
                 color="green"

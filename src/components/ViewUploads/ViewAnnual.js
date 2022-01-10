@@ -11,21 +11,28 @@ import { CustomPagination } from "../pagination/customPagination";
 import { formatNumber } from "../../functions/numbers";
 import dateformat from "dateformat";
 import Loader from "react-loader-spinner";
+import Widget1 from "../dashboard/widget-1";
+import * as Icons from '../../components/Icons/index';
 
 const ViewAnnual = () => {
   const [post, setPost] = useState(() => []);
   const [sum, setSum] = useState(() => null);
   const [totalemp, setTotalemp] = useState('');
-  const [isFetching, setIsFetching] = useState(() => true);
+  const [isFetching, setIsFetching] = useState(() => false);
   const [currentPage, setCurrentPage] = useState(() => 1);
   const [postPerPage, setPostPerPage] = useState(() => 10);
+  const [year, setYear] = useState('');
   const [query, setQuery] = useState(() => "");
   useEffect(() => {
     setAuthToken();
     const fetchPost = async () => {
+      let annualViewYear = {
+        "year": `${year}`
+      }
+      console.log(annualViewYear);
       try {
-        let res = await axios.get(`${url.BASE_URL}annual/view-annual`);
-        res = res.data.body.calculatedValues;
+        let res = await axios.post(`${url.BASE_URL}annual/view-annual`, annualViewYear);
+        res = res.data.body;
         console.log(res)
         let employeessTotal = res.length
         setTotalemp(employeessTotal)
@@ -33,7 +40,7 @@ const ViewAnnual = () => {
         let sum = [];
         for (let i = 0; i < res.length; i++) {
           let rec = res[i];
-          console.log(rec.tax_pay_cal);
+          // console.log(rec.tax_pay_cal);
           sum.push(rec.tax_pay_cal);
           rec.tax_pay_cal = formatNumber(rec.tax_pay_cal);
           rec.net_tax_ded = formatNumber(rec.net_tax_ded);
@@ -60,7 +67,33 @@ const ViewAnnual = () => {
       }
     };
     fetchPost();
-  }, []);
+  }, [year, isFetching]);
+
+  const onChange = e => {
+    e.preventDefault()
+    let yeardata = "2020-01-01"
+    setYear(yeardata)
+    setIsFetching(true)
+  };
+  const onChange2 = e => {
+    e.preventDefault()
+    let yeardata = "2019-01-01"
+    setYear(yeardata)
+    setIsFetching(true)
+  };
+
+  const onChange3 = e => {
+    e.preventDefault()
+    let yeardata = "2018-01-01"
+    setYear(yeardata)
+    setIsFetching(true)
+  };
+
+  const onChange4 = e => {
+    e.preventDefault()
+    let yeardata = "2017-01-01"
+    setYear(yeardata)
+  };
 
   // Get current post
   const indexOfLastPost = currentPage * postPerPage;
@@ -88,6 +121,53 @@ const ViewAnnual = () => {
   return (
     <>
       <SectionTitle title="View Uploads" subtitle="Annual PAYE Returns" />
+      <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
+        <div className="w-full lg:w-1/4">
+          <a href="" onClick={onChange}>
+            <Widget1
+              color="green"
+              // title="2020"
+              description="2020"
+              right={<Icons.RevenueItems />}
+            />
+          </a>
+        </div>
+
+
+        <div className="w-full lg:w-1/4">
+          <a href="" onClick={onChange2}>
+            <Widget1
+              color="red"
+              // title="2019"
+              description="2019"
+              right={<Icons.RevenueItems />}
+            />
+          </a>
+        </div>
+
+        <div className="w-full lg:w-1/4" onClick={onChange3}>
+          <a href="">
+            <Widget1
+              color="blue"
+              // title="2018"
+              description="2018"
+              right={<Icons.RevenueItems />}
+            />
+          </a>
+        </div>
+
+        {/* <div className="w-full lg:w-1/4" onClick={onChange4}>
+          <a href="">
+            <Widget1
+              color="yellow"
+              title="2017"
+              description={formatNumber(data[0].taxReceipts)}
+              right={<Icons.TaxReceipt />}
+            />
+          </a>
+        </div> */}
+      </div>
+
       {isFetching && (
         <div className="flex justify-center item mb-2">
           <Loader
