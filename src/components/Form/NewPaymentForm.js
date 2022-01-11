@@ -298,7 +298,7 @@ const NewPaymentForm = () => {
                   name="mda"
                   className="w-full  focus:outline-none focus:ring-0 focus:ring-offset-0  border-transparent bg-transparent text-gray-600 text-md border-none"
                 >
-                  <option value="">Select MDA</option>
+                  <option value="">Select MDA </option>
                   {arr.map((md, i) => (
                     <option value={md} key={i}>
                       {md}
