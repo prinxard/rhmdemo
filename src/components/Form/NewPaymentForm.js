@@ -461,10 +461,10 @@ const NewPaymentForm = () => {
                                   <td>Amount</td>
                                   <td>{formatNumber(dat.amount)}</td>
                                 </tr>
-                                {/* <tr>
+                                <tr>
                                   <td>Description</td>
                                   <td>{dat.description}</td>
-                                </tr> */}
+                                </tr>
                               </tbody>
                             </table>
                           </div>
