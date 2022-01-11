@@ -112,7 +112,7 @@ const NewPaymentForm = () => {
         taxPayer: data.KGTIN,
         amount: data.amount,
         station: data.taxOffice,
-        // description: data.description,
+        description: data.description,
         status: "2",
         paymentMethod: data.channel,
         name: data.name,
@@ -370,14 +370,14 @@ const NewPaymentForm = () => {
                 <p className="text-red-600 bg-white">{errors.amount.message}</p>
               )}
             </div>
-            {/* <div className="w-full lg:w-1/4">
+            <div className="w-full lg:w-1/4">
               <NewFormInput
                 label="Description"
                 required
                 ref={register()}
                 name="description"
               />
-            </div> */}
+            </div>
 
             <div className="w-full lg:w-1/4 lg:mt-6">
               <select
