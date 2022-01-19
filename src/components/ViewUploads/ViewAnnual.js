@@ -91,8 +91,9 @@ const ViewAnnual = () => {
 
   const onChange4 = e => {
     e.preventDefault()
-    let yeardata = "2017-01-01"
+    let yeardata = "2021-01-01"
     setYear(yeardata)
+    setIsFetching(true)
   };
 
   // Get current post
@@ -123,10 +124,18 @@ const ViewAnnual = () => {
       <SectionTitle title="View Uploads" subtitle="Annual PAYE Returns" />
       <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
         <div className="w-full lg:w-1/4">
+          <a href="" onClick={onChange4}>
+            <Widget1
+              color="green"
+              description="2021"
+              right={<Icons.RevenueItems />}
+            />
+          </a>
+        </div>
+        <div className="w-full lg:w-1/4">
           <a href="" onClick={onChange}>
             <Widget1
               color="green"
-              // title="2020"
               description="2020"
               right={<Icons.RevenueItems />}
             />
@@ -138,7 +147,6 @@ const ViewAnnual = () => {
           <a href="" onClick={onChange2}>
             <Widget1
               color="red"
-              // title="2019"
               description="2019"
               right={<Icons.RevenueItems />}
             />
@@ -149,7 +157,6 @@ const ViewAnnual = () => {
           <a href="">
             <Widget1
               color="blue"
-              // title="2018"
               description="2018"
               right={<Icons.RevenueItems />}
             />
