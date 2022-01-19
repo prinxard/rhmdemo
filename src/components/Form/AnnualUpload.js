@@ -9,7 +9,7 @@ import { SubmitButton } from '../CustomButton/CustomButton';
 import axios from 'axios';
 import url from '../../config/url';
 import { FiX, FiCheck } from 'react-icons/fi';
-import { Select, SelectMonth } from '../forms/selects';
+import { SelectAnnual, SelectMonth } from '../forms/selects';
 import { SampleCsv, SampleCsvMonthly } from '../Images/Images';
 import { FiArrowDown } from 'react-icons/fi';
 import setAuthToken from '../../functions/setAuthToken';
@@ -152,7 +152,7 @@ const AnnualUploadForm = () => {
         <form onSubmit={handleSubmit(handleUpload)}>
           <div className="flex flex-col lg:flex-row lg:flex-wrap w-full lg:space-x-4">
             <div className="w-full lg:w-1/12">
-              <Select
+              <SelectAnnual
                 label="Select Year"
                 required
                 ref={register()}
