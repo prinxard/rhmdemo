@@ -53,10 +53,10 @@ export const SampleCsv = () => {
   return (
     <Image
       layout="intrinsic"
-      src="/images/csv/Capture-csv.PNG"
+      src="/images/csv/annual-csv.PNG"
       alt="sample csv"
       width={1272}
-      height={82}
+      height={130}
     />
   );
 };
