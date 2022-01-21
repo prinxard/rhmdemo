@@ -17,8 +17,8 @@ const fields = [
     key: "no_months",
   },
   {
-    name: "Gross Salary",
-    key: "gross_income",
+    name: "Baic salary",
+    key: "basic_salary",
   },
   {
     name: "Pension",

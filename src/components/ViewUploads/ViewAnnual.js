@@ -32,7 +32,7 @@ const ViewAnnual = () => {
       console.log(annualViewYear);
       try {
         let res = await axios.post(`${url.BASE_URL}annual/view-annual`, annualViewYear);
-        res = res.data.body;
+        res = res.data.body.annualYr;
         console.log(res)
         let employeessTotal = res.length
         setTotalemp(employeessTotal)
