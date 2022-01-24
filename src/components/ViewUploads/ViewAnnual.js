@@ -18,7 +18,7 @@ const ViewAnnual = () => {
   const [post, setPost] = useState(() => []);
   const [sum, setSum] = useState(() => null);
   const [totalemp, setTotalemp] = useState('');
-  const [isFetching, setIsFetching] = useState(() => false);
+  const [isFetching, setIsFetching] = useState(() => true);
   const [currentPage, setCurrentPage] = useState(() => 1);
   const [postPerPage, setPostPerPage] = useState(() => 10);
   const [year, setYear] = useState('');
@@ -26,13 +26,9 @@ const ViewAnnual = () => {
   useEffect(() => {
     setAuthToken();
     const fetchPost = async () => {
-      let annualViewYear = {
-        "year": `${year}`
-      }
-      console.log(annualViewYear);
       try {
-        let res = await axios.post(`${url.BASE_URL}annual/view-annual`, annualViewYear);
-        res = res.data.body.annualYr;
+        let res = await axios.get(`${url.BASE_URL}annual/view-annual`);
+        res = res.data.body.summaryAnnual;
         console.log(res)
         let employeessTotal = res.length
         setTotalemp(employeessTotal)
@@ -47,9 +43,9 @@ const ViewAnnual = () => {
           rec.con_rel_cal = formatNumber(rec.con_rel_cal);
           rec.gross_income = formatNumber(rec.gross_income);
           rec.nhf = formatNumber(rec.nhf);
-          rec.lap = formatNumber(rec.lap);
-          rec.nhis = formatNumber(rec.nhis);
-          rec.pension = formatNumber(rec.pension);
+          rec.tax_pay_cal = formatNumber(rec.tax_pay_cal);
+          rec.basicSalary = formatNumber(rec.basicSalary);
+          rec.netTaxDeduct = formatNumber(rec.netTaxDeduct);
           rec.totalSalary = formatNumber(rec.totalSalary);
           rec.totalChargeable = rec.totalChargeable / 12;
           rec.totalChargeable = formatNumber(rec.totalChargeable);
@@ -67,34 +63,8 @@ const ViewAnnual = () => {
       }
     };
     fetchPost();
-  }, [year, isFetching]);
+  }, []);
 
-  const onChange = e => {
-    e.preventDefault()
-    let yeardata = "2020-01-01"
-    setYear(yeardata)
-    setIsFetching(true)
-  };
-  const onChange2 = e => {
-    e.preventDefault()
-    let yeardata = "2019-01-01"
-    setYear(yeardata)
-    setIsFetching(true)
-  };
-
-  const onChange3 = e => {
-    e.preventDefault()
-    let yeardata = "2018-01-01"
-    setYear(yeardata)
-    setIsFetching(true)
-  };
-
-  const onChange4 = e => {
-    e.preventDefault()
-    let yeardata = "2021-01-01"
-    setYear(yeardata)
-    setIsFetching(true)
-  };
 
   // Get current post
   const indexOfLastPost = currentPage * postPerPage;
@@ -122,58 +92,6 @@ const ViewAnnual = () => {
   return (
     <>
       <SectionTitle title="View Uploads" subtitle="Annual PAYE Returns" />
-      <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
-        <div className="w-full lg:w-1/4">
-          <a href="" onClick={onChange4}>
-            <Widget1
-              color="green"
-              description="2021"
-              right={<Icons.RevenueItems />}
-            />
-          </a>
-        </div>
-        <div className="w-full lg:w-1/4">
-          <a href="" onClick={onChange}>
-            <Widget1
-              color="green"
-              description="2020"
-              right={<Icons.RevenueItems />}
-            />
-          </a>
-        </div>
-
-
-        <div className="w-full lg:w-1/4">
-          <a href="" onClick={onChange2}>
-            <Widget1
-              color="red"
-              description="2019"
-              right={<Icons.RevenueItems />}
-            />
-          </a>
-        </div>
-
-        <div className="w-full lg:w-1/4" onClick={onChange3}>
-          <a href="">
-            <Widget1
-              color="blue"
-              description="2018"
-              right={<Icons.RevenueItems />}
-            />
-          </a>
-        </div>
-
-        {/* <div className="w-full lg:w-1/4" onClick={onChange4}>
-          <a href="">
-            <Widget1
-              color="yellow"
-              title="2017"
-              description={formatNumber(data[0].taxReceipts)}
-              right={<Icons.TaxReceipt />}
-            />
-          </a>
-        </div> */}
-      </div>
 
       {isFetching && (
         <div className="flex justify-center item mb-2">

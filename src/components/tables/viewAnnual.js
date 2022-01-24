@@ -146,6 +146,7 @@ const singleFields = [
 
 export const ViewAnnualTableSingle = ({ remittance, total }) => {
   const items = remittance;
+  console.log(remittance);
 
   return (
     <>

@@ -1,38 +1,108 @@
 import SectionTitle from "../section-title";
 import Widget from "../widget";
 import { NewFormInput } from "../FormInput/formInputs";
-import { ViewAnnualTable } from "../tables/viewAnnual";
+import { useRouter } from "next/router";
+import { ViewMonthlyTableSingle } from "../tables/viewMonthlyTable";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { CustomPagination } from "../pagination/customPagination";
-import { useRouter } from "next/router";
+import url from "../../config/url";
+import setAuthToken from "../../functions/setAuthToken";
+import { formatNumber } from "../../functions/numbers";
+import { DeleteButton } from "../CustomButton/CustomButton";
+import Link from "next/link";
+import Loader from "react-loader-spinner";
+import { ViewAnnualTableSingle } from "../tables/viewAnnual";
+import dateformat from "dateformat";
 
-const ViewAnnual = () => {
+const ViewAnnualSingle = () => {
   const [post, setPost] = useState(() => []);
+  const [total, setTotal] = useState(() => []);
+  const [isFetching, setIsFetching] = useState(() => true);
   const [currentPage, setCurrentPage] = useState(() => 1);
-  const [postPerPage, setPostPerPage] = useState(() => 10);
+  const [postPerPage, setPostPerPage] = useState(10);
   const [query, setQuery] = useState(() => "");
   const router = useRouter();
-  const id = router.query;
-  const ref = id.ref;
+
   useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        const res = await axios.get(
-          `https://jsonplaceholder.typicode.com/posts/${ref}`
-        );
-        let single = [];
-        single.push(res.data);
-        setPost(() => single);
-      } catch (e) {}
-    };
-    fetchPost();
-  }, [ref]);
+    if (router && router.query) {
+      let year = router.query.ref;
+      year = `${year}-01-01`
+      console.log(year);
+      let yearValue = {
+        "year": `${year}`
+      }
+      setAuthToken();
+      const fetchPost = async () => {
+        try {
+          let res = await axios.post(
+            `${url.BASE_URL}annual/view-annual`, yearValue
+          );
+          res = res.data.body.annualYr;
+          console.log(res);
+          let sum = {};
+          let records = [];
+          let salarySum = [];
+          let chargeableSum = [];
+          let totalReliefSum = [];
+          let taxSum = [];
+          for (let i = 0; i < res.length; i++) {
+            let rec = res[i];
+            rec.year = dateformat(rec.year, "yyyy");
+            rec.salary = parseInt(rec.salary);
+            rec.chargeable = parseInt(rec.chargeable) / 12;
+            rec.totalRelief = parseInt(rec.totalRelief);
+            rec.tax = parseInt(rec.tax);
+            salarySum.push(rec.salary);
+            chargeableSum.push(rec.chargeable);
+            totalReliefSum.push(rec.totalRelief);
+            taxSum.push(rec.tax);
+            rec.nhis = formatNumber(rec.nhis);
+            rec.lap = formatNumber(rec.lap);
+            rec.net_tax_ded = formatNumber(rec.net_tax_ded);
+            rec.tax_pay_cal = formatNumber(rec.tax_pay_cal);
+            rec.nhis = formatNumber(rec.nhis);
+            rec.con_rel_cal =(formatNumber(rec.con_rel_cal));
+            rec.basic_salary = formatNumber(rec.basic_salary);
+            rec.pension = formatNumber(rec.pension);
+            rec.name = `${rec.surname} ${rec.middleName} ${rec.firstName}`;
+            records.push(rec);
+          }
+
+          const totalSalary = salarySum.reduce(
+            (preVal, curVal) => preVal + curVal,
+            0
+          );
+          const totalChargeable = chargeableSum.reduce(
+            (preVal, curVal) => preVal + curVal,
+            0
+          );
+          const totalRelief = totalReliefSum.reduce(
+            (preVal, curVal) => preVal + curVal,
+            0
+          );
+          const totalTax = taxSum.reduce(
+            (preVal, curVal) => preVal + curVal,
+            0
+          );
+          sum.totalSalary = totalSalary;
+          sum.totalChargeable = totalChargeable;
+          sum.totalRelief = totalRelief;
+          sum.totalTax = totalTax;
+          setIsFetching(false);
+          setPost(() => records);
+          setTotal(() => sum);
+        } catch (e) {
+          setIsFetching(false);
+        }
+      };
+      fetchPost();
+    }
+  }, [router]);
 
   // Get current post
   const indexOfLastPost = currentPage * postPerPage;
   const indexOfFirstPost = indexOfLastPost - postPerPage;
-
   const currentPosts = post.slice(indexOfFirstPost, indexOfLastPost);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -40,38 +110,72 @@ const ViewAnnual = () => {
   const previous = (currentPage) => setCurrentPage(() => currentPage - 1);
 
   const searchHandler = (e) => {
-    setQuery(() => e.target.value);
+    setQuery(() => e.target.value.toLowerCase());
   };
 
   let res = [];
   const search = (rows) => {
     let data = [];
-    data = rows.filter((rows) => rows.title.toLowerCase().indexOf(query) > -1);
+    data = rows.filter((rows) => rows.name.toLowerCase().indexOf(query) > -1);
     res.push(data);
-
     return data;
   };
 
   const searchedPost = search(post).slice(indexOfFirstPost, indexOfLastPost);
+  const deleteHandler = async (assessmentId) => {
+    try {
+      setAuthToken();
+      let res = await axios.delete(
+        `${url.BASE_URL}payment/delete-pending-invoice/${assessmentId}`
+      );
+
+      console.log(res.data);
+      alert(res.data.message);
+      router.push("/view/monthly");
+    } catch (e) {
+      if (e.response) {
+        alert(e.response.message);
+      }
+    }
+  };
+
+  const deletePrompt = (assessmentId) => {
+    if (window.confirm("Are you sure you want to delete this record?")) {
+      deleteHandler(assessmentId);
+    }
+  };
 
   return (
     <>
       <SectionTitle title="View Uploads" subtitle="Annual PAYE Returns" />
+      {isFetching && (
+        <div className="flex justify-center item mb-2">
+          <Loader
+            visible={isFetching}
+            type="BallTriangle"
+            color="#00FA9A"
+            height={19}
+            width={19}
+            timeout={0}
+            className="ml-2"
+          />
+          <p>Fetching data...</p>
+        </div>
+      )}
       <Widget>
-        <div className="flex flex-col lg:flex-row lg:flex-wrap w-full lg:space-x-4">
-          <div className="w-full lg:w-1/12">
+        <div className="flex lg:flex-wrap w-full lg:space-x-4 justify-between items-center">
+          <div className="w-32">
             <NewFormInput
-              label="Search by year"
+              label="Search by name"
               required
               onChange={searchHandler}
             />
           </div>
         </div>
-
         <div className="mt-4">
           {query !== "" ? (
             <>
-              <ViewAnnualTable posts={searchedPost} />
+              <ViewAnnualTableSingle remittance={searchedPost} total={total} />
               <CustomPagination
                 paginate={paginate}
                 totalPosts={res[0].length}
@@ -81,9 +185,9 @@ const ViewAnnual = () => {
                 previous={previous}
               />
             </>
-          ) : post.length > 10 ? (
+          ) : (
             <>
-              <ViewAnnualTable posts={currentPosts} />
+              <ViewAnnualTableSingle remittance={currentPosts} total={total} />
               <CustomPagination
                 paginate={paginate}
                 totalPosts={post.length}
@@ -93,10 +197,6 @@ const ViewAnnual = () => {
                 previous={previous}
               />
             </>
-          ) : (
-            <>
-              <ViewAnnualTable posts={post} />
-            </>
           )}
         </div>
       </Widget>
@@ -104,4 +204,4 @@ const ViewAnnual = () => {
   );
 };
 
-export default ViewAnnual;
+export default ViewAnnualSingle;
