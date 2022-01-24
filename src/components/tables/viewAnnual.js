@@ -70,7 +70,7 @@ export const ViewAnnualTable = ({ remittance, totalemployees, totaltax, grosssum
         </table>
         <div className="mt-16"></div>
         <hr />
-        <div className="flex justify-end">
+        {/* <div className="flex justify-end">
           <p className="px-6 font-semibold">Total</p>
 
           <div className="flex flex-col">
@@ -80,7 +80,7 @@ export const ViewAnnualTable = ({ remittance, totalemployees, totaltax, grosssum
 
           <div className="flex flex-col">
             <p className="px-6 pb-1">Gross Salary</p>
-            {/* <p className="self-center font-semibold">{formatNumber(grosssum)}</p> */}
+            <p className="self-center font-semibold">{formatNumber(grosssum)}</p>
           </div>
 
           <div className="flex flex-col">
@@ -89,7 +89,7 @@ export const ViewAnnualTable = ({ remittance, totalemployees, totaltax, grosssum
           </div>
 
           <p className="px-6">Variance</p>
-        </div>
+        </div> */}
         {/* <div>{total}</div> */}
       </Widget>
     </>
