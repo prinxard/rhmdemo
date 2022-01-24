@@ -65,7 +65,7 @@ const ViewAnnualSingle = () => {
             rec.con_rel_cal =(formatNumber(rec.con_rel_cal));
             rec.basic_salary = formatNumber(rec.basic_salary);
             rec.pension = formatNumber(rec.pension);
-            rec.name = `${rec.surname} ${rec.middleName} ${rec.firstName}`;
+            rec.name = rec.staff_names;
             records.push(rec);
           }
 
