@@ -112,6 +112,10 @@ const singleFields = [
     key: 'basic_salary',
   },
   {
+    name: 'CONSOLIDATED RELIEF ALLOWANCE',
+    key: 'con_rel_cal',
+  },
+  {
     name: 'Pension',
     key: 'pension',
   },
@@ -126,16 +130,16 @@ const singleFields = [
   },
 
   {
-    name: 'CONSOLIDATED RELIEF ALLOWANCE',
-    key: 'con_rel_cal',
-  },
-  {
     name: 'Net Tax Deducted',
     key: 'net_tax_ded',
   },
   {
     name: 'Expected Tax',
     key: 'tax_pay_cal',
+  },
+  {
+    name: 'Variance',
+    key: 'variance_cal',
   },
 
   {

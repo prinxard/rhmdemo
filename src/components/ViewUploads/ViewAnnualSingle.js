@@ -139,11 +139,11 @@ const ViewAnnualSingle = () => {
     }
   };
 
-  const deletePrompt = (assessmentId) => {
-    if (window.confirm("Are you sure you want to delete this record?")) {
-      deleteHandler(assessmentId);
-    }
-  };
+  // const deletePrompt = (assessmentId) => {
+  //   if (window.confirm("Are you sure you want to delete this record?")) {
+  //     deleteHandler(assessmentId);
+  //   }
+  // };
 
   return (
     <>
