@@ -1,15 +1,18 @@
 import axios from "axios";
 import authActionTypes from "./auth.types";
 import url from "../../config/url";
+
 export const login = (data) => async (dispatch) => {
   dispatch({ type: authActionTypes.SET_LOGIN_SUBMITTING });
   try {
     const login = await axios.post(`${url.BASE_URL}user/login`, data);
-    const auth = login.data.body;
-    let userKgtin = data.kgtin
+    const auth = login.data.accessToken;
+    console.log(data);
+    // let userKgtin = data.kgtin
+    // localStorage.setItem("kgtin", userKgtin)
     // console.log(userKgtin)
-    localStorage.setItem("kgtin", userKgtin)
     // console.log("auth", auth);
+
     dispatch({ type: authActionTypes.SET_LOGIN_SUBMITTING });
     dispatch({ type: authActionTypes.LOGIN, payload: auth });
   } catch (e) {

@@ -14,7 +14,7 @@ import {
 import { clearSignUp } from "../../redux/signup/signup.actions";
 import { clearSignUpAuth } from "../../redux/signup-auth/signup-auth.actions";
 import Loader from "react-loader-spinner";
-import { PasswordHideIcon, PasswordShowIcon } from "../Icons";
+// import { PasswordHideIcon, PasswordShowIcon } from "../Icons";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -63,13 +63,13 @@ const LoginForm = () => {
           </p>
         )}
         <Input
-          name="kgtin"
+          name="email"
           label={<KgtinIcon />}
           ref={register({
             minLength: 10,
-            maxLength: 10,
+            // maxLength: 10,
             pattern: {
-              value: /^[0-9]*[.]?[0-9]*$/,
+              value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
               message: "Tax Id must be a number",
             },
           })}
@@ -78,14 +78,14 @@ const LoginForm = () => {
           required
           placeholder="Tax Id"
         />
-        {errors.kgtin && errors.kgtin.type === "minLength" && (
+        {errors.email && errors.email.type === "minLength" && (
           <p className="text-red-600">Tax Id must be 10 digits</p>
         )}
-        {errors.kgtin && errors.kgtin.type === "maxLength" && (
+        {errors.email && errors.email.type === "maxLength" && (
           <p className="text-red-600">Tax Id must be 10 digits</p>
         )}
-        {errors.kgtin && (
-          <p className="text-red-600 bg-white">{errors.kgtin.message}</p>
+        {errors.email && (
+          <p className="text-red-600 bg-white">{errors.email.message}</p>
         )}
 
         <Input
