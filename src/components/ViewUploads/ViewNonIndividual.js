@@ -2,7 +2,7 @@ import SectionTitle from "../section-title";
 import Widget from "../widget";
 import { SubmitButton } from "../CustomButton/CustomButton";
 import { NewFormInput } from "../FormInput/formInputs";
-import { ViewAnnualTable } from "../tables/viewAnnual";
+import { ViewAnnualTable } from "../tables/viewIndividual";
 import url from "../../config/url";
 import setAuthToken from "../../functions/setAuthToken";
 import { useEffect, useState } from "react";
@@ -12,54 +12,30 @@ import { formatNumber } from "../../functions/numbers";
 import dateformat from "dateformat";
 import Loader from "react-loader-spinner";
 import Widget1 from "../dashboard/widget-1";
-import * as Icons from '../../components/Icons/index';
+import * as Icons from '../Icons/index';
+import { ViewNonIndividualTable } from "../tables/viewNonIndividual";
 
-const ViewAnnual = () => {
+const ViewNonIndividual = () => {
   const [post, setPost] = useState(() => []);
-  const [sum, setSum] = useState(() => null);
-  const [totalemp, setTotalemp] = useState('');
   const [isFetching, setIsFetching] = useState(() => true);
   const [currentPage, setCurrentPage] = useState(() => 1);
   const [postPerPage, setPostPerPage] = useState(() => 10);
-  const [year, setYear] = useState('');
   const [query, setQuery] = useState(() => "");
   useEffect(() => {
     setAuthToken();
     const fetchPost = async () => {
       try {
-        let res = await axios.get(`${url.BASE_URL}annual/view-annual`);
-        res = res.data.body.summaryAnnual;
-        console.log(res)
-        let employeessTotal = res.length
-        setTotalemp(employeessTotal)
+        let res = await axios.get(`${url.BASE_URL}taxpayer/non-individual`);
+        res = res.data.body;
         let records = [];
-        let sum = [];
         for (let i = 0; i < res.length; i++) {
           let rec = res[i];
-          // console.log(rec.tax_pay_cal);
-          sum.push(rec.tax_pay_cal);
-          rec.tax_pay_cal = formatNumber(rec.tax_pay_cal);
-          rec.net_tax_ded = formatNumber(rec.net_tax_ded);
-          rec.con_rel_cal = formatNumber(rec.con_rel_cal);
-          rec.gross_income = formatNumber(rec.gross_income);
-          rec.nhf = formatNumber(rec.nhf);
-          rec.tax_pay_cal = formatNumber(rec.tax_pay_cal);
-          rec.basicSalary = formatNumber(rec.basicSalary);
-          rec.netTaxDeduct = formatNumber(rec.netTaxDeduct);
-          rec.totalSalary = formatNumber(rec.totalSalary);
-          rec.totalChargeable = rec.totalChargeable / 12;
-          rec.totalChargeable = formatNumber(rec.totalChargeable);
-          rec.period = rec.payPeriod;
-          rec.year = dateformat(rec.year, "yyyy");
           records.push(rec);
         }
-        let sumOfTax = sum.reduce((preVal, curVal) => preVal + curVal);
         setIsFetching(false);
-        setSum(() => sumOfTax);
         setPost(() => records);
       } catch (e) {
         setIsFetching(false);
-        // console.log(e.response);
       }
     };
     fetchPost();
@@ -82,7 +58,7 @@ const ViewAnnual = () => {
   let res = [];
   const search = (rows) => {
     let data = [];
-    data = rows.filter((rows) => rows.year.toLowerCase().indexOf(query) > -1);
+    data = rows.filter((rows) => rows.KGTIN.toLowerCase().indexOf(query) > -1);
     res.push(data);
     return data;
   };
@@ -91,7 +67,7 @@ const ViewAnnual = () => {
 
   return (
     <>
-      <SectionTitle title="View Uploads" subtitle="Annual PAYE Returns" />
+      <SectionTitle title="View Taxpayers" subtitle="Non-Individual Taxpayers" />
 
       {isFetching && (
         <div className="flex justify-center item mb-2">
@@ -109,9 +85,9 @@ const ViewAnnual = () => {
       )}
       <Widget>
         <div className="flex flex-col lg:flex-row lg:flex-wrap w-full lg:space-x-4">
-          <div className="w-full lg:w-1/12">
+          <div className="w-full lg:w-2/12">
             <NewFormInput
-              label="Search by year"
+              label="Search by kgtin"
               required
               onChange={searchHandler}
             />
@@ -121,7 +97,7 @@ const ViewAnnual = () => {
         <div className="mt-4">
           {query !== "" ? (
             <>
-              <ViewAnnualTable remittance={searchedPost} />
+              <ViewNonIndividualTable remittance={searchedPost} />
               <CustomPagination
                 paginate={paginate}
                 totalPosts={res[0].length}
@@ -133,7 +109,7 @@ const ViewAnnual = () => {
             </>
           ) : (
             <>
-              <ViewAnnualTable remittance={currentPosts} totalemployees={totalemp} totaltax={sum} />
+              <ViewNonIndividualTable remittance={currentPosts} />
               <CustomPagination
                 paginate={paginate}
                 totalPosts={post.length}
@@ -150,4 +126,4 @@ const ViewAnnual = () => {
   );
 };
 
-export default ViewAnnual;
+export default ViewNonIndividual;

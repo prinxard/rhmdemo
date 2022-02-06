@@ -70,13 +70,13 @@ const LoginForm = () => {
             // maxLength: 10,
             pattern: {
               value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
-              message: "Tax Id must be a number",
+              message: "please enter a valid email address",
             },
           })}
           autoComplete="off"
           type="text"
           required
-          placeholder="Tax Id"
+          placeholder="Email"
         />
         {errors.email && errors.email.type === "minLength" && (
           <p className="text-red-600">Tax Id must be 10 digits</p>
