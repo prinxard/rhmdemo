@@ -136,37 +136,144 @@ export const ViewIndividualSingleTable = ({ indvdata }) => {
   return (
     <>
       <Widget>
-        <div className="overflow-x-auto">
-          <div className="flex justify-center ">
-            <div className="mr-16 border-right">
-              {singleFields.map((field, i) => (
-                <p key={i} className="">
-                  {field.name}
-                </p>
-              ))}
-            </div>
+        <div className="w-2/3 flex mx-auto rounded border">
 
-            {items.map((indvdata, i) => (
-              <div key={i} className="">
-                {singleFields.map((field, j) => (
-                  <p key={j} className="">
-                    {indvdata[field.key]}
-                  </p>
+          <table className="table">
+
+            <tbody className="divide-y ">
+              <tr className="">
+                <td>KGTIN</td>
+                {items.map((ind, i) => (
+                  <td key={i}>{ind.KGTIN}</td>
                 ))}
-              </div>
-            ))}
+              </tr>
+
+              <tr className="">
+                <td>Title</td>
+                {items.map((ind, i) => (
+                  <td key={i}>{ind.indv_title}</td>
+                ))}
+              </tr>
+
+              <tr className="">
+                <td>Gender</td>
+                {items.map((ind, i) => (
+                  <td key={i}>{ind.gender}</td>
+                ))}
+              </tr>
+
+              <tr className="">
+                <td>Marital Status</td>
+                {items.map((ind, i) => (
+                  <td key={i}>{ind.marital_status}</td>
+                ))}
+              </tr>
+
+              <tr className="">
+                <td>Surname</td>
+                {items.map((ind, i) => (
+                  <td key={i}>{ind.surname}</td>
+                ))}
+              </tr>
+
+              <tr className="">
+                <td>First Name</td>
+                {items.map((ind, i) => (
+                  <td key={i}>{ind.first_name}</td>
+                ))}
+              </tr>
+
+              <tr className="">
+                <td>Middle Name</td>
+                {items.map((ind, i) => (
+                  <td key={i}>{ind.middle_name}</td>
+                ))}
+              </tr>
+
+              <tr className="">
+                <td>Date of Birth</td>
+                {items.map((ind, i) => (
+                  <td key={i}>{ind.birth_date}</td>
+                ))}
+              </tr>
+
+              <tr className="">
+                <td>Place of Birth</td>
+                {items.map((ind, i) => (
+                  <td key={i}>{ind.birth_place}</td>
+                ))}
+              </tr>
+
+              <tr className="">
+                <td>Nationality</td>
+                {items.map((ind, i) => (
+                  <td key={i}>{ind.nationality}</td>
+                ))}
+              </tr>
+
+              <tr className="">
+                <td>State of Origin</td>
+                {items.map((ind, i) => (
+                  <td key={i}>{ind.stateOfOrigin}</td>
+                ))}
+              </tr>
+
+              <tr className="">
+                <td>State of Residence</td>
+                {items.map((ind, i) => (
+                  <td key={i}>{ind.stateOfResidence}</td>
+                ))}
+              </tr>
+
+              <tr className="">
+                <td>Occupation</td>
+                {items.map((ind, i) => (
+                  <td key={i}>{ind.occupation}</td>
+                ))}
+              </tr>
+
+              <tr className="">
+                <td>Phone</td>
+                {items.map((ind, i) => (
+                  <td key={i}>{ind.phone_number}</td>
+                ))}
+              </tr>
+
+              <tr className="">
+                <td>Email</td>
+                {items.map((ind, i) => (
+                  <td key={i}>{ind.email}</td>
+                ))}
+              </tr>
+
+              <tr className="">
+                <td>Tax Office</td>
+                {items.map((ind, i) => (
+                  <td key={i}>{ind.tax_office}</td>
+                ))}
+              </tr>
+
+              <tr className="">
+                <td>Tax Authority</td>
+                {items.map((ind, i) => (
+                  <td key={i}>{ind.tax_authority}</td>
+                ))}
+              </tr>
+              
+            </tbody>
+          </table>
+
+        </div>
+        <div className="flex justify-end">
+          <div className="m-3 bg-green-400 text-white rounded-full">
+            <CustomButton type="Submit">
+              Print certificate
+            </CustomButton>
           </div>
-          <div className="flex justify-end">
-            <div className="m-3">
-              <CustomButton type="Submit">
-                Print certificate
-              </CustomButton>
-            </div>
-            <div className="m-3">
-              <CustomButton type="Submit">
-                Edit
-              </CustomButton>
-            </div>
+          <div className="m-3 bg-green-400 text-white rounded-full">
+            <CustomButton type="Submit">
+              Edit
+            </CustomButton>
           </div>
         </div>
       </Widget>
