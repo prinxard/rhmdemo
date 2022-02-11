@@ -136,6 +136,20 @@ export const ViewIndividualSingleTable = ({ indvdata }) => {
   return (
     <>
       <Widget>
+        <div className="flex justify-start mb-4">
+          <div className="m-3 bg-green-400 text-white rounded-full">
+            <CustomButton type="Submit">
+              Print Certificate
+            </CustomButton>
+          </div>
+          <div className="m-3 bg-green-400 text-white rounded-full">
+            <CustomButton type="Submit">
+            {items.map((ind, i) => (
+                  <Link href={`/update-user/${ind.KGTIN}`} key={i}> Update User</Link>
+                ))}
+            </CustomButton>
+          </div>
+        </div>
         <div className="w-2/3 flex mx-auto rounded border">
 
           <table className="table">
@@ -259,22 +273,10 @@ export const ViewIndividualSingleTable = ({ indvdata }) => {
                   <td key={i}>{ind.tax_authority}</td>
                 ))}
               </tr>
-              
+
             </tbody>
           </table>
 
-        </div>
-        <div className="flex justify-end">
-          <div className="m-3 bg-green-400 text-white rounded-full">
-            <CustomButton type="Submit">
-              Print certificate
-            </CustomButton>
-          </div>
-          <div className="m-3 bg-green-400 text-white rounded-full">
-            <CustomButton type="Submit">
-              Edit
-            </CustomButton>
-          </div>
         </div>
       </Widget>
     </>

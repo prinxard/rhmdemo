@@ -41,7 +41,7 @@ const initialState = [
           },
         ],
       },
-      
+
       {
         url: '/',
         icon: <FileReturns />,
@@ -69,7 +69,7 @@ const initialState = [
       {
         url: '/',
         icon: <FileReturns />,
-        title: 'Assessments',
+        title: 'Direct Assessment',
         items: [
           {
             title: 'Create',
@@ -77,29 +77,111 @@ const initialState = [
             items: [],
           },
           {
-            title: 'View',
+            title: 'Draft Assessments',
             url: '/',
             items: [],
           },
           {
-            title: 'Verify',
+            title: 'Submitted Assessments',
             url: '/',
             items: [],
           },
           {
-            title: 'Approve',
+            title: 'Approved Assessments',
             url: '/',
             items: [],
           },
+        ],
+      },
+
+      {
+        url: '/',
+        icon: <FileReturns />,
+        title: 'Other Assessments',
+        items: [
           {
-            title: 'Tax certificate',
+            title: 'Tax Clearance(TCC)',
+            url: '/',
             items: [
-              { title: 'View', url: '/', items: [] },
               {
-                title: 'Edit',
                 url: '/',
+                title: 'Create',
                 items: [],
               },
+              {
+                url: '/',
+                title: 'View',
+                items: [],
+              },
+            ],
+          },
+          {
+            title: 'Reports',
+            url: '/',
+            items: [
+              {
+                url: '/',
+                title: 'Tax Office',
+                items: [],
+              },
+              {
+                url: '/',
+                title: 'List Tax Office',
+                items: [],
+              },
+              {
+                url: '/',
+                title: 'Group Summary ',
+                items: [],
+              },
+            ],
+          },
+          {
+            title: 'Demand Notice',
+            url: '/',
+            items: [
+              {
+                url: '/',
+                title: 'Create',
+                items: [],
+              },
+              {
+                url: '/',
+                title: 'View',
+                items: [],
+              },
+            ],
+          },
+          {
+            title: 'Dispatch DN',
+            url: '/',
+            items: [
+              {
+                url: '/',
+                title: 'Create',
+                items: [],
+              },
+              {
+                url: '/',
+                title: 'View',
+                items: [],
+              }
+            ],
+          },
+          {
+            title: 'TARC Meeting',
+            url: '/',
+            items: [
+              {
+                url: '/',
+                title: 'Create',
+                items: [],
+              },
+              {
+                url: '/',
+                title: 'View',
+                items: [],
+              }
             ],
           },
         ],
@@ -111,25 +193,106 @@ const initialState = [
         title: 'Dashboard',
         items: [],
       },
+
       {
         url: '/',
         icon: <Invoice />,
-        title: 'PAYMENT',
+        title: 'PAYE',
         items: [
           {
-            url: '/payment/new-payment',
-            title: 'New Payment',
+            url: '/',
+            title: 'Dashboard',
             items: [],
           },
           {
-            url: '/payment/payment-history',
-            title: 'Payment History',
+            url: '/',
+            title: 'Annual Returns',
             items: [],
           },
           {
-            url: '/payment/pending-invoice',
-            title: 'Pending Assessment',
+            url: '/',
+            title: 'Remittance Schedules',
             items: [],
+          },
+          {
+            url: '/',
+            title: 'Tax Clearance (TCC)',
+            items: [
+              {
+                url: '/',
+                title: 'Create',
+                items: [],
+              },
+              {
+                url: '/',
+                title: 'View',
+                items: [],
+              },
+            ],
+          },
+          {
+            url: '/',
+            title: 'Reports',
+            items: [],
+          },
+        ],
+      },
+
+      {
+        url: '/',
+        icon: <Invoice />,
+        title: 'Collections',
+        items: [
+          {
+            url: '/',
+            title: 'Dashboard',
+            items: [],
+          },
+          {
+            url: '/',
+            title: 'Create',
+            items: [],
+          },
+          {
+            url: '/',
+            title: 'View',
+            items: [],
+          },
+          {
+            url: '/',
+            title: 'Reconcilliations',
+            items: [],
+          },
+          {
+            url: '/',
+            title: 'Generate Receipt',
+            items: [
+              {
+                url: '/',
+                title: 'Create',
+                items: [],
+              },
+              {
+                url: '/',
+                title: 'View',
+                items: [],
+              },
+              {
+                url: '/',
+                title: 'Verify',
+                items: [],
+              },
+              {
+                url: '/',
+                title: 'Approve',
+                items: [],
+              },
+              {
+                url: '/',
+                title: 'Recon Report',
+                items: [],
+              },
+            ],
           },
         ],
       },
@@ -137,42 +300,73 @@ const initialState = [
       {
         url: '/',
         icon: <FileReturns />,
-        title: 'FILE RETURNS',
+        title: 'Settings',
         items: [
           {
-            title: 'PAYE Monthly',
+            title: 'Revenue Items',
             items: [
-              // { title: 'PAYE annual', url: '/uploads/annual', items: [] },
-              { title: 'Upload', url: '/uploads/monthly', items: [] },
+              { title: 'Create', url: '/', items: [] },
               {
                 title: 'View',
-                url: '/view/monthly',
+                url: '/',
+                items: [],
+              },
+              {
+                title: 'Edit',
+                url: '/',
+                items: [],
+              },
+              {
+                title: 'Delete',
+                url: '/',
                 items: [],
               },
             ],
           },
           {
-            title: 'PAYE Annual',
+            title: 'Tax Office',
             items: [
-              { title: 'Upload CSV', url: '/uploads/annual', items: [] },
+              { title: 'Create', url: '/', items: [] },
               {
                 title: 'View',
-                url: '/view/annual',
+                url: '/',
                 items: [],
               },
-              { title: 'Upload Document', url: '/uploads/annualdocs', items: [] },
-              { title: 'View document', url: '/view/viewdocuments', items: [] },
+              { title: 'Edit', url: '/', items: [] },
+              { title: 'Delete', url: '/', items: [] },
 
             ],
           },
           {
-            title: 'Withholding',
+            title: 'Sectors',
             items: [
-              // { title: 'PAYE annual', url: '/view/annual', items: [] },
-              { title: 'Upload', url: '/uploads/withholding', items: [] },
+              { title: 'Create', url: '/', items: [] },
+              { title: 'View', url: '/', items: [] },
               {
-                title: 'View',
-                url: '/view/withholding',
+                title: 'Edit',
+                url: '/',
+                items: [],
+              },
+              {
+                title: 'Delete',
+                url: '/',
+                items: [],
+              },
+            ],
+          },
+          {
+            title: 'Budget Estimate',
+            items: [
+              { title: 'Create', url: '/', items: [] },
+              { title: 'View', url: '/', items: [] },
+              {
+                title: 'Edit',
+                url: '/',
+                items: [],
+              },
+              {
+                title: 'Delete',
+                url: '/',
                 items: [],
               },
             ],
@@ -180,14 +374,12 @@ const initialState = [
         ],
       },
 
-      {
-        url: '#',
-        icon: <UserGuide />,
-        title: 'USER GUIDE',
-        items: [],
-      },
-
-
+      // {
+      //   url: '#',
+      //   icon: <UserGuide />,
+      //   title: 'USER GUIDE',
+      //   items: [],
+      // },
     ],
   },
 ];
