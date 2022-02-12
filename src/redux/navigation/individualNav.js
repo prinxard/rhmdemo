@@ -73,17 +73,17 @@ const initialState = [
         items: [
           {
             title: 'Create',
-            url: '/',
+            url: '/direct-asses',
             items: [],
           },
           {
             title: 'Draft Assessments',
-            url: '/',
+            url: '/view/pendingdirect',
             items: [],
           },
           {
             title: 'Submitted Assessments',
-            url: '/',
+            url: '/view/completeddirect',
             items: [],
           },
           {
