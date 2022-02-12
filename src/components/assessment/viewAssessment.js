@@ -32,14 +32,15 @@ export const StartAssessment = () => {
   const onSubmitform = async data => {
     const userkgtin = kgtEnentered
     const year = data.year;
-    console.log(data.year);
     let createAsses = {
       "year": `${year}`,
       "kgtin": `${userkgtin}`
     }
     setIsFetching2(true)
     try {
-      await axios.post(`${url.BASE_URL}forma/new-assessment`, createAsses);
+      const res = await axios.post(`${url.BASE_URL}forma/new-assessment`, createAsses);
+      let assessment_id = res.data.body.assessment_id
+      localStorage.setItem("assessment_id", assessment_id)
       setIsFetching2(false)
       router.push(`/direct-asses/${userkgtin}`)
       console.log("Assesment Created");
@@ -50,14 +51,13 @@ export const StartAssessment = () => {
     }
   };
 
-  
+
   setAuthToken();
   const verifiyKGTIN = async () => {
     let testkgtin = kgtEnentered
     let kgtin = {
       "KGTIN": `${testkgtin}`
     }
-    console.log(kgtin);
     setIsFetching(true)
     try {
       let res = await axios.post(`${url.BASE_URL}taxpayer/view-individual`, kgtin);
@@ -68,7 +68,6 @@ export const StartAssessment = () => {
       setDisabled(false)
       setvalidmsg('')
       setinvalidmsg('hidden')
-      console.log("Success!");
     } catch (err) {
       setIsFetching(false)
       setDisabled(true)
@@ -165,7 +164,7 @@ export const StartAssessment = () => {
 };
 
 
-export const StartSingleIndividualAssessment = ({ payerprop, isFetching }) => {
+export const StartSingleIndividualAssessment = ({ payerprop }) => {
 
   const [toggleel, setToggle] = useState('hidden')
   const [togglee2, setToggle2] = useState('hidden')
@@ -188,9 +187,16 @@ export const StartSingleIndividualAssessment = ({ payerprop, isFetching }) => {
   const [servantsToggle, setservantsToggle] = useState('hidden')
   const [form1toggle, setform1toggle] = useState('')
   const [form2toggle, setform2toggle] = useState('')
+  const [empName, setEmpName] = useState("");
+  const [empAdd, setEmpAdd] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [grossPay, setGrossPay] = useState("");
+  const [taxDeduct, setTaxDeduct] = useState("");
+  const [paySLip, setPaySlip] = useState(null);
+
   const [formValues, setFormValues] = useState([{
-    employername: "", employeraddress: "", tax:
-      "", startdate: "", grosspay: "", upload: ""
+    emp_name: "", emp_addr: "", start_date:
+      "", gross_pay: "", tax_deducted: "", pay_slip: "",
   }])
 
   const [formValues2, setFormValues2] = useState([{
@@ -212,6 +218,15 @@ export const StartSingleIndividualAssessment = ({ payerprop, isFetching }) => {
     let newFormValues = [...formValues];
     newFormValues[i][e.target.name] = e.target.value;
     setFormValues(newFormValues);
+    // console.log(newFormValues);
+  }
+
+  let handleChange2 = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...formValues];
+    list[index][name] = value;
+    setFormValues(list);
+    // console.log(list);
   }
 
   const addFormFields = (event) => {
@@ -238,6 +253,32 @@ export const StartSingleIndividualAssessment = ({ payerprop, isFetching }) => {
     }])
   }
 
+  setAuthToken();
+  let submitData = async (e) => {
+    e.preventDefault()
+    console.log(formValues);
+    let assessment_id = localStorage.getItem("assessment_id")
+    const formData = new FormData();
+    formData.append('assessment_id', assessment_id);
+    formData.append('emp_name', empName);
+    formData.append('emp_addr', empAdd);
+    formData.append('start_date', startDate);
+    formData.append('gross_pay', grossPay);
+    formData.append('tax_deducted', taxDeduct);
+    formData.append('pay_slip', paySLip);
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/employed`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+      });
+      console.log("successful!");
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
+
 
   const addLine = (event) => {
     event.preventDefault()
@@ -247,11 +288,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, isFetching }) => {
     }])
   }
 
-  // let removeFormFields = (i) => {
-  //   let newFormValues = [...formValues];
-  //   newFormValues.splice(i, 1);
-  //   setFormValues(newFormValues)
-  // }
+
 
   const onChange = e => {
     let toggleval = ''
@@ -602,11 +639,6 @@ export const StartSingleIndividualAssessment = ({ payerprop, isFetching }) => {
           </div>
           <div className="grid grid-cols-3 gap-4">
             <div className="form-group mb-6">
-              {/* <select className="form-select w-full" name="" id="typeofbusiness">
-                <option selected>Tax Office</option>
-                <option value="1">Office 1</option>
-                <option value="2">Office 2</option>
-              </select> */}
               <p>Tax Office</p>
               {indvData.map((ind, i) => (
                 <input key={i} type="text" className="form-control w-full rounded font-light text-gray-500"
@@ -936,63 +968,47 @@ export const StartSingleIndividualAssessment = ({ payerprop, isFetching }) => {
             </div>
 
             <div className={`flex justify-center border mb-3 p-6 rounded-lg bg-white w-full ${toggleel}`}>
-              <form>
-                {formValues.map((element, index) => (
-                  <div key={index}>
-                    <p className="font-bold flex justify-center mb-4"> Add Employment {index + 1}</p>
+              <form onSubmit={submitData}>
+               
+                  <div>
+                    <p className="font-bold flex justify-center mb-4"> Add Employment</p>
                     <div className="mb-6 grid grid-cols-3 gap-4">
                       <label>Employer Name:</label>
-                      <input type="text" name="employername" className="form-control w-full rounded" />
+                      <input onChange={(e) => setEmpName(e.target.value)} type="text" name="emp_name" className="form-control w-full rounded" />
                     </div>
                     <div className="mb-6 grid grid-cols-3 gap-4">
                       <label>Employer Address:</label>
-                      <input type="text" name="employeraddress" className="form-control w-full rounded" />
+                      <input onChange={(e) => setEmpAdd(e.target.value)} type="text" name="emp_addr"  className="form-control w-full rounded" />
                     </div>
                     <div className="mb-6 grid grid-cols-3 gap-4">
                       <label>Your start date:</label>
-                      <input type="text" name="startdate" className="form-control w-full rounded"
+                      <input onChange={(e) => setStartDate(e.target.value)} type="date" name="start_date" className="form-control w-full rounded"
                       />
                     </div>
                     <div className="mb-6 grid grid-cols-3 gap-4">
                       <label>Gross pay:</label>
-                      <input type="text" name="grosspay" className="form-control w-full rounded"
+                      <input onChange={(e) => setGrossPay(e.target.value)} type="text" name="gross_pay"  className="form-control w-full rounded"
                       />
                     </div>
                     <div className="mb-6 grid grid-cols-3 gap-4">
                       <label>Tax deducted:</label>
-                      <input type="text" name="tax" className="form-control w-full rounded"
+                      <input onChange={(e) => setTaxDeduct(e.target.value)} type="text" name="tax_deducted" className="form-control w-full rounded"
                       />
                     </div>
                     <div className="mb-6 grid grid-cols-3 gap-4">
                       <label>Upload Pay slip or schedule:</label>
-                      <input type="file" name="upload" className="w-full"
+                      <input onChange={(e) => setPaySlip(e.target.files[0])} type="file" name="pay_slip" className="w-full"
                       />
                     </div>
                     <div className='pb-5'>
                       <hr />
                     </div>
                   </div>
-                ))}
-                <div className="mb-6 grid grid-cols-3 gap-4">
+
+                <div className="mb-6 flex justify-around">
                   <button
                     style={{ backgroundColor: "#84abeb" }}
                     className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                    onClick={addFormFields}
-                  >
-                    Add another employment
-                  </button>
-                </div>
-
-                <div className="mb-6 grid grid-cols-3 gap-4">
-                  <label htmlFor="comments">Optional Comments:</label>
-                  <textarea name="" id="comments" cols="40" rows="3" className='rounded'></textarea>
-                </div>
-
-                <div className="mb-6 flex justify-between">
-                  <button
-                    style={{ backgroundColor: "#84abeb" }}
-                    className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                    onClick={(e) => e.preventDefault()}
                   >
                     Save
                   </button>
