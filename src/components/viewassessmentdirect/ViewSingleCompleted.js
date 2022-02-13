@@ -6,29 +6,28 @@ import { useEffect, useState } from 'react';
 import axios from "axios";
 import Loader from 'react-loader-spinner';
 import { ViewSingleCompletedTable } from '../tables/viewCompletedDirect';
+import setAuthToken from '../../functions/setAuthToken';
+import url from '../../config/url';
+import { afterComma, repVa } from '../../functions/numbers';
 
 const ViewSingleCompleted = () => {
   const router = useRouter();
   const [payerprop, setpayerprop] = useState({});
   const [isFetching, setIsFetching] = useState(() => true);
 
-  useEffect(() => {
-    if (router && router.query) {
-      let assess = router.query.ref;
-      let assessment = {
-        "assessment_id": `${assess}`
-      }
-      let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiZXJueW92aWVAZ21haWwuY29tIiwiZ3JvdXBzIjpbMSwyLDMsNSw0XSwiaWF0IjoxNjQ0MzE2MDgyLCJleHAiOjM2MDAwMDAwMTY0NDMxNjEwMH0.Lj3nrnp4qpGIJiG_Jr0WA2A9J0s20HvOcSmLYf3D3r4'
-   
+useEffect(() => {
+  if (router && router.query) {
+    let routerData = String(router.query.ref);
+    let kgtin = routerData.split(',').pop()
+    let assessmentId = routerData.split(',').shift()
+    let sendData = {
+      KGTIN: `${kgtin}`,
+      assessment_id: `${assessmentId}`
+    }
+      setAuthToken()
       const fetchPost = async () => {
         try {
-          let res = await axios.post(`https://rhmapi.bespoque.dev/api/v1/forma/view-assessment`, assessment,
-            {
-              headers: {
-                'Authorization': `Bearer ${token}`
-              },
-            }
-          );
+          let res = await axios.post(`${url.BASE_URL}forma/view-assessment`, sendData);
           let IndData = res.data.body
           console.log(IndData);
           setpayerprop(IndData)

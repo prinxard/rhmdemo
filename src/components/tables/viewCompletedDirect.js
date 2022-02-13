@@ -73,7 +73,7 @@ export const ViewCompletedTable = ({ remittance, totalemployees, totaltax, gross
                 {fields.map((field, j) => (
                   <td key={j} className="">
                     {/* {remittance[field.key]} */}
-                    <Link href={`/view/completeddirect/${remittance.assessment_id}`}>
+                    <Link href={`/view/completeddirect/${remittance.assessment_id},${remittance.kgtin}`}>
                       <a className="hover:text-blue-500">
                         {remittance[field.key]}
                       </a>

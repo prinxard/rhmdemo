@@ -17,3 +17,6 @@ export function formatCurrency(value) {
 export function formatNumber(value) {
   return accounting.formatMoney(value, '', 2, ',', '.').replace(/\.00$/g, '')
 }
+
+
+
