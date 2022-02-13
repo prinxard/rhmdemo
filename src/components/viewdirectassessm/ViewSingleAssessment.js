@@ -12,16 +12,18 @@ const ViewSingleDirectAssessment = () => {
   const router = useRouter();
   const [payerprop, setpayerprop] = useState([]);
   const [isFetching, setIsFetching] = useState(() => true);
+  const [routerAssId, setAssessId] = useState('');
   useEffect(() => {
     if (router && router.query) {
-      let kgtin = router.query.ref;
-      console.log(router.query);
+      let routerData = String(router.query.ref);
+      let kgtin = routerData.split(',').pop()
+      console.log(kgtin); 
+      let assessId = routerData.split(',').shift()
+      setAssessId(assessId) 
       let kgtinPost = {
         "KGTIN": `${kgtin}`
       }
-      const assessment_id = localStorage.getItem("assessment_id")
-      console.log("this is the Assessment Id ", assessment_id);
-      console.log(kgtin);
+      console.log(routerAssId);
       setAuthToken();
       const fetchPost = async () => {
         try {
@@ -59,7 +61,7 @@ const ViewSingleDirectAssessment = () => {
           />
           <p>Fetching data...</p>
         </div>
-      ): <StartSingleIndividualAssessment payerprop={payerprop}/>}
+      ): <StartSingleIndividualAssessment payerprop={payerprop} routerAssId={routerAssId}/>}
           
       </Widget>
     </>

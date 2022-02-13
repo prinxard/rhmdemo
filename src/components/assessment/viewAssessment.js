@@ -28,6 +28,13 @@ export const StartAssessment = () => {
   const [isFetching, setIsFetching] = useState(() => false);
   const [isFetching2, setIsFetching2] = useState(() => false);
 
+  const userKGTN = payerDetails.map(function (det) {
+    let kgtin = det.KGTIN
+    return kgtin
+  })
+
+  const KGTIN = userKGTN[0]
+  console.log(KGTIN);
 
   setAuthToken();
   const onSubmitform = async data => {
@@ -35,15 +42,14 @@ export const StartAssessment = () => {
     const year = data.year;
     let createAsses = {
       "year": `${year}`,
-      "kgtin": `${userkgtin}`
+      "kgtin": `${KGTIN}`
     }
     setIsFetching2(true)
     try {
       const res = await axios.post(`${url.BASE_URL}forma/new-assessment`, createAsses);
       let assessment_id = res.data.body.assessment_id
-      localStorage.setItem("assessment_id", assessment_id)
       setIsFetching2(false)
-      router.push(`/direct-asses/${userkgtin}`)
+      router.push(`/direct-asses/${assessment_id},${KGTIN}`)
       console.log("Assesment Created");
     }
     catch (err) {
@@ -165,7 +171,9 @@ export const StartAssessment = () => {
 };
 
 
-export const StartSingleIndividualAssessment = ({ payerprop }) => {
+export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
+  let assessment_id = routerAssId
+  let indvData = payerprop
 
   const [toggleel, setToggle] = useState('hidden')
   const [togglee2, setToggle2] = useState('hidden')
@@ -194,11 +202,56 @@ export const StartSingleIndividualAssessment = ({ payerprop }) => {
   const [grossPay, setGrossPay] = useState("");
   const [taxDeduct, setTaxDeduct] = useState("");
   const [paySLip, setPaySlip] = useState(null);
+  const [isFetching3, setIsFetching3] = useState(() => false);
+  const [isFetching4, setIsFetching4] = useState(() => false);
+  const [isFetching5, setIsFetching5] = useState(() => false);
+
   const [pensionDeduct, setPensionDeduct] = useState(
     { assessment_id: "", pfa: "", pfa_addr: "", rsa_no: "", amount: "", comments: "" }
   )
-  const [isFetching3, setIsFetching3] = useState(() => false);
-  const [isFetching4, setIsFetching4] = useState(() => false);
+
+  const [spouse, setSpouse] = useState(
+    { assessment_id: "", name: "", employer: "", dob: "", occupation: "", employer_addr: "" }
+  )
+
+  const [residentialAddress, setResidentialAddress] = useState(
+    {
+      assessment_id: "", house_no: "", street: "", town: "", lga: "", residence_type: "",
+      residence_owner: "", annual_rent: "", owner_name: "", owner_phone: ""
+    }
+  )
+  let res_no =  indvData.map(function (x) {
+    let houseNumb = x.house_no
+    return houseNumb
+  })
+  
+  residentialAddress.house_no = String(res_no)
+  console.log(residentialAddress.house_no);
+
+  let streetVal =  indvData.map(function (x) {
+    let street = x.street
+    return street
+  })
+  
+  residentialAddress.street = String(streetVal)
+  console.log(residentialAddress.street);
+
+  let lgaVal =  indvData.map(function (x) {
+    let lga = x.lga
+    return lga
+  })
+  
+  residentialAddress.lga = String(lgaVal)
+  console.log(residentialAddress.lga);
+  
+
+
+  const [selfEmployed, setSelfEmployed] = useState(
+    {
+      assessment_id: "", house_no: "", street: "", town: "", lga: "", residence_type: "",
+      residence_owner: "", annual_rent: "", owner_name: "", owner_phone: ""
+    }
+  )
 
   function handlePenDeductChange(evt) {
     const value = evt.target.value;
@@ -206,14 +259,30 @@ export const StartSingleIndividualAssessment = ({ payerprop }) => {
       ...pensionDeduct,
       [evt.target.name]: value
     });
-    console.log(pensionDeduct);
   }
+
+  function handleSpouseDeductChange(evt) {
+    const value = evt.target.value;
+    setSpouse({
+      ...spouse,
+      [evt.target.name]: value
+    });
+  }
+  
+  // function handleSpouseDeductChange(evt) {
+  //   const value = evt.target.value;
+  //   setSpouse({
+  //     ...spouse,
+  //     [evt.target.name]: value
+  //   });
+  // }
+
+
 
   setAuthToken();
   let submitDataEmployed = async (e) => {
     e.preventDefault()
     setIsFetching3(true)
-    let assessment_id = localStorage.getItem("assessment_id")
     const formData = new FormData();
     formData.append('assessment_id', assessment_id);
     formData.append('emp_name', empName);
@@ -241,7 +310,6 @@ export const StartSingleIndividualAssessment = ({ payerprop }) => {
   let submitDataPenDeduct = async (e) => {
     e.preventDefault()
     setIsFetching4(true)
-    let assessment_id = localStorage.getItem("assessment_id")
     let pendedObj = {
       assessment_id: `${assessment_id}`,
       pfa: `${pensionDeduct.pfa}`,
@@ -257,6 +325,29 @@ export const StartSingleIndividualAssessment = ({ payerprop }) => {
     } catch (error) {
       console.log(error);
       setIsFetching4(false)
+    }
+
+  }
+
+  setAuthToken();
+  let submitDataSpouse = async (e) => {
+    e.preventDefault()
+    setIsFetching5(true)
+    let spouseObj = {
+      assessment_id: `${assessment_id}`,
+      name: `${spouse.name}`,
+      employer: `${spouse.employer}`,
+      dob: `${spouse.dob}`,
+      occupation: `${spouse.occupation}`,
+      employer_addr: `${spouse.employer_addr}`,
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/spouse`, spouseObj);
+      setIsFetching5(false)
+      console.log("successful!");
+    } catch (error) {
+      console.log(error);
+      setIsFetching5(false)
     }
 
   }
@@ -525,16 +616,8 @@ export const StartSingleIndividualAssessment = ({ payerprop }) => {
 
   };
 
-
-  let indvData = payerprop
-  console.log(indvData);
-
-
-
   return (
     <>
-
-
       <div className="flex justify-start">
         <div className="mr-2">
           <SectionTitle title="Applicable during the year ended 31st December" />
@@ -646,26 +729,26 @@ export const StartSingleIndividualAssessment = ({ payerprop }) => {
               ))}
             </div>
             <div className="form-group mb-6">
-              <p>City</p>
+              <p>LGA</p>
               {indvData.map((ind, i) => (
                 <input key={i} type="text" className="form-control w-full rounded font-light text-gray-500"
-                  value={ind.city} disabled />
+                  value={ind.lga} disabled />
               ))}
             </div>
           </div>
 
           <div className="grid grid-cols-3 gap-4">
             <div className="form-group mb-6">
-              <p>City</p>
-              {indvData.map((ind, i) => (
-                <input key={i} type="text" className="form-control w-full rounded font-light text-gray-500"
-                  value={ind.lga} disabled />
-              ))}
+              <p>Town</p>
+              
+                <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                    />
+            
             </div>
 
             <div className="form-check form-check-inline">
               <p>Type of Residence</p>
-              <select className="form-select w-full" name="" id="typeofbusiness">
+              <select className="form-select w-full" name="">
                 <option selected>Select</option>
                 <option value="1">Bungalow</option>
                 <option value="2">Penthouse</option>
@@ -708,54 +791,68 @@ export const StartSingleIndividualAssessment = ({ payerprop }) => {
                 placeholder="Phone number" />
             </div>
           </div>
-
         </form>
       </div>
 
       <div className="block p-6 rounded-lg bg-white w-full">
-        <form action="">
-          <div className="grid grid-cols-3 gap-4">
-            <div className="form-group mb-6">
-              <p>Are you Married ?</p>
-            </div>
-            <div className="flex">
-              <div className="form-check form-check-inline">
-                <input onClick={MarriedYes} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" />
-                <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Yes</label>
-              </div>
 
-              <div className="form-check form-check-inline ml-5">
-                <input onClick={MarriedNo} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" />
-                <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">No</label>
-              </div>
-            </div>
-
+        <div className="grid grid-cols-3 gap-4">
+          <div className="form-group mb-6">
+            <p>Are you Married ?</p>
           </div>
-          <div className={`grid grid-cols-3 gap-4 ${marriedToggle}`}>
+          <div className="flex">
+            <div className="form-check form-check-inline">
+              <input onClick={MarriedYes} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" />
+              <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Yes</label>
+            </div>
+
+            <div className="form-check form-check-inline ml-5">
+              <input onClick={MarriedNo} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" />
+              <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">No</label>
+            </div>
+          </div>
+        </div>
+
+        <div className={`${marriedToggle}`}>
+          {isFetching5 && (
+            <div className="flex justify-center item mb-2">
+              <Loader
+                visible={isFetching5}
+                type="BallTriangle"
+                color="#00FA9A"
+                height={19}
+                width={19}
+                timeout={0}
+                className="ml-2"
+              />
+              <p className="font-bold">Saving...</p>
+            </div>
+          )}
+          <form className="grid grid-cols-3 gap-4" onSubmit={submitDataSpouse}>
             <div className="form-group mb-6">
               <p>Name of spouse</p>
-              <input type="text" className="form-control w-full rounded"
+              <input onChange={handleSpouseDeductChange} required name="name" value={spouse.name} type="text" className="form-control w-full rounded"
                 placeholder="Name of spouse in full" />
             </div>
 
             <div className="form-group mb-6">
               <p>Date of Birth</p>
-              <input type="date" className="form-control w-full rounded"
+              <input onChange={handleSpouseDeductChange} required name="dob" value={spouse.dob} type="date" className="form-control w-full rounded"
                 placeholder="Date of birth" />
             </div>
             <div className="form-group mb-6">
               <p>Business/Employer</p>
-              <input type="text" className="form-control w-full rounded"
+              <input onChange={handleSpouseDeductChange} required name="employer" value={spouse.employer} type="text" className="form-control w-full rounded"
                 placeholder="Employer/Business of spouse" />
             </div>
             <div className="form-group mb-6">
               <p>Occupation</p>
-              <input type="text" className="form-control w-full rounded"
+              <input onChange={handleSpouseDeductChange} required name="occupation" value={spouse.occupation} type="text" className="form-control w-full rounded"
                 placeholder="Occupation" />
             </div>
             <div className="form-group mb-6">
               <p>Office/Business Address</p>
-              <input type="text" className="form-control w-full rounded"
+              <input onChange={handleSpouseDeductChange} required name="employer_addr" value={spouse.employer_addr} type="text" className="form-control w-full rounded"
                 placeholder="Employer's/business address of spouse" />
             </div>
             <div >
@@ -763,16 +860,14 @@ export const StartSingleIndividualAssessment = ({ payerprop }) => {
             <div>
               <button
                 style={{ backgroundColor: "#84abeb" }}
-
                 className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
                 type="submit"
               >
                 Save
               </button>
             </div>
-          </div>
-        </form>
-
+          </form>
+        </div>
       </div>
 
       <div className="block p-6 rounded-lg bg-white w-full">

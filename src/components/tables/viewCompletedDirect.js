@@ -41,19 +41,9 @@ const fields = [
 
 ];
 
-export const ViewCompletedTable = ({ remittance, totalemployees, totaltax, grosssum }) => {
+export const ViewCompletedTable = ({ remittance }) => {
   let items = remittance;
-  // console.log(remittance)
-  remittance.map((remittance) => {
-    remittance["amount"] = formatNumber(remittance["amount"]);
-    if (remittance["status"] === 1) {
-      remittance["status"] = "success";
-    } else if (remittance["status"] === 0) {
-      remittance["status"] = "failed";
-    }
-    return remittance;
-  });
-
+ 
   return (
     <>
       <Widget>
@@ -89,57 +79,7 @@ export const ViewCompletedTable = ({ remittance, totalemployees, totaltax, gross
   );
 };
 
-const singleFields = [
-  // { name: 'Status', key: 'status' },
 
-  {
-    name: 'Staff Name',
-    key: 'staff_names',
-  },
-  {
-    name: 'Number of months',
-    key: 'no_months',
-  },
-  {
-    name: 'Basic Salary',
-    key: 'basic_salary',
-  },
-  {
-    name: 'CONSOLIDATED RELIEF ALLOWANCE',
-    key: 'con_rel_cal',
-  },
-  {
-    name: 'Pension',
-    key: 'pension',
-  },
-  {
-    name: 'NHIS',
-    key: 'nhis',
-  },
-
-  {
-    name: 'LAP',
-    key: 'lap',
-  },
-
-  {
-    name: 'Net Tax Deducted',
-    key: 'net_tax_ded',
-  },
-  {
-    name: 'Expected Tax',
-    key: 'tax_pay_cal',
-  },
-  {
-    name: 'Variance',
-    key: 'variance_cal',
-  },
-
-  {
-    name: 'Year',
-    key: 'year',
-  },
-];
 
 export const ViewSingleCompletedTable = ({ payerprop }) => {
   const items = payerprop;
