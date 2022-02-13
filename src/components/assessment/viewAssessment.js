@@ -205,6 +205,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
   const [isFetching3, setIsFetching3] = useState(() => false);
   const [isFetching4, setIsFetching4] = useState(() => false);
   const [isFetching5, setIsFetching5] = useState(() => false);
+  const [isFetching6, setIsFetching6] = useState(() => false);
 
   const [pensionDeduct, setPensionDeduct] = useState(
     { assessment_id: "", pfa: "", pfa_addr: "", rsa_no: "", amount: "", comments: "" }
@@ -271,7 +272,6 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       ...residentialAddress,
       [evt.target.name]: value
     });
-    console.log(residentialAddress);
   }
 
   // function handleSpouseDeductChange(evt) {
@@ -349,6 +349,33 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/spouse`, spouseObj);
       setIsFetching5(false)
+      console.log("successful!");
+    } catch (error) {
+      console.log(error);
+      setIsFetching5(false)
+    }
+
+  }
+
+  setAuthToken();
+  let submitDataResAdd = async (e) => {
+    e.preventDefault()
+    setIsFetching6(true)
+    let resAddObj = {
+      assessment_id: `${assessment_id}`,
+      house_no: `${residentialAddress.house_no}`,
+      street: `${residentialAddress.street}`,
+      town: `${residentialAddress.town}`,
+      lga: `${residentialAddress.lga}`,
+      residence_type: `${residentialAddress.residence_type}`,
+      residence_owner: `${residentialAddress.residence_owner}`,
+      annual_rent: `${residentialAddress.annual_rent}`,
+      owner_name: `${residentialAddress.owner_name}`,
+      owner_phone: `${residentialAddress.owner_phone}`,
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/residence-addr`, resAddObj);
+      setIsFetching6(false)
       console.log("successful!");
     } catch (error) {
       console.log(error);
@@ -716,7 +743,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
         <div className="flex">
           <h6 className="p-2">Current Residential address</h6>
         </div>
-        <form>
+        <form onSubmit={submitDataResAdd}>
           <div className="grid grid-cols-3 gap-4">
             <div className="mb-6">
               <p>House No</p>
@@ -785,10 +812,19 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                 placeholder="Name of owner" />
             </div>
             <div className="form-group mb-6">
-              <input type="text"name="owner_phone" value={residentialAddress.owner_phone} className="form-control w-full rounded"
+              <input onChange={handleResidentialChange}  type="text" name="owner_phone" value={residentialAddress.owner_phone} className="form-control w-full rounded"
                 placeholder="Phone number" />
             </div>
           </div>
+          <div>
+              <button
+                style={{ backgroundColor: "#84abeb" }}
+                className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
+                type="submit"
+              >
+                Save
+              </button>
+            </div>
         </form>
       </div>
 
