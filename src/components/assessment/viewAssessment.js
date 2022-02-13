@@ -220,31 +220,27 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       residence_owner: "", annual_rent: "", owner_name: "", owner_phone: ""
     }
   )
-  let res_no =  indvData.map(function (x) {
+  let res_no = indvData.map(function (x) {
     let houseNumb = x.house_no
     return houseNumb
   })
-  
-  residentialAddress.house_no = String(res_no)
-  console.log(residentialAddress.house_no);
 
-  let streetVal =  indvData.map(function (x) {
+  residentialAddress.house_no = String(res_no)
+
+  let streetVal = indvData.map(function (x) {
     let street = x.street
     return street
   })
-  
-  residentialAddress.street = String(streetVal)
-  console.log(residentialAddress.street);
 
-  let lgaVal =  indvData.map(function (x) {
+  residentialAddress.street = String(streetVal)
+
+
+  let lgaVal = indvData.map(function (x) {
     let lga = x.lga
     return lga
   })
-  
-  residentialAddress.lga = String(lgaVal)
-  console.log(residentialAddress.lga);
-  
 
+  residentialAddress.lga = String(lgaVal)
 
   const [selfEmployed, setSelfEmployed] = useState(
     {
@@ -268,7 +264,16 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       [evt.target.name]: value
     });
   }
-  
+
+  function handleResidentialChange(evt) {
+    const value = evt.target.value;
+    setResidentialAddress({
+      ...residentialAddress,
+      [evt.target.name]: value
+    });
+    console.log(residentialAddress);
+  }
+
   // function handleSpouseDeductChange(evt) {
   //   const value = evt.target.value;
   //   setSpouse({
@@ -715,48 +720,41 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
           <div className="grid grid-cols-3 gap-4">
             <div className="mb-6">
               <p>House No</p>
-              {indvData.map((ind, i) => (
-                <input key={i} type="text" className="form-control w-full rounded font-light text-gray-500"
-                  value={ind.house_no} disabled />
-              ))}
+              <input onChange={handleResidentialChange} type="text" className="form-control w-full rounded font-light text-gray-500"
+               name="house_no" value={residentialAddress.house_no} disabled />
             </div>
 
             <div className="form-group mb-6">
               <p>Street</p>
-              {indvData.map((ind, i) => (
-                <input key={i} type="text" className="form-control w-full rounded font-light text-gray-500"
-                  value={ind.street} disabled />
-              ))}
+              <input onChange={handleResidentialChange} type="text" className="form-control w-full rounded font-light text-gray-500"
+               name="street" value={residentialAddress.street} disabled />
             </div>
             <div className="form-group mb-6">
               <p>LGA</p>
-              {indvData.map((ind, i) => (
-                <input key={i} type="text" className="form-control w-full rounded font-light text-gray-500"
-                  value={ind.lga} disabled />
-              ))}
+              <input onChange={handleResidentialChange} type="text" className="form-control w-full rounded font-light text-gray-500"
+              name="lga"  value={residentialAddress.lga} disabled />
             </div>
           </div>
 
           <div className="grid grid-cols-3 gap-4">
             <div className="form-group mb-6">
               <p>Town</p>
-              
-                <input type="text" className="form-control w-full rounded font-light text-gray-500"
-                    />
-            
+              <input onChange={handleResidentialChange} type="text" className="form-control w-full rounded font-light text-gray-500"
+              name="town" value={residentialAddress.town}/>
+
             </div>
 
             <div className="form-check form-check-inline">
               <p>Type of Residence</p>
-              <select className="form-select w-full" name="">
-                <option selected>Select</option>
-                <option value="1">Bungalow</option>
-                <option value="2">Penthouse</option>
-                <option value="3">Mansion</option>
-                <option value="3">Apartment or Flat</option>
-                <option value="3">Terraced house</option>
-                <option value="3">Duplex</option>
-                <option value="3">Traditional house</option>
+              <select onChange={handleResidentialChange} className="form-select w-full" name="residence_type" value={residentialAddress.residence_type}>
+                <option value="select">Select</option>
+                <option value="Bungalow">Bungalow</option>
+                <option value="Penthouse">Penthouse</option>
+                <option value="Mansion">Mansion</option>
+                <option value="Apartment or Flat">Apartment or Flat</option>
+                <option value="Terraced house">Terraced house</option>
+                <option value="Duplex">Duplex</option>
+                <option value="Traditional house">Traditional house</option>
               </select>
             </div>
 
@@ -764,12 +762,12 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
               <p>Do you own your place of residence?</p>
               <div className="flex">
                 <div className="form-check form-check-inline">
-                  <input onChange={onresidenceToggleYes} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions" id="inlineRadio1" />
+                  <input onChange={onresidenceToggleYes} name="residence_owner" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio"  id="inlineRadio1" />
                   <label className="form-check-label inline-block text-gray-800" htmlFor="inlineRadio10">Owner</label>
                 </div>
 
                 <div className="form-check form-check-inline ml-5">
-                  <input onChange={onresidenceToggleNo} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions" id="inlineRadio2" />
+                  <input onChange={onresidenceToggleNo} name="residence_owner" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio"  id="inlineRadio2" />
                   <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Rented</label>
                 </div>
               </div>
@@ -778,16 +776,16 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
           <div className={`grid grid-cols-3 gap-4 ${resiToggle}`}>
             <div className="form-group mb-6">
-              <input type="text" className="form-control w-full rounded"
+              <input onChange={handleResidentialChange} type="text" name="annual_rent" value={residentialAddress.annual_rent} className="form-control w-full rounded"
                 placeholder="Annual rent" />
             </div>
 
             <div className="form-group mb-6">
-              <input type="text" className="form-control w-full rounded"
+              <input onChange={handleResidentialChange} type="text" name="owner_name" value={residentialAddress.owner_name}  className="form-control w-full rounded"
                 placeholder="Name of owner" />
             </div>
             <div className="form-group mb-6">
-              <input type="text" className="form-control w-full rounded"
+              <input type="text"name="owner_phone" value={residentialAddress.owner_phone} className="form-control w-full rounded"
                 placeholder="Phone number" />
             </div>
           </div>
