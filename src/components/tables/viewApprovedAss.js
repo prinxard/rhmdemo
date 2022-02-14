@@ -100,14 +100,49 @@ export const ViewSingleApprovedTable = ({ payerprop }) => {
               <td className="p-8"><h5>Assessment</h5></td>
             </tr>
             <tr>
-              <td className="p-8">
-              <p style={{background: "black", color:"white"}}>Taxpayer Name</p>
-                <p>Name</p>
+              <td className="pb-3">
+                <div className="border">
+                  <p className="p-1" style={{ background: "#494d4a", color: "white" }}>Taxpayer Name</p>
+                  <p className="p-1">Name</p>
+                </div>
+
               </td>
-              <td className="p-8">
-                <p>Tax Station</p>
-                <p>Head Office</p>
+              <td className="pb-3">
+                <div className="border">
+                  <p className="p-1" style={{ background: "#494d4a", color: "white" }}>Tax Station</p>
+                  <p className="p-1">Head Office</p>
+                </div>
               </td>
+            </tr>
+            <tr>
+              <td className="pb-4">
+                <div className="border">
+                  <p className="p-1" style={{ background: "#494d4a", color: "white" }}>Taxpayer Address</p>
+                  <p className="p-1">Address</p>
+                </div>
+
+              </td>
+              <td className="pb-4">
+                <div className="border">
+                  <p className="p-1" style={{ background: "#494d4a", color: "white" }}>Assesment ID</p>
+                  <p className="p-1">Head Office</p>
+                </div>
+              </td>
+            </tr>
+            <tr style={{background: "#c0ccc3"}} className="w-full">
+              <td className="p-2 font-bold">Assessment Details</td><td></td>
+            </tr>
+            <tr>
+              <td className="p-4">Revenue Item</td>
+              <td className="p-4"><p>Direct Assessment</p></td>
+            </tr>
+            <tr>
+              <td className="p-4">Agency</td>
+              <td className="p-4">Internal Revenue Service</td>
+            </tr>
+            <tr>
+              <td className="p-4">Date of Creation</td>
+              <td className="p-4">Internal Revenue Service</td>
             </tr>
           </table>
         </div>
