@@ -92,7 +92,27 @@ export const ViewSingleApprovedTable = ({ payerprop }) => {
   return (
     <>
       <Widget>
-        <div className="flex justify-end">
+        <div className="overflow-x-auto flex justify-center p-4 mb-4 rounded-lg bg-white border border-gray-100 dark:bg-gray-900 dark:border-gray-800">
+
+          <table className="border">
+            <tr>
+              <td className="p-8"><Icons.KgirsLogo></Icons.KgirsLogo></td>
+              <td className="p-8"><h5>Assessment</h5></td>
+            </tr>
+            <tr>
+              <td className="p-8">
+              <p style={{background: "black", color:"white"}}>Taxpayer Name</p>
+                <p>Name</p>
+              </td>
+              <td className="p-8">
+                <p>Tax Station</p>
+                <p>Head Office</p>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        {/* <div className="flex justify-end">
           <button
             className="btn btn-default bg-green-600 text-white mr-4 btn-outlined bg-transparent rounded-md"
             type="submit"
@@ -390,7 +410,7 @@ export const ViewSingleApprovedTable = ({ payerprop }) => {
               </div>
             </div>
           </form>
-        </div>
+        </div> */}
       </Widget>
     </>
   );
