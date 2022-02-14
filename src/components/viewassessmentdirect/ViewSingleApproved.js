@@ -15,12 +15,15 @@ const ViewSingleApproved= () => {
   const router = useRouter();
   const [payerprop, setpayerprop] = useState({});
   const [isFetching, setIsFetching] = useState(() => true);
+  const [assId, setAssId] = useState("");
+  
 
 useEffect(() => {
   if (router && router.query) {
     let routerData = String(router.query.ref);
     let kgtin = routerData.split(',').pop()
     let assessmentId = routerData.split(',').shift()
+    setAssId(assessmentId)
     let sendData = {
       KGTIN: `${kgtin}`,
       assessment_id: `${assessmentId}`
@@ -63,7 +66,7 @@ useEffect(() => {
             />
             <p>Fetching data...</p>
           </div>
-        ) : <ViewSingleApprovedTable payerprop={payerprop} />}
+        ) : <ViewSingleApprovedTable payerprop={payerprop} assId={assId} />}
       </Widget>
     </>
   );

@@ -85,13 +85,23 @@ export const ViewApprovedTable = ({ remittance }) => {
 
 
 
-export const ViewSingleApprovedTable = ({ payerprop }) => {
+export const ViewSingleApprovedTable = ({ payerprop, assId }) => {
   const items = payerprop;
+  const assesId = assId
+  console.log(assesId);
   console.log(items);
 
   return (
     <>
       <Widget>
+        <div className="flex justify-end mb-3">
+          <button
+            className="btn btn-default bg-green-600 text-white mr-4 btn-outlined bg-transparent rounded-md"
+            type="submit"
+          >
+            Print Assessment
+          </button>
+        </div>
         <div className="overflow-x-auto flex justify-center p-4 mb-4 rounded-lg bg-white border border-gray-100 dark:bg-gray-900 dark:border-gray-800">
 
           <table className="border">
@@ -103,14 +113,18 @@ export const ViewSingleApprovedTable = ({ payerprop }) => {
               <td className="pb-3">
                 <div className="border">
                   <p className="p-1" style={{ background: "#494d4a", color: "white" }}>Taxpayer Name</p>
-                  <p className="p-1">Name</p>
+                  {items.taxpayer.map((el, i) => 
+                  <p key={i} className="p-1">{`${el.first_name} ${el.surname}`}</p>
+                  )}
                 </div>
 
               </td>
               <td className="pb-3">
                 <div className="border">
                   <p className="p-1" style={{ background: "#494d4a", color: "white" }}>Tax Station</p>
-                  <p className="p-1">Head Office</p>
+                  {items.taxpayer.map((el, i) => 
+                  <p key={i} className="p-1">{`${el.tax_office}`}</p>
+                  )}
                 </div>
               </td>
             </tr>
@@ -118,18 +132,20 @@ export const ViewSingleApprovedTable = ({ payerprop }) => {
               <td className="pb-4">
                 <div className="border">
                   <p className="p-1" style={{ background: "#494d4a", color: "white" }}>Taxpayer Address</p>
-                  <p className="p-1">Address</p>
+                  {items.taxpayer.map((el, i) => 
+                  <p key={i} className="p-1">{`${el.house_no} ${el.street} ${el.stateOfResidence}`}</p>
+                  )}
                 </div>
 
               </td>
               <td className="pb-4">
                 <div className="border">
                   <p className="p-1" style={{ background: "#494d4a", color: "white" }}>Assesment ID</p>
-                  <p className="p-1">Head Office</p>
+                  <p className="p-1">{assesId}</p>
                 </div>
               </td>
             </tr>
-            <tr style={{background: "#c0ccc3"}} className="w-full">
+            <tr style={{ background: "#c0ccc3" }} className="w-full">
               <td className="p-2 font-bold">Assessment Details</td><td></td>
             </tr>
             <tr>
@@ -142,7 +158,7 @@ export const ViewSingleApprovedTable = ({ payerprop }) => {
             </tr>
             <tr>
               <td className="p-4">Date of Creation</td>
-              <td className="p-4">Internal Revenue Service</td>
+              <td className="p-4">2022-2-14</td>
             </tr>
           </table>
         </div>
