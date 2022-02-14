@@ -245,10 +245,15 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
   const [selfEmployed, setSelfEmployed] = useState(
     {
-      assessment_id: "", house_no: "", street: "", town: "", lga: "", residence_type: "",
-      residence_owner: "", annual_rent: "", owner_name: "", owner_phone: ""
+      assessment_id: "", business_type: "", business_name: "", business_addr: "", business_start_date: "", income_earned: "",
+      other_income: "", cash_inc_expense: "", expense: "", figures_estimated: ""
     }
   )
+
+  let incEarned = Number(selfEmployed.income_earned)
+  let otherInc = Number(selfEmployed.other_income)
+  const totalBusInc = incEarned + otherInc
+  console.log(totalBusInc);
 
   function handlePenDeductChange(evt) {
     const value = evt.target.value;
@@ -272,6 +277,15 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       ...residentialAddress,
       [evt.target.name]: value
     });
+  }
+
+  function handleSelfEmployedChange(evt) {
+    const value = evt.target.value;
+    setSelfEmployed({
+      ...selfEmployed,
+      [evt.target.name]: value
+    });
+    console.log(selfEmployed);
   }
 
   // function handleSpouseDeductChange(evt) {
@@ -379,7 +393,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       console.log("successful!");
     } catch (error) {
       console.log(error);
-      setIsFetching5(false)
+      setIsFetching6(false)
     }
 
   }
@@ -743,23 +757,37 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
         <div className="flex">
           <h6 className="p-2">Current Residential address</h6>
         </div>
+        {isFetching6 && (
+          <div className="flex justify-center item mb-2">
+            <Loader
+              visible={isFetching6}
+              type="BallTriangle"
+              color="#00FA9A"
+              height={19}
+              width={19}
+              timeout={0}
+              className="ml-2"
+            />
+            <p className="font-bold">Saving...</p>
+          </div>
+        )}
         <form onSubmit={submitDataResAdd}>
           <div className="grid grid-cols-3 gap-4">
             <div className="mb-6">
               <p>House No</p>
               <input onChange={handleResidentialChange} type="text" className="form-control w-full rounded font-light text-gray-500"
-               name="house_no" value={residentialAddress.house_no} disabled />
+                name="house_no" value={residentialAddress.house_no} disabled />
             </div>
 
             <div className="form-group mb-6">
               <p>Street</p>
               <input onChange={handleResidentialChange} type="text" className="form-control w-full rounded font-light text-gray-500"
-               name="street" value={residentialAddress.street} disabled />
+                name="street" value={residentialAddress.street} disabled />
             </div>
             <div className="form-group mb-6">
               <p>LGA</p>
               <input onChange={handleResidentialChange} type="text" className="form-control w-full rounded font-light text-gray-500"
-              name="lga"  value={residentialAddress.lga} disabled />
+                name="lga" value={residentialAddress.lga} disabled />
             </div>
           </div>
 
@@ -767,7 +795,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
             <div className="form-group mb-6">
               <p>Town</p>
               <input onChange={handleResidentialChange} type="text" className="form-control w-full rounded font-light text-gray-500"
-              name="town" value={residentialAddress.town}/>
+                name="town" value={residentialAddress.town} />
 
             </div>
 
@@ -789,12 +817,12 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
               <p>Do you own your place of residence?</p>
               <div className="flex">
                 <div className="form-check form-check-inline">
-                  <input onChange={onresidenceToggleYes} name="residence_owner" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio"  id="inlineRadio1" />
+                  <input onChange={onresidenceToggleYes} name="residence_owner" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
                   <label className="form-check-label inline-block text-gray-800" htmlFor="inlineRadio10">Owner</label>
                 </div>
 
                 <div className="form-check form-check-inline ml-5">
-                  <input onChange={onresidenceToggleNo} name="residence_owner" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio"  id="inlineRadio2" />
+                  <input onChange={onresidenceToggleNo} name="residence_owner" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
                   <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Rented</label>
                 </div>
               </div>
@@ -808,23 +836,23 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
             </div>
 
             <div className="form-group mb-6">
-              <input onChange={handleResidentialChange} type="text" name="owner_name" value={residentialAddress.owner_name}  className="form-control w-full rounded"
+              <input onChange={handleResidentialChange} type="text" name="owner_name" value={residentialAddress.owner_name} className="form-control w-full rounded"
                 placeholder="Name of owner" />
             </div>
             <div className="form-group mb-6">
-              <input onChange={handleResidentialChange}  type="text" name="owner_phone" value={residentialAddress.owner_phone} className="form-control w-full rounded"
+              <input onChange={handleResidentialChange} type="text" name="owner_phone" value={residentialAddress.owner_phone} className="form-control w-full rounded"
                 placeholder="Phone number" />
             </div>
           </div>
           <div>
-              <button
-                style={{ backgroundColor: "#84abeb" }}
-                className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
-                type="submit"
-              >
-                Save
-              </button>
-            </div>
+            <button
+              style={{ backgroundColor: "#84abeb" }}
+              className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
+              type="submit"
+            >
+              Save
+            </button>
+          </div>
         </form>
       </div>
 
@@ -950,14 +978,6 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                 placeholder="Child's income in own right" />
             </div>
             <div>
-              <button
-                style={{ backgroundColor: "#84abeb" }}
-
-                className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
-                type="submit"
-              >
-                Add Child
-              </button>
             </div>
           </div>
         </form>
@@ -1165,68 +1185,65 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
             <div className={`flex justify-center border mb-3 p-6 rounded-lg bg-white w-fulll ${togglee2}`}>
               <form>
-
                 <div>
-
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label htmlFor="typeofbusiness">Type of business:</label>
-                    <select className="form-select" name="" id="typeofbusiness">
-                      <option selected>Select Business </option>
-                      <option value="1">Agro Allied Products</option>
-                      <option value="2">Aircondition Repairer</option>
-                      <option value="3">Aluminum Doors & Windows</option>
-                      <option value="3">Animal Feed Maker</option>
-                      <option value="3">Architechtural Design</option>
-                      <option value="3">Architect</option>
-                      <option value="3">Artist And Song-Writer</option>
-                      <option value="3">Baby Wear</option>
-                      <option value="3">Curtain & Interior Decoration</option>
-                      <option value="3">Cyber Cafe Operator</option>
-                      <option value="3">Dealers In Mattress/Foams</option>
-                      <option value="3">Djs Entertainment</option>
-                      <option value="3">Doors Seller</option>
-                      <option value="3">Drama Group</option>
-                      <option value="3">Electrical Parts & Fitting</option>
-                      <option value="3">Electrician</option>
-                      <option value="3">Electronics Dealer</option>
-                      <option value="3">Engine Oil/ Kerosene Seller</option>
-                      <option value="3">Estate Managers/ Agent</option>
-                      <option value="3">Event Centre</option>
-                      <option value="3">Event Planner</option>
-                      <option value="3">Fashion Designer</option>
-                      <option value="3">Films & Cinemas Center</option>
-                      <option value="3">Fish Seller</option>
-                      <option value="3">Fowl Seller</option>
-                      <option value="3">Fruit Seller</option>
-                      <option value="3">Furnishing Materials Seller</option>
-                      <option value="3">Furniture / Furnishing Materials Seller</option>
-                      <option value="3">Furniture Maker</option>
-                      <option value="3">Gas Refilling Seller</option>
-                      <option value="3">Generator Mechanic</option>
-                      <option value="3">Gift Shop</option>
-                      <option value="3">Graphic Arts & Design</option>
-                      <option value="3">Grinding Mill</option>
-                      <option value="3">Guest House</option>
-                      <option value="3">Hairdressers And Barber</option>
-                      <option value="3">Higher Institutions Private</option>
-                      <option value="3">Horticulture / Florist</option>
-                      <option value="3">Hotel Proprietor</option>
-                      <option value="3">Ict/ Computer Accessories</option>
-                      <option value="3">Interior Decorator</option>
-                      <option value="3">Iron Bender</option>
-                      <option value="3">Jewelry Seller</option>
-                      <option value="3">Kerorine Retail Seller</option>
-                      <option value="3">Kiddies Shop And Botique</option>
-                      <option value="3">Laundry (Dry Cleaner)</option>
-                      <option value="3">Law Firm</option>
-                      <option value="3">Leather Carpets (Linoleum)</option>
-                      <option value="3">Liquor|Beer Palour</option>
-                      <option value="3">Mai Shai (Tea Maker)</option>
-                      <option value="3">Mason</option>
-                      <option value="3">Maternity Home</option>
-                      <option value="3">Maternity Private Proprietor</option>
-                      <option value="3">Meat Seller</option>
-                      <option value="3">Meat Seller</option>
+                    <select onChange={handleSelfEmployedChange} className="form-select" name="business_type" value={selfEmployed.business_type} >
+                      <option value="select">Select Business </option>
+                      <option value="Agro Allied Products">Agro Allied Products</option>
+                      <option value="Aircondition Repairer">Aircondition Repairer</option>
+                      <option value="Aluminum Doors & Windows">Aluminum Doors & Windows</option>
+                      <option value="Animal Feed Maker">Animal Feed Maker</option>
+                      <option value="Architechtural Design">Architechtural Design</option>
+                      <option value="Architect">Architect</option>
+                      <option value="Artist And Song-Writer">Artist And Song-Writer</option>
+                      <option value="Baby Wear">Baby Wear</option>
+                      <option value="Curtain & Interior Decoration">Curtain & Interior Decoration</option>
+                      <option value="Cyber Cafe Operator">Cyber Cafe Operator</option>
+                      <option value="Dealers In Mattress/Foams">Dealers In Mattress/Foams</option>
+                      <option value="Djs Entertainment">Djs Entertainment</option>
+                      <option value="Doors Seller">Doors Seller</option>
+                      <option value="Drama Group">Drama Group</option>
+                      <option value="Electrical Parts & Fitting">Electrical Parts & Fitting</option>
+                      <option value="Electrician">Electrician</option>
+                      <option value="Electronics Dealer">Electronics Dealer</option>
+                      <option value="Engine Oil/ Kerosene Seller">Engine Oil/ Kerosene Seller</option>
+                      <option value="Estate Managers/ Agent">Estate Managers/ Agent</option>
+                      <option value="Event Centre">Event Centre</option>
+                      <option value="Event Planner">Event Planner</option>
+                      <option value="Fashion Designer">Fashion Designer</option>
+                      <option value="Films & Cinemas Center">Films & Cinemas Center</option>
+                      <option value="Fish Seller">Fish Seller</option>
+                      <option value="Fowl Seller">Fowl Seller</option>
+                      <option value="Fruit Seller">Fruit Seller</option>
+                      <option value="Furnishing Materials Seller">Furnishing Materials Seller</option>
+                      <option value="Furniture / Furnishing Materials Seller">Furniture / Furnishing Materials Seller</option>
+                      <option value="Furniture Maker">Furniture Maker</option>
+                      <option value="Gas Refilling Seller">Gas Refilling Seller</option>
+                      <option value="Generator Mechanic">Generator Mechanic</option>
+                      <option value="Gift Shop">Gift Shop</option>
+                      <option value="Graphic Arts & Design">Graphic Arts & Design</option>
+                      <option value="Grinding Mill">Grinding Mill</option>
+                      <option value="Guest House">Guest House</option>
+                      <option value="Hairdressers And Barber">Hairdressers And Barber</option>
+                      <option value="Higher Institutions Private">Higher Institutions Private</option>
+                      <option value="Horticulture / Florist">Horticulture / Florist</option>
+                      <option value="Hotel Proprietor">Hotel Proprietor</option>
+                      <option value="Ict/ Computer Accessories">Ict/ Computer Accessories</option>
+                      <option value="Interior Decorator">Interior Decorator</option>
+                      <option value="Iron Bender">Iron Bender</option>
+                      <option value="Jewelry Seller">Jewelry Seller</option>
+                      <option value="Kerorine Retail Seller">Kerorine Retail Seller</option>
+                      <option value="Kiddies Shop And Botique">Kiddies Shop And Botique</option>
+                      <option value="Laundry (Dry Cleaner)">Laundry (Dry Cleaner)</option>
+                      <option value="Law Firm3">Law Firm</option>
+                      <option value="Leather Carpets (Linoleum)">Leather Carpets (Linoleum)</option>
+                      <option value="Liquor|Beer Palour">Liquor|Beer Palour</option>
+                      <option value="Mai Shai (Tea Maker)">Mai Shai (Tea Maker)</option>
+                      <option value="Mason">Mason</option>
+                      <option value="Maternity Home">Maternity Home</option>
+                      <option value="Maternity Private Proprietor">Maternity Private Proprietor</option>
+                      <option value="Meat Seller">Meat Seller</option>
                       <option value="3">Medical Laboratory</option>
                       <option value="">Mini Supermarket|Supermarket</option>
                       <option value="">Mobile Phone Dealer</option>
@@ -1312,32 +1329,31 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label htmlFor="businessname">Business Name:</label>
-                    <input type="text" id="businessname" className="form-control w-full rounded"
+                    <input onChange={handleSelfEmployedChange} name="business_name" value={selfEmployed.business_name} type="text" id="businessname" className="form-control w-full rounded"
                     />
                   </div>
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label htmlFor="businessaddress">Business Address:</label>
-                    <input type="text" id="businessaddress" className="form-control w-full rounded"
+                    <input onChange={handleSelfEmployedChange} name="business_addr" value={selfEmployed.business_addr} type="text" id="businessaddress" className="form-control w-full rounded"
                     />
                   </div>
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label htmlFor="employername">Business Start date:</label>
-                    <input type="date"
-                      className="form-control w-full rounded"
+                    <input onChange={handleSelfEmployedChange} name="business_start_date" value={selfEmployed.business_start_date} type="date" className="form-control w-full rounded"
                     />
                   </div>
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label htmlFor="turnover">Turnover-takings, fees, sales or money earned by your business:</label>
-                    <input type="text" id="turnover" className="form-control w-full rounded"
+                    <input onChange={handleSelfEmployedChange} name="income_earned" value={selfEmployed.income_earned} type="text" id="turnover" className="form-control w-full rounded"
                     />
                   </div>
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label htmlFor="turnover">Any other business income not included above:</label>
-                    <input type="text" id="turnover" className="form-control w-full rounded"
+                    <input onChange={handleSelfEmployedChange} name="other_income" value={selfEmployed.other_income} type="text" id="turnover" className="form-control w-full rounded"
                     />
                   </div>
 
@@ -1345,20 +1361,20 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                     <label htmlFor="cashbases">Do you use cash basis, money actually received and paid out, to calculate your income expense ?</label>
                     <div className="flex">
                       <div className="form-check form-check-inline">
-                        <input className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions" id="inlineRadio1" />
-                        <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Yes</label>
+                        <input onChange={handleSelfEmployedChange} value="Yes" name="cash_inc_expense" checked={selfEmployed.cash_inc_expense === "Yes"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
+                        <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">No</label>
                       </div>
 
                       <div className="form-check form-check-inline ml-5">
-                        <input className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions" id="inlineRadio2" />
-                        <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">No</label>
+                        <input onChange={handleSelfEmployedChange} value="No" name="cash_inc_expense" checked={selfEmployed.cash_inc_expense === "No"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
+                        <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Yes</label>
                       </div>
                     </div>
                   </div>
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label className="font-bold" htmlFor="businessincome">Total Business Income:</label>
-                    <p className="font-bold" id="businessincome">NGN 0.00</p>
+                    <p className="font-bold" id="businessincome">NGN {totalBusInc}</p>
                   </div>
 
                   <div>
@@ -1367,13 +1383,13 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                       <label htmlFor="expenses">How would you like to record your expenses?</label>
                       <div className="flex">
                         <div className="form-check form-check-inline">
-                          <input className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions" id="inlineRadio1" />
-                          <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Total value</label>
+                          <input onChange={handleSelfEmployedChange} value="Total" name="expense" checked={selfEmployed.expense === "Total"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
+                          <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Break down</label>
                         </div>
 
                         <div className="form-check form-check-inline ml-5">
-                          <input className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions" id="inlineRadio2" />
-                          <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Break down</label>
+                          <input onChange={handleSelfEmployedChange} value="Break down" name="expense" checked={selfEmployed.expense === "Break down"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
+                          <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Total</label>
                         </div>
                       </div>
                     </div>
@@ -1389,17 +1405,6 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                     />
                   </div>
 
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <button
-                      style={{ backgroundColor: "#84abeb" }}
-                      className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                      type="submit"
-                    >
-                      Add Line
-                    </button>
-                  </div>
-
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label className="font-bold" htmlFor="businessincome">Net Profit:</label>
                     <p className="font-bold" id="businessincome">NGN 0.00</p>
@@ -1410,16 +1415,26 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                   </div>
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
+                    <button
+                      style={{ backgroundColor: "#84abeb" }}
+                      className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                      type="submit"
+                    >
+                      Save Expenses
+                    </button>
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-4">
                     <label htmlFor="expenses">Are figures provided provisional or estimated?</label>
                     <div className="flex">
                       <div className="form-check form-check-inline">
-                        <input className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions" id="inlineRadio1" />
-                        <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Yes</label>
+                        <input onChange={handleSelfEmployedChange} value="Provisional" name="figures_estimated" checked={selfEmployed.figures_estimated === "Provisional"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
+                        <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Estimated</label>
                       </div>
 
                       <div className="form-check form-check-inline ml-5">
-                        <input className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions" id="inlineRadio2" />
-                        <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">No</label>
+                        <input onChange={handleSelfEmployedChange} value="Estimated" name="figures_estimated" checked={selfEmployed.figures_estimated === "Estimated"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
+                        <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Provisional</label>
                       </div>
                     </div>
                   </div>
@@ -1428,10 +1443,6 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                   </div>
                 </div>
 
-                <div className="mb-6">
-                  <label htmlFor="comments" className="block">Optional Comments:</label>
-                  <textarea name="" id="comments" cols="40" rows="3" className="rounded " ></textarea>
-                </div>
                 <div className="mb-6 flex justify-between">
                   <button
                     style={{ backgroundColor: "#84abeb" }}
