@@ -88,7 +88,7 @@ const initialState = [
           },
           {
             title: 'Approved Assessments',
-            url: '/',
+            url: '/view/approvedasses',
             items: [],
           },
         ],

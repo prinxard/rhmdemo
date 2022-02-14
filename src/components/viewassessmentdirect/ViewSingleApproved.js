@@ -9,23 +9,22 @@ import { ViewSingleCompletedTable } from '../tables/viewCompletedDirect';
 import setAuthToken from '../../functions/setAuthToken';
 import url from '../../config/url';
 import { afterComma, repVa } from '../../functions/numbers';
+import { ViewSingleApprovedTable } from '../tables/viewApprovedAss';
 
-const ViewSingleCompleted = () => {
+const ViewSingleApproved= () => {
   const router = useRouter();
   const [payerprop, setpayerprop] = useState({});
   const [isFetching, setIsFetching] = useState(() => true);
-  const [globalAssId, setGlobalAssId] = useState("")
 
-  useEffect(() => {
-    if (router && router.query) {
-      let routerData = String(router.query.ref);
-      let kgtin = routerData.split(',').pop()
-      let assessmentId = routerData.split(',').shift()
-      let sendData = {
-        KGTIN: `${kgtin}`,
-        assessment_id: `${assessmentId}`
-      }
-      setGlobalAssId(assessmentId)
+useEffect(() => {
+  if (router && router.query) {
+    let routerData = String(router.query.ref);
+    let kgtin = routerData.split(',').pop()
+    let assessmentId = routerData.split(',').shift()
+    let sendData = {
+      KGTIN: `${kgtin}`,
+      assessment_id: `${assessmentId}`
+    }
       setAuthToken()
       const fetchPost = async () => {
         try {
@@ -47,7 +46,7 @@ const ViewSingleCompleted = () => {
 
     <>
 
-      <SectionTitle title="Approve Submitted Assessment" />
+      <SectionTitle title="Approved Assessment" />
 
       <Widget>
 
@@ -64,9 +63,9 @@ const ViewSingleCompleted = () => {
             />
             <p>Fetching data...</p>
           </div>
-        ) : <ViewSingleCompletedTable payerprop={payerprop} assId={globalAssId}/>}
+        ) : <ViewSingleApprovedTable payerprop={payerprop} />}
       </Widget>
     </>
   );
 }
-export default ViewSingleCompleted 
+export default ViewSingleApproved 

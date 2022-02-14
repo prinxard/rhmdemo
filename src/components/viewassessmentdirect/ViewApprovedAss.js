@@ -13,8 +13,10 @@ import Loader from "react-loader-spinner";
 import Widget1 from "../dashboard/widget-1";
 import * as Icons from '../Icons/index';
 import { ViewPendingTable } from "../tables/viewDirectAss";
+import { ViewCompletedTable } from "../tables/viewCompletedDirect";
+import { ViewApprovedTable } from "../tables/viewApprovedAss";
 
-const ViewPendingAssessment = () => {
+const ViewApprovedAss = () => {
   const [post, setPost] = useState(() => []);
   const [sum, setSum] = useState(() => null);
   const [totalemp, setTotalemp] = useState('');
@@ -27,35 +29,31 @@ const ViewPendingAssessment = () => {
     setAuthToken();
     const fetchPost = async () => {
       try {
-        let res = await axios.get(`${url.BASE_URL}forma/list-assessment`);
-        res = res.data.body.assessmentDraft;
+        let res = await axios.get(`${url.BASE_URL}forma/list-assessment` );
+        res = res.data.body.assessmentApproved;
         console.log(res)
-        let employeessTotal = res.length
-        setTotalemp(employeessTotal)
         let records = [];
         let sum = [];
         for (let i = 0; i < res.length; i++) {
           let rec = res[i];
           // console.log(rec.tax_pay_cal);
-          sum.push(rec.tax_pay_cal);
-          rec.tax_pay_cal = formatNumber(rec.tax_pay_cal);
-          rec.net_tax_ded = formatNumber(rec.net_tax_ded);
-          rec.con_rel_cal = formatNumber(rec.con_rel_cal);
-          rec.gross_income = formatNumber(rec.gross_income);
-          rec.nhf = formatNumber(rec.nhf);
-          rec.tax_pay_cal = formatNumber(rec.tax_pay_cal);
-          rec.basicSalary = formatNumber(rec.basicSalary);
-          rec.netTaxDeduct = formatNumber(rec.netTaxDeduct);
-          rec.totalSalary = formatNumber(rec.totalSalary);
-          rec.totalChargeable = rec.totalChargeable / 12;
-          rec.totalChargeable = formatNumber(rec.totalChargeable);
-          rec.period = rec.payPeriod;
+          // sum.push(rec.tax_pay_cal);
+          // rec.tax_pay_cal = formatNumber(rec.tax_pay_cal);
+          // rec.net_tax_ded = formatNumber(rec.net_tax_ded);
+          // rec.con_rel_cal = formatNumber(rec.con_rel_cal);
+          // rec.gross_income = formatNumber(rec.gross_income);
+          // rec.nhf = formatNumber(rec.nhf);
+          // rec.tax_pay_cal = formatNumber(rec.tax_pay_cal);
+          // rec.basicSalary = formatNumber(rec.basicSalary);
+          // rec.netTaxDeduct = formatNumber(rec.netTaxDeduct);
+          // rec.totalSalary = formatNumber(rec.totalSalary);
+          // rec.totalChargeable = rec.totalChargeable / 12;
+          // rec.totalChargeable = formatNumber(rec.totalChargeable);
+          // rec.period = rec.payPeriod;
           rec.createtime = dateformat(rec.createtime, "dd mmm yyyy hh: mm")
           records.push(rec);
         }
-        let sumOfTax = sum.reduce((preVal, curVal) => preVal + curVal);
         setIsFetching(false);
-        setSum(() => sumOfTax);
         setPost(() => records);
       } catch (e) {
         setIsFetching(false);
@@ -88,10 +86,11 @@ const ViewPendingAssessment = () => {
   };
 
   const searchedPost = search(post).slice(indexOfFirstPost, indexOfLastPost);
+  console.log(currentPosts);
 
   return (
     <>
-      <SectionTitle title="View direct assessments" subtitle="Pending Direct Assessments" />
+      <SectionTitle title="View direct assessments" subtitle="View Approved Assessments" />
 
       {isFetching && (
         <div className="flex justify-center item mb-2">
@@ -121,7 +120,7 @@ const ViewPendingAssessment = () => {
         <div className="mt-4">
           {query !== "" ? (
             <>
-              <ViewPendingTable remittance={searchedPost} />
+              <ViewApprovedTable remittance={searchedPost} />
               <CustomPagination
                 paginate={paginate}
                 totalPosts={res[0].length}
@@ -133,7 +132,7 @@ const ViewPendingAssessment = () => {
             </>
           ) : (
             <>
-              <ViewPendingTable remittance={currentPosts} />
+              <ViewApprovedTable remittance={currentPosts} />
               <CustomPagination
                 paginate={paginate}
                 totalPosts={post.length}
@@ -150,4 +149,4 @@ const ViewPendingAssessment = () => {
   );
 };
 
-export default ViewPendingAssessment;
+export default ViewApprovedAss;

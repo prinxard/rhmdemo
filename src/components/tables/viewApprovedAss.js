@@ -4,11 +4,6 @@ import * as Icons from '../Icons/index';
 import Widget1 from "../dashboard/widget-1";
 import dateformat from "dateformat";
 import Link from 'next/link';
-import setAuthToken from "../../functions/setAuthToken";
-import { useState } from "react";
-import Loader from "react-loader-spinner";
-import url from '../../config/url';
-import axios from "axios";
 
 const fields = [
   {
@@ -50,7 +45,7 @@ const fields = [
 
 ];
 
-export const ViewCompletedTable = ({ remittance }) => {
+export const ViewApprovedTable = ({ remittance }) => {
   let items = remittance;
 
   return (
@@ -72,7 +67,7 @@ export const ViewCompletedTable = ({ remittance }) => {
                 {fields.map((field, j) => (
                   <td key={j} className="">
                     {/* {remittance[field.key]} */}
-                    <Link href={`/view/completeddirect/${remittance.assessment_id},${remittance.kgtin}`}>
+                    <Link href={`/view/approvedasses/${remittance.assessment_id},${remittance.kgtin}`}>
                       <a className="hover:text-blue-500">
                         {remittance[field.key]}
                       </a>
@@ -90,68 +85,20 @@ export const ViewCompletedTable = ({ remittance }) => {
 
 
 
-export const ViewSingleCompletedTable = ({ payerprop, assId }) => {
-  const [isFetching2, setIsFetching2] = useState(() => false);
+export const ViewSingleApprovedTable = ({ payerprop }) => {
   const items = payerprop;
-  const assessment_id = assId
-  console.log(assessment_id);
-
-  setAuthToken();
-  let approveAssessmentSubmit = async (e) => {
-    e.preventDefault()
-    setIsFetching2(true)
-    let approveAssessFormObj = {
-      assessment_id: `${assessment_id}`,
-      status: `Approved`,
-    }
-    try {
-      let res = await axios.put(`${url.BASE_URL}forma/set-status`, approveAssessFormObj);
-      setIsFetching2(false)
-      console.log("successful!");
-    } catch (error) {
-      console.log(error);
-      setIsFetching2(false)
-    }
-
-  }
+  console.log(items);
 
   return (
     <>
-       {isFetching2 && (
-          <div className="flex justify-center item mb-2">
-            <Loader
-              visible={isFetching2}
-              type="BallTriangle"
-              color="#00FA9A"
-              height={19}
-              width={19}
-              timeout={0}
-              className="ml-2"
-            />
-            <p className="font-bold">Approving...</p>
-          </div>
-        )}
-
       <Widget>
         <div className="flex justify-end">
-          <form onSubmit={approveAssessmentSubmit}>
-            <button
-              className="btn btn-default bg-green-600 text-white mr-4 btn-outlined bg-transparent rounded-md"
-              type="submit"
-            >
-              Approve Assessment
-            </button>
-          </form>
-
-          <form >
-            <button
-              className="btn bg-red-600	btn-default text-white btn-outlined bg-transparent rounded-md"
-              type="submit"
-            >
-              Decline Assessment
-            </button>
-          </form>
-
+          <button
+            className="btn btn-default bg-green-600 text-white mr-4 btn-outlined bg-transparent rounded-md"
+            type="submit"
+          >
+            Print Assessment
+          </button>
         </div>
         <div className="block p-6 rounded-lg bg-white w-full">
           <div className="flex">

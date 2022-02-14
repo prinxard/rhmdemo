@@ -29,35 +29,33 @@ const ViewCompleteAss = () => {
     const fetchPost = async () => {
       try {
         let res = await axios.get(`${url.BASE_URL}forma/list-assessment` );
-        res = res.data.body.assessmentApproved;
+        res = res.data.body.assessmentSubmitted;
         // console.log(res)
-        let employeessTotal = res.length
-        setTotalemp(employeessTotal)
+      
         let records = [];
-        let sum = [];
         for (let i = 0; i < res.length; i++) {
           let rec = res[i];
           // console.log(rec.tax_pay_cal);
-          sum.push(rec.tax_pay_cal);
-          rec.tax_pay_cal = formatNumber(rec.tax_pay_cal);
-          rec.net_tax_ded = formatNumber(rec.net_tax_ded);
-          rec.con_rel_cal = formatNumber(rec.con_rel_cal);
-          rec.gross_income = formatNumber(rec.gross_income);
-          rec.nhf = formatNumber(rec.nhf);
-          rec.tax_pay_cal = formatNumber(rec.tax_pay_cal);
-          rec.basicSalary = formatNumber(rec.basicSalary);
-          rec.netTaxDeduct = formatNumber(rec.netTaxDeduct);
-          rec.totalSalary = formatNumber(rec.totalSalary);
-          rec.totalChargeable = rec.totalChargeable / 12;
-          rec.totalChargeable = formatNumber(rec.totalChargeable);
-          rec.period = rec.payPeriod;
-          rec.createtime = dateformat(rec.createtime, "dd mmm yyyy hh: mm")
-          rec.year = dateformat(rec.year, "yyyy");
+          // sum.push(rec.tax_pay_cal);
+          // rec.tax_pay_cal = formatNumber(rec.tax_pay_cal);
+          // rec.net_tax_ded = formatNumber(rec.net_tax_ded);
+          // rec.con_rel_cal = formatNumber(rec.con_rel_cal);
+          // rec.gross_income = formatNumber(rec.gross_income);
+          // rec.nhf = formatNumber(rec.nhf);
+          // rec.tax_pay_cal = formatNumber(rec.tax_pay_cal);
+          // rec.basicSalary = formatNumber(rec.basicSalary);
+          // rec.netTaxDeduct = formatNumber(rec.netTaxDeduct);
+          // rec.totalSalary = formatNumber(rec.totalSalary);
+          // rec.totalChargeable = rec.totalChargeable / 12;
+          // rec.totalChargeable = formatNumber(rec.totalChargeable);
+          // rec.period = rec.payPeriod;
+           rec.createtime = dateformat(rec.createtime, "dd mmm yyyy hh: m")
+          // rec.year = dateformat(rec.year, "yyyy");
           records.push(rec);
         }
-        let sumOfTax = sum.reduce((preVal, curVal) => preVal + curVal);
+       
         setIsFetching(false);
-        setSum(() => sumOfTax);
+        // setSum(() => sumOfTax);
         setPost(() => records);
       } catch (e) {
         setIsFetching(false);
@@ -94,7 +92,7 @@ const ViewCompleteAss = () => {
 
   return (
     <>
-      <SectionTitle title="View direct assessments" subtitle="View Completed Assessments" />
+      <SectionTitle title="View direct assessments" subtitle="View Submitted Assessments" />
 
       {isFetching && (
         <div className="flex justify-center item mb-2">
