@@ -211,6 +211,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
   const [isFetching9, setIsFetching9] = useState(() => false);
   const [isFetching10, setIsFetching10] = useState(() => false);
   const [isFetching15, setIsFetching15] = useState(() => false);
+  const router = useRouter();
 
   const [pensionDeduct, setPensionDeduct] = useState(
     { assessment_id: "", pfa: "", pfa_addr: "", rsa_no: "", amount: "", comments: "" }
@@ -561,6 +562,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       let res = await axios.put(`${url.BASE_URL}forma/tax-cal`, assessFormObj);
       console.log(res);
       setIsFetching15(false)
+      router.push('/submitre')
       console.log("successful!");
     } catch (error) {
       console.log(error);
@@ -1614,6 +1616,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                   </div>
                 </form>
                 <form onSubmit={submitDataExpense}>
+                  <p className="font-bold">Expenses</p>
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <input required onChange={handleExpenseChange} name="item" value={expensesData.item} type="text" className="form-control w-full rounded"
                       placeholder="Item"
