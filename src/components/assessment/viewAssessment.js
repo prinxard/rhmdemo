@@ -818,8 +818,8 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
   };
   const formTog10 = e => {
     e.preventDefault()
-    let toggleval = 'hidden'
-    setToggle10(toggleval)
+    let toggleva = 'hidden'
+    setToggle10(toggleva)
 
   };
   const formTog11 = e => {
@@ -2224,6 +2224,14 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                   >
                     Save
                   </button>
+                  <button onClick={formTog10} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <a href="">
+                      <FiTriangle
+                        size={15}
+                        className="stroke-current text-green-500"
+                      />
+                    </a>
+                  </button>
                 </div>
               </div>
             </form>
@@ -2299,7 +2307,16 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                   >
                     Save
                   </button>
+                  <button onClick={formTog11} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <a href="">
+                      <FiTriangle
+                        size={15}
+                        className="stroke-current text-green-500"
+                      />
+                    </a>
+                  </button>
                 </div>
+
               </div>
             </form>
           </div>
@@ -2373,6 +2390,14 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                     type="submit"
                   >
                     Save
+                  </button>
+                  <button onClick={formTog12} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <a href="">
+                      <FiTriangle
+                        size={15}
+                        className="stroke-current text-green-500"
+                      />
+                    </a>
                   </button>
                 </div>
               </div>
