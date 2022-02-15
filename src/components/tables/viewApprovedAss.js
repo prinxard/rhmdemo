@@ -99,6 +99,7 @@ export const ViewSingleApprovedTable = ({ payerprop, assId }) => {
           <button
             className="btn btn-default bg-green-600 text-white mr-4 btn-outlined bg-transparent rounded-md"
             type="submit"
+            onSubmit={e=>e.preventDefault()}
           >
             Print Assessment
           </button>
