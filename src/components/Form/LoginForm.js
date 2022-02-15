@@ -79,10 +79,10 @@ const LoginForm = () => {
           placeholder="Email"
         />
         {errors.email && errors.email.type === "minLength" && (
-          <p className="text-red-600">Tax Id must be 10 digits</p>
+          <p className="text-red-600">Enter a vilid email</p>
         )}
         {errors.email && errors.email.type === "maxLength" && (
-          <p className="text-red-600">Tax Id must be 10 digits</p>
+          <p className="text-red-600">Enter a correct password</p>
         )}
         {errors.email && (
           <p className="text-red-600 bg-white">{errors.email.message}</p>

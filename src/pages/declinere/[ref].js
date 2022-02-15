@@ -1,5 +1,6 @@
+import { ViewSingleApprovedTable } from "../../components/tables/viewApprovedAss";
 
-const Index = () => <ViewSingleApproved />;
+const Index = () => <ViewSingleApprovedTable />;
 
 export default Index;
 
