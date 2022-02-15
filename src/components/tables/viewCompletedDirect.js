@@ -29,13 +29,10 @@ const fields = [
     key: "tp_name",
   },
   {
-    name: "Employed Tax",
-    key: "employed",
+    name: "Gross Income",
+    key: "gross_income",
   },
-  {
-    name: "Self Employed Tax",
-    key: "self_employed",
-  },
+
   {
     name: "Tax",
     key: "tax",

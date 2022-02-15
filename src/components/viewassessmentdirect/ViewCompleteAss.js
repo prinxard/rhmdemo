@@ -14,6 +14,7 @@ import Widget1 from "../dashboard/widget-1";
 import * as Icons from '../Icons/index';
 import { ViewPendingTable } from "../tables/viewDirectAss";
 import { ViewCompletedTable } from "../tables/viewCompletedDirect";
+import { number } from "prop-types";
 
 const ViewCompleteAss = () => {
   const [post, setPost] = useState(() => []);
@@ -37,8 +38,7 @@ const ViewCompleteAss = () => {
           let rec = res[i];
           // console.log(rec.tax_pay_cal);
           // sum.push(rec.tax_pay_cal);
-          rec.employed = formatNumber(rec.employed);
-          rec.self_employed = formatNumber(rec.self_employed);
+          // rec.grossCal = employeddata
           // rec.grossCalc = (rec.employed + self_employed)
           // rec.net_tax_ded = formatNumber(rec.net_tax_ded);
           // rec.con_rel_cal = formatNumber(rec.con_rel_cal);
