@@ -22,10 +22,10 @@ const fields = [
     name: "Year",
     key: "year",
   },
-  {
-    name: "Status",
-    key: "status",
-  },
+  // {
+  //   name: "Status",
+  //   key: "status",
+  // },
   {
     name: "Created Time",
     key: "createtime",
