@@ -4,6 +4,7 @@ import * as Icons from '../Icons/index';
 import Widget1 from "../dashboard/widget-1";
 import dateformat from "dateformat";
 import Link from 'next/link';
+import { KgirsLogo } from "../Images/Images";
 
 const fields = [
   {
@@ -106,13 +107,13 @@ export const ViewSingleApprovedTable = ({ payerprop, assId }) => {
 
           <table className="border">
             <tr>
-              <td className="p-8"><Icons.KgirsLogo></Icons.KgirsLogo></td>
+              <td className="p-8"><KgirsLogo /></td>
               <td className="p-8"><h5>Assessment</h5></td>
             </tr>
             <tr>
               <td className="pb-3">
                 <div className="border">
-                  <p className="p-1" style={{ background: "#494d4a", color: "white" }}>Taxpayer Name</p>
+                  <p className="p-1 font-bold">Taxpayer Name</p>
                   {items.taxpayer.map((el, i) => 
                   <p key={i} className="p-1">{`${el.first_name} ${el.surname}`}</p>
                   )}
@@ -121,7 +122,7 @@ export const ViewSingleApprovedTable = ({ payerprop, assId }) => {
               </td>
               <td className="pb-3">
                 <div className="border">
-                  <p className="p-1" style={{ background: "#494d4a", color: "white" }}>Tax Station</p>
+                  <p className="p-1 font-bold">Tax Station</p>
                   {items.taxpayer.map((el, i) => 
                   <p key={i} className="p-1">{`${el.tax_office}`}</p>
                   )}
@@ -131,7 +132,7 @@ export const ViewSingleApprovedTable = ({ payerprop, assId }) => {
             <tr>
               <td className="pb-4">
                 <div className="border">
-                  <p className="p-1" style={{ background: "#494d4a", color: "white" }}>Taxpayer Address</p>
+                  <p className="p-1 font-bold">Taxpayer Address</p>
                   {items.taxpayer.map((el, i) => 
                   <p key={i} className="p-1">{`${el.house_no} ${el.street} ${el.stateOfResidence}`}</p>
                   )}
@@ -140,7 +141,7 @@ export const ViewSingleApprovedTable = ({ payerprop, assId }) => {
               </td>
               <td className="pb-4">
                 <div className="border">
-                  <p className="p-1" style={{ background: "#494d4a", color: "white" }}>Assesment ID</p>
+                  <p className="p-1 font-bold">Assesment ID</p>
                   <p className="p-1">{assesId}</p>
                 </div>
               </td>
