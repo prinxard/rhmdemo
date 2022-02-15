@@ -165,7 +165,7 @@ export const ViewSingleApprovedTable = ({ payerprop, assId }) => {
             </tr>
             <tr>
               <td className="p-4 font-bold">Tax due</td>
-              <td className="p-4">₦{items.assessment.tax}</td>
+              <td className="p-4">₦ {items.assessment.tax}</td>
             </tr>
             <tr>
               <td className="p-4 font-bold">Date of Creation</td>
