@@ -151,16 +151,25 @@ export const ViewSingleApprovedTable = ({ payerprop, assId }) => {
               <td className="p-2 font-bold">Assessment Details</td><td></td>
             </tr>
             <tr>
-              <td className="p-4">Revenue Item</td>
+              <td className="p-4 from-bold">Revenue Item</td>
               <td className="p-4"><p>Direct Assessment</p></td>
             </tr>
+            
             <tr>
-              <td className="p-4">Agency</td>
+              <td className="p-4 from-bold">Assessment Year</td>
+              <td className="p-4"><p>{items.assessment.year}</p></td>
+            </tr>
+            <tr>
+              <td className="p-4 from-bold">Agency</td>
               <td className="p-4">Internal Revenue Service</td>
             </tr>
             <tr>
-              <td className="p-4">Date of Creation</td>
-              <td className="p-4">2022-2-14</td>
+              <td className="p-4 from-bold">Tax due</td>
+              <td className="p-4">₦{items.assessment.tax}</td>
+            </tr>
+            <tr>
+              <td className="p-4 from-bold">Date of Creation</td>
+              <td className="p-4">{items.assessment.createtime}</td>
             </tr>
           </table>
         </div>

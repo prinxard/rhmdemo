@@ -37,7 +37,9 @@ const ViewCompleteAss = () => {
           let rec = res[i];
           // console.log(rec.tax_pay_cal);
           // sum.push(rec.tax_pay_cal);
-          // rec.tax_pay_cal = formatNumber(rec.tax_pay_cal);
+          rec.employed = formatNumber(rec.employed);
+          rec.self_employed = formatNumber(rec.self_employed);
+          // rec.grossCalc = (rec.employed + self_employed)
           // rec.net_tax_ded = formatNumber(rec.net_tax_ded);
           // rec.con_rel_cal = formatNumber(rec.con_rel_cal);
           // rec.gross_income = formatNumber(rec.gross_income);
