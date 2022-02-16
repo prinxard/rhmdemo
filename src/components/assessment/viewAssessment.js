@@ -221,6 +221,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
   const [isFetching19, setIsFetching19] = useState(() => false);
   const [isFetching20, setIsFetching20] = useState(() => false);
   const [isFetching21, setIsFetching21] = useState(() => false);
+  const [isFetching22, setIsFetching22] = useState(() => false);
   const router = useRouter();
 
   const [pensionDeduct, setPensionDeduct] = useState(
@@ -349,6 +350,11 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
   const [vehicle, setVehicle] = useState(
     {
       assessment_id: "", purchase_date: "", cost: "", brand: "", model: "", year: ""
+    }
+  )
+  const [land, SetLand] = useState(
+    {
+      assessment_id: "", addr: "", prop_type: "", date_completion: "", construction_cost: "",
     }
   )
 
@@ -488,7 +494,15 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       ...vehicle,
       [evt.target.name]: value
     });
-    console.log(vehicle);
+  }
+
+  function handleLandChange(evt) {
+    const value = evt.target.value;
+    SetLand({
+      ...land,
+      [evt.target.name]: value
+    });
+    console.log(land);
   }
 
 
@@ -922,6 +936,28 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       alert("cannot submit, please try again")
       console.log(error);
       setIsFetching21(false)
+    }
+  }
+
+  setAuthToken();
+  let submitDataLand = async (e) => {
+    e.preventDefault()
+    setIsFetching22(true)
+    let landDataObj = {
+      assessment_id: `${assessment_id}`,
+      addr: `${land.addr}`,
+      prop_type: `${land.prop_type}`,
+      date_completion: `${land.date_completion}`,
+      construction_cost: `${land.construction_cost}`,
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/land`, landDataObj);
+      setIsFetching22(false)
+      alert("submitted successfully!");
+    } catch (error) {
+      alert("cannot submit, please try again")
+      console.log(error);
+      setIsFetching22(false)
     }
   }
 
@@ -3010,19 +3046,31 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
               </div>
             </div>
           </div>
-
+          {isFetching22 && (
+            <div className="flex justify-center item mb-2">
+              <Loader
+                visible={isFetching22}
+                type="BallTriangle"
+                color="#00FA9A"
+                height={19}
+                width={19}
+                timeout={0}
+                className="ml-2"
+              />
+              <p className="font-bold">Submitting...</p>
+            </div>
+          )}
           <div className={`flex justify-start border mb-3 block p-6 rounded-lg bg-white w-full ${togglee14}`}>
-            <form>
+            <form onSubmit={submitDataLand}>
               <div className="">
                 <div className="mb-6 grid grid-cols-3 gap-4">
-                  <label htmlFor="employername">Address:</label>
-                  <textarea cols="40" rows="2" id="employername" className="form-control w-full rounded"
+                  <label>Address:</label>
+                  <textarea onChange={handleLandChange} name="addr" value={land.addr} cols="40" rows="2" className="form-control w-full rounded"
                   />
                 </div>
                 <div className="mb-6 grid grid-cols-3 gap-4">
-                  <label htmlFor="employername">Type of property:</label>
-                  <select className="form-select w-full" name="" id="typeofbusiness">
-                    <option selected>Select property type</option>
+                  <label>Type of property:</label>
+                  <select onChange={handleLandChange} name="prop_type" value={land.prop_type} className="form-select w-full">
                     <option value="1">Bungalow</option>
                     <option value="2">Penthouse</option>
                     <option value="3">Mansion</option>
@@ -3034,14 +3082,14 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
-                  <label htmlFor="employername">Date of completion/acquisition:</label>
-                  <input type="date" id="employername" className="form-control w-full rounded"
+                  <label>Date of completion/acquisition:</label>
+                  <input onChange={handleLandChange} name="date_completion" value={land.date_completion} type="date" className="form-control w-full rounded"
                   />
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
-                  <label htmlFor="employername">Cost of construction/acquisition:</label>
-                  <input type="text" id="employername" className="form-control w-full rounded"
+                  <label>Cost of construction/acquisition:</label>
+                  <input onChange={handleLandChange} name="construction_cost" value={land.construction_cost}  type="text" className="form-control w-full rounded"
                   />
                 </div>
 
