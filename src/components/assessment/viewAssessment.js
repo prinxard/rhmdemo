@@ -1535,7 +1535,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
                     <div className="mb-6 grid grid-cols-3 gap-4">
                       <label htmlFor="turnover">Turnover-takings, fees, sales or money earned by your business:</label>
-                      <input required onChange={handleSelfEmployedChange} placeholder="Naira" name="income_earned" value={selfEmployed.income_earned} type="number" className="form-control w-full rounded"
+                      <input required onChange={handleSelfEmployedChange} placeholder="₦" name="income_earned" value={selfEmployed.income_earned} type="number" className="form-control w-full rounded"
                       />
                     </div>
 
