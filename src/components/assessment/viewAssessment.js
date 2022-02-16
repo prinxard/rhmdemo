@@ -219,6 +219,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
   const [isFetching17, setIsFetching17] = useState(() => false);
   const [isFetching18, setIsFetching18] = useState(() => false);
   const [isFetching19, setIsFetching19] = useState(() => false);
+  const [isFetching20, setIsFetching20] = useState(() => false);
   const router = useRouter();
 
   const [pensionDeduct, setPensionDeduct] = useState(
@@ -335,6 +336,12 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     {
       assessment_id: "", asset_type: "", asset_addr: "", buyer_name: "",
       buyer_addr: "", buyer_phone: "", amount: "", comments: ""
+    }
+  )
+
+  const [outsideSource, SetOutsideSource] = useState(
+    {
+      assessment_id: "", source: "", gross_amount: "", comments: ""
     }
   )
 
@@ -458,6 +465,15 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       [evt.target.name]: value
     });
     console.log(asset);
+  }
+
+  function handleOutsideSourceChange(evt) {
+    const value = evt.target.value;
+    SetOutsideSource({
+      ...outsideSource,
+      [evt.target.name]: value
+    });
+    console.log(outsideSource);
   }
 
 
@@ -846,6 +862,27 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       alert("cannot submit, please try again")
       console.log(error);
       setIsFetching19(false)
+    }
+  }
+
+  setAuthToken();
+  let submitDataOutsideSource = async (e) => {
+    e.preventDefault()
+    setIsFetching20(true)
+    let outsideSourceDataObj = {
+      assessment_id: `${assessment_id}`,
+      source: `${outsideSource.source}`,
+      gross_amount: `${outsideSource.gross_amount}`,
+      comments: `${outsideSource.comments}`,
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/outside-source`, outsideSourceDataObj);
+      setIsFetching20(false)
+      alert("submitted successfully!");
+    } catch (error) {
+      alert("cannot submit, please try again")
+      console.log(error);
+      setIsFetching20(false)
     }
   }
 
@@ -2522,34 +2559,39 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
               </div>
             </div>
 
+            {isFetching20 && (
+              <div className="flex justify-center item mb-2">
+                <Loader
+                  visible={isFetching20}
+                  type="BallTriangle"
+                  color="#00FA9A"
+                  height={19}
+                  width={19}
+                  timeout={0}
+                  className="ml-2"
+                />
+                <p className="font-bold">Submitting...</p>
+              </div>
+            )}
+
             <div className={`flex justify-center border mb-3 block p-6 rounded-lg bg-white w-full ${togglee9}`}>
-              <form>
+              <form onSubmit={submitDataOutsideSource}>
                 <div className="">
                   <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">Source:</label>
-                    <input type="text" id="employername" className="form-control w-full rounded"
+                    <label>Source:</label>
+                    <input onChange={handleOutsideSourceChange} name="source" value={outsideSource.source} type="text" className="form-control w-full rounded"
                     />
                   </div>
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">Gross Amount:</label>
-                    <input type="text" id="employername" className="form-control w-full rounded"
+                    <label>Gross Amount:</label>
+                    <input onChange={handleOutsideSourceChange} name="gross_amount" value={outsideSource.gross_amount} type="text" className="form-control w-full rounded"
                     />
                   </div>
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
-                    <button
-                      style={{ backgroundColor: "#84abeb" }}
-                      className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                      type="submit"
-                    >
-                      Add another source
-                    </button>
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="comments">Optional Comments:</label>
-                    <textarea name="" id="comments" cols="40" rows="2" className="rounded"></textarea>
+                    <label>Optional Comments:</label>
+                    <textarea onChange={handleOutsideSourceChange} name="comments" value={outsideSource.comments} cols="40" rows="2" className="rounded"></textarea>
                   </div>
                   <div className="mb-6 flex justify-between">
                     <button
