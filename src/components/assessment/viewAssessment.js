@@ -213,6 +213,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
   const [isFetching11, setIsFetching11] = useState(() => false);
   const [isFetching12, setIsFetching12] = useState(() => false);
   const [isFetching13, setIsFetching13] = useState(() => false);
+  const [isFetching14, setIsFetching14] = useState(() => false);
   const [isFetching15, setIsFetching15] = useState(() => false);
   const router = useRouter();
 
@@ -303,6 +304,13 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     }
   )
 
+  const [rentIncome, setRentIncome] = useState(
+    {
+      assessment_id: "", prop_type: "", prop_address: "", rental_type: "", rental_amount: "",
+      renter_phone: "", renter_name: "", comments: ""
+    }
+  )
+
   function handlePenDeductChange(evt) {
     const value = evt.target.value;
     setPensionDeduct({
@@ -372,7 +380,6 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       ...domesticStaff,
       [evt.target.name]: value
     });
-    console.log(domesticStaff);
   }
 
   function handlePartnershipChange(evt) {
@@ -381,7 +388,15 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       ...partnerData,
       [evt.target.name]: value
     });
-    console.log(partnerData);
+  }
+
+  function handleRentIncomeChange(evt) {
+    const value = evt.target.value;
+    setRentIncome({
+      ...rentIncome,
+      [evt.target.name]: value
+    });
+    console.log(rentIncome);
   }
 
 
@@ -653,6 +668,31 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       alert("cannot submit, please try again")
       console.log(error);
       setIsFetching13(false)
+    }
+  }
+
+  setAuthToken();
+  let submitDataRentInc = async (e) => {
+    e.preventDefault()
+    setIsFetching14(true)
+    let rentIncomeDataObj = {
+      assessment_id: `${assessment_id}`,
+      prop_type: `${rentIncome.prop_type}`,
+      prop_address: `${rentIncome.prop_address}`,
+      rental_type: `${rentIncome.rental_type}`,
+      rental_amount: `${rentIncome.rental_amount}`,
+      renter_name: `${rentIncome.renter_name}`,
+      renter_phone: `${rentIncome.renter_phone}`,
+      comments: `${rentIncome.comments}`,
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/rent-income`, rentIncomeDataObj);
+      setIsFetching14(false)
+      alert("submitted successfully!");
+    } catch (error) {
+      alert("cannot submit, please try again")
+      console.log(error);
+      setIsFetching14(false)
     }
   }
 
@@ -1930,71 +1970,69 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
             </div>
 
 
+            {isFetching14 && (
+              <div className="flex justify-center item mb-2">
+                <Loader
+                  visible={isFetching14}
+                  type="BallTriangle"
+                  color="#00FA9A"
+                  height={19}
+                  width={19}
+                  timeout={0}
+                  className="ml-2"
+                />
+                <p className="font-bold">Saving...</p>
+              </div>
+            )}
             <div className={`flex justify-center border mb-3 block p-6 rounded-lg bg-white w-full ${togglee4}`}>
-              <form>
+
+              <form onSubmit={submitDataRentInc}>
                 <div className="">
                   <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">Property Type:</label>
-                    <select name="" id="">
-                      <option selected>Select property type</option>
-                      <option value="1">Bungalow</option>
-                      <option value="2">Penthouse</option>
-                      <option value="3">Mansion</option>
-                      <option value="3">Apartment or Flat</option>
-                      <option value="3">Terraced house</option>
-                      <option value="3">Duplex</option>
-                      <option value="3">Traditional house</option>
+                    <label>Property Type:</label>
+                    <select onChange={handleRentIncomeChange} name="prop_type" value={rentIncome.prop_type}>
+                      <option value="Bungalow">Bungalow</option>
+                      <option value="Penthouse">Penthouse</option>
+                      <option value="Mansion">Mansion</option>
+                      <option value="Apartment or Flat">Apartment or Flat</option>
+                      <option value="Terraced house">Terraced house</option>
+                      <option value="Duplex">Duplex</option>
+                      <option value="Traditional house">Traditional house</option>
                     </select>
                   </div>
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">Property Address:</label>
-                    <input type="text" id="employername" className="form-control w-full rounded"
+                    <label>Property Address:</label>
+                    <input onChange={handleRentIncomeChange} type="text" name="prop_address" value={rentIncome.prop_address} className="form-control w-full rounded"
                     />
                   </div>
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">Rental Type:</label>
-
-
-                    <select className="form-select" name="" id="typeofbusiness">
-                      <option selected>Open this select menu</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
+                    <label>Rental Type:</label>
+                    <select onChange={handleRentIncomeChange} className="form-select" name="rental_type" value={rentIncome.rental_type}>
+                      <option value="Lease">Lease</option>
+                      <option value="Rent">Rent</option>
                     </select>
                   </div>
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">Rental Amount(Annual):</label>
-                    <input type="text" id="employername" className="form-control w-full rounded"
+                    <label>Rental Amount(Annual):</label>
+                    <input onChange={handleRentIncomeChange} type="number" name="rental_amount" value={rentIncome.rental_amount} className="form-control w-full rounded"
                     />
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">Renter Name:</label>
-                    <input type="text" id="employername" className="form-control w-full rounded"
+                    <label>Renter Name:</label>
+                    <input onChange={handleRentIncomeChange} type="text" name="renter_name" value={rentIncome.renter_name} className="form-control w-full rounded"
                     />
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">Renter Phone number:</label>
-                    <input type="text" id="employername" className="form-control w-full rounded"
+                    <labe>Renter Phone number:</labe>
+                    <input onChange={handleRentIncomeChange} type="text" name="renter_phone" value={rentIncome.phone_number} className="form-control w-full rounded"
                     />
                   </div>
-
-
                   <div className="mb-6 grid grid-cols-3 gap-4">
-                    <button
-                      style={{ backgroundColor: "#84abeb" }}
-                      className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                      type="submit"
-                    >
-                      Add another property
-                    </button>
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="comments">Optional Comments:</label>
-                    <textarea name="" id="comments" cols="40" rows="2" className="rounded"></textarea>
+                    <label>Optional Comments:</label>
+                    <textarea onChange={handleRentIncomeChange} name="comments" value={rentIncome.comments} cols="40" rows="2" className="rounded"></textarea>
                   </div>
                   <div className="mb-6 flex justify-between">
                     <button
