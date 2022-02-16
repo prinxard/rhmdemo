@@ -210,6 +210,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
   const [isFetching8, setIsFetching8] = useState(() => false);
   const [isFetching9, setIsFetching9] = useState(() => false);
   const [isFetching10, setIsFetching10] = useState(() => false);
+  const [isFetching11, setIsFetching11] = useState(() => false);
+  const [isFetching12, setIsFetching12] = useState(() => false);
+  const [isFetching13, setIsFetching13] = useState(() => false);
   const [isFetching15, setIsFetching15] = useState(() => false);
   const router = useRouter();
 
@@ -221,12 +224,31 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     { assessment_id: "", name: "", employer: "", dob: "", occupation: "", employer_addr: "" }
   )
 
+  const [childData, setChildData] = useState(
+    { assessment_id: "", name: "", dob: "", school_name: "", school_addr: "", school_fees: "", child_income: "" }
+  )
+
   const [residentialAddress, setResidentialAddress] = useState(
     {
       assessment_id: "", house_no: "", street: "", town: "", lga: "", residence_type: "",
       residence_owner: "", annual_rent: "", owner_name: "", owner_phone: ""
     }
   )
+
+  const [domesticStaff, setDomesticStaff] = useState(
+    {
+      assessment_id: "", title: "", name: "", house_no: "", street: "",
+      town: "", lga: "", state: "", amount_paid: "", payer: ""
+    }
+  )
+
+  const [partnerData, setPartnerData] = useState(
+    {
+      assessment_id: "", name: "", addr: "", phone: "", percentage: "",
+      comments: ""
+    }
+  )
+
   let res_no = indvData.map(function (x) {
     let houseNumb = x.house_no
     return houseNumb
@@ -319,7 +341,6 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       ...expensesData,
       [evt.target.name]: value
     });
-    console.log(expensesData);
   }
 
   function handleNHISChange(evt) {
@@ -336,16 +357,32 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       ...lifeInsData,
       [evt.target.name]: value
     });
-    console.log(lifeInsData);
+  }
+  function handleChildChange(evt) {
+    const value = evt.target.value;
+    setChildData({
+      ...childData,
+      [evt.target.name]: value
+    });
   }
 
-  // function handleSpouseDeductChange(evt) {
-  //   const value = evt.target.value;
-  //   setSpouse({
-  //     ...spouse,
-  //     [evt.target.name]: value
-  //   });
-  // }
+  function handleDomesticStaffChange(evt) {
+    const value = evt.target.value;
+    setDomesticStaff({
+      ...domesticStaff,
+      [evt.target.name]: value
+    });
+    console.log(domesticStaff);
+  }
+
+  function handlePartnershipChange(evt) {
+    const value = evt.target.value;
+    setPartnerData({
+      ...partnerData,
+      [evt.target.name]: value
+    });
+    console.log(partnerData);
+  }
 
 
 
@@ -370,7 +407,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       setIsFetching3(false)
       alert("successful!");
     } catch (error) {
-     alert("Cannot Submit please try again");
+      alert("Cannot Submit please try again");
       setIsFetching3(false)
     }
 
@@ -391,7 +428,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/pension-ded`, pendedObj);
       setIsFetching4(false)
-     alert("successful!");
+      alert("successful!");
     } catch (error) {
       alert("Cannot Submit, please try again")
       setIsFetching4(false)
@@ -542,6 +579,80 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       alert("cannot submit, please try again")
       console.log(error);
       setIsFetching10(false)
+    }
+  }
+
+  setAuthToken();
+  let submitDataChild = async (e) => {
+    e.preventDefault()
+    setIsFetching11(true)
+    let childDataObj = {
+      assessment_id: `${assessment_id}`,
+      name: `${childData.name}`,
+      dob: `${childData.dob}`,
+      school_name: `${childData.school_name}`,
+      school_addr: `${childData.school_name}`,
+      school_fees: `${childData.school_fees}`,
+      child_income: `${childData.school_fees}`,
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/children`, childDataObj);
+      setIsFetching11(false)
+      alert("submitted successfully!");
+    } catch (error) {
+      alert("cannot submit, please try again")
+      console.log(error);
+      setIsFetching11(false)
+    }
+  }
+
+  setAuthToken();
+  let submitDataStaff = async (e) => {
+    e.preventDefault()
+    setIsFetching12(true)
+    let staffDataObj = {
+      assessment_id: `${assessment_id}`,
+      title: `${domesticStaff.title}`,
+      name: `${domesticStaff.name}`,
+      street: `${domesticStaff.street}`,
+      house_no: `${domesticStaff.house_no}`,
+      town: `${domesticStaff.town}`,
+      lga: `${domesticStaff.lga}`,
+      state: `${domesticStaff.lga}`,
+      amount_paid: `${domesticStaff.amount_paid}`,
+      payer: `${domesticStaff.payer}`,
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/domestic-staff`, staffDataObj);
+      setIsFetching12(false)
+      alert("submitted successfully!");
+    } catch (error) {
+      alert("cannot submit, please try again")
+      console.log(error);
+      setIsFetching12(false)
+    }
+  }
+
+  setAuthToken();
+  let submitDataPartner = async (e) => {
+    e.preventDefault()
+    setIsFetching13(true)
+    let partnerDataObj = {
+      assessment_id: `${assessment_id}`,
+      name: `${partnerData.name}`,
+      addr: `${partnerData.addr}`,
+      phone: `${partnerData.phone}`,
+      percentage: `${partnerData.percentage}`,
+      comments: `${partnerData.comments}`,
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/partner`, partnerDataObj);
+      setIsFetching13(false)
+      alert("submitted successfully!");
+    } catch (error) {
+      alert("cannot submit, please try again")
+      console.log(error);
+      setIsFetching13(false)
     }
   }
 
@@ -1110,137 +1221,193 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       </div>
 
       <div className="block p-6 rounded-lg bg-white w-full">
-        <form action="">
-          <div className="grid grid-cols-3 gap-4">
-            <div className="form-group mb-6">
-              <p>Do you have children ?</p>
-            </div>
-            <div className="flex">
-              <div className="form-check form-check-inline">
-                <input onClick={childrenYes} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" />
-                <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Yes</label>
-              </div>
 
-              <div className="form-check form-check-inline ml-5">
-                <input onClick={childrenNo} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" />
-                <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">No</label>
-              </div>
-            </div>
-
+        <div className="grid grid-cols-3 gap-4">
+          <div className="form-group mb-6">
+            <p>Do you have children ?</p>
           </div>
+          <div className="flex">
+            <div className="form-check form-check-inline">
+              <input onClick={childrenYes} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" />
+              <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Yes</label>
+            </div>
+
+            <div className="form-check form-check-inline ml-5">
+              <input onClick={childrenNo} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" />
+              <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">No</label>
+            </div>
+          </div>
+        </div>
+        <form onSubmit={submitDataChild}>
+          {isFetching11 && (
+            <div className="flex justify-center item mb-2">
+              <Loader
+                visible={isFetching11}
+                type="BallTriangle"
+                color="#00FA9A"
+                height={19}
+                width={19}
+                timeout={0}
+                className="ml-2"
+              />
+              <p className="font-bold">Saving...</p>
+            </div>
+          )}
           <div className={`grid grid-cols-3 gap-4 ${childrenToggle}`}>
             <div className="form-group mb-6">
-              <input type="text" className="form-control w-full rounded"
+              <p>Name of Child</p>
+              <input required onChange={handleChildChange} name="name" value={childData.name} type="text" className="form-control w-full rounded"
                 placeholder="Name of child in full" />
             </div>
-
             <div className="form-group mb-6">
-              <input type="date" className="form-control w-full rounded"
+              <p>Date of Birth</p>
+              <input required onChange={handleChildChange} name="dob" value={childData.dob} type="date" className="form-control w-full rounded"
                 placeholder="Date of birth" />
             </div>
             <div className="form-group mb-6">
-              <input type="text" className="form-control w-full rounded"
+              Child School Name
+              <input required onChange={handleChildChange} name="school_name" value={childData.school_name} type="text" className="form-control w-full rounded"
                 placeholder="Name of child's school" />
             </div>
             <div className="form-group mb-6">
-              <input type="text" className="form-control w-full rounded"
+              School Address
+              <input required onChange={handleChildChange} name="school_addr" value={childData.school_addr} type="text" className="form-control w-full rounded"
                 placeholder="Address of child's school" />
             </div>
             <div className="form-group mb-6">
-              <input type="text" className="form-control w-full rounded"
+              <p>School Fees</p>
+              <input required onChange={handleChildChange} name="school_fees" value={childData.school_fees} type="text" className="form-control w-full rounded"
                 placeholder="Child's school fees per session" />
             </div>
             <div className="form-group mb-6">
-              <input type="text" className="form-control w-full rounded"
+              <p>Child's Income</p>
+              <input required onChange={handleChildChange} name="child_income" value={childData.child_income} type="text" className="form-control w-full rounded"
                 placeholder="Child's income in own right" />
             </div>
             <div>
+              <button
+                style={{ backgroundColor: "#84abeb" }}
+                className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
+                type="submit"
+              >
+                Save
+              </button>
             </div>
           </div>
         </form>
       </div>
 
       <div className="block p-6 rounded-lg bg-white w-full">
-        <form action="">
-          <div className="grid grid-cols-3 gap-4">
-            <div className="form-group mb-6">
-              <p>Do you have domestic Staff ?</p>
-            </div>
-            <div className="flex">
-              <div className="form-check form-check-inline">
-                <input onClick={servantsYes} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" />
-                <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Yes</label>
-              </div>
 
-              <div className="form-check form-check-inline ml-5">
-                <input onClick={servantsNo} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" />
-                <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">No</label>
-              </div>
-            </div>
-
+        <div className="grid grid-cols-3 gap-4">
+          <div className="form-group mb-6">
+            <p>Do you have domestic Staff ?</p>
           </div>
-          <div className={`grid grid-cols-3 gap-4 ${servantsToggle}`}>
-            <div className="form-group mb-6">
-              <select className="form-select w-full" name="" id="typeofbusiness">
-                <option selected>Mr/Mrs</option>
-                <option value="1">Mr</option>
-                <option value="2">Mrs</option>
-              </select>
+          <div className="flex">
+            <div className="form-check form-check-inline">
+              <input onClick={servantsYes} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" />
+              <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Yes</label>
             </div>
 
-            <div className="form-group mb-6">
-              <input type="text" className="form-control w-full rounded"
-                placeholder="Full name" />
-            </div>
-            <div className="form-group mb-6">
-              <input type="text" className="form-control w-full rounded"
-                placeholder="House/plot no" />
-            </div>
-            <div className="form-group mb-6">
-              <input type="text" className="form-control w-full rounded"
-                placeholder="Street" />
-            </div>
-            <div className="form-group mb-6">
-              <input type="text" className="form-control w-full rounded"
-                placeholder="Town/Area" />
-            </div>
-            <div className="form-group mb-6">
-              <input type="text" className="form-control w-full rounded"
-                placeholder="LGA/LCDA" />
-            </div>
-            <div className="form-group mb-6">
-              <input type="text" className="form-control w-full rounded"
-                placeholder="State" />
-            </div>
-            <div className="form-group mb-6">
-              <input type="text" className="form-control w-full rounded"
-                placeholder="Amount paid (Annual)" />
-            </div>
-
-            <div className="flex justify-between">
-              <div className="form-check form-check-inline ">
-                <input className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" />
-                <label className="form-check-label  text-gray-800" for="inlineRadio10">Paid by employer</label>
-              </div>
-
-              <div className="form-check form-check-inline ml-5">
-                <input className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" />
-                <label className="form-check-label  text-gray-800" for="inlineRadio20">Paid by self</label>
-              </div>
-            </div>
-            <div>
-              <button
-                style={{ backgroundColor: "#84abeb" }}
-
-                className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
-                type="submit"
-              >
-                Add Domestic Staff
-              </button>
+            <div className="form-check form-check-inline ml-5">
+              <input onClick={servantsNo} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" />
+              <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">No</label>
             </div>
           </div>
 
+        </div>
+
+        {isFetching12 && (
+          <div className="flex justify-center item mb-2">
+            <Loader
+              visible={isFetching12}
+              type="BallTriangle"
+              color="#00FA9A"
+              height={19}
+              width={19}
+              timeout={0}
+              className="ml-2"
+            />
+            <p className="font-bold">Saving...</p>
+          </div>
+        )}
+        <form onSubmit={submitDataStaff} className={`grid grid-cols-3 gap-4 ${servantsToggle}`}>
+          <div className="form-group mb-6">
+            <p>Title</p>
+            <select onChange={handleDomesticStaffChange} className="form-select w-full" name="title" value={domesticStaff.title}>
+              <option selected>Mr/Mrs</option>
+              <option value="1">Mr</option>
+              <option value="2">Mrs</option>
+            </select>
+          </div>
+
+          <div className="form-group mb-6">
+            <p>Name</p>
+            <input onChange={handleDomesticStaffChange} type="text" value={domesticStaff.name} className="form-control w-full rounded"
+              name="name" placeholder="Full name" />
+          </div>
+
+          <div className="form-group mb-6">
+            <p>House Number</p>
+            <input onChange={handleDomesticStaffChange} type="text" className="form-control w-full rounded"
+              name="house_no" value={domesticStaff.house_no} placeholder="House/plot no" />
+          </div>
+          <div className="form-group mb-6">
+            <p>Street</p>
+            <input onChange={handleDomesticStaffChange} name="street" value={domesticStaff.street} type="text" className="form-control w-full rounded"
+              placeholder="Street" />
+          </div>
+          <div className="form-group mb-6">
+            <p>Town</p>
+            <input onChange={handleDomesticStaffChange} type="text" name="town" value={domesticStaff.town} className="form-control w-full rounded"
+              placeholder="Town/Area" />
+          </div>
+          <div className="form-group mb-6">
+            <p>LGA</p>
+            <select onChange={handleDomesticStaffChange} className="form-select w-full" name="lga" value={domesticStaff.lga}>
+              <option selected>Select</option>
+              <option value="1">Kabba</option>
+              <option value="2">Kabba</option>
+            </select>
+          </div>
+          <div className="form-group mb-6">
+            <p>State</p>
+            <select onChange={handleDomesticStaffChange} className="form-select w-full" name="state" value={domesticStaff.state}>
+              <option value="3">Kogi</option>
+              <option value="1">Mr</option>
+              <option value="2">Mrs</option>
+            </select>
+          </div>
+          <div className="form-group mb-6">
+            <p>Annual Pay</p>
+            <input onChange={handleDomesticStaffChange} name="amount_paid" value={domesticStaff.amount_paid} type="text" className="form-control w-full rounded"
+              placeholder="Amount paid (Annual)" />
+          </div>
+
+          <div className="flex justify-between self-center">
+            <div className="form-check form-check-inline ">
+              <input onChange={handleDomesticStaffChange} value="employer" name="payer" checked={domesticStaff.payer === "employer"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" />
+              <label className="form-check-label  text-gray-800" for="inlineRadio10">Paid by employer</label>
+            </div>
+
+            <div className="form-check form-check-inline ml-5">
+              <input onChange={handleDomesticStaffChange} value="self" name="payer" checked={domesticStaff.payer === "self"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" />
+              <label className="form-check-label  text-gray-800" for="inlineRadio20">Paid by self</label>
+            </div>
+          </div>
+          <div>
+            <button
+              style={{ backgroundColor: "#84abeb" }}
+
+              className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
+              type="submit"
+            >
+              Save
+            </button>
+          </div>
         </form>
+
+
       </div>
 
 
@@ -1433,85 +1600,85 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                         <option value="Maternity Home">Maternity Home</option>
                         <option value="Maternity Private Proprietor">Maternity Private Proprietor</option>
                         <option value="Meat Seller">Meat Seller</option>
-                        <option value="3">Medical Laboratory</option>
-                        <option value="">Mini Supermarket|Supermarket</option>
-                        <option value="">Mobile Phone Dealer</option>
-                        <option value="">Mobile Phone Repairer</option>
-                        <option value="">Mobile Phone Seller</option>
-                        <option value="">Money Lender</option>
-                        <option value=""> Motor Cycle Dealer</option>
-                        <option value="">Motor Cycle Mechanic</option>
-                        <option value="">Motor Cycle Spare Part Dealer </option>
-                        <option value="">Motor Dealer/Seller</option>
-                        <option value="">Motor Spare Part Dealer</option>
-                        <option value="">Motor Vehicle Mechanic</option>
-                        <option value="">Musician</option>
-                        <option value="">Newspaper/Magazine Vendor</option>
-                        <option value="">Optician</option>
-                        <option value="">Other Businesses And Trade</option>
-                        <option value="">Painter And Decorator</option>
-                        <option value="">Paints Dealer</option>
-                        <option value="">Palm Oil Miller</option>
-                        <option value="">Panel Beaters & Sprayer</option>
-                        <option value="">Patent/Propriety Medicine Vendor</option>
-                        <option value="">Petrol Filling Station</option>
-                        <option value="">Pharmaceutical Shop</option>
-                        <option value=""> Phone Accessories</option>
-                        <option value="">Photo Color Laboratorie</option>
-                        <option value="">Photographers / Photo Developer</option>
-                        <option value="">Photographic Materials Shop</option>
-                        <option value="">Plastic Dealer</option>
-                        <option value=""> Plastic/Rubber Seller</option>
-                        <option value="">Plumber</option>
-                        <option value="">Plumbing Material With Water Tanks & Access.</option>
-                        <option value="">Plumbing Materials Only</option>
-                        <option value="">Pool Agent</option>
-                        <option value="">Pool Promoter</option>
-                        <option value="">Pos Operator (Mobile Money)</option>
-                        <option value="">Potter</option>
-                        <option value="">Poultry Farmer</option>
-                        <option value="">Poultry Feed</option>
-                        <option value="">Printer</option>
-                        <option value="">Private Medical Practioner</option>
-                        <option value="">Private N/P School</option>
-                        <option value="">Private Secondary School</option>
-                        <option value="">Produce Buyer</option>
-                        <option value="">Provision Store</option>
-                        <option value="">Pure/Bottle Water Producer</option>
-                        <option value="">Pure/Bottle Water Seller</option>
-                        <option value="">Raw Food Seller</option>
-                        <option value="">Recharge Card Dealer</option>
-                        <option value="">Rental</option>
-                        <option value="">Restaurant</option>
-                        <option>Restaurant (Buka)</option>
-                        <option value="">Re-Wire & Battery Charger opt</option>
-                        <option value="">Road Side Petty Trader</option>
-                        <option value="">Rugs & Carpet</option>
-                        <option value="">Sack Bags Seller</option>
-                        <option value="">Saw Mill</option>
-                        <option value="">School Proprietor</option>
-                        <option value="">Shoe Maker</option>
-                        <option value="">Shoe Seller</option>
-                        <option value="">Shops/Stall</option>
-                        <option value="">Solar Panel</option>
-                        <option value="">Stylist</option>
-                        <option value="">Super Market</option>
-                        <option value="">Tailors/Fashion Designer</option>
-                        <option value="">Thrift Collector</option>
-                        <option value="">Tiler</option>
-                        <option value="">Timber Wood Seller</option>
-                        <option value="">Tomatoes Seller</option>
-                        <option value="">Tuber Dealer</option>
-                        <option value="">Tyre Dealer</option>
-                        <option value="">Video Club</option>
-                        <option value="">Viewing Centre</option>
-                        <option value="">Vulcanizer</option>
-                        <option value="">Weaver</option>
-                        <option value="">Welder</option>
-                        <option value="">Wheel Barrow Quiosk</option>
-                        <option value="">Wine And Beer License Operator</option>
-                        <option value="">Yam Seller</option>
-                        <option value="">Yoghurt Seller</option>
+                        <option value="Medical Laboratory">Medical Laboratory</option>
+                        <option value="Mini Supermarket|Supermarket">Mini Supermarket|Supermarket</option>
+                        <option value="Mobile Phone Dealer">Mobile Phone Dealer</option>
+                        <option value="Mobile Phone Repairer">Mobile Phone Repairer</option>
+                        <option value="Mobile Phone Seller">Mobile Phone Seller</option>
+                        <option value="Money Lender">Money Lender</option>
+                        <option value="Motor Cycle Dealer">Motor Cycle Dealer</option>
+                        <option value="Motor Cycle Mechanic">Motor Cycle Mechanic</option>
+                        <option value="Motor Cycle Spare Part Dealer">Motor Cycle Spare Part Dealer</option>
+                        <option value="Motor Dealer/Seller">Motor Dealer/Seller</option>
+                        <option value="Motor Spare Part Dealer">Motor Spare Part Dealer</option>
+                        <option value="Motor Vehicle Mechanic">Motor Vehicle Mechanic</option>
+                        <option value="Musician">Musician</option>
+                        <option value="Newspaper/Magazine Vendor">Newspaper/Magazine Vendor</option>
+                        <option value="Optician">Optician</option>
+                        <option value="Other Businesses And Trade">Other Businesses And Trade</option>
+                        <option value="Painter And Decorator">Painter And Decorator</option>
+                        <option value="Paints Dealer">Paints Dealer</option>
+                        <option value="Palm Oil Miller">Palm Oil Miller</option>
+                        <option value="Panel Beaters & Sprayer">Panel Beaters & Sprayer</option>
+                        <option value="Patent/Propriety Medicine Vendor">Patent/Propriety Medicine Vendor</option>
+                        <option value="Petrol Filling Station">Petrol Filling Station</option>
+                        <option value="Pharmaceutical Shop">Pharmaceutical Shop</option>
+                        <option value="Phone Accessories"> Phone Accessories</option>
+                        <option value="Photo Color Laboratorie">Photo Color Laboratorie</option>
+                        <option value="Photographers / Photo Developer">Photographers / Photo Developer</option>
+                        <option value="Photographic Materials Shop">Photographic Materials Shop</option>
+                        <option value="Plastic Dealer">Plastic Dealer</option>
+                        <option value="Plastic/Rubber Seller">Plastic/Rubber Seller</option>
+                        <option value="Plumber">Plumber</option>
+                        <option value="Plumbing Material With Water Tanks & Access.">Plumbing Material With Water Tanks & Access.</option>
+                        <option value="Plumbing Materials Only">Plumbing Materials Only</option>
+                        <option value="Pool Agent">Pool Agent</option>
+                        <option value="Pool Promoter">Pool Promoter</option>
+                        <option value="Pos Operator (Mobile Money)">Pos Operator (Mobile Money)</option>
+                        <option value="Potter">Potter</option>
+                        <option value="Poultry Farmer">Poultry Farmer</option>
+                        <option value="Poultry Feed">Poultry Feed</option>
+                        <option value="Printer">Printer</option>
+                        <option value="Private Medical Practioner">Private Medical Practioner</option>
+                        <option value="Private N/P School">Private N/P School</option>
+                        <option value="Private Secondary School">Private Secondary School</option>
+                        <option value="Produce Buyer">Produce Buyer</option>
+                        <option value="Provision Store">Provision Store</option>
+                        <option value="Pure/Bottle Water Producer">Pure/Bottle Water Producer</option>
+                        <option value="Pure/Bottle Water Seller">Pure/Bottle Water Seller</option>
+                        <option value="Raw Food Seller">Raw Food Seller</option>
+                        <option value="Recharge Card Dealer">Recharge Card Dealer</option>
+                        <option value="Rental">Rental</option>
+                        <option value="Restaurant">Restaurant</option>
+                        <option value="Restaurant (Buka)">Restaurant (Buka)</option>
+                        <option value="Re-Wire & Battery Charger opt">Re-Wire & Battery Charger opt</option>
+                        <option value="Road Side Petty Trader">Road Side Petty Trader</option>
+                        <option value="Rugs & Carpet">Rugs & Carpet</option>
+                        <option value="Sack Bags Seller">Sack Bags Seller</option>
+                        <option value="Saw Mill">Saw Mill</option>
+                        <option value="School Proprietor">School Proprietor</option>
+                        <option value="Shoe Maker">Shoe Maker</option>
+                        <option value="Shoe Seller">Shoe Seller</option>
+                        <option value="Shops/Stall">Shops/Stall</option>
+                        <option value="Solar Panel">Solar Panel</option>
+                        <option value="Stylist">Stylist</option>
+                        <option value="Super Market">Super Market</option>
+                        <option value="Tailors/Fashion Designer">Tailors/Fashion Designer</option>
+                        <option value="Thrift Collector">Thrift Collector</option>
+                        <option value="Tiler">Tiler</option>
+                        <option value="Timber Wood Seller">Timber Wood Seller</option>
+                        <option value="Tomatoes Seller">Tomatoes Seller</option>
+                        <option value="Tuber Dealer">Tuber Dealer</option>
+                        <option value="Tyre Dealer">Tyre Dealer</option>
+                        <option value="Video Club">Video Club</option>
+                        <option value="Viewing Centre">Viewing Centre</option>
+                        <option value="Vulcanizer">Vulcanizer</option>
+                        <option value="Weaver">Weaver</option>
+                        <option value="Weaver">Welder</option>
+                        <option value="Wheel Barrow Quiosk">Wheel Barrow Quiosk</option>
+                        <option value="Wine And Beer License Operator">Wine And Beer License Operator</option>
+                        <option value="Yam Seller">Yam Seller</option>
+                        <option value="Yoghurt Seller">Yoghurt Seller</option>
                       </select>
                     </div>
 
@@ -1620,19 +1787,19 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                   </div>
                 </form>
                 {isFetching10 && (
-                    <div className="flex justify-center item mb-2">
-                      <Loader
-                        visible={isFetching10}
-                        type="BallTriangle"
-                        color="#00FA9A"
-                        height={19}
-                        width={19}
-                        timeout={0}
-                        className="ml-2"
-                      />
-                      <p className="font-bold">Saving...</p>
-                    </div>
-                  )}
+                  <div className="flex justify-center item mb-2">
+                    <Loader
+                      visible={isFetching10}
+                      type="BallTriangle"
+                      color="#00FA9A"
+                      height={19}
+                      width={19}
+                      timeout={0}
+                      className="ml-2"
+                    />
+                    <p className="font-bold">Saving...</p>
+                  </div>
+                )}
                 <form onSubmit={submitDataExpense}>
                   <p className="font-bold">Expenses</p>
                   <div className="mb-6 grid grid-cols-3 gap-4">
@@ -1682,28 +1849,43 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
               </div>
             </div>
 
+            {isFetching13 && (
+              <div className="flex justify-center item mb-2">
+                <Loader
+                  visible={isFetching13}
+                  type="BallTriangle"
+                  color="#00FA9A"
+                  height={19}
+                  width={19}
+                  timeout={0}
+                  className="ml-2"
+                />
+                <p className="font-bold">Saving...</p>
+              </div>
+            )}
+
             <div className={`flex justify-center border mb-3 block p-6 rounded-lg bg-white w-full ${togglee3}`}>
-              <form>
+              <form onSubmit={submitDataPartner}>
                 <div className="">
                   <p className="font-bold flex justify-center mb-4"></p>
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label htmlFor="employername">Partner Name:</label>
-                    <input type="text" id="employername" className="form-control w-full rounded"
+                    <input onChange={handlePartnershipChange} name="name" value={partnerData.name} type="text" className="form-control w-full rounded"
                     />
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label htmlFor="employername">Partner Address:</label>
-                    <input type="text" id="employername" className="form-control w-full rounded"
+                    <input onChange={handlePartnershipChange} name="addr" value={partnerData.addr} type="text" className="form-control w-full rounded"
                     />
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label htmlFor="employername">Partner Phone:</label>
-                    <input type="text" id="employername" className="form-control w-full rounded"
+                    <input onChange={handlePartnershipChange} name="phone" type="text" value={partnerData.phone} className="form-control w-full rounded"
                     />
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label htmlFor="employername">Partner Percentage:</label>
-                    <input type="text" id="employername" className="form-control w-full rounded"
+                    <input onChange={handlePartnershipChange} name="percentage" value={partnerData.percentage} type="text" className="form-control w-full rounded"
                     />
                   </div>
                   <div className='pb-5'>
@@ -1713,7 +1895,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label htmlFor="comments">Optional Comments:</label>
-                  <textarea name="" id="comments" cols="40" rows="2" className="rounded"></textarea>
+                  <textarea onChange={handlePartnershipChange} name="comments" value={partnerData.comments} cols="40" rows="2" className="rounded"></textarea>
                 </div>
                 <div className="mb-6 flex justify-between">
                   <button

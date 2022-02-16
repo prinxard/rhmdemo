@@ -81,7 +81,8 @@ export const ViewSinglePendingTable = ({ updateData }) => {
   return (
     <>
       <Widget>
-        <div className="block p-6 rounded-lg bg-white w-full">
+        <p>Test</p>
+        {/* <div className="block p-6 rounded-lg bg-white w-full">
           <div className="flex">
             <h6 className="pb-2">Employment Information</h6>
           </div>
@@ -375,7 +376,7 @@ export const ViewSinglePendingTable = ({ updateData }) => {
               </div>
             </div>
           </form>
-        </div>
+        </div> */}
       </Widget>
     </>
   );
