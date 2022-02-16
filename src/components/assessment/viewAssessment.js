@@ -215,6 +215,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
   const [isFetching13, setIsFetching13] = useState(() => false);
   const [isFetching14, setIsFetching14] = useState(() => false);
   const [isFetching15, setIsFetching15] = useState(() => false);
+  const [isFetching16, setIsFetching16] = useState(() => false);
+  const [isFetching17, setIsFetching17] = useState(() => false);
+  const [isFetching18, setIsFetching18] = useState(() => false);
   const router = useRouter();
 
   const [pensionDeduct, setPensionDeduct] = useState(
@@ -304,10 +307,27 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     }
   )
 
+  const [bankInterest, setBankInterest] = useState(
+    {
+      assessment_id: "", name: "", account: "", bvn: "", gross_amount: "", comments: ""
+    }
+  )
+
   const [rentIncome, setRentIncome] = useState(
     {
       assessment_id: "", prop_type: "", prop_address: "", rental_type: "", rental_amount: "",
       renter_phone: "", renter_name: "", comments: ""
+    }
+  )
+  const [dividends, setDividends] = useState(
+    {
+      assessment_id: "", name: "", addr: "", amount: "", comments: "",
+    }
+  )
+
+  const [pension, setPension] = useState(
+    {
+      assessment_id: "", pfa: "", pfa_addr: "", gross_amount: "", comments: "",
     }
   )
 
@@ -396,7 +416,34 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       ...rentIncome,
       [evt.target.name]: value
     });
-    console.log(rentIncome);
+
+  }
+
+  function handleBankInterestChange(evt) {
+    const value = evt.target.value;
+    setBankInterest({
+      ...bankInterest,
+      [evt.target.name]: value
+    });
+
+  }
+
+  function handleDividendsChange(evt) {
+    const value = evt.target.value;
+    setDividends({
+      ...dividends,
+      [evt.target.name]: value
+    });
+    console.log(dividends);
+  }
+
+  function handlePensionChange(evt) {
+    const value = evt.target.value;
+    setPension({
+      ...pension,
+      [evt.target.name]: value
+    });
+    console.log(pension);
   }
 
 
@@ -693,6 +740,73 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       alert("cannot submit, please try again")
       console.log(error);
       setIsFetching14(false)
+    }
+  }
+
+  setAuthToken();
+  let submitDataBankInt = async (e) => {
+    e.preventDefault()
+    setIsFetching16(true)
+    let bankInterestDataObj = {
+      assessment_id: `${assessment_id}`,
+      name: `${bankInterest.name}`,
+      account: `${bankInterest.account}`,
+      bvn: `${bankInterest.bvn}`,
+      gross_amount: `${bankInterest.gross_amount}`,
+      comments: `${bankInterest.comments}`,
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/bank-interest`, bankInterestDataObj);
+      setIsFetching16(false)
+      alert("submitted successfully!");
+    } catch (error) {
+      alert("cannot submit, please try again")
+      console.log(error);
+      setIsFetching16(false)
+    }
+  }
+
+  setAuthToken();
+  let submitDataDividends = async (e) => {
+    e.preventDefault()
+    setIsFetching17(true)
+    let dividendsDataObj = {
+      assessment_id: `${assessment_id}`,
+      name: `${dividends.name}`,
+      addr: `${dividends.addr}`,
+      amount: `${dividends.amount}`,
+      comments: `${dividends.comments}`,
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/dividends`, dividendsDataObj);
+      setIsFetching17(false)
+      alert("submitted successfully!");
+    } catch (error) {
+      alert("cannot submit, please try again")
+      console.log(error);
+      setIsFetching17(false)
+    }
+  }
+
+  setAuthToken();
+  let submitDataPension = async (e) => {
+    e.preventDefault()
+    setIsFetching18(true)
+    let pensionDataObj = {
+      assessment_id: `${assessment_id}`,
+      pfa: `${pension.pfa}`,
+      pfa_addr: `${pension.pfa_addr}`,
+      gross_amount: `${pension.gross_amount}`,
+      comments: `${pension.comments}`,
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/pension`, pensionDataObj);
+      setIsFetching18(false)
+      alert("submitted successfully!");
+    } catch (error) {
+      alert("cannot submit, please try again")
+      console.log(error);
+      setIsFetching18(false)
     }
   }
 
@@ -2067,49 +2181,48 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
               </div>
 
             </div>
-
-
+            {isFetching16 && (
+              <div className="flex justify-center item mb-2">
+                <Loader
+                  visible={isFetching16}
+                  type="BallTriangle"
+                  color="#00FA9A"
+                  height={19}
+                  width={19}
+                  timeout={0}
+                  className="ml-2"
+                />
+                <p className="font-bold">Submitting...</p>
+              </div>
+            )}
             <div className={`flex justify-center border mb-3 block p-6 rounded-lg bg-white w-full ${togglee5}`}>
-              <form>
+              <form onSubmit={submitDataBankInt}>
                 <div className="">
-
-
                   <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">Bank Name:</label>
-                    <input type="text" id="employername" className="form-control w-full rounded"
+                    <label>Bank Name:</label>
+                    <input onChange={handleBankInterestChange} name="name" value={bankInterest.name} type="text" className="form-control w-full rounded"
                     />
                   </div>
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">Bank Account:</label>
-                    <input type="text" id="employername" className="form-control w-full rounded"
+                    <label>Bank Account:</label>
+                    <input onChange={handleBankInterestChange} name="account" value={bankInterest.account} type="text" className="form-control w-full rounded"
                     />
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">Bank Verification Number (BVN):</label>
-                    <input type="text" id="employername" className="form-control w-full rounded"
+                    <label>Bank Verification Number (BVN):</label>
+                    <input onChange={handleBankInterestChange} name="bvn" value={bankInterest.bvn} type="text" id="employername" className="form-control w-full rounded"
                     />
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">Gross Amount:</label>
-                    <input type="text" id="employername" className="form-control w-full rounded"
+                    <label >Gross Amount:</label>
+                    <input onChange={handleBankInterestChange} name="gross_amount" value={bankInterest.gross_amount} type="number" className="form-control w-full rounded"
                     />
                   </div>
 
-
                   <div className="mb-6 grid grid-cols-3 gap-4">
-                    <button
-                      style={{ backgroundColor: "#84abeb" }}
-                      className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                      type="submit"
-                    >
-                      Add another Bank
-                    </button>
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="comments">Optional Comments:</label>
-                    <textarea name="" id="comments" cols="40" rows="2" className="rounded"></textarea>
+                    <label>Optional Comments:</label>
+                    <textarea onChange={handleBankInterestChange} name="comments" value={bankInterest.comments} cols="40" rows="2" className="rounded"></textarea>
                   </div>
                   <div className="mb-6 flex justify-between">
                     <button
@@ -2143,39 +2256,53 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
               </div>
             </div>
 
+            {isFetching17 && (
+              <div className="flex justify-center item mb-2">
+                <Loader
+                  visible={isFetching17}
+                  type="BallTriangle"
+                  color="#00FA9A"
+                  height={19}
+                  width={19}
+                  timeout={0}
+                  className="ml-2"
+                />
+                <p className="font-bold">Submitting...</p>
+              </div>
+            )}
+
             <div className={`flex justify-center border mb-3 block p-6 rounded-lg bg-white w-full ${togglee6}`}>
-              <form>
+              <form onSubmit={submitDataDividends}>
                 <div className="">
                   <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">Company Name:</label>
-                    <input type="text" id="employername" className="form-control w-full rounded"
+                    <label>Company Name:</label>
+                    <input onChange={handleDividendsChange} name="name" value={dividends.name} type="text" id="employername" className="form-control w-full rounded"
                     />
                   </div>
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">Company address:</label>
-                    <input type="text" id="employername" className="form-control w-full rounded"
+                    <label>Company address:</label>
+                    <input onChange={handleDividendsChange} name="addr" value={dividends.addr} type="text" id="employername" className="form-control w-full rounded"
                     />
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">Gross Amount:</label>
-                    <input type="text" id="employername" className="form-control w-full rounded"
+                    <label>Gross Amount:</label>
+                    <input onChange={handleDividendsChange} name="amount" value={dividends.amount} type="number" className="form-control w-full rounded"
                     />
                   </div>
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Optional Comments:</label>
+                    <textarea onChange={handleDividendsChange} name="comments" value={dividends.comments} id="comments" cols="40" rows="2" className="rounded"></textarea>
+                  </div>
+                  <div className="mb-6 flex justify-between">
                     <button
                       style={{ backgroundColor: "#84abeb" }}
                       className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
                       type="submit"
                     >
-                      Add another Company
+                      Save
                     </button>
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="comments">Optional Comments:</label>
-                    <textarea name="" id="comments" cols="40" rows="2" className="rounded"></textarea>
                   </div>
                 </div>
               </form>
@@ -2197,29 +2324,43 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                 </div>
               </div>
             </div>
+            {isFetching18 && (
+              <div className="flex justify-center item mb-2">
+                <Loader
+                  visible={isFetching18}
+                  type="BallTriangle"
+                  color="#00FA9A"
+                  height={19}
+                  width={19}
+                  timeout={0}
+                  className="ml-2"
+                />
+                <p className="font-bold">Submitting...</p>
+              </div>
+            )}
             <div className={`flex justify-center border mb-3 block p-6 rounded-lg bg-white w-full ${togglee7}`}>
-              <form>
+              <form onSubmit={submitDataPension}>
                 <div className="">
                   <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">PFA:</label>
-                    <input type="text" id="employername" className="form-control w-full rounded"
+                    <label >PFA:</label>
+                    <input onChange={handlePensionChange} name="pfa" value={pension.pfa} type="text" className="form-control w-full rounded"
                     />
                   </div>
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">PFA address:</label>
-                    <input type="text" id="employername" className="form-control w-full rounded"
+                    <label>PFA address:</label>
+                    <input onChange={handlePensionChange} name="pfa_addr" value={pension.pfa_addr} type="text" id="employername" className="form-control w-full rounded"
                     />
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">Gross Amount:</label>
-                    <input type="text" id="employername" className="form-control w-full rounded"
+                    <label>Gross Amount:</label>
+                    <input onChange={handlePensionChange} name="gross_amount" value={pension.gross_amount} type="number" className="form-control w-full rounded"
                     />
                   </div>
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="comments">Optional Comments:</label>
-                    <textarea name="" id="comments" cols="40" rows="2" className="rounded"></textarea>
+                    <label>Optional Comments:</label>
+                    <textarea onChange={handlePensionChange} name="comments" value={pension.comments} cols="40" rows="2" className="rounded"></textarea>
                   </div>
                   <div className="mb-6 flex justify-between">
                     <button
