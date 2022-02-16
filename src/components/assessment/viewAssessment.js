@@ -220,6 +220,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
   const [isFetching18, setIsFetching18] = useState(() => false);
   const [isFetching19, setIsFetching19] = useState(() => false);
   const [isFetching20, setIsFetching20] = useState(() => false);
+  const [isFetching21, setIsFetching21] = useState(() => false);
   const router = useRouter();
 
   const [pensionDeduct, setPensionDeduct] = useState(
@@ -342,6 +343,12 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
   const [outsideSource, SetOutsideSource] = useState(
     {
       assessment_id: "", source: "", gross_amount: "", comments: ""
+    }
+  )
+
+  const [vehicle, setVehicle] = useState(
+    {
+      assessment_id: "", purchase_date: "", cost: "", brand: "", model: "", year: ""
     }
   )
 
@@ -473,7 +480,15 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       ...outsideSource,
       [evt.target.name]: value
     });
-    console.log(outsideSource);
+  }
+
+  function handleVehicleChange(evt) {
+    const value = evt.target.value;
+    setVehicle({
+      ...vehicle,
+      [evt.target.name]: value
+    });
+    console.log(vehicle);
   }
 
 
@@ -883,6 +898,30 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       alert("cannot submit, please try again")
       console.log(error);
       setIsFetching20(false)
+    }
+  }
+
+  let vehYear = dateformat(vehicle.year, "yyyy")
+  setAuthToken();
+  let submitDataVehicle = async (e) => {
+    e.preventDefault()
+    setIsFetching21(true)
+    let vehicleDataObj = {
+      assessment_id: `${assessment_id}`,
+      purchase_date: `${vehicle.purchase_date}`,
+      cost: `${vehicle.cost}`,
+      brand: `${vehicle.brand}`,
+      model: `${vehicle.model}`,
+      year: `${vehYear}`,
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/vechicles`, vehicleDataObj);
+      setIsFetching21(false)
+      alert("submitted successfully!");
+    } catch (error) {
+      alert("cannot submit, please try again")
+      console.log(error);
+      setIsFetching21(false)
     }
   }
 
@@ -2890,46 +2929,55 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
             </div>
           </div>
 
+          {isFetching21 && (
+            <div className="flex justify-center item mb-2">
+              <Loader
+                visible={isFetching21}
+                type="BallTriangle"
+                color="#00FA9A"
+                height={19}
+                width={19}
+                timeout={0}
+                className="ml-2"
+              />
+              <p className="font-bold">Submitting...</p>
+            </div>
+          )}
+
           <div className={`flex justify-start border mb-3 block p-6 rounded-lg bg-white w-full ${togglee13}`}>
-            <form>
+            <form onSubmit={submitDataVehicle}>
               <div className="">
                 <div className="mb-6 grid grid-cols-3 gap-4">
-                  <label htmlFor="employername">Date of purchase:</label>
-                  <input type="date" id="employername" className="form-control w-full rounded"
+                  <label>Date of purchase:</label>
+                  <input onChange={handleVehicleChange} name="purchase_date" value={vehicle.purchase_date} type="date" className="form-control w-full rounded"
                   />
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
-                  <label htmlFor="employername">Cost:</label>
-                  <input type="text" id="employername" className="form-control w-full rounded"
+                  <label>Cost:</label>
+                  <input onChange={handleVehicleChange} name="cost" value={vehicle.cost} type="text" className="form-control w-full rounded"
                   />
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
-                  <label htmlFor="employername">Brand:</label>
-                  <select className="Select Brand" name="" id="typeofbusiness">
-                    <option selected>Honda</option>
-                    <option value="1">Toyota</option>
-                    <option value="2">Benz</option>
+                  <label>Brand:</label>
+                  <select onChange={handleVehicleChange} className="Select Brand" name="brand" value={vehicle.brand}>
+                    <option value="Lexus">Lexus</option>
+                    <option value="Toyota">Toyota</option>
+                    <option value="Benz">Benz</option>
                   </select>
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
-                  <label htmlFor="employername">Model:</label>
-                  <select className="Select Brand" name="" id="typeofbusiness">
-                    <option selected>Honda</option>
-                    <option value="1">Toyota</option>
-                    <option value="2">Benz</option>
-                  </select>
+                  <labe>Model:</labe>
+                  <input onChange={handleVehicleChange} name="model" value={vehicle.model} type="text" className="form-control w-full rounded"
+                  />
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
-                  <label htmlFor="employername">Year:</label>
-                  <select className="Select Brand" name="" id="typeofbusiness">
-                    <option selected>2021</option>
-                    <option value="1">2022</option>
-                    <option value="2">2023</option>
-                  </select>
+                  <label>Year:</label>
+                  <input onChange={handleVehicleChange} name="year" value={vehicle.year} type="date" className="form-control w-full rounded"
+                  />
                 </div>
 
                 <div className="mb-6 flex justify-between">
