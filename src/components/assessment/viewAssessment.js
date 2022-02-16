@@ -218,6 +218,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
   const [isFetching16, setIsFetching16] = useState(() => false);
   const [isFetching17, setIsFetching17] = useState(() => false);
   const [isFetching18, setIsFetching18] = useState(() => false);
+  const [isFetching19, setIsFetching19] = useState(() => false);
   const router = useRouter();
 
   const [pensionDeduct, setPensionDeduct] = useState(
@@ -330,6 +331,12 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       assessment_id: "", pfa: "", pfa_addr: "", gross_amount: "", comments: "",
     }
   )
+  const [asset, setAsset] = useState(
+    {
+      assessment_id: "", asset_type: "", asset_addr: "", buyer_name: "",
+      buyer_addr: "", buyer_phone: "", amount: "", comments: ""
+    }
+  )
 
   function handlePenDeductChange(evt) {
     const value = evt.target.value;
@@ -434,7 +441,6 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       ...dividends,
       [evt.target.name]: value
     });
-    console.log(dividends);
   }
 
   function handlePensionChange(evt) {
@@ -443,7 +449,15 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       ...pension,
       [evt.target.name]: value
     });
-    console.log(pension);
+  }
+
+  function handleAssetChange(evt) {
+    const value = evt.target.value;
+    setAsset({
+      ...asset,
+      [evt.target.name]: value
+    });
+    console.log(asset);
   }
 
 
@@ -807,6 +821,31 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       alert("cannot submit, please try again")
       console.log(error);
       setIsFetching18(false)
+    }
+  }
+
+  setAuthToken();
+  let submitDataAsset = async (e) => {
+    e.preventDefault()
+    setIsFetching19(true)
+    let assetDataObj = {
+      assessment_id: `${assessment_id}`,
+      asset_type: `${asset.asset_type}`,
+      asset_addr: `${asset.asset_addr}`,
+      buyer_name: `${asset.buyer_name}`,
+      buyer_addr: `${asset.buyer_addr}`,
+      buyer_phone: `${asset.buyer_phone}`,
+      amount: `${asset.amount}`,
+      comments: `${asset.comments}`,
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/assets`, assetDataObj);
+      setIsFetching19(false)
+      alert("submitted successfully!");
+    } catch (error) {
+      alert("cannot submit, please try again")
+      console.log(error);
+      setIsFetching19(false)
     }
   }
 
@@ -2393,61 +2432,63 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
               </div>
             </div>
-
+            {isFetching19 && (
+              <div className="flex justify-center item mb-2">
+                <Loader
+                  visible={isFetching19}
+                  type="BallTriangle"
+                  color="#00FA9A"
+                  height={19}
+                  width={19}
+                  timeout={0}
+                  className="ml-2"
+                />
+                <p className="font-bold">Submitting...</p>
+              </div>
+            )}
             <div className={`flex justify-center border mb-3 block p-6 rounded-lg bg-white w-full ${togglee8}`}>
 
-              <form>
+              <form onSubmit={submitDataAsset}>
                 <div className="">
                   <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">Asset Type:</label>
-                    <select className="form-select" name="" id="typeofbusiness">
-                      <option selected>Open this select menu</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
+                    <label >Asset Type:</label>
+                    <select onChange={handleAssetChange} className="form-select" name="asset_type" value={asset.asset_type}>
+                      <option value="landed property">Landed Property</option>
+                      <option value="house">House</option>
+                      <option value="farm land">Farm Land</option>
                     </select>
                   </div>
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">Asset Address:</label>
-                    <input type="text" id="employername" className="form-control w-full rounded"
+                    <label >Asset Address:</label>
+                    <input onChange={handleAssetChange} name="asset_addr" value={asset.asset_addr} type="text" className="form-control w-full rounded"
                     />
                   </div>
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">Buyer:</label>
-                    <input type="text" id="employername" className="form-control w-full rounded"
+                    <label>Buyer:</label>
+                    <input onChange={handleAssetChange} name="buyer_name" value={asset.buyer_name} type="text" className="form-control w-full rounded"
                     />
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">Buyer address:</label>
-                    <input type="text" id="employername" className="form-control w-full rounded"
+                    <label>Buyer address:</label>
+                    <input onChange={handleAssetChange} name="buyer_addr" value={asset.buyer_addr} type="text" id="employername" className="form-control w-full rounded"
                     />
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">Buyer Phone number:</label>
-                    <input type="text" id="employername" className="form-control w-full rounded"
+                    <label>Buyer Phone number:</label>
+                    <input onChange={handleAssetChange} name="buyer_phone" value={asset.buyer_phone} type="text" id="employername" className="form-control w-full rounded"
                     />
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">Sale amount:</label>
-                    <input type="text" id="employername" className="form-control w-full rounded"
+                    <label>Sale amount:</label>
+                    <input onChange={handleAssetChange} name="amount" value={asset.amount} type="number" id="employername" className="form-control w-full rounded"
                     />
                   </div>
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
-                    <button
-                      style={{ backgroundColor: "#84abeb" }}
-                      className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                      type="submit"
-                    >
-                      Add another Asset
-                    </button>
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="comments">Optional Comments:</label>
-                    <textarea name="" id="comments" cols="40" rows="2" className="rounded"></textarea>
+                    <label>Optional Comments:</label>
+                    <textarea onChange={handleAssetChange} name="comments" value={asset.comments} cols="40" rows="2" className="rounded"></textarea>
                   </div>
                   <div className="mb-6 flex justify-between">
                     <button
