@@ -368,9 +368,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
         },
       });
       setIsFetching3(false)
-      console.log("successful!");
+      alert("successful!");
     } catch (error) {
-      console.log(error);
+     alert("Cannot Submit please try again");
       setIsFetching3(false)
     }
 
@@ -391,9 +391,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/pension-ded`, pendedObj);
       setIsFetching4(false)
-      console.log("successful!");
+     alert("successful!");
     } catch (error) {
-      console.log(error);
+      alert("Cannot Submit, please try again")
       setIsFetching4(false)
     }
 
@@ -414,9 +414,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/spouse`, spouseObj);
       setIsFetching5(false)
-      console.log("successful!");
+      alert("successful!");
     } catch (error) {
-      console.log(error);
+      alert("Cannot Submit Please try again")
       setIsFetching5(false)
     }
 
@@ -441,9 +441,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/residence-addr`, resAddObj);
       setIsFetching6(false)
-      console.log("successful!");
+      alert("successful!");
     } catch (error) {
-      console.log(error);
+      alert("Cannot Submit, Please try again")
       setIsFetching6(false)
     }
 
@@ -468,9 +468,10 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/self-employed`, selfEmpObj);
       setIsFetching7(false)
-      console.log("successful!");
+      alert("successful!");
     } catch (error) {
       console.log(error);
+      alert("Cannot submit, please try again")
       setIsFetching7(false)
     }
 
@@ -492,8 +493,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/nhis`, nhisDataObj);
       setIsFetching8(false)
-      console.log("successful!");
+      alert("successful!");
     } catch (error) {
+      alert("Cannot Submit, Please try again")
       console.log(error);
       setIsFetching8(false)
     }
@@ -515,9 +517,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/lap`, lifeInsDataObj);
       setIsFetching9(false)
-      console.log("successful!");
+      alert("successful!");
     } catch (error) {
-      console.log(error);
+      alert("Cannot Submit, Please try again")
       setIsFetching9(false)
     }
 
@@ -535,8 +537,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/expenses`, expenseDataObj);
       setIsFetching10(false)
-      console.log("successful!");
+      alert("submitted successfully!");
     } catch (error) {
+      alert("cannot submit, please try again")
       console.log(error);
       setIsFetching10(false)
     }
@@ -563,8 +566,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       console.log(res);
       setIsFetching15(false)
       router.push('/submitre')
-      console.log("successful!");
+      alert("successful!");
     } catch (error) {
+      alert("Cannot Submit, Please try again")
       console.log(error);
       setIsFetching15(false)
     }
@@ -1615,6 +1619,20 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                     </button>
                   </div>
                 </form>
+                {isFetching10 && (
+                    <div className="flex justify-center item mb-2">
+                      <Loader
+                        visible={isFetching10}
+                        type="BallTriangle"
+                        color="#00FA9A"
+                        height={19}
+                        width={19}
+                        timeout={0}
+                        className="ml-2"
+                      />
+                      <p className="font-bold">Saving...</p>
+                    </div>
+                  )}
                 <form onSubmit={submitDataExpense}>
                   <p className="font-bold">Expenses</p>
                   <div className="mb-6 grid grid-cols-3 gap-4">
