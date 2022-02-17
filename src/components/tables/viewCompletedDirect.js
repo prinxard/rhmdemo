@@ -37,10 +37,10 @@ const fields = [
     name: "Tax",
     key: "tax",
   },
-  {
-    name: "Status",
-    key: "status",
-  },
+  // {
+  //   name: "Status",
+  //   key: "status",
+  // },
   {
     name: "Created Time",
     key: "createtime",
@@ -112,22 +112,93 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerAyy, assobj, t
 
   const deductionsTotal = (pfcdata + nhisdata + lapdata)
 
+  setAuthToken();
+  let approveAss = async (e) => {
+    e.preventDefault()
+    setIsFetching3(true)
+    let apprDataObj = {
+      assessment_id: `${assessment_id}`,
+      status: "Approved",
+    }
+    try {
+      let res = await axios.put(`${url.BASE_URL}forma/set-status`, apprDataObj);
+      setIsFetching3(false)
+      alert("Approved successfully!");
+      router.push('/approvere')
+    } catch (error) {
+      alert("cannot submit, please try again")
+      console.log(error);
+      setIsFetching3(false)
+    }
+  }
+  setAuthToken();
+  let declineAss = async (e) => {
+    e.preventDefault()
+    setIsFetching2(true)
+    let decDataObj = {
+      assessment_id: `${assessment_id}`,
+      status: "Declined",
+    }
+    try {
+      let res = await axios.put(`${url.BASE_URL}forma/set-status`, decDataObj);
+      setIsFetching2(false)
+      alert("Decline successfull!");
+      router.push('/declinere')
+    } catch (error) {
+      alert("cannot submit, please try again")
+      console.log(error);
+      setIsFetching2(false)
+    }
+  }
+
   return (
     <>
+      {isFetching3 && (
+        <div className="flex justify-center item mb-2">
+          <Loader
+            visible={isFetching3}
+            type="BallTriangle"
+            color="#00FA9A"
+            height={19}
+            width={19}
+            timeout={0}
+            className="ml-2"
+          />
+          <p className="font-bold">Approving...</p>
+        </div>
+      )}
+      {isFetching2 && (
+        <div className="flex justify-center item mb-2">
+          <Loader
+            visible={isFetching2}
+            type="BallTriangle"
+            color="#00FA9A"
+            height={19}
+            width={19}
+            timeout={0}
+            className="ml-2"
+          />
+          <p className="font-bold">Declining...</p>
+        </div>
+      )}
       <div className="mb-6 flex justify-end">
-        <button
-          className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-          type="submit"
-        >
-          Approve
-        </button>
+        <form onSubmit={approveAss}>
+          <button
+            className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+            type="submit"
+          >
+            Approve
+          </button>
+        </form>
 
-        <button 
-          className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-          type="submit"
-        >
-          Decline
-        </button>
+        <form onSubmit={declineAss}>
+          <button
+            className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+            type="submit"
+          >
+            Decline
+          </button>
+        </form>
 
       </div>
       <table width='800' height='1575' align='center' className='print'>
@@ -207,7 +278,11 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerAyy, assobj, t
                   </tr>
                   <tr>
                     <td className='tb'> Trade, Professional e.t.c </td>
-                    <td className='tb'> {assobj.self_employed}  </td>
+                    {assobj == null || assobj == ""
+                      ? <td></td> :
+                      <td className='tb'> {assobj.self_employed}  </td>
+                    }
+
                   </tr>
                   <tr>
                     <td className='tb'>Share of Partnership </td>
@@ -215,7 +290,10 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerAyy, assobj, t
                   </tr>
                   <tr>
                     <td className='tb'>Employment</td>
-                    <td className='tb'> {assobj.employed} </td>
+                    {assobj == null || assobj == ""
+                      ? <td></td> :
+                      <td className='tb'> {assobj.employed}  </td>
+                    }
                   </tr>
                   <tr>
                     <td className='tb'>Other Income </td>
@@ -227,11 +305,20 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerAyy, assobj, t
                   </tr>
                   <tr>
                     <td className='tb'>PFC</td>
-                    <td className='tb'> {assobj.pension} </td>
+                    {assobj == null || assobj == ""
+                      ? <td className="tb"></td> :
+                      <td className='tb'> {assobj.pension} </td>
+                    }
+
                   </tr>
                   <tr>
                     <td className='tb'>NHIS</td>
-                    <td className='tb'> {assobj.nhis} </td>
+                    {assobj == null || assobj == ""
+                      ? <td className="tb"></td> :
+                      <td className='tb'> {assobj.nhis} </td>
+                    }
+
+
                   </tr>
                   <tr>
                     <td className='tb'>NHF</td>
@@ -239,7 +326,11 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerAyy, assobj, t
                   </tr>
                   <tr>
                     <td className='tb'>Life Assurance Premium</td>
-                    <td className='tb'> {assobj.lap} </td>
+                    {assobj == null || assobj == ""
+                      ? <td className="tb"></td> :
+                      <td className='tb'> {assobj.lap} </td>
+                    }
+
                   </tr>
                   <tr>
                     <td className='tb font-bold'><p align="right">Total</p></td>
@@ -279,12 +370,19 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerAyy, assobj, t
                   </tr>
                   <tr>
                     <td className='tb'>Consolidated Relief Allowance</td>
-                    <td className='tb'>{taxcal.consolidatedRelief}</td>
+                    {taxcal == null || taxcal == ""
+                      ? <td className="tb"></td> :
+                      <td className='tb'>{taxcal.consolidatedRelief}</td>
+                    }
 
                   </tr>
                   <tr>
                     <td className='tb font-bold'><div align='right'>Chargeable Income </div></td>
-                    <td className='tb'>{taxcal.chargeableIncome}</td>
+                    {taxcal == null || taxcal == ""
+                      ? <td className="tb"></td> :
+                      <td className='tb'>{taxcal.chargeableIncome}</td>
+                    }
+
                   </tr>
                   <tr>
                     <td className='tb'><div align='center' className='style16 font-bold'>Tax Due for Payment </div></td>
@@ -293,27 +391,52 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerAyy, assobj, t
 
                   <tr>
                     <td className='tb'><div align='center' className='style16'>7% on 300,000.00 </div></td>
-                    <td className='tb'> {taxcal.tax7}  </td>
+                    {taxcal == null || taxcal == ""
+                      ? <td className="tb"></td> :
+                      <td className='tb'> {taxcal.tax7}  </td>
+                    }
+
+
                   </tr>
                   <tr>
                     <td className='tb'><div align='center' className='style16'>11% on 300,000.00 </div></td>
-                    <td className='tb'> {taxcal.tax11} </td>
+                    {taxcal == null || taxcal == ""
+                      ? <td className="tb"></td> :
+                      <td className='tb'> {taxcal.tax11} </td>
+                    }
+
                   </tr>
                   <tr>
                     <td className='tb'><div align='center' className='style16'>15% on 500,000.00 </div></td>
-                    <td className='tb'> {taxcal.tax15} </td>
+                    {taxcal == null || taxcal == ""
+                      ? <td className="tb"></td> :
+                      <td className='tb'> {taxcal.tax15} </td>
+                    }
+
                   </tr>
                   <tr>
                     <td className='tb'><div align='center' className='style16'>19% on 500,000.00 </div></td>
-                    <td className='tb'> {taxcal.tax19} </td>
+                    {taxcal == null || taxcal == ""
+                      ? <td className="tb"></td> :
+                      <td className='tb'> {taxcal.tax19} </td>
+                    }
+
                   </tr>
                   <tr>
                     <td className='tb'><div align='center' className='style16'>21% on 1,600,000.00 </div></td>
-                    <td className='tb'> {taxcal.tax21} </td>
+                    {taxcal == null || taxcal == ""
+                      ? <td className="tb"></td> :
+                      <td className='tb'> {taxcal.tax21} </td>
+                    }
+
                   </tr>
                   <tr>
                     <td className='tb'><div align='center'>24% on 3,200,000.00 </div></td>
-                    <td className='tb'> {taxcal.tax24} </td>
+                    {taxcal == null || taxcal == ""
+                      ? <td className="tb"></td> :
+                      <td className='tb'> {taxcal.tax24} </td>
+                    }
+
                   </tr>
                   <tr>
                     <td className='tb'><div align='center' className='style16'>1%(Minimun Tax)</div></td>
@@ -383,12 +506,20 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerAyy, assobj, t
                     </tr>
                     <tr>
                       <td width='566'><p align='left' className='style5 font-bold'>Type of Residence</p></td>
-                      <td width='566'><p align='left' className='style5'></p>{resAddObj.residence_type}</td>
+                      {resAddObj == null || resAddObj == ""
+                        ? <td className=""></td> :
+                        <td width='566'><p align='left' className='style5'></p>{resAddObj.residence_type}</td>
+                      }
+
                     </tr>
 
                     <tr>
                       <td width='566'><p align='left' className='style5 font-bold'>Residence Ownership</p></td>
-                      <td width='566'><p align='left' className='style5'></p>{resAddObj.residence_owner} </td>
+                      {resAddObj == null || resAddObj == ""
+                        ? <td className=""></td> :
+                        <td width='566'><p align='left' className='style5'></p>{resAddObj.residence_owner} </td>
+                      }
+
                     </tr>
                     <tr>
                       <td width='566'><p align='left' className='style5 font-bold'>OWNER</p></td>
@@ -396,15 +527,27 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerAyy, assobj, t
                     </tr>
                     <tr>
                       <td width='566'><p align='left' className='style5 font-bold'>Name:</p></td>
-                      <td width='566'><p align='left' className='style5'></p>{resAddObj.owner_name}</td>
+                      {resAddObj == null || resAddObj == ""
+                        ? <td className=""></td> :
+                        <td width='566'><p align='left' className='style5'></p>{resAddObj.owner_name}</td>
+                      }
+
                     </tr>
                     <tr>
                       <td width='566'><p align='left' className='style5 font-bold'>Address:</p></td>
-                      <td width='566'><p align='left' className='style5'></p>{resAddObj.owner_name}</td>
+                      {resAddObj == null || resAddObj == ""
+                        ? <td className=""></td> :
+                        <td width='566'><p align='left' className='style5'></p>{resAddObj.owner_name}</td>
+                      }
+
                     </tr>
                     <tr>
                       <td width='566'><p align='left' className='style5 font-bold'>Phone Number:</p></td>
-                      <td width='566'><p align='left' className='style5'></p>{resAddObj.owner_phone}</td>
+                      {resAddObj == null || resAddObj == ""
+                        ? <td className=""></td> :
+                        <td width='566'><p align='left' className='style5'></p>{resAddObj.owner_phone}</td>
+                      }
+
                     </tr>
                     <hr />
                     <tr>
@@ -413,19 +556,36 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerAyy, assobj, t
                     </tr>
                     <tr>
                       <td width='566'><p align='left' className='style5 font-bold'>Name :</p></td>
-                      <td width='566'><p align='left' className='style5'></p>{spouseObj.name}</td>
+                      {spouseObj == null || spouseObj == ""
+                        ? <td className=""></td> :
+                        <td width='566'><p align='left' className='style5'></p>{spouseObj.name}</td>
+                      }
+
                     </tr>
                     <tr>
                       <td width='566'><p align='left' className='style5 font-bold'>Age :</p></td>
-                      <td width='566'><p align='left' className='style5'></p>{spouseObj.dob}</td>
+                      {spouseObj == null || spouseObj == ""
+                        ? <td className=""></td> :
+                        <td width='566'><p align='left' className='style5'></p>{spouseObj.dob}</td>
+                      }
+
+
                     </tr>
                     <tr>
                       <td width='566'><p align='left' className='style5 font-bold'>Occupation :</p></td>
-                      <td width='566'><p align='left' className='style5'></p>{spouseObj.occupation}</td>
+                      {spouseObj == null || spouseObj == ""
+                        ? <td className=""></td> :
+                        <td width='566'><p align='left' className='style5'></p>{spouseObj.occupation}</td>
+                      }
+
                     </tr>
                     <tr>
                       <td width='566'><p align='left' className='style5 font-bold'>Employer/Business :</p></td>
-                      <td width='566'><p align='left' className='style5'></p>{spouseObj.employer}</td>
+                      {spouseObj == null || spouseObj == ""
+                        ? <td className=""></td> :
+                        <td width='566'><p align='left' className='style5'></p>{spouseObj.employer}</td>
+                      }
+
                     </tr>
                     <hr />
                     <tr>
@@ -434,19 +594,36 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerAyy, assobj, t
                     </tr>
                     <tr>
                       <td width='566'><p align='left' className='style5 font-bold'>Name</p></td>
-                      <td width='566'><p align='left' className='style5'></p>{childObj.name}</td>
+                      {childObj == null || childObj == ""
+                        ? <td className=""></td> :
+                        <td width='566'><p align='left' className='style5'></p>{childObj.name}</td>
+                      }
+
                     </tr>
                     <tr>
                       <td width='566'><p align='left' className='style5 font-bold'>Age</p></td>
-                      <td width='566'><p align='left' className='style5'>{childObj.dob}</p></td>
+                      {childObj == null || childObj == ""
+                        ? <td className=""></td> :
+                        <td width='566'><p align='left' className='style5'>{childObj.dob}</p></td>
+                      }
+
+
                     </tr>
                     <tr>
                       <td width='566'><p align='left' className='style5 font-bold'>School</p></td>
-                      <td width='566'><p align='left' className='style5'></p>{childObj.school_name}</td>
+                      {childObj == null || childObj == ""
+                        ? <td className=""></td> :
+                        <td width='566'><p align='left' className='style5'></p>{childObj.school_name}</td>
+                      }
+
                     </tr>
                     <tr>
                       <td width='566'><p align='left' className='style5 font-bold'>Tuition/session</p></td>
-                      <td width='566'><p align='left' className='style5'></p> {childObj.school_fees}</td>
+                      {childObj == null || childObj == ""
+                        ? <td className=""></td> :
+                        <td width='566'><p align='left' className='style5'></p> {childObj.school_fees}</td>
+                      }
+
                     </tr>
                     <hr />
                     <tr>
@@ -455,7 +632,11 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerAyy, assobj, t
                     </tr>
                     <tr>
                       <td width='566'><p align='left' className='style5 font-bold'>Name </p></td>
-                      <td width='566'><p align='left' className='style5'></p>{domesticStaff.name}</td>
+                      {domesticStaff == null || domesticStaff == ""
+                        ? <td className=""></td> :
+                        <td width='566'><p align='left' className='style5'></p>{domesticStaff.name}</td>
+                      }
+
                     </tr>
                     <tr>
                       <td width='566'><p align='left' className='style5 font-bold'>Address </p></td>
@@ -463,7 +644,11 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerAyy, assobj, t
                     </tr>
                     <tr>
                       <td width='566'><p align='left' className='style5 font-bold'>Amount Paid </p></td>
-                      <td width='566'><p align='left' className='style5'></p>{domesticStaff.amount_paid}</td>
+                      {domesticStaff == null || domesticStaff == ""
+                        ? <td className=""></td> :
+                        <td width='566'><p align='left' className='style5'></p>{domesticStaff.amount_paid}</td>
+                      }
+
                     </tr>
                     <hr />
                     <tr>
@@ -471,15 +656,27 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerAyy, assobj, t
                     </tr>
                     <tr>
                       <td className="font-bold">Brand</td>
-                      <td className="">{vehicles.brand}</td>
+                      {vehicles == null || vehicles == ""
+                        ? <td className=""></td> :
+                        <td className="">{vehicles.brand}</td>
+                      }
+
                     </tr>
                     <tr>
                       <td className="font-bold">Model</td>
-                      <td className="">{vehicles.model}</td>
+                      {vehicles == null || vehicles == ""
+                        ? <td className=""></td> :
+                        <td className="">{vehicles.model}</td>
+                      }
+
                     </tr>
                     <tr>
                       <td className="font-bold">Year</td>
-                      <td className="">{vehicles.year}</td>
+                      {vehicles == null || vehicles == ""
+                        ? <td className=""></td> :
+                        <td className="">{vehicles.year}</td>
+                      }
+
                     </tr>
                     <hr />
                     <tr>
@@ -503,15 +700,27 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerAyy, assobj, t
                     </tr>
                     <tr>
                       <td className="font-bold">Address:</td>
-                      <td className="">{land.addr}:</td>
+                      {land == null || land == ""
+                        ? <td className=""></td> :
+                        <td className="">{land.addr}:</td>
+                      }
+
                     </tr>
                     <tr>
                       <td className="font-bold">Date Acquired/Completion:</td>
-                      <td className="">{land.date_completion}</td>
+                      {land == null || land == ""
+                        ? <td className=""></td> :
+                        <td className="">{land.date_completion}</td>
+                      }
+
                     </tr>
                     <tr>
                       <td width='600' className="font-bold"><td>Cost:</td></td>
-                      <td className="">{land.construction_cost}</td>
+                      {land == null || land == ""
+                        ? <td className=""></td> :
+                        <td className="">{land.construction_cost}</td>
+                      }
+
                     </tr>
                   </table>
 
