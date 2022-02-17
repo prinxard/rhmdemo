@@ -134,7 +134,6 @@ export const ViewSingleApprovedTable = ({ payerprop, assId }) => {
                   <p key={i} className="p-1">{`${el.house_no} ${el.street} ${el.stateOfResidence}`}</p>
                   )}
                 </div>
-
               </td>
               <td className="pb-4">
                 <div className="border">

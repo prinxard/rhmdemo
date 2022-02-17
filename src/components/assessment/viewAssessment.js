@@ -222,6 +222,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
   const [isFetching20, setIsFetching20] = useState(() => false);
   const [isFetching21, setIsFetching21] = useState(() => false);
   const [isFetching22, setIsFetching22] = useState(() => false);
+  const [isFetching23, setIsFetching23] = useState(() => false);
   const router = useRouter();
 
   const [pensionDeduct, setPensionDeduct] = useState(
@@ -256,6 +257,12 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       comments: ""
     }
   )
+  const [farmland, setFarmland] = useState(
+    {
+      assessment_id: "", addr: "", acq_date: "", land_cost: "", produce_cost: "",
+    }
+  )
+
 
   let res_no = indvData.map(function (x) {
     let houseNumb = x.house_no
@@ -477,7 +484,6 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       ...asset,
       [evt.target.name]: value
     });
-    console.log(asset);
   }
 
   function handleOutsideSourceChange(evt) {
@@ -502,7 +508,14 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       ...land,
       [evt.target.name]: value
     });
-    console.log(land);
+  }
+
+  function handlefarmChange(evt) {
+    const value = evt.target.value;
+    setFarmland({
+      ...farmland,
+      [evt.target.name]: value
+    });
   }
 
 
@@ -958,6 +971,28 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       alert("cannot submit, please try again")
       console.log(error);
       setIsFetching22(false)
+    }
+  }
+
+  setAuthToken();
+  let submitDataFarm = async (e) => {
+    e.preventDefault()
+    setIsFetching23(true)
+    let farmDataObj = {
+      assessment_id: `${assessment_id}`,
+      addr: `${farmland.addr}`,
+      acq_date: `${farmland.acq_date}`,
+      land_cost: `${farmland.land_cost}`,
+      produce_cost: `${farmland.produce_cost}`,
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/farm`, farmDataObj);
+      setIsFetching23(false)
+      alert("submitted successfully!");
+    } catch (error) {
+      alert("cannot submit, please try again")
+      console.log(error);
+      setIsFetching23(false)
     }
   }
 
@@ -3071,13 +3106,13 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label>Type of property:</label>
                   <select onChange={handleLandChange} name="prop_type" value={land.prop_type} className="form-select w-full">
-                    <option value="1">Bungalow</option>
-                    <option value="2">Penthouse</option>
-                    <option value="3">Mansion</option>
-                    <option value="3">Apartment or Flat</option>
-                    <option value="3">Terraced house</option>
-                    <option value="3">Duplex</option>
-                    <option value="3">Traditional house</option>
+                    <option value="Bungalow">Bungalow</option>
+                    <option value="Penthouse">Penthouse</option>
+                    <option value="Mansion">Mansion</option>
+                    <option value="Apartment or Flat">Apartment or Flat</option>
+                    <option value="Terraced house">Terraced house</option>
+                    <option value="Duplex">Duplex</option>
+                    <option value="Traditional house">Traditional house</option>
                   </select>
                 </div>
 
@@ -3089,7 +3124,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label>Cost of construction/acquisition:</label>
-                  <input onChange={handleLandChange} name="construction_cost" value={land.construction_cost}  type="text" className="form-control w-full rounded"
+                  <input onChange={handleLandChange} name="construction_cost" value={land.construction_cost} type="text" className="form-control w-full rounded"
                   />
                 </div>
 
@@ -3124,29 +3159,43 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
             </div>
           </div>
 
+          {isFetching23 && (
+            <div className="flex justify-center item mb-2">
+              <Loader
+                visible={isFetching23}
+                type="BallTriangle"
+                color="#00FA9A"
+                height={19}
+                width={19}
+                timeout={0}
+                className="ml-2"
+              />
+              <p className="font-bold">Submitting...</p>
+            </div>
+          )}
           <div className={`flex justify-start border mb-3 block p-6 rounded-lg bg-white w-full ${togglee15}`}>
-            <form>
+            <form onSubmit={submitDataFarm}>
               <div className="">
                 <div className="mb-6 grid grid-cols-3 gap-4">
-                  <label htmlFor="employername">Address:</label>
-                  <input type="text" id="employername" className="form-control w-full rounded"
+                  <label>Address:</label>
+                  <input onChange={handlefarmChange} name="addr" value={farmland.addr} type="text" className="form-control w-full rounded"
                   />
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
-                  <label htmlFor="employername">Date of acquisition:</label>
-                  <input type="date" id="employername" className="form-control w-full rounded"
+                  <label>Date of acquisition:</label>
+                  <input onChange={handlefarmChange} name="acq_date" value={farmland.acq_date} type="date" className="form-control w-full rounded"
                   />
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
-                  <label htmlFor="employername">Cost of Land:</label>
-                  <input type="text" id="employername" className="form-control w-full rounded"
+                  <label>Cost of Land:</label>
+                  <input onChange={handlefarmChange} name="land_cost" value={farmland.land_cost} type="text" className="form-control w-full rounded"
                   />
                 </div>
                 <div className="mb-6 grid grid-cols-3 gap-4">
-                  <label htmlFor="employername">Cost of Produce:</label>
-                  <input type="text" id="employername" className="form-control w-full rounded"
+                  <label>Cost of Produce:</label>
+                  <input onChange={handlefarmChange} name="produce_cost" value={farmland.produce_cost} type="text" className="form-control w-full rounded"
                   />
                 </div>
 
