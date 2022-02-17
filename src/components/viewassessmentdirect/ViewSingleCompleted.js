@@ -15,6 +15,10 @@ const ViewSingleCompleted = () => {
   const [payerprop, setpayerprop] = useState({});
   const [isFetching, setIsFetching] = useState(() => true);
   const [globalAssId, setGlobalAssId] = useState("")
+  const [makeArray, setmakeArray] = useState([])
+  const [makeObj, setmakeObj] = useState({})
+  const [taxcalDa, setTaxCalDa] = useState({})
+
 
   useEffect(() => {
     if (router && router.query) {
@@ -31,6 +35,14 @@ const ViewSingleCompleted = () => {
         try {
           let res = await axios.post(`${url.BASE_URL}forma/view-assessment`, sendData);
           let IndData = res.data.body
+          let arrda = res.data.body.taxpayer
+          let makeObjdata = IndData.assessment
+          let taxCalDa = IndData.taxCal
+          let chidDa = IndData.
+
+          setmakeArray(arrda)
+          setmakeObj(makeObjdata)
+          setTaxCalDa(taxCalDa)
           console.log(IndData);
           setpayerprop(IndData)
           setIsFetching(false);
@@ -64,7 +76,7 @@ const ViewSingleCompleted = () => {
             />
             <p>Fetching data...</p>
           </div>
-        ) : <ViewSingleCompletedTable payerprop={payerprop} assId={globalAssId}/>}
+        ) : <ViewSingleCompletedTable payerprop={payerprop} assId={globalAssId} payerAyy={makeArray} assobj ={makeObj} taxcal = {taxcalDa}/>}
       </Widget>
     </>
   );

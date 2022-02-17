@@ -54,21 +54,21 @@ export const ViewCompletedTable = ({ remittance }) => {
   return (
     <>
       <Widget>
-        <table classNameNameName="table divide-y">
+        <table className="table divide-y">
           <thead>
-            <tr classNameNameName="">
+            <tr className="">
               {fields.map((field, i) => (
-                <th key={i} classNameNameName="">
+                <th key={i} className="">
                   {field.name}
                 </th>
               ))}
             </tr>
           </thead>
-          <tbody classNameNameName="divide-y">
+          <tbody className="divide-y">
             {items.map((remittance, i) => (
-              <tr key={i} classNameNameName="">
+              <tr key={i} className="">
                 {fields.map((field, j) => (
-                  <td key={j} classNameNameName="">
+                  <td key={j} className="">
                     {/* {remittance[field.key]} */}
                     <Link href={`/view/completeddirect/${remittance.assessment_id},${remittance.kgtin}`}>
                       <a classNameNameName="hover:text-blue-500">
@@ -86,106 +86,88 @@ export const ViewCompletedTable = ({ remittance }) => {
   );
 };
 
+{/* <Link href={`/view/completeddirect/${remittance.assessment_id},${remittance.kgtin}`}>
+<a classNameNameName="hover:text-blue-500">
+  {remittance[field.key]}
+</a>
+</Link> */}
 
-
-export const ViewSingleCompletedTable = ({ payerprop, assId }) => {
+export const ViewSingleCompletedTable = ({ payerprop, assId, payerAyy, assobj, taxcal }) => {
   const [isFetching2, setIsFetching2] = useState(() => false);
   const [isFetching3, setIsFetching3] = useState(() => false);
   const router = useRouter();
 
   const items = payerprop;
   const assessment_id = assId
-
-  setAuthToken();
-  let approveAssessmentSubmit = async (e) => {
-    e.preventDefault()
-    setIsFetching2(true)
-    let approveAssessFormObj = {
-      assessment_id: `${assessment_id}`,
-      status: `Approved`,
-    }
-    try {
-      let res = await axios.put(`${url.BASE_URL}forma/set-status`, approveAssessFormObj);
-      setIsFetching2(false)
-      router.push(`/approvere`)
-      console.log("successful!");
-    } catch (error) {
-      console.log(error);
-      setIsFetching2(false)
-    }
-
-  }
-
-  setAuthToken();
-  let declinedAssessmentSubmit = async (e) => {
-    e.preventDefault()
-    setIsFetching3(true)
-    let declineAssessFormObj = {
-      assessment_id: `${assessment_id}`,
-      status: `Declined`,
-    }
-    try {
-      let res = await axios.put(`${url.BASE_URL}forma/set-status`, declineAssessFormObj);
-      setIsFetching3(false)
-      router.push(`/declinere`)
-      console.log("successful!");
-    } catch (error) {
-      console.log(error);
-      setIsFetching3(false)
-    }
-
-  }
+  console.log(assobj);
+  console.log(items);
+  const employedCal = Number(assobj.employed)
+  const selfEmployedCal = Number(assobj.self_employed)
+  const grossIncCal = employedCal + selfEmployedCal
 
   return (
     <>
-
       <table width='800' height='1575' align='center' className='print'>
         <tr>
           <td width='800' height='1569' align='center' valign='top'>
             <table width='700'>
               <tr>
-                <td width='857'>&nbsp;</td>
-                <td width='131'> Approve </td>
               </tr>
             </table>
 
-            <table width='600' className='tb mb-4'>
+            <table width='800' className='tb mb-4'>
               <tr>
                 <td width='385'><table width='83%' height='100%' border='0'>
                   <tr>
                     <td width='139'><strong>TITLE:</strong></td>
-                    <td width='347'>  </td>
+                    <tr className="">
+                      {payerAyy.map((data, idx) => (
+                        <p key={idx}>{data.KGTIN}</p>
+                      ))}
+                    </tr>
                   </tr>
                   <tr>
                     <td><strong>SURNAME:</strong></td>
-                    <td>  </td>
+                    {payerAyy.map((data, idx) => (
+                      <p key={idx}>{data.surname}</p>
+                    ))}
                   </tr>
                   <tr>
                     <td><strong>OTHER NAME: </strong></td>
-                    <td>  </td>
+                    {payerAyy.map((data, idx) => (
+                      <p key={idx}>{data.middle_name}</p>
+                    ))}
                   </tr>
                   <tr>
                     <td><strong>ADDRESS:</strong></td>
-                    <td>  </td>
+                    {payerAyy.map((data, idx) => (
+                      <p key={idx}>{data.street}</p>
+                    ))}
                   </tr>
                 </table></td>
                 <td width='403'><table width='85%' height='100%' border='0' align='right'>
 
                   <tr>
                     <td><strong>Tax Station </strong></td>
-                    <td>  </td>
+                    {payerAyy.map((data, idx) => (
+                      <p key={idx}>{data.tax_office}</p>
+                    ))}
                   </tr>
                   <tr>
                     <td><strong>KGTIN</strong></td>
-                    <td>  </td>
+                    {payerAyy.map((data, idx) => (
+                      <p key={idx}>{data.KGTIN}</p>
+                    ))}
                   </tr>
                   <tr>
                     <td><strong>Assessment No </strong></td>
-                    <td>  </td>
+                    {payerAyy.map((data, idx) => (
+                      <p key={idx}>{assessment_id}</p>
+                    ))}
                   </tr>
                   <tr>
                     <td><strong>Date Assessed </strong></td>
-                    <td className=''>  </td>
+                    <td className=''> {assobj.createtime} </td>
                   </tr>
                 </table></td>
               </tr>
@@ -204,7 +186,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId }) => {
                   </tr>
                   <tr>
                     <td className='tb'> Trade, Professional e.t.c </td>
-                    <td className='tb'>  </td>
+                    <td className='tb'> {assobj.self_employed}  </td>
                   </tr>
                   <tr>
                     <td className='tb'>Share of Partnership </td>
@@ -212,34 +194,38 @@ export const ViewSingleCompletedTable = ({ payerprop, assId }) => {
                   </tr>
                   <tr>
                     <td className='tb'>Employment</td>
-                    <td className='tb'>  </td>
+                    <td className='tb'> {assobj.employed} </td>
                   </tr>
                   <tr>
                     <td className='tb'>Other Income </td>
                     <td className='tb'>  </td>
                   </tr>
                   <tr>
-                    <td className='tb'><div align='right' className='style27'>Gross Income </div></td>
-                    <td className='tb'>  </td>
+                    <td className='tb'><div align='right' className='style27 font-bold'>Gross Income </div></td>
+                    <td className='tb'> {grossIncCal} </td>
                   </tr>
                   <tr>
                     <td className='tb'>PFC</td>
-                    <td className='tb'>  </td>
+                    <td className='tb'> {assobj.pension} </td>
                   </tr>
                   <tr>
                     <td className='tb'>NHIS</td>
-                    <td className='tb'>  </td>
+                    <td className='tb'> {assobj.nhis} </td>
                   </tr>
                   <tr>
                     <td className='tb'>NHF</td>
-                    <td className='tb'>  </td>
+                    <td className='tb'> {assobj.nhf} </td>
+                  </tr>
+                  <tr>
+                    <td className='tb'>Life Assurance Premium</td>
+                    <td className='tb'> {assobj.lap} </td>
                   </tr>
                   <tr>
                     <td className='tb'>Total</td>
                     <td className='tb'>  </td>
                   </tr>
                   <tr>
-                    <td className='tb'><div align='right' className='style16'>Assessable Income </div></td>
+                    <td className='tb font-bold'><div align='right' className='style16'>Assessable Income </div></td>
                     <td className='tb'>  </td>
                   </tr>
                   <tr>
@@ -267,43 +253,20 @@ export const ViewSingleCompletedTable = ({ payerprop, assId }) => {
                     <td className='tb'>  </td>
                   </tr>
                   <tr>
-                    <td className='tb'><div align='right' className='style16'>Total Income</div></td>
+                    <td className='tb'><div align='right' className='style16 font-bold'>Total Income</div></td>
                     <td className='tb'>  </td>
                   </tr>
                   <tr>
-                    <td className='tb'>RELIEF</td>
-                    <td className='tb'></td>
+                    <td className='tb'>Consolidated Relief Allowance</td>
+                    <td className='tb'>{taxcal.consolidatedRelief}</td>
+
                   </tr>
                   <tr>
-                    <td className='tb'><div align='center' className='style16'>CONSOLIDATED ALLOWANCE </div></td>
-                    <td className='tb'>  </td>
+                    <td className='tb font-bold'><div align='right'>Chargeable Income </div></td>
+                    <td className='tb'>{taxcal.chargeableIncome}</td>
                   </tr>
                   <tr>
-                    <td className='tb'><div align='center' className='style16'>General Charges </div></td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td className='tb'><div align='center' className='style27'>Professional Charges </div></td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td className='tb'><div align='center' className='style16'>Life Assurance Premium </div></td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td className='tb'><div align='right'>Total Amount </div></td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td className='tb'><div align='right'>Total Relief </div></td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td className='tb'><div align='right'>Chargeable Income </div></td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td className='tb'><div align='center' className='style16'>Tax Due for Payment </div></td>
+                    <td className='tb'><div align='center' className='style16 font-bold'>Tax Due for Payment </div></td>
                     <td className='tb'>&nbsp;</td>
                   </tr>
 
@@ -328,11 +291,11 @@ export const ViewSingleCompletedTable = ({ payerprop, assId }) => {
                     <td className='tb'>  </td>
                   </tr>
                   <tr>
-                    <td className='tb'><div align='center'>24% on Excess </div></td>
+                    <td className='tb'><div align='center'>24% on 3,200,000.00 </div></td>
                     <td className='tb'>  </td>
                   </tr>
                   <tr>
-                    <td className='tb'><div align='center' className='style16'>1%</div></td>
+                    <td className='tb'><div align='center' className='style16'>1%(Minimun Tax)</div></td>
                     <td className='tb'>  </td>
                   </tr>
                   <tr>
@@ -340,29 +303,29 @@ export const ViewSingleCompletedTable = ({ payerprop, assId }) => {
                     <td className='tb'>  </td>
                   </tr>
                   <tr>
-                    <td className='tb'><div align='center' className='style16'>Water Rate </div></td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
                     <td className='tb'><div align='center' className='style16'>Dev. Levy </div></td>
                     <td className='tb'>  </td>
                   </tr>
                   <tr>
-                    <td className='tb'><div align='right' className='style16'>Total Tax Due </div></td>
-                    <td className='tb'>  </td>
+                    <td className='tb'><div align='right' className='style16 font-bold'>Total Tax Due </div></td>
+                   
                   </tr>
-                  
+
                   <tr>
-                    <td className='tb'><div align='right' className='style16'>Set off 1st Assessment </div></td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td height='28' className='tb'><div align='right' className='style16'>Set off Additional Assessment </div></td>
+                    <td className='tb'><div align='right' className='style16 font-bold'>Set off WHT </div></td>
                     <td className='tb'>  </td>
                   </tr>
                   <tr>
-                    <td height='30' className='tb'><div align='right' className='style16'>Total Tax Due for Payment </div></td>
+                    <td height='28' className='tb'><div align='right' className='style16 font-bold'>Set off 1st Assessment </div></td>
                     <td className='tb'>  </td>
+                  </tr>
+                  <tr>
+                    <td height='28' className='tb'><div align='right' className='style16 font-bold'>Set off Additional Assessment </div></td>
+                    <td className='tb'>  </td>
+                  </tr>
+                  <tr>
+                    <td height='30' className='tb'><div align='right' className='style16 font-bold'>Total Tax Due for Payment </div></td>
+                    <td className='tb'>{taxcal.tax}</td>
                   </tr>
                 </table>
                   <br />
