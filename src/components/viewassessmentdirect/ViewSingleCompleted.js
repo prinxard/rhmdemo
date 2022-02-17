@@ -18,6 +18,12 @@ const ViewSingleCompleted = () => {
   const [makeArray, setmakeArray] = useState([])
   const [makeObj, setmakeObj] = useState({})
   const [taxcalDa, setTaxCalDa] = useState({})
+  const [childObj, setchildObj] = useState({})
+  const [resAddObj, setresAddObj] = useState({})
+  const [spouseObj, setSpouse] = useState({})
+  const [domesticStaff, setDomesticStaff] = useState({})
+  const [vehicles, setVehicles] = useState({})
+  const [land, setLand] = useState({})
 
 
   useEffect(() => {
@@ -38,12 +44,21 @@ const ViewSingleCompleted = () => {
           let arrda = res.data.body.taxpayer
           let makeObjdata = IndData.assessment
           let taxCalDa = IndData.taxCal
-          let chidDa = IndData.
-
+          let chidDa = IndData.children
+          let resAdd = IndData.residentialAddr
+          let spouse = IndData.spouse
+          let domestic = IndData.domestic
+          let vechicles = IndData.vechicles
+          let landObj = IndData.land
+          setLand(landObj)
+          setVehicles(vechicles)
+          setDomesticStaff(domestic)
+          setSpouse(spouse)
+          setresAddObj(resAdd)
+          setchildObj(chidDa)
           setmakeArray(arrda)
           setmakeObj(makeObjdata)
           setTaxCalDa(taxCalDa)
-          console.log(IndData);
           setpayerprop(IndData)
           setIsFetching(false);
         } catch (err) {
@@ -76,7 +91,9 @@ const ViewSingleCompleted = () => {
             />
             <p>Fetching data...</p>
           </div>
-        ) : <ViewSingleCompletedTable payerprop={payerprop} assId={globalAssId} payerAyy={makeArray} assobj ={makeObj} taxcal = {taxcalDa}/>}
+        ) : <ViewSingleCompletedTable payerprop={payerprop} assId={globalAssId}
+          payerAyy={makeArray} assobj={makeObj} taxcal={taxcalDa} childObj={childObj}
+          resAddObj={resAddObj} spouseObj={spouseObj} domesticStaff = {domesticStaff} vehicles = {vehicles} land = {land}/>}
       </Widget>
     </>
   );

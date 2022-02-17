@@ -92,21 +92,44 @@ export const ViewCompletedTable = ({ remittance }) => {
 </a>
 </Link> */}
 
-export const ViewSingleCompletedTable = ({ payerprop, assId, payerAyy, assobj, taxcal }) => {
+export const ViewSingleCompletedTable = ({ payerprop, assId, payerAyy, assobj, taxcal,
+  childObj, resAddObj, spouseObj, domesticStaff, vehicles, land }) => {
   const [isFetching2, setIsFetching2] = useState(() => false);
   const [isFetching3, setIsFetching3] = useState(() => false);
   const router = useRouter();
 
   const items = payerprop;
   const assessment_id = assId
-  console.log(assobj);
+  const createdTime = dateformat(assobj.createtime, "dd mmm yyyy hh: m")
   console.log(items);
   const employedCal = Number(assobj.employed)
   const selfEmployedCal = Number(assobj.self_employed)
   const grossIncCal = employedCal + selfEmployedCal
 
+  const pfcdata = Number(assobj.pension)
+  const nhisdata = Number(assobj.nhis)
+  const lapdata = Number(assobj.lap)
+
+  const deductionsTotal = (pfcdata + nhisdata + lapdata)
+
   return (
     <>
+      <div className="mb-6 flex justify-end">
+        <button
+          className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+          type="submit"
+        >
+          Approve
+        </button>
+
+        <button 
+          className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+          type="submit"
+        >
+          Decline
+        </button>
+
+      </div>
       <table width='800' height='1575' align='center' className='print'>
         <tr>
           <td width='800' height='1569' align='center' valign='top'>
@@ -122,7 +145,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerAyy, assobj, t
                     <td width='139'><strong>TITLE:</strong></td>
                     <tr className="">
                       {payerAyy.map((data, idx) => (
-                        <p key={idx}>{data.KGTIN}</p>
+                        <p key={idx}>{data.indv_title}</p>
                       ))}
                     </tr>
                   </tr>
@@ -161,13 +184,11 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerAyy, assobj, t
                   </tr>
                   <tr>
                     <td><strong>Assessment No </strong></td>
-                    {payerAyy.map((data, idx) => (
-                      <p key={idx}>{assessment_id}</p>
-                    ))}
+                    {assessment_id}
                   </tr>
                   <tr>
                     <td><strong>Date Assessed </strong></td>
-                    <td className=''> {assobj.createtime} </td>
+                    <td className=''> {createdTime} </td>
                   </tr>
                 </table></td>
               </tr>
@@ -214,15 +235,15 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerAyy, assobj, t
                   </tr>
                   <tr>
                     <td className='tb'>NHF</td>
-                    <td className='tb'> {assobj.nhf} </td>
+                    {/* <td className='tb'> {assobj.nhf} </td> */}
                   </tr>
                   <tr>
                     <td className='tb'>Life Assurance Premium</td>
                     <td className='tb'> {assobj.lap} </td>
                   </tr>
                   <tr>
-                    <td className='tb'>Total</td>
-                    <td className='tb'>  </td>
+                    <td className='tb font-bold'><p align="right">Total</p></td>
+                    <td className='tb'> {deductionsTotal} </td>
                   </tr>
                   <tr>
                     <td className='tb font-bold'><div align='right' className='style16'>Assessable Income </div></td>
@@ -272,27 +293,27 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerAyy, assobj, t
 
                   <tr>
                     <td className='tb'><div align='center' className='style16'>7% on 300,000.00 </div></td>
-                    <td className='tb'>  </td>
+                    <td className='tb'> {taxcal.tax7}  </td>
                   </tr>
                   <tr>
                     <td className='tb'><div align='center' className='style16'>11% on 300,000.00 </div></td>
-                    <td className='tb'>  </td>
+                    <td className='tb'> {taxcal.tax11} </td>
                   </tr>
                   <tr>
                     <td className='tb'><div align='center' className='style16'>15% on 500,000.00 </div></td>
-                    <td className='tb'>  </td>
+                    <td className='tb'> {taxcal.tax15} </td>
                   </tr>
                   <tr>
                     <td className='tb'><div align='center' className='style16'>19% on 500,000.00 </div></td>
-                    <td className='tb'>  </td>
+                    <td className='tb'> {taxcal.tax19} </td>
                   </tr>
                   <tr>
                     <td className='tb'><div align='center' className='style16'>21% on 1,600,000.00 </div></td>
-                    <td className='tb'>  </td>
+                    <td className='tb'> {taxcal.tax21} </td>
                   </tr>
                   <tr>
                     <td className='tb'><div align='center'>24% on 3,200,000.00 </div></td>
-                    <td className='tb'>  </td>
+                    <td className='tb'> {taxcal.tax24} </td>
                   </tr>
                   <tr>
                     <td className='tb'><div align='center' className='style16'>1%(Minimun Tax)</div></td>
@@ -308,7 +329,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerAyy, assobj, t
                   </tr>
                   <tr>
                     <td className='tb'><div align='right' className='style16 font-bold'>Total Tax Due </div></td>
-                   
+
                   </tr>
 
                   <tr>
@@ -336,151 +357,161 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerAyy, assobj, t
                     </tr>
                     <tr>
                       <td width='235' className='style5'><span className='style27'>Date of Capture:</span></td>
-                      <td width='320' className='style5'><span className='style27'>KGIRS CORPORATE HQTRS</span></td>
+                      <td width='320' className='style5'><span className='style27'>{createdTime}</span></td>
                     </tr>
 
                   </table>
                 </td>
                 <td width='509' valign='top'>
-                  <table width='300' align='left' className=''>
+                  <table width='400' align='left' className=''>
                     <tr>
-                      <td width='566'><p align='left' className='style5'>Phone Number</p></td>
-                      <td width='566'><p align='left' className='style5'> </p></td>
+                      <td width='566'><p align='left' className='style5 font-bold'>Phone Number</p></td>
+                      {payerAyy.map((data, idx) => (
+                        <td key={idx}>{data.phone_number}</td>
+                      ))}
                     </tr>
                     <tr>
-                      <td width='566'><p align='left' className='style5'>Email Address</p></td>
-                      <td width='566'><p align='left' className='style5'></p></td>
-                    </tr>
-                    <hr />
-                    <tr>
-                      <td width='566'><p align='left' className='style5'>Residential Address</p></td>
-                      <td width='566'><p align='left' className='style5'></p></td>
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5'>Type of Residence</p></td>
-                      <td width='566'><p align='left' className='style5'></p></td>
+                      <td width='566'><p align='left' className='style5 font-bold'>Email Address</p></td>
+                      {payerAyy.map((data, idx) => (
+                        <td key={idx}>{data.email}</td>
+                      ))}
                     </tr>
                     <hr />
                     <tr>
-                      <td width='566'><p align='left' className='style5'>Residence Ownership</p></td>
+                      <td width='566'><p align='left' className='style5 font-bold'>RESIDENTIAL ADDRESS</p></td>
                       <td width='566'><p align='left' className='style5'></p></td>
                     </tr>
                     <tr>
-                      <td width='566'><p align='left' className='style5'>Owner Info:</p></td>
+                      <td width='566'><p align='left' className='style5 font-bold'>Type of Residence</p></td>
+                      <td width='566'><p align='left' className='style5'></p>{resAddObj.residence_type}</td>
+                    </tr>
+
+                    <tr>
+                      <td width='566'><p align='left' className='style5 font-bold'>Residence Ownership</p></td>
+                      <td width='566'><p align='left' className='style5'></p>{resAddObj.residence_owner} </td>
+                    </tr>
+                    <tr>
+                      <td width='566'><p align='left' className='style5 font-bold'>OWNER</p></td>
                       <td width='566'><p align='left' className='style5'></p></td>
                     </tr>
                     <tr>
-                      <td width='566'><p align='left' className='style5'>Name:</p></td>
-                      <td width='566'><p align='left' className='style5'></p></td>
+                      <td width='566'><p align='left' className='style5 font-bold'>Name:</p></td>
+                      <td width='566'><p align='left' className='style5'></p>{resAddObj.owner_name}</td>
                     </tr>
                     <tr>
-                      <td width='566'><p align='left' className='style5'>Address:</p></td>
-                      <td width='566'><p align='left' className='style5'></p></td>
+                      <td width='566'><p align='left' className='style5 font-bold'>Address:</p></td>
+                      <td width='566'><p align='left' className='style5'></p>{resAddObj.owner_name}</td>
                     </tr>
                     <tr>
-                      <td width='566'><p align='left' className='style5'>Phone Number:</p></td>
-                      <td width='566'><p align='left' className='style5'></p></td>
+                      <td width='566'><p align='left' className='style5 font-bold'>Phone Number:</p></td>
+                      <td width='566'><p align='left' className='style5'></p>{resAddObj.owner_phone}</td>
                     </tr>
                     <hr />
                     <tr>
-                      <td width='566'><p align='left' className='style5'>Marital Status :</p></td>
+                      <td width='566'><p align='left' className='style5 font-bold'>SPOUSE</p></td>
                       <td width='566'><p align='left' className='style5'></p></td>
                     </tr>
                     <tr>
-                      <td width='566'><p align='left' className='style5'>Name :</p></td>
-                      <td width='566'><p align='left' className='style5'></p></td>
+                      <td width='566'><p align='left' className='style5 font-bold'>Name :</p></td>
+                      <td width='566'><p align='left' className='style5'></p>{spouseObj.name}</td>
                     </tr>
                     <tr>
-                      <td width='566'><p align='left' className='style5'>Age :</p></td>
-                      <td width='566'><p align='left' className='style5'></p></td>
+                      <td width='566'><p align='left' className='style5 font-bold'>Age :</p></td>
+                      <td width='566'><p align='left' className='style5'></p>{spouseObj.dob}</td>
                     </tr>
                     <tr>
-                      <td width='566'><p align='left' className='style5'>Occupation :</p></td>
-                      <td width='566'><p align='left' className='style5'></p></td>
+                      <td width='566'><p align='left' className='style5 font-bold'>Occupation :</p></td>
+                      <td width='566'><p align='left' className='style5'></p>{spouseObj.occupation}</td>
                     </tr>
                     <tr>
-                      <td width='566'><p align='left' className='style5'>Employer Business :</p></td>
-                      <td width='566'><p align='left' className='style5'></p></td>
+                      <td width='566'><p align='left' className='style5 font-bold'>Employer/Business :</p></td>
+                      <td width='566'><p align='left' className='style5'></p>{spouseObj.employer}</td>
                     </tr>
                     <hr />
                     <tr>
-                      <td width='566'><p align='left' className='style5'>Number of Children</p></td>
+                      <td width='566'><p align='left' className='style5 font-bold'>Number of Children</p></td>
                       <td width='566'><p align='left' className='style5'></p></td>
                     </tr>
                     <tr>
-                      <td width='566'><p align='left' className='style5'>Name</p></td>
-                      <td width='566'><p align='left' className='style5'></p></td>
+                      <td width='566'><p align='left' className='style5 font-bold'>Name</p></td>
+                      <td width='566'><p align='left' className='style5'></p>{childObj.name}</td>
                     </tr>
                     <tr>
-                      <td width='566'><p align='left' className='style5'>Age</p></td>
-                      <td width='566'><p align='left' className='style5'></p></td>
+                      <td width='566'><p align='left' className='style5 font-bold'>Age</p></td>
+                      <td width='566'><p align='left' className='style5'>{childObj.dob}</p></td>
                     </tr>
                     <tr>
-                      <td width='566'><p align='left' className='style5'>School</p></td>
-                      <td width='566'><p align='left' className='style5'></p></td>
+                      <td width='566'><p align='left' className='style5 font-bold'>School</p></td>
+                      <td width='566'><p align='left' className='style5'></p>{childObj.school_name}</td>
                     </tr>
                     <tr>
-                      <td width='566'><p align='left' className='style5'>Tuition/session</p></td>
-                      <td width='566'><p align='left' className='style5'></p></td>
+                      <td width='566'><p align='left' className='style5 font-bold'>Tuition/session</p></td>
+                      <td width='566'><p align='left' className='style5'></p> {childObj.school_fees}</td>
                     </tr>
                     <hr />
                     <tr>
-                      <td width='566'><p align='left' className='style5'>Number of domestic Servants </p></td>
+                      <td width='566'><p align='left' className='style5 font-bold'>Number of domestic Staff </p></td>
                       <td width='566'><p align='left' className='style5'></p></td>
                     </tr>
                     <tr>
-                      <td width='566'><p align='left' className='style5'>Name </p></td>
+                      <td width='566'><p align='left' className='style5 font-bold'>Name </p></td>
+                      <td width='566'><p align='left' className='style5'></p>{domesticStaff.name}</td>
+                    </tr>
+                    <tr>
+                      <td width='566'><p align='left' className='style5 font-bold'>Address </p></td>
                       <td width='566'><p align='left' className='style5'></p></td>
                     </tr>
                     <tr>
-                      <td width='566'><p align='left' className='style5'>Address </p></td>
-                      <td width='566'><p align='left' className='style5'></p></td>
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5'>Amount Paid </p></td>
-                      <td width='566'><p align='left' className='style5'></p></td>
+                      <td width='566'><p align='left' className='style5 font-bold'>Amount Paid </p></td>
+                      <td width='566'><p align='left' className='style5'></p>{domesticStaff.amount_paid}</td>
                     </tr>
                     <hr />
                     <tr>
-                      <td width='566'><p align='left' className='style5'>ASSETS </p></td>
+                      <td className="font-bold">Number Vehicles</td>
                     </tr>
                     <tr>
-                      <td>Number of Vehicles</td>
+                      <td className="font-bold">Brand</td>
+                      <td className="">{vehicles.brand}</td>
                     </tr>
                     <tr>
-                      <td >Brand:</td>
-                      <td >Model:</td>
-                      <td >Year:</td>
-                      <td >Year:</td>
-                    </tr>
-                    <hr />
-                    <tr>
-                      <td width='800'>Tangible Immovable Properties:</td>
+                      <td className="font-bold">Model</td>
+                      <td className="">{vehicles.model}</td>
                     </tr>
                     <tr>
-                      <td width=''>Property: House</td>
-                    </tr>
-                    <tr>
-                      <td width=''>Address:</td>
-                    </tr>
-                    <tr>
-                      <td width='800'>Date Completd/Acquired:</td>
-                    </tr>
-                    <tr>
-                      <td width='600'> Cost</td>
+                      <td className="font-bold">Year</td>
+                      <td className="">{vehicles.year}</td>
                     </tr>
                     <hr />
                     <tr>
-                      <td>Property: Land</td>
+                      <td width='800' className="font-bold">Tangible Immovable Properties:</td>
                     </tr>
                     <tr>
-                      <td>Address:</td>
+                      <td width='' className="font-bold">Property: House</td>
                     </tr>
                     <tr>
-                      <td>Date Acquired:</td>
+                      <td width='' className="font-bold">Address:</td>
                     </tr>
                     <tr>
-                      <td><td>Cost:</td>:</td>
+                      <td width='800' className="font-bold">Date Completd/Acquired:</td>
+                    </tr>
+                    <tr>
+                      <td width='600' className="font-bold"> Cost</td>
+                    </tr>
+                    <hr />
+                    <tr>
+                      <td className="font-bold">Property: Land</td>
+                    </tr>
+                    <tr>
+                      <td className="font-bold">Address:</td>
+                      <td className="">{land.addr}:</td>
+                    </tr>
+                    <tr>
+                      <td className="font-bold">Date Acquired/Completion:</td>
+                      <td className="">{land.date_completion}</td>
+                    </tr>
+                    <tr>
+                      <td width='600' className="font-bold"><td>Cost:</td></td>
+                      <td className="">{land.construction_cost}</td>
                     </tr>
                   </table>
 
