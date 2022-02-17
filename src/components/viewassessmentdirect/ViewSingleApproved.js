@@ -11,29 +11,55 @@ import url from '../../config/url';
 import { afterComma, repVa } from '../../functions/numbers';
 import { ViewSingleApprovedTable } from '../tables/viewApprovedAss';
 
-const ViewSingleApproved= () => {
+const ViewSingleApproved = () => {
   const router = useRouter();
   const [payerprop, setpayerprop] = useState({});
   const [isFetching, setIsFetching] = useState(() => true);
-  const [assId, setAssId] = useState("");
-  
+  const [globalAssId, setGlobalAssId] = useState("")
+  const [makeArray, setmakeArray] = useState([])
+  const [makeObj, setmakeObj] = useState({})
+  const [taxcalDa, setTaxCalDa] = useState({})
+  const [childObj, setchildObj] = useState({})
+  const [resAddObj, setresAddObj] = useState({})
+  const [spouseObj, setSpouse] = useState({})
+  const [domesticStaff, setDomesticStaff] = useState({})
+  const [vehicles, setVehicles] = useState({})
+  const [land, setLand] = useState({})
 
-useEffect(() => {
-  if (router && router.query) {
-    let routerData = String(router.query.ref);
-    let kgtin = routerData.split(',').pop()
-    let assessmentId = routerData.split(',').shift()
-    setAssId(assessmentId)
-    let sendData = {
-      KGTIN: `${kgtin}`,
-      assessment_id: `${assessmentId}`
-    }
+
+  useEffect(() => {
+    if (router && router.query) {
+      let routerData = String(router.query.ref);
+      let kgtin = routerData.split(',').pop()
+      let assessmentId = routerData.split(',').shift()
+      let sendData = {
+        KGTIN: `${kgtin}`,
+        assessment_id: `${assessmentId}`
+      }
+      setGlobalAssId(assessmentId)
       setAuthToken()
       const fetchPost = async () => {
         try {
           let res = await axios.post(`${url.BASE_URL}forma/view-assessment`, sendData);
           let IndData = res.data.body
-          console.log(IndData);
+          let arrda = res.data.body.taxpayer
+          let makeObjdata = IndData.assessment
+          let taxCalDa = IndData.taxCal
+          let chidDa = IndData.children
+          let resAdd = IndData.residentialAddr
+          let spouse = IndData.spouse
+          let domestic = IndData.domestic
+          let vechicles = IndData.vechicles
+          let landObj = IndData.land
+          setLand(landObj)
+          setVehicles(vechicles)
+          setDomesticStaff(domestic)
+          setSpouse(spouse)
+          setresAddObj(resAdd)
+          setchildObj(chidDa)
+          setmakeArray(arrda)
+          setmakeObj(makeObjdata)
+          setTaxCalDa(taxCalDa)
           setpayerprop(IndData)
           setIsFetching(false);
         } catch (err) {
@@ -49,7 +75,7 @@ useEffect(() => {
 
     <>
 
-      <SectionTitle title="Approved Assessment" />
+      <SectionTitle title="Print Approved Assessment" />
 
       <Widget>
 
@@ -66,7 +92,9 @@ useEffect(() => {
             />
             <p>Fetching data...</p>
           </div>
-        ) : <ViewSingleApprovedTable payerprop={payerprop} assId={assId} />}
+        ) : <ViewSingleApprovedTable payerprop={payerprop} assId={globalAssId}
+          payerAyy={makeArray} assobj={makeObj} taxcal={taxcalDa} childObj={childObj}
+          resAddObj={resAddObj} spouseObj={spouseObj} domesticStaff = {domesticStaff} vehicles = {vehicles} land = {land}/>}
       </Widget>
     </>
   );

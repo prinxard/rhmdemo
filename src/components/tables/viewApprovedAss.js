@@ -82,61 +82,35 @@ export const ViewApprovedTable = ({ remittance }) => {
 
 
 
-export const ViewSingleApprovedTable = ({ payerprop, assId }) => {
+export const ViewSingleApprovedTable = ({ payerprop, assId, payerAyy, assobj, taxcal,
+  childObj, resAddObj, spouseObj, domesticStaff, vehicles, land }) => {
+
   const items = payerprop;
-  const assesId = assId
-  console.log(assesId);
+  const assessment_id = assId
+  const createdTime = dateformat(assobj.createtime, "dd mmm yyyy hh: m")
   console.log(items);
+  const employedCal = Number(assobj.employed)
+  const selfEmployedCal = Number(assobj.self_employed)
+  const grossIncCal = employedCal + selfEmployedCal
+
+  const pfcdata = Number(assobj.pension)
+  const nhisdata = Number(assobj.nhis)
+  const lapdata = Number(assobj.lap)
+
+  const deductionsTotal = (pfcdata + nhisdata + lapdata)
 
   return (
     <>
-      {isFetching3 && (
-        <div className="flex justify-center item mb-2">
-          <Loader
-            visible={isFetching3}
-            type="BallTriangle"
-            color="#00FA9A"
-            height={19}
-            width={19}
-            timeout={0}
-            className="ml-2"
-          />
-          <p className="font-bold">Approving...</p>
-        </div>
-      )}
-      {isFetching2 && (
-        <div className="flex justify-center item mb-2">
-          <Loader
-            visible={isFetching2}
-            type="BallTriangle"
-            color="#00FA9A"
-            height={19}
-            width={19}
-            timeout={0}
-            className="ml-2"
-          />
-          <p className="font-bold">Declining...</p>
-        </div>
-      )}
+
       <div className="mb-6 flex justify-end">
-        <form onSubmit={approveAss}>
+        <form >
           <button
             className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
             type="submit"
           >
-            Approve
+            Print
           </button>
         </form>
-
-        <form onSubmit={declineAss}>
-          <button
-            className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-            type="submit"
-          >
-            Decline
-          </button>
-        </form>
-
       </div>
       <table width='800' height='1575' align='center' className='print'>
         <tr>
