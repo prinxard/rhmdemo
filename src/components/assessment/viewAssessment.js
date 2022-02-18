@@ -708,7 +708,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/expenses`, expenseDataObj);
       setIsFetching10(false)
-      alert("submitted successfully!");
+      alert("saved successfully!");
     } catch (error) {
       alert("cannot submit, please try again")
       console.log(error);
@@ -1532,17 +1532,17 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
             </div>
             <div className="form-group mb-6">
               <p>Business/Employer</p>
-              <input onChange={handleSpouseDeductChange} required name="employer" value={spouse.employer} type="text" className="form-control w-full rounded"
+              <input onChange={handleSpouseDeductChange}  name="employer" value={spouse.employer} type="text" className="form-control w-full rounded"
                 placeholder="Employer/Business of spouse" />
             </div>
             <div className="form-group mb-6">
               <p>Occupation</p>
-              <input onChange={handleSpouseDeductChange} required name="occupation" value={spouse.occupation} type="text" className="form-control w-full rounded"
+              <input onChange={handleSpouseDeductChange}  name="occupation" value={spouse.occupation} type="text" className="form-control w-full rounded"
                 placeholder="Occupation" />
             </div>
             <div className="form-group mb-6">
               <p>Office/Business Address</p>
-              <input onChange={handleSpouseDeductChange} required name="employer_addr" value={spouse.employer_addr} type="text" className="form-control w-full rounded"
+              <input onChange={handleSpouseDeductChange}  name="employer_addr" value={spouse.employer_addr} type="text" className="form-control w-full rounded"
                 placeholder="Employer's/business address of spouse" />
             </div>
             <div >
@@ -1596,7 +1596,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
           <div className={`grid grid-cols-3 gap-4 ${childrenToggle}`}>
             <div className="form-group mb-6">
               <p>Name of Child</p>
-              <input required onChange={handleChildChange} name="name" value={childData.name} type="text" className="form-control w-full rounded"
+              <input  onChange={handleChildChange} name="name" value={childData.name} type="text" className="form-control w-full rounded"
                 placeholder="Name of child in full" />
             </div>
             <div className="form-group mb-6">
@@ -1606,22 +1606,22 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
             </div>
             <div className="form-group mb-6">
               Child School Name
-              <input required onChange={handleChildChange} name="school_name" value={childData.school_name} type="text" className="form-control w-full rounded"
+              <input  onChange={handleChildChange} name="school_name" value={childData.school_name} type="text" className="form-control w-full rounded"
                 placeholder="Name of child's school" />
             </div>
             <div className="form-group mb-6">
               School Address
-              <input required onChange={handleChildChange} name="school_addr" value={childData.school_addr} type="text" className="form-control w-full rounded"
+              <input  onChange={handleChildChange} name="school_addr" value={childData.school_addr} type="text" className="form-control w-full rounded"
                 placeholder="Address of child's school" />
             </div>
             <div className="form-group mb-6">
               <p>School Fees</p>
-              <input required onChange={handleChildChange} name="school_fees" value={childData.school_fees} type="text" className="form-control w-full rounded"
+              <input  onChange={handleChildChange} name="school_fees" value={childData.school_fees} type="text" className="form-control w-full rounded"
                 placeholder="Child's school fees per session" />
             </div>
             <div className="form-group mb-6">
               <p>Child's Income</p>
-              <input required onChange={handleChildChange} name="child_income" value={childData.child_income} type="text" className="form-control w-full rounded"
+              <input  onChange={handleChildChange} name="child_income" value={childData.child_income} type="text" className="form-control w-full rounded"
                 placeholder="Child's income in own right" />
             </div>
             <div>
@@ -1675,9 +1675,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
           <div className="form-group mb-6">
             <p>Title</p>
             <select onChange={handleDomesticStaffChange} className="form-select w-full" name="title" value={domesticStaff.title}>
-              <option selected>Mr/Mrs</option>
-              <option value="1">Mr</option>
-              <option value="2">Mrs</option>
+              <option value="Mrs">Mrs</option>
+              <option value="Mr">Mr</option>
+              <option value="Miss">Miss</option>
             </select>
           </div>
 
@@ -1705,22 +1705,47 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
           <div className="form-group mb-6">
             <p>LGA</p>
             <select onChange={handleDomesticStaffChange} className="form-select w-full" name="lga" value={domesticStaff.lga}>
-              <option selected>Select</option>
-              <option value="1">Kabba</option>
-              <option value="2">Kabba</option>
+              <option value="kabba">Select</option>
+              <option value="Adavi">Adavi</option>
+              <option value="Ajaokuta">Ajaokuta</option>
+              <option value="Ankpa">Ankpa</option>
+              <option value="Bassa">Bassa</option>
             </select>
           </div>
           <div className="form-group mb-6">
             <p>State</p>
             <select onChange={handleDomesticStaffChange} className="form-select w-full" name="state" value={domesticStaff.state}>
-              <option value="3">Kogi</option>
-              <option value="1">Mr</option>
-              <option value="2">Mrs</option>
+              <option value="Abia">Abia</option>
+              <option value="Akwa Ibom">Akwa Ibom</option>
+              <option value="Bauchi">Bauchi</option>
+              <option value="Bayelsa">Bayelsa</option>
+              <option value="Benue">Benue</option>
+              <option value="Borno">Borno</option>
+              <option value="Cross River">Cross River</option>
+              <option value="Delta">Delta</option>
+              <option value="Edo">Edo</option>
+              <option value="Ekiti">Ekiti</option>
+              <option value="Enugu">Enugu</option>
+              <option value="Gombe">Gombe</option>
+              <option value="Imo">Imo</option>
+              <option value="Jigawa">Jigawa</option>
+              <option value="Kaduna">Kaduna</option>
+              <option value="Kano">Kano</option>
+              <option value="Katsina">Katsina</option>
+              <option value="Kebbi">Kebbi</option>
+              <option value="Kogi">Kogi</option>
+              <option value="Kwara">Kwara</option>
+              <option value="Lagos">Lagos</option>
+              <option value="Nasarawa">Nasarawa</option>
+              <option value="Niger">Niger</option>
+              <option value="Ogun">Ogun</option>
+              <option value="Ondo">Ondo</option>
+              <option value="Osun">Osun</option>
             </select>
           </div>
           <div className="form-group mb-6">
             <p>Annual Pay</p>
-            <input onChange={handleDomesticStaffChange} name="amount_paid" value={domesticStaff.amount_paid} type="text" className="form-control w-full rounded"
+            <input required onChange={handleDomesticStaffChange} name="amount_paid" value={domesticStaff.amount_paid} type="number" className="form-control w-full rounded"
               placeholder="Amount paid (Annual)" />
           </div>
 
@@ -1800,22 +1825,22 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label>Your start date:</label>
-                    <input required onChange={(e) => setStartDate(e.target.value)} type="date" name="start_date" className="form-control w-full rounded"
+                    <input  onChange={(e) => setStartDate(e.target.value)} type="date" name="start_date" className="form-control w-full rounded"
                     />
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label>Gross pay:</label>
-                    <input required onChange={(e) => setGrossPay(e.target.value)} type="number" name="gross_pay" className="form-control w-full rounded"
+                    <input required placeholder="₦" onChange={(e) => setGrossPay(e.target.value)} placeholder="₦" type="number" name="gross_pay" className="form-control w-full rounded"
                     />
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label>Tax deducted:</label>
-                    <input required onChange={(e) => setTaxDeduct(e.target.value)} type="number" name="tax_deducted" className="form-control w-full rounded"
+                    <input  onChange={(e) => setTaxDeduct(e.target.value)} placeholder="₦" type="number" name="tax_deducted" className="form-control w-full rounded"
                     />
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label>Upload Pay slip or schedule:</label>
-                    <input required onChange={(e) => setPaySlip(e.target.files[0])} type="file" name="pay_slip" className="w-full"
+                    <input  onChange={(e) => setPaySlip(e.target.files[0])} type="file" name="pay_slip" className="w-full"
                     />
                   </div>
                   <div className='pb-5'>
@@ -1878,13 +1903,13 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                         timeout={0}
                         className="ml-2"
                       />
-                      <p className="font-bold">Saving...</p>
+                      <p className="font-bold">saving...</p>
                     </div>
                   )}
                   <div>
                     <div className="mb-6 grid grid-cols-3 gap-4">
                       <label htmlFor="typeofbusiness">Type of business:</label>
-                      <select required onChange={handleSelfEmployedChange} className="form-select" name="business_type" value={selfEmployed.business_type} >
+                      <select onChange={handleSelfEmployedChange} className="form-select" name="business_type" value={selfEmployed.business_type} >
                         <option value="select">Select Business </option>
                         <option value="Agro Allied Products">Agro Allied Products</option>
                         <option value="Aircondition Repairer">Aircondition Repairer</option>
@@ -2024,13 +2049,13 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
                     <div className="mb-6 grid grid-cols-3 gap-4">
                       <label htmlFor="businessname">Business Name:</label>
-                      <input required onChange={handleSelfEmployedChange} name="business_name" value={selfEmployed.business_name} type="text" id="businessname" className="form-control w-full rounded"
+                      <input  onChange={handleSelfEmployedChange} name="business_name" value={selfEmployed.business_name} type="text" id="businessname" className="form-control w-full rounded"
                       />
                     </div>
 
                     <div className="mb-6 grid grid-cols-3 gap-4">
                       <label htmlFor="businessaddress">Business Address:</label>
-                      <input required onChange={handleSelfEmployedChange} name="business_addr" value={selfEmployed.business_addr} type="text" id="businessaddress" className="form-control w-full rounded"
+                      <input  onChange={handleSelfEmployedChange} name="business_addr" value={selfEmployed.business_addr} type="text" id="businessaddress" className="form-control w-full rounded"
                       />
                     </div>
 
@@ -2048,7 +2073,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
                     <div className="mb-6 grid grid-cols-3 gap-4">
                       <label htmlFor="turnover">Any other business income not included above:</label>
-                      <input required onChange={handleSelfEmployedChange} name="other_income" value={selfEmployed.other_income} type="number" className="form-control w-full rounded"
+                      <input  placeholder="₦" onChange={handleSelfEmployedChange} name="other_income" value={selfEmployed.other_income} type="number" className="form-control w-full rounded"
                       />
                     </div>
 
@@ -2077,12 +2102,12 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                         <label htmlFor="expenses">How would you like to record your expenses?</label>
                         <div className="flex">
                           <div className="form-check form-check-inline">
-                            <input required onChange={handleSelfEmployedChange} value="Total" name="expense" checked={selfEmployed.expense === "Total"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
+                            <input  onChange={handleSelfEmployedChange} value="Total" name="expense" checked={selfEmployed.expense === "Total"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
                             <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Break down</label>
                           </div>
 
                           <div className="form-check form-check-inline ml-5">
-                            <input required onChange={handleSelfEmployedChange} value="Break down" name="expense" checked={selfEmployed.expense === "Break down"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
+                            <input  onChange={handleSelfEmployedChange} value="Break down" name="expense" checked={selfEmployed.expense === "Break down"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
                             <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Total</label>
                           </div>
                         </div>
@@ -2092,12 +2117,12 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                       <label htmlFor="expenses">Are figures provided provisional or estimated?</label>
                       <div className="flex">
                         <div className="form-check form-check-inline">
-                          <input required onChange={handleSelfEmployedChange} value="Provisional" name="figures_estimated" checked={selfEmployed.figures_estimated === "Provisional"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
+                          <input  onChange={handleSelfEmployedChange} value="Provisional" name="figures_estimated" checked={selfEmployed.figures_estimated === "Provisional"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
                           <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Estimated</label>
                         </div>
 
                         <div className="form-check form-check-inline ml-5">
-                          <input required onChange={handleSelfEmployedChange} value="Estimated" name="figures_estimated" checked={selfEmployed.figures_estimated === "Estimated"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
+                          <input  onChange={handleSelfEmployedChange} value="Estimated" name="figures_estimated" checked={selfEmployed.figures_estimated === "Estimated"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
                           <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Provisional</label>
                         </div>
                       </div>
@@ -2209,8 +2234,8 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                 <div className="">
                   <p className="font-bold flex justify-center mb-4"></p>
                   <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">Partner Name:</label>
-                    <input onChange={handlePartnershipChange} name="name" value={partnerData.name} type="text" className="form-control w-full rounded"
+                    <label >Partner Name:</label>
+                    <input required onChange={handlePartnershipChange} name="name" value={partnerData.name} type="text" className="form-control w-full rounded"
                     />
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
@@ -2317,7 +2342,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label>Rental Amount(Annual):</label>
-                    <input onChange={handleRentIncomeChange} type="number" name="rental_amount" value={rentIncome.rental_amount} className="form-control w-full rounded"
+                    <input onChange={handleRentIncomeChange} type="number" placeholder="₦" name="rental_amount" value={rentIncome.rental_amount} className="form-control w-full rounded"
                     />
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
@@ -2402,7 +2427,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label >Gross Amount:</label>
-                    <input onChange={handleBankInterestChange} name="gross_amount" value={bankInterest.gross_amount} type="number" className="form-control w-full rounded"
+                    <input required onChange={handleBankInterestChange} name="gross_amount" placeholder="₦" value={bankInterest.gross_amount} type="number" className="form-control w-full rounded"
                     />
                   </div>
 
@@ -2473,7 +2498,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label>Gross Amount:</label>
-                    <input onChange={handleDividendsChange} name="amount" value={dividends.amount} type="number" className="form-control w-full rounded"
+                    <input required onChange={handleDividendsChange} name="amount" value={dividends.amount} type="number" className="form-control w-full rounded"
                     />
                   </div>
 
@@ -2539,8 +2564,8 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                     />
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>Gross Amount:</label>
-                    <input onChange={handlePensionChange} name="gross_amount" value={pension.gross_amount} type="number" className="form-control w-full rounded"
+                    <label> Gross Amount:</label>
+                    <input required onChange={handlePensionChange} name="gross_amount" placeholder="₦" value={pension.gross_amount} type="number" className="form-control w-full rounded"
                     />
                   </div>
 
@@ -2629,7 +2654,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label>Sale amount:</label>
-                    <input onChange={handleAssetChange} name="amount" value={asset.amount} type="number" id="employername" className="form-control w-full rounded"
+                    <input required onChange={handleAssetChange} name="amount" placeholder="₦" value={asset.amount} type="number" id="employername" className="form-control w-full rounded"
                     />
                   </div>
 
@@ -2695,7 +2720,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label>Gross Amount:</label>
-                    <input onChange={handleOutsideSourceChange} name="gross_amount" value={outsideSource.gross_amount} type="text" className="form-control w-full rounded"
+                    <input required onChange={handleOutsideSourceChange} placeholder="₦" name="gross_amount" value={outsideSource.gross_amount} type="number" className="form-control w-full rounded"
                     />
                   </div>
 
@@ -2762,31 +2787,31 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                 )}
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label htmlFor="employername">PFA:</label>
-                  <input onChange={handlePenDeductChange} required name="pfa" value={pensionDeduct.pfa} type="text" id="employername" className="form-control w-full rounded"
+                  <input onChange={handlePenDeductChange}  name="pfa" value={pensionDeduct.pfa} type="text" id="employername" className="form-control w-full rounded"
                   />
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label htmlFor="employername">PFA Address:</label>
-                  <input onChange={handlePenDeductChange} required name="pfa_addr" value={pensionDeduct.pfa_addr} type="text" id="employername" className="form-control w-full rounded"
+                  <input onChange={handlePenDeductChange}  name="pfa_addr" value={pensionDeduct.pfa_addr} type="text" id="employername" className="form-control w-full rounded"
                   />
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label htmlFor="employername">RSA No:</label>
-                  <input onChange={handlePenDeductChange} required name="rsa_no" value={pensionDeduct.rsa_no} type="number" id="employername" className="form-control w-full rounded"
+                  <input onChange={handlePenDeductChange}  name="rsa_no" value={pensionDeduct.rsa_no} type="number" id="employername" className="form-control w-full rounded"
                   />
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label htmlFor="employername">Amount:</label>
-                  <input onChange={handlePenDeductChange} required name="amount" value={pensionDeduct.amount} type="number" id="employername" className="form-control w-full rounded"
+                  <input required onChange={handlePenDeductChange} placeholder="₦"  name="amount" value={pensionDeduct.amount} type="number" id="employername" className="form-control w-full rounded"
                   />
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label htmlFor="comments">Optional Comments:</label>
-                  <textarea onChange={handlePenDeductChange} required name="comments" value={pensionDeduct.comments} id="comments" cols="40" rows="2" className="rounded"></textarea>
+                  <textarea onChange={handlePenDeductChange}  name="comments" value={pensionDeduct.comments} id="comments" cols="40" rows="2" className="rounded"></textarea>
                 </div>
                 <div className="mb-6 flex justify-between">
                   <button
@@ -2845,31 +2870,31 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
               <div className="">
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label htmlFor="employername">Insurance Company:</label>
-                  <input required onChange={handleLifeInsChange} required name="company" value={lifeInsData.company} type="text" className="form-control w-full rounded"
+                  <input  onChange={handleLifeInsChange}  name="company" value={lifeInsData.company} type="text" className="form-control w-full rounded"
                   />
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label htmlFor="employername">Address:</label>
-                  <input required onChange={handleLifeInsChange} required name="addr" value={lifeInsData.addr} type="text" className="form-control w-full rounded"
+                  <input  onChange={handleLifeInsChange}  name="addr" value={lifeInsData.addr} type="text" className="form-control w-full rounded"
                   />
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label htmlFor="employername">RSA No:</label>
-                  <input required onChange={handleLifeInsChange} required name="rsa_no" value={lifeInsData.rsa_no} type="number" className="form-control w-full rounded"
+                  <input  onChange={handleLifeInsChange}  name="rsa_no" value={lifeInsData.rsa_no} type="number" className="form-control w-full rounded"
                   />
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label htmlFor="employername">Amount:</label>
-                  <input required onChange={handleLifeInsChange} required name="amount" value={lifeInsData.amount} type="number" id="employername" className="form-control w-full rounded"
+                  <input required onChange={handleLifeInsChange} placeholder="₦"  name="amount" value={lifeInsData.amount} type="number" id="employername" className="form-control w-full rounded"
                   />
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label htmlFor="comments">Optional Comments:</label>
-                  <textarea required onChange={handleLifeInsChange} required name="comments" value={lifeInsData.comments} cols="40" rows="2" className="rounded"></textarea>
+                  <textarea  onChange={handleLifeInsChange}  name="comments" value={lifeInsData.comments} cols="40" rows="2" className="rounded"></textarea>
                 </div>
                 <div className="mb-6 flex justify-between">
                   <button
@@ -3020,13 +3045,13 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
               <div className="">
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label>Date of purchase:</label>
-                  <input onChange={handleVehicleChange} name="purchase_date" value={vehicle.purchase_date} type="date" className="form-control w-full rounded"
+                  <input required onChange={handleVehicleChange} name="purchase_date" value={vehicle.purchase_date} type="date" className="form-control w-full rounded"
                   />
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label>Cost:</label>
-                  <input onChange={handleVehicleChange} name="cost" value={vehicle.cost} type="text" className="form-control w-full rounded"
+                  <input required onChange={handleVehicleChange} name="cost" value={vehicle.cost} type="number" className="form-control w-full rounded"
                   />
                 </div>
 
@@ -3047,7 +3072,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label>Year:</label>
-                  <input onChange={handleVehicleChange} name="year" value={vehicle.year} type="date" className="form-control w-full rounded"
+                  <input required onChange={handleVehicleChange} name="year" value={vehicle.year} type="date" className="form-control w-full rounded"
                   />
                 </div>
 
@@ -3118,13 +3143,13 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label>Date of completion/acquisition:</label>
-                  <input onChange={handleLandChange} name="date_completion" value={land.date_completion} type="date" className="form-control w-full rounded"
+                  <input required onChange={handleLandChange} name="date_completion" value={land.date_completion} type="date" className="form-control w-full rounded"
                   />
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label>Cost of construction/acquisition:</label>
-                  <input onChange={handleLandChange} name="construction_cost" value={land.construction_cost} type="text" className="form-control w-full rounded"
+                  <input required onChange={handleLandChange} name="construction_cost" value={land.construction_cost} type="text" className="form-control w-full rounded"
                   />
                 </div>
 
@@ -3184,18 +3209,18 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label>Date of acquisition:</label>
-                  <input onChange={handlefarmChange} name="acq_date" value={farmland.acq_date} type="date" className="form-control w-full rounded"
+                  <input required onChange={handlefarmChange} name="acq_date" value={farmland.acq_date} type="date" className="form-control w-full rounded"
                   />
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label>Cost of Land:</label>
-                  <input onChange={handlefarmChange} name="land_cost" value={farmland.land_cost} type="text" className="form-control w-full rounded"
+                  <input required onChange={handlefarmChange} placeholder="₦" name="land_cost" value={farmland.land_cost} type="number" className="form-control w-full rounded"
                   />
                 </div>
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label>Cost of Produce:</label>
-                  <input onChange={handlefarmChange} name="produce_cost" value={farmland.produce_cost} type="text" className="form-control w-full rounded"
+                  <input required onChange={handlefarmChange} name="produce_cost" value={farmland.produce_cost} type="number" className="form-control w-full rounded"
                   />
                 </div>
 
