@@ -431,7 +431,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerAyy, assobj, t
 
                   </tr>
                   <tr>
-                    <td className='tb'><div align='center'>24% on 3,200,000.00 </div></td>
+                    <td className='tb'><div align='center'>24% on above 3,200,000.00 </div></td>
                     {taxcal == null || taxcal == ""
                       ? <td className="tb"></td> :
                       <td className='tb'> {taxcal.tax24} </td>

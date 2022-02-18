@@ -102,7 +102,7 @@ export const ViewSingleApprovedTable = ({ payerprop, assId, payerAyy, assobj, ta
   return (
     <>
 
-      <div className="mb-6 flex justify-end">
+      {/* <div className="mb-6 flex justify-end">
         <form >
           <button
             className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
@@ -111,11 +111,11 @@ export const ViewSingleApprovedTable = ({ payerprop, assId, payerAyy, assobj, ta
             Print
           </button>
         </form>
-      </div>
+      </div> */}
       <div align="center">
         <div className="flex justify-evenly">
           <p align="left"> <KgirsLogo /></p>
-          <h3 className="mt-9">Kogi State Government</h3>
+          <h3 className="mt-9">KOGI STATE GOVERNMENT</h3>
           <p align="right"> <KogiGov /></p>
         </div>
         <p>Kogi State Internal Revenue Service</p>
@@ -347,7 +347,7 @@ export const ViewSingleApprovedTable = ({ payerprop, assId, payerAyy, assobj, ta
 
                   </tr>
                   <tr>
-                    <td className='tb'><div align='center'>24% on 3,200,000.00 </div></td>
+                    <td className='tb'><div align='center'>24% on above 3,200,000.00 </div></td>
                     {taxcal == null || taxcal == ""
                       ? <td className="tb"></td> :
                       <td className='tb'> {taxcal.tax24} </td>
@@ -401,247 +401,64 @@ export const ViewSingleApprovedTable = ({ payerprop, assId, payerAyy, assobj, ta
 
                   </table>
                 </td>
-                <td width='509' valign='top'>
-                  <table width='400' align='left' className=''>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Phone Number</p></td>
-                      {payerAyy.map((data, idx) => (
-                        <td key={idx}>{data.phone_number}</td>
-                      ))}
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Email Address</p></td>
-                      {payerAyy.map((data, idx) => (
-                        <td key={idx}>{data.email}</td>
-                      ))}
-                    </tr>
-                    <hr />
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>RESIDENTIAL ADDRESS</p></td>
-                      <td width='566'><p align='left' className='style5'></p></td>
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Type of Residence</p></td>
-                      {resAddObj == null || resAddObj == ""
-                        ? <td className=""></td> :
-                        <td width='566'><p align='left' className='style5'></p>{resAddObj.residence_type}</td>
-                      }
-
-                    </tr>
-
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Residence Ownership</p></td>
-                      {resAddObj == null || resAddObj == ""
-                        ? <td className=""></td> :
-                        <td width='566'><p align='left' className='style5'></p>{resAddObj.residence_owner} </td>
-                      }
-
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>OWNER</p></td>
-                      <td width='566'><p align='left' className='style5'></p></td>
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Name:</p></td>
-                      {resAddObj == null || resAddObj == ""
-                        ? <td className=""></td> :
-                        <td width='566'><p align='left' className='style5'></p>{resAddObj.owner_name}</td>
-                      }
-
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Address:</p></td>
-                      {resAddObj == null || resAddObj == ""
-                        ? <td className=""></td> :
-                        <td width='566'><p align='left' className='style5'></p>{resAddObj.owner_name}</td>
-                      }
-
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Phone Number:</p></td>
-                      {resAddObj == null || resAddObj == ""
-                        ? <td className=""></td> :
-                        <td width='566'><p align='left' className='style5'></p>{resAddObj.owner_phone}</td>
-                      }
-
-                    </tr>
-                    <hr />
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>SPOUSE</p></td>
-                      <td width='566'><p align='left' className='style5'></p></td>
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Name :</p></td>
-                      {spouseObj == null || spouseObj == ""
-                        ? <td className=""></td> :
-                        <td width='566'><p align='left' className='style5'></p>{spouseObj.name}</td>
-                      }
-
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Age :</p></td>
-                      {spouseObj == null || spouseObj == ""
-                        ? <td className=""></td> :
-                        <td width='566'><p align='left' className='style5'></p>{spouseObj.dob}</td>
-                      }
-
-
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Occupation :</p></td>
-                      {spouseObj == null || spouseObj == ""
-                        ? <td className=""></td> :
-                        <td width='566'><p align='left' className='style5'></p>{spouseObj.occupation}</td>
-                      }
-
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Employer/Business :</p></td>
-                      {spouseObj == null || spouseObj == ""
-                        ? <td className=""></td> :
-                        <td width='566'><p align='left' className='style5'></p>{spouseObj.employer}</td>
-                      }
-
-                    </tr>
-                    <hr />
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Number of Children</p></td>
-                      <td width='566'><p align='left' className='style5'></p></td>
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Name</p></td>
-                      {childObj == null || childObj == ""
-                        ? <td className=""></td> :
-                        <td width='566'><p align='left' className='style5'></p>{childObj.name}</td>
-                      }
-
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Age</p></td>
-                      {childObj == null || childObj == ""
-                        ? <td className=""></td> :
-                        <td width='566'><p align='left' className='style5'>{childObj.dob}</p></td>
-                      }
-
-
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>School</p></td>
-                      {childObj == null || childObj == ""
-                        ? <td className=""></td> :
-                        <td width='566'><p align='left' className='style5'></p>{childObj.school_name}</td>
-                      }
-
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Tuition/session</p></td>
-                      {childObj == null || childObj == ""
-                        ? <td className=""></td> :
-                        <td width='566'><p align='left' className='style5'></p> {childObj.school_fees}</td>
-                      }
-
-                    </tr>
-                    <hr />
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Number of domestic Staff </p></td>
-                      <td width='566'><p align='left' className='style5'></p></td>
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Name </p></td>
-                      {domesticStaff == null || domesticStaff == ""
-                        ? <td className=""></td> :
-                        <td width='566'><p align='left' className='style5'></p>{domesticStaff.name}</td>
-                      }
-
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Address </p></td>
-                      <td width='566'><p align='left' className='style5'></p></td>
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Amount Paid </p></td>
-                      {domesticStaff == null || domesticStaff == ""
-                        ? <td className=""></td> :
-                        <td width='566'><p align='left' className='style5'></p>{domesticStaff.amount_paid}</td>
-                      }
-
-                    </tr>
-                    <hr />
-                    <tr>
-                      <td className="font-bold">Number Vehicles</td>
-                    </tr>
-                    <tr>
-                      <td className="font-bold">Brand</td>
-                      {vehicles == null || vehicles == ""
-                        ? <td className=""></td> :
-                        <td className="">{vehicles.brand}</td>
-                      }
-
-                    </tr>
-                    <tr>
-                      <td className="font-bold">Model</td>
-                      {vehicles == null || vehicles == ""
-                        ? <td className=""></td> :
-                        <td className="">{vehicles.model}</td>
-                      }
-
-                    </tr>
-                    <tr>
-                      <td className="font-bold">Year</td>
-                      {vehicles == null || vehicles == ""
-                        ? <td className=""></td> :
-                        <td className="">{vehicles.year}</td>
-                      }
-
-                    </tr>
-                    <hr />
-                    <tr>
-                      <td width='800' className="font-bold">Tangible Immovable Properties:</td>
-                    </tr>
-                    <tr>
-                      <td width='' className="font-bold">Property: House</td>
-                    </tr>
-                    <tr>
-                      <td width='' className="font-bold">Address:</td>
-                    </tr>
-                    <tr>
-                      <td width='800' className="font-bold">Date Completd/Acquired:</td>
-                    </tr>
-                    <tr>
-                      <td width='600' className="font-bold"> Cost</td>
-                    </tr>
-                    <hr />
-                    <tr>
-                      <td className="font-bold">Property: Land</td>
-                    </tr>
-                    <tr>
-                      <td className="font-bold">Address:</td>
-                      {land == null || land == ""
-                        ? <td className=""></td> :
-                        <td className="">{land.addr}:</td>
-                      }
-
-                    </tr>
-                    <tr>
-                      <td className="font-bold">Date Acquired/Completion:</td>
-                      {land == null || land == ""
-                        ? <td className=""></td> :
-                        <td className="">{land.date_completion}</td>
-                      }
-
-                    </tr>
-                    <tr>
-                      <td width='600' className="font-bold"><td>Cost:</td></td>
-                      {land == null || land == ""
-                        ? <td className=""></td> :
-                        <td className="">{land.construction_cost}</td>
-                      }
-
-                    </tr>
-                  </table>
-
-
+                <td valign='top'>
+                  <div>
+                    <p>
+                      Be informed that Tax payment is not a fine, It is a civic responsibility.
+                      We have made an Assesment on you as set out Opposite, for the year _____,
+                      Under the provision of personal Income Tax Act 2011 amended
+                    </p>
+                    <div align="center">
+                      <p className="font-bold mt-6" align="center">Sule Enehu Salihu</p>
+                      <p>Ag. Executive Chaiman</p>
+                      <p>Kogi State Internal Revenue Service</p>
+                    </div>
+                    <div className="mb-3 mt-4">
+                      <p>Prepared By:</p>
+                      <p>Collection Authority:     KGIRS CORPORATE HQTRS</p>
+                      <p>Due Date of Payment:</p>
+                    </div>
+                    <div>
+                      <p className="font-bold" align="center">Right of Objection</p>
+                      <p>If you do not agree to the Assesment, you are please Obliged to do the following:</p>
+                      
+                        <p>I. Give Notice of Objection in writing Seeking the relevant tax office in review and revise the Assessment</p>
+                        <p>II. The Objection should contain precise ground(s) of Objectionon points of fact and or subsisting laws on personal income Tax Administration</p>
+                        <p>III. The Objection notice should reach the tax office within (30) days from the date of service of notice of assessment. Else 
+                          a penalty of 10 percent of tax payable will be added and any right of payment by two instalments will be lost.
+                        </p>
+                        <p>The Tax appeal Tribunal Established pursuant to section 59 of the federal inland revenue(Establishment) Act, 2007 shall have powers
+                          to entertain all cases from the operation of Personal Income Tax, 2011 amended
+                        </p>
+                        <p align="center" className="m-5 font-bold">Payment of Tax</p>
+                       <p>The net Tax Payable be paid to</p>
+                       <p className="font-bold">KOGI STATE INTERNAL REVENUE SERVICE LOKOJA</p>
+                       <p>The Tax ID and assessment number shoul always be quoted</p>
+                       <tr width="300">
+                         <td width="300" className="font-bold tb">TIN</td>
+                         <td  width="300" className="font-bold tb"></td>
+                       </tr>
+                       <tr width="300">
+                         <td width="300" className="font-bold tb">Assesment no</td>
+                         <td  width="300" className="font-bold tb"></td>
+                       </tr>
+                       <tr width="300">
+                         <td width="300" className="font-bold tb">Year of Assesment</td>
+                         <td  width="300" className="font-bold tb"></td>
+                       </tr>
+                       <tr width="300">
+                         <td width="300" className="font-bold tb">Net Tax Payable</td>
+                         <td  width="300" className="font-bold tb"></td>
+                       </tr>
+                       <tr width="300">
+                         <td width="300" className="font-bold tb">Payment due date</td>
+                         <td  width="300" className="font-bold tb"></td>
+                       </tr>
+                       <p className="font-bold mt-4" align="center">Collection Banks</p>
+                    </div>
+                  </div>
                 </td>
+                
               </tr>
             </table>
           </td>
