@@ -5,8 +5,8 @@ export const KgirsLogo = () => {
       layout="fixed"
       src="/images/logo2.png"
       alt="login"
-      width={45}
-      height={45}
+      width={60}
+      height={60}
     />
   );
 };
@@ -16,8 +16,8 @@ export const KogiGov = () => {
       layout="fixed"
       src="/images/kog_govt.png"
       alt="login"
-      width={70}
-      height={50}
+      width={85}
+      height={60}
     />
   );
 };

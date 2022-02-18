@@ -125,8 +125,8 @@ export const ViewSingleApprovedTable = ({ payerprop, assId, payerAyy, assobj, ta
           <h3 className="mt-9">KOGI STATE GOVERNMENT</h3>
           <p align="right"> <KogiGov /></p>
         </div>
-        <p>Kogi State Internal Revenue Service</p>
-        <p>Notice Of Assessment</p>
+        <h5>Kogi State Internal Revenue Service</h5>
+        <h6>Notice Of Assessment</h6>
       </div>
       <table width='800' height='1575' align='center' className='print'>
         <tr>
