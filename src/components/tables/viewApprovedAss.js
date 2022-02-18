@@ -106,395 +106,386 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
 
   return (
     <>
-      <div  className="mb-6 flex justify-end">
-        <form onSubmit={print}>
-          <button
-            className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-            type="submit"
-          >
-            Print
-          </button>
-        </form>
-      </div>
-      <div align="center">
-        <div className="flex justify-evenly">
-          <p align="left"> <KgirsLogo /></p>
-          <h3 className="mt-9">KOGI STATE GOVERNMENT</h3>
-          <p align="right"> <KogiGov /></p>
+      <div className="mt-5" ref={ref}>
+        <div align="center">
+          <div className="flex justify-evenly">
+            <p align="left"> <KgirsLogo /></p>
+            <h3 className="mt-9">KOGI STATE GOVERNMENT</h3>
+            <p align="right"> <KogiGov /></p>
+          </div>
+          <h5>Kogi State Internal Revenue Service</h5>
+          <h6>Notice Of Assessment</h6>
         </div>
-        <h5>Kogi State Internal Revenue Service</h5>
-        <h6>Notice Of Assessment</h6>
-      </div>
-      <table ref={ref} width='800' height='1575' align='center' className='print'>
-        <tr>
-          <td width='800' height='1569' align='center' valign='top'>
-            <h6 align="left">Personal Income Tax {assobj.year}</h6>
-            <table width='800' className='tb mb-4'>
-              <tr>
-                <td width='385'><table width='83%' height='100%' border='0'>
-                  <tr>
-                    <td width='139'><strong>TITLE:</strong></td>
-                    <tr className="">
+        <table width='800' height='1575' align='center' className='print'>
+          <tr>
+            <td width='800' height='1569' align='center' valign='top'>
+              <h6 align="left">Personal Income Tax {assobj.year}</h6>
+              <table width='800' className='tb mb-4'>
+                <tr>
+                  <td width='385'><table width='83%' height='100%' border='0'>
+                    <tr>
+                      <td width='139'><strong>TITLE:</strong></td>
+                      <tr className="">
+                        {payerAyy.map((data, idx) => (
+                          <p key={idx}>{data.indv_title}</p>
+                        ))}
+                      </tr>
+                    </tr>
+                    <tr>
+                      <td><strong>SURNAME:</strong></td>
                       {payerAyy.map((data, idx) => (
-                        <p key={idx}>{data.indv_title}</p>
+                        <p key={idx}>{data.surname}</p>
                       ))}
                     </tr>
-                  </tr>
-                  <tr>
-                    <td><strong>SURNAME:</strong></td>
-                    {payerAyy.map((data, idx) => (
-                      <p key={idx}>{data.surname}</p>
-                    ))}
-                  </tr>
-                  <tr>
-                    <td><strong>OTHER NAME: </strong></td>
-                    {payerAyy.map((data, idx) => (
-                      <p key={idx}>{data.middle_name}</p>
-                    ))}
-                  </tr>
-                  <tr>
-                    <td><strong>ADDRESS:</strong></td>
-                    {payerAyy.map((data, idx) => (
-                      <p key={idx}>{data.street}</p>
-                    ))}
-                  </tr>
-                </table></td>
-                <td width='403'><table width='85%' height='100%' border='0' align='right'>
-
-                  <tr>
-                    <td><strong>Tax Station </strong></td>
-                    {payerAyy.map((data, idx) => (
-                      <p key={idx}>{data.tax_office}</p>
-                    ))}
-                  </tr>
-                  <tr>
-                    <td><strong>KGTIN</strong></td>
-                    {payerAyy.map((data, idx) => (
-                      <p key={idx}>{data.KGTIN}</p>
-                    ))}
-                  </tr>
-                  <tr>
-                    <td><strong>Assessment No </strong></td>
-                    {assessment_id}
-                  </tr>
-                  <tr>
-                    <td><strong>Date Assessed </strong></td>
-                    <td className=''> {createdTime} </td>
-                  </tr>
-                </table></td>
-              </tr>
-            </table>
-
-            <table width='800'>
-              <tr>
-                <td width='400' height='1072' valign='top'><table width='377' height='1286' className='tb'>
-                  <tr>
-                    <td colspan='2'><div align='center'><span className='style4'>TAX COMPUTATION </span></div></td>
-
-                  </tr>
-                  <tr>
-                    <td width='204' className='tb' ><span className='style27'>SOURCE OF INCOME </span></td>
-                    <td width='161' className='tb' >₦</td>
-                  </tr>
-                  <tr>
-                    <td className='tb'> Trade, Professional e.t.c </td>
-                    {assobj == null || assobj == ""
-                      ? <td></td> :
-                      <td className='tb'> {assobj.self_employed}  </td>
-                    }
-
-                  </tr>
-                  <tr>
-                    <td className='tb'>Share of Partnership </td>
-                    <td className='tb'>   </td>
-                  </tr>
-                  <tr>
-                    <td className='tb'>Employment</td>
-                    {assobj == null || assobj == ""
-                      ? <td></td> :
-                      <td className='tb'> {assobj.employed}  </td>
-                    }
-                  </tr>
-                  <tr>
-                    <td className='tb'>Other Income </td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td className='tb'><div align='right' className='style27 font-bold'>Gross Income </div></td>
-                    <td className='tb'> {grossIncCal} </td>
-                  </tr>
-                  <tr>
-                    <td className='tb'>PFC</td>
-                    {assobj == null || assobj == ""
-                      ? <td className="tb"></td> :
-                      <td className='tb'> {assobj.pension} </td>
-                    }
-
-                  </tr>
-                  <tr>
-                    <td className='tb'>NHIS</td>
-                    {assobj == null || assobj == ""
-                      ? <td className="tb"></td> :
-                      <td className='tb'> {assobj.nhis} </td>
-                    }
-
-
-                  </tr>
-                  <tr>
-                    <td className='tb'>NHF</td>
-                    <td className='tb'> </td>
-                  </tr>
-                  <tr>
-                    <td className='tb'>Life Assurance Premium</td>
-                    {assobj == null || assobj == ""
-                      ? <td className="tb"></td> :
-                      <td className='tb'> {assobj.lap} </td>
-                    }
-
-                  </tr>
-                  <tr>
-                    <td className='tb font-bold'><p align="right">Total</p></td>
-                    <td className='tb'> {deductionsTotal} </td>
-                  </tr>
-                  <tr>
-                    <td className='tb font-bold'><div align='right' className='style16'>Assessable Income </div></td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td className='tb'>ADD</td>
-                    <td className='tb'></td>
-                  </tr>
-                  <tr>
-                    <td className='tb'>Balancing Charges </td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td className='tb'>DEDUCT</td>
-                    <td className='tb'></td>
-                  </tr>
-                  <tr>
-                    <td className='tb'>Balancing Allowances </td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td className='tb'>Lose Relief </td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td className='tb'>Capital Allowances </td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td className='tb'><div align='right' className='style16 font-bold'>Total Income</div></td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td className='tb'>Consolidated Relief Allowance</td>
-                    {taxcal == null || taxcal == ""
-                      ? <td className="tb"></td> :
-                      <td className='tb'>{taxcal.consolidatedRelief}</td>
-                    }
-
-                  </tr>
-                  <tr>
-                    <td className='tb font-bold'><div align='right'>Chargeable Income </div></td>
-                    {taxcal == null || taxcal == ""
-                      ? <td className="tb"></td> :
-                      <td className='tb'>{taxcal.chargeableIncome}</td>
-                    }
-
-                  </tr>
-                  <tr>
-                    <td className='tb'><div align='center' className='style16 font-bold'>Tax Due for Payment </div></td>
-                    <td className='tb'>{taxcal.tax}</td>
-                  </tr>
-
-                  <tr>
-                    <td className='tb'><div align='center' className='style16'>7% on 300,000.00 </div></td>
-                    {taxcal == null || taxcal == ""
-                      ? <td className="tb"></td> :
-                      <td className='tb'> {taxcal.tax7}  </td>
-                    }
-
-
-                  </tr>
-                  <tr>
-                    <td className='tb'><div align='center' className='style16'>11% on 300,000.00 </div></td>
-                    {taxcal == null || taxcal == ""
-                      ? <td className="tb"></td> :
-                      <td className='tb'> {taxcal.tax11} </td>
-                    }
-
-                  </tr>
-                  <tr>
-                    <td className='tb'><div align='center' className='style16'>15% on 500,000.00 </div></td>
-                    {taxcal == null || taxcal == ""
-                      ? <td className="tb"></td> :
-                      <td className='tb'> {taxcal.tax15} </td>
-                    }
-
-                  </tr>
-                  <tr>
-                    <td className='tb'><div align='center' className='style16'>19% on 500,000.00 </div></td>
-                    {taxcal == null || taxcal == ""
-                      ? <td className="tb"></td> :
-                      <td className='tb'> {taxcal.tax19} </td>
-                    }
-
-                  </tr>
-                  <tr>
-                    <td className='tb'><div align='center' className='style16'>21% on 1,600,000.00 </div></td>
-                    {taxcal == null || taxcal == ""
-                      ? <td className="tb"></td> :
-                      <td className='tb'> {taxcal.tax21} </td>
-                    }
-
-                  </tr>
-                  <tr>
-                    <td className='tb'><div align='center'>24% on above 3,200,000.00 </div></td>
-                    {taxcal == null || taxcal == ""
-                      ? <td className="tb"></td> :
-                      <td className='tb'> {taxcal.tax24} </td>
-                    }
-
-                  </tr>
-                  <tr>
-                    <td className='tb'><div align='center' className='style16'>1%(Minimun Tax)</div></td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td className='tb'><div align='center' className='style16'>Total </div></td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td className='tb'><div align='center' className='style16'>Dev. Levy </div></td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td className='tb'><div align='right' className='style16 font-bold'>Total Tax Due </div></td>
-                    <td className='tb'><div align='left' className='style16 font-bold'>{taxcal.tax}</div></td>
-
-                  </tr>
-
-                  <tr>
-                    <td className='tb'><div align='right' className='style16 font-bold'>Set off WHT </div></td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td height='28' className='tb'><div align='right' className='style16 font-bold'>Set off 1st Assessment </div></td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td height='28' className='tb'><div align='right' className='style16 font-bold'>Set off Additional Assessment </div></td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td height='30' className='tb'><div align='right' className='style16 font-bold'>Total Tax Due for Payment </div></td>
-                    <td className='tb'>{taxcal.tax}</td>
-                  </tr>
-                </table>
-                  <br />
-                  <table width='300'>
                     <tr>
-                      <td width='235' className='style5 font-bold'>HOW TO PAY YOUR TAX</td>
+                      <td><strong>OTHER NAME: </strong></td>
+                      {payerAyy.map((data, idx) => (
+                        <p key={idx}>{data.middle_name}</p>
+                      ))}
                     </tr>
                     <tr>
-                      <td width='235' className='style5'>1. Pay online by Visiting the KGIRS e-tax portal. <br />
-                        https://etax.irs.kg.gov.ng</td>
+                      <td><strong>ADDRESS:</strong></td>
+                      {payerAyy.map((data, idx) => (
+                        <p key={idx}>{data.street}</p>
+                      ))}
+                    </tr>
+                  </table></td>
+                  <td width='403'><table width='85%' height='100%' border='0' align='right'>
+
+                    <tr>
+                      <td><strong>Tax Station </strong></td>
+                      {payerAyy.map((data, idx) => (
+                        <p key={idx}>{data.tax_office}</p>
+                      ))}
                     </tr>
                     <tr>
-                      <td width='235' className='style5'><span className='style27'>2. Pay via USSD from your mobile phone by dialling *389*806#</span></td>
+                      <td><strong>KGTIN</strong></td>
+                      {payerAyy.map((data, idx) => (
+                        <p key={idx}>{data.KGTIN}</p>
+                      ))}
                     </tr>
                     <tr>
-                      <td width='235' className='style5'><span className='style27'>3. Pay at any of our collection banks listed</span></td>
+                      <td><strong>Assessment No </strong></td>
+                      {assessment_id}
+                    </tr>
+                    <tr>
+                      <td><strong>Date Assessed </strong></td>
+                      <td className=''> {createdTime} </td>
+                    </tr>
+                  </table></td>
+                </tr>
+              </table>
+
+              <table width='800'>
+                <tr>
+                  <td width='400' height='1072' valign='top'><table width='377' height='1286' className='tb'>
+                    <tr>
+                      <td colspan='2'><div align='center'><span className='style4'>TAX COMPUTATION </span></div></td>
+
+                    </tr>
+                    <tr>
+                      <td width='204' className='tb' ><span className='style27'>SOURCE OF INCOME </span></td>
+                      <td width='161' className='tb' >₦</td>
+                    </tr>
+                    <tr>
+                      <td className='tb'> Trade, Professional e.t.c </td>
+                      {assobj == null || assobj == ""
+                        ? <td></td> :
+                        <td className='tb'> {assobj.self_employed}  </td>
+                      }
+
+                    </tr>
+                    <tr>
+                      <td className='tb'>Share of Partnership </td>
+                      <td className='tb'>   </td>
+                    </tr>
+                    <tr>
+                      <td className='tb'>Employment</td>
+                      {assobj == null || assobj == ""
+                        ? <td></td> :
+                        <td className='tb'> {assobj.employed}  </td>
+                      }
+                    </tr>
+                    <tr>
+                      <td className='tb'>Other Income </td>
+                      <td className='tb'>  </td>
+                    </tr>
+                    <tr>
+                      <td className='tb'><div align='right' className='style27 font-bold'>Gross Income </div></td>
+                      <td className='tb'> {grossIncCal} </td>
+                    </tr>
+                    <tr>
+                      <td className='tb'>PFC</td>
+                      {assobj == null || assobj == ""
+                        ? <td className="tb"></td> :
+                        <td className='tb'> {assobj.pension} </td>
+                      }
+
+                    </tr>
+                    <tr>
+                      <td className='tb'>NHIS</td>
+                      {assobj == null || assobj == ""
+                        ? <td className="tb"></td> :
+                        <td className='tb'> {assobj.nhis} </td>
+                      }
+
+
+                    </tr>
+                    <tr>
+                      <td className='tb'>NHF</td>
+                      <td className='tb'> </td>
+                    </tr>
+                    <tr>
+                      <td className='tb'>Life Assurance Premium</td>
+                      {assobj == null || assobj == ""
+                        ? <td className="tb"></td> :
+                        <td className='tb'> {assobj.lap} </td>
+                      }
+
+                    </tr>
+                    <tr>
+                      <td className='tb font-bold'><p align="right">Total</p></td>
+                      <td className='tb'> {deductionsTotal} </td>
+                    </tr>
+                    <tr>
+                      <td className='tb font-bold'><div align='right' className='style16'>Assessable Income </div></td>
+                      <td className='tb'>  </td>
+                    </tr>
+                    <tr>
+                      <td className='tb'>ADD</td>
+                      <td className='tb'></td>
+                    </tr>
+                    <tr>
+                      <td className='tb'>Balancing Charges </td>
+                      <td className='tb'>  </td>
+                    </tr>
+                    <tr>
+                      <td className='tb'>DEDUCT</td>
+                      <td className='tb'></td>
+                    </tr>
+                    <tr>
+                      <td className='tb'>Balancing Allowances </td>
+                      <td className='tb'>  </td>
+                    </tr>
+                    <tr>
+                      <td className='tb'>Lose Relief </td>
+                      <td className='tb'>  </td>
+                    </tr>
+                    <tr>
+                      <td className='tb'>Capital Allowances </td>
+                      <td className='tb'>  </td>
+                    </tr>
+                    <tr>
+                      <td className='tb'><div align='right' className='style16 font-bold'>Total Income</div></td>
+                      <td className='tb'>  </td>
+                    </tr>
+                    <tr>
+                      <td className='tb'>Consolidated Relief Allowance</td>
+                      {taxcal == null || taxcal == ""
+                        ? <td className="tb"></td> :
+                        <td className='tb'>{taxcal.consolidatedRelief}</td>
+                      }
+
+                    </tr>
+                    <tr>
+                      <td className='tb font-bold'><div align='right'>Chargeable Income </div></td>
+                      {taxcal == null || taxcal == ""
+                        ? <td className="tb"></td> :
+                        <td className='tb'>{taxcal.chargeableIncome}</td>
+                      }
+
+                    </tr>
+                    <tr>
+                      <td className='tb'><div align='center' className='style16 font-bold'>Tax Due for Payment </div></td>
+                      <td className='tb'>{taxcal.tax}</td>
+                    </tr>
+
+                    <tr>
+                      <td className='tb'><div align='center' className='style16'>7% on 300,000.00 </div></td>
+                      {taxcal == null || taxcal == ""
+                        ? <td className="tb"></td> :
+                        <td className='tb'> {taxcal.tax7}  </td>
+                      }
+
+
+                    </tr>
+                    <tr>
+                      <td className='tb'><div align='center' className='style16'>11% on 300,000.00 </div></td>
+                      {taxcal == null || taxcal == ""
+                        ? <td className="tb"></td> :
+                        <td className='tb'> {taxcal.tax11} </td>
+                      }
+
+                    </tr>
+                    <tr>
+                      <td className='tb'><div align='center' className='style16'>15% on 500,000.00 </div></td>
+                      {taxcal == null || taxcal == ""
+                        ? <td className="tb"></td> :
+                        <td className='tb'> {taxcal.tax15} </td>
+                      }
+
+                    </tr>
+                    <tr>
+                      <td className='tb'><div align='center' className='style16'>19% on 500,000.00 </div></td>
+                      {taxcal == null || taxcal == ""
+                        ? <td className="tb"></td> :
+                        <td className='tb'> {taxcal.tax19} </td>
+                      }
+
+                    </tr>
+                    <tr>
+                      <td className='tb'><div align='center' className='style16'>21% on 1,600,000.00 </div></td>
+                      {taxcal == null || taxcal == ""
+                        ? <td className="tb"></td> :
+                        <td className='tb'> {taxcal.tax21} </td>
+                      }
+
+                    </tr>
+                    <tr>
+                      <td className='tb'><div align='center'>24% on above 3,200,000.00 </div></td>
+                      {taxcal == null || taxcal == ""
+                        ? <td className="tb"></td> :
+                        <td className='tb'> {taxcal.tax24} </td>
+                      }
+
+                    </tr>
+                    <tr>
+                      <td className='tb'><div align='center' className='style16'>1%(Minimun Tax)</div></td>
+                      <td className='tb'>  </td>
+                    </tr>
+                    <tr>
+                      <td className='tb'><div align='center' className='style16'>Total </div></td>
+                      <td className='tb'>  </td>
+                    </tr>
+                    <tr>
+                      <td className='tb'><div align='center' className='style16'>Dev. Levy </div></td>
+                      <td className='tb'>  </td>
+                    </tr>
+                    <tr>
+                      <td className='tb'><div align='right' className='style16 font-bold'>Total Tax Due </div></td>
+                      <td className='tb'><div align='left' className='style16 font-bold'>{taxcal.tax}</div></td>
+
+                    </tr>
+
+                    <tr>
+                      <td className='tb'><div align='right' className='style16 font-bold'>Set off WHT </div></td>
+                      <td className='tb'>  </td>
+                    </tr>
+                    <tr>
+                      <td height='28' className='tb'><div align='right' className='style16 font-bold'>Set off 1st Assessment </div></td>
+                      <td className='tb'>  </td>
+                    </tr>
+                    <tr>
+                      <td height='28' className='tb'><div align='right' className='style16 font-bold'>Set off Additional Assessment </div></td>
+                      <td className='tb'>  </td>
+                    </tr>
+                    <tr>
+                      <td height='30' className='tb'><div align='right' className='style16 font-bold'>Total Tax Due for Payment </div></td>
+                      <td className='tb'>{taxcal.tax}</td>
                     </tr>
                   </table>
-                </td>
-                <td valign='top'>
-                  <div>
-                    <p>
-                      Be informed that Tax payment is not a fine, It is a civic responsibility.
-                      We have made an Assesment on you as set out Opposite, for the year {assobj.year},
-                      Under the provision of personal Income Tax Act 2011 amended
-                    </p>
-                    <div align="center">
-                      <p className="font-bold mt-6" align="center">Sule Enehu Salihu</p>
-                      <p>Ag. Executive Chaiman</p>
-                      <p>Kogi State Internal Revenue Service</p>
-                    </div>
-                    <div className="mb-3 mt-4">
-                      <p>Prepared By:</p>
-                      <p>Collection Authority:     KGIRS CORPORATE HQTRS</p>
-                      <p>Due Date of Payment:</p>
-                    </div>
+                    <br />
+                    <table width='300'>
+                      <tr>
+                        <td width='235' className='style5 font-bold'>HOW TO PAY YOUR TAX</td>
+                      </tr>
+                      <tr>
+                        <td width='235' className='style5'>1. Pay online by Visiting the KGIRS e-tax portal. <br />
+                          https://etax.irs.kg.gov.ng</td>
+                      </tr>
+                      <tr>
+                        <td width='235' className='style5'><span className='style27'>2. Pay via USSD from your mobile phone by dialling *389*806#</span></td>
+                      </tr>
+                      <tr>
+                        <td width='235' className='style5'><span className='style27'>3. Pay at any of our collection banks listed</span></td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td valign='top'>
                     <div>
-                      <p className="font-bold" align="center">RIGHT OF OBJECTION</p>
-                      <p>If you do not agree to the Assesment, you are please Obliged to do the following:</p>
+                      <p>
+                        Be informed that Tax payment is not a fine, It is a civic responsibility.
+                        We have made an Assesment on you as set out Opposite, for the year {assobj.year},
+                        Under the provision of personal Income Tax Act 2011 amended
+                      </p>
+                      <div align="center">
+                        <p className="font-bold mt-6" align="center">Sule Enehu Salihu</p>
+                        <p>Ag. Executive Chaiman</p>
+                        <p>Kogi State Internal Revenue Service</p>
+                      </div>
+                      <div className="mb-3 mt-4">
+                        <p>Prepared By:</p>
+                        <p>Collection Authority:     KGIRS CORPORATE HQTRS</p>
+                        <p>Due Date of Payment:</p>
+                      </div>
+                      <div>
+                        <p className="font-bold" align="center">RIGHT OF OBJECTION</p>
+                        <p>If you do not agree to the Assesment, you are please Obliged to do the following:</p>
 
-                      <p>I. Give Notice of Objection in writing Seeking the relevant tax office in review and revise the Assessment</p>
-                      <p>II. The Objection should contain precise ground(s) of Objectionon points of fact and or subsisting laws on personal income Tax Administration</p>
-                      <p>III. The Objection notice should reach the tax office within (30) days from the date of service of notice of assessment. Else
-                        a penalty of 10 percent of tax payable will be added and any right of payment by two instalments will be lost.
-                      </p>
-                      <p>The Tax appeal Tribunal Established pursuant to section 59 of the federal inland revenue(Establishment) Act, 2007 shall have powers
-                        to entertain all cases from the operation of Personal Income Tax, 2011 amended
-                      </p>
-                      <p align="center" className="m-5 font-bold">PAYMENT OF TAX</p>
-                      <p>The net Tax Payable be paid to</p>
-                      <p className="font-bold">KOGI STATE INTERNAL REVENUE SERVICE LOKOJA</p>
-                      <p>The Tax ID and assessment number shoul always be quoted</p>
-                      <tr width="300">
-                        <td width="300" className="font-bold tb">TIN</td>
-                        <td width="300" className="font-bold tb"></td>
-                      </tr>
-                      <tr width="300">
-                        <td width="300" className="font-bold tb">Assesment no</td>
-                        <td width="300" className="font-bold tb"></td>
-                      </tr>
-                      <tr width="300">
-                        <td width="300" className="font-bold tb">Year of Assesment</td>
-                        <td width="300" className="font-bold tb"></td>
-                      </tr>
-                      <tr width="300">
-                        <td width="300" className="font-bold tb">Net Tax Payable</td>
-                        <td width="300" className="font-bold tb"></td>
-                      </tr>
-                      <tr width="300">
-                        <td width="300" className="font-bold tb">Payment due date</td>
-                        <td width="300" className="font-bold tb"></td>
-                      </tr>
-                      <p className="font-bold mt-4" align="center">COLLECTION BANK</p>
-                      <tr width="300">
-                        <td width="80" className="font-bold tb">Access Bank</td>
-                        <td width="80" className="font-bold tb">Eco Bank</td>
-                        <td width="80" className="font-bold tb">FCMB</td>
-                        <td width="80" className="font-bold tb">Fidelity Bank</td>
-                        <td width="80" className="font-bold tb">First Bank</td>
-                      </tr>
-                      <tr width="40">
-                        <td width="80" className="font-bold tb">Heritage Bank</td>
-                        <td width="80" className="font-bold tb">KeyStone Bank</td>
-                        <td width="80" className="font-bold tb">Kogi Savings</td>
-                        <td width="80" className="font-bold tb">Polaris Bank</td>
-                        <td width="80" className="font-bold tb">Stanbic IBTC Bank</td>
-                      </tr>
-                      <tr width="40">
-                        <td width="80" className="font-bold tb">UBA</td>
-                        <td width="80" className="font-bold tb">Union Bank</td>
-                        <td width="80" className="font-bold tb">Unity Bank</td>
-                        <td width="80" className="font-bold tb">Wema Bank</td>
-                        <td width="80" className="font-bold tb">Zenith Bank</td>
-                      </tr>
+                        <p>I. Give Notice of Objection in writing Seeking the relevant tax office in review and revise the Assessment</p>
+                        <p>II. The Objection should contain precise ground(s) of Objectionon points of fact and or subsisting laws on personal income Tax Administration</p>
+                        <p>III. The Objection notice should reach the tax office within (30) days from the date of service of notice of assessment. Else
+                          a penalty of 10 percent of tax payable will be added and any right of payment by two instalments will be lost.
+                        </p>
+                        <p>The Tax appeal Tribunal Established pursuant to section 59 of the federal inland revenue(Establishment) Act, 2007 shall have powers
+                          to entertain all cases from the operation of Personal Income Tax, 2011 amended
+                        </p>
+                        <p align="center" className="m-5 font-bold">PAYMENT OF TAX</p>
+                        <p>The net Tax Payable be paid to</p>
+                        <p className="font-bold">KOGI STATE INTERNAL REVENUE SERVICE LOKOJA</p>
+                        <p>The Tax ID and assessment number shoul always be quoted</p>
+                        <tr width="300">
+                          <td width="300" className="font-bold tb">TIN</td>
+                          <td width="300" className="font-bold tb"></td>
+                        </tr>
+                        <tr width="300">
+                          <td width="300" className="font-bold tb">Assesment no</td>
+                          <td width="300" className="font-bold tb"></td>
+                        </tr>
+                        <tr width="300">
+                          <td width="300" className="font-bold tb">Year of Assesment</td>
+                          <td width="300" className="font-bold tb"></td>
+                        </tr>
+                        <tr width="300">
+                          <td width="300" className="font-bold tb">Net Tax Payable</td>
+                          <td width="300" className="font-bold tb"></td>
+                        </tr>
+                        <tr width="300">
+                          <td width="300" className="font-bold tb">Payment due date</td>
+                          <td width="300" className="font-bold tb"></td>
+                        </tr>
+                        <p className="font-bold mt-4" align="center">COLLECTION BANK</p>
+                        <tr width="300">
+                          <td width="80" className="font-bold tb">Access Bank</td>
+                          <td width="80" className="font-bold tb">Eco Bank</td>
+                          <td width="80" className="font-bold tb">FCMB</td>
+                          <td width="80" className="font-bold tb">Fidelity Bank</td>
+                          <td width="80" className="font-bold tb">First Bank</td>
+                        </tr>
+                        <tr width="40">
+                          <td width="80" className="font-bold tb">Heritage Bank</td>
+                          <td width="80" className="font-bold tb">KeyStone Bank</td>
+                          <td width="80" className="font-bold tb">Kogi Savings</td>
+                          <td width="80" className="font-bold tb">Polaris Bank</td>
+                          <td width="80" className="font-bold tb">Stanbic IBTC Bank</td>
+                        </tr>
+                        <tr width="40">
+                          <td width="80" className="font-bold tb">UBA</td>
+                          <td width="80" className="font-bold tb">Union Bank</td>
+                          <td width="80" className="font-bold tb">Unity Bank</td>
+                          <td width="80" className="font-bold tb">Wema Bank</td>
+                          <td width="80" className="font-bold tb">Zenith Bank</td>
+                        </tr>
+                      </div>
                     </div>
-                  </div>
-                </td>
+                  </td>
 
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
       <style
         jsx>{`
         .style1 {
@@ -1023,6 +1014,7 @@ export const ViewSingleApprovedTables = ({ payerprop, assId, payerAyy, assobj, t
         }
       `}
       </style>
+
     </>
   );
 };

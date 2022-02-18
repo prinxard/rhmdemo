@@ -79,37 +79,24 @@ const ViewSingleApproved = () => {
   return (
 
     <>
-    
-      <div>
-        <ReactToPrint
-          trigger={() => <button>Print this out!</button>}
-          content={() => componentRef.current}
-        />
-        <ViewSingleApprovedTable ref={componentRef} payerprop={payerprop} assId={globalAssId}
-          payerAyy={makeArray} assobj={makeObj} taxcal={taxcalDa}
-          childObj={childObj}
-          resAddObj={resAddObj} employed={employed} spouseObj={spouseObj}
-          domesticStaff={domesticStaff} vehicles={vehicles} land={land}/>
+
+      <div className="flex justify-end">
+        <SectionTitle title="Print Approved Assessment" />
+        <div>
+          <ReactToPrint
+            trigger={() => <button className="btn w-32 bg-green-600 btn-default text-white
+                btn-outlined bg-transparent rounded-md"
+              type="submit"
+            >
+              Print
+            </button>}
+            content={() => componentRef.current}
+          />
+        </div>
       </div>
 
-      <SectionTitle title="Print Approved Assessment" />
-      {isFetching && (
-        <div className="flex justify-center item mb-2">
-          <Loader
-            visible={isFetching}
-            type="BallTriangle"
-            color="#00FA9A"
-            height={19}
-            width={19}
-            timeout={0}
-            className="ml-2"
-          />
-          <p className="font-bold">Verifying ...</p>
-        </div>
-      )}
-
       <Widget>
-        {/* {isFetching ? (
+        {isFetching ? (
           <div className="flex justify-center item mb-2">
             <Loader
               visible={isFetching}
@@ -122,13 +109,11 @@ const ViewSingleApproved = () => {
             />
             <p>Fetching data...</p>
           </div>
-        ) :  */}
-
-        {/* <ViewSingleApprovedTable ref={componentRef} payerprop={payerprop} assId={globalAssId}
+        ) : <ViewSingleApprovedTable ref={componentRef} payerprop={payerprop} assId={globalAssId}
           payerAyy={makeArray} assobj={makeObj} taxcal={taxcalDa}
           childObj={childObj}
           resAddObj={resAddObj} employed={employed} spouseObj={spouseObj}
-          domesticStaff={domesticStaff} vehicles={vehicles} land={land} /> */}
+          domesticStaff={domesticStaff} vehicles={vehicles} land={land} />}
 
       </Widget>
     </>
