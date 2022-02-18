@@ -309,7 +309,7 @@ export const ViewSingleApprovedTable = ({ payerprop, assId, payerAyy, assobj, ta
                   </tr>
                   <tr>
                     <td className='tb'><div align='center' className='style16 font-bold'>Tax Due for Payment </div></td>
-                    <td className='tb'>&nbsp;</td>
+                    <td className='tb'>{taxcal.tax}</td>
                   </tr>
 
                   <tr>
@@ -375,6 +375,7 @@ export const ViewSingleApprovedTable = ({ payerprop, assId, payerAyy, assobj, ta
                   </tr>
                   <tr>
                     <td className='tb'><div align='right' className='style16 font-bold'>Total Tax Due </div></td>
+                    <td className='tb'><div align='left' className='style16 font-bold'>{taxcal.tax}</div></td>
 
                   </tr>
 
