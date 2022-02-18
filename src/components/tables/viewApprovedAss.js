@@ -4,7 +4,7 @@ import * as Icons from '../Icons/index';
 import Widget1 from "../dashboard/widget-1";
 import dateformat from "dateformat";
 import Link from 'next/link';
-import { KgirsLogo } from "../Images/Images";
+import { KgirsLogo, KogiGov } from "../Images/Images";
 
 const fields = [
   {
@@ -112,14 +112,19 @@ export const ViewSingleApprovedTable = ({ payerprop, assId, payerAyy, assobj, ta
           </button>
         </form>
       </div>
+      <div align="center">
+        <div className="flex justify-evenly">
+          <p align="left"> <KgirsLogo /></p>
+          <h3 className="mt-9">Kogi State Government</h3>
+          <p align="right"> <KogiGov /></p>
+        </div>
+        <p>Kogi State Internal Revenue Service</p>
+        <p>Notice Of Assessment</p>
+      </div>
       <table width='800' height='1575' align='center' className='print'>
         <tr>
           <td width='800' height='1569' align='center' valign='top'>
-            <table width='700'>
-              <tr>
-              </tr>
-            </table>
-
+            <h6 align="left">Personal Income Tax...</h6>
             <table width='800' className='tb mb-4'>
               <tr>
                 <td width='385'><table width='83%' height='100%' border='0'>

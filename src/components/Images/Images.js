@@ -10,6 +10,17 @@ export const KgirsLogo = () => {
     />
   );
 };
+export const KogiGov = () => {
+  return (
+    <Image
+      layout="fixed"
+      src="/images/kog_govt.png"
+      alt="login"
+      width={70}
+      height={50}
+    />
+  );
+};
 
 export const LoginImage = () => {
   return (
