@@ -1289,6 +1289,25 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     setToggle12(toggleval)
 
   };
+  const formTog13 = e => {
+    e.preventDefault()
+    let toggleval = 'hidden'
+    setToggle13(toggleval)
+
+  };
+
+  const formTog14 = e => {
+    e.preventDefault()
+    let toggleval = 'hidden'
+    setToggle14(toggleval)
+
+  };
+  const formTog15 = e => {
+    e.preventDefault()
+    let toggleval = 'hidden'
+    setToggle15(toggleval)
+
+  };
 
   return (
     <>
@@ -1532,17 +1551,17 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
             </div>
             <div className="form-group mb-6">
               <p>Business/Employer</p>
-              <input onChange={handleSpouseDeductChange}  name="employer" value={spouse.employer} type="text" className="form-control w-full rounded"
+              <input onChange={handleSpouseDeductChange} name="employer" value={spouse.employer} type="text" className="form-control w-full rounded"
                 placeholder="Employer/Business of spouse" />
             </div>
             <div className="form-group mb-6">
               <p>Occupation</p>
-              <input onChange={handleSpouseDeductChange}  name="occupation" value={spouse.occupation} type="text" className="form-control w-full rounded"
+              <input onChange={handleSpouseDeductChange} name="occupation" value={spouse.occupation} type="text" className="form-control w-full rounded"
                 placeholder="Occupation" />
             </div>
             <div className="form-group mb-6">
               <p>Office/Business Address</p>
-              <input onChange={handleSpouseDeductChange}  name="employer_addr" value={spouse.employer_addr} type="text" className="form-control w-full rounded"
+              <input onChange={handleSpouseDeductChange} name="employer_addr" value={spouse.employer_addr} type="text" className="form-control w-full rounded"
                 placeholder="Employer's/business address of spouse" />
             </div>
             <div >
@@ -1596,7 +1615,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
           <div className={`grid grid-cols-3 gap-4 ${childrenToggle}`}>
             <div className="form-group mb-6">
               <p>Name of Child</p>
-              <input  onChange={handleChildChange} name="name" value={childData.name} type="text" className="form-control w-full rounded"
+              <input onChange={handleChildChange} name="name" value={childData.name} type="text" className="form-control w-full rounded"
                 placeholder="Name of child in full" />
             </div>
             <div className="form-group mb-6">
@@ -1606,22 +1625,22 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
             </div>
             <div className="form-group mb-6">
               Child School Name
-              <input  onChange={handleChildChange} name="school_name" value={childData.school_name} type="text" className="form-control w-full rounded"
+              <input onChange={handleChildChange} name="school_name" value={childData.school_name} type="text" className="form-control w-full rounded"
                 placeholder="Name of child's school" />
             </div>
             <div className="form-group mb-6">
               School Address
-              <input  onChange={handleChildChange} name="school_addr" value={childData.school_addr} type="text" className="form-control w-full rounded"
+              <input onChange={handleChildChange} name="school_addr" value={childData.school_addr} type="text" className="form-control w-full rounded"
                 placeholder="Address of child's school" />
             </div>
             <div className="form-group mb-6">
               <p>School Fees</p>
-              <input  onChange={handleChildChange} name="school_fees" value={childData.school_fees} type="text" className="form-control w-full rounded"
+              <input onChange={handleChildChange} name="school_fees" value={childData.school_fees} type="text" className="form-control w-full rounded"
                 placeholder="Child's school fees per session" />
             </div>
             <div className="form-group mb-6">
               <p>Child's Income</p>
-              <input  onChange={handleChildChange} name="child_income" value={childData.child_income} type="text" className="form-control w-full rounded"
+              <input onChange={handleChildChange} name="child_income" value={childData.child_income} type="text" className="form-control w-full rounded"
                 placeholder="Child's income in own right" />
             </div>
             <div>
@@ -1825,7 +1844,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label>Your start date:</label>
-                    <input  onChange={(e) => setStartDate(e.target.value)} type="date" name="start_date" className="form-control w-full rounded"
+                    <input onChange={(e) => setStartDate(e.target.value)} type="date" name="start_date" className="form-control w-full rounded"
                     />
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
@@ -1835,12 +1854,12 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label>Tax deducted:</label>
-                    <input  onChange={(e) => setTaxDeduct(e.target.value)} placeholder="₦" type="number" name="tax_deducted" className="form-control w-full rounded"
+                    <input onChange={(e) => setTaxDeduct(e.target.value)} placeholder="₦" type="number" name="tax_deducted" className="form-control w-full rounded"
                     />
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label>Upload Pay slip or schedule:</label>
-                    <input  onChange={(e) => setPaySlip(e.target.files[0])} type="file" name="pay_slip" className="w-full"
+                    <input onChange={(e) => setPaySlip(e.target.files[0])} type="file" name="pay_slip" className="w-full"
                     />
                   </div>
                   <div className='pb-5'>
@@ -2049,13 +2068,13 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
                     <div className="mb-6 grid grid-cols-3 gap-4">
                       <label htmlFor="businessname">Business Name:</label>
-                      <input  onChange={handleSelfEmployedChange} name="business_name" value={selfEmployed.business_name} type="text" id="businessname" className="form-control w-full rounded"
+                      <input onChange={handleSelfEmployedChange} name="business_name" value={selfEmployed.business_name} type="text" id="businessname" className="form-control w-full rounded"
                       />
                     </div>
 
                     <div className="mb-6 grid grid-cols-3 gap-4">
                       <label htmlFor="businessaddress">Business Address:</label>
-                      <input  onChange={handleSelfEmployedChange} name="business_addr" value={selfEmployed.business_addr} type="text" id="businessaddress" className="form-control w-full rounded"
+                      <input onChange={handleSelfEmployedChange} name="business_addr" value={selfEmployed.business_addr} type="text" id="businessaddress" className="form-control w-full rounded"
                       />
                     </div>
 
@@ -2073,7 +2092,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
                     <div className="mb-6 grid grid-cols-3 gap-4">
                       <label htmlFor="turnover">Any other business income not included above:</label>
-                      <input  placeholder="₦" onChange={handleSelfEmployedChange} name="other_income" value={selfEmployed.other_income} type="number" className="form-control w-full rounded"
+                      <input placeholder="₦" onChange={handleSelfEmployedChange} name="other_income" value={selfEmployed.other_income} type="number" className="form-control w-full rounded"
                       />
                     </div>
 
@@ -2102,12 +2121,12 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                         <label htmlFor="expenses">How would you like to record your expenses?</label>
                         <div className="flex">
                           <div className="form-check form-check-inline">
-                            <input  onChange={handleSelfEmployedChange} value="Total" name="expense" checked={selfEmployed.expense === "Total"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
+                            <input onChange={handleSelfEmployedChange} value="Total" name="expense" checked={selfEmployed.expense === "Total"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
                             <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Break down</label>
                           </div>
 
                           <div className="form-check form-check-inline ml-5">
-                            <input  onChange={handleSelfEmployedChange} value="Break down" name="expense" checked={selfEmployed.expense === "Break down"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
+                            <input onChange={handleSelfEmployedChange} value="Break down" name="expense" checked={selfEmployed.expense === "Break down"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
                             <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Total</label>
                           </div>
                         </div>
@@ -2117,12 +2136,12 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                       <label htmlFor="expenses">Are figures provided provisional or estimated?</label>
                       <div className="flex">
                         <div className="form-check form-check-inline">
-                          <input  onChange={handleSelfEmployedChange} value="Provisional" name="figures_estimated" checked={selfEmployed.figures_estimated === "Provisional"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
+                          <input onChange={handleSelfEmployedChange} value="Provisional" name="figures_estimated" checked={selfEmployed.figures_estimated === "Provisional"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
                           <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Estimated</label>
                         </div>
 
                         <div className="form-check form-check-inline ml-5">
-                          <input  onChange={handleSelfEmployedChange} value="Estimated" name="figures_estimated" checked={selfEmployed.figures_estimated === "Estimated"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
+                          <input onChange={handleSelfEmployedChange} value="Estimated" name="figures_estimated" checked={selfEmployed.figures_estimated === "Estimated"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
                           <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Provisional</label>
                         </div>
                       </div>
@@ -2188,6 +2207,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                     >
                       Save Expenses
                     </button>
+
                   </div>
                 </form>
               </div>
@@ -2269,6 +2289,14 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                     type="submit"
                   >
                     Save
+                  </button>
+                  <button onClick={formTog3} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <a href="">
+                      <FiTriangle
+                        size={15}
+                        className="stroke-current text-green-500"
+                      />
+                    </a>
                   </button>
                 </div>
               </form>
@@ -2367,6 +2395,14 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                     >
                       Save
                     </button>
+                    <button onClick={formTog4} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                      <a href="">
+                        <FiTriangle
+                          size={15}
+                          className="stroke-current text-green-500"
+                        />
+                      </a>
+                    </button>
                   </div>
                 </div>
               </form>
@@ -2443,6 +2479,14 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                     >
                       Save
                     </button>
+                    <button onClick={formTog5} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                      <a href="">
+                        <FiTriangle
+                          size={15}
+                          className="stroke-current text-green-500"
+                        />
+                      </a>
+                    </button>
                   </div>
                 </div>
               </form>
@@ -2514,6 +2558,14 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                     >
                       Save
                     </button>
+                    <button onClick={formTog6} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                      <a href="">
+                        <FiTriangle
+                          size={15}
+                          className="stroke-current text-green-500"
+                        />
+                      </a>
+                    </button>
                   </div>
                 </div>
               </form>
@@ -2580,6 +2632,14 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                       type="submit"
                     >
                       Save
+                    </button>
+                    <button onClick={formTog7} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                      <a href="">
+                        <FiTriangle
+                          size={15}
+                          className="stroke-current text-green-500"
+                        />
+                      </a>
                     </button>
                   </div>
                 </div>
@@ -2670,6 +2730,14 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                     >
                       Save
                     </button>
+                    <button onClick={formTog8} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                      <a href="">
+                        <FiTriangle
+                          size={15}
+                          className="stroke-current text-green-500"
+                        />
+                      </a>
+                    </button>
                   </div>
                 </div>
               </form>
@@ -2736,6 +2804,14 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                     >
                       Save
                     </button>
+                    <button onClick={formTog9} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                      <a href="">
+                        <FiTriangle
+                          size={15}
+                          className="stroke-current text-green-500"
+                        />
+                      </a>
+                    </button>
                   </div>
                 </div>
               </form>
@@ -2787,31 +2863,31 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                 )}
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label htmlFor="employername">PFA:</label>
-                  <input onChange={handlePenDeductChange}  name="pfa" value={pensionDeduct.pfa} type="text" id="employername" className="form-control w-full rounded"
+                  <input onChange={handlePenDeductChange} name="pfa" value={pensionDeduct.pfa} type="text" id="employername" className="form-control w-full rounded"
                   />
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label htmlFor="employername">PFA Address:</label>
-                  <input onChange={handlePenDeductChange}  name="pfa_addr" value={pensionDeduct.pfa_addr} type="text" id="employername" className="form-control w-full rounded"
+                  <input onChange={handlePenDeductChange} name="pfa_addr" value={pensionDeduct.pfa_addr} type="text" id="employername" className="form-control w-full rounded"
                   />
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label htmlFor="employername">RSA No:</label>
-                  <input onChange={handlePenDeductChange}  name="rsa_no" value={pensionDeduct.rsa_no} type="number" id="employername" className="form-control w-full rounded"
+                  <input onChange={handlePenDeductChange} name="rsa_no" value={pensionDeduct.rsa_no} type="number" id="employername" className="form-control w-full rounded"
                   />
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label htmlFor="employername">Amount:</label>
-                  <input required onChange={handlePenDeductChange} placeholder="₦"  name="amount" value={pensionDeduct.amount} type="number" id="employername" className="form-control w-full rounded"
+                  <input required onChange={handlePenDeductChange} placeholder="₦" name="amount" value={pensionDeduct.amount} type="number" id="employername" className="form-control w-full rounded"
                   />
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label htmlFor="comments">Optional Comments:</label>
-                  <textarea onChange={handlePenDeductChange}  name="comments" value={pensionDeduct.comments} id="comments" cols="40" rows="2" className="rounded"></textarea>
+                  <textarea onChange={handlePenDeductChange} name="comments" value={pensionDeduct.comments} id="comments" cols="40" rows="2" className="rounded"></textarea>
                 </div>
                 <div className="mb-6 flex justify-between">
                   <button
@@ -2870,31 +2946,31 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
               <div className="">
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label htmlFor="employername">Insurance Company:</label>
-                  <input  onChange={handleLifeInsChange}  name="company" value={lifeInsData.company} type="text" className="form-control w-full rounded"
+                  <input onChange={handleLifeInsChange} name="company" value={lifeInsData.company} type="text" className="form-control w-full rounded"
                   />
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label htmlFor="employername">Address:</label>
-                  <input  onChange={handleLifeInsChange}  name="addr" value={lifeInsData.addr} type="text" className="form-control w-full rounded"
+                  <input onChange={handleLifeInsChange} name="addr" value={lifeInsData.addr} type="text" className="form-control w-full rounded"
                   />
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label htmlFor="employername">RSA No:</label>
-                  <input  onChange={handleLifeInsChange}  name="rsa_no" value={lifeInsData.rsa_no} type="number" className="form-control w-full rounded"
+                  <input onChange={handleLifeInsChange} name="rsa_no" value={lifeInsData.rsa_no} type="number" className="form-control w-full rounded"
                   />
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label htmlFor="employername">Amount:</label>
-                  <input required onChange={handleLifeInsChange} placeholder="₦"  name="amount" value={lifeInsData.amount} type="number" id="employername" className="form-control w-full rounded"
+                  <input required onChange={handleLifeInsChange} placeholder="₦" name="amount" value={lifeInsData.amount} type="number" id="employername" className="form-control w-full rounded"
                   />
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label htmlFor="comments">Optional Comments:</label>
-                  <textarea  onChange={handleLifeInsChange}  name="comments" value={lifeInsData.comments} cols="40" rows="2" className="rounded"></textarea>
+                  <textarea onChange={handleLifeInsChange} name="comments" value={lifeInsData.comments} cols="40" rows="2" className="rounded"></textarea>
                 </div>
                 <div className="mb-6 flex justify-between">
                   <button
@@ -3084,6 +3160,14 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                   >
                     Save
                   </button>
+                  <button onClick={formTog13} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <a href="">
+                      <FiTriangle
+                        size={15}
+                        className="stroke-current text-green-500"
+                      />
+                    </a>
+                  </button>
                 </div>
               </div>
             </form>
@@ -3161,6 +3245,14 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                   >
                     Save
                   </button>
+                  <button onClick={formTog14} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <a href="">
+                      <FiTriangle
+                        size={15}
+                        className="stroke-current text-green-500"
+                      />
+                    </a>
+                  </button>
                 </div>
               </div>
             </form>
@@ -3231,6 +3323,14 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                     type="submit"
                   >
                     Save
+                  </button>
+                  <button onClick={formTog15} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <a href="">
+                      <FiTriangle
+                        size={15}
+                        className="stroke-current text-green-500"
+                      />
+                    </a>
                   </button>
                 </div>
               </div>
