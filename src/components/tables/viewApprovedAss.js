@@ -419,7 +419,7 @@ export const ViewSingleApprovedTable = ({ payerprop, assId, payerAyy, assobj, ta
                       <p>Due Date of Payment:</p>
                     </div>
                     <div>
-                      <p className="font-bold" align="center">Right of Objection</p>
+                      <p className="font-bold" align="center">RIGHT OF OBJECTION</p>
                       <p>If you do not agree to the Assesment, you are please Obliged to do the following:</p>
                       
                         <p>I. Give Notice of Objection in writing Seeking the relevant tax office in review and revise the Assessment</p>
@@ -430,7 +430,7 @@ export const ViewSingleApprovedTable = ({ payerprop, assId, payerAyy, assobj, ta
                         <p>The Tax appeal Tribunal Established pursuant to section 59 of the federal inland revenue(Establishment) Act, 2007 shall have powers
                           to entertain all cases from the operation of Personal Income Tax, 2011 amended
                         </p>
-                        <p align="center" className="m-5 font-bold">Payment of Tax</p>
+                        <p align="center" className="m-5 font-bold">PAYMENT OF TAX</p>
                        <p>The net Tax Payable be paid to</p>
                        <p className="font-bold">KOGI STATE INTERNAL REVENUE SERVICE LOKOJA</p>
                        <p>The Tax ID and assessment number shoul always be quoted</p>
@@ -454,7 +454,28 @@ export const ViewSingleApprovedTable = ({ payerprop, assId, payerAyy, assobj, ta
                          <td width="300" className="font-bold tb">Payment due date</td>
                          <td  width="300" className="font-bold tb"></td>
                        </tr>
-                       <p className="font-bold mt-4" align="center">Collection Banks</p>
+                       <p className="font-bold mt-4" align="center">COLLECTION BANK</p>
+                       <tr width="300">
+                         <td width="80" className="font-bold tb">Access Bank</td>
+                         <td  width="80" className="font-bold tb">Eco Bank</td>
+                         <td  width="80" className="font-bold tb">FCMB</td>
+                         <td  width="80" className="font-bold tb">Fidelity Bank</td>
+                         <td  width="80" className="font-bold tb">First Bank</td>
+                       </tr>
+                       <tr width="40">
+                       <td width="80" className="font-bold tb">Heritage Bank</td>
+                         <td  width="80" className="font-bold tb">KeyStone Bank</td>
+                         <td  width="80" className="font-bold tb">Kogi Savings</td>
+                         <td  width="80" className="font-bold tb">Polaris Bank</td>
+                         <td  width="80" className="font-bold tb">Stanbic IBTC Bank</td>
+                       </tr>
+                       <tr width="40">
+                       <td width="80" className="font-bold tb">UBA</td>
+                         <td  width="80" className="font-bold tb">Union Bank</td>
+                         <td  width="80" className="font-bold tb">Unity Bank</td>
+                         <td  width="80" className="font-bold tb">Wema Bank</td>
+                         <td  width="80" className="font-bold tb">Zenith Bank</td>
+                       </tr>
                     </div>
                   </div>
                 </td>
