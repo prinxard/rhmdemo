@@ -131,7 +131,7 @@ export const ViewSingleApprovedTable = ({ payerprop, assId, payerAyy, assobj, ta
       <table width='800' height='1575' align='center' className='print'>
         <tr>
           <td width='800' height='1569' align='center' valign='top'>
-            <h6 align="left">Personal Income Tax...</h6>
+            <h6 align="left">Personal Income Tax {assobj.year}</h6>
             <table width='800' className='tb mb-4'>
               <tr>
                 <td width='385'><table width='83%' height='100%' border='0'>
@@ -416,7 +416,7 @@ export const ViewSingleApprovedTable = ({ payerprop, assId, payerAyy, assobj, ta
                   <div>
                     <p>
                       Be informed that Tax payment is not a fine, It is a civic responsibility.
-                      We have made an Assesment on you as set out Opposite, for the year _____,
+                      We have made an Assesment on you as set out Opposite, for the year {assobj.year},
                       Under the provision of personal Income Tax Act 2011 amended
                     </p>
                     <div align="center">
