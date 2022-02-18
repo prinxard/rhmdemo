@@ -391,14 +391,18 @@ export const ViewSingleApprovedTable = ({ payerprop, assId, payerAyy, assobj, ta
                   <br />
                   <table width='300'>
                     <tr>
-                      <td width='235' className='style5'><span className='style27'>Captured By:</span></td>
-                      <td width='320' className='style5'><span className='style27'>KGIRS CORPORATE HQTRS</span></td>
+                      <td width='235' className='style5 font-bold'>HOW TO PAY YOUR TAX</td>
                     </tr>
                     <tr>
-                      <td width='235' className='style5'><span className='style27'>Date of Capture:</span></td>
-                      <td width='320' className='style5'><span className='style27'>{createdTime}</span></td>
+                      <td width='235' className='style5'>1. Pay online by Visiting the KGIRS e-tax portal. <br />
+                      https://etax.irs.kg.gov.ng</td>
                     </tr>
-
+                    <tr>
+                      <td width='235' className='style5'><span className='style27'>2. Pay via USSD from your mobile phone by dialling *389*806#</span></td>
+                    </tr>
+                    <tr>
+                      <td width='235' className='style5'><span className='style27'>3. Pay at any of our collection banks listed</span></td>
+                    </tr>
                   </table>
                 </td>
                 <td valign='top'>
