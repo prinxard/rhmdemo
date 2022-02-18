@@ -25,6 +25,7 @@ const ViewSingleApproved = () => {
   const [domesticStaff, setDomesticStaff] = useState({})
   const [vehicles, setVehicles] = useState({})
   const [land, setLand] = useState({})
+  const [employed, setEmployed] = useState({})
 
 
   useEffect(() => {
@@ -51,6 +52,8 @@ const ViewSingleApproved = () => {
           let domestic = IndData.domestic
           let vechicles = IndData.vechicles
           let landObj = IndData.land
+          let employed = IndData.employed
+          setEmployed(employed)
           setLand(landObj)
           setVehicles(vechicles)
           setDomesticStaff(domestic)
@@ -94,7 +97,7 @@ const ViewSingleApproved = () => {
           </div>
         ) : <ViewSingleApprovedTable payerprop={payerprop} assId={globalAssId}
           payerAyy={makeArray} assobj={makeObj} taxcal={taxcalDa} childObj={childObj}
-          resAddObj={resAddObj} spouseObj={spouseObj} domesticStaff = {domesticStaff} vehicles = {vehicles} land = {land}/>}
+          resAddObj={resAddObj} employed = {employed} spouseObj={spouseObj} domesticStaff = {domesticStaff} vehicles = {vehicles} land = {land}/>}
       </Widget>
     </>
   );

@@ -83,11 +83,11 @@ export const ViewApprovedTable = ({ remittance }) => {
 
 
 export const ViewSingleApprovedTable = ({ payerprop, assId, payerAyy, assobj, taxcal,
-  childObj, resAddObj, spouseObj, domesticStaff, vehicles, land }) => {
+  childObj, resAddObj, spouseObj, domesticStaff, vehicles, land, }) => {
 
   const items = payerprop;
   const assessment_id = assId
-  const createdTime = dateformat(assobj.createtime, "dd mmm yyyy hh: m")
+  const createdTime = dateformat(assobj.createtime, "dd mmm yyyy")
   console.log(items);
   const employedCal = Number(assobj.employed)
   const selfEmployedCal = Number(assobj.self_employed)
@@ -99,11 +99,18 @@ export const ViewSingleApprovedTable = ({ payerprop, assId, payerAyy, assobj, ta
 
   const deductionsTotal = (pfcdata + nhisdata + lapdata)
 
+
+  let print = (e) => {
+    e.preventDefault()
+    window.print()
+    return false;
+  }
+
   return (
     <>
 
-      {/* <div className="mb-6 flex justify-end">
-        <form >
+      <div className="mb-6 flex justify-end">
+        <form onSubmit={print}>
           <button
             className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
             type="submit"
@@ -111,7 +118,7 @@ export const ViewSingleApprovedTable = ({ payerprop, assId, payerAyy, assobj, ta
             Print
           </button>
         </form>
-      </div> */}
+      </div>
       <div align="center">
         <div className="flex justify-evenly">
           <p align="left"> <KgirsLogo /></p>
@@ -395,7 +402,7 @@ export const ViewSingleApprovedTable = ({ payerprop, assId, payerAyy, assobj, ta
                     </tr>
                     <tr>
                       <td width='235' className='style5'>1. Pay online by Visiting the KGIRS e-tax portal. <br />
-                      https://etax.irs.kg.gov.ng</td>
+                        https://etax.irs.kg.gov.ng</td>
                     </tr>
                     <tr>
                       <td width='235' className='style5'><span className='style27'>2. Pay via USSD from your mobile phone by dialling *389*806#</span></td>
@@ -425,65 +432,65 @@ export const ViewSingleApprovedTable = ({ payerprop, assId, payerAyy, assobj, ta
                     <div>
                       <p className="font-bold" align="center">RIGHT OF OBJECTION</p>
                       <p>If you do not agree to the Assesment, you are please Obliged to do the following:</p>
-                      
-                        <p>I. Give Notice of Objection in writing Seeking the relevant tax office in review and revise the Assessment</p>
-                        <p>II. The Objection should contain precise ground(s) of Objectionon points of fact and or subsisting laws on personal income Tax Administration</p>
-                        <p>III. The Objection notice should reach the tax office within (30) days from the date of service of notice of assessment. Else 
-                          a penalty of 10 percent of tax payable will be added and any right of payment by two instalments will be lost.
-                        </p>
-                        <p>The Tax appeal Tribunal Established pursuant to section 59 of the federal inland revenue(Establishment) Act, 2007 shall have powers
-                          to entertain all cases from the operation of Personal Income Tax, 2011 amended
-                        </p>
-                        <p align="center" className="m-5 font-bold">PAYMENT OF TAX</p>
-                       <p>The net Tax Payable be paid to</p>
-                       <p className="font-bold">KOGI STATE INTERNAL REVENUE SERVICE LOKOJA</p>
-                       <p>The Tax ID and assessment number shoul always be quoted</p>
-                       <tr width="300">
-                         <td width="300" className="font-bold tb">TIN</td>
-                         <td  width="300" className="font-bold tb"></td>
-                       </tr>
-                       <tr width="300">
-                         <td width="300" className="font-bold tb">Assesment no</td>
-                         <td  width="300" className="font-bold tb"></td>
-                       </tr>
-                       <tr width="300">
-                         <td width="300" className="font-bold tb">Year of Assesment</td>
-                         <td  width="300" className="font-bold tb"></td>
-                       </tr>
-                       <tr width="300">
-                         <td width="300" className="font-bold tb">Net Tax Payable</td>
-                         <td  width="300" className="font-bold tb"></td>
-                       </tr>
-                       <tr width="300">
-                         <td width="300" className="font-bold tb">Payment due date</td>
-                         <td  width="300" className="font-bold tb"></td>
-                       </tr>
-                       <p className="font-bold mt-4" align="center">COLLECTION BANK</p>
-                       <tr width="300">
-                         <td width="80" className="font-bold tb">Access Bank</td>
-                         <td  width="80" className="font-bold tb">Eco Bank</td>
-                         <td  width="80" className="font-bold tb">FCMB</td>
-                         <td  width="80" className="font-bold tb">Fidelity Bank</td>
-                         <td  width="80" className="font-bold tb">First Bank</td>
-                       </tr>
-                       <tr width="40">
-                       <td width="80" className="font-bold tb">Heritage Bank</td>
-                         <td  width="80" className="font-bold tb">KeyStone Bank</td>
-                         <td  width="80" className="font-bold tb">Kogi Savings</td>
-                         <td  width="80" className="font-bold tb">Polaris Bank</td>
-                         <td  width="80" className="font-bold tb">Stanbic IBTC Bank</td>
-                       </tr>
-                       <tr width="40">
-                       <td width="80" className="font-bold tb">UBA</td>
-                         <td  width="80" className="font-bold tb">Union Bank</td>
-                         <td  width="80" className="font-bold tb">Unity Bank</td>
-                         <td  width="80" className="font-bold tb">Wema Bank</td>
-                         <td  width="80" className="font-bold tb">Zenith Bank</td>
-                       </tr>
+
+                      <p>I. Give Notice of Objection in writing Seeking the relevant tax office in review and revise the Assessment</p>
+                      <p>II. The Objection should contain precise ground(s) of Objectionon points of fact and or subsisting laws on personal income Tax Administration</p>
+                      <p>III. The Objection notice should reach the tax office within (30) days from the date of service of notice of assessment. Else
+                        a penalty of 10 percent of tax payable will be added and any right of payment by two instalments will be lost.
+                      </p>
+                      <p>The Tax appeal Tribunal Established pursuant to section 59 of the federal inland revenue(Establishment) Act, 2007 shall have powers
+                        to entertain all cases from the operation of Personal Income Tax, 2011 amended
+                      </p>
+                      <p align="center" className="m-5 font-bold">PAYMENT OF TAX</p>
+                      <p>The net Tax Payable be paid to</p>
+                      <p className="font-bold">KOGI STATE INTERNAL REVENUE SERVICE LOKOJA</p>
+                      <p>The Tax ID and assessment number shoul always be quoted</p>
+                      <tr width="300">
+                        <td width="300" className="font-bold tb">TIN</td>
+                        <td width="300" className="font-bold tb"></td>
+                      </tr>
+                      <tr width="300">
+                        <td width="300" className="font-bold tb">Assesment no</td>
+                        <td width="300" className="font-bold tb"></td>
+                      </tr>
+                      <tr width="300">
+                        <td width="300" className="font-bold tb">Year of Assesment</td>
+                        <td width="300" className="font-bold tb"></td>
+                      </tr>
+                      <tr width="300">
+                        <td width="300" className="font-bold tb">Net Tax Payable</td>
+                        <td width="300" className="font-bold tb"></td>
+                      </tr>
+                      <tr width="300">
+                        <td width="300" className="font-bold tb">Payment due date</td>
+                        <td width="300" className="font-bold tb"></td>
+                      </tr>
+                      <p className="font-bold mt-4" align="center">COLLECTION BANK</p>
+                      <tr width="300">
+                        <td width="80" className="font-bold tb">Access Bank</td>
+                        <td width="80" className="font-bold tb">Eco Bank</td>
+                        <td width="80" className="font-bold tb">FCMB</td>
+                        <td width="80" className="font-bold tb">Fidelity Bank</td>
+                        <td width="80" className="font-bold tb">First Bank</td>
+                      </tr>
+                      <tr width="40">
+                        <td width="80" className="font-bold tb">Heritage Bank</td>
+                        <td width="80" className="font-bold tb">KeyStone Bank</td>
+                        <td width="80" className="font-bold tb">Kogi Savings</td>
+                        <td width="80" className="font-bold tb">Polaris Bank</td>
+                        <td width="80" className="font-bold tb">Stanbic IBTC Bank</td>
+                      </tr>
+                      <tr width="40">
+                        <td width="80" className="font-bold tb">UBA</td>
+                        <td width="80" className="font-bold tb">Union Bank</td>
+                        <td width="80" className="font-bold tb">Unity Bank</td>
+                        <td width="80" className="font-bold tb">Wema Bank</td>
+                        <td width="80" className="font-bold tb">Zenith Bank</td>
+                      </tr>
                     </div>
                   </div>
                 </td>
-                
+
               </tr>
             </table>
           </td>

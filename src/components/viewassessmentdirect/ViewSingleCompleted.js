@@ -24,6 +24,7 @@ const ViewSingleCompleted = () => {
   const [domesticStaff, setDomesticStaff] = useState({})
   const [vehicles, setVehicles] = useState({})
   const [land, setLand] = useState({})
+  const [employed, setEmployed] = useState({})
 
 
   useEffect(() => {
@@ -50,6 +51,8 @@ const ViewSingleCompleted = () => {
           let domestic = IndData.domestic
           let vechicles = IndData.vechicles
           let landObj = IndData.land
+          let employedat = IndData.employed
+          setEmployed(employedat)
           setLand(landObj)
           setVehicles(vechicles)
           setDomesticStaff(domestic)
@@ -93,7 +96,7 @@ const ViewSingleCompleted = () => {
           </div>
         ) : <ViewSingleCompletedTable payerprop={payerprop} assId={globalAssId}
           payerAyy={makeArray} assobj={makeObj} taxcal={taxcalDa} childObj={childObj}
-          resAddObj={resAddObj} spouseObj={spouseObj} domesticStaff = {domesticStaff} vehicles = {vehicles} land = {land}/>}
+          resAddObj={resAddObj} spouseObj={spouseObj} employed = {employed} domesticStaff = {domesticStaff} vehicles = {vehicles} land = {land}/>}
       </Widget>
     </>
   );

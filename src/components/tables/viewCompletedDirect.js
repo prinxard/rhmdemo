@@ -93,18 +93,21 @@ export const ViewCompletedTable = ({ remittance }) => {
 </Link> */}
 
 export const ViewSingleCompletedTable = ({ payerprop, assId, payerAyy, assobj, taxcal,
-  childObj, resAddObj, spouseObj, domesticStaff, vehicles, land }) => {
+  childObj, resAddObj, spouseObj, domesticStaff, vehicles, land, employed }) => {
   const [isFetching2, setIsFetching2] = useState(() => false);
   const [isFetching3, setIsFetching3] = useState(() => false);
   const router = useRouter();
 
   const items = payerprop;
   const assessment_id = assId
-  const createdTime = dateformat(assobj.createtime, "dd mmm yyyy hh: m")
+  const createdTime = dateformat(assobj.createtime, "dd mmm yyyy")
   console.log(items);
   const employedCal = Number(assobj.employed)
   const selfEmployedCal = Number(assobj.self_employed)
   const grossIncCal = employedCal + selfEmployedCal
+
+  let pay = employed.pay_slip
+  console.log(pay);
 
   const pfcdata = Number(assobj.pension)
   const nhisdata = Number(assobj.nhis)
@@ -150,6 +153,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerAyy, assobj, t
       setIsFetching2(false)
     }
   }
+
 
   return (
     <>
@@ -482,8 +486,18 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerAyy, assobj, t
                       <td width='235' className='style5'><span className='style27'>Date of Capture:</span></td>
                       <td width='320' className='style5'><span className='style27'>{createdTime}</span></td>
                     </tr>
+                    <tr height="30">
+                      <td width="200" align="center"></td>
+                    </tr>
+                   
+                    <tr>
+                      <td width="200" align="center"><a className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md" target="_blank" href={`https://annualuploads.bespoque.dev/rhm/uploads/da/forma/${pay}`}>View Uploads</a></td>
+                    </tr>
 
                   </table>
+
+
+
                 </td>
                 <td width='509' valign='top'>
                   <table width='400' align='left' className=''>
