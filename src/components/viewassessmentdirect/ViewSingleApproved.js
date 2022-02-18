@@ -2,14 +2,15 @@ import Widget from '../widget'
 import SectionTitle from '../section-title';
 import { StartSingleIndividualAssessment } from '../assessment/viewAssessment';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import axios from "axios";
 import Loader from 'react-loader-spinner';
 import { ViewSingleCompletedTable } from '../tables/viewCompletedDirect';
 import setAuthToken from '../../functions/setAuthToken';
 import url from '../../config/url';
 import { afterComma, repVa } from '../../functions/numbers';
-import { ViewSingleApprovedTable } from '../tables/viewApprovedAss';
+import { ComponentToPrint, ViewSingleApprovedTable } from '../tables/viewApprovedAss';
+import ReactToPrint, { useReactToPrint } from 'react-to-print';
 
 const ViewSingleApproved = () => {
   const router = useRouter();
@@ -27,6 +28,7 @@ const ViewSingleApproved = () => {
   const [land, setLand] = useState({})
   const [employed, setEmployed] = useState({})
 
+  const componentRef = useRef();
 
   useEffect(() => {
     if (router && router.query) {
@@ -77,12 +79,37 @@ const ViewSingleApproved = () => {
   return (
 
     <>
+    
+      <div>
+        <ReactToPrint
+          trigger={() => <button>Print this out!</button>}
+          content={() => componentRef.current}
+        />
+        <ViewSingleApprovedTable ref={componentRef} payerprop={payerprop} assId={globalAssId}
+          payerAyy={makeArray} assobj={makeObj} taxcal={taxcalDa}
+          childObj={childObj}
+          resAddObj={resAddObj} employed={employed} spouseObj={spouseObj}
+          domesticStaff={domesticStaff} vehicles={vehicles} land={land}/>
+      </div>
 
       <SectionTitle title="Print Approved Assessment" />
+      {isFetching && (
+        <div className="flex justify-center item mb-2">
+          <Loader
+            visible={isFetching}
+            type="BallTriangle"
+            color="#00FA9A"
+            height={19}
+            width={19}
+            timeout={0}
+            className="ml-2"
+          />
+          <p className="font-bold">Verifying ...</p>
+        </div>
+      )}
 
       <Widget>
-
-        {isFetching ? (
+        {/* {isFetching ? (
           <div className="flex justify-center item mb-2">
             <Loader
               visible={isFetching}
@@ -95,9 +122,14 @@ const ViewSingleApproved = () => {
             />
             <p>Fetching data...</p>
           </div>
-        ) : <ViewSingleApprovedTable payerprop={payerprop} assId={globalAssId}
-          payerAyy={makeArray} assobj={makeObj} taxcal={taxcalDa} childObj={childObj}
-          resAddObj={resAddObj} employed = {employed} spouseObj={spouseObj} domesticStaff = {domesticStaff} vehicles = {vehicles} land = {land}/>}
+        ) :  */}
+
+        {/* <ViewSingleApprovedTable ref={componentRef} payerprop={payerprop} assId={globalAssId}
+          payerAyy={makeArray} assobj={makeObj} taxcal={taxcalDa}
+          childObj={childObj}
+          resAddObj={resAddObj} employed={employed} spouseObj={spouseObj}
+          domesticStaff={domesticStaff} vehicles={vehicles} land={land} /> */}
+
       </Widget>
     </>
   );
