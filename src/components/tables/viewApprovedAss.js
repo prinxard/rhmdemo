@@ -191,9 +191,8 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                       <td className='tb'> Trade, Professional e.t.c </td>
                       {assobj == null || assobj == ""
                         ? <td></td> :
-                        <td className='tb'> {assobj.self_employed}  </td>
+                        <td className='tb'><p className="font-bold" align="right">{assobj.self_employed}</p> </td>
                       }
-
                     </tr>
                     <tr>
                       <td className='tb'>Share of Partnership </td>
@@ -203,7 +202,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                       <td className='tb'>Employment</td>
                       {assobj == null || assobj == ""
                         ? <td></td> :
-                        <td className='tb'> {assobj.employed}  </td>
+                        <td className='tb'><p className="font-bold" align="right">{assobj.employed}</p> </td>
                       }
                     </tr>
                     <tr>
@@ -212,13 +211,13 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                     </tr>
                     <tr>
                       <td className='tb'><div align='right' className='style27 font-bold'>Gross Income </div></td>
-                      <td className='tb'> {grossIncCal} </td>
+                      <td className='tb'><p className="font-bold" align="right">{grossIncCal}</p> </td>
                     </tr>
                     <tr>
                       <td className='tb'>PFC</td>
                       {assobj == null || assobj == ""
                         ? <td className="tb"></td> :
-                        <td className='tb'> {assobj.pension} </td>
+                        <td className='tb'><p className="font-bold" align="right">{assobj.pension}</p></td>
                       }
 
                     </tr>
@@ -226,10 +225,8 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                       <td className='tb'>NHIS</td>
                       {assobj == null || assobj == ""
                         ? <td className="tb"></td> :
-                        <td className='tb'> {assobj.nhis} </td>
+                        <td className='tb'> <p className="font-bold" align="right">{assobj.nhis}</p></td>
                       }
-
-
                     </tr>
                     <tr>
                       <td className='tb'>NHF</td>
@@ -973,7 +970,7 @@ export const ViewSingleApprovedTables = ({ payerprop, assId, payerAyy, assobj, t
         
          .tb {    
             border: 1px solid #000000;
-            text-align: left;
+            text-align: right;
           font-family: Geneva, Arial, Helvetica, sans-serif, 'Cambria', Calibri;
           font-size: 14px;
           height: 20px;
