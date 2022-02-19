@@ -1006,7 +1006,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     setIsFetching15(true)
     let assessFormObj = {
       assessment_id: `${assessment_id}`,
-      employed: `${grossPay}`,
+      employed: `${netProfit}`,
       selfEmployed: `${totalBusInc}`,
       nhis: `${formSubmitNhisCal}`,
       lap: `${formSubmitLapCal}`,
