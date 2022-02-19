@@ -999,6 +999,8 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
   let formSubmitNhisCal = Number(nhisData.amount)
   let formSubmitLapCal = Number(lifeInsData.amount)
   let formSubmitPensCal = Number(pensionDeduct.amount)
+  let formSubmitGrossPayCal = Number(grossPay)
+  let formSubmitNetProfitCal = Number(netProfit)
 
   setAuthToken();
   let submitAssessmentForm = async (e) => {
@@ -1006,8 +1008,8 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     setIsFetching15(true)
     let assessFormObj = {
       assessment_id: `${assessment_id}`,
-      employed: `${netProfit}`,
-      selfEmployed: `${totalBusInc}`,
+      employed: `${formSubmitGrossPayCal}`,
+      selfEmployed: `${formSubmitNetProfitCal}`,
       nhis: `${formSubmitNhisCal}`,
       lap: `${formSubmitLapCal}`,
       pension: `${formSubmitPensCal}`,
