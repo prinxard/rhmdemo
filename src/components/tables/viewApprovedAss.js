@@ -207,7 +207,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                     </tr>
                     <tr>
                       <td className='tb'>Other Income </td>
-                      <td className='tb'>  </td>
+                      <td className='tb'> <p className="font-bold text-right">0</p> </td>
                     </tr>
                     <tr>
                       <td className='tb'><div align='right' className='style27 font-bold'>Gross Income </div></td>
@@ -216,7 +216,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                     <tr>
                       <td className='tb'>PFC</td>
                       {assobj == null || assobj == ""
-                        ? <td className="tb">0</td> :
+                        ? <td className="tb"><p className="font-bold text-right">0</p></td> :
                         <td className='tb'><p className="font-bold" align="right">{formatNumber(assobj.pension)}</p></td>
                       }
 
@@ -224,25 +224,25 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                     <tr>
                       <td className='tb'>NHIS</td>
                       {assobj == null || assobj == ""
-                        ? <td className="tb">0</td> :
+                        ? <td className="tb"><p className="font-bold text-right">0</p></td> :
                         <td className='tb'> <p className="font-bold" align="right">{formatNumber(assobj.nhis)}</p></td>
                       }
                     </tr>
                     <tr>
                       <td className='tb'>NHF</td>
-                      <td className='tb'> </td>
+                      <td className='tb'><p className="font-bold text-right">0</p> </td>
                     </tr>
                     <tr>
                       <td className='tb'>Life Assurance Premium</td>
                       {assobj == null || assobj == ""
-                        ? <td className="tb"></td> :
-                        <td className='tb'> {assobj.lap} </td>
+                        ? <td className="tb"><p className="font-bold text-right">0</p></td> :
+                        <td className='tb'> <p className="font-bold text-right">{formatNumber(assobj.lap)}</p></td>
                       }
 
                     </tr>
                     <tr>
                       <td className='tb font-bold'><p align="right">Total</p></td>
-                      <td className='tb'> {deductionsTotal} </td>
+                      <td className='tb'> <p className="font-bold text-right">{formatNumber(deductionsTotal)}</p></td>
                     </tr>
                     <tr>
                       <td className='tb font-bold'><div align='right' className='style16'>Assessable Income </div></td>
