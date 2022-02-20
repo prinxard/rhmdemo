@@ -387,6 +387,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       ...residentialAddress,
       [evt.target.name]: value
     });
+    console.log(residentialAddress);
   }
 
   function handleSelfEmployedChange(evt) {
@@ -500,6 +501,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       ...vehicle,
       [evt.target.name]: value
     });
+    console.log(vehicle);
   }
 
   function handleLandChange(evt) {
@@ -1466,12 +1468,12 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
               <p>Do you own your place of residence?</p>
               <div className="flex">
                 <div className="form-check form-check-inline">
-                  <input onChange={onresidenceToggleYes} name="residence_owner" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
+                  <input onClick={onresidenceToggleYes} onChange={handleResidentialChange} name="residence_owner" value="Owner" checked={residentialAddress.residence_owner === "Owner"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
                   <label className="form-check-label inline-block text-gray-800" htmlFor="inlineRadio10">Owner</label>
                 </div>
 
                 <div className="form-check form-check-inline ml-5">
-                  <input onChange={onresidenceToggleNo} name="residence_owner" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
+                  <input onClick={onresidenceToggleNo} onChange={handleResidentialChange} name="residence_owner" value="Rented" checked={residentialAddress.residence_owner === "Rented"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
                   <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Rented</label>
                 </div>
               </div>
@@ -1480,7 +1482,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
           <div className={`grid grid-cols-3 gap-4 ${resiToggle}`}>
             <div className="form-group mb-6">
-              <input onChange={handleResidentialChange} type="text" name="annual_rent" value={residentialAddress.annual_rent} className="form-control w-full rounded"
+              <input onChange={handleResidentialChange} type="number" name="annual_rent" value={residentialAddress.annual_rent} className="form-control w-full rounded"
                 placeholder="Annual rent" />
             </div>
 
@@ -1637,12 +1639,12 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
             </div>
             <div className="form-group mb-6">
               <p>School Fees</p>
-              <input onChange={handleChildChange} name="school_fees" value={childData.school_fees} type="text" className="form-control w-full rounded"
+              <input onChange={handleChildChange} name="school_fees" value={childData.school_fees} type="number" className="form-control w-full rounded"
                 placeholder="Child's school fees per session" />
             </div>
             <div className="form-group mb-6">
               <p>Child's Income</p>
-              <input onChange={handleChildChange} name="child_income" value={childData.child_income} type="text" className="form-control w-full rounded"
+              <input onChange={handleChildChange} name="child_income" value={childData.child_income} type="number" className="form-control w-full rounded"
                 placeholder="Child's income in own right" />
             </div>
             <div>
@@ -2123,12 +2125,12 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                         <label htmlFor="expenses">How would you like to record your expenses?</label>
                         <div className="flex">
                           <div className="form-check form-check-inline">
-                            <input onChange={handleSelfEmployedChange} value="Total" name="expense" checked={selfEmployed.expense === "Total"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
+                            <input onChange={handleSelfEmployedChange} value="Break down" name="expense" checked={selfEmployed.expense === "Break down"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
                             <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Break down</label>
                           </div>
 
                           <div className="form-check form-check-inline ml-5">
-                            <input onChange={handleSelfEmployedChange} value="Break down" name="expense" checked={selfEmployed.expense === "Break down"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
+                            <input onChange={handleSelfEmployedChange} value="Total" name="expense" checked={selfEmployed.expense === "Total"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
                             <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Total</label>
                           </div>
                         </div>
@@ -2138,12 +2140,12 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                       <label htmlFor="expenses">Are figures provided provisional or estimated?</label>
                       <div className="flex">
                         <div className="form-check form-check-inline">
-                          <input onChange={handleSelfEmployedChange} value="Provisional" name="figures_estimated" checked={selfEmployed.figures_estimated === "Provisional"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
+                          <input onChange={handleSelfEmployedChange} value="Estimated" name="figures_estimated" checked={selfEmployed.figures_estimated === "Estimated"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
                           <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Estimated</label>
                         </div>
 
                         <div className="form-check form-check-inline ml-5">
-                          <input onChange={handleSelfEmployedChange} value="Estimated" name="figures_estimated" checked={selfEmployed.figures_estimated === "Estimated"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
+                          <input onChange={handleSelfEmployedChange} value="Estimated" name="Provisional" checked={selfEmployed.figures_estimated === "Provisional"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
                           <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Provisional</label>
                         </div>
                       </div>
@@ -3032,13 +3034,13 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
               <div className="">
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label htmlFor="employername">Company:</label>
-                  <input onChange={handleNHISChange} required name="company" value={nhisData.company} type="text" id="employername" className="form-control w-full rounded"
+                  <input onChange={handleNHISChange} name="company" value={nhisData.company} type="text" id="employername" className="form-control w-full rounded"
                   />
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label htmlFor="employername">Address:</label>
-                  <input onChange={handleNHISChange} required name="addr" value={nhisData.addr} type="text" id="employername" className="form-control w-full rounded"
+                  <input onChange={handleNHISChange} name="addr" value={nhisData.addr} type="text" id="employername" className="form-control w-full rounded"
                   />
                 </div>
 
@@ -3056,7 +3058,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label htmlFor="comments">Optional Comments:</label>
-                  <textarea onChange={handleNHISChange} required name="comments" value={nhisData.comments} cols="40" rows="2" className="rounded"></textarea>
+                  <textarea onChange={handleNHISChange} name="comments" value={nhisData.comments} cols="40" rows="2" className="rounded"></textarea>
                 </div>
                 <div className="mb-6 flex justify-between">
                   <button
@@ -3135,11 +3137,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label>Brand:</label>
-                  <select onChange={handleVehicleChange} className="Select Brand" name="brand" value={vehicle.brand}>
-                    <option value="Lexus">Lexus</option>
-                    <option value="Toyota">Toyota</option>
-                    <option value="Benz">Benz</option>
-                  </select>
+                  <input onChange={handleVehicleChange} type="text" name="brand" value={vehicle.brand}></input>
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
