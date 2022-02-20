@@ -246,41 +246,41 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                     </tr>
                     <tr>
                       <td className='tb font-bold'><div align='right' className='style16'>Assessable Income </div></td>
-                      <td className='tb'>  </td>
+                      <td className='tb'> <p className="font-bold text-right">0</p> </td>
                     </tr>
                     <tr>
                       <td className='tb'>ADD</td>
-                      <td className='tb'></td>
+                      <td className='tb'><p className="font-bold text-right">0</p></td>
                     </tr>
                     <tr>
                       <td className='tb'>Balancing Charges </td>
-                      <td className='tb'>  </td>
+                      <td className='tb'> <p className="font-bold text-right">0</p> </td>
                     </tr>
                     <tr>
                       <td className='tb'>DEDUCT</td>
-                      <td className='tb'></td>
+                      <td className='tb'><p className="font-bold text-right">0</p></td>
                     </tr>
                     <tr>
                       <td className='tb'>Balancing Allowances </td>
-                      <td className='tb'>  </td>
+                      <td className='tb'> <p className="font-bold text-right">0</p> </td>
                     </tr>
                     <tr>
                       <td className='tb'>Lose Relief </td>
-                      <td className='tb'>  </td>
+                      <td className='tb'><p className="font-bold text-right">0</p> </td>
                     </tr>
                     <tr>
                       <td className='tb'>Capital Allowances </td>
-                      <td className='tb'>  </td>
+                      <td className='tb'><p className="font-bold text-right">0</p> </td>
                     </tr>
                     <tr>
                       <td className='tb'><div align='right' className='style16 font-bold'>Total Income</div></td>
-                      <td className='tb'>  </td>
+                      <td className='tb'> <p className="font-bold text-right">0</p> </td>
                     </tr>
                     <tr>
                       <td className='tb'>Consolidated Relief Allowance</td>
                       {taxcal == null || taxcal == ""
                         ? <td className="tb"></td> :
-                        <td className='tb'>{taxcal.consolidatedRelief}</td>
+                        <td className='tb'> <p className="font-bold text-right">{formatNumber(taxcal.consolidatedRelief)}</p></td>
                       }
 
                     </tr>
@@ -288,19 +288,19 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                       <td className='tb font-bold'><div align='right'>Chargeable Income </div></td>
                       {taxcal == null || taxcal == ""
                         ? <td className="tb"></td> :
-                        <td className='tb'>{taxcal.chargeableIncome}</td>
+                        <td className='tb'> <p className="font-bold text-right">{formatNumber(taxcal.chargeableIncome)}</p></td>
                       }
                     </tr>
                     <tr>
                       <td className='tb'><div align='center' className='style16 font-bold'>Tax Due for Payment </div></td>
-                      <td className='tb'>{taxcal.tax}</td>
+                      <td className='tb'><p className="text-right font-bold">{formatNumber(taxcal.tax)}</p></td>
                     </tr>
 
                     <tr>
                       <td className='tb'><div align='center' className='style16'>7% on 300,000.00 </div></td>
                       {taxcal == null || taxcal == ""
                         ? <td className="tb"></td> :
-                        <td className='tb'> {taxcal.tax7}  </td>
+                        <td className='tb'> <p className="font-bold text-right">{formatNumber(taxcal.tax7)}</p> </td>
                       }
 
 
@@ -309,7 +309,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                       <td className='tb'><div align='center' className='style16'>11% on 300,000.00 </div></td>
                       {taxcal == null || taxcal == ""
                         ? <td className="tb"></td> :
-                        <td className='tb'> {taxcal.tax11} </td>
+                        <td className='tb'> <p className="font-bold text-right">{formatNumber(taxcal.tax11)}</p> </td>
                       }
 
                     </tr>
@@ -317,7 +317,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                       <td className='tb'><div align='center' className='style16'>15% on 500,000.00 </div></td>
                       {taxcal == null || taxcal == ""
                         ? <td className="tb"></td> :
-                        <td className='tb'> {taxcal.tax15} </td>
+                        <td className='tb'> <p className="font-bold text-right">{formatNumber(taxcal.tax15)}</p></td>
                       }
 
                     </tr>
@@ -325,7 +325,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                       <td className='tb'><div align='center' className='style16'>19% on 500,000.00 </div></td>
                       {taxcal == null || taxcal == ""
                         ? <td className="tb"></td> :
-                        <td className='tb'> {taxcal.tax19} </td>
+                        <td className='tb'><p className="font-bold text-right">{formatNumber(taxcal.tax19)}</p></td>
                       }
 
                     </tr>
@@ -333,7 +333,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                       <td className='tb'><div align='center' className='style16'>21% on 1,600,000.00 </div></td>
                       {taxcal == null || taxcal == ""
                         ? <td className="tb"></td> :
-                        <td className='tb'> {taxcal.tax21} </td>
+                        <td className='tb'> <p className="font-bold text-right">{formatNumber(taxcal.tax21)}</p></td>
                       }
 
                     </tr>
@@ -341,13 +341,13 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                       <td className='tb'><div align='center'>24% on above 3,200,000.00 </div></td>
                       {taxcal == null || taxcal == ""
                         ? <td className="tb"></td> :
-                        <td className='tb'> {taxcal.tax24} </td>
+                        <td className='tb'> <p className="font-bold text-right">{formatNumber(taxcal.tax24)}</p></td>
                       }
 
                     </tr>
                     <tr>
                       <td className='tb'><div align='center' className='style16'>1%(Minimun Tax)</div></td>
-                      <td className='tb'>  </td>
+                      <td className='tb'><p className="font-bold text-right">0</p></td>
                     </tr>
                     <tr>
                       <td className='tb'><div align='center' className='style16'>Total </div></td>
@@ -359,13 +359,13 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                     </tr>
                     <tr>
                       <td className='tb'><div align='right' className='style16 font-bold'>Total Tax Due </div></td>
-                      <td className='tb'><div align='left' className='style16 font-bold'>{taxcal.tax}</div></td>
+                      <td className='tb'><div align='right' className='style16 font-bold'>{formatNumber(taxcal.tax)}</div></td>
 
                     </tr>
 
                     <tr>
                       <td className='tb'><div align='right' className='style16 font-bold'>Set off WHT </div></td>
-                      <td className='tb'>  </td>
+                      <td className='tb'><p className="font-bold">0</p></td>
                     </tr>
                     <tr>
                       <td height='28' className='tb'><div align='right' className='style16 font-bold'>Set off 1st Assessment </div></td>

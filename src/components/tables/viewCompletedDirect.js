@@ -258,7 +258,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
               )}
             </tr>
             <tr>
-              <td className="font-bold">Date Assessed</td>
+              <td className="font-bold">DATE ASSESSED</td>
               {payerArr.map((el, i) =>
                 <td className="pl-3" key={i}>{createdTime}</td>
               )}
