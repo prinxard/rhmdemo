@@ -290,7 +290,6 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                         ? <td className="tb"></td> :
                         <td className='tb'>{taxcal.chargeableIncome}</td>
                       }
-
                     </tr>
                     <tr>
                       <td className='tb'><div align='center' className='style16 font-bold'>Tax Due for Payment </div></td>

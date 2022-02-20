@@ -42,7 +42,7 @@ const ViewSingleCompleted = () => {
         try {
           let res = await axios.post(`${url.BASE_URL}forma/view-assessment`, sendData);
           let IndData = res.data.body
-          let arrda = res.data.body.taxpayer
+          let arrda = IndData.taxpayer
           let makeObjdata = IndData.assessment
           let taxCalDa = IndData.taxCal
           let chidDa = IndData.children
@@ -95,7 +95,7 @@ const ViewSingleCompleted = () => {
             <p>Fetching data...</p>
           </div>
         ) : <ViewSingleCompletedTable payerprop={payerprop} assId={globalAssId}
-          payerAyy={makeArray} assobj={makeObj} taxcal={taxcalDa} childObj={childObj}
+          payerArr={makeArray} assobj={makeObj} taxcal={taxcalDa} childObj={childObj}
           resAddObj={resAddObj} spouseObj={spouseObj} employed = {employed} domesticStaff = {domesticStaff} vehicles = {vehicles} land = {land}/>}
       </Widget>
     </>
