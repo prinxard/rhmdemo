@@ -191,7 +191,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                       <td className='tb'> Trade, Professional e.t.c </td>
                       {assobj == null || assobj == ""
                         ? <td></td> :
-                        <td className='tb'><p className="font-bold" align="right">{assobj.self_employed}</p> </td>
+                        <td className='tb'><p className="font-bold" align="right">{formatNumber(assobj.self_employed)}</p> </td>
                       }
                     </tr>
                     <tr>
@@ -201,8 +201,8 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                     <tr>
                       <td className='tb'>Employment</td>
                       {assobj == null || assobj == ""
-                        ? <td></td> :
-                        <td className='tb'><p className="font-bold" align="right">{assobj.employed}</p> </td>
+                        ? <td><p className="font-bold text-right">0</p></td> :
+                        <td className='tb'><p className="font-bold" align="right">{formatNumber(assobj.employed)}</p> </td>
                       }
                     </tr>
                     <tr>
@@ -211,21 +211,21 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                     </tr>
                     <tr>
                       <td className='tb'><div align='right' className='style27 font-bold'>Gross Income </div></td>
-                      <td className='tb'><p className="font-bold" align="right">{grossIncCal}</p> </td>
+                      <td className='tb'><p className="font-bold" align="right">{formatNumber(grossIncCal)}</p> </td>
                     </tr>
                     <tr>
                       <td className='tb'>PFC</td>
                       {assobj == null || assobj == ""
-                        ? <td className="tb"></td> :
-                        <td className='tb'><p className="font-bold" align="right">{assobj.pension}</p></td>
+                        ? <td className="tb">0</td> :
+                        <td className='tb'><p className="font-bold" align="right">{formatNumber(assobj.pension)}</p></td>
                       }
 
                     </tr>
                     <tr>
                       <td className='tb'>NHIS</td>
                       {assobj == null || assobj == ""
-                        ? <td className="tb"></td> :
-                        <td className='tb'> <p className="font-bold" align="right">{assobj.nhis}</p></td>
+                        ? <td className="tb">0</td> :
+                        <td className='tb'> <p className="font-bold" align="right">{formatNumber(assobj.nhis)}</p></td>
                       }
                     </tr>
                     <tr>
