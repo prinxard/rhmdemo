@@ -92,7 +92,7 @@ export const ViewCompletedTable = ({ remittance }) => {
 </a>
 </Link> */}
 
-export const ViewSingleCompletedTable = ({ payerprop, assId, payerAyy, assobj, taxcal,
+export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, taxcal,
   childObj, resAddObj, spouseObj, domesticStaff, vehicles, land, employed }) => {
   const [isFetching2, setIsFetching2] = useState(() => false);
   const [isFetching3, setIsFetching3] = useState(() => false);
@@ -107,7 +107,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerAyy, assobj, t
   const grossIncCal = employedCal + selfEmployedCal
 
   let pay = employed.pay_slip
-  console.log(pay);
+  console.log(payerArr);
 
   const pfcdata = Number(assobj.pension)
   const nhisdata = Number(assobj.nhis)
@@ -205,604 +205,271 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerAyy, assobj, t
         </form>
 
       </div>
-      <table width='800' height='1575' align='center' className='print'>
-        <tr>
-          <td width='800' height='1569' align='center' valign='top'>
-            <table width='700'>
-              <tr>
-              </tr>
-            </table>
+      <div className="flex justify-around border">
 
-            <table width='800' className='tb mb-4'>
-              <tr>
-                <td width='385'><table width='83%' height='100%' border='0'>
-                  <tr>
-                    <td width='139'><strong>TITLE:</strong></td>
-                    <tr className="">
-                      {payerAyy.map((data, idx) => (
-                        <p key={idx}>{data.indv_title}</p>
-                      ))}
-                    </tr>
-                  </tr>
-                  <tr>
-                    <td><strong>SURNAME:</strong></td>
-                    {payerAyy.map((data, idx) => (
-                      <p key={idx}>{data.surname}</p>
-                    ))}
-                  </tr>
-                  <tr>
-                    <td><strong>OTHER NAME: </strong></td>
-                    {payerAyy.map((data, idx) => (
-                      <p key={idx}>{data.middle_name}</p>
-                    ))}
-                  </tr>
-                  <tr>
-                    <td><strong>ADDRESS:</strong></td>
-                    {payerAyy.map((data, idx) => (
-                      <p key={idx}>{data.street}</p>
-                    ))}
-                  </tr>
-                </table></td>
-                <td width='403'><table width='85%' height='100%' border='0' align='right'>
+        <table className="table-auto">
+          <tbody className="">
+            <tr>
+              <td className="font-bold">TITLE</td>
+              {payerArr.map((el, i) =>
+                <td className="pl-3" key={i}>{el.indv_title}</td>
+              )}
+            </tr>
+            <tr>
+              <td className="font-bold">SURNAME</td>
+              {payerArr.map((el, i) =>
+                <td className="pl-3" key={i}>{el.surname}</td>
+              )}
 
-                  <tr>
-                    <td><strong>Tax Station </strong></td>
-                    {payerAyy.map((data, idx) => (
-                      <p key={idx}>{data.tax_office}</p>
-                    ))}
-                  </tr>
-                  <tr>
-                    <td><strong>KGTIN</strong></td>
-                    {payerAyy.map((data, idx) => (
-                      <p key={idx}>{data.KGTIN}</p>
-                    ))}
-                  </tr>
-                  <tr>
-                    <td><strong>Assessment No </strong></td>
-                    {assessment_id}
-                  </tr>
-                  <tr>
-                    <td><strong>Date Assessed </strong></td>
-                    <td className=''> {createdTime} </td>
-                  </tr>
-                </table></td>
-              </tr>
-            </table>
+            </tr>
+            <tr>
+              <td className="font-bold">OTHERNAME</td>
+              {payerArr.map((el, i) =>
+                <td className="pl-3" key={i}>{el.middle_name}</td>
+              )}
+            </tr>
+            <tr>
+              <td className="font-bold">ADDRESS</td>
+              {payerArr.map((el, i) =>
+                <td className="pl-3" key={i}>{el.street}</td>
+              )}
+            </tr>
+          </tbody>
+        </table>
 
-            <table width='800'>
-              <tr>
-                <td width='400' height='1072' valign='top'><table width='377' height='1286' className='tb'>
-                  <tr>
-                    <td colspan='2'><div align='center'><span className='style4'>TAX COMPUTATION </span></div></td>
+        <table className="table-auto">
+          <tbody>
+            <tr>
+              <td className="font-bold">TAX STATION</td>
+              {payerArr.map((el, i) =>
+                <td className="pl-3" key={i}>{el.tax_office}</td>
+              )}
+            </tr>
+            <tr>
+              <td className="font-bold">KGTIN</td>
+              {payerArr.map((el, i) =>
+                <td className="pl-3" key={i}>{el.KGTIN}</td>
+              )}
+            </tr>
+            <tr>
+              <td className="font-bold">ASSESSMENT No</td>
+              {payerArr.map((el, i) =>
+                <td className="pl-3" key={i}>{assessment_id}</td>
+              )}
+            </tr>
+            <tr>
+              <td className="font-bold">Date Assessed</td>
+              {payerArr.map((el, i) =>
+                <td className="pl-3" key={i}>{createdTime}</td>
+              )}
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-                  </tr>
-                  <tr>
-                    <td width='204' className='tb' ><span className='style27'>SOURCE OF INCOME </span></td>
-                    <td width='161' className='tb' >₦</td>
-                  </tr>
-                  <tr>
-                    <td className='tb'> Trade, Professional e.t.c </td>
-                    {assobj == null || assobj == ""
-                      ? <td></td> :
-                      <td className='tb'> {assobj.self_employed}  </td>
-                    }
-
-                  </tr>
-                  <tr>
-                    <td className='tb'>Share of Partnership </td>
-                    <td className='tb'>   </td>
-                  </tr>
-                  <tr>
-                    <td className='tb'>Employment</td>
-                    {assobj == null || assobj == ""
-                      ? <td></td> :
-                      <td className='tb'> {assobj.employed}  </td>
-                    }
-                  </tr>
-                  <tr>
-                    <td className='tb'>Other Income </td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td className='tb'><div align='right' className='style27 font-bold'>Gross Income </div></td>
-                    <td className='tb'> {grossIncCal} </td>
-                  </tr>
-                  <tr>
-                    <td className='tb'>PFC</td>
-                    {assobj == null || assobj == ""
-                      ? <td className="tb"></td> :
-                      <td className='tb'> {assobj.pension} </td>
-                    }
-
-                  </tr>
-                  <tr>
-                    <td className='tb'>NHIS</td>
-                    {assobj == null || assobj == ""
-                      ? <td className="tb"></td> :
-                      <td className='tb'> {assobj.nhis} </td>
-                    }
-
-
-                  </tr>
-                  <tr>
-                    <td className='tb'>NHF</td>
-                    {/* <td className='tb'> {assobj.nhf} </td> */}
-                  </tr>
-                  <tr>
-                    <td className='tb'>Life Assurance Premium</td>
-                    {assobj == null || assobj == ""
-                      ? <td className="tb"></td> :
-                      <td className='tb'> {assobj.lap} </td>
-                    }
-
-                  </tr>
-                  <tr>
-                    <td className='tb font-bold'><p align="right">Total</p></td>
-                    <td className='tb'> {deductionsTotal} </td>
-                  </tr>
-                  <tr>
-                    <td className='tb font-bold'><div align='right' className='style16'>Assessable Income </div></td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td className='tb'>ADD</td>
-                    <td className='tb'></td>
-                  </tr>
-                  <tr>
-                    <td className='tb'>Balancing Charges </td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td className='tb'>DEDUCT</td>
-                    <td className='tb'></td>
-                  </tr>
-                  <tr>
-                    <td className='tb'>Balancing Allowances </td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td className='tb'>Lose Relief </td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td className='tb'>Capital Allowances </td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td className='tb'><div align='right' className='style16 font-bold'>Total Income</div></td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td className='tb'>Consolidated Relief Allowance</td>
-                    {taxcal == null || taxcal == ""
-                      ? <td className="tb"></td> :
-                      <td className='tb'>{taxcal.consolidatedRelief}</td>
-                    }
-
-                  </tr>
-                  <tr>
-                    <td className='tb font-bold'><div align='right'>Chargeable Income </div></td>
-                    {taxcal == null || taxcal == ""
-                      ? <td className="tb"></td> :
-                      <td className='tb'>{taxcal.chargeableIncome}</td>
-                    }
-
-                  </tr>
-                  <tr>
-                    <td className='tb'><div align='center' className='style16 font-bold'>Tax Due for Payment </div></td>
-                    <td className='tb'>&nbsp;</td>
-                  </tr>
-
-                  <tr>
-                    <td className='tb'><div align='center' className='style16'>7% on 300,000.00 </div></td>
-                    {taxcal == null || taxcal == ""
-                      ? <td className="tb"></td> :
-                      <td className='tb'> {taxcal.tax7}  </td>
-                    }
-
-
-                  </tr>
-                  <tr>
-                    <td className='tb'><div align='center' className='style16'>11% on 300,000.00 </div></td>
-                    {taxcal == null || taxcal == ""
-                      ? <td className="tb"></td> :
-                      <td className='tb'> {taxcal.tax11} </td>
-                    }
-
-                  </tr>
-                  <tr>
-                    <td className='tb'><div align='center' className='style16'>15% on 500,000.00 </div></td>
-                    {taxcal == null || taxcal == ""
-                      ? <td className="tb"></td> :
-                      <td className='tb'> {taxcal.tax15} </td>
-                    }
-
-                  </tr>
-                  <tr>
-                    <td className='tb'><div align='center' className='style16'>19% on 500,000.00 </div></td>
-                    {taxcal == null || taxcal == ""
-                      ? <td className="tb"></td> :
-                      <td className='tb'> {taxcal.tax19} </td>
-                    }
-
-                  </tr>
-                  <tr>
-                    <td className='tb'><div align='center' className='style16'>21% on 1,600,000.00 </div></td>
-                    {taxcal == null || taxcal == ""
-                      ? <td className="tb"></td> :
-                      <td className='tb'> {taxcal.tax21} </td>
-                    }
-
-                  </tr>
-                  <tr>
-                    <td className='tb'><div align='center'>24% on above 3,200,000.00 </div></td>
-                    {taxcal == null || taxcal == ""
-                      ? <td className="tb"></td> :
-                      <td className='tb'> {taxcal.tax24} </td>
-                    }
-
-                  </tr>
-                  <tr>
-                    <td className='tb'><div align='center' className='style16'>1%(Minimun Tax)</div></td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td className='tb'><div align='center' className='style16'>Total </div></td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td className='tb'><div align='center' className='style16'>Dev. Levy </div></td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td className='tb'><div align='right' className='style16 font-bold'>Total Tax Due </div></td>
-
-                  </tr>
-
-                  <tr>
-                    <td className='tb'><div align='right' className='style16 font-bold'>Set off WHT </div></td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td height='28' className='tb'><div align='right' className='style16 font-bold'>Set off 1st Assessment </div></td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td height='28' className='tb'><div align='right' className='style16 font-bold'>Set off Additional Assessment </div></td>
-                    <td className='tb'>  </td>
-                  </tr>
-                  <tr>
-                    <td height='30' className='tb'><div align='right' className='style16 font-bold'>Total Tax Due for Payment </div></td>
-                    <td className='tb'>{taxcal.tax}</td>
-                  </tr>
-                </table>
-                  <br />
-                  <table width='300'>
-                    <tr>
-                      <td width='235' className='style5'><span className='style27'>Captured By:</span></td>
-                      <td width='320' className='style5'><span className='style27'>KGIRS CORPORATE HQTRS</span></td>
-                    </tr>
-                    <tr>
-                      <td width='235' className='style5'><span className='style27'>Date of Capture:</span></td>
-                      <td width='320' className='style5'><span className='style27'>{createdTime}</span></td>
-                    </tr>
-                    <tr height="30">
-                      <td width="200" align="center"></td>
-                    </tr>
-                   
-                    <tr>
-                      <td width="200" align="center"><a className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md" target="_blank" href={`https://annualuploads.bespoque.dev/rhm/uploads/da/forma/${pay}`}>View Uploads</a></td>
-                    </tr>
-
-                  </table>
-
-
-
-                </td>
-                <td width='509' valign='top'>
-                  <table width='400' align='left' className=''>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Phone Number</p></td>
-                      {payerAyy.map((data, idx) => (
-                        <td key={idx}>{data.phone_number}</td>
-                      ))}
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Email Address</p></td>
-                      {payerAyy.map((data, idx) => (
-                        <td key={idx}>{data.email}</td>
-                      ))}
-                    </tr>
-                    <hr />
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>RESIDENTIAL ADDRESS</p></td>
-                      <td width='566'><p align='left' className='style5'></p></td>
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Type of Residence</p></td>
-                      {resAddObj == null || resAddObj == ""
-                        ? <td className=""></td> :
-                        <td width='566'><p align='left' className='style5'></p>{resAddObj.residence_type}</td>
-                      }
-
-                    </tr>
-
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Residence Ownership</p></td>
-                      {resAddObj == null || resAddObj == ""
-                        ? <td className=""></td> :
-                        <td width='566'><p align='left' className='style5'></p>{resAddObj.residence_owner} </td>
-                      }
-
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>OWNER</p></td>
-                      <td width='566'><p align='left' className='style5'></p></td>
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Name:</p></td>
-                      {resAddObj == null || resAddObj == ""
-                        ? <td className=""></td> :
-                        <td width='566'><p align='left' className='style5'></p>{resAddObj.owner_name}</td>
-                      }
-
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Address:</p></td>
-                      {resAddObj == null || resAddObj == ""
-                        ? <td className=""></td> :
-                        <td width='566'><p align='left' className='style5'></p>{resAddObj.owner_name}</td>
-                      }
-
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Phone Number:</p></td>
-                      {resAddObj == null || resAddObj == ""
-                        ? <td className=""></td> :
-                        <td width='566'><p align='left' className='style5'></p>{resAddObj.owner_phone}</td>
-                      }
-
-                    </tr>
-                    <hr />
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>SPOUSE</p></td>
-                      <td width='566'><p align='left' className='style5'></p></td>
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Name :</p></td>
-                      {spouseObj == null || spouseObj == ""
-                        ? <td className=""></td> :
-                        <td width='566'><p align='left' className='style5'></p>{spouseObj.name}</td>
-                      }
-
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Age :</p></td>
-                      {spouseObj == null || spouseObj == ""
-                        ? <td className=""></td> :
-                        <td width='566'><p align='left' className='style5'></p>{spouseObj.dob}</td>
-                      }
-
-
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Occupation :</p></td>
-                      {spouseObj == null || spouseObj == ""
-                        ? <td className=""></td> :
-                        <td width='566'><p align='left' className='style5'></p>{spouseObj.occupation}</td>
-                      }
-
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Employer/Business :</p></td>
-                      {spouseObj == null || spouseObj == ""
-                        ? <td className=""></td> :
-                        <td width='566'><p align='left' className='style5'></p>{spouseObj.employer}</td>
-                      }
-
-                    </tr>
-                    <hr />
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Number of Children</p></td>
-                      <td width='566'><p align='left' className='style5'></p></td>
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Name</p></td>
-                      {childObj == null || childObj == ""
-                        ? <td className=""></td> :
-                        <td width='566'><p align='left' className='style5'></p>{childObj.name}</td>
-                      }
-
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Age</p></td>
-                      {childObj == null || childObj == ""
-                        ? <td className=""></td> :
-                        <td width='566'><p align='left' className='style5'>{childObj.dob}</p></td>
-                      }
-
-
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>School</p></td>
-                      {childObj == null || childObj == ""
-                        ? <td className=""></td> :
-                        <td width='566'><p align='left' className='style5'></p>{childObj.school_name}</td>
-                      }
-
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Tuition/session</p></td>
-                      {childObj == null || childObj == ""
-                        ? <td className=""></td> :
-                        <td width='566'><p align='left' className='style5'></p> {childObj.school_fees}</td>
-                      }
-
-                    </tr>
-                    <hr />
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Number of domestic Staff </p></td>
-                      <td width='566'><p align='left' className='style5'></p></td>
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Name </p></td>
-                      {domesticStaff == null || domesticStaff == ""
-                        ? <td className=""></td> :
-                        <td width='566'><p align='left' className='style5'></p>{domesticStaff.name}</td>
-                      }
-
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Address </p></td>
-                      <td width='566'><p align='left' className='style5'></p></td>
-                    </tr>
-                    <tr>
-                      <td width='566'><p align='left' className='style5 font-bold'>Amount Paid </p></td>
-                      {domesticStaff == null || domesticStaff == ""
-                        ? <td className=""></td> :
-                        <td width='566'><p align='left' className='style5'></p>{domesticStaff.amount_paid}</td>
-                      }
-
-                    </tr>
-                    <hr />
-                    <tr>
-                      <td className="font-bold">Number Vehicles</td>
-                    </tr>
-                    <tr>
-                      <td className="font-bold">Brand</td>
-                      {vehicles == null || vehicles == ""
-                        ? <td className=""></td> :
-                        <td className="">{vehicles.brand}</td>
-                      }
-
-                    </tr>
-                    <tr>
-                      <td className="font-bold">Model</td>
-                      {vehicles == null || vehicles == ""
-                        ? <td className=""></td> :
-                        <td className="">{vehicles.model}</td>
-                      }
-
-                    </tr>
-                    <tr>
-                      <td className="font-bold">Year</td>
-                      {vehicles == null || vehicles == ""
-                        ? <td className=""></td> :
-                        <td className="">{vehicles.year}</td>
-                      }
-
-                    </tr>
-                    <hr />
-                    <tr>
-                      <td width='800' className="font-bold">Tangible Immovable Properties:</td>
-                    </tr>
-                    <tr>
-                      <td width='' className="font-bold">Property: House</td>
-                    </tr>
-                    <tr>
-                      <td width='' className="font-bold">Address:</td>
-                    </tr>
-                    <tr>
-                      <td width='800' className="font-bold">Date Completd/Acquired:</td>
-                    </tr>
-                    <tr>
-                      <td width='600' className="font-bold"> Cost</td>
-                    </tr>
-                    <hr />
-                    <tr>
-                      <td className="font-bold">Property: Land</td>
-                    </tr>
-                    <tr>
-                      <td className="font-bold">Address:</td>
-                      {land == null || land == ""
-                        ? <td className=""></td> :
-                        <td className="">{land.addr}:</td>
-                      }
-
-                    </tr>
-                    <tr>
-                      <td className="font-bold">Date Acquired/Completion:</td>
-                      {land == null || land == ""
-                        ? <td className=""></td> :
-                        <td className="">{land.date_completion}</td>
-                      }
-
-                    </tr>
-                    <tr>
-                      <td width='600' className="font-bold"><td>Cost:</td></td>
-                      {land == null || land == ""
-                        ? <td className=""></td> :
-                        <td className="">{land.construction_cost}</td>
-                      }
-
-                    </tr>
-                  </table>
-
-
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-
-      <style
-        jsx>{`
-        .style1 {
-          font-family: Geneva, Arial, Helvetica, sans-serif, 'Cambria', Calibri;
-          color: #006600;
-          font-size: 58px;
-          font-weight: bold;
-        }
-        .style4 {
-          font-family: Geneva, Arial, Helvetica, sans-serif, 'Cambria', Calibri;
-          font-weight: bold;
-        }
-        .style5 {font-family: Geneva, Arial, Helvetica, sans-serif, 'Cambria', Calibri}
-        
-         .tb {    
-            border: 1px solid #000000;
-            text-align: left;
-          font-family: Geneva, Arial, Helvetica, sans-serif, 'Cambria', Calibri;
-          font-size: 14px;
-          height: 20px;
-           border-collapse: collapse;
-          padding: 2px;
-        } 
-        .style9 {font-size: 18px; color: #006600; font-family: Geneva, Arial, Helvetica, sans-serif, 'Cambria', Calibri; font-weight: bold; }
-        .style10 {font-size: 19px; color: #006600; font-family: Geneva, Arial, Helvetica, sans-serif, 'Cambria', Calibri; font-weight: bold; }
-        .style11 {font-size: 21px}
-        .style16 {font-size: 12px}
-        .style18 {font-family: Geneva, Arial, Helvetica, sans-serif, 'Cambria', Calibri; font-size: 12px; font-weight: bold; }
-        .style20 {font-size: 12px; font-weight: bold; }
-        .style21 {font-family: Geneva, Arial, Helvetica, sans-serif, 'Cambria', Calibri; font-size: 12px; font-weight: bold; font-style: italic; }
-        .style27 {font-family: Geneva, Arial, Helvetica, sans-serif, 'Cambria', Calibri; font-size: 12px; }
-        .style28 {border: 1px solid #ddd; text-align: left; font-family: Geneva, Arial, Helvetica, sans-serif, 'Cambria', Calibri; border-collapse: collapse; padding: 5px; font-size: 12px; }
-        .style29 {
-          border: 1px solid #ddd;
-          text-align: left;
-          font-family: Geneva, Arial, Helvetica, sans-serif, 'Cambria', Calibri;
-          border-collapse: collapse;
-          padding: 5px;
-          font-weight: bold;
-          font-size: 12px;
-        }
-        
-        
-        
-        .style30 {font-size: 15px}
-        .style32 {
-          font-size: 15px;
-          font-weight: bold;
-        }
-        .style34 {font-size: 15px}
-        .style35 {font-weight: bold} 
-        
-        .print:last-child {
-             page-break-after: auto;
-        }
-      `}
-      </style>
+      <div className="grid">
+        <table class=" table-auto border rounded mt-3 divide-y justify-self-center" width={500}>
+          <thead>
+            <tr>
+              <th className="p-3"><h6 className="text-center font-bold">Tax Computations</h6></th>
+            </tr>
+          </thead>
+          <tbody className="divide-y">
+            <tr>
+              <td className="border-r-2 p-1">Source of Income</td>
+              <td className="text-right font-bold">₦</td>
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1">Trade, Professional e.t.c</td>
+              {assobj == null || assobj == ""
+                ? <td className="p-1 text-right font-bold">0</td> :
+                <td className='p-1 text-right font-bold'>{formatNumber(assobj.self_employed)}</td>
+              }
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1">Share of Partnership</td>
+              <td className="p-1 text-right font-bold">0</td>
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1">Employment</td>
+              {assobj == null || assobj == ""
+                ? <td className="p-1 text-right font-bold">0</td> :
+                <td className='p-1 text-right font-bold'>{formatNumber(assobj.employed)}</td>
+              }
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1">Other Income</td>
+              <td className="p-1 text-right font-bold">0</td>
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1 text-right font-bold">Gross Income</td>
+              <td className="p-1 text-right font-bold">{formatNumber(grossIncCal)}</td>
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1">PFC</td>
+              {assobj == null || assobj == ""
+                ? <td className="p-1 text-right font-bold">0</td> :
+                <td className='p-1 text-right font-bold'>{formatNumber(assobj.pension)}</td>
+              }
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1">NHIS</td>
+              {assobj == null || assobj == ""
+                ? <td className="p-1 text-right font-bold">0</td> :
+                <td className='p-1 text-right font-bold'>{formatNumber(assobj.nhis)}</td>
+              }
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1">NHF</td>
+              <td className="p-1 text-right font-bold">0</td>
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1">Life Assurance Premium</td>
+              {assobj == null || assobj == ""
+                ? <td className="p-1 text-right font-bold">0</td> :
+                <td className='p-1 text-right font-bold'>{formatNumber(assobj.lap)}</td>
+              }
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1 text-right font-bold">Total</td>
+              <td className="p-1 text-right font-bold">{formatNumber(deductionsTotal)}</td>
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1 text-right font-bold">Assessable Income</td>
+              <td className="p-1 text-right font-bold">0</td>
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1">ADD</td>
+              <td className="p-1 text-right font-bold">0</td>
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1">Balancing Charges</td>
+              <td className="p-1 text-right font-bold">0</td>
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1">DEDUCT</td>
+              <td className="p-1 text-right font-bold">0</td>
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1">Balancing Allowances</td>
+              <td className="p-1 text-right font-bold">0</td>
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1">Lose Relief</td>
+              <td className="p-1 text-right font-bold">0</td>
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1">Capital Allowances</td>
+              <td className="p-1 text-right font-bold">0</td>
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1 text-right font-bold">Total Income</td>
+              <td className="p-1 text-right font-bold">0</td>
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1">Consolidated relief Allowance</td>
+              {taxcal == null || taxcal == ""
+                ? <td className="p-1 text-right font-bold">0</td> :
+                <td className='p-1 text-right font-bold'>{formatNumber(taxcal.consolidatedRelief)}</td>
+              }
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1 text-right">Chargeable Income</td>
+              {taxcal == null || taxcal == ""
+                ? <td className="p-1 text-right font-bold">0</td> :
+                <td className='p-1 text-right font-bold'>{formatNumber(taxcal.chargeableIncome)}</td>
+              }
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1 text-center font-bold">Tax due for payment</td>
+              {taxcal == null || taxcal == ""
+                ? <td className="p-1 text-right font-bold">0</td> :
+                <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax)}</td>
+              }
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1 text-center">7% on 300,000.00</td>
+              {taxcal == null || taxcal == ""
+                ? <td className="p-1 text-right font-bold">0</td> :
+                <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax7)}</td>
+              }
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1 text-center">11% on 300,000.00</td>
+              {taxcal == null || taxcal == ""
+                ? <td className="p-1 text-right font-bold">0</td> :
+                <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax11)}</td>
+              }
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1 text-center">15% on 500,000.00</td>
+              {taxcal == null || taxcal == ""
+                ? <td className="p-1 text-right font-bold">0</td> :
+                <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax15)}</td>
+              }
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1 text-center">19% on 500,000.00</td>
+              {taxcal == null || taxcal == ""
+                ? <td className="p-1 text-right font-bold">0</td> :
+                <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax19)}</td>
+              }
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1 text-center">21% on 1,600,000.00</td>
+              {taxcal == null || taxcal == ""
+                ? <td className="p-1 text-right font-bold">0</td> :
+                <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax21)}</td>
+              }
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1 text-center">24% on above 3,200,000.00</td>
+              {taxcal == null || taxcal == ""
+                ? <td className="p-1 text-right font-bold">0</td> :
+                <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax24)}</td>
+              }
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1 text-center">1%(Minimun Tax)</td>
+              <td className="p-1 text-right font-bold">0</td>
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1 text-center">Total</td>
+              <td className="p-1 text-right font-bold">0</td>
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1 text-center">Dev. Levy</td>
+              <td className="p-1 text-right font-bold">0</td>
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1 text-right font-bold">Total Tax due </td>
+              {taxcal == null || taxcal == ""
+                ? <td className="p-1 text-right font-bold">0</td> :
+                <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax)}</td>
+              }
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1 text-right font-bold">Set off WHT </td>
+              <td className="p-1 text-right font-bold">0</td>
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1 text-right font-bold">Set off 1st Assessment </td>
+              <td className="p-1 text-right font-bold">0</td>
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1 text-right font-bold">Set off Additional Assessment</td>
+              <td className="p-1 text-right font-bold">0</td>
+            </tr>
+            <tr>
+              <td className="border-r-2 p-1 text-right font-bold">Total Tax Due for Payment</td>
+              {taxcal == null || taxcal == ""
+                ? <td className="p-1 text-right font-bold">0</td> :
+                <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax)}</td>
+              }
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </>
   );
 };
