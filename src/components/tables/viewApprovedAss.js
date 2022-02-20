@@ -848,7 +848,7 @@ export const ViewSingleApprovedTables = ({ payerprop, assId, payerAyy, assobj, t
                   </tr>
                   <tr>
                     <td height='30' className='tb'><div align='right' className='style16 font-bold'>Total Tax Due for Payment </div></td>
-                    <td className='tb'>{taxcal.tax}</td>
+                    <td className='tb'>{formatNumber(taxcal.tax)}</td>
                   </tr>
                 </table>
                   <br />
@@ -897,16 +897,13 @@ export const ViewSingleApprovedTables = ({ payerprop, assId, payerAyy, assobj, t
                       <p>The Tax appeal Tribunal Established pursuant to section 59 of the federal inland revenue(Establishment) Act, 2007 shall have powers
                         to entertain all cases from the operation of Personal Income Tax, 2011 amended
                       </p>
-                      <p align="center" className="m-5 font-bold">PAYMENT OF TAX</p>
+                      {/* <p align="center" className="m-5 font-bold">PAYMENT OF TAX</p> */}
                       <p>The net Tax Payable be paid to</p>
                       <p className="font-bold">KOGI STATE INTERNAL REVENUE SERVICE LOKOJA</p>
                       <p>The Tax ID and assessment number shoul always be quoted</p>
                       <tr width="300">
                         <td width="300" className="font-bold tb">TIN</td>
-                        {payerAyy.map((data, idx) => (
-                          <td width="300" className="font-bold tb" key={idx}>t{data.KGTIN}</td>
-                        ))}
-                        
+                        <td width="300" className="font-bold tb"></td>
                       </tr>
                       <tr width="300">
                         <td width="300" className="font-bold tb">Assesment no</td>
