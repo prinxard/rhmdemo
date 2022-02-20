@@ -1018,7 +1018,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       let res = await axios.put(`${url.BASE_URL}forma/tax-cal`, assessFormObj);
       console.log(res);
       setIsFetching15(false)
-      router.push('/submitre')
+      router.push('/view/completeddirect')
       alert("successful!");
     } catch (error) {
       alert("Cannot Submit, Please try again")

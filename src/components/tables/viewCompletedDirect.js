@@ -50,7 +50,6 @@ const fields = [
 
 export const ViewCompletedTable = ({ remittance }) => {
   let items = remittance;
-
   return (
     <>
       <Widget>
@@ -93,11 +92,17 @@ export const ViewCompletedTable = ({ remittance }) => {
 </Link> */}
 
 export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, taxcal,
-  childObj, resAddObj, spouseObj, domesticStaff, vehicles, land, employed, lap, nhis, expenses, pensionDed}) => {
+  childObj, resAddObj, spouseObj, domesticStaff, vehicles, land, employed, lap, nhis, expenses, pensionDed }) => {
   const [isFetching2, setIsFetching2] = useState(() => false);
   const [isFetching3, setIsFetching3] = useState(() => false);
   const router = useRouter();
 
+  const kgtinVal = payerArr.map(function (doc) {
+    let kgtin = doc.KGTIN
+    return kgtin
+  })
+  const kgtinString = String(kgtinVal)
+ 
   const items = payerprop;
   const assessment_id = assId
   const createdTime = dateformat(assobj.createtime, "dd mmm yyyy")
@@ -134,26 +139,6 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
       setIsFetching3(false)
     }
   }
-  setAuthToken();
-  let declineAss = async (e) => {
-    e.preventDefault()
-    setIsFetching2(true)
-    let decDataObj = {
-      assessment_id: `${assessment_id}`,
-      status: "Declined",
-    }
-    try {
-      let res = await axios.put(`${url.BASE_URL}forma/set-status`, decDataObj);
-      setIsFetching2(false)
-      alert("Decline successfull!");
-      router.push('/declinere')
-    } catch (error) {
-      alert("cannot submit, please try again")
-      console.log(error);
-      setIsFetching2(false)
-    }
-  }
-
 
   return (
     <>
@@ -171,20 +156,6 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
           <p className="font-bold">Approving...</p>
         </div>
       )}
-      {isFetching2 && (
-        <div className="flex justify-center item mb-2">
-          <Loader
-            visible={isFetching2}
-            type="BallTriangle"
-            color="#00FA9A"
-            height={19}
-            width={19}
-            timeout={0}
-            className="ml-2"
-          />
-          <p className="font-bold">Declining...</p>
-        </div>
-      )}
       <div className="mb-6 flex justify-end">
         <form onSubmit={approveAss}>
           <button
@@ -195,12 +166,12 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
           </button>
         </form>
 
-        <form onSubmit={declineAss}>
+        <form>
           <button
             className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
             type="submit"
           >
-            Decline
+            <a href="/view/pendingdirect">Back</a>
           </button>
         </form>
 
@@ -469,6 +440,19 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
             </tr>
           </tbody>
         </table>
+        <div className="mt-4">
+          <p>Captured by : {assobj.createby} </p>
+          <p>Date of capture : {createdTime} </p>
+        </div>
+
+        <div className="flex justify-center">
+          <button
+            className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+            type="submit"
+          >
+            <a href={`/view-doc-assess/${assessment_id},${kgtinString}`}> Download Documents</a>
+          </button>
+        </div>
       </div>
 
       <div>
