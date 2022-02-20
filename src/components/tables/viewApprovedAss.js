@@ -91,6 +91,12 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
   const childObj = props.childObj
   const resAddObj = props.resAddObj
 
+  const kgtinVal = payerAyy.map(function (doc) {
+    let kgtin = doc.KGTIN
+    return kgtin
+  })
+  const kgtinString = String(kgtinVal)
+
   const assessment_id = assId
   const createdTime = dateformat(assobj.createtime, "dd mmm yyyy")
   console.log(items);
@@ -153,7 +159,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                   <td width='403'><table width='85%' height='100%' border='0' align='right'>
 
                     <tr>
-                      <td><strong>Tax Station </strong></td>
+                      <td><strong>TAX STATION </strong></td>
                       {payerAyy.map((data, idx) => (
                         <p key={idx}>{data.tax_office}</p>
                       ))}
@@ -165,14 +171,15 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                       ))}
                     </tr>
                     <tr>
-                      <td><strong>Assessment No </strong></td>
+                      <td><strong>ASSESSMENT NO </strong></td>
                       {assessment_id}
                     </tr>
-                    <tr>
+                    {/* <tr>
                       <td><strong>Date Assessed </strong></td>
                       <td className=''> {createdTime} </td>
-                    </tr>
-                  </table></td>
+                    </tr> */}
+                  </table>
+                  </td>
                 </tr>
               </table>
 
@@ -399,12 +406,12 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                   </td>
                   <td valign='top'>
                     <div>
-                      <p>
+                      <p className="text-justify">
                         Be informed that Tax payment is not a fine, It is a civic responsibility.
                         We have made an Assesment on you as set out Opposite, for the year {assobj.year},
                         Under the provision of personal Income Tax Act 2011 amended
                       </p>
-                      <div align="center">
+                      <div align="center" className="text-justify">
                         <p className="font-bold mt-6" align="center">Sule Enehu Salihu</p>
                         <p>Ag. Executive Chaiman</p>
                         <p>Kogi State Internal Revenue Service</p>
@@ -415,28 +422,31 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                         <p>Due Date of Payment:</p>
                       </div>
                       <div>
-                        <p className="font-bold" align="center">RIGHT OF OBJECTION</p>
-                        <p>If you do not agree to the Assesment, you are please Obliged to do the following:</p>
 
-                        <p>I. Give Notice of Objection in writing Seeking the relevant tax office in review and revise the Assessment</p>
-                        <p>II. The Objection should contain precise ground(s) of Objectionon points of fact and or subsisting laws on personal income Tax Administration</p>
-                        <p>III. The Objection notice should reach the tax office within (30) days from the date of service of notice of assessment. Else
-                          a penalty of 10 percent of tax payable will be added and any right of payment by two instalments will be lost.
-                        </p>
-                        <p>The Tax appeal Tribunal Established pursuant to section 59 of the federal inland revenue(Establishment) Act, 2007 shall have powers
-                          to entertain all cases from the operation of Personal Income Tax, 2011 amended
-                        </p>
-                        <p align="center" className="m-5 font-bold">PAYMENT OF TAX</p>
-                        <p>The net Tax Payable be paid to</p>
-                        <p className="font-bold">KOGI STATE INTERNAL REVENUE SERVICE LOKOJA</p>
-                        <p>The Tax ID and assessment number shoul always be quoted</p>
+                        <div className="text-justify">
+                          <p className="font-bold" align="center">RIGHT OF OBJECTION</p>
+                          <p>If you do not agree to the Assesment, you are please Obliged to do the following:</p>
+
+                          <p>I. Give Notice of Objection in writing Seeking the relevant tax office in review and revise the Assessment</p>
+                          <p>II. The Objection should contain precise ground(s) of Objectionon points of fact and or subsisting laws on personal income Tax Administration</p>
+                          <p>III. The Objection notice should reach the tax office within (30) days from the date of service of notice of assessment. Else
+                            a penalty of 10 percent of tax payable will be added and any right of payment by two instalments will be lost.
+                          </p>
+                          <p>The Tax appeal Tribunal Established pursuant to section 59 of the federal inland revenue(Establishment) Act, 2007 shall have powers
+                            to entertain all cases from the operation of Personal Income Tax, 2011 amended
+                          </p>
+                          <p align="center" className="m-5 font-bold">PAYMENT OF TAX</p>
+                          <p>The net Tax Payable be paid to</p>
+                          <p className="font-bold">KOGI STATE INTERNAL REVENUE SERVICE LOKOJA</p>
+                          <p>The Tax ID and assessment number should always be quoted</p>
+                        </div>
                         <tr width="300">
                           <td width="300" className="font-bold tb">TIN</td>
-                          <td width="300" className="font-bold tb"></td>
+                          <td width="300" className="font-bold tb">{kgtinString}</td>
                         </tr>
                         <tr width="300">
                           <td width="300" className="font-bold tb">Assesment no</td>
-                          <td width="300" className="font-bold tb"></td>
+                          <td width="300" className="font-bold tb">{assessment_id}</td>
                         </tr>
                         <tr width="300">
                           <td width="300" className="font-bold tb">Year of Assesment</td>
@@ -620,7 +630,7 @@ export const ViewSingleApprovedTables = ({ payerprop, assId, payerAyy, assobj, t
                 <td width='403'><table width='85%' height='100%' border='0' align='right'>
 
                   <tr>
-                    <td><strong>Tax Station </strong></td>
+                    <td><strong>TAX STATION </strong></td>
                     {payerAyy.map((data, idx) => (
                       <p key={idx}>{data.tax_office}</p>
                     ))}
@@ -632,14 +642,15 @@ export const ViewSingleApprovedTables = ({ payerprop, assId, payerAyy, assobj, t
                     ))}
                   </tr>
                   <tr>
-                    <td><strong>Assessment No </strong></td>
+                    <td><strong>ASSESSMENT NO </strong></td>
                     {assessment_id}
                   </tr>
-                  <tr>
-                    <td><strong>Date Assessed </strong></td>
+                  {/* <tr>
+                    <td><strong>DATE ASSESSED </strong></td>
                     <td className=''> {createdTime} </td>
-                  </tr>
-                </table></td>
+                  </tr> */}
+                </table>
+                </td>
               </tr>
             </table>
 
