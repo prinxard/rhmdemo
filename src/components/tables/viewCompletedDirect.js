@@ -92,7 +92,7 @@ export const ViewCompletedTable = ({ remittance }) => {
 </Link> */}
 
 export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, taxcal,
-  childObj, resAddObj, spouseObj, domesticStaff, vehicles, land, employed, lap, nhis, expenses, pensionDed }) => {
+  childObj, resAddObj, spouseObj, domesticStaff, selfEmployment, vehicles, land, employed, lap, nhis, expenses, pensionDed }) => {
   const [isFetching2, setIsFetching2] = useState(() => false);
   const [isFetching3, setIsFetching3] = useState(() => false);
   const router = useRouter();
@@ -102,7 +102,6 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
     return kgtin
   })
   const kgtinString = String(kgtinVal)
-
   const items = payerprop;
   const assessment_id = assId
   const createdTime = dateformat(assobj.createtime, "dd mmm yyyy")
@@ -168,7 +167,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
 
         <form>
           <button
-            className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+            className="btn w-32 bg-blue-600 btn-default text-white btn-outlined bg-transparent rounded-md"
             type="submit"
           >
             <a href="/view/pendingdirect">Back</a>
@@ -459,8 +458,135 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
         <div className="mt-5">
           <h6 className="text-center">OTHER DETAILS</h6>
         </div>
-
-        <div className="flex justify-around border">
+        <div className=" p-4 border flex justify-between my-3">
+          <div>
+            <div className="">
+              <h5 className="font-bold">RESIDENTIAL ADDRESS</h5>
+            </div>
+            <table class="table-auto">
+              <tbody>
+                <tr>
+                  <td className="font-bold p-2">Residence Owner</td>
+                  {resAddObj == null || resAddObj == ""
+                    ? <td></td> :
+                    resAddObj.map((el, i) =>
+                      <td className="p-2" key={i}>{el.residence_owner}</td>
+                    )
+                  }
+                </tr>
+                <tr>
+                  <td className="font-bold p-2">Type of Residence</td>
+                  {resAddObj == null || resAddObj == ""
+                    ? <td ></td> :
+                    resAddObj.map((el, i) =>
+                      <td className="p-2" key={i}>{el.residence_type}</td>
+                    )
+                  }
+                </tr>
+                <tr>
+                  <td className="font-bold p-2">House no</td>
+                  {resAddObj == null || resAddObj == ""
+                    ? <td></td> :
+                    resAddObj.map((el, i) =>
+                      <td className="p-2" key={i}>{el.house_no}</td>
+                    )
+                  }
+                </tr>
+                <tr>
+                  <td className="font-bold p-2">Owner Name</td>
+                  {resAddObj == null || resAddObj == ""
+                    ? <td></td> :
+                    resAddObj.map((el, i) =>
+                      <td className="p-2" key={i}>{el.owner_name}</td>
+                    )
+                  }
+                </tr>
+                <tr>
+                  <td className="font-bold p-2">Annual Rent</td>
+                  {resAddObj == null || resAddObj == ""
+                    ? <td></td> :
+                    resAddObj.map((el, i) =>
+                      <td className="p-2" key={i}>{formatNumber(el.annual_rent)}</td>
+                    )
+                  }
+                </tr>
+                <tr>
+                  <td className="font-bold p-2">Town</td>
+                  {resAddObj == null || resAddObj == ""
+                    ? <td></td> :
+                    resAddObj.map((el, i) =>
+                      <td className="p-2" key={i}>{el.town}</td>
+                    )
+                  }
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="">
+            <div className="">
+              <h5 className="font-bold">INCOME ON RENT</h5>
+            </div>
+            <table class="table-auto">
+              <tbody>
+                <tr>
+                  <td className="font-bold p-2">Residence Owner</td>
+                  {resAddObj == null || resAddObj == ""
+                    ? <td></td> :
+                    resAddObj.map((el, i) =>
+                      <td className="p-2" key={i}>{el.residence_owner}</td>
+                    )
+                  }
+                </tr>
+                <tr>
+                  <td className="font-bold p-2">Type of Residence</td>
+                  {resAddObj == null || resAddObj == ""
+                    ? <td ></td> :
+                    resAddObj.map((el, i) =>
+                      <td className="p-2" key={i}>{el.residence_type}</td>
+                    )
+                  }
+                </tr>
+                <tr>
+                  <td className="font-bold p-2">House no</td>
+                  {resAddObj == null || resAddObj == ""
+                    ? <td></td> :
+                    resAddObj.map((el, i) =>
+                      <td className="p-2" key={i}>{el.house_no}</td>
+                    )
+                  }
+                </tr>
+                <tr>
+                  <td className="font-bold p-2">Owner Name</td>
+                  {resAddObj == null || resAddObj == ""
+                    ? <td></td> :
+                    resAddObj.map((el, i) =>
+                      <td className="p-2" key={i}>{el.owner_name}</td>
+                    )
+                  }
+                </tr>
+                <tr>
+                  <td className="font-bold p-2">Annual Rent</td>
+                  {resAddObj == null || resAddObj == ""
+                    ? <td></td> :
+                    resAddObj.map((el, i) =>
+                      <td className="p-2" key={i}>{formatNumber(el.annual_rent)}</td>
+                    )
+                  }
+                </tr>
+                <tr>
+                  <td className="font-bold p-2">Town</td>
+                  {resAddObj == null || resAddObj == ""
+                    ? <td></td> :
+                    resAddObj.map((el, i) =>
+                      <td className="p-2" key={i}>{el.town}</td>
+                    )
+                  }
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div className="flex justify-between p-4 border">
           <div className="mt-3">
             <div>
               <div className="">
@@ -511,7 +637,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
           <div className="mt-3">
 
             <div className="">
-              <h5 className="font-bold">Life Assurance Premium</h5>
+              <h5 className="font-bold">LIFE ASSURANCE PREMIUM</h5>
             </div>
             <table class="table-auto">
               <tbody>
@@ -557,10 +683,10 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
         </div>
 
 
-        <div className="mt-3 flex justify-around border">
+        <div className="mt-3 flex justify-between p-4 border">
           <div>
             <div className="">
-              <h5 className="font-bold">Pension deducted</h5>
+              <h5 className="font-bold">PENSION DEDUCTED</h5>
             </div>
             <table class="table-auto">
               <tbody>
@@ -606,7 +732,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
           <div className="mt-3">
             <div>
               <div className="">
-                <h5 className="font-bold">Expenses</h5>
+                <h5 className="font-bold">EXPENSES</h5>
               </div>
               <table class="table-auto">
                 <tbody>
@@ -634,61 +760,342 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
           </div>
         </div>
 
-
-        <div className="mt-3 border">
+        <div className="flex justify-between p-4 mt-3 border">
           <div className="">
-            <h5 className="font-bold">EMPLOYMENT</h5>
+            <div className="">
+              <h5 className="font-bold">EMPLOYMENT</h5>
+            </div>
+            <table class="table-auto">
+              <tbody>
+                <tr>
+                  <td className="font-bold p-2">Employer</td>
+                  {employed == null || employed == ""
+                    ? <td></td> :
+                    employed.map((el, i) =>
+                      <td className="p-2 font-bold" key={i}>{el.emp_name}</td>
+                    )
+                  }
+                </tr>
+                <tr>
+                  <td className="font-bold p-2">Employer Address</td>
+                  {employed == null || employed == ""
+                    ? <td ></td> :
+                    employed.map((el, i) =>
+                      <td className="p-2" key={i}>{el.emp_addr}</td>
+                    )
+                  }
+                </tr>
+                <tr>
+                  <td className="font-bold p-2">Start date</td>
+                  {employed == null || employed == ""
+                    ? <td></td> :
+                    employed.map((el, i) =>
+                      <td className="p-2" key={i}>{el.start_date}</td>
+                    )
+                  }
+                </tr>
+                <tr>
+                  <td className="font-bold p-2">Gross Pay</td>
+                  {employed == null || employed == ""
+                    ? <td></td> :
+                    employed.map((el, i) =>
+                      <td className="p-2" key={i}>{formatNumber(el.gross_pay)}</td>
+                    )
+                  }
+                </tr>
+                <tr>
+                  <td className="font-bold p-2">Tax deducted</td>
+                  {employed == null || employed == ""
+                    ? <td></td> :
+                    employed.map((el, i) =>
+                      <td className="p-2" key={i}>{formatNumber(el.tax_deducted)}</td>
+                    )
+                  }
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div>
+            <div className="">
+              <h5 className="font-bold">SPOUSE</h5>
+            </div>
+            <table class="table-auto">
+              <tbody>
+                <tr>
+                  <td className="font-bold p-2">Name</td>
+                  {spouseObj == null || spouseObj == ""
+                    ? <td></td> :
+                    spouseObj.map((el, i) =>
+                      <td className="p-2 font-bold" key={i}>{el.name}</td>
+                    )
+                  }
+                </tr>
+                <tr>
+                  <td className="font-bold p-2">Date of Birth</td>
+                  {spouseObj == null || spouseObj == ""
+                    ? <td ></td> :
+                    spouseObj.map((el, i) =>
+                      <td className="p-2" key={i}>{el.dob}</td>
+                    )
+                  }
+                </tr>
+                <tr>
+                  <td className="font-bold p-2">Employer</td>
+                  {spouseObj == null || spouseObj == ""
+                    ? <td></td> :
+                    spouseObj.map((el, i) =>
+                      <td className="p-2" key={i}>{el.employer}</td>
+                    )
+                  }
+                </tr>
+                <tr>
+                  <td className="font-bold p-2">Occupation</td>
+                  {spouseObj == null || spouseObj == ""
+                    ? <td></td> :
+                    spouseObj.map((el, i) =>
+                      <td className="p-2" key={i}>{el.occupation}</td>
+                    )
+                  }
+                </tr>
+                <tr>
+                  <td className="font-bold p-2">Employer Address</td>
+                  {spouseObj == null || spouseObj == ""
+                    ? <td></td> :
+                    spouseObj.map((el, i) =>
+                      <td className="p-2" key={i}>{el.employer_addr}</td>
+                    )
+                  }
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div className="flex justify-between p-4 mt-3 border">
+          <div className="">
+            <div className="">
+              <h5 className="font-bold">CHILDREN</h5>
+            </div>
+            <table class="table-auto">
+              <tbody>
+                <tr>
+                  <td className="font-bold p-2">Date of Birth</td>
+                  {childObj == null || childObj == ""
+                    ? <td></td> :
+                    childObj.map((el, i) =>
+                      <td className="p-2 font-bold" key={i}>{el.dob}</td>
+                    )
+                  }
+                </tr>
+                <tr>
+                  <td className="font-bold p-2">School Name</td>
+                  {childObj == null || childObj == ""
+                    ? <td ></td> :
+                    childObj.map((el, i) =>
+                      <td className="p-2" key={i}>{el.school_name}</td>
+                    )
+                  }
+                </tr>
+                <tr>
+                  <td className="font-bold p-2">School Address</td>
+                  {childObj == null || childObj == ""
+                    ? <td></td> :
+                    childObj.map((el, i) =>
+                      <td className="p-2" key={i}>{el.school_addr}</td>
+                    )
+                  }
+                </tr>
+                <tr>
+                  <td className="font-bold p-2">School Fees</td>
+                  {childObj == null || childObj == ""
+                    ? <td></td> :
+                    childObj.map((el, i) =>
+                      <td className="p-2" key={i}>{formatNumber(el.school_fees)}</td>
+                    )
+                  }
+                </tr>
+                <tr>
+                  <td className="font-bold p-2">Tax deducted</td>
+                  {childObj == null || childObj == ""
+                    ? <td></td> :
+                    childObj.map((el, i) =>
+                      <td className="p-2" key={i}>{formatNumber(el.child_income)}</td>
+                    )
+                  }
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+        </div>
+
+        <div className="border  p-4 mt-3">
+          <div className="">
+            <h5 className="font-bold">DOMESTICE STAFF</h5>
           </div>
           <table class="table-auto">
             <tbody>
               <tr>
-                <td className="font-bold p-2">Employer</td>
-                {employed == null || employed == ""
+                <td className="font-bold p-2">TItle</td>
+                {domesticStaff == null || domesticStaff == ""
                   ? <td></td> :
-                  employed.map((el, i) =>
-                    <td className="p-2 font-bold" key={i}>{el.emp_name}</td>
+                  domesticStaff.map((el, i) =>
+                    <td className="p-2 font-bold" key={i}>{el.title}</td>
                   )
                 }
               </tr>
               <tr>
-                <td className="font-bold p-2">Employer Address</td>
-                {employed == null || employed == ""
+                <td className="font-bold p-2">Name</td>
+                {domesticStaff == null || domesticStaff == ""
                   ? <td ></td> :
-                  employed.map((el, i) =>
-                    <td className="p-2" key={i}>{el.emp_addr}</td>
+                  domesticStaff.map((el, i) =>
+                    <td className="p-2" key={i}>{el.name}</td>
                   )
                 }
               </tr>
               <tr>
-                <td className="font-bold p-2">Start date</td>
-                {employed == null || employed == ""
+                <td className="font-bold p-2">House no</td>
+                {domesticStaff == null || domesticStaff == ""
                   ? <td></td> :
-                  employed.map((el, i) =>
-                    <td className="p-2" key={i}>{el.start_date}</td>
+                  domesticStaff.map((el, i) =>
+                    <td className="p-2" key={i}>{el.house_no}</td>
                   )
                 }
               </tr>
               <tr>
-                <td className="font-bold p-2">Gross Pay</td>
-                {employed == null || employed == ""
+                <td className="font-bold p-2">Street</td>
+                {domesticStaff == null || domesticStaff == ""
                   ? <td></td> :
-                  employed.map((el, i) =>
-                    <td className="p-2" key={i}>{formatNumber(el.gross_pay)}</td>
+                  domesticStaff.map((el, i) =>
+                    <td className="p-2" key={i}>{el.street}</td>
                   )
                 }
               </tr>
               <tr>
-                <td className="font-bold p-2">Tax deducted</td>
-                {employed == null || employed == ""
+                <td className="font-bold p-2">Town</td>
+                {domesticStaff == null || domesticStaff == ""
                   ? <td></td> :
-                  employed.map((el, i) =>
-                    <td className="p-2" key={i}>{formatNumber(el.tax_deducted)}</td>
+                  domesticStaff.map((el, i) =>
+                    <td className="p-2" key={i}>{el.town}</td>
+                  )
+                }
+              </tr>
+              <tr>
+                <td className="font-bold p-2">LGA</td>
+                {domesticStaff == null || domesticStaff == ""
+                  ? <td></td> :
+                  domesticStaff.map((el, i) =>
+                    <td className="p-2" key={i}>{el.lga}</td>
+                  )
+                }
+              </tr>
+              <tr>
+                <td className="font-bold p-2">STATE</td>
+                {domesticStaff == null || domesticStaff == ""
+                  ? <td></td> :
+                  domesticStaff.map((el, i) =>
+                    <td className="p-2" key={i}>{el.state}</td>
+                  )
+                }
+              </tr>
+              <tr>
+                <td className="font-bold p-2">Amount Paid</td>
+                {domesticStaff == null || domesticStaff == ""
+                  ? <td></td> :
+                  domesticStaff.map((el, i) =>
+                    <td className="p-2" key={i}>{formatNumber(el.amount_paid)}</td>
+                  )
+                }
+              </tr>
+              <tr>
+                <td className="font-bold p-2">Payer</td>
+                {domesticStaff == null || domesticStaff == ""
+                  ? <td></td> :
+                  domesticStaff.map((el, i) =>
+                    <td className="p-2" key={i}>{el.payer}</td>
                   )
                 }
               </tr>
             </tbody>
           </table>
         </div>
+
+        <div className="border  p-4 mt-3">
+          <div className="">
+            <h5 className="font-bold">SELF EMPLOYMENT</h5>
+          </div>
+          <table class="table-auto">
+            <tbody>
+              <tr>
+                <td className="font-bold p-2">Business name</td>
+                {selfEmployment == null || selfEmployment == ""
+                  ? <td></td> :
+                  selfEmployment.map((el, i) =>
+                    <td className="p-2" key={i}>{el.business_name}</td>
+                  )
+                }
+              </tr>
+              <tr>
+                <td className="font-bold p-2">Address</td>
+                {selfEmployment == null || selfEmployment == ""
+                  ? <td ></td> :
+                  selfEmployment.map((el, i) =>
+                    <td className="p-2" key={i}>{el.business_addr}</td>
+                  )
+                }
+              </tr>
+              <tr>
+                <td className="font-bold p-2">Start Date</td>
+                {selfEmployment == null || selfEmployment == ""
+                  ? <td></td> :
+                  selfEmployment.map((el, i) =>
+                    <td className="p-2" key={i}>{el.business_start_date}</td>
+                  )
+                }
+              </tr>
+              <tr>
+                <td className="font-bold p-2">Business Type</td>
+                {selfEmployment == null || selfEmployment == ""
+                  ? <td></td> :
+                  selfEmployment.map((el, i) =>
+                    <td className="p-2" key={i}>{el.business_type}</td>
+                  )
+                }
+              </tr>
+              <tr>
+                <td className="font-bold p-2">Figures Shown</td>
+                {selfEmployment == null || selfEmployment == ""
+                  ? <td></td> :
+                  selfEmployment.map((el, i) =>
+                    <td className="p-2" key={i}>{el.figures_estimated}</td>
+                  )
+                }
+              </tr>
+              <tr>
+                <td className="font-bold p-2">Income Earned</td>
+                {selfEmployment == null || selfEmployment == ""
+                  ? <td></td> :
+                  selfEmployment.map((el, i) =>
+                    <td className="p-2" key={i}>{formatNumber(el.income_earned)}</td>
+                  )
+                }
+              </tr>
+              <tr>
+                <td className="font-bold p-2">Other Income</td>
+                {selfEmployment == null || selfEmployment == ""
+                  ? <td></td> :
+                  selfEmployment.map((el, i) =>
+                    <td className="p-2" key={i}>{formatNumber(el.other_income)}</td>
+                  )
+                }
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
       </div>
     </>
   );

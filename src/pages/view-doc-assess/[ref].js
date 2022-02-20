@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import setAuthToken from "../../functions/setAuthToken";
 import axios from "axios";
+import Loader from 'react-loader-spinner';
 
 const ViewDoc = () => {
     const router = useRouter();
@@ -28,7 +29,9 @@ const ViewDoc = () => {
                     let IndData = res.data.body
                     let employedat = IndData.employed
                     setEmployed(employedat)
+                    setIsFetching(false)
                 } catch (err) {
+                    setIsFetching(false)
                     console.log(err);
                 }
             };
@@ -36,12 +39,25 @@ const ViewDoc = () => {
         }
     }, [router]);
     return (
+
         <>
-            <p>Payslip</p>
-            <div>
-                {employed == null || employed == ""
-                    ? <p className="font-bold">No Documents</p> :
-                    employed.map((el, i) =>
+            {isFetching ? (
+                <div className="flex justify-center item mb-2">
+                    <Loader
+                        visible={isFetching}
+                        type="BallTriangle"
+                        color="#00FA9A"
+                        height={19}
+                        width={19}
+                        timeout={0}
+                        className="ml-2"
+                    />
+                    <p>Fetching data...</p>
+                </div>
+            ) : <div>
+                <p>Payslip</p>
+                {employed != null || employed != ""
+                    ? employed.map((el, i) =>
                         <button key={i}
                             className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
                             type="submit"
@@ -49,10 +65,12 @@ const ViewDoc = () => {
                             <a href={`https://annualuploads.bespoque.dev/rhm/uploads/da/forma/${el.pay_slip}`} target="_blank"> View Documents</a>
                         </button>
                     )
+                    : <p className="font-bold">No Documents</p>
                 }
-            </div>
+            </div>}
 
         </>
+
     )
 };
 

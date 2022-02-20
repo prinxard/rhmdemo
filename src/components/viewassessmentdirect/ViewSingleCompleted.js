@@ -16,19 +16,20 @@ const ViewSingleCompleted = () => {
   const [isFetching, setIsFetching] = useState(() => true);
   const [globalAssId, setGlobalAssId] = useState("")
   const [makeArray, setmakeArray] = useState([])
-  const [makeObj, setmakeObj] = useState({})
+  const [makeObj, setmakeObj] = useState([])
   const [taxcalDa, setTaxCalDa] = useState({})
-  const [childObj, setchildObj] = useState({})
-  const [resAddObj, setresAddObj] = useState({})
-  const [spouseObj, setSpouse] = useState({})
-  const [domesticStaff, setDomesticStaff] = useState({})
-  const [vehicles, setVehicles] = useState({})
-  const [land, setLand] = useState({})
+  const [childObj, setchildObj] = useState([])
+  const [resAddObj, setresAddObj] = useState([])
+  const [spouseObj, setSpouse] = useState([])
+  const [domesticStaff, setDomesticStaff] = useState([])
+  const [vehicles, setVehicles] = useState([])
+  const [land, setLand] = useState([])
   const [employed, setEmployed] = useState([])
   const [lap, setLap] = useState([])
   const [nhis, setNHIS] = useState([])
   const [expenses, setExpenses] = useState([])
   const [pensionDed, setPensionDed] = useState([])
+  const [selfEmployment, setselfEmployment] = useState([])
 
 
   useEffect(() => {
@@ -60,6 +61,8 @@ const ViewSingleCompleted = () => {
           let nhisdat = IndData.nhis
           let expdat = IndData.expenses
           let pendeddat = IndData.pensionDed
+          let selfempdat = IndData.selfEmployed
+          setselfEmployment(selfempdat)
           setPensionDed(pendeddat)
           setExpenses(expdat)
           setNHIS(nhisdat)
@@ -107,7 +110,7 @@ const ViewSingleCompleted = () => {
             <p>Fetching data...</p>
           </div>
         ) : <ViewSingleCompletedTable payerprop={payerprop} assId={globalAssId}
-          payerArr={makeArray} assobj={makeObj} taxcal={taxcalDa} childObj={childObj}
+          payerArr={makeArray} selfEmployment={selfEmployment} assobj={makeObj} taxcal={taxcalDa} childObj={childObj}
           resAddObj={resAddObj} pensionDed={pensionDed} expenses={expenses} nhis={nhis} spouseObj={spouseObj} employed = {employed} domesticStaff = {domesticStaff} vehicles = {vehicles} land = {land} lap={lap}/>}
       </Widget>
     </>
