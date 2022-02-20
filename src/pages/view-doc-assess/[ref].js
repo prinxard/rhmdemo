@@ -42,11 +42,11 @@ const ViewDoc = () => {
                 {employed == null || employed == ""
                     ? <p className="font-bold">No Documents</p> :
                     employed.map((el, i) =>
-                        <button
+                        <button key={i}
                             className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
                             type="submit"
                         >
-                            <a href={`/view-doc-assess`}> View Documents</a>
+                            <a href={`https://annualuploads.bespoque.dev/rhm/uploads/da/forma/${el.pay_slip}`} target="_blank"> View Documents</a>
                         </button>
                     )
                 }

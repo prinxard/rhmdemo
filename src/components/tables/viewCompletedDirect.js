@@ -102,7 +102,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
     return kgtin
   })
   const kgtinString = String(kgtinVal)
- 
+
   const items = payerprop;
   const assessment_id = assId
   const createdTime = dateformat(assobj.createtime, "dd mmm yyyy")
@@ -460,65 +460,56 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
           <h6 className="text-center">OTHER DETAILS</h6>
         </div>
 
-        <div className="">
-          <div>
-            <div className="">
-              <h5 className="font-bold">EMPLOYMENT</h5>
+        <div className="flex justify-around border">
+          <div className="mt-3">
+            <div>
+              <div className="">
+                <h5 className="font-bold">NHIS</h5>
+              </div>
+              <table class="table-auto">
+                <tbody>
+                  <tr>
+                    <td className="font-bold p-2">Company</td>
+                    {nhis == null || nhis == ""
+                      ? <td></td> :
+                      nhis.map((el, i) =>
+                        <td className="p-2" key={i}>{el.company}</td>
+                      )
+                    }
+                  </tr>
+                  <tr>
+                    <td className="font-bold p-2">Insurance No</td>
+                    {nhis == null || nhis == ""
+                      ? <td ></td> :
+                      nhis.map((el, i) =>
+                        <td className="p-2" key={i}>{el.insurance_no}</td>
+                      )
+                    }
+                  </tr>
+                  <tr>
+                    <td className="font-bold p-2">Amount</td>
+                    {nhis == null || nhis == ""
+                      ? <td></td> :
+                      nhis.map((el, i) =>
+                        <td className="p-2" key={i}>{formatNumber(el.amount)}</td>
+                      )
+                    }
+                  </tr>
+                  <tr>
+                    <td className="font-bold p-2">Address</td>
+                    {nhis == null || nhis == ""
+                      ? <td></td> :
+                      nhis.map((el, i) =>
+                        <td className="p-2" key={i}>{el.addr}</td>
+                      )
+                    }
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <table class="table-auto">
-              <tbody>
-                <tr>
-                  <td className="font-bold p-2">Employer</td>
-                  {employed == null || employed == ""
-                    ? <td></td> :
-                    employed.map((el, i) =>
-                      <td className="p-2 font-bold" key={i}>{el.emp_name}</td>
-                    )
-                  }
-                </tr>
-                <tr>
-                  <td className="font-bold p-2">Employer Address</td>
-                  {employed == null || employed == ""
-                    ? <td ></td> :
-                    employed.map((el, i) =>
-                      <td className="p-2" key={i}>{el.emp_addr}</td>
-                    )
-                  }
-                </tr>
-                <tr>
-                  <td className="font-bold p-2">Start date</td>
-                  {employed == null || employed == ""
-                    ? <td></td> :
-                    employed.map((el, i) =>
-                      <td className="p-2" key={i}>{el.start_date}</td>
-                    )
-                  }
-                </tr>
-                <tr>
-                  <td className="font-bold p-2">Gross Pay</td>
-                  {employed == null || employed == ""
-                    ? <td></td> :
-                    employed.map((el, i) =>
-                      <td className="p-2" key={i}>{formatNumber(el.gross_pay)}</td>
-                    )
-                  }
-                </tr>
-                <tr>
-                  <td className="font-bold p-2">Tax deducted</td>
-                  {employed == null || employed == ""
-                    ? <td></td> :
-                    employed.map((el, i) =>
-                      <td className="p-2" key={i}>{formatNumber(el.tax_deducted)}</td>
-                    )
-                  }
-                </tr>
-              </tbody>
-            </table>
           </div>
-        </div>
+          <div className="mt-3">
 
-        <div className="mt-3">
-          <div>
             <div className="">
               <h5 className="font-bold">Life Assurance Premium</h5>
             </div>
@@ -565,55 +556,8 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
           </div>
         </div>
 
-        <div className="mt-3">
-          <div>
-            <div className="">
-              <h5 className="font-bold">NHIS</h5>
-            </div>
-            <table class="table-auto">
-              <tbody>
-                <tr>
-                  <td className="font-bold p-2">Company</td>
-                  {nhis == null || nhis == ""
-                    ? <td></td> :
-                    nhis.map((el, i) =>
-                      <td className="p-2" key={i}>{el.company}</td>
-                    )
-                  }
-                </tr>
-                <tr>
-                  <td className="font-bold p-2">Insurance No</td>
-                  {nhis == null || nhis == ""
-                    ? <td ></td> :
-                    nhis.map((el, i) =>
-                      <td className="p-2" key={i}>{el.insurance_no}</td>
-                    )
-                  }
-                </tr>
-                <tr>
-                  <td className="font-bold p-2">Amount</td>
-                  {nhis == null || nhis == ""
-                    ? <td></td> :
-                    nhis.map((el, i) =>
-                      <td className="p-2" key={i}>{formatNumber(el.amount)}</td>
-                    )
-                  }
-                </tr>
-                <tr>
-                  <td className="font-bold p-2">Address</td>
-                  {nhis == null || nhis == ""
-                    ? <td></td> :
-                    nhis.map((el, i) =>
-                      <td className="p-2" key={i}>{el.addr}</td>
-                    )
-                  }
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
 
-        <div className="mt-3">
+        <div className="mt-3 flex justify-around border">
           <div>
             <div className="">
               <h5 className="font-bold">Pension deducted</h5>
@@ -659,38 +603,92 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
               </tbody>
             </table>
           </div>
-        </div>
-
-        <div className="mt-3">
-          <div>
-            <div className="">
-              <h5 className="font-bold">Expenses</h5>
+          <div className="mt-3">
+            <div>
+              <div className="">
+                <h5 className="font-bold">Expenses</h5>
+              </div>
+              <table class="table-auto">
+                <tbody>
+                  <tr>
+                    <td className="font-bold p-2">Item</td>
+                    {expenses == null || expenses == ""
+                      ? <td></td> :
+                      expenses.map((el, i) =>
+                        <td className="p-2" key={i}>{el.item}</td>
+                      )
+                    }
+                  </tr>
+                  <tr>
+                    <td className="font-bold p-2">Amount</td>
+                    {expenses == null || expenses == ""
+                      ? <td ></td> :
+                      expenses.map((el, i) =>
+                        <td className="p-2" key={i}>{formatNumber(el.amount)}</td>
+                      )
+                    }
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <table class="table-auto">
-              <tbody>
-                <tr>
-                  <td className="font-bold p-2">Item</td>
-                  {expenses == null || expenses == ""
-                    ? <td></td> :
-                    expenses.map((el, i) =>
-                      <td className="p-2" key={i}>{el.item}</td>
-                    )
-                  }
-                </tr>
-                <tr>
-                  <td className="font-bold p-2">Amount</td>
-                  {expenses == null || expenses == ""
-                    ? <td ></td> :
-                    expenses.map((el, i) =>
-                      <td className="p-2" key={i}>{formatNumber(el.amount)}</td>
-                    )
-                  }
-                </tr>
-              </tbody>
-            </table>
           </div>
         </div>
 
+
+        <div className="mt-3 border">
+          <div className="">
+            <h5 className="font-bold">EMPLOYMENT</h5>
+          </div>
+          <table class="table-auto">
+            <tbody>
+              <tr>
+                <td className="font-bold p-2">Employer</td>
+                {employed == null || employed == ""
+                  ? <td></td> :
+                  employed.map((el, i) =>
+                    <td className="p-2 font-bold" key={i}>{el.emp_name}</td>
+                  )
+                }
+              </tr>
+              <tr>
+                <td className="font-bold p-2">Employer Address</td>
+                {employed == null || employed == ""
+                  ? <td ></td> :
+                  employed.map((el, i) =>
+                    <td className="p-2" key={i}>{el.emp_addr}</td>
+                  )
+                }
+              </tr>
+              <tr>
+                <td className="font-bold p-2">Start date</td>
+                {employed == null || employed == ""
+                  ? <td></td> :
+                  employed.map((el, i) =>
+                    <td className="p-2" key={i}>{el.start_date}</td>
+                  )
+                }
+              </tr>
+              <tr>
+                <td className="font-bold p-2">Gross Pay</td>
+                {employed == null || employed == ""
+                  ? <td></td> :
+                  employed.map((el, i) =>
+                    <td className="p-2" key={i}>{formatNumber(el.gross_pay)}</td>
+                  )
+                }
+              </tr>
+              <tr>
+                <td className="font-bold p-2">Tax deducted</td>
+                {employed == null || employed == ""
+                  ? <td></td> :
+                  employed.map((el, i) =>
+                    <td className="p-2" key={i}>{formatNumber(el.tax_deducted)}</td>
+                  )
+                }
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </>
   );
