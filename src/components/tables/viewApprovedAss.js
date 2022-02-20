@@ -365,19 +365,19 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
 
                     <tr>
                       <td className='tb'><div align='right' className='style16 font-bold'>Set off WHT </div></td>
-                      <td className='tb'><p className="font-bold">0</p></td>
+                      <td className='tb'><p className="font-bold text-right">0</p></td>
                     </tr>
                     <tr>
                       <td height='28' className='tb'><div align='right' className='style16 font-bold'>Set off 1st Assessment </div></td>
-                      <td className='tb'>  </td>
+                      <td className='tb'> <p className="text-right font-bold">0</p> </td>
                     </tr>
                     <tr>
                       <td height='28' className='tb'><div align='right' className='style16 font-bold'>Set off Additional Assessment </div></td>
-                      <td className='tb'>  </td>
+                      <td className='tb'> <p className="text-right font-bold">0</p> </td>
                     </tr>
                     <tr>
                       <td height='30' className='tb'><div align='right' className='style16 font-bold'>Total Tax Due for Payment </div></td>
-                      <td className='tb'>{taxcal.tax}</td>
+                      <td className='tb'><p className="font-bold text-right">{formatNumber(taxcal.tax)}</p></td>
                     </tr>
                   </table>
                     <br />
@@ -903,7 +903,10 @@ export const ViewSingleApprovedTables = ({ payerprop, assId, payerAyy, assobj, t
                       <p>The Tax ID and assessment number shoul always be quoted</p>
                       <tr width="300">
                         <td width="300" className="font-bold tb">TIN</td>
-                        <td width="300" className="font-bold tb"></td>
+                        {payerAyy.map((data, idx) => (
+                          <td width="300" className="font-bold tb" key={idx}>t{data.KGTIN}</td>
+                        ))}
+                        
                       </tr>
                       <tr width="300">
                         <td width="300" className="font-bold tb">Assesment no</td>
