@@ -27,6 +27,8 @@ const ViewSingleCompleted = () => {
   const [employed, setEmployed] = useState([])
   const [lap, setLap] = useState([])
   const [nhis, setNHIS] = useState([])
+  const [expenses, setExpenses] = useState([])
+  const [pensionDed, setPensionDed] = useState([])
 
 
   useEffect(() => {
@@ -56,6 +58,10 @@ const ViewSingleCompleted = () => {
           let employedat = IndData.employed
           let lapdat = IndData.lap
           let nhisdat = IndData.nhis
+          let expdat = IndData.expenses
+          let pendeddat = IndData.pensionDed
+          setPensionDed(pendeddat)
+          setExpenses(expdat)
           setNHIS(nhisdat)
           setLap(lapdat)
           setEmployed(employedat)
@@ -102,7 +108,7 @@ const ViewSingleCompleted = () => {
           </div>
         ) : <ViewSingleCompletedTable payerprop={payerprop} assId={globalAssId}
           payerArr={makeArray} assobj={makeObj} taxcal={taxcalDa} childObj={childObj}
-          resAddObj={resAddObj} nhis={nhis} spouseObj={spouseObj} employed = {employed} domesticStaff = {domesticStaff} vehicles = {vehicles} land = {land} lap={lap}/>}
+          resAddObj={resAddObj} pensionDed={pensionDed} expenses={expenses} nhis={nhis} spouseObj={spouseObj} employed = {employed} domesticStaff = {domesticStaff} vehicles = {vehicles} land = {land} lap={lap}/>}
       </Widget>
     </>
   );

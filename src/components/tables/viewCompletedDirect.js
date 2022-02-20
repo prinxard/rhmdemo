@@ -93,7 +93,7 @@ export const ViewCompletedTable = ({ remittance }) => {
 </Link> */}
 
 export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, taxcal,
-  childObj, resAddObj, spouseObj, domesticStaff, vehicles, land, employed, lap, nhis}) => {
+  childObj, resAddObj, spouseObj, domesticStaff, vehicles, land, employed, lap, nhis, expenses, pensionDed}) => {
   const [isFetching2, setIsFetching2] = useState(() => false);
   const [isFetching3, setIsFetching3] = useState(() => false);
   const router = useRouter();
@@ -621,6 +621,84 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                     ? <td></td> :
                     nhis.map((el, i) =>
                       <td className="p-2" key={i}>{el.addr}</td>
+                    )
+                  }
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div className="mt-3">
+          <div>
+            <div className="">
+              <h5 className="font-bold">Pension deducted</h5>
+            </div>
+            <table class="table-auto">
+              <tbody>
+                <tr>
+                  <td className="font-bold p-2">PFA</td>
+                  {pensionDed == null || pensionDed == ""
+                    ? <td></td> :
+                    pensionDed.map((el, i) =>
+                      <td className="p-2" key={i}>{el.pfa}</td>
+                    )
+                  }
+                </tr>
+                <tr>
+                  <td className="font-bold p-2">PFA Addresss</td>
+                  {pensionDed == null || pensionDed == ""
+                    ? <td ></td> :
+                    pensionDed.map((el, i) =>
+                      <td className="p-2" key={i}>{el.pfa_addr}</td>
+                    )
+                  }
+                </tr>
+                <tr>
+                  <td className="font-bold p-2">RSA no</td>
+                  {pensionDed == null || pensionDed == ""
+                    ? <td></td> :
+                    pensionDed.map((el, i) =>
+                      <td className="p-2" key={i}>{el.rsa_no}</td>
+                    )
+                  }
+                </tr>
+                <tr>
+                  <td className="font-bold p-2">Amount</td>
+                  {pensionDed == null || pensionDed == ""
+                    ? <td></td> :
+                    pensionDed.map((el, i) =>
+                      <td className="p-2" key={i}>{formatNumber(el.amount)}</td>
+                    )
+                  }
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div className="mt-3">
+          <div>
+            <div className="">
+              <h5 className="font-bold">Expenses</h5>
+            </div>
+            <table class="table-auto">
+              <tbody>
+                <tr>
+                  <td className="font-bold p-2">Item</td>
+                  {expenses == null || expenses == ""
+                    ? <td></td> :
+                    expenses.map((el, i) =>
+                      <td className="p-2" key={i}>{el.item}</td>
+                    )
+                  }
+                </tr>
+                <tr>
+                  <td className="font-bold p-2">Amount</td>
+                  {expenses == null || expenses == ""
+                    ? <td ></td> :
+                    expenses.map((el, i) =>
+                      <td className="p-2" key={i}>{formatNumber(el.amount)}</td>
                     )
                   }
                 </tr>
