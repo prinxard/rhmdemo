@@ -101,11 +101,11 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
     let kgtin = doc.KGTIN
     return kgtin
   })
+
   const kgtinString = String(kgtinVal)
   const items = payerprop;
   const assessment_id = assId
   const createdTime = dateformat(assobj.createtime, "dd mmm yyyy")
-  console.log(items);
   const employedCal = Number(assobj.employed)
   const selfEmployedCal = Number(assobj.self_employed)
   const grossIncCal = employedCal + selfEmployedCal
@@ -227,7 +227,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
             <tr>
               <td className="font-bold">OTHERNAME</td>
               {payerArr.map((el, i) =>
-                <td className="pl-3" key={i}>{el.middle_name}</td>
+                <td className="pl-3" key={i}>{el.middle_name} <span>{el.first_name}</span></td>
               )}
             </tr>
             <tr>
@@ -472,7 +472,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
           </tbody>
         </table>
         <div className="mt-4">
-          <p>Captured by : {assobj.createby} </p>
+          <p>Captured by : {assobj.staffName} </p>
           <p>Date of capture : {createdTime} </p>
         </div>
 

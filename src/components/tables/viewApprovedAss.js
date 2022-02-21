@@ -97,9 +97,13 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
   })
   const kgtinString = String(kgtinVal)
 
+  let date = new Date()
+  let due_date = date.setDate(date.getDate() + 30);
+  let pymentDay = Date.parse(due_date);
+  console.log(pymentDay);
+
   const assessment_id = assId
   const createdTime = dateformat(assobj.createtime, "dd mmm yyyy")
-  console.log(items);
   const employedCal = Number(assobj.employed)
   const selfEmployedCal = Number(assobj.self_employed)
   const grossIncCal = employedCal + selfEmployedCal
@@ -146,7 +150,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                     <tr>
                       <td><strong>OTHER NAME: </strong></td>
                       {payerAyy.map((data, idx) => (
-                        <p key={idx}>{data.middle_name}</p>
+                        <p key={idx}>{data.middle_name} <span> {data.first_name}</span> </p>
                       ))}
                     </tr>
                     <tr>
@@ -289,7 +293,6 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                         ? <td className="tb"></td> :
                         <td className='tb'> <p className="font-bold text-right">{formatNumber(taxcal.consolidatedRelief)}</p></td>
                       }
-
                     </tr>
                     <tr>
                       <td className='tb font-bold'><div align='right'>Chargeable Income </div></td>
@@ -302,7 +305,6 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                       <td className='tb'><div align='center' className='style16 font-bold'>Tax Due for Payment </div></td>
                       <td className='tb'><p className="text-right font-bold">{formatNumber(taxcal.tax)}</p></td>
                     </tr>
-
                     <tr>
                       <td className='tb'><div align='center' className='style16'>7% on 300,000.00 </div></td>
                       {taxcal == null || taxcal == ""
@@ -450,11 +452,11 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                         </tr>
                         <tr width="300">
                           <td width="300" className="font-bold tb">Year of Assesment</td>
-                          <td width="300" className="font-bold tb"></td>
+                          <td width="300" className="font-bold tb">{assobj.year}</td>
                         </tr>
                         <tr width="300">
                           <td width="300" className="font-bold tb">Net Tax Payable</td>
-                          <td width="300" className="font-bold tb"></td>
+                          <td width="300" className="font-bold tb">{formatNumber(taxcal.tax)}</td>
                         </tr>
                         <tr width="300">
                           <td width="300" className="font-bold tb">Payment due date</td>
@@ -617,7 +619,7 @@ export const ViewSingleApprovedTables = ({ payerprop, assId, payerAyy, assobj, t
                   <tr>
                     <td><strong>OTHER NAME: </strong></td>
                     {payerAyy.map((data, idx) => (
-                      <p key={idx}>{data.middle_name}</p>
+                      <p key={idx}>{data.middle_name} {data.first_name}</p>
                     ))}
                   </tr>
                   <tr>
@@ -926,7 +928,7 @@ export const ViewSingleApprovedTables = ({ payerprop, assId, payerAyy, assobj, t
                       </tr>
                       <tr width="300">
                         <td width="300" className="font-bold tb">Net Tax Payable</td>
-                        <td width="300" className="font-bold tb"></td>
+                        <td width="300" className="font-bold tb">{taxcal.tax}</td>
                       </tr>
                       <tr width="300">
                         <td width="300" className="font-bold tb">Payment due date</td>

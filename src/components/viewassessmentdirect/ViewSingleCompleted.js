@@ -16,7 +16,7 @@ const ViewSingleCompleted = () => {
   const [isFetching, setIsFetching] = useState(() => true);
   const [globalAssId, setGlobalAssId] = useState("")
   const [makeArray, setmakeArray] = useState([])
-  const [makeObj, setmakeObj] = useState([])
+  const [makeObj, setmakeObj] = useState({})
   const [taxcalDa, setTaxCalDa] = useState({})
   const [childObj, setchildObj] = useState([])
   const [resAddObj, setresAddObj] = useState([])
@@ -48,7 +48,7 @@ const ViewSingleCompleted = () => {
           let res = await axios.post(`${url.BASE_URL}forma/view-assessment`, sendData);
           let IndData = res.data.body
           let arrda = IndData.taxpayer
-          let makeObjdata = IndData.assessment
+          let makeObjdata = IndData.assessment[0]
           let taxCalDa = IndData.taxCal
           let chidDa = IndData.children
           let resAdd = IndData.residentialAddr
@@ -62,6 +62,7 @@ const ViewSingleCompleted = () => {
           let expdat = IndData.expenses
           let pendeddat = IndData.pensionDed
           let selfempdat = IndData.selfEmployed
+          console.log(IndData);
           setselfEmployment(selfempdat)
           setPensionDed(pendeddat)
           setExpenses(expdat)
