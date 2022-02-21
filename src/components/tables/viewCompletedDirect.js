@@ -152,7 +152,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
     setIsFetching2(true)
     let apprDataObj = {
       assessment_id: `${assessment_id}`,
-      comment: `${comment}`,
+      comments: `${comment}`,
       status: "Declined"
     }
     try {
@@ -176,23 +176,24 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
           <div className="modal-content" width="300">
             <p>Are you sure you want to decline?</p>
             <p>Please state reason why</p>
+
             <textarea onChange={(e) => setComment(e.target.value)}></textarea>
             <div className="mt-2 flex justify-between">
               <button onClick={toggleModal}
                 className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-
               >
                 Cancel
               </button>
+              <div>
 
-              <form onSubmit={DeclineAss}>
-                <button
-                  className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                >
-                  Continue
-                </button>
-              </form>
+              </div>
+              <button onClick={DeclineAss}
+                className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                type="submit"
+              >
+                Continue
+              </button>
+
             </div>
           </div>
         </div>
@@ -308,8 +309,8 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
       </div>
 
       <div className="">
-        <div className="flex border justify-center">
-          <table class="mt-3  divide-y " width={600}>
+        <div className="mt-3 flex justify-center">
+          <table class="border divide-y" width={600}>
             <thead>
               <tr>
                 <th className="p-3"><h6 className="text-center font-bold">Tax Computations</h6></th>
