@@ -14,6 +14,8 @@ import axios from "axios";
 import setAuthToken from "../../functions/setAuthToken";
 import { useRouter } from "next/router";
 import Loader from "react-loader-spinner";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const StartAssessment = () => {
   const [kgtEnentered, setKgtEentered] = useState('')
@@ -540,11 +542,11 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
           'Content-Type': 'multipart/form-data'
         },
       });
+      toast.success("Saved Successfully!");
       setIsFetching3(false)
-      alert("successful!");
     } catch (error) {
-      alert("Cannot Submit please try again");
       setIsFetching3(false)
+      toast.error("error, Please try again!");
     }
 
   }
@@ -564,9 +566,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/pension-ded`, pendedObj);
       setIsFetching4(false)
-      alert("successful!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("Cannot Submit, please try again")
+      toast.error("error, Please try again!");
       setIsFetching4(false)
     }
 
@@ -784,7 +786,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/partner`, partnerDataObj);
       setIsFetching13(false)
-      alert("submitted successfully!");
+      toast.success("Success!");
     } catch (error) {
       alert("cannot submit, please try again")
       console.log(error);
@@ -1315,6 +1317,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
   return (
     <>
+      <ToastContainer />
       <div className="flex justify-start">
         <div className="mr-2">
           <SectionTitle title="Applicable during the year ended 31st December" />
@@ -1838,6 +1841,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                       <p className="font-bold">Saving...</p>
                     </div>
                   )}
+
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label>Employer Name:</label>
                     <input required onChange={(e) => setEmpName(e.target.value)} type="text" name="emp_name" className="form-control w-full rounded" />
