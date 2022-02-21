@@ -589,9 +589,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/spouse`, spouseObj);
       setIsFetching5(false)
-      alert("successful!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("Cannot Submit Please try again")
+      toast.error("error, Please try again!");
       setIsFetching5(false)
     }
 
@@ -616,9 +616,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/residence-addr`, resAddObj);
       setIsFetching6(false)
-      alert("successful!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("Cannot Submit, Please try again")
+      toast.error("error, Please try again!");
       setIsFetching6(false)
     }
 
@@ -643,10 +643,10 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/self-employed`, selfEmpObj);
       setIsFetching7(false)
-      alert("successful!");
+      toast.success("Saved Successfully!");
     } catch (error) {
       console.log(error);
-      alert("Cannot submit, please try again")
+      toast.error("error, Please try again!");
       setIsFetching7(false)
     }
 
@@ -668,9 +668,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/nhis`, nhisDataObj);
       setIsFetching8(false)
-      alert("successful!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("Cannot Submit, Please try again")
+      toast.error("error, Please try again!");
       console.log(error);
       setIsFetching8(false)
     }
@@ -692,9 +692,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/lap`, lifeInsDataObj);
       setIsFetching9(false)
-      alert("successful!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("Cannot Submit, Please try again")
+      toast.error("error, Please try again!");
       setIsFetching9(false)
     }
 
@@ -712,9 +712,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/expenses`, expenseDataObj);
       setIsFetching10(false)
-      alert("saved successfully!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("cannot submit, please try again")
+      toast.error("error, Please try again!");
       console.log(error);
       setIsFetching10(false)
     }
@@ -736,9 +736,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/children`, childDataObj);
       setIsFetching11(false)
-      alert("submitted successfully!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("cannot submit, please try again")
+      toast.error("error, Please try again!");
       console.log(error);
       setIsFetching11(false)
     }
@@ -763,9 +763,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/domestic-staff`, staffDataObj);
       setIsFetching12(false)
-      alert("submitted successfully!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("cannot submit, please try again")
+      toast.error("error, Please try again!");
       console.log(error);
       setIsFetching12(false)
     }
@@ -786,9 +786,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/partner`, partnerDataObj);
       setIsFetching13(false)
-      toast.success("Success!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("cannot submit, please try again")
+      toast.error("error, Please try again!");
       console.log(error);
       setIsFetching13(false)
     }
@@ -811,9 +811,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/rent-income`, rentIncomeDataObj);
       setIsFetching14(false)
-      alert("submitted successfully!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("cannot submit, please try again")
+      toast.error("error, Please try again!");
       console.log(error);
       setIsFetching14(false)
     }
@@ -834,9 +834,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/bank-interest`, bankInterestDataObj);
       setIsFetching16(false)
-      alert("submitted successfully!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("cannot submit, please try again")
+      toast.error("error, Please try again!");
       console.log(error);
       setIsFetching16(false)
     }
@@ -856,9 +856,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/dividends`, dividendsDataObj);
       setIsFetching17(false)
-      alert("submitted successfully!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("cannot submit, please try again")
+      toast.error("error, Please try again!");
       console.log(error);
       setIsFetching17(false)
     }
@@ -878,9 +878,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/pension`, pensionDataObj);
       setIsFetching18(false)
-      alert("submitted successfully!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("cannot submit, please try again")
+      toast.error("error, Please try again!");
       console.log(error);
       setIsFetching18(false)
     }
@@ -903,9 +903,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/assets`, assetDataObj);
       setIsFetching19(false)
-      alert("submitted successfully!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("cannot submit, please try again")
+      toast.error("error, Please try again!");
       console.log(error);
       setIsFetching19(false)
     }
@@ -924,9 +924,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/outside-source`, outsideSourceDataObj);
       setIsFetching20(false)
-      alert("submitted successfully!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("cannot submit, please try again")
+      toast.error("error, Please try again!");
       console.log(error);
       setIsFetching20(false)
     }
@@ -948,9 +948,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/vechicles`, vehicleDataObj);
       setIsFetching21(false)
-      alert("submitted successfully!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("cannot submit, please try again")
+      toast.error("error, Please try again!");
       console.log(error);
       setIsFetching21(false)
     }
@@ -970,9 +970,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/land`, landDataObj);
       setIsFetching22(false)
-      alert("submitted successfully!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("cannot submit, please try again")
+      toast.error("error, Please try again!");
       console.log(error);
       setIsFetching22(false)
     }
@@ -992,9 +992,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/farm`, farmDataObj);
       setIsFetching23(false)
-      alert("submitted successfully!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("cannot submit, please try again")
+      toast.error("error, Please try again!");
       console.log(error);
       setIsFetching23(false)
     }
@@ -1023,9 +1023,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       console.log(res);
       setIsFetching15(false)
       router.push('/view/completeddirect')
-      alert("successful!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("Cannot Submit, Please try again")
+      toast.error("error, Please try again!");
       console.log(error);
       setIsFetching15(false)
     }

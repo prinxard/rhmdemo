@@ -139,6 +139,24 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
     }
   }
 
+  setAuthToken();
+  let DeclineAss = async (e) => {
+    e.preventDefault()
+    setIsFetching2(true)
+    let apprDataObj = {
+      assessment_id: `${assessment_id}`,
+      status: "Draft",
+    }
+    try {
+      let res = await axios.put(`${url.BASE_URL}forma/set-status`, apprDataObj);
+      setIsFetching2(false)
+      router.push('/view/pendingdirect')
+    } catch (error) {
+      console.log(error);
+      setIsFetching2(false)
+    }
+  }
+
   return (
     <>
       {isFetching3 && (
@@ -155,6 +173,20 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
           <p className="font-bold">Approving...</p>
         </div>
       )}
+      {isFetching2 && (
+        <div className="flex justify-center item mb-2">
+          <Loader
+            visible={isFetching2}
+            type="BallTriangle"
+            color="#00FA9A"
+            height={19}
+            width={19}
+            timeout={0}
+            className="ml-2"
+          />
+          <p className="font-bold">Processing...</p>
+        </div>
+      )}
       <div className="mb-6 flex justify-end">
         <form onSubmit={approveAss}>
           <button
@@ -165,12 +197,12 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
           </button>
         </form>
 
-        <form>
+        <form onSubmit={DeclineAss}>
           <button
             className="btn w-32 bg-blue-600 btn-default text-white btn-outlined bg-transparent rounded-md"
             type="submit"
           >
-            <a href="/view/pendingdirect">Back</a>
+            Back
           </button>
         </form>
 
@@ -933,7 +965,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
 
         <div className="border  p-4 mt-3">
           <div className="">
-            <h5 className="font-bold">DOMESTICE STAFF</h5>
+            <h5 className="font-bold">DOMESTIC STAFF</h5>
           </div>
           <table class="table-auto">
             <tbody>
