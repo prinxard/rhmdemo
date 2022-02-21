@@ -98,9 +98,9 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
   const kgtinString = String(kgtinVal)
 
   let date = new Date()
-  let due_date = date.setDate(date.getDate() + 30);
-  let pymentDay = Date.parse(due_date);
-  console.log(pymentDay);
+  let due_date = new Date(date)
+  due_date.setDate(due_date.getDate() + 30); 
+  let paymentDue = dateformat(due_date, "dd mmm yyyy")
 
   const assessment_id = assId
   const createdTime = dateformat(assobj.createtime, "dd mmm yyyy")
@@ -460,7 +460,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                         </tr>
                         <tr width="300">
                           <td width="300" className="font-bold tb">Payment due date</td>
-                          <td width="300" className="font-bold tb"></td>
+                          <td width="300" className="font-bold tb">{paymentDue}</td>
                         </tr>
                         <p className="font-bold mt-4" align="center">COLLECTION BANK</p>
                         <tr width="300">
