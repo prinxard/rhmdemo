@@ -65,7 +65,7 @@ const ViewDoc = () => {
                             <a href={`https://annualuploads.bespoque.dev/rhm/uploads/da/forma/${el.pay_slip}`} target="_blank"> View Document</a>
                         </button>
                     )
-                    : <p className="font-bold">No Document</p>
+                    :  <p className="font-bold">No Document</p>
                 }
             </div>}
 

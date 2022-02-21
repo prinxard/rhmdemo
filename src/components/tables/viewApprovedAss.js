@@ -99,7 +99,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
 
   let date = new Date()
   let due_date = new Date(date)
-  due_date.setDate(due_date.getDate() + 30); 
+  due_date.setDate(due_date.getDate() + 30);
   let paymentDue = dateformat(due_date, "dd mmm yyyy")
 
   const assessment_id = assId
@@ -413,10 +413,12 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                         We have made an Assesment on you as set out Opposite, for the year {assobj.year},
                         Under the provision of personal Income Tax Act 2011 amended
                       </p>
-                      <div align="center" className="text-justify">
-                        <p className="font-bold mt-6" align="center">Sule Enehu Salihu</p>
-                        <p>Ag. Executive Chaiman</p>
-                        <p>Kogi State Internal Revenue Service</p>
+                      <div className="flex justify-center">
+                        <div>
+                          <p className="font-bold mt-6" align="center">Sule Enehu Salihu</p>
+                          <p>Ag. Executive Chaiman</p>
+                          <p>Kogi State Internal Revenue Service</p>
+                        </div>
                       </div>
                       <div className="mb-3 mt-4">
                         <p>Prepared By:</p>
