@@ -96,11 +96,18 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
   const [isFetching2, setIsFetching2] = useState(() => false);
   const [isFetching3, setIsFetching3] = useState(() => false);
   const router = useRouter();
+  const [modal, setModal] = useState(false);
+  const [comment, setComment] = useState(false);
 
   const kgtinVal = payerArr.map(function (doc) {
     let kgtin = doc.KGTIN
     return kgtin
   })
+
+  const toggleModal = (e) => {
+    e.preventDefault()
+    setModal(!modal);
+  };
 
   const kgtinString = String(kgtinVal)
   const items = payerprop;
@@ -110,8 +117,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
   const selfEmployedCal = Number(assobj.self_employed)
   const grossIncCal = employedCal + selfEmployedCal
 
-  // let pay = employed.pay_slip
-  // console.log(pay);
+  console.log(comment);
 
   const pfcdata = Number(assobj.pension)
   const nhisdata = Number(assobj.nhis)
@@ -159,6 +165,31 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
 
   return (
     <>
+      {modal && (
+        <div className="modal">
+          <div onClick={toggleModal} className="overlay"></div>
+          <div className="modal-content" width="300">
+            <p>Are you sure you want to decline?</p>
+            <p>Please state reason why</p>
+            <textarea onChange={(e) => setComment(e.target.value)}></textarea>
+            <div className="mt-2 flex justify-between">
+              <button onClick={toggleModal}
+                className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                type="submit"
+              >
+                Cancel
+              </button>
+              <button
+                className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                type="submit"
+              >
+                Continue
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {isFetching3 && (
         <div className="flex justify-center item mb-2">
           <Loader
@@ -197,12 +228,12 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
           </button>
         </form>
 
-        <form onSubmit={DeclineAss}>
+        <form onClick={toggleModal}>
           <button
             className="btn w-32 bg-blue-600 btn-default text-white btn-outlined bg-transparent rounded-md"
             type="submit"
           >
-            Back
+            Decline
           </button>
         </form>
 
@@ -270,7 +301,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
       </div>
 
       <div className="grid">
-        <table class=" table-auto border rounded mt-3 divide-y justify-self-center" width={500}>
+        <table class="border rounded mt-3 divide-y justify-self-center">
           <thead>
             <tr>
               <th className="p-3"><h6 className="text-center font-bold">Tax Computations</h6></th>
@@ -1129,6 +1160,57 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
         </div>
 
       </div>
+      <style
+        jsx>{
+          `
+        body.active-modal {
+          overflow-y: hidden;
+      }
+      
+      // .btn-modal {
+      //     padding: 10px 20px;
+      //     display: block;
+      //     margin: 100px auto 0;
+      //     font-size: 18px;
+      // }
+      
+      .modal, .overlay {
+          width: 100vw;
+          height: 100vh;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          position: fixed;
+      }
+      
+      .overlay {
+          background: rgba(49,49,49,0.8);
+      }
+      .modal-content {
+          position: absolute;
+          top: 40%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          line-height: 1.4;
+          background: #f1f1f1;
+          padding: 14px 28px;
+          border-radius: 3px;
+          max-width: 600px;
+          min-width: 300px;
+      }
+      
+      .close-modal {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          padding: 5px 7px;
+      }
+        `
+        }
+      </style>
+
+
     </>
   );
 };

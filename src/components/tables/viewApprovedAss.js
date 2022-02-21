@@ -415,7 +415,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                       </p>
                       <div className="flex justify-center">
                         <div>
-                          <p className="font-bold mt-6" align="center">Sule Enehu Salihu</p>
+                          <p className="font-bold mt-6" align="center">Salihu Sule Enehe </p>
                           <p>Ag. Executive Chaiman</p>
                           <p>Kogi State Internal Revenue Service</p>
                         </div>

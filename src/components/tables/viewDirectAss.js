@@ -22,10 +22,14 @@ const fields = [
     name: "Year",
     key: "year",
   },
-  // {
-  //   name: "Status",
-  //   key: "status",
-  // },
+  {
+    name: "Status",
+    key: "status",
+  },
+  {
+    name: "Comment",
+    key: "comment",
+  },
   {
     name: "Created Time",
     key: "createtime",
@@ -55,12 +59,12 @@ export const ViewPendingTable = ({ remittance }) => {
             {items.map((remittance, i) => (
               <tr key={i} className="">
                 {fields.map((field, j) => (
-                  <td key={j} className="">
-                    <Link href={`/view/pendingdirect/${remittance.assessment_id},${remittance.kgtin}`}>
-                      <a className="hover:text-blue-500">
-                        {remittance[field.key]}
-                      </a>
-                    </Link>
+                  <td key={j}>         
+                      <Link href={`/view/pendingdirect/${remittance.assessment_id},${remittance.kgtin}`}>
+                        <a className="hover:text-blue-500">
+                          {remittance[field.key]}
+                        </a>
+                      </Link>
                   </td>
                 ))}
               </tr>
