@@ -310,7 +310,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
 
       <div className="">
         <div className="mt-3 flex justify-center">
-          <table class="border divide-y" width={600}>
+          <table className="border divide-y" width={600}>
             <thead>
               <tr>
                 <th className="p-3"><h6 className="text-center font-bold">Tax Computations</h6></th>
@@ -668,11 +668,11 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
               <table class="table-auto">
                 <tbody>
                   <tr>
-                    <td className="font-bold p-2">Company</td>
+                    <td className="font-bold  p-2">Company</td>
                     {nhis == null || nhis == ""
                       ? <td></td> :
                       nhis.map((el, i) =>
-                        <td className="p-2" key={i}>{el.company}</td>
+                        <td className="p-2 border-r-2" key={i}>{el.company}</td>
                       )
                     }
                   </tr>
@@ -681,7 +681,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                     {nhis == null || nhis == ""
                       ? <td ></td> :
                       nhis.map((el, i) =>
-                        <td className="p-2" key={i}>{el.insurance_no}</td>
+                        <td className="p-2 border-r-2" key={i}>{el.insurance_no}</td>
                       )
                     }
                   </tr>
@@ -690,7 +690,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                     {nhis == null || nhis == ""
                       ? <td></td> :
                       nhis.map((el, i) =>
-                        <td className="p-2" key={i}>{formatNumber(el.amount)}</td>
+                        <td className="p-2 border-r-2" key={i}>{formatNumber(el.amount)}</td>
                       )
                     }
                   </tr>
@@ -699,7 +699,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                     {nhis == null || nhis == ""
                       ? <td></td> :
                       nhis.map((el, i) =>
-                        <td className="p-2" key={i}>{el.addr}</td>
+                        <td className="p-2 border-r-2" key={i}>{el.addr}</td>
                       )
                     }
                   </tr>
@@ -710,7 +710,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
           <div className="mt-3">
 
             <div className="">
-              <h5 className="font-bold">LIFE ASSURANCE PREMIUM</h5>
+              <h5 className="font-bold">LAP</h5>
             </div>
             <table class="table-auto">
               <tbody>
