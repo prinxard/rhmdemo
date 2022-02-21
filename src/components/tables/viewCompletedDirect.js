@@ -10,6 +10,7 @@ import Loader from "react-loader-spinner";
 import url from '../../config/url';
 import axios from "axios";
 import { useRouter } from "next/router";
+import { ToastContainer, toast } from 'react-toastify';
 
 const fields = [
   {
@@ -105,7 +106,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
   })
 
   const toggleModal = (e) => {
-    e.preventDefault()
+    // e.preventDefault()
     setModal(!modal);
   };
 
@@ -136,10 +137,10 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
     try {
       let res = await axios.put(`${url.BASE_URL}forma/set-status`, apprDataObj);
       setIsFetching3(false)
-      alert("Approved successfully!");
+      toast.success("Success!");
       router.push('/approvere')
     } catch (error) {
-      alert("cannot submit, please try again")
+      toast.error("Failed!");
       console.log(error);
       setIsFetching3(false)
     }
@@ -151,13 +152,16 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
     setIsFetching2(true)
     let apprDataObj = {
       assessment_id: `${assessment_id}`,
-      status: "Draft",
+      comment: `${comment}`,
+      status: "Declined"
     }
     try {
       let res = await axios.put(`${url.BASE_URL}forma/set-status`, apprDataObj);
       setIsFetching2(false)
       router.push('/view/pendingdirect')
+      toast.success("Success!");
     } catch (error) {
+      toast.error("Failed!");
       console.log(error);
       setIsFetching2(false)
     }
@@ -165,9 +169,10 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
 
   return (
     <>
+      <ToastContainer />
       {modal && (
         <div className="modal">
-          <div onClick={toggleModal} className="overlay"></div>
+          {/* <div onClick={toggleModal} className="overlay"></div> */}
           <div className="modal-content" width="300">
             <p>Are you sure you want to decline?</p>
             <p>Please state reason why</p>
@@ -175,23 +180,26 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
             <div className="mt-2 flex justify-between">
               <button onClick={toggleModal}
                 className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                type="submit"
+
               >
                 Cancel
               </button>
-              <button
-                className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                type="submit"
-              >
-                Continue
-              </button>
+
+              <form onSubmit={DeclineAss}>
+                <button
+                  className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  Continue
+                </button>
+              </form>
             </div>
           </div>
         </div>
       )}
 
       {isFetching3 && (
-        <div className="flex justify-center item mb-2">
+        <div className="flex justify-start item mb-2">
           <Loader
             visible={isFetching3}
             type="BallTriangle"
@@ -205,7 +213,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
         </div>
       )}
       {isFetching2 && (
-        <div className="flex justify-center item mb-2">
+        <div className="flex justify-start item mb-2">
           <Loader
             visible={isFetching2}
             type="BallTriangle"
@@ -228,14 +236,13 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
           </button>
         </form>
 
-        <form onClick={toggleModal}>
-          <button
-            className="btn w-32 bg-blue-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-            type="submit"
-          >
-            Decline
-          </button>
-        </form>
+        <button onClick={toggleModal}
+          className="btn w-32 bg-blue-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+          type="submit"
+        >
+          Decline
+        </button>
+
 
       </div>
       <div className="flex justify-around border">
@@ -300,208 +307,210 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
         </table>
       </div>
 
-      <div className="grid">
-        <table class="border rounded mt-3 divide-y justify-self-center">
-          <thead>
-            <tr>
-              <th className="p-3"><h6 className="text-center font-bold">Tax Computations</h6></th>
-            </tr>
-          </thead>
-          <tbody className="divide-y">
-            <tr>
-              <td className="border-r-2 p-1">Source of Income</td>
-              <td className="text-right font-bold">₦</td>
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1">Trade, Professional e.t.c</td>
-              {assobj == null || assobj == ""
-                ? <td className="p-1 text-right font-bold">0</td> :
-                <td className='p-1 text-right font-bold'>{formatNumber(assobj.self_employed)}</td>
-              }
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1">Share of Partnership</td>
-              <td className="p-1 text-right font-bold">0</td>
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1">Employment</td>
-              {assobj == null || assobj == ""
-                ? <td className="p-1 text-right font-bold">0</td> :
-                <td className='p-1 text-right font-bold'>{formatNumber(assobj.employed)}</td>
-              }
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1">Other Income</td>
-              <td className="p-1 text-right font-bold">0</td>
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1 text-right font-bold">Gross Income</td>
-              <td className="p-1 text-right font-bold">{formatNumber(grossIncCal)}</td>
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1">PFC</td>
-              {assobj == null || assobj == ""
-                ? <td className="p-1 text-right font-bold">0</td> :
-                <td className='p-1 text-right font-bold'>{formatNumber(assobj.pension)}</td>
-              }
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1">NHIS</td>
-              {assobj == null || assobj == ""
-                ? <td className="p-1 text-right font-bold">0</td> :
-                <td className='p-1 text-right font-bold'>{formatNumber(assobj.nhis)}</td>
-              }
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1">NHF</td>
-              <td className="p-1 text-right font-bold">0</td>
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1">Life Assurance Premium</td>
-              {assobj == null || assobj == ""
-                ? <td className="p-1 text-right font-bold">0</td> :
-                <td className='p-1 text-right font-bold'>{formatNumber(assobj.lap)}</td>
-              }
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1 text-right font-bold">Total</td>
-              <td className="p-1 text-right font-bold">{formatNumber(deductionsTotal)}</td>
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1 text-right font-bold">Assessable Income</td>
-              <td className="p-1 text-right font-bold">0</td>
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1">ADD</td>
-              <td className="p-1 text-right font-bold">0</td>
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1">Balancing Charges</td>
-              <td className="p-1 text-right font-bold">0</td>
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1">DEDUCT</td>
-              <td className="p-1 text-right font-bold">0</td>
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1">Balancing Allowances</td>
-              <td className="p-1 text-right font-bold">0</td>
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1">Lose Relief</td>
-              <td className="p-1 text-right font-bold">0</td>
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1">Capital Allowances</td>
-              <td className="p-1 text-right font-bold">0</td>
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1 text-right font-bold">Total Income</td>
-              <td className="p-1 text-right font-bold">0</td>
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1">Consolidated relief Allowance</td>
-              {taxcal == null || taxcal == ""
-                ? <td className="p-1 text-right font-bold">0</td> :
-                <td className='p-1 text-right font-bold'>{formatNumber(taxcal.consolidatedRelief)}</td>
-              }
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1 text-right">Chargeable Income</td>
-              {taxcal == null || taxcal == ""
-                ? <td className="p-1 text-right font-bold">0</td> :
-                <td className='p-1 text-right font-bold'>{formatNumber(taxcal.chargeableIncome)}</td>
-              }
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1 text-center font-bold">Tax due for payment</td>
-              {taxcal == null || taxcal == ""
-                ? <td className="p-1 text-right font-bold">0</td> :
-                <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax)}</td>
-              }
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1 text-center">7% on 300,000.00</td>
-              {taxcal == null || taxcal == ""
-                ? <td className="p-1 text-right font-bold">0</td> :
-                <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax7)}</td>
-              }
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1 text-center">11% on 300,000.00</td>
-              {taxcal == null || taxcal == ""
-                ? <td className="p-1 text-right font-bold">0</td> :
-                <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax11)}</td>
-              }
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1 text-center">15% on 500,000.00</td>
-              {taxcal == null || taxcal == ""
-                ? <td className="p-1 text-right font-bold">0</td> :
-                <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax15)}</td>
-              }
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1 text-center">19% on 500,000.00</td>
-              {taxcal == null || taxcal == ""
-                ? <td className="p-1 text-right font-bold">0</td> :
-                <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax19)}</td>
-              }
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1 text-center">21% on 1,600,000.00</td>
-              {taxcal == null || taxcal == ""
-                ? <td className="p-1 text-right font-bold">0</td> :
-                <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax21)}</td>
-              }
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1 text-center">24% on above 3,200,000.00</td>
-              {taxcal == null || taxcal == ""
-                ? <td className="p-1 text-right font-bold">0</td> :
-                <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax24)}</td>
-              }
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1 text-center">1%(Minimun Tax)</td>
-              <td className="p-1 text-right font-bold">0</td>
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1 text-center">Total</td>
-              <td className="p-1 text-right font-bold">0</td>
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1 text-center">Dev. Levy</td>
-              <td className="p-1 text-right font-bold">0</td>
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1 text-right font-bold">Total Tax due </td>
-              {taxcal == null || taxcal == ""
-                ? <td className="p-1 text-right font-bold">0</td> :
-                <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax)}</td>
-              }
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1 text-right font-bold">Set off WHT </td>
-              <td className="p-1 text-right font-bold">0</td>
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1 text-right font-bold">Set off 1st Assessment </td>
-              <td className="p-1 text-right font-bold">0</td>
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1 text-right font-bold">Set off Additional Assessment</td>
-              <td className="p-1 text-right font-bold">0</td>
-            </tr>
-            <tr>
-              <td className="border-r-2 p-1 text-right font-bold">Total Tax Due for Payment</td>
-              {taxcal == null || taxcal == ""
-                ? <td className="p-1 text-right font-bold">0</td> :
-                <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax)}</td>
-              }
-            </tr>
-          </tbody>
-        </table>
+      <div className="">
+        <div className="flex border justify-center">
+          <table class="mt-3  divide-y " width={600}>
+            <thead>
+              <tr>
+                <th className="p-3"><h6 className="text-center font-bold">Tax Computations</h6></th>
+              </tr>
+            </thead>
+            <tbody className="divide-y">
+              <tr>
+                <td className="border-r-2 p-1">Source of Income</td>
+                <td className="text-right font-bold">₦</td>
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1">Trade, Professional e.t.c</td>
+                {assobj == null || assobj == ""
+                  ? <td className="p-1 text-right font-bold">0</td> :
+                  <td className='p-1 text-right font-bold'>{formatNumber(assobj.self_employed)}</td>
+                }
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1">Share of Partnership</td>
+                <td className="p-1 text-right font-bold">0</td>
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1">Employment</td>
+                {assobj == null || assobj == ""
+                  ? <td className="p-1 text-right font-bold">0</td> :
+                  <td className='p-1 text-right font-bold'>{formatNumber(assobj.employed)}</td>
+                }
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1">Other Income</td>
+                <td className="p-1 text-right font-bold">0</td>
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1 text-right font-bold">Gross Income</td>
+                <td className="p-1 text-right font-bold">{formatNumber(grossIncCal)}</td>
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1">PFC</td>
+                {assobj == null || assobj == ""
+                  ? <td className="p-1 text-right font-bold">0</td> :
+                  <td className='p-1 text-right font-bold'>{formatNumber(assobj.pension)}</td>
+                }
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1">NHIS</td>
+                {assobj == null || assobj == ""
+                  ? <td className="p-1 text-right font-bold">0</td> :
+                  <td className='p-1 text-right font-bold'>{formatNumber(assobj.nhis)}</td>
+                }
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1">NHF</td>
+                <td className="p-1 text-right font-bold">0</td>
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1">Life Assurance Premium</td>
+                {assobj == null || assobj == ""
+                  ? <td className="p-1 text-right font-bold">0</td> :
+                  <td className='p-1 text-right font-bold'>{formatNumber(assobj.lap)}</td>
+                }
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1 text-right font-bold">Total</td>
+                <td className="p-1 text-right font-bold">{formatNumber(deductionsTotal)}</td>
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1 text-right font-bold">Assessable Income</td>
+                <td className="p-1 text-right font-bold">0</td>
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1">ADD</td>
+                <td className="p-1 text-right font-bold">0</td>
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1">Balancing Charges</td>
+                <td className="p-1 text-right font-bold">0</td>
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1">DEDUCT</td>
+                <td className="p-1 text-right font-bold">0</td>
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1">Balancing Allowances</td>
+                <td className="p-1 text-right font-bold">0</td>
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1">Lose Relief</td>
+                <td className="p-1 text-right font-bold">0</td>
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1">Capital Allowances</td>
+                <td className="p-1 text-right font-bold">0</td>
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1 text-right font-bold">Total Income</td>
+                <td className="p-1 text-right font-bold">0</td>
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1">Consolidated relief Allowance</td>
+                {taxcal == null || taxcal == ""
+                  ? <td className="p-1 text-right font-bold">0</td> :
+                  <td className='p-1 text-right font-bold'>{formatNumber(taxcal.consolidatedRelief)}</td>
+                }
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1 text-right">Chargeable Income</td>
+                {taxcal == null || taxcal == ""
+                  ? <td className="p-1 text-right font-bold">0</td> :
+                  <td className='p-1 text-right font-bold'>{formatNumber(taxcal.chargeableIncome)}</td>
+                }
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1 text-center font-bold">Tax due for payment</td>
+                {taxcal == null || taxcal == ""
+                  ? <td className="p-1 text-right font-bold">0</td> :
+                  <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax)}</td>
+                }
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1 text-center">7% on 300,000.00</td>
+                {taxcal == null || taxcal == ""
+                  ? <td className="p-1 text-right font-bold">0</td> :
+                  <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax7)}</td>
+                }
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1 text-center">11% on 300,000.00</td>
+                {taxcal == null || taxcal == ""
+                  ? <td className="p-1 text-right font-bold">0</td> :
+                  <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax11)}</td>
+                }
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1 text-center">15% on 500,000.00</td>
+                {taxcal == null || taxcal == ""
+                  ? <td className="p-1 text-right font-bold">0</td> :
+                  <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax15)}</td>
+                }
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1 text-center">19% on 500,000.00</td>
+                {taxcal == null || taxcal == ""
+                  ? <td className="p-1 text-right font-bold">0</td> :
+                  <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax19)}</td>
+                }
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1 text-center">21% on 1,600,000.00</td>
+                {taxcal == null || taxcal == ""
+                  ? <td className="p-1 text-right font-bold">0</td> :
+                  <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax21)}</td>
+                }
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1 text-center">24% on above 3,200,000.00</td>
+                {taxcal == null || taxcal == ""
+                  ? <td className="p-1 text-right font-bold">0</td> :
+                  <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax24)}</td>
+                }
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1 text-center">1%(Minimun Tax)</td>
+                <td className="p-1 text-right font-bold">0</td>
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1 text-center">Total</td>
+                <td className="p-1 text-right font-bold">0</td>
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1 text-center">Dev. Levy</td>
+                <td className="p-1 text-right font-bold">0</td>
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1 text-right font-bold">Total Tax due </td>
+                {taxcal == null || taxcal == ""
+                  ? <td className="p-1 text-right font-bold">0</td> :
+                  <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax)}</td>
+                }
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1 text-right font-bold">Set off WHT </td>
+                <td className="p-1 text-right font-bold">0</td>
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1 text-right font-bold">Set off 1st Assessment </td>
+                <td className="p-1 text-right font-bold">0</td>
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1 text-right font-bold">Set off Additional Assessment</td>
+                <td className="p-1 text-right font-bold">0</td>
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1 text-right font-bold">Total Tax Due for Payment</td>
+                {taxcal == null || taxcal == ""
+                  ? <td className="p-1 text-right font-bold">0</td> :
+                  <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax)}</td>
+                }
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <div className="mt-4">
           <p>Captured by : {assobj.staffName} </p>
           <p>Date of capture : {createdTime} </p>
@@ -1189,14 +1198,14 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
       }
       .modal-content {
           position: absolute;
-          top: 40%;
-          left: 50%;
+          top: 20%;
+          left: 60%;
           transform: translate(-50%, -50%);
           line-height: 1.4;
           background: #f1f1f1;
           padding: 14px 28px;
           border-radius: 3px;
-          max-width: 600px;
+          max-width: 400px;
           min-width: 300px;
       }
       
