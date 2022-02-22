@@ -225,7 +225,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
   const [isFetching23, setIsFetching23] = useState(() => false);
   const router = useRouter();
 
-  const [formValues, setFormValues] = useState([{ source: "", gross_amount: "", comments: "" }])
+  const [formValues, setFormValues] = useState([{assessment_id: `${assessment_id}`, source: "", gross_amount: "", comments: "" }])
 
   let handleChange1 = (i, e) => {
     let newFormValues = [...formValues];
@@ -233,15 +233,49 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     setFormValues(newFormValues);
   }
 
+  
+  setAuthToken();
+  let submitDataOutsideSourc = async (e) => {
+    e.preventDefault()
+    setIsFetching20(true)
+    let outsideSourceDataObj = {
+      assessment_id: `${assessment_id}`,
+      source: `${outsideSource.source}`,
+      gross_amount: `${outsideSource.gross_amount}`,
+      comments: `${outsideSource.comments}`,
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/outside-source`, outsideSourceDataObj);
+      setIsFetching20(false)
+      alert("submitted successfully!");
+    } catch (error) {
+      alert("cannot submit, please try again")
+      console.log(error);
+      setIsFetching20(false)
+    }
+  }
+
   let handleSubmit1 = (event) => {
     event.preventDefault();
-    alert(JSON.stringify(formValues));
+    let formVal = (formValues)
+  
+    for (let index = 0; index < formVal.length; index++) {
+      const element = formVal[index];
+      try {
+        let res = axios.post(`${url.BASE_URL}forma/outside-source`, element);
+        setIsFetching20(false)
+        alert("submitted successfully!");
+      } catch (error) {
+        alert("cannot submit, please try again")
+        console.log(error);
+        setIsFetching20(false)
+      }
+    }
   }
 
   let addFormFields1 = () => {
-    setFormValues([...formValues, { source: "", gross_amount: "", comments: "" }])
+    setFormValues([...formValues, { assessment_id: `${assessment_id}`, source: "", gross_amount: "", comments: "" }])
   }
-
 
   const [pensionDeduct, setPensionDeduct] = useState(
     { assessment_id: "", pfa: "", pfa_addr: "", rsa_no: "", amount: "", comments: "" }

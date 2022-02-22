@@ -35,7 +35,7 @@ const ViewPendingAssessment = () => {
         let records = [];
         for (let i = 0; i < res.length; i++) {
           let rec = res[i];
-          rec.createtime = dateformat(rec.createtime, "dd mmm yyyy hh: mm")
+          rec.createtime = dateformat(rec.createtime, "dd mmm yyyy hh")
           records.push(rec);
         }
         setIsFetching(false);
