@@ -50,7 +50,9 @@ const ViewApprovedAss = () => {
           // rec.totalChargeable = rec.totalChargeable / 12;
           // rec.totalChargeable = formatNumber(rec.totalChargeable);
           // rec.period = rec.payPeriod;
-          rec.createtime = dateformat(rec.createtime, "dd mmm yyyy hh: mm")
+          rec.gross_income = formatNumber(rec.gross_income)
+          rec.tax = formatNumber(rec.tax)
+          rec.createtime = dateformat(rec.createtime, "dd mmm yyyy")
           records.push(rec);
         }
         setIsFetching(false);

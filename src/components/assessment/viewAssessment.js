@@ -14,6 +14,8 @@ import axios from "axios";
 import setAuthToken from "../../functions/setAuthToken";
 import { useRouter } from "next/router";
 import Loader from "react-loader-spinner";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const StartAssessment = () => {
   const [kgtEnentered, setKgtEentered] = useState('')
@@ -439,6 +441,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       ...residentialAddress,
       [evt.target.name]: value
     });
+    console.log(residentialAddress);
   }
 
   function handleSelfEmployedChange(evt) {
@@ -552,6 +555,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       ...vehicle,
       [evt.target.name]: value
     });
+    console.log(vehicle);
   }
 
   function handleLandChange(evt) {
@@ -590,11 +594,11 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
           'Content-Type': 'multipart/form-data'
         },
       });
+      toast.success("Saved Successfully!");
       setIsFetching3(false)
-      alert("successful!");
     } catch (error) {
-      alert("Cannot Submit please try again");
       setIsFetching3(false)
+      toast.error("error, Please try again!");
     }
 
   }
@@ -614,9 +618,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/pension-ded`, pendedObj);
       setIsFetching4(false)
-      alert("successful!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("Cannot Submit, please try again")
+      toast.error("error, Please try again!");
       setIsFetching4(false)
     }
 
@@ -637,9 +641,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/spouse`, spouseObj);
       setIsFetching5(false)
-      alert("successful!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("Cannot Submit Please try again")
+      toast.error("error, Please try again!");
       setIsFetching5(false)
     }
 
@@ -664,9 +668,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/residence-addr`, resAddObj);
       setIsFetching6(false)
-      alert("successful!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("Cannot Submit, Please try again")
+      toast.error("error, Please try again!");
       setIsFetching6(false)
     }
 
@@ -691,10 +695,10 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/self-employed`, selfEmpObj);
       setIsFetching7(false)
-      alert("successful!");
+      toast.success("Saved Successfully!");
     } catch (error) {
       console.log(error);
-      alert("Cannot submit, please try again")
+      toast.error("error, Please try again!");
       setIsFetching7(false)
     }
 
@@ -716,9 +720,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/nhis`, nhisDataObj);
       setIsFetching8(false)
-      alert("successful!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("Cannot Submit, Please try again")
+      toast.error("error, Please try again!");
       console.log(error);
       setIsFetching8(false)
     }
@@ -740,9 +744,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/lap`, lifeInsDataObj);
       setIsFetching9(false)
-      alert("successful!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("Cannot Submit, Please try again")
+      toast.error("error, Please try again!");
       setIsFetching9(false)
     }
 
@@ -760,9 +764,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/expenses`, expenseDataObj);
       setIsFetching10(false)
-      alert("saved successfully!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("cannot submit, please try again")
+      toast.error("error, Please try again!");
       console.log(error);
       setIsFetching10(false)
     }
@@ -784,9 +788,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/children`, childDataObj);
       setIsFetching11(false)
-      alert("submitted successfully!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("cannot submit, please try again")
+      toast.error("error, Please try again!");
       console.log(error);
       setIsFetching11(false)
     }
@@ -811,9 +815,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/domestic-staff`, staffDataObj);
       setIsFetching12(false)
-      alert("submitted successfully!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("cannot submit, please try again")
+      toast.error("error, Please try again!");
       console.log(error);
       setIsFetching12(false)
     }
@@ -834,9 +838,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/partner`, partnerDataObj);
       setIsFetching13(false)
-      alert("submitted successfully!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("cannot submit, please try again")
+      toast.error("error, Please try again!");
       console.log(error);
       setIsFetching13(false)
     }
@@ -859,9 +863,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/rent-income`, rentIncomeDataObj);
       setIsFetching14(false)
-      alert("submitted successfully!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("cannot submit, please try again")
+      toast.error("error, Please try again!");
       console.log(error);
       setIsFetching14(false)
     }
@@ -882,9 +886,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/bank-interest`, bankInterestDataObj);
       setIsFetching16(false)
-      alert("submitted successfully!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("cannot submit, please try again")
+      toast.error("error, Please try again!");
       console.log(error);
       setIsFetching16(false)
     }
@@ -904,9 +908,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/dividends`, dividendsDataObj);
       setIsFetching17(false)
-      alert("submitted successfully!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("cannot submit, please try again")
+      toast.error("error, Please try again!");
       console.log(error);
       setIsFetching17(false)
     }
@@ -926,9 +930,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/pension`, pensionDataObj);
       setIsFetching18(false)
-      alert("submitted successfully!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("cannot submit, please try again")
+      toast.error("error, Please try again!");
       console.log(error);
       setIsFetching18(false)
     }
@@ -951,9 +955,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/assets`, assetDataObj);
       setIsFetching19(false)
-      alert("submitted successfully!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("cannot submit, please try again")
+      toast.error("error, Please try again!");
       console.log(error);
       setIsFetching19(false)
     }
@@ -972,9 +976,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/outside-source`, outsideSourceDataObj);
       setIsFetching20(false)
-      alert("submitted successfully!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("cannot submit, please try again")
+      toast.error("error, Please try again!");
       console.log(error);
       setIsFetching20(false)
     }
@@ -996,9 +1000,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/vechicles`, vehicleDataObj);
       setIsFetching21(false)
-      alert("submitted successfully!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("cannot submit, please try again")
+      toast.error("error, Please try again!");
       console.log(error);
       setIsFetching21(false)
     }
@@ -1018,9 +1022,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/land`, landDataObj);
       setIsFetching22(false)
-      alert("submitted successfully!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("cannot submit, please try again")
+      toast.error("error, Please try again!");
       console.log(error);
       setIsFetching22(false)
     }
@@ -1040,9 +1044,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     try {
       let res = await axios.post(`${url.BASE_URL}forma/farm`, farmDataObj);
       setIsFetching23(false)
-      alert("submitted successfully!");
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("cannot submit, please try again")
+      toast.error("error, Please try again!");
       console.log(error);
       setIsFetching23(false)
     }
@@ -1070,10 +1074,10 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       let res = await axios.put(`${url.BASE_URL}forma/tax-cal`, assessFormObj);
       console.log(res);
       setIsFetching15(false)
-      router.push('/submitre')
-      alert("successful!");
+      router.push('/view/completeddirect')
+      toast.success("Saved Successfully!");
     } catch (error) {
-      alert("Cannot Submit, Please try again")
+      toast.error("error, Please try again!");
       console.log(error);
       setIsFetching15(false)
     }
@@ -1365,6 +1369,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
   return (
     <>
+      <ToastContainer />
       <div className="flex justify-start">
         <div className="mr-2">
           <SectionTitle title="Applicable during the year ended 31st December" />
@@ -1518,12 +1523,12 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
               <p>Do you own your place of residence?</p>
               <div className="flex">
                 <div className="form-check form-check-inline">
-                  <input onChange={onresidenceToggleYes} name="residence_owner" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
+                  <input onClick={onresidenceToggleYes} onChange={handleResidentialChange} name="residence_owner" value="Owner" checked={residentialAddress.residence_owner === "Owner"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
                   <label className="form-check-label inline-block text-gray-800" htmlFor="inlineRadio10">Owner</label>
                 </div>
 
                 <div className="form-check form-check-inline ml-5">
-                  <input onChange={onresidenceToggleNo} name="residence_owner" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
+                  <input onClick={onresidenceToggleNo} onChange={handleResidentialChange} name="residence_owner" value="Rented" checked={residentialAddress.residence_owner === "Rented"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
                   <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Rented</label>
                 </div>
               </div>
@@ -1532,7 +1537,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
           <div className={`grid grid-cols-3 gap-4 ${resiToggle}`}>
             <div className="form-group mb-6">
-              <input onChange={handleResidentialChange} type="text" name="annual_rent" value={residentialAddress.annual_rent} className="form-control w-full rounded"
+              <input onChange={handleResidentialChange} type="number" name="annual_rent" value={residentialAddress.annual_rent} className="form-control w-full rounded"
                 placeholder="Annual rent" />
             </div>
 
@@ -1689,12 +1694,12 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
             </div>
             <div className="form-group mb-6">
               <p>School Fees</p>
-              <input onChange={handleChildChange} name="school_fees" value={childData.school_fees} type="text" className="form-control w-full rounded"
+              <input onChange={handleChildChange} name="school_fees" value={childData.school_fees} type="number" className="form-control w-full rounded"
                 placeholder="Child's school fees per session" />
             </div>
             <div className="form-group mb-6">
               <p>Child's Income</p>
-              <input onChange={handleChildChange} name="child_income" value={childData.child_income} type="text" className="form-control w-full rounded"
+              <input onChange={handleChildChange} name="child_income" value={childData.child_income} type="number" className="form-control w-full rounded"
                 placeholder="Child's income in own right" />
             </div>
             <div>
@@ -1888,6 +1893,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                       <p className="font-bold">Saving...</p>
                     </div>
                   )}
+
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label>Employer Name:</label>
                     <input required onChange={(e) => setEmpName(e.target.value)} type="text" name="emp_name" className="form-control w-full rounded" />
@@ -2175,12 +2181,12 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                         <label htmlFor="expenses">How would you like to record your expenses?</label>
                         <div className="flex">
                           <div className="form-check form-check-inline">
-                            <input onChange={handleSelfEmployedChange} value="Total" name="expense" checked={selfEmployed.expense === "Total"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
+                            <input onChange={handleSelfEmployedChange} value="Break down" name="expense" checked={selfEmployed.expense === "Break down"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
                             <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Break down</label>
                           </div>
 
                           <div className="form-check form-check-inline ml-5">
-                            <input onChange={handleSelfEmployedChange} value="Break down" name="expense" checked={selfEmployed.expense === "Break down"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
+                            <input onChange={handleSelfEmployedChange} value="Total" name="expense" checked={selfEmployed.expense === "Total"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
                             <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Total</label>
                           </div>
                         </div>
@@ -2190,12 +2196,12 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                       <label htmlFor="expenses">Are figures provided provisional or estimated?</label>
                       <div className="flex">
                         <div className="form-check form-check-inline">
-                          <input onChange={handleSelfEmployedChange} value="Provisional" name="figures_estimated" checked={selfEmployed.figures_estimated === "Provisional"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
+                          <input onChange={handleSelfEmployedChange} value="Estimated" name="figures_estimated" checked={selfEmployed.figures_estimated === "Estimated"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
                           <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Estimated</label>
                         </div>
 
                         <div className="form-check form-check-inline ml-5">
-                          <input onChange={handleSelfEmployedChange} value="Estimated" name="figures_estimated" checked={selfEmployed.figures_estimated === "Estimated"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
+                          <input onChange={handleSelfEmployedChange} value="Estimated" name="Provisional" checked={selfEmployed.figures_estimated === "Provisional"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
                           <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Provisional</label>
                         </div>
                       </div>
@@ -3125,13 +3131,13 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
               <div className="">
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label htmlFor="employername">Company:</label>
-                  <input onChange={handleNHISChange} required name="company" value={nhisData.company} type="text" id="employername" className="form-control w-full rounded"
+                  <input onChange={handleNHISChange} name="company" value={nhisData.company} type="text" id="employername" className="form-control w-full rounded"
                   />
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label htmlFor="employername">Address:</label>
-                  <input onChange={handleNHISChange} required name="addr" value={nhisData.addr} type="text" id="employername" className="form-control w-full rounded"
+                  <input onChange={handleNHISChange} name="addr" value={nhisData.addr} type="text" id="employername" className="form-control w-full rounded"
                   />
                 </div>
 
@@ -3149,7 +3155,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label htmlFor="comments">Optional Comments:</label>
-                  <textarea onChange={handleNHISChange} required name="comments" value={nhisData.comments} cols="40" rows="2" className="rounded"></textarea>
+                  <textarea onChange={handleNHISChange} name="comments" value={nhisData.comments} cols="40" rows="2" className="rounded"></textarea>
                 </div>
                 <div className="mb-6 flex justify-between">
                   <button
@@ -3228,11 +3234,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label>Brand:</label>
-                  <select onChange={handleVehicleChange} className="Select Brand" name="brand" value={vehicle.brand}>
-                    <option value="Lexus">Lexus</option>
-                    <option value="Toyota">Toyota</option>
-                    <option value="Benz">Benz</option>
-                  </select>
+                  <input onChange={handleVehicleChange} type="text" name="brand" value={vehicle.brand}></input>
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
@@ -3328,7 +3330,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label>Cost of construction/acquisition:</label>
-                  <input required onChange={handleLandChange} name="construction_cost" value={land.construction_cost} type="text" className="form-control w-full rounded"
+                  <input required onChange={handleLandChange} name="construction_cost" value={land.construction_cost} type="number" className="form-control w-full rounded"
                   />
                 </div>
 

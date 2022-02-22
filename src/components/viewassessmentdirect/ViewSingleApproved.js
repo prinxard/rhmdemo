@@ -46,8 +46,8 @@ const ViewSingleApproved = () => {
           let res = await axios.post(`${url.BASE_URL}forma/view-assessment`, sendData);
           let IndData = res.data.body
           let arrda = res.data.body.taxpayer
-          let makeObjdata = IndData.assessment
-          let taxCalDa = IndData.taxCal
+          let makeObjdata = IndData.assessment[0]
+          let taxCalData = IndData.taxCal
           let chidDa = IndData.children
           let resAdd = IndData.residentialAddr
           let spouse = IndData.spouse
@@ -55,6 +55,7 @@ const ViewSingleApproved = () => {
           let vechicles = IndData.vechicles
           let landObj = IndData.land
           let employed = IndData.employed
+          console.log(taxCalData);
           setEmployed(employed)
           setLand(landObj)
           setVehicles(vechicles)
@@ -64,7 +65,7 @@ const ViewSingleApproved = () => {
           setchildObj(chidDa)
           setmakeArray(arrda)
           setmakeObj(makeObjdata)
-          setTaxCalDa(taxCalDa)
+          setTaxCalDa(taxCalData)
           setpayerprop(IndData)
           setIsFetching(false);
         } catch (err) {
@@ -111,8 +112,7 @@ const ViewSingleApproved = () => {
           </div>
         ) : <ViewSingleApprovedTable ref={componentRef} payerprop={payerprop} assId={globalAssId}
           payerAyy={makeArray} assobj={makeObj} taxcal={taxcalDa}
-          childObj={childObj}
-          resAddObj={resAddObj} employed={employed} spouseObj={spouseObj}
+          childObj={childObj} resAddObj={resAddObj} employed={employed} spouseObj={spouseObj}
           domesticStaff={domesticStaff} vehicles={vehicles} land={land} />}
 
       </Widget>

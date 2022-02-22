@@ -31,7 +31,7 @@ const ViewCompleteAss = () => {
       try {
         let res = await axios.get(`${url.BASE_URL}forma/list-assessment` );
         res = res.data.body.assessmentSubmitted;
-        // console.log(res)
+        console.log(res)
       
         let records = [];
         for (let i = 0; i < res.length; i++) {
@@ -51,7 +51,9 @@ const ViewCompleteAss = () => {
           // rec.totalChargeable = rec.totalChargeable / 12;
           // rec.totalChargeable = formatNumber(rec.totalChargeable);
           // rec.period = rec.payPeriod;
-           rec.createtime = dateformat(rec.createtime, "dd mmm yyyy hh: m")
+          rec.gross_income = formatNumber(rec.gross_income)
+          rec.tax = formatNumber(rec.tax)
+           rec.createtime = dateformat(rec.createtime, "dd mmm yyyy")
           // rec.year = dateformat(rec.year, "yyyy");
           records.push(rec);
         }

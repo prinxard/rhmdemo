@@ -91,9 +91,19 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
   const childObj = props.childObj
   const resAddObj = props.resAddObj
 
+  const kgtinVal = payerAyy.map(function (doc) {
+    let kgtin = doc.KGTIN
+    return kgtin
+  })
+  const kgtinString = String(kgtinVal)
+
+  let date = new Date()
+  let due_date = new Date(date)
+  due_date.setDate(due_date.getDate() + 30);
+  let paymentDue = dateformat(due_date, "dd mmm yyyy")
+
   const assessment_id = assId
   const createdTime = dateformat(assobj.createtime, "dd mmm yyyy")
-  console.log(items);
   const employedCal = Number(assobj.employed)
   const selfEmployedCal = Number(assobj.self_employed)
   const grossIncCal = employedCal + selfEmployedCal
@@ -140,7 +150,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                     <tr>
                       <td><strong>OTHER NAME: </strong></td>
                       {payerAyy.map((data, idx) => (
-                        <p key={idx}>{data.middle_name}</p>
+                        <p key={idx}>{data.middle_name} <span> {data.first_name}</span> </p>
                       ))}
                     </tr>
                     <tr>
@@ -153,7 +163,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                   <td width='403'><table width='85%' height='100%' border='0' align='right'>
 
                     <tr>
-                      <td><strong>Tax Station </strong></td>
+                      <td><strong>TAX STATION </strong></td>
                       {payerAyy.map((data, idx) => (
                         <p key={idx}>{data.tax_office}</p>
                       ))}
@@ -165,14 +175,15 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                       ))}
                     </tr>
                     <tr>
-                      <td><strong>Assessment No </strong></td>
+                      <td><strong>ASSESSMENT NO </strong></td>
                       {assessment_id}
                     </tr>
-                    <tr>
+                    {/* <tr>
                       <td><strong>Date Assessed </strong></td>
                       <td className=''> {createdTime} </td>
-                    </tr>
-                  </table></td>
+                    </tr> */}
+                  </table>
+                  </td>
                 </tr>
               </table>
 
@@ -191,7 +202,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                       <td className='tb'> Trade, Professional e.t.c </td>
                       {assobj == null || assobj == ""
                         ? <td></td> :
-                        <td className='tb'><p className="font-bold" align="right">{assobj.self_employed}</p> </td>
+                        <td className='tb'><p className="font-bold" align="right">{formatNumber(assobj.self_employed)}</p> </td>
                       }
                     </tr>
                     <tr>
@@ -201,106 +212,104 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                     <tr>
                       <td className='tb'>Employment</td>
                       {assobj == null || assobj == ""
-                        ? <td></td> :
-                        <td className='tb'><p className="font-bold" align="right">{assobj.employed}</p> </td>
+                        ? <td><p className="font-bold text-right">0</p></td> :
+                        <td className='tb'><p className="font-bold" align="right">{formatNumber(assobj.employed)}</p> </td>
                       }
                     </tr>
                     <tr>
                       <td className='tb'>Other Income </td>
-                      <td className='tb'>  </td>
+                      <td className='tb'> <p className="font-bold text-right">0</p> </td>
                     </tr>
                     <tr>
                       <td className='tb'><div align='right' className='style27 font-bold'>Gross Income </div></td>
-                      <td className='tb'><p className="font-bold" align="right">{grossIncCal}</p> </td>
+                      <td className='tb'><p className="font-bold" align="right">{formatNumber(grossIncCal)}</p> </td>
                     </tr>
                     <tr>
                       <td className='tb'>PFC</td>
                       {assobj == null || assobj == ""
-                        ? <td className="tb"></td> :
-                        <td className='tb'><p className="font-bold" align="right">{assobj.pension}</p></td>
+                        ? <td className="tb"><p className="font-bold text-right">0</p></td> :
+                        <td className='tb'><p className="font-bold" align="right">{formatNumber(assobj.pension)}</p></td>
                       }
 
                     </tr>
                     <tr>
                       <td className='tb'>NHIS</td>
                       {assobj == null || assobj == ""
-                        ? <td className="tb"></td> :
-                        <td className='tb'> <p className="font-bold" align="right">{assobj.nhis}</p></td>
+                        ? <td className="tb"><p className="font-bold text-right">0</p></td> :
+                        <td className='tb'> <p className="font-bold" align="right">{formatNumber(assobj.nhis)}</p></td>
                       }
                     </tr>
                     <tr>
                       <td className='tb'>NHF</td>
-                      <td className='tb'> </td>
+                      <td className='tb'><p className="font-bold text-right">0</p> </td>
                     </tr>
                     <tr>
                       <td className='tb'>Life Assurance Premium</td>
                       {assobj == null || assobj == ""
-                        ? <td className="tb"></td> :
-                        <td className='tb'> {assobj.lap} </td>
+                        ? <td className="tb"><p className="font-bold text-right">0</p></td> :
+                        <td className='tb'> <p className="font-bold text-right">{formatNumber(assobj.lap)}</p></td>
                       }
 
                     </tr>
                     <tr>
                       <td className='tb font-bold'><p align="right">Total</p></td>
-                      <td className='tb'> {deductionsTotal} </td>
+                      <td className='tb'> <p className="font-bold text-right">{formatNumber(deductionsTotal)}</p></td>
                     </tr>
                     <tr>
                       <td className='tb font-bold'><div align='right' className='style16'>Assessable Income </div></td>
-                      <td className='tb'>  </td>
+                      <td className='tb'> <p className="font-bold text-right">0</p> </td>
                     </tr>
                     <tr>
                       <td className='tb'>ADD</td>
-                      <td className='tb'></td>
+                      <td className='tb'><p className="font-bold text-right">0</p></td>
                     </tr>
                     <tr>
                       <td className='tb'>Balancing Charges </td>
-                      <td className='tb'>  </td>
+                      <td className='tb'> <p className="font-bold text-right">0</p> </td>
                     </tr>
                     <tr>
                       <td className='tb'>DEDUCT</td>
-                      <td className='tb'></td>
+                      <td className='tb'><p className="font-bold text-right">0</p></td>
                     </tr>
                     <tr>
                       <td className='tb'>Balancing Allowances </td>
-                      <td className='tb'>  </td>
+                      <td className='tb'> <p className="font-bold text-right">0</p> </td>
                     </tr>
                     <tr>
                       <td className='tb'>Lose Relief </td>
-                      <td className='tb'>  </td>
+                      <td className='tb'><p className="font-bold text-right">0</p> </td>
                     </tr>
                     <tr>
                       <td className='tb'>Capital Allowances </td>
-                      <td className='tb'>  </td>
+                      <td className='tb'><p className="font-bold text-right">0</p> </td>
                     </tr>
                     <tr>
                       <td className='tb'><div align='right' className='style16 font-bold'>Total Income</div></td>
-                      <td className='tb'>  </td>
+                      <td className='tb'> <p className="font-bold text-right">0</p> </td>
                     </tr>
                     <tr>
                       <td className='tb'>Consolidated Relief Allowance</td>
                       {taxcal == null || taxcal == ""
                         ? <td className="tb"></td> :
-                        <td className='tb'>{taxcal.consolidatedRelief}</td>
+                        <td className='tb'> <p className="font-bold text-right">{formatNumber(taxcal.consolidatedRelief)}</p></td>
                       }
-
                     </tr>
                     <tr>
                       <td className='tb font-bold'><div align='right'>Chargeable Income </div></td>
                       {taxcal == null || taxcal == ""
                         ? <td className="tb"></td> :
-                        <td className='tb'>{taxcal.chargeableIncome}</td>
+                        <td className='tb'> <p className="font-bold text-right">{formatNumber(taxcal.chargeableIncome)}</p></td>
                       }
                     </tr>
                     <tr>
                       <td className='tb'><div align='center' className='style16 font-bold'>Tax Due for Payment </div></td>
-                      <td className='tb'>{taxcal.tax}</td>
+                      <td className='tb'><p className="text-right font-bold">{formatNumber(taxcal.tax)}</p></td>
                     </tr>
-
                     <tr>
                       <td className='tb'><div align='center' className='style16'>7% on 300,000.00 </div></td>
                       {taxcal == null || taxcal == ""
                         ? <td className="tb"></td> :
-                        <td className='tb'> {taxcal.tax7}  </td>
+                        <td className='tb'> <p className="font-bold text-right">{formatNumber(taxcal.tax7)}</p> </td>
                       }
 
 
@@ -309,7 +318,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                       <td className='tb'><div align='center' className='style16'>11% on 300,000.00 </div></td>
                       {taxcal == null || taxcal == ""
                         ? <td className="tb"></td> :
-                        <td className='tb'> {taxcal.tax11} </td>
+                        <td className='tb'> <p className="font-bold text-right">{formatNumber(taxcal.tax11)}</p> </td>
                       }
 
                     </tr>
@@ -317,7 +326,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                       <td className='tb'><div align='center' className='style16'>15% on 500,000.00 </div></td>
                       {taxcal == null || taxcal == ""
                         ? <td className="tb"></td> :
-                        <td className='tb'> {taxcal.tax15} </td>
+                        <td className='tb'> <p className="font-bold text-right">{formatNumber(taxcal.tax15)}</p></td>
                       }
 
                     </tr>
@@ -325,7 +334,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                       <td className='tb'><div align='center' className='style16'>19% on 500,000.00 </div></td>
                       {taxcal == null || taxcal == ""
                         ? <td className="tb"></td> :
-                        <td className='tb'> {taxcal.tax19} </td>
+                        <td className='tb'><p className="font-bold text-right">{formatNumber(taxcal.tax19)}</p></td>
                       }
 
                     </tr>
@@ -333,7 +342,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                       <td className='tb'><div align='center' className='style16'>21% on 1,600,000.00 </div></td>
                       {taxcal == null || taxcal == ""
                         ? <td className="tb"></td> :
-                        <td className='tb'> {taxcal.tax21} </td>
+                        <td className='tb'> <p className="font-bold text-right">{formatNumber(taxcal.tax21)}</p></td>
                       }
 
                     </tr>
@@ -341,13 +350,13 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                       <td className='tb'><div align='center'>24% on above 3,200,000.00 </div></td>
                       {taxcal == null || taxcal == ""
                         ? <td className="tb"></td> :
-                        <td className='tb'> {taxcal.tax24} </td>
+                        <td className='tb'> <p className="font-bold text-right">{formatNumber(taxcal.tax24)}</p></td>
                       }
 
                     </tr>
                     <tr>
                       <td className='tb'><div align='center' className='style16'>1%(Minimun Tax)</div></td>
-                      <td className='tb'>  </td>
+                      <td className='tb'><p className="font-bold text-right">0</p></td>
                     </tr>
                     <tr>
                       <td className='tb'><div align='center' className='style16'>Total </div></td>
@@ -359,25 +368,25 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                     </tr>
                     <tr>
                       <td className='tb'><div align='right' className='style16 font-bold'>Total Tax Due </div></td>
-                      <td className='tb'><div align='left' className='style16 font-bold'>{taxcal.tax}</div></td>
+                      <td className='tb'><div align='right' className='style16 font-bold'>{formatNumber(taxcal.tax)}</div></td>
 
                     </tr>
 
                     <tr>
                       <td className='tb'><div align='right' className='style16 font-bold'>Set off WHT </div></td>
-                      <td className='tb'>  </td>
+                      <td className='tb'><p className="font-bold text-right">0</p></td>
                     </tr>
                     <tr>
                       <td height='28' className='tb'><div align='right' className='style16 font-bold'>Set off 1st Assessment </div></td>
-                      <td className='tb'>  </td>
+                      <td className='tb'> <p className="text-right font-bold">0</p> </td>
                     </tr>
                     <tr>
                       <td height='28' className='tb'><div align='right' className='style16 font-bold'>Set off Additional Assessment </div></td>
-                      <td className='tb'>  </td>
+                      <td className='tb'> <p className="text-right font-bold">0</p> </td>
                     </tr>
                     <tr>
                       <td height='30' className='tb'><div align='right' className='style16 font-bold'>Total Tax Due for Payment </div></td>
-                      <td className='tb'>{taxcal.tax}</td>
+                      <td className='tb'><p className="font-bold text-right">{formatNumber(taxcal.tax)}</p></td>
                     </tr>
                   </table>
                     <br />
@@ -399,15 +408,17 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                   </td>
                   <td valign='top'>
                     <div>
-                      <p>
+                      <p className="text-justify">
                         Be informed that Tax payment is not a fine, It is a civic responsibility.
                         We have made an Assesment on you as set out Opposite, for the year {assobj.year},
                         Under the provision of personal Income Tax Act 2011 amended
                       </p>
-                      <div align="center">
-                        <p className="font-bold mt-6" align="center">Sule Enehu Salihu</p>
-                        <p>Ag. Executive Chaiman</p>
-                        <p>Kogi State Internal Revenue Service</p>
+                      <div className="flex justify-center">
+                        <div>
+                          <p className="font-bold mt-6" align="center"> Sule Salihu Enehe </p>
+                          <p>Ag. Executive Chaiman</p>
+                          <p>Kogi State Internal Revenue Service</p>
+                        </div>
                       </div>
                       <div className="mb-3 mt-4">
                         <p>Prepared By:</p>
@@ -415,40 +426,43 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                         <p>Due Date of Payment:</p>
                       </div>
                       <div>
-                        <p className="font-bold" align="center">RIGHT OF OBJECTION</p>
-                        <p>If you do not agree to the Assesment, you are please Obliged to do the following:</p>
 
-                        <p>I. Give Notice of Objection in writing Seeking the relevant tax office in review and revise the Assessment</p>
-                        <p>II. The Objection should contain precise ground(s) of Objectionon points of fact and or subsisting laws on personal income Tax Administration</p>
-                        <p>III. The Objection notice should reach the tax office within (30) days from the date of service of notice of assessment. Else
-                          a penalty of 10 percent of tax payable will be added and any right of payment by two instalments will be lost.
-                        </p>
-                        <p>The Tax appeal Tribunal Established pursuant to section 59 of the federal inland revenue(Establishment) Act, 2007 shall have powers
-                          to entertain all cases from the operation of Personal Income Tax, 2011 amended
-                        </p>
-                        <p align="center" className="m-5 font-bold">PAYMENT OF TAX</p>
-                        <p>The net Tax Payable be paid to</p>
-                        <p className="font-bold">KOGI STATE INTERNAL REVENUE SERVICE LOKOJA</p>
-                        <p>The Tax ID and assessment number shoul always be quoted</p>
+                        <div className="text-justify">
+                          <p className="font-bold" align="center">RIGHT OF OBJECTION</p>
+                          <p>If you do not agree to the Assesment, you are please Obliged to do the following:</p>
+
+                          <p>I. Give Notice of Objection in writing Seeking the relevant tax office in review and revise the Assessment</p>
+                          <p>II. The Objection should contain precise ground(s) of Objectionon points of fact and or subsisting laws on personal income Tax Administration</p>
+                          <p>III. The Objection notice should reach the tax office within (30) days from the date of service of notice of assessment. Else
+                            a penalty of 10 percent of tax payable will be added and any right of payment by two instalments will be lost.
+                          </p>
+                          <p>The Tax appeal Tribunal Established pursuant to section 59 of the federal inland revenue(Establishment) Act, 2007 shall have powers
+                            to entertain all cases from the operation of Personal Income Tax, 2011 amended
+                          </p>
+                          <p align="center" className="m-5 font-bold">PAYMENT OF TAX</p>
+                          <p>The net Tax Payable be paid to</p>
+                          <p className="font-bold">KOGI STATE INTERNAL REVENUE SERVICE LOKOJA</p>
+                          <p>The Tax ID and assessment number should always be quoted</p>
+                        </div>
                         <tr width="300">
                           <td width="300" className="font-bold tb">TIN</td>
-                          <td width="300" className="font-bold tb"></td>
+                          <td width="300" className="font-bold tb">{kgtinString}</td>
                         </tr>
                         <tr width="300">
                           <td width="300" className="font-bold tb">Assesment no</td>
-                          <td width="300" className="font-bold tb"></td>
+                          <td width="300" className="font-bold tb">{assessment_id}</td>
                         </tr>
                         <tr width="300">
                           <td width="300" className="font-bold tb">Year of Assesment</td>
-                          <td width="300" className="font-bold tb"></td>
+                          <td width="300" className="font-bold tb">{assobj.year}</td>
                         </tr>
                         <tr width="300">
                           <td width="300" className="font-bold tb">Net Tax Payable</td>
-                          <td width="300" className="font-bold tb"></td>
+                          <td width="300" className="font-bold tb">{formatNumber(taxcal.tax)}</td>
                         </tr>
                         <tr width="300">
                           <td width="300" className="font-bold tb">Payment due date</td>
-                          <td width="300" className="font-bold tb"></td>
+                          <td width="300" className="font-bold tb">{paymentDue}</td>
                         </tr>
                         <p className="font-bold mt-4" align="center">COLLECTION BANK</p>
                         <tr width="300">
@@ -607,7 +621,7 @@ export const ViewSingleApprovedTables = ({ payerprop, assId, payerAyy, assobj, t
                   <tr>
                     <td><strong>OTHER NAME: </strong></td>
                     {payerAyy.map((data, idx) => (
-                      <p key={idx}>{data.middle_name}</p>
+                      <p key={idx}>{data.middle_name} {data.first_name}</p>
                     ))}
                   </tr>
                   <tr>
@@ -620,7 +634,7 @@ export const ViewSingleApprovedTables = ({ payerprop, assId, payerAyy, assobj, t
                 <td width='403'><table width='85%' height='100%' border='0' align='right'>
 
                   <tr>
-                    <td><strong>Tax Station </strong></td>
+                    <td><strong>TAX STATION </strong></td>
                     {payerAyy.map((data, idx) => (
                       <p key={idx}>{data.tax_office}</p>
                     ))}
@@ -632,14 +646,15 @@ export const ViewSingleApprovedTables = ({ payerprop, assId, payerAyy, assobj, t
                     ))}
                   </tr>
                   <tr>
-                    <td><strong>Assessment No </strong></td>
+                    <td><strong>ASSESSMENT NO </strong></td>
                     {assessment_id}
                   </tr>
-                  <tr>
-                    <td><strong>Date Assessed </strong></td>
+                  {/* <tr>
+                    <td><strong>DATE ASSESSED </strong></td>
                     <td className=''> {createdTime} </td>
-                  </tr>
-                </table></td>
+                  </tr> */}
+                </table>
+                </td>
               </tr>
             </table>
 
@@ -848,7 +863,7 @@ export const ViewSingleApprovedTables = ({ payerprop, assId, payerAyy, assobj, t
                   </tr>
                   <tr>
                     <td height='30' className='tb'><div align='right' className='style16 font-bold'>Total Tax Due for Payment </div></td>
-                    <td className='tb'>{taxcal.tax}</td>
+                    <td className='tb'>{formatNumber(taxcal.tax)}</td>
                   </tr>
                 </table>
                   <br />
@@ -897,7 +912,7 @@ export const ViewSingleApprovedTables = ({ payerprop, assId, payerAyy, assobj, t
                       <p>The Tax appeal Tribunal Established pursuant to section 59 of the federal inland revenue(Establishment) Act, 2007 shall have powers
                         to entertain all cases from the operation of Personal Income Tax, 2011 amended
                       </p>
-                      <p align="center" className="m-5 font-bold">PAYMENT OF TAX</p>
+                      {/* <p align="center" className="m-5 font-bold">PAYMENT OF TAX</p> */}
                       <p>The net Tax Payable be paid to</p>
                       <p className="font-bold">KOGI STATE INTERNAL REVENUE SERVICE LOKOJA</p>
                       <p>The Tax ID and assessment number shoul always be quoted</p>
@@ -915,7 +930,7 @@ export const ViewSingleApprovedTables = ({ payerprop, assId, payerAyy, assobj, t
                       </tr>
                       <tr width="300">
                         <td width="300" className="font-bold tb">Net Tax Payable</td>
-                        <td width="300" className="font-bold tb"></td>
+                        <td width="300" className="font-bold tb">{taxcal.tax}</td>
                       </tr>
                       <tr width="300">
                         <td width="300" className="font-bold tb">Payment due date</td>
