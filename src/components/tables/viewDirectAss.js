@@ -26,10 +26,10 @@ const fields = [
     name: "Status",
     key: "status",
   },
-  {
-    name: "Comment",
-    key: "comment",
-  },
+  // {
+  //   name: "Comment",
+  //   key: "comment",
+  // },
   {
     name: "Created Time",
     key: "createtime",

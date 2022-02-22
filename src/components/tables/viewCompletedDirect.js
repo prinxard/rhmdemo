@@ -150,13 +150,13 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
   let DeclineAss = async (e) => {
     e.preventDefault()
     setIsFetching2(true)
-    let apprDataObj = {
+    let declineDataObj = {
       assessment_id: `${assessment_id}`,
-      comments: `${comment}`,
+      comment: `${comment}`,
       status: "Declined"
     }
     try {
-      let res = await axios.put(`${url.BASE_URL}forma/set-status`, apprDataObj);
+      let res = await axios.put(`${url.BASE_URL}forma/set-status`, declineDataObj);
       setIsFetching2(false)
       router.push('/view/pendingdirect')
       toast.success("Success!");
@@ -177,7 +177,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
             <p>Are you sure you want to decline?</p>
             <p>Please state reason why</p>
 
-            <textarea onChange={(e) => setComment(e.target.value)}></textarea>
+            <textarea minlength="10" maxlength="50" onChange={(e) => setComment(e.target.value)}></textarea>
             <div className="mt-2 flex justify-between">
               <button onClick={toggleModal}
                 className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
