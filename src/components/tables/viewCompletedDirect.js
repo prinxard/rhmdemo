@@ -173,6 +173,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
       {modal && (
         <div className="modal">
           {/* <div onClick={toggleModal} className="overlay"></div> */}
+
           <div className="modal-content" width="300">
             <p>Are you sure you want to decline?</p>
             <p>Please state reason why</p>
@@ -747,6 +748,111 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                     ? <td></td> :
                     lap.map((el, i) =>
                       <td className="p-2" key={i}>{el.rsa_no}</td>
+                    )
+                  }
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div className="flex justify-between p-4 border">
+          <div className="mt-3">
+            <div>
+              <div className="">
+                <h5 className="font-bold">VEHICLES</h5>
+              </div>
+              <table class="table-auto">
+                <tbody>
+                  <tr>
+                    <td className="font-bold  p-2">Purchase date</td>
+                    {vehicles == null || vehicles == ""
+                      ? <td></td> :
+                      vehicles.map((el, i) =>
+                        <td className="p-2 border-r-2" key={i}>{el.purchase_date}</td>
+                      )
+                    }
+                  </tr>
+                  <tr>
+                    <td className="font-bold p-2">Cost</td>
+                    {vehicles == null || vehicles == ""
+                      ? <td ></td> :
+                      vehicles.map((el, i) =>
+                        <td className="p-2 border-r-2" key={i}>{el.cost}</td>
+                      )
+                    }
+                  </tr>
+                  <tr>
+                    <td className="font-bold p-2">Brand</td>
+                    {vehicles == null || vehicles == ""
+                      ? <td></td> :
+                      vehicles.map((el, i) =>
+                        <td className="p-2 border-r-2" key={i}>{el.brand}</td>
+                      )
+                    }
+                  </tr>
+                  <tr>
+                    <td className="font-bold p-2">Model</td>
+                    {vehicles == null || vehicles == ""
+                      ? <td></td> :
+                      vehicles.map((el, i) =>
+                        <td className="p-2 border-r-2" key={i}>{el.model}</td>
+                      )
+                    }
+                  </tr>
+                  <tr>
+                    <td className="font-bold p-2">Year</td>
+                    {vehicles == null || vehicles == ""
+                      ? <td></td> :
+                      vehicles.map((el, i) =>
+                        <td className="p-2 border-r-2" key={i}>{el.year}</td>
+                      )
+                    }
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div className="mt-3">
+
+            <div className="">
+              <h5 className="font-bold">LAND</h5>
+            </div>
+            <table class="table-auto">
+              <tbody>
+                <tr>
+                  <td className="font-bold p-2">Address</td>
+                  {land == null || land == ""
+                    ? <td></td> :
+                    land.map((el, i) =>
+                      <td className="p-2" key={i}>{el.addr}</td>
+                    )
+                  }
+                </tr>
+                <tr>
+                  <td className="font-bold p-2">Property Type</td>
+                  {land == null || land == ""
+                    ? <td ></td> :
+                    land.map((el, i) =>
+                      <td className="p-2" key={i}>{el.prop_type}</td>
+                    )
+                  }
+                </tr>
+                <tr>
+                  <td className="font-bold p-2">Completion Date</td>
+                  {land == null || land == ""
+                    ? <td></td> :
+                    land.map((el, i) =>
+                      <td className="p-2" key={i}>{el.date_completion}</td>
+                    )
+                  }
+                </tr>
+                <tr>
+                  <td className="font-bold p-2">Construction Cost</td>
+                  {lap == null || lap == ""
+                    ? <td></td> :
+                    lap.map((el, i) =>
+                      <td className="p-2" key={i}>{el.construction_cost}</td>
                     )
                   }
                 </tr>

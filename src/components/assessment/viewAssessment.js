@@ -3237,7 +3237,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label>Cost of construction/acquisition:</label>
-                  <input required onChange={handleLandChange} name="construction_cost" value={land.construction_cost} type="text" className="form-control w-full rounded"
+                  <input required onChange={handleLandChange} name="construction_cost" value={land.construction_cost} type="number" className="form-control w-full rounded"
                   />
                 </div>
 
