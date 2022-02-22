@@ -225,6 +225,24 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
   const [isFetching23, setIsFetching23] = useState(() => false);
   const router = useRouter();
 
+  const [formValues, setFormValues] = useState([{ source: "", gross_amount: "", comments: "" }])
+
+  let handleChange1 = (i, e) => {
+    let newFormValues = [...formValues];
+    newFormValues[i][e.target.name] = e.target.value;
+    setFormValues(newFormValues);
+  }
+
+  let handleSubmit1 = (event) => {
+    event.preventDefault();
+    alert(JSON.stringify(formValues));
+  }
+
+  let addFormFields1 = () => {
+    setFormValues([...formValues, { source: "", gross_amount: "", comments: "" }])
+  }
+
+
   const [pensionDeduct, setPensionDeduct] = useState(
     { assessment_id: "", pfa: "", pfa_addr: "", rsa_no: "", amount: "", comments: "" }
   )
@@ -2818,11 +2836,52 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                 </div>
               </form>
             </div>
-
           </div>
-
         </div>
       </Widget>
+
+      <form onSubmit={handleSubmit1}>
+        {formValues.map((element, index) => (
+
+          <div className="" key={index}>
+            <div className="mb-6 grid grid-cols-3 gap-4">
+              <label>Source:</label>
+              <input name="source" value={element.source || ""} onChange={e => handleChange1(index, e)} type="text" className="form-control w-full rounded"
+              />
+            </div>
+
+            <div className="mb-6 grid grid-cols-3 gap-4">
+              <label>Gross Amount:</label>
+              <input placeholder="₦" name="gross_amount" value={element.gross_amount || ""} onChange={e => handleChange1(index, e)} type="number" className="form-control w-full rounded"
+              />
+            </div>
+
+            <div className="mb-6 grid grid-cols-3 gap-4">
+              <label>Optional Comments:</label>
+              <textarea name="comments" value={element.comments || ""} onChange={e => handleChange1(index, e)} cols="40" rows="2" className="rounded"></textarea>
+            </div>
+          </div>
+
+        ))}
+        <button onClick={() => addFormFields1()}
+          style={{ backgroundColor: "#84abeb" }}
+          className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+          type="button"
+        >
+          Add
+        </button>
+        <button
+          style={{ backgroundColor: "#84abeb" }}
+          className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+          type="submit"
+        >
+          Save
+        </button>
+      </form>
+
+
+
+
 
       <h6 className="p-2">Deductions</h6>
 
