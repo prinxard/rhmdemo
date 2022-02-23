@@ -1290,6 +1290,11 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
   const onresidenceToggleYes = e => {
     let toggleval = 'hidden'
     setresToggle(toggleval)
+  };
+
+  const onresidenceToggleNo = e => {
+    let toggleval = ''
+    setresToggle(toggleval)
 
   };
 
@@ -1324,11 +1329,6 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
   };
 
-  const onresidenceToggleNo = e => {
-    let toggleval = ''
-    setresToggle(toggleval)
-
-  };
 
   const formTog1 = e => {
     e.preventDefault()
@@ -1493,6 +1493,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
               ))}
             </div>
           </div>
+
           <div className="grid grid-cols-3 gap-4">
             <div className="form-group mb-6">
               <p>Tax Office</p>
@@ -1706,14 +1707,14 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                     placeholder="Date of birth" />
                 </div>
                 <div className="form-group mb-6">
-                  <p>Business/Employer</p>
-                  <input name="employer" value={element.employer || ""} onChange={e => handleSpouseChange(index, e)} type="text" className="form-control w-full rounded"
-                    placeholder="Employer/Business of spouse" />
-                </div>
-                <div className="form-group mb-6">
                   <p>Occupation</p>
                   <input name="occupation" value={element.occupation || ""} onChange={e => handleSpouseChange(index, e)} type="text" className="form-control w-full rounded"
                     placeholder="Occupation" />
+                </div>
+                <div className="form-group mb-6">
+                  <p>Business/Employer</p>
+                  <input name="employer" value={element.employer || ""} onChange={e => handleSpouseChange(index, e)} type="text" className="form-control w-full rounded"
+                    placeholder="Employer/Business of spouse" />
                 </div>
                 <div className="form-group mb-6">
                   <p>Office/Business Address</p>
@@ -1978,12 +1979,12 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
               <div className="flex justify-between self-center">
                 <div className="form-check form-check-inline ">
-                  <input onChange={e => handleDomesticStaffChange(index, e)} value="employer" name="payer"  className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" />
+                  <input onChange={e => handleDomesticStaffChange(index, e)} value="employer" name="payer" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" />
                   <label className="form-check-label  text-gray-800" for="inlineRadio10">Paid by employer</label>
                 </div>
 
                 <div className="form-check form-check-inline ml-5">
-                  <input onChange={e => handleDomesticStaffChange(index, e)} value="self" name="payer"  className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" />
+                  <input onChange={e => handleDomesticStaffChange(index, e)} value="self" name="payer" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" />
                   <label className="form-check-label  text-gray-800" for="inlineRadio20">Paid by self</label>
                 </div>
               </div>

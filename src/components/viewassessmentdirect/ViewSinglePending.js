@@ -15,7 +15,9 @@ const ViewSinglePending = () => {
   const [post, setPost] = useState(() => []);
   const [total, setTotal] = useState(() => []);
   const [isFetching, setIsFetching] = useState(() => true);
-  const [payerprop, setpayerprop] = useState({});
+  const [payerprop, setpayerprop] = useState([]);
+  const [residentialAddr, setResidentialAddr] = useState([]);
+  const [payLoad, setPayload] = useState([]);
 
   const router = useRouter();
   useEffect(() => {
@@ -32,8 +34,13 @@ const ViewSinglePending = () => {
         try {
           let res = await axios.post(
             `${url.BASE_URL}forma/view-assessment`, sendData);
-          let payerDat = res.data.body;
+          let userAssData = res.data.body
+          let payerDat = res.data.body.taxpayer;
+          let resAddress = userAssData.residentialAddr
+          setPayload(userAssData)
+          setResidentialAddr(resAddress)
           setpayerprop(payerDat)
+          console.log(resAddress);
         
           setIsFetching(false);
         
@@ -67,7 +74,7 @@ const ViewSinglePending = () => {
       )}
       <Widget>
         <>
-          <ViewSinglePendingTable updateData={payerprop} />
+          <ViewSinglePendingTable indvData={payerprop} residentialAddr={residentialAddr} />
    
         </>
       </Widget>
