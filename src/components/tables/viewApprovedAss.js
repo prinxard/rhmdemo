@@ -257,7 +257,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                     </tr>
                     <tr>
                       <td className='tb font-bold'><div align='right' className='style16'>Assessable Income </div></td>
-                      <td className='tb'> <p className="font-bold text-right">0</p> </td>
+                      <td className='tb'> <p className="font-bold text-right">{formatNumber(taxcal.gross_inc)}</p> </td>
                     </tr>
                     <tr>
                       <td className='tb'>ADD</td>
@@ -302,11 +302,10 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                       }
                     </tr>
                     <tr>
-                      <td className='tb'><div align='center' className='style16 font-bold'>Tax Due for Payment </div></td>
-                      <td className='tb'><p className="text-right font-bold">{formatNumber(taxcal.tax)}</p></td>
+                      <td className='tb'><div align='left' className='style16 font-bold'>Tax Due for Payment </div></td>
                     </tr>
                     <tr>
-                      <td className='tb'><div align='center' className='style16'>7% on 300,000.00 </div></td>
+                      <td className='tb'><div align='center' className='style16'>First 300,000.00 at 7%</div></td>
                       {taxcal == null || taxcal == ""
                         ? <td className="tb"></td> :
                         <td className='tb'> <p className="font-bold text-right">{formatNumber(taxcal.tax7)}</p> </td>
@@ -315,7 +314,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
 
                     </tr>
                     <tr>
-                      <td className='tb'><div align='center' className='style16'>11% on 300,000.00 </div></td>
+                      <td className='tb'><div align='center' className='style16'>Next 300,000.00 at 11%</div></td>
                       {taxcal == null || taxcal == ""
                         ? <td className="tb"></td> :
                         <td className='tb'> <p className="font-bold text-right">{formatNumber(taxcal.tax11)}</p> </td>
@@ -323,7 +322,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
 
                     </tr>
                     <tr>
-                      <td className='tb'><div align='center' className='style16'>15% on 500,000.00 </div></td>
+                      <td className='tb'><div align='center' className='style16'>Next 500,000.00 at 15% </div></td>
                       {taxcal == null || taxcal == ""
                         ? <td className="tb"></td> :
                         <td className='tb'> <p className="font-bold text-right">{formatNumber(taxcal.tax15)}</p></td>
@@ -331,7 +330,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
 
                     </tr>
                     <tr>
-                      <td className='tb'><div align='center' className='style16'>19% on 500,000.00 </div></td>
+                      <td className='tb'><div align='center' className='style16'>Next 500,000.00 at 19%</div></td>
                       {taxcal == null || taxcal == ""
                         ? <td className="tb"></td> :
                         <td className='tb'><p className="font-bold text-right">{formatNumber(taxcal.tax19)}</p></td>
@@ -339,7 +338,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
 
                     </tr>
                     <tr>
-                      <td className='tb'><div align='center' className='style16'>21% on 1,600,000.00 </div></td>
+                      <td className='tb'><div align='center' className='style16'>Next 1,600,000.00 at 21%</div></td>
                       {taxcal == null || taxcal == ""
                         ? <td className="tb"></td> :
                         <td className='tb'> <p className="font-bold text-right">{formatNumber(taxcal.tax21)}</p></td>
@@ -347,7 +346,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
 
                     </tr>
                     <tr>
-                      <td className='tb'><div align='center'>24% on above 3,200,000.00 </div></td>
+                      <td className='tb'><div align='center'>Above 3,200,000.00 at 24%</div></td>
                       {taxcal == null || taxcal == ""
                         ? <td className="tb"></td> :
                         <td className='tb'> <p className="font-bold text-right">{formatNumber(taxcal.tax24)}</p></td>
@@ -360,16 +359,15 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                     </tr>
                     <tr>
                       <td className='tb'><div align='center' className='style16'>Total </div></td>
-                      <td className='tb'>  </td>
+                      <td className='tb'><p className="font-bold text-right"> {formatNumber(Number(taxcal.tax) + Number(taxcal.devy_levy))}</p> </td>
                     </tr>
                     <tr>
                       <td className='tb'><div align='center' className='style16'>Dev. Levy </div></td>
-                      <td className='tb'>  </td>
+                      <td className='tb'> <p className="font-bold text-right">{formatNumber(Number(taxcal.devy_levy))}</p> </td>
                     </tr>
                     <tr>
                       <td className='tb'><div align='right' className='style16 font-bold'>Total Tax Due </div></td>
                       <td className='tb'><div align='right' className='style16 font-bold'>{formatNumber(taxcal.tax)}</div></td>
-
                     </tr>
 
                     <tr>
