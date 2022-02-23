@@ -11,6 +11,79 @@ import SectionTitle from "../section-title";
 import { useState } from "react";
 
 
+const fields = [
+  {
+    name: "Assessment Id",
+    key: "assessment_id",
+  },
+  {
+    name: "KGTIN",
+    key: "kgtin",
+  },
+  {
+    name: "Name",
+    key: "tp_name",
+  },
+  {
+    name: "Year",
+    key: "year",
+  },
+  {
+    name: "Status",
+    key: "status",
+  },
+  // {
+  //   name: "Comment",
+  //   key: "comment",
+  // },
+  {
+    name: "Created Time",
+    key: "createtime",
+  },
+
+];
+
+export const ViewPendingTable = ({ remittance }) => {
+  let items = remittance;
+  console.log(remittance)
+
+
+  return (
+    <>
+      <Widget>
+        <table className="table divide-y">
+          <thead>
+            <tr className="">
+              {fields.map((field, i) => (
+                <th key={i} className="">
+                  {field.name}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody className="divide-y">
+            {items.map((remittance, i) => (
+              <tr key={i} className="">
+                {fields.map((field, j) => (
+                  <td key={j}>         
+                      <Link href={`/view/pendingdirect/${remittance.assessment_id},${remittance.kgtin}`}>
+                        <a className="hover:text-blue-500">
+                          {remittance[field.key]}
+                        </a>
+                      </Link>
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div className="mt-16"></div>
+        <hr />
+      </Widget>
+    </>
+  );
+};
+
 export const ViewSinglePendingTable = ({ indvData, residentialAddr }) => {
   const [toggleel, setToggle] = useState('hidden')
   const [togglee2, setToggle2] = useState('hidden')
