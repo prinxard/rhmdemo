@@ -227,7 +227,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
   const [isFetching23, setIsFetching23] = useState(() => false);
   const router = useRouter();
 
-  const [formValues, setFormValues] = useState([{assessment_id: `${assessment_id}`, source: "", gross_amount: "", comments: "" }])
+  const [formValues, setFormValues] = useState([{ assessment_id: `${assessment_id}`, source: "", gross_amount: "", comments: "" }])
 
   let handleChange1 = (i, e) => {
     let newFormValues = [...formValues];
@@ -235,57 +235,150 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     setFormValues(newFormValues);
   }
 
-  
-  setAuthToken();
-  let submitDataOutsideSourc = async (e) => {
-    e.preventDefault()
-    setIsFetching20(true)
-    let outsideSourceDataObj = {
-      assessment_id: `${assessment_id}`,
-      source: `${outsideSource.source}`,
-      gross_amount: `${outsideSource.gross_amount}`,
-      comments: `${outsideSource.comments}`,
-    }
-    try {
-      let res = await axios.post(`${url.BASE_URL}forma/outside-source`, outsideSourceDataObj);
-      setIsFetching20(false)
-      alert("submitted successfully!");
-    } catch (error) {
-      alert("cannot submit, please try again")
-      console.log(error);
-      setIsFetching20(false)
-    }
-  }
-
   let handleSubmit1 = (event) => {
     event.preventDefault();
     let formVal = (formValues)
-  
     for (let index = 0; index < formVal.length; index++) {
       const element = formVal[index];
-      try {
-        let res = axios.post(`${url.BASE_URL}forma/outside-source`, element);
-        setIsFetching20(false)
-        alert("submitted successfully!");
-      } catch (error) {
-        alert("cannot submit, please try again")
-        console.log(error);
-        setIsFetching20(false)
-      }
+      axios.post(`${url.BASE_URL}forma/outside`, element)
+        .then(function (response) {
+          toast.success("Saved Successfully!");
+          console.log(response);
+        })
+        .catch(function (error) {
+          toast.error("Failed!");
+          console.log(error);
+        });
+    }
+  }
+  let addFormFields1 = () => {
+    setFormValues([...formValues, { assessment_id: `${assessment_id}`, source: "", gross_amount: "", comments: "" }])
+  }
+
+  let handleSpouseSubmit = (event) => {
+    event.preventDefault();
+    setIsFetching5(true)
+    let formVal = (spouse)
+    for (let index = 0; index < formVal.length; index++) {
+      const element = formVal[index];
+      axios.post(`${url.BASE_URL}forma/spouse`, element)
+        .then(function (response) {
+          setIsFetching5(false)
+          toast.success("Saved Successfully!");
+        })
+        .catch(function (error) {
+          setIsFetching5(false)
+          toast.error("Failed! please try again");
+        });
     }
   }
 
-  let addFormFields1 = () => {
-    setFormValues([...formValues, { assessment_id: `${assessment_id}`, source: "", gross_amount: "", comments: "" }])
+
+  const [spouse, setSpouse] = useState(
+    [{ assessment_id: `${assessment_id}`, name: "", employer: "", dob: "", occupation: "", employer_addr: "" }]
+  )
+
+  let handleSpouseChange = (i, e) => {
+    let newSpouseValues = [...spouse];
+    newSpouseValues[i][e.target.name] = e.target.value;
+    setSpouse(newSpouseValues);
+  }
+
+  let addSpouseFields = () => {
+    setSpouse([...spouse, { assessment_id: `${assessment_id}`, name: "", employer: "", dob: "", occupation: "", employer_addr: "" }])
+  }
+
+  let removeSpouseFields = (i) => {
+    let newSpouseValues = [...spouse];
+    newSpouseValues.splice(i, 1);
+    setSpouse(newSpouseValues)
+  }
+
+  const [children, setChildren] = useState(
+    [{ assessment_id: `${assessment_id}`, name: "", dob: "", school_name: "", school_addr: "", school_fees: "", child_income: "" }]
+  )
+
+  let handleChildrenChange = (i, e) => {
+    let newChildValues = [...children];
+    newChildValues[i][e.target.name] = e.target.value;
+    setChildren(newChildValues);
+  }
+
+  let addChildFields = () => {
+    setChildren([...children, { assessment_id: `${assessment_id}`, name: "", dob: "", school_name: "", school_addr: "", school_fees: "", child_income: "" }])
+  }
+
+  let removeChildFields = (i) => {
+    let newChildValues = [...children];
+    newChildValues.splice(i, 1);
+    setChildren(newChildValues)
+  }
+
+  let handleChildSubmit = (event) => {
+    event.preventDefault();
+    setIsFetching11(true)
+    let formVal = (children)
+    for (let index = 0; index < formVal.length; index++) {
+      const element = formVal[index];
+      axios.post(`${url.BASE_URL}forma/children`, element)
+        .then(function (response) {
+          setIsFetching11(false)
+          toast.success("Saved Successfully!");
+        })
+        .catch(function (error) {
+          setIsFetching11(false)
+          toast.error("Failed! please try again");
+        });
+    }
+  }
+  const [domesticStaff, setDomesticStaff] = useState(
+    [{
+      assessment_id: "", title: "", name: "", house_no: "", street: "",
+      town: "", lga: "", state: "", amount_paid: "", payer: ""
+    }]
+  )
+
+  let handleDomesticStaffChange = (i, e) => {
+    let newStaffValues = [...domesticStaff];
+    newStaffValues[i][e.target.name] = e.target.value;
+    setDomesticStaff(newStaffValues);
+  }
+
+  let addStaffFields = () => {
+    setDomesticStaff([...domesticStaff, {
+      assessment_id: `${assessment_id}`, title: "", name: "", house_no: "", street: "",
+      town: "", lga: "", state: "", amount_paid: "", payer: ""
+    }])
+  }
+
+  let removeStaffFields = (i) => {
+    let newStaffValues = [...domesticStaff];
+    newStaffValues.splice(i, 1);
+    setDomesticStaff(newStaffValues)
+  }
+
+  let handleStaffSubmit = (event) => {
+    event.preventDefault();
+    setIsFetching11(true)
+    let formVal = (domesticStaff)
+    for (let index = 0; index < formVal.length; index++) {
+      const element = formVal[index];
+      axios.post(`${url.BASE_URL}forma/domestic`, element)
+        .then(function (response) {
+          setIsFetching11(false)
+          toast.success("Saved Successfully!");
+        })
+        .catch(function (error) {
+          setIsFetching11(false)
+          toast.error("Failed! please try again");
+        });
+    }
   }
 
   const [pensionDeduct, setPensionDeduct] = useState(
     { assessment_id: "", pfa: "", pfa_addr: "", rsa_no: "", amount: "", comments: "" }
   )
 
-  const [spouse, setSpouse] = useState(
-    { assessment_id: "", name: "", employer: "", dob: "", occupation: "", employer_addr: "" }
-  )
 
   const [childData, setChildData] = useState(
     { assessment_id: "", name: "", dob: "", school_name: "", school_addr: "", school_fees: "", child_income: "" }
@@ -298,12 +391,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     }
   )
 
-  const [domesticStaff, setDomesticStaff] = useState(
-    {
-      assessment_id: "", title: "", name: "", house_no: "", street: "",
-      town: "", lga: "", state: "", amount_paid: "", payer: ""
-    }
-  )
+
 
   const [partnerData, setPartnerData] = useState(
     {
@@ -427,13 +515,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     });
   }
 
-  function handleSpouseDeductChange(evt) {
-    const value = evt.target.value;
-    setSpouse({
-      ...spouse,
-      [evt.target.name]: value
-    });
-  }
+
 
   function handleResidentialChange(evt) {
     const value = evt.target.value;
@@ -475,21 +557,15 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       [evt.target.name]: value
     });
   }
-  function handleChildChange(evt) {
-    const value = evt.target.value;
-    setChildData({
-      ...childData,
-      [evt.target.name]: value
-    });
-  }
 
-  function handleDomesticStaffChange(evt) {
-    const value = evt.target.value;
-    setDomesticStaff({
-      ...domesticStaff,
-      [evt.target.name]: value
-    });
-  }
+
+  // function handleDomesticStaffChange(evt) {
+  //   const value = evt.target.value;
+  //   setDomesticStaff({
+  //     ...domesticStaff,
+  //     [evt.target.name]: value
+  //   });
+  // }
 
   function handlePartnershipChange(evt) {
     const value = evt.target.value;
@@ -626,28 +702,6 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
   }
 
-  setAuthToken();
-  let submitDataSpouse = async (e) => {
-    e.preventDefault()
-    setIsFetching5(true)
-    let spouseObj = {
-      assessment_id: `${assessment_id}`,
-      name: `${spouse.name}`,
-      employer: `${spouse.employer}`,
-      dob: `${spouse.dob}`,
-      occupation: `${spouse.occupation}`,
-      employer_addr: `${spouse.employer_addr}`,
-    }
-    try {
-      let res = await axios.post(`${url.BASE_URL}forma/spouse`, spouseObj);
-      setIsFetching5(false)
-      toast.success("Saved Successfully!");
-    } catch (error) {
-      toast.error("error, Please try again!");
-      setIsFetching5(false)
-    }
-
-  }
 
   setAuthToken();
   let submitDataResAdd = async (e) => {
@@ -1562,6 +1616,45 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
         </form>
       </div>
 
+      {/* <form onSubmit={handleSubmit1}>
+        {formValues.map((element, index) => (
+
+          <div className="" key={index}>
+            <div className="mb-6 grid grid-cols-3 gap-4">
+              <label>Source:</label>
+              <input name="source" value={element.source || ""} onChange={e => handleChange1(index, e)} type="text" className="form-control w-full rounded"
+              />
+            </div>
+
+            <div className="mb-6 grid grid-cols-3 gap-4">
+              <label>Gross Amount:</label>
+              <input required placeholder="₦" name="gross_amount" value={element.gross_amount || ""} onChange={e => handleChange1(index, e)} type="number" className="form-control w-full rounded"
+              />
+            </div>
+
+            <div className="mb-6 grid grid-cols-3 gap-4">
+              <label>Optional Comments:</label>
+              <textarea name="comments" value={element.comments || ""} onChange={e => handleChange1(index, e)} cols="40" rows="2" className="rounded"></textarea>
+            </div>
+          </div>
+
+        ))}
+        <button onClick={() => addFormFields1()}
+          style={{ backgroundColor: "#84abeb" }}
+          className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+          type="button"
+        >
+          Add
+        </button>
+        <button
+          style={{ backgroundColor: "#84abeb" }}
+          className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+          type="submit"
+        >
+          Save
+        </button>
+      </form> */}
+
       <div className="block p-6 rounded-lg bg-white w-full">
 
         <div className="grid grid-cols-3 gap-4">
@@ -1596,44 +1689,70 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
               <p className="font-bold">Saving...</p>
             </div>
           )}
-          <form className="grid grid-cols-3 gap-4" onSubmit={submitDataSpouse}>
-            <div className="form-group mb-6">
-              <p>Name of spouse</p>
-              <input onChange={handleSpouseDeductChange} required name="name" value={spouse.name} type="text" className="form-control w-full rounded"
-                placeholder="Name of spouse in full" />
-            </div>
 
-            <div className="form-group mb-6">
-              <p>Date of Birth</p>
-              <input onChange={handleSpouseDeductChange} required name="dob" value={spouse.dob} type="date" className="form-control w-full rounded"
-                placeholder="Date of birth" />
-            </div>
-            <div className="form-group mb-6">
-              <p>Business/Employer</p>
-              <input onChange={handleSpouseDeductChange} name="employer" value={spouse.employer} type="text" className="form-control w-full rounded"
-                placeholder="Employer/Business of spouse" />
-            </div>
-            <div className="form-group mb-6">
-              <p>Occupation</p>
-              <input onChange={handleSpouseDeductChange} name="occupation" value={spouse.occupation} type="text" className="form-control w-full rounded"
-                placeholder="Occupation" />
-            </div>
-            <div className="form-group mb-6">
-              <p>Office/Business Address</p>
-              <input onChange={handleSpouseDeductChange} name="employer_addr" value={spouse.employer_addr} type="text" className="form-control w-full rounded"
-                placeholder="Employer's/business address of spouse" />
-            </div>
-            <div >
-            </div>
-            <div>
-              <button
+          <form className="border p-3" onSubmit={handleSpouseSubmit}>
+            {spouse.map((element, index) => (
+              <div className="grid border-b-2 m-3 p-3 grid-cols-3 gap-4" key={index}>
+                <div className="form-group mb-6">
+                  <p>Name of spouse</p>
+                  <input required name="name" value={element.name || ""} onChange={e => handleSpouseChange(index, e)} type="text" className="form-control w-full rounded"
+                    placeholder="Name of spouse" />
+                </div>
+
+                <div className="form-group mb-6">
+                  <p>Date of Birth</p>
+                  <input required name="dob" value={element.dob || ""} onChange={e => handleSpouseChange(index, e)} type="date" className="form-control w-full rounded"
+                    placeholder="Date of birth" />
+                </div>
+                <div className="form-group mb-6">
+                  <p>Business/Employer</p>
+                  <input name="employer" value={element.employer || ""} onChange={e => handleSpouseChange(index, e)} type="text" className="form-control w-full rounded"
+                    placeholder="Employer/Business of spouse" />
+                </div>
+                <div className="form-group mb-6">
+                  <p>Occupation</p>
+                  <input name="occupation" value={element.occupation || ""} onChange={e => handleSpouseChange(index, e)} type="text" className="form-control w-full rounded"
+                    placeholder="Occupation" />
+                </div>
+                <div className="form-group mb-6">
+                  <p>Office/Business Address</p>
+                  <input name="employer_addr" value={element.employer_addr || ""} onChange={e => handleSpouseChange(index, e)} type="text" className="form-control w-full rounded"
+                    placeholder="Employer's/business address of spouse" />
+                </div>
+                {
+                  index ?
+                    <div className="form-group place-self-center">
+                      <button onClick={removeSpouseFields}
+
+                        className="btn btn-default bg-red-600 text-white btn-outlined bg-transparent rounded-md"
+                        type="button"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                    : null
+                }
+
+              </div>
+            ))}
+            <div className="flex justify-between p-3">
+              <button onClick={addSpouseFields}
                 style={{ backgroundColor: "#84abeb" }}
                 className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
+                type="button"
+              >
+                Add Spouse
+              </button>
+              <button
+                // style={{ backgroundColor: "#84abeb" }}
+                className="btn w-64 bg-green-600 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
                 type="submit"
               >
                 Save
               </button>
+
             </div>
+
           </form>
         </div>
       </div>
@@ -1656,63 +1775,90 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
             </div>
           </div>
         </div>
-        <form onSubmit={submitDataChild}>
-          {isFetching11 && (
-            <div className="flex justify-center item mb-2">
-              <Loader
-                visible={isFetching11}
-                type="BallTriangle"
-                color="#00FA9A"
-                height={19}
-                width={19}
-                timeout={0}
-                className="ml-2"
-              />
-              <p className="font-bold">Saving...</p>
-            </div>
-          )}
-          <div className={`grid grid-cols-3 gap-4 ${childrenToggle}`}>
-            <div className="form-group mb-6">
-              <p>Name of Child</p>
-              <input onChange={handleChildChange} name="name" value={childData.name} type="text" className="form-control w-full rounded"
-                placeholder="Name of child in full" />
-            </div>
-            <div className="form-group mb-6">
-              <p>Date of Birth</p>
-              <input required onChange={handleChildChange} name="dob" value={childData.dob} type="date" className="form-control w-full rounded"
-                placeholder="Date of birth" />
-            </div>
-            <div className="form-group mb-6">
-              Child School Name
-              <input onChange={handleChildChange} name="school_name" value={childData.school_name} type="text" className="form-control w-full rounded"
-                placeholder="Name of child's school" />
-            </div>
-            <div className="form-group mb-6">
-              School Address
-              <input onChange={handleChildChange} name="school_addr" value={childData.school_addr} type="text" className="form-control w-full rounded"
-                placeholder="Address of child's school" />
-            </div>
-            <div className="form-group mb-6">
-              <p>School Fees</p>
-              <input onChange={handleChildChange} name="school_fees" value={childData.school_fees} type="number" className="form-control w-full rounded"
-                placeholder="Child's school fees per session" />
-            </div>
-            <div className="form-group mb-6">
-              <p>Child's Income</p>
-              <input onChange={handleChildChange} name="child_income" value={childData.child_income} type="number" className="form-control w-full rounded"
-                placeholder="Child's income in own right" />
-            </div>
-            <div>
-              <button
+        {isFetching11 && (
+          <div className="flex justify-center item mb-2">
+            <Loader
+              visible={isFetching11}
+              type="BallTriangle"
+              color="#00FA9A"
+              height={19}
+              width={19}
+              timeout={0}
+              className="ml-2"
+            />
+            <p className="font-bold">Saving...</p>
+          </div>
+        )}
+        <div className={`${childrenToggle} border`}>
+
+          <form onSubmit={handleChildSubmit} >
+            {children.map((element, index) => (
+              <div key={index} className={`grid m-3 p-3 border-b-2 grid-cols-3 gap-4`}>
+                <div className="form-group mb-6">
+                  <p>Name of Child</p>
+                  <input name="name" value={element.name || ""} onChange={e => handleChildrenChange(index, e)} type="text" className="form-control w-full rounded"
+                    placeholder="Name of child in full" />
+                </div>
+                <div className="form-group mb-6">
+                  <p>Date of Birth</p>
+                  <input required name="dob" value={element.dob || ""} onChange={e => handleChildrenChange(index, e)} type="date" className="form-control w-full rounded"
+                    placeholder="Date of birth" />
+                </div>
+                <div className="form-group mb-6">
+                  Child School Name
+                  <input name="school_name" value={element.school_name || ""} onChange={e => handleChildrenChange(index, e)} type="text" className="form-control w-full rounded"
+                    placeholder="Name of child's school" />
+                </div>
+                <div className="form-group ">
+                  School Address
+                  <input name="school_addr" value={element.school_addr || ""} onChange={e => handleChildrenChange(index, e)} type="text" className="form-control w-full rounded"
+                    placeholder="Address of child's school" />
+                </div>
+                <div className="form-group">
+                  <p>School Fees</p>
+                  <input name="school_fees" value={element.school_fees || ""} onChange={e => handleChildrenChange(index, e)} type="number" className="form-control w-full rounded"
+                    placeholder="Child's school fees per session" />
+                </div>
+                <div className="form-group">
+                  <p>Child's Income</p>
+                  <input name="child_income" value={element.child_income || ""} onChange={e => handleChildrenChange(index, e)} type="number" className="form-control w-full rounded"
+                    placeholder="Child's income in own right" />
+                </div>
+                <div></div>
+                <div className="justify-self-center">
+                  {
+                    index ? <button onClick={removeChildFields}
+                      // style={{ backgroundColor: "#84abeb" }}
+                      className="btn bg-red-600 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
+                      type="button"
+                    >
+                      Remove
+                    </button> : null
+                  }
+
+                </div>
+                <div></div>
+              </div>
+            ))}
+            <div className="flex justify-between p-3">
+              <button onClick={addChildFields}
                 style={{ backgroundColor: "#84abeb" }}
                 className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
+                type="button"
+              >
+                Add Child
+              </button>
+              <button
+                // style={{ backgroundColor: "#84abeb" }}
+                className="btn w-64 bg-green-600 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
                 type="submit"
               >
                 Save
               </button>
+
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
 
       <div className="block p-6 rounded-lg bg-white w-full">
@@ -1749,105 +1895,109 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
             <p className="font-bold">Saving...</p>
           </div>
         )}
-        <form onSubmit={submitDataStaff} className={`grid grid-cols-3 gap-4 ${servantsToggle}`}>
-          <div className="form-group mb-6">
-            <p>Title</p>
-            <select onChange={handleDomesticStaffChange} className="form-select w-full" name="title" value={domesticStaff.title}>
-              <option value="Mrs">Mrs</option>
-              <option value="Mr">Mr</option>
-              <option value="Miss">Miss</option>
-            </select>
-          </div>
+        <form onSubmit={submitDataStaff} className={`${servantsToggle}`}>
+          {domesticStaff.map((element, index) => (
+            <div className={`grid grid-cols-3 gap-4`}>
+              <div className="form-group mb-6">
+                <p>Title</p>
+                <select value={element.title || ""} onChange={e => handleDomesticStaffChange(index, e)} name="title" className="form-select w-full" >
+                  <option value="Mrs">Mrs</option>
+                  <option value="Mr">Mr</option>
+                  <option value="Miss">Miss</option>
+                </select>
+              </div>
 
-          <div className="form-group mb-6">
-            <p>Name</p>
-            <input onChange={handleDomesticStaffChange} type="text" value={domesticStaff.name} className="form-control w-full rounded"
-              name="name" placeholder="Full name" />
-          </div>
+              <div className="form-group mb-6">
+                <p>Name</p>
+                <input name="name" onChange={e => handleDomesticStaffChange(index, e)} value={element.name || ""} type="text" className="form-control w-full rounded"
+                  placeholder="Full name" />
+              </div>
 
-          <div className="form-group mb-6">
-            <p>House Number</p>
-            <input onChange={handleDomesticStaffChange} type="text" className="form-control w-full rounded"
-              name="house_no" value={domesticStaff.house_no} placeholder="House/plot no" />
-          </div>
-          <div className="form-group mb-6">
-            <p>Street</p>
-            <input onChange={handleDomesticStaffChange} name="street" value={domesticStaff.street} type="text" className="form-control w-full rounded"
-              placeholder="Street" />
-          </div>
-          <div className="form-group mb-6">
-            <p>Town</p>
-            <input onChange={handleDomesticStaffChange} type="text" name="town" value={domesticStaff.town} className="form-control w-full rounded"
-              placeholder="Town/Area" />
-          </div>
-          <div className="form-group mb-6">
-            <p>LGA</p>
-            <select onChange={handleDomesticStaffChange} className="form-select w-full" name="lga" value={domesticStaff.lga}>
-              <option value="kabba">Select</option>
-              <option value="Adavi">Adavi</option>
-              <option value="Ajaokuta">Ajaokuta</option>
-              <option value="Ankpa">Ankpa</option>
-              <option value="Bassa">Bassa</option>
-            </select>
-          </div>
-          <div className="form-group mb-6">
-            <p>State</p>
-            <select onChange={handleDomesticStaffChange} className="form-select w-full" name="state" value={domesticStaff.state}>
-              <option value="Abia">Abia</option>
-              <option value="Akwa Ibom">Akwa Ibom</option>
-              <option value="Bauchi">Bauchi</option>
-              <option value="Bayelsa">Bayelsa</option>
-              <option value="Benue">Benue</option>
-              <option value="Borno">Borno</option>
-              <option value="Cross River">Cross River</option>
-              <option value="Delta">Delta</option>
-              <option value="Edo">Edo</option>
-              <option value="Ekiti">Ekiti</option>
-              <option value="Enugu">Enugu</option>
-              <option value="Gombe">Gombe</option>
-              <option value="Imo">Imo</option>
-              <option value="Jigawa">Jigawa</option>
-              <option value="Kaduna">Kaduna</option>
-              <option value="Kano">Kano</option>
-              <option value="Katsina">Katsina</option>
-              <option value="Kebbi">Kebbi</option>
-              <option value="Kogi">Kogi</option>
-              <option value="Kwara">Kwara</option>
-              <option value="Lagos">Lagos</option>
-              <option value="Nasarawa">Nasarawa</option>
-              <option value="Niger">Niger</option>
-              <option value="Ogun">Ogun</option>
-              <option value="Ondo">Ondo</option>
-              <option value="Osun">Osun</option>
-            </select>
-          </div>
-          <div className="form-group mb-6">
-            <p>Annual Pay</p>
-            <input required onChange={handleDomesticStaffChange} name="amount_paid" value={domesticStaff.amount_paid} type="number" className="form-control w-full rounded"
-              placeholder="Amount paid (Annual)" />
-          </div>
+              <div className="form-group mb-6">
+                <p>House Number</p>
+                <input name="house_no" onChange={e => handleDomesticStaffChange(index, e)} value={element.house_no || ""} type="text" className="form-control w-full rounded"
+                  placeholder="House/plot no" />
+              </div>
+              <div className="form-group mb-6">
+                <p>Street</p>
+                <input onChange={e => handleDomesticStaffChange(index, e)} name="street" value={element.street || ""} type="text" className="form-control w-full rounded"
+                  placeholder="Street" />
+              </div>
+              <div className="form-group mb-6">
+                <p>Town</p>
+                <input onChange={e => handleDomesticStaffChange(index, e)} type="text" name="town" value={element.town || ""} className="form-control w-full rounded"
+                  placeholder="Town/Area" />
+              </div>
+              <div className="form-group mb-6">
+                <p>LGA</p>
+                <select name="lga" onChange={e => handleDomesticStaffChange(index, e)} value={element.lga || ""} className="form-select w-full"  >
+                  <option value="kabba">Select</option>
+                  <option value="Adavi">Adavi</option>
+                  <option value="Ajaokuta">Ajaokuta</option>
+                  <option value="Ankpa">Ankpa</option>
+                  <option value="Bassa">Bassa</option>
+                </select>
+              </div>
+              <div className="form-group mb-6">
+                <p>State</p>
+                <select onChange={e => handleDomesticStaffChange(index, e)} value={element.state || ""} className="form-select w-full" name="state">
+                  <option value="Abia">Abia</option>
+                  <option value="Akwa Ibom">Akwa Ibom</option>
+                  <option value="Bauchi">Bauchi</option>
+                  <option value="Bayelsa">Bayelsa</option>
+                  <option value="Benue">Benue</option>
+                  <option value="Borno">Borno</option>
+                  <option value="Cross River">Cross River</option>
+                  <option value="Delta">Delta</option>
+                  <option value="Edo">Edo</option>
+                  <option value="Ekiti">Ekiti</option>
+                  <option value="Enugu">Enugu</option>
+                  <option value="Gombe">Gombe</option>
+                  <option value="Imo">Imo</option>
+                  <option value="Jigawa">Jigawa</option>
+                  <option value="Kaduna">Kaduna</option>
+                  <option value="Kano">Kano</option>
+                  <option value="Katsina">Katsina</option>
+                  <option value="Kebbi">Kebbi</option>
+                  <option value="Kogi">Kogi</option>
+                  <option value="Kwara">Kwara</option>
+                  <option value="Lagos">Lagos</option>
+                  <option value="Nasarawa">Nasarawa</option>
+                  <option value="Niger">Niger</option>
+                  <option value="Ogun">Ogun</option>
+                  <option value="Ondo">Ondo</option>
+                  <option value="Osun">Osun</option>
+                </select>
+              </div>
+              <div className="form-group mb-6">
+                <p>Annual Pay</p>
+                <input required onChange={e => handleDomesticStaffChange(index, e)} name="amount_paid" value={element.amount_paid || ""} type="number" className="form-control w-full rounded"
+                  placeholder="Amount paid (Annual)" />
+              </div>
 
-          <div className="flex justify-between self-center">
-            <div className="form-check form-check-inline ">
-              <input onChange={handleDomesticStaffChange} value="employer" name="payer" checked={domesticStaff.payer === "employer"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" />
-              <label className="form-check-label  text-gray-800" for="inlineRadio10">Paid by employer</label>
+              <div className="flex justify-between self-center">
+                <div className="form-check form-check-inline ">
+                  <input onChange={e => handleDomesticStaffChange(index, e)} value="employer" name="payer" checked={domesticStaff.payer === "employer"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" />
+                  <label className="form-check-label  text-gray-800" for="inlineRadio10">Paid by employer</label>
+                </div>
+
+                <div className="form-check form-check-inline ml-5">
+                  <input onChange={e => handleDomesticStaffChange(index, e)} value="self" name="payer" checked={domesticStaff.payer === "self"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" />
+                  <label className="form-check-label  text-gray-800" for="inlineRadio20">Paid by self</label>
+                </div>
+              </div>
+              <div>
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+
+                  className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  Save
+                </button>
+              </div>
             </div>
-
-            <div className="form-check form-check-inline ml-5">
-              <input onChange={handleDomesticStaffChange} value="self" name="payer" checked={domesticStaff.payer === "self"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" />
-              <label className="form-check-label  text-gray-800" for="inlineRadio20">Paid by self</label>
-            </div>
-          </div>
-          <div>
-            <button
-              style={{ backgroundColor: "#84abeb" }}
-
-              className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
-              type="submit"
-            >
-              Save
-            </button>
-          </div>
+          ))}
         </form>
 
 
@@ -2879,49 +3029,6 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
           </div>
         </div>
       </Widget>
-
-      <form onSubmit={handleSubmit1}>
-        {formValues.map((element, index) => (
-
-          <div className="" key={index}>
-            <div className="mb-6 grid grid-cols-3 gap-4">
-              <label>Source:</label>
-              <input name="source" value={element.source || ""} onChange={e => handleChange1(index, e)} type="text" className="form-control w-full rounded"
-              />
-            </div>
-
-            <div className="mb-6 grid grid-cols-3 gap-4">
-              <label>Gross Amount:</label>
-              <input placeholder="₦" name="gross_amount" value={element.gross_amount || ""} onChange={e => handleChange1(index, e)} type="number" className="form-control w-full rounded"
-              />
-            </div>
-
-            <div className="mb-6 grid grid-cols-3 gap-4">
-              <label>Optional Comments:</label>
-              <textarea name="comments" value={element.comments || ""} onChange={e => handleChange1(index, e)} cols="40" rows="2" className="rounded"></textarea>
-            </div>
-          </div>
-
-        ))}
-        <button onClick={() => addFormFields1()}
-          style={{ backgroundColor: "#84abeb" }}
-          className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-          type="button"
-        >
-          Add
-        </button>
-        <button
-          style={{ backgroundColor: "#84abeb" }}
-          className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-          type="submit"
-        >
-          Save
-        </button>
-      </form>
-
-
-
-
 
       <h6 className="p-2">Deductions</h6>
 
