@@ -342,6 +342,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     let newStaffValues = [...domesticStaff];
     newStaffValues[i][e.target.name] = e.target.value;
     setDomesticStaff(newStaffValues);
+    console.log(newStaffValues);
   }
 
   let addStaffFields = () => {
@@ -359,17 +360,17 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
   let handleStaffSubmit = (event) => {
     event.preventDefault();
-    setIsFetching11(true)
+    setIsFetching12(true)
     let formVal = (domesticStaff)
     for (let index = 0; index < formVal.length; index++) {
       const element = formVal[index];
-      axios.post(`${url.BASE_URL}forma/domestic`, element)
+      axios.post(`${url.BASE_URL}forma/domestic-staff`, element)
         .then(function (response) {
-          setIsFetching11(false)
+          setIsFetching12(false)
           toast.success("Saved Successfully!");
         })
         .catch(function (error) {
-          setIsFetching11(false)
+          setIsFetching12(false)
           toast.error("Failed! please try again");
         });
     }
@@ -1895,9 +1896,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
             <p className="font-bold">Saving...</p>
           </div>
         )}
-        <form onSubmit={submitDataStaff} className={`${servantsToggle}`}>
+        <form onSubmit={handleStaffSubmit} className={`${servantsToggle} border`}>
           {domesticStaff.map((element, index) => (
-            <div className={`grid grid-cols-3 gap-4`}>
+            <div className={`grid grid-cols-3 m-3 p-3 border-b-2 gap-4`}>
               <div className="form-group mb-6">
                 <p>Title</p>
                 <select value={element.title || ""} onChange={e => handleDomesticStaffChange(index, e)} name="title" className="form-select w-full" >
@@ -1977,27 +1978,48 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
               <div className="flex justify-between self-center">
                 <div className="form-check form-check-inline ">
-                  <input onChange={e => handleDomesticStaffChange(index, e)} value="employer" name="payer" checked={domesticStaff.payer === "employer"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" />
+                  <input onChange={e => handleDomesticStaffChange(index, e)} value="employer" name="payer"  className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" />
                   <label className="form-check-label  text-gray-800" for="inlineRadio10">Paid by employer</label>
                 </div>
 
                 <div className="form-check form-check-inline ml-5">
-                  <input onChange={e => handleDomesticStaffChange(index, e)} value="self" name="payer" checked={domesticStaff.payer === "self"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" />
+                  <input onChange={e => handleDomesticStaffChange(index, e)} value="self" name="payer"  className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" />
                   <label className="form-check-label  text-gray-800" for="inlineRadio20">Paid by self</label>
                 </div>
               </div>
-              <div>
-                <button
-                  style={{ backgroundColor: "#84abeb" }}
+              <div></div>
+              <div className="justify-self-center">
+                {
+                  index ? <button onClick={removeStaffFields}
+                    // style={{ backgroundColor: "#84abeb" }}
+                    className="btn bg-red-600 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="button"
+                  >
+                    Remove
+                  </button> : null
+                }
 
-                  className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                >
-                  Save
-                </button>
               </div>
+              <div></div>
             </div>
           ))}
+          <div className="flex justify-between p-3">
+            <button onClick={addStaffFields}
+              style={{ backgroundColor: "#84abeb" }}
+              className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
+              type="button"
+            >
+              Add Staff
+            </button>
+            <button
+              // style={{ backgroundColor: "#84abeb" }}
+              className="btn w-64 bg-green-600 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
+              type="submit"
+            >
+              Save
+            </button>
+
+          </div>
         </form>
 
 
