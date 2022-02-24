@@ -772,7 +772,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
           </div>
         </div>
 
-        <div className="flex justify-between p-4 border">
+        <div className="flex mt-3  justify-between p-4 border">
           <div className="mt-3">
             <div>
               <div className="">
