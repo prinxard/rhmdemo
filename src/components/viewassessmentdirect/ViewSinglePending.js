@@ -18,6 +18,7 @@ const ViewSinglePending = () => {
   const [payerprop, setpayerprop] = useState([]);
   const [residentialAddr, setResidentialAddr] = useState([]);
   const [payLoad, setPayload] = useState([]);
+  const [pensDeduct, setPensionDeduct] = useState([]);
   const [routerAssId, setAssessId] = useState('');
 
   const router = useRouter();
@@ -39,11 +40,13 @@ const ViewSinglePending = () => {
           let userAssData = res.data.body
           let payerDat = res.data.body.taxpayer;
           let resAddress = userAssData.residentialAddr
+          let pensionD = userAssData.pensionDeduct
+          setPensionDeduct(pensionD)
           setPayload(userAssData)
           setResidentialAddr(resAddress)
           setpayerprop(payerDat)
           setIsFetching(false);
-        
+
         } catch (e) {
           setIsFetching(false);
         }
@@ -52,8 +55,25 @@ const ViewSinglePending = () => {
     }
   }, [router]);
 
-  // Get current post
+  function handleResidential(newValue, index, fieldName) {
+    const residentialAddressCopy = [...residentialAddr];
+    const temp = residentialAddressCopy[index]
+    residentialAddressCopy[index] = null
+    let updatedAddress = {...temp}
+    updatedAddress[fieldName] = newValue
+    residentialAddressCopy[index] = updatedAddress
+    setResidentialAddr(residentialAddressCopy)
+  }
 
+  function handlepensionDeduct(newValue, index, fieldName) {
+    const residentialAddressCopy = [...residentialAddr];
+    const temp = residentialAddressCopy[index]
+    residentialAddressCopy[index] = null
+    let updatedAddress = {...temp}
+    updatedAddress[fieldName] = newValue
+    residentialAddressCopy[index] = updatedAddress
+    setResidentialAddr(residentialAddressCopy)
+  }
 
   return (
     <>
@@ -74,8 +94,8 @@ const ViewSinglePending = () => {
       )}
       <Widget>
         <>
-          <ViewSinglePendingTable indvData={payerprop} routerAssId={routerAssId} residentialAd={residentialAddr} />
-   
+          <ViewSinglePendingTable indvData={payerprop} pensDeduct={pensDeduct} changed={(e, index, fieldName)=> handleResidential(e.target.value, index, fieldName)} routerAssId={routerAssId} residentialAd={residentialAddr} />
+
         </>
       </Widget>
     </>
