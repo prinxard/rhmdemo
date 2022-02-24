@@ -521,11 +521,11 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
           <div className="flex">
             <div className="flex flex-col p-2">
               <p className="font-bold">Balance</p>
-              <p className="font-bold">{formatNumber(taxcal.payDiff)}</p>
+              <p className="font-bold text-center">{formatNumber(taxcal.payDiff)}</p>
             </div>
             <div className="flex flex-col p-2">
               <p className="font-bold">Payment Status</p>
-              <p className="font-bold">{taxcal.paymentStatus}</p>
+              <p className="font-bold text-center">{taxcal.paymentStatus}</p>
             </div>
             <div className="flex flex-col p-2">
               <p className="font-bold">Tax Paid</p>
