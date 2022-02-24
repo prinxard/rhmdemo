@@ -89,7 +89,7 @@ export const ViewPendingTable = ({ remittance }) => {
   );
 };
 
-export const ViewSinglePendingTable = ({ indvData, residentialAd, pensDeduct, routerAssId, changed }) => {
+export const ViewSinglePendingTable = ({ indvData, residentialAd, pensDeduct, routerAssId, changed, changedPensDed }) => {
   const [toggleel, setToggle] = useState('hidden')
   const [togglee2, setToggle2] = useState('hidden')
   const [togglee3, setToggle3] = useState('hidden')
@@ -130,17 +130,6 @@ export const ViewSinglePendingTable = ({ indvData, residentialAd, pensDeduct, ro
   const [isFetching23, setIsFetching23] = useState(() => false);
 
   let residentialAddr = residentialAd
-  let assessment_id = routerAssId
-
-
-  function handleResidentialChange(evt) {
-    const value = evt.target.value;
-    setResidentialAddress({
-      ...residentialAddress,
-      [evt.target.name]: value
-    });
-    console.log(residentialAddress);
-  }
 
   setAuthToken();
 
@@ -155,6 +144,26 @@ export const ViewSinglePendingTable = ({ indvData, residentialAd, pensDeduct, ro
     } catch (error) {
       toast.error("error, Please try again!");
       setIsFetching6(false)
+    }
+
+  }
+
+  let submitDataPensDed = async (e, index) => {
+    e.preventDefault()
+    // setIsFetching6(true)
+
+    let formVal = (pensDeduct)
+    for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
+      const element = formVal[indexAr];
+      axios.put(`${url.BASE_URL}forma/pension-ded`, element)
+        .then(function (response) {
+          // setIsFetching12(false)
+          toast.success("Saved Successfully!");
+        })
+        .catch(function (error) {
+          // setIsFetching12(false)
+          toast.error("Failed! please try again");
+        });
     }
 
   }
@@ -441,13 +450,7 @@ export const ViewSinglePendingTable = ({ indvData, residentialAd, pensDeduct, ro
     setToggle15(toggleval)
 
   };
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-  const onSubmit = (data) => console.log(data);
-
+ 
   return (
     <>
       <ToastContainer />
@@ -657,7 +660,134 @@ export const ViewSinglePendingTable = ({ indvData, residentialAd, pensDeduct, ro
       </div>
 
 
+      {isFetching4 && (
+        <div className="flex justify-center item mb-2">
+          <Loader
+            visible={isFetching4}
+            type="BallTriangle"
+            color="#00FA9A"
+            height={19}
+            width={19}
+            timeout={0}
+            className="ml-2"
+          />
+          <p className="font-bold">Saving...</p>
+        </div>
+      )}
+      <h6>Pension</h6>
+      <div className={`flex justify-center border mb-3 block p-6 rounded-lg bg-white w-full`}>
 
+        <form onSubmit={submitDataPensDed}>
+
+          {pensDeduct == null ?
+            <div div className="">
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label htmlFor="employername">PFA:</label>
+                <input name="pfa" type="text" className="form-control w-full rounded"
+                />
+              </div>
+
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label htmlFor="employername">PFA Address:</label>
+                <input name="pfa_addr" type="text" className="form-control w-full rounded"
+                />
+              </div>
+
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label htmlFor="employername">RSA No:</label>
+                <input name="rsa_no" type="number" className="form-control w-full rounded"
+                />
+              </div>
+
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label htmlFor="employername">Amount:</label>
+                <input required placeholder="₦" name="amount" type="number" className="form-control w-full rounded"
+                />
+              </div>
+
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label htmlFor="comments">Optional Comments:</label>
+                <textarea name="comments" id="comments" cols="40" rows="2" className="rounded"></textarea>
+              </div>
+              <div className="mb-6 flex justify-between">
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                  disabled
+                >
+                  Save
+                </button>
+                {/* <button onClick={formTog10} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+              <a href="">
+                <FiTriangle
+                  size={15}
+                  className="stroke-current text-green-500"
+                />
+              </a>
+            </button> */}
+              </div>
+            </div>
+
+            :
+            <div div className="">
+              {pensDeduct.map((ind, i) => (
+                <div className="border-b-2 mb-3">
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label htmlFor="employername">PFA:</label>
+                    <input value={ind.pfa} name="pfa" type="text" onChange={(e) => changedPensDed(e, i, "pfa")} key={i} className="form-control w-full rounded"
+                    />
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label htmlFor="employername">PFA Address:</label>
+                    <input value={ind.pfa_addr} name="pfa_addr" type="text" onChange={(e) => changedPensDed(e, i, "pfa_addr")} key={i} className="form-control w-full rounded"
+                    />
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label htmlFor="employername">RSA No:</label>
+                    <input value={ind.rsa_no} name="rsa_no" type="number" onChange={(e) => changedPensDed(e, i, "rsa_no")} key={i} className="form-control w-full rounded"
+                    />
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label htmlFor="employername">Amount:</label>
+                    <input value={ind.amount} required placeholder="₦" name="amount" type="number" onChange={(e) => changedPensDed(e, i, "amount")} key={i} className="form-control w-full rounded"
+                    />
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label htmlFor="comments">Optional Comments:</label>
+                    <textarea value={ind.comments} name="comments" onChange={(e) => changedPensDed(e, i, "comments")} key={i} cols="40" rows="2" className="rounded"></textarea>
+                  </div>
+
+                </div>
+              ))}
+             
+              <div className="mb-6 flex justify-between">
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  Update
+                </button>
+                {/* <button onClick={formTog10} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                <a href="">
+                  <FiTriangle
+                    size={15}
+                    className="stroke-current text-green-500"
+                  />
+                </a>
+              </button> */}
+              </div>
+            </div>
+
+
+          }
+        </form>
+      </div >
 
 
     </>

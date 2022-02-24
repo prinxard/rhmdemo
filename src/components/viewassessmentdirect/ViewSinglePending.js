@@ -40,13 +40,13 @@ const ViewSinglePending = () => {
           let userAssData = res.data.body
           let payerDat = res.data.body.taxpayer;
           let resAddress = userAssData.residentialAddr
-          let pensionD = userAssData.pensionDeduct
+          let pensionD = userAssData.pensionDed
           setPensionDeduct(pensionD)
           setPayload(userAssData)
           setResidentialAddr(resAddress)
           setpayerprop(payerDat)
           setIsFetching(false);
-
+            console.log(userAssData);
         } catch (e) {
           setIsFetching(false);
         }
@@ -66,13 +66,13 @@ const ViewSinglePending = () => {
   }
 
   function handlepensionDeduct(newValue, index, fieldName) {
-    const residentialAddressCopy = [...residentialAddr];
-    const temp = residentialAddressCopy[index]
-    residentialAddressCopy[index] = null
-    let updatedAddress = {...temp}
-    updatedAddress[fieldName] = newValue
-    residentialAddressCopy[index] = updatedAddress
-    setResidentialAddr(residentialAddressCopy)
+    const pensionDeductCopy = [...pensDeduct];
+    const temp = pensionDeductCopy[index]
+    pensionDeductCopy[index] = null
+    let unpdatePensionDe = {...temp}
+    unpdatePensionDe[fieldName] = newValue
+    pensionDeductCopy[index] = unpdatePensionDe
+    setPensionDeduct(pensionDeductCopy)
   }
 
   return (
@@ -94,7 +94,9 @@ const ViewSinglePending = () => {
       )}
       <Widget>
         <>
-          <ViewSinglePendingTable indvData={payerprop} pensDeduct={pensDeduct} changed={(e, index, fieldName)=> handleResidential(e.target.value, index, fieldName)} routerAssId={routerAssId} residentialAd={residentialAddr} />
+          <ViewSinglePendingTable indvData={payerprop} pensDeduct={pensDeduct} 
+          changed={(e, index, fieldName)=> handleResidential(e.target.value, index, fieldName)}
+           changedPensDed={(e, index, fieldName)=> handlepensionDeduct(e.target.value, index, fieldName)}  routerAssId={routerAssId} residentialAd={residentialAddr} />
 
         </>
       </Widget>
