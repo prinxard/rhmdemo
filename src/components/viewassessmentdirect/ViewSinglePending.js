@@ -18,6 +18,7 @@ const ViewSinglePending = () => {
   const [payerprop, setpayerprop] = useState([]);
   const [residentialAddr, setResidentialAddr] = useState([]);
   const [payLoad, setPayload] = useState([]);
+  const [routerAssId, setAssessId] = useState('');
 
   const router = useRouter();
   useEffect(() => {
@@ -25,6 +26,7 @@ const ViewSinglePending = () => {
       let routerData = String(router.query.ref);
       let kgtin = routerData.split(',').pop()
       let assessmentId = routerData.split(',').shift()
+      setAssessId(assessmentId)
       let sendData = {
         KGTIN: `${kgtin}`,
         assessment_id: `${assessmentId}`
@@ -40,8 +42,6 @@ const ViewSinglePending = () => {
           setPayload(userAssData)
           setResidentialAddr(resAddress)
           setpayerprop(payerDat)
-          console.log(resAddress);
-        
           setIsFetching(false);
         
         } catch (e) {
@@ -74,7 +74,7 @@ const ViewSinglePending = () => {
       )}
       <Widget>
         <>
-          <ViewSinglePendingTable indvData={payerprop} residentialAddr={residentialAddr} />
+          <ViewSinglePendingTable indvData={payerprop} routerAssId={routerAssId} residentialAd={residentialAddr} />
    
         </>
       </Widget>

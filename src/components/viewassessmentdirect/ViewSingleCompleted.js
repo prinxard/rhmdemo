@@ -30,6 +30,7 @@ const ViewSingleCompleted = () => {
   const [expenses, setExpenses] = useState([])
   const [pensionDed, setPensionDed] = useState([])
   const [selfEmployment, setselfEmployment] = useState([])
+  const [rentIncome, setRentIncome] = useState([])
 
 
   useEffect(() => {
@@ -62,6 +63,8 @@ const ViewSingleCompleted = () => {
           let expdat = IndData.expenses
           let pendeddat = IndData.pensionDed
           let selfempdat = IndData.selfEmployed
+          let rentIncdat = IndData.rentIncome
+          setRentIncome(rentIncdat)
           console.log(IndData);
           setselfEmployment(selfempdat)
           setPensionDed(pendeddat)
@@ -110,7 +113,7 @@ const ViewSingleCompleted = () => {
             />
             <p>Fetching data...</p>
           </div>
-        ) : <ViewSingleCompletedTable payerprop={payerprop} assId={globalAssId}
+        ) : <ViewSingleCompletedTable rentIncome={rentIncome} payerprop={payerprop} assId={globalAssId}
           payerArr={makeArray} selfEmployment={selfEmployment} assobj={makeObj} taxcal={taxcalDa} childObj={childObj}
           resAddObj={resAddObj} pensionDed={pensionDed} expenses={expenses} nhis={nhis} spouseObj={spouseObj} employed = {employed} domesticStaff = {domesticStaff} vehicles = {vehicles} land = {land} lap={lap}/>}
       </Widget>

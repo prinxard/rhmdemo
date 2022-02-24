@@ -9,6 +9,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SectionTitle from "../section-title";
 import { useState } from "react";
+import setAuthToken from "../../functions/setAuthToken";
+import url from '../../config/url';
+import axios from "axios";
+import { stringify } from "uuid";
 
 
 const fields = [
@@ -65,12 +69,12 @@ export const ViewPendingTable = ({ remittance }) => {
             {items.map((remittance, i) => (
               <tr key={i} className="">
                 {fields.map((field, j) => (
-                  <td key={j}>         
-                      <Link href={`/view/pendingdirect/${remittance.assessment_id},${remittance.kgtin}`}>
-                        <a className="hover:text-blue-500">
-                          {remittance[field.key]}
-                        </a>
-                      </Link>
+                  <td key={j}>
+                    <Link href={`/view/pendingdirect/${remittance.assessment_id},${remittance.kgtin}`}>
+                      <a className="hover:text-blue-500">
+                        {remittance[field.key]}
+                      </a>
+                    </Link>
                   </td>
                 ))}
               </tr>
@@ -84,7 +88,7 @@ export const ViewPendingTable = ({ remittance }) => {
   );
 };
 
-export const ViewSinglePendingTable = ({ indvData, residentialAddr }) => {
+export const ViewSinglePendingTable = ({ indvData, residentialAd, routerAssId }) => {
   const [toggleel, setToggle] = useState('hidden')
   const [togglee2, setToggle2] = useState('hidden')
   const [togglee3, setToggle3] = useState('hidden')
@@ -123,12 +127,43 @@ export const ViewSinglePendingTable = ({ indvData, residentialAddr }) => {
   const [isFetching21, setIsFetching21] = useState(() => false);
   const [isFetching22, setIsFetching22] = useState(() => false);
   const [isFetching23, setIsFetching23] = useState(() => false);
+  let residentialAddr = residentialAd
+  let assessment_id = routerAssId
+  let resAddress_id = residentialAddr.map(function(doc) {
+    return (doc.id)
+  })
+  let resIdString = String(resAddress_id)
+
+  let anual = residentialAddr.map(function(doc) {
+    return doc.annual_rent
+  })
+  let ren = String(anual)
+
+  let hou = residentialAddr.map(function(doc) {
+    return doc.house_no
+  })
+  let hous = String(hou)
+
+  let lg = residentialAddr.map(function(doc) {
+    return doc.lga
+  })
+  let lga = String(hous)
+let st
+ st = residentialAddr.map(function(doc) {
+    return doc.street
+  })
+  let streetad = String(st)
+
+  console.log(lga);
+
+
   const [residentialAddress, setResidentialAddress] = useState(
     {
-      assessment_id: "", house_no: "", street: "", town: "", lga: "", residence_type: "",
-      residence_owner: "", annual_rent: "", owner_name: "", owner_phone: ""
+      assessment_id: "", house_no: hous, street: streetad, town: "", lga: lga, residence_type: "",
+      residence_owner: "", annual_rent: ren, owner_name: "", owner_phone: ""
     }
   )
+console.log(residentialAddress.house_no);
   function handleResidentialChange(evt) {
     const value = evt.target.value;
     setResidentialAddress({
@@ -136,6 +171,33 @@ export const ViewSinglePendingTable = ({ indvData, residentialAddr }) => {
       [evt.target.name]: value
     });
     console.log(residentialAddress);
+  }
+
+  setAuthToken();
+  let submitDataResAdd = async (e) => {
+    e.preventDefault()
+    setIsFetching6(true)
+    let resAddObj = {
+      id: `${resIdString}`,
+      house_no: `${residentialAddress.house_no}`,
+      street: `${residentialAddress.street}`,
+      town: `${residentialAddress.town}`,
+      lga: `${residentialAddress.lga}`,
+      residence_type: `${residentialAddress.residence_type}`,
+      residence_owner: `${residentialAddress.residence_owner}`,
+      annual_rent: `${residentialAddress.annual_rent}`,
+      owner_name: `${residentialAddress.owner_name}`,
+      owner_phone: `${residentialAddress.owner_phone}`,
+    }
+    try {
+      let res = await axios.put(`${url.BASE_URL}forma/residence-addr`, resAddObj);
+      setIsFetching6(false)
+      toast.success("Updated Successfully!");
+    } catch (error) {
+      toast.error("error, Please try again!");
+      setIsFetching6(false)
+    }
+
   }
 
   const onChange = e => {
@@ -420,8 +482,7 @@ export const ViewSinglePendingTable = ({ indvData, residentialAddr }) => {
     setToggle15(toggleval)
 
   };
-  const items = indvData;
-  console.log(items);
+  
 
   return (
     <>
@@ -523,7 +584,7 @@ export const ViewSinglePendingTable = ({ indvData, residentialAddr }) => {
             <p className="font-bold">Saving...</p>
           </div>
         )}
-        <form >
+        <form onSubmit={submitDataResAdd}>
           {residentialAddr == null || residentialAddr == "" ?
             <div>
               <div className="grid grid-cols-3 gap-4">
@@ -614,21 +675,21 @@ export const ViewSinglePendingTable = ({ indvData, residentialAddr }) => {
                   <p>House No</p>
                   {residentialAddr.map((ind, i) => (
                     <input onChange={handleResidentialChange} name="house_no" key={i} type="text" className="form-control w-full rounded font-light text-gray-500"
-                      value={residentialAddress.house_no ? residentialAddress.house_no : ind.house_no} />
+                      value={residentialAddress.house_no} />
                   ))}
                 </div>
                 <div className="form-group mb-6">
                   <p>Street</p>
                   {residentialAddr.map((ind, i) => (
                     <input onChange={handleResidentialChange} name="street" key={i} type="text" className="form-control w-full rounded font-light text-gray-500"
-                      value={ind.street} />
+                      value={residentialAddress.street}  />
                   ))}
                 </div>
                 <div className="form-group mb-6">
                   <p>LGA</p>
                   {residentialAddr.map((ind, i) => (
                     <input onChange={handleResidentialChange} name="lga" key={i} type="text" className="form-control w-full rounded font-light text-gray-500"
-                      value={ind.lga} />
+                      value={residentialAddress.lga} />
                   ))}
                 </div>
               </div>
@@ -638,25 +699,25 @@ export const ViewSinglePendingTable = ({ indvData, residentialAddr }) => {
                   <p>Town</p>
                   {residentialAddr.map((ind, i) => (
                     <input onChange={handleResidentialChange} name="town" key={i} type="text" className="form-control w-full rounded font-light text-gray-500"
-                      value={ind.town} />
+                      value={residentialAddress.town} />
                   ))}
                 </div>
 
                 <div className="form-check form-check-inline">
                   <p>Type of Residence</p>
 
-                  {residentialAddr.map((ind, i) => (
-                    <select onChange={handleResidentialChange} key={i} className="form-select w-full" value={ind.residence_type} name="residence_type" >
-                      <option value="select">Select</option>
-                      <option value="Bungalow">Bungalow</option>
-                      <option value="Penthouse">Penthouse</option>
-                      <option value="Mansion">Mansion</option>
-                      <option value="Apartment or Flat">Apartment or Flat</option>
-                      <option value="Terraced house">Terraced house</option>
-                      <option value="Duplex">Duplex</option>
-                      <option value="Traditional house">Traditional house</option>
-                    </select>
-                  ))}
+                  {/* {residentialAddr.map((ind, i) => ( */}
+                  <select onChange={handleResidentialChange} className="form-select w-full" value={residentialAddress.residence_type} name="residence_type" >
+                    <option value="select">Select</option>
+                    <option value="Bungalow">Bungalow</option>
+                    <option value="Penthouse">Penthouse</option>
+                    <option value="Mansion">Mansion</option>
+                    <option value="Apartment or Flat">Apartment or Flat</option>
+                    <option value="Terraced house">Terraced house</option>
+                    <option value="Duplex">Duplex</option>
+                    <option value="Traditional house">Traditional house</option>
+                  </select>
+                  {/* ))} */}
 
                 </div>
 
@@ -664,19 +725,13 @@ export const ViewSinglePendingTable = ({ indvData, residentialAddr }) => {
                   <p>Do you own your place of residence?</p>
                   <div className="flex">
                     <div className="form-check form-check-inline">
-                      {residentialAddr.map((ind, i) => (
-                        <input onChange={handleResidentialChange} onClick={onresidenceToggleYes} key={i} name="residence_owner" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1"
-                          value={ind.residence_owner} />
-                      ))}
+                      <input onClick={onresidenceToggleYes} onChange={handleResidentialChange} name="residence_owner" value="Owner" checked={residentialAddress.residence_owner === "Owner"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
                       <label className="form-check-label inline-block text-gray-800" htmlFor="inlineRadio10">Owner</label>
                     </div>
 
-                    <div className="form-check form-check-inline">
-                      {residentialAddr.map((ind, i) => (
-                        <input onChange={handleResidentialChange} onClick={onresidenceToggleNo} key={i} name="residence_owner" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1"
-                          value={ind.residence_owner} />
-                      ))}
-                      <label className="form-check-label inline-block text-gray-800" htmlFor="inlineRadio10">Rented</label>
+                    <div className="form-check form-check-inline ml-5">
+                      <input onClick={onresidenceToggleNo} onChange={handleResidentialChange} name="residence_owner" value="Rented" checked={residentialAddress.residence_owner === "Rented"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
+                      <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Rented</label>
                     </div>
                   </div>
                 </div>
@@ -684,22 +739,25 @@ export const ViewSinglePendingTable = ({ indvData, residentialAddr }) => {
 
               <div className={`grid grid-cols-3 gap-4 ${resiToggle}`}>
                 <div className="form-group mb-6">
+                  <p>Annual rent</p>
                   {residentialAddr.map((ind, i) => (
-                    <input onChange={handleResidentialChange} key={i} name="annual_rent" type="number" className="form-control w-full rounded font-light text-gray-500"
-                      value={ind.annual_rent} />
+                    <input onChange={handleResidentialChange}  key={i} name="annual_rent" placeholder={ind.annual_rent} type="text" className="form-control w-full rounded font-light text-gray-500"
+                   value={residentialAddress.annual_rent } />
                   ))}
                 </div>
 
                 <div className="form-group mb-6">
+                  <p>Owner name</p>
                   {residentialAddr.map((ind, i) => (
-                    <input onChange={handleResidentialChange} key={i} name="owner_name" type="text" className="form-control w-full rounded font-light text-gray-500"
-                      value={ind.owner_name} />
+                    <input onChange={handleResidentialChange} placeholder={ind.owner_name} key={i} name="owner_name" type="text" className="form-control w-full rounded font-light text-gray-500"
+                      value={residentialAddress.owner_name} />
                   ))}
                 </div>
                 <div className="form-group mb-6">
+                  <p>Owner Phone</p>
                   {residentialAddr.map((ind, i) => (
-                    <input onChange={handleResidentialChange} key={i} name="owner_phone" type="text" className="form-control w-full rounded font-light text-gray-500"
-                      value={ind.owner_phone} />
+                    <input onChange={handleResidentialChange} placeholder={ind.owner_phone} key={i} name="owner_phone" type="text" className="form-control w-full rounded font-light text-gray-500"
+                      value={residentialAddress.owner_phone} />
                   ))}
                 </div>
               </div>
@@ -709,7 +767,7 @@ export const ViewSinglePendingTable = ({ indvData, residentialAddr }) => {
                   className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
                   type="submit"
                 >
-                  Save
+                  Update
                 </button>
               </div>
             </div>

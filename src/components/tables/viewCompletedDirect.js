@@ -38,10 +38,10 @@ const fields = [
     name: "Tax",
     key: "tax",
   },
-  // {
-  //   name: "Status",
-  //   key: "status",
-  // },
+  {
+    name: "Status",
+    key: "status",
+  },
   {
     name: "Created Time",
     key: "createtime",
@@ -93,7 +93,7 @@ export const ViewCompletedTable = ({ remittance }) => {
 </Link> */}
 
 export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, taxcal,
-  childObj, resAddObj, spouseObj, domesticStaff, selfEmployment, vehicles, land, employed, lap, nhis, expenses, pensionDed }) => {
+  childObj, resAddObj, rentIncome, spouseObj, domesticStaff, selfEmployment, vehicles, land, employed, lap, nhis, expenses, pensionDed }) => {
   const [isFetching2, setIsFetching2] = useState(() => false);
   const [isFetching3, setIsFetching3] = useState(() => false);
   const router = useRouter();
@@ -513,12 +513,28 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
             </tbody>
           </table>
         </div>
-        <div className="mt-4">
-          <p>Captured by : {assobj.staffName} </p>
-          <p>Date of capture : {createdTime} </p>
+        <div className="mt-4 flex justify-around">
+          <div>
+            <p>Captured by : {assobj.staffName} </p>
+            <p>Date of capture : {createdTime} </p>
+          </div>
+          <div className="flex">
+            <div className="flex flex-col p-2">
+              <p className="font-bold">Balance</p>
+              <p className="font-bold">{formatNumber(taxcal.payDiff)}</p>
+            </div>
+            <div className="flex flex-col p-2">
+              <p className="font-bold">Payment Status</p>
+              <p className="font-bold">{taxcal.paymentStatus}</p>
+            </div>
+            <div className="flex flex-col p-2">
+              <p className="font-bold">Tax Paid</p>
+              <p className="font-bold text-center">{formatNumber(taxcal.taxPaid)}</p>
+            </div>
+          </div>
         </div>
 
-        <div className="flex justify-center">
+        <div className="flex m-10 justify-center">
           <button
             className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
             type="submit"
@@ -544,7 +560,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {resAddObj == null || resAddObj == ""
                     ? <td></td> :
                     resAddObj.map((el, i) =>
-                      <td className="p-2" key={i}>{el.residence_owner}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{el.residence_owner}</td>
                     )
                   }
                 </tr>
@@ -553,7 +569,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {resAddObj == null || resAddObj == ""
                     ? <td ></td> :
                     resAddObj.map((el, i) =>
-                      <td className="p-2" key={i}>{el.residence_type}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{el.residence_type}</td>
                     )
                   }
                 </tr>
@@ -562,7 +578,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {resAddObj == null || resAddObj == ""
                     ? <td></td> :
                     resAddObj.map((el, i) =>
-                      <td className="p-2" key={i}>{el.house_no}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{el.house_no}</td>
                     )
                   }
                 </tr>
@@ -571,7 +587,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {resAddObj == null || resAddObj == ""
                     ? <td></td> :
                     resAddObj.map((el, i) =>
-                      <td className="p-2" key={i}>{el.owner_name}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{el.owner_name}</td>
                     )
                   }
                 </tr>
@@ -580,7 +596,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {resAddObj == null || resAddObj == ""
                     ? <td></td> :
                     resAddObj.map((el, i) =>
-                      <td className="p-2" key={i}>{formatNumber(el.annual_rent)}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{formatNumber(el.annual_rent)}</td>
                     )
                   }
                 </tr>
@@ -589,7 +605,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {resAddObj == null || resAddObj == ""
                     ? <td></td> :
                     resAddObj.map((el, i) =>
-                      <td className="p-2" key={i}>{el.town}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{el.town}</td>
                     )
                   }
                 </tr>
@@ -603,56 +619,56 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
             <table class="table-auto">
               <tbody>
                 <tr>
-                  <td className="font-bold p-2">Residence Owner</td>
-                  {resAddObj == null || resAddObj == ""
+                  <td className="font-bold p-2">Property Type</td>
+                  {rentIncome == null || rentIncome == ""
                     ? <td></td> :
-                    resAddObj.map((el, i) =>
-                      <td className="p-2" key={i}>{el.residence_owner}</td>
+                    rentIncome.map((el, i) =>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{el.prop_type}</td>
                     )
                   }
                 </tr>
                 <tr>
-                  <td className="font-bold p-2">Type of Residence</td>
-                  {resAddObj == null || resAddObj == ""
+                  <td className="font-bold p-2">Address</td>
+                  {rentIncome == null || rentIncome == ""
                     ? <td ></td> :
-                    resAddObj.map((el, i) =>
-                      <td className="p-2" key={i}>{el.residence_type}</td>
+                    rentIncome.map((el, i) =>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{el.prop_address}</td>
                     )
                   }
                 </tr>
                 <tr>
-                  <td className="font-bold p-2">House no</td>
-                  {resAddObj == null || resAddObj == ""
+                  <td className="font-bold p-2">Rental Type</td>
+                  {rentIncome == null || rentIncome == ""
                     ? <td></td> :
-                    resAddObj.map((el, i) =>
-                      <td className="p-2" key={i}>{el.house_no}</td>
+                    rentIncome.map((el, i) =>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{el.rental_type}</td>
                     )
                   }
                 </tr>
                 <tr>
-                  <td className="font-bold p-2">Owner Name</td>
-                  {resAddObj == null || resAddObj == ""
+                  <td className="font-bold p-2">Amount</td>
+                  {rentIncome == null || rentIncome == ""
                     ? <td></td> :
-                    resAddObj.map((el, i) =>
-                      <td className="p-2" key={i}>{el.owner_name}</td>
+                    rentIncome.map((el, i) =>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{formatNumber(el.rental_amount)}</td>
                     )
                   }
                 </tr>
                 <tr>
-                  <td className="font-bold p-2">Annual Rent</td>
-                  {resAddObj == null || resAddObj == ""
+                  <td className="font-bold p-2">Renter Name</td>
+                  {rentIncome == null || rentIncome == ""
                     ? <td></td> :
-                    resAddObj.map((el, i) =>
-                      <td className="p-2" key={i}>{formatNumber(el.annual_rent)}</td>
+                    rentIncome.map((el, i) =>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{(el.renter_name)}</td>
                     )
                   }
                 </tr>
                 <tr>
-                  <td className="font-bold p-2">Town</td>
-                  {resAddObj == null || resAddObj == ""
+                  <td className="font-bold p-2">Renter Phone</td>
+                  {rentIncome == null || rentIncome == ""
                     ? <td></td> :
-                    resAddObj.map((el, i) =>
-                      <td className="p-2" key={i}>{el.town}</td>
+                    rentIncome.map((el, i) =>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{el.renter_phone}</td>
                     )
                   }
                 </tr>
@@ -673,7 +689,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                     {nhis == null || nhis == ""
                       ? <td></td> :
                       nhis.map((el, i) =>
-                        <td className="p-2 border-r-2" key={i}>{el.company}</td>
+                        <td className="p-2 border-l-2 border-r-2" key={i}>{el.company}</td>
                       )
                     }
                   </tr>
@@ -682,7 +698,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                     {nhis == null || nhis == ""
                       ? <td ></td> :
                       nhis.map((el, i) =>
-                        <td className="p-2 border-r-2" key={i}>{el.insurance_no}</td>
+                        <td className="p-2 border-l-2 border-r-2" key={i}>{el.insurance_no}</td>
                       )
                     }
                   </tr>
@@ -691,7 +707,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                     {nhis == null || nhis == ""
                       ? <td></td> :
                       nhis.map((el, i) =>
-                        <td className="p-2 border-r-2" key={i}>{formatNumber(el.amount)}</td>
+                        <td className="p-2 border-l-2 border-r-2" key={i}>{formatNumber(el.amount)}</td>
                       )
                     }
                   </tr>
@@ -700,7 +716,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                     {nhis == null || nhis == ""
                       ? <td></td> :
                       nhis.map((el, i) =>
-                        <td className="p-2 border-r-2" key={i}>{el.addr}</td>
+                        <td className="p-2 border-l-2 border-r-2" key={i}>{el.addr}</td>
                       )
                     }
                   </tr>
@@ -720,7 +736,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {lap == null || lap == ""
                     ? <td></td> :
                     lap.map((el, i) =>
-                      <td className="p-2" key={i}>{el.company}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{el.company}</td>
                     )
                   }
                 </tr>
@@ -729,7 +745,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {lap == null || lap == ""
                     ? <td ></td> :
                     lap.map((el, i) =>
-                      <td className="p-2" key={i}>{el.addr}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{el.addr}</td>
                     )
                   }
                 </tr>
@@ -738,7 +754,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {lap == null || lap == ""
                     ? <td></td> :
                     lap.map((el, i) =>
-                      <td className="p-2" key={i}>{formatNumber(el.amount)}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{formatNumber(el.amount)}</td>
                     )
                   }
                 </tr>
@@ -747,7 +763,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {lap == null || lap == ""
                     ? <td></td> :
                     lap.map((el, i) =>
-                      <td className="p-2" key={i}>{el.rsa_no}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{el.rsa_no}</td>
                     )
                   }
                 </tr>
@@ -769,7 +785,8 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                     {vehicles == null || vehicles == ""
                       ? <td></td> :
                       vehicles.map((el, i) =>
-                        <td className="p-2 border-r-2" key={i}>{el.purchase_date}</td>
+
+                        <td className="p-2 border-l-2 border-r-2" key={i}>{el.purchase_date}</td>
                       )
                     }
                   </tr>
@@ -778,7 +795,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                     {vehicles == null || vehicles == ""
                       ? <td ></td> :
                       vehicles.map((el, i) =>
-                        <td className="p-2 border-r-2" key={i}>{el.cost}</td>
+                        <td className="p-2 border-l-2 border-r-2" key={i}>{el.cost}</td>
                       )
                     }
                   </tr>
@@ -787,7 +804,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                     {vehicles == null || vehicles == ""
                       ? <td></td> :
                       vehicles.map((el, i) =>
-                        <td className="p-2 border-r-2" key={i}>{el.brand}</td>
+                        <td className="p-2 border-l-2 border-r-2" key={i}>{el.brand}</td>
                       )
                     }
                   </tr>
@@ -796,7 +813,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                     {vehicles == null || vehicles == ""
                       ? <td></td> :
                       vehicles.map((el, i) =>
-                        <td className="p-2 border-r-2" key={i}>{el.model}</td>
+                        <td className="p-2 border-l-2 border-r-2" key={i}>{el.model}</td>
                       )
                     }
                   </tr>
@@ -805,7 +822,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                     {vehicles == null || vehicles == ""
                       ? <td></td> :
                       vehicles.map((el, i) =>
-                        <td className="p-2 border-r-2" key={i}>{el.year}</td>
+                        <td className="p-2 border-l-2 border-r-2" key={i}>{el.year}</td>
                       )
                     }
                   </tr>
@@ -825,7 +842,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {land == null || land == ""
                     ? <td></td> :
                     land.map((el, i) =>
-                      <td className="p-2" key={i}>{el.addr}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{el.addr}</td>
                     )
                   }
                 </tr>
@@ -834,7 +851,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {land == null || land == ""
                     ? <td ></td> :
                     land.map((el, i) =>
-                      <td className="p-2" key={i}>{el.prop_type}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{el.prop_type}</td>
                     )
                   }
                 </tr>
@@ -843,7 +860,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {land == null || land == ""
                     ? <td></td> :
                     land.map((el, i) =>
-                      <td className="p-2" key={i}>{el.date_completion}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{el.date_completion}</td>
                     )
                   }
                 </tr>
@@ -852,7 +869,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {lap == null || lap == ""
                     ? <td></td> :
                     lap.map((el, i) =>
-                      <td className="p-2" key={i}>{el.construction_cost}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{el.construction_cost}</td>
                     )
                   }
                 </tr>
@@ -874,7 +891,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {pensionDed == null || pensionDed == ""
                     ? <td></td> :
                     pensionDed.map((el, i) =>
-                      <td className="p-2" key={i}>{el.pfa}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{el.pfa}</td>
                     )
                   }
                 </tr>
@@ -883,7 +900,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {pensionDed == null || pensionDed == ""
                     ? <td ></td> :
                     pensionDed.map((el, i) =>
-                      <td className="p-2" key={i}>{el.pfa_addr}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{el.pfa_addr}</td>
                     )
                   }
                 </tr>
@@ -892,7 +909,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {pensionDed == null || pensionDed == ""
                     ? <td></td> :
                     pensionDed.map((el, i) =>
-                      <td className="p-2" key={i}>{el.rsa_no}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{el.rsa_no}</td>
                     )
                   }
                 </tr>
@@ -901,7 +918,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {pensionDed == null || pensionDed == ""
                     ? <td></td> :
                     pensionDed.map((el, i) =>
-                      <td className="p-2" key={i}>{formatNumber(el.amount)}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{formatNumber(el.amount)}</td>
                     )
                   }
                 </tr>
@@ -920,7 +937,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                     {expenses == null || expenses == ""
                       ? <td></td> :
                       expenses.map((el, i) =>
-                        <td className="p-2" key={i}>{el.item}</td>
+                        <td className="p-2 border-l-2 border-r-2" key={i}>{el.item}</td>
                       )
                     }
                   </tr>
@@ -929,7 +946,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                     {expenses == null || expenses == ""
                       ? <td ></td> :
                       expenses.map((el, i) =>
-                        <td className="p-2" key={i}>{formatNumber(el.amount)}</td>
+                        <td className="p-2 border-l-2 border-r-2" key={i}>{formatNumber(el.amount)}</td>
                       )
                     }
                   </tr>
@@ -951,7 +968,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {employed == null || employed == ""
                     ? <td></td> :
                     employed.map((el, i) =>
-                      <td className="p-2 font-bold" key={i}>{el.emp_name}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{el.emp_name}</td>
                     )
                   }
                 </tr>
@@ -960,7 +977,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {employed == null || employed == ""
                     ? <td ></td> :
                     employed.map((el, i) =>
-                      <td className="p-2" key={i}>{el.emp_addr}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{el.emp_addr}</td>
                     )
                   }
                 </tr>
@@ -969,7 +986,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {employed == null || employed == ""
                     ? <td></td> :
                     employed.map((el, i) =>
-                      <td className="p-2" key={i}>{el.start_date}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{el.start_date}</td>
                     )
                   }
                 </tr>
@@ -978,7 +995,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {employed == null || employed == ""
                     ? <td></td> :
                     employed.map((el, i) =>
-                      <td className="p-2" key={i}>{formatNumber(el.gross_pay)}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{formatNumber(el.gross_pay)}</td>
                     )
                   }
                 </tr>
@@ -987,7 +1004,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {employed == null || employed == ""
                     ? <td></td> :
                     employed.map((el, i) =>
-                      <td className="p-2" key={i}>{formatNumber(el.tax_deducted)}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{formatNumber(el.tax_deducted)}</td>
                     )
                   }
                 </tr>
@@ -1006,7 +1023,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {spouseObj == null || spouseObj == ""
                     ? <td></td> :
                     spouseObj.map((el, i) =>
-                      <td className="p-2 font-bold" key={i}>{el.name}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{el.name}</td>
                     )
                   }
                 </tr>
@@ -1015,7 +1032,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {spouseObj == null || spouseObj == ""
                     ? <td ></td> :
                     spouseObj.map((el, i) =>
-                      <td className="p-2" key={i}>{el.dob}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{el.dob}</td>
                     )
                   }
                 </tr>
@@ -1024,7 +1041,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {spouseObj == null || spouseObj == ""
                     ? <td></td> :
                     spouseObj.map((el, i) =>
-                      <td className="p-2" key={i}>{el.employer}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{el.employer}</td>
                     )
                   }
                 </tr>
@@ -1033,7 +1050,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {spouseObj == null || spouseObj == ""
                     ? <td></td> :
                     spouseObj.map((el, i) =>
-                      <td className="p-2" key={i}>{el.occupation}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{el.occupation}</td>
                     )
                   }
                 </tr>
@@ -1042,7 +1059,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {spouseObj == null || spouseObj == ""
                     ? <td></td> :
                     spouseObj.map((el, i) =>
-                      <td className="p-2" key={i}>{el.employer_addr}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{el.employer_addr}</td>
                     )
                   }
                 </tr>
@@ -1063,7 +1080,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {childObj == null || childObj == ""
                     ? <td></td> :
                     childObj.map((el, i) =>
-                      <td className="p-2 font-bold" key={i}>{el.dob}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{el.dob}</td>
                     )
                   }
                 </tr>
@@ -1072,7 +1089,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {childObj == null || childObj == ""
                     ? <td ></td> :
                     childObj.map((el, i) =>
-                      <td className="p-2" key={i}>{el.school_name}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{el.school_name}</td>
                     )
                   }
                 </tr>
@@ -1081,7 +1098,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {childObj == null || childObj == ""
                     ? <td></td> :
                     childObj.map((el, i) =>
-                      <td className="p-2" key={i}>{el.school_addr}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{el.school_addr}</td>
                     )
                   }
                 </tr>
@@ -1090,7 +1107,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {childObj == null || childObj == ""
                     ? <td></td> :
                     childObj.map((el, i) =>
-                      <td className="p-2" key={i}>{formatNumber(el.school_fees)}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{formatNumber(el.school_fees)}</td>
                     )
                   }
                 </tr>
@@ -1099,7 +1116,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                   {childObj == null || childObj == ""
                     ? <td></td> :
                     childObj.map((el, i) =>
-                      <td className="p-2" key={i}>{formatNumber(el.child_income)}</td>
+                      <td className="p-2 border-l-2 border-r-2" key={i}>{formatNumber(el.child_income)}</td>
                     )
                   }
                 </tr>
@@ -1121,7 +1138,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                 {domesticStaff == null || domesticStaff == ""
                   ? <td></td> :
                   domesticStaff.map((el, i) =>
-                    <td className="p-2 font-bold" key={i}>{el.title}</td>
+                    <td className="p-2 border-l-2 border-r-2" key={i}>{el.title}</td>
                   )
                 }
               </tr>
@@ -1130,7 +1147,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                 {domesticStaff == null || domesticStaff == ""
                   ? <td ></td> :
                   domesticStaff.map((el, i) =>
-                    <td className="p-2" key={i}>{el.name}</td>
+                    <td className="p-2 border-l-2 border-r-2" key={i}>{el.name}</td>
                   )
                 }
               </tr>
@@ -1139,7 +1156,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                 {domesticStaff == null || domesticStaff == ""
                   ? <td></td> :
                   domesticStaff.map((el, i) =>
-                    <td className="p-2" key={i}>{el.house_no}</td>
+                    <td className="p-2 border-l-2 border-r-2" key={i}>{el.house_no}</td>
                   )
                 }
               </tr>
@@ -1148,7 +1165,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                 {domesticStaff == null || domesticStaff == ""
                   ? <td></td> :
                   domesticStaff.map((el, i) =>
-                    <td className="p-2" key={i}>{el.street}</td>
+                    <td className="p-2 border-l-2 border-r-2" key={i}>{el.street}</td>
                   )
                 }
               </tr>
@@ -1157,7 +1174,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                 {domesticStaff == null || domesticStaff == ""
                   ? <td></td> :
                   domesticStaff.map((el, i) =>
-                    <td className="p-2" key={i}>{el.town}</td>
+                    <td className="p-2 border-l-2 border-r-2" key={i}>{el.town}</td>
                   )
                 }
               </tr>
@@ -1166,7 +1183,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                 {domesticStaff == null || domesticStaff == ""
                   ? <td></td> :
                   domesticStaff.map((el, i) =>
-                    <td className="p-2" key={i}>{el.lga}</td>
+                    <td className="p-2 border-l-2 border-r-2" key={i}>{el.lga}</td>
                   )
                 }
               </tr>
@@ -1175,7 +1192,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                 {domesticStaff == null || domesticStaff == ""
                   ? <td></td> :
                   domesticStaff.map((el, i) =>
-                    <td className="p-2" key={i}>{el.state}</td>
+                    <td className="p-2 border-l-2 border-r-2" key={i}>{el.state}</td>
                   )
                 }
               </tr>
@@ -1184,7 +1201,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                 {domesticStaff == null || domesticStaff == ""
                   ? <td></td> :
                   domesticStaff.map((el, i) =>
-                    <td className="p-2" key={i}>{formatNumber(el.amount_paid)}</td>
+                    <td className="p-2 border-l-2 border-r-2" key={i}>{formatNumber(el.amount_paid)}</td>
                   )
                 }
               </tr>
@@ -1193,7 +1210,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                 {domesticStaff == null || domesticStaff == ""
                   ? <td></td> :
                   domesticStaff.map((el, i) =>
-                    <td className="p-2" key={i}>{el.payer}</td>
+                    <td className="p-2 border-l-2 border-r-2" key={i}>{el.payer}</td>
                   )
                 }
               </tr>
@@ -1212,7 +1229,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                 {selfEmployment == null || selfEmployment == ""
                   ? <td></td> :
                   selfEmployment.map((el, i) =>
-                    <td className="p-2" key={i}>{el.business_name}</td>
+                    <td className="p-2 border-l-2 border-r-2" key={i}>{el.business_name}</td>
                   )
                 }
               </tr>
@@ -1221,7 +1238,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                 {selfEmployment == null || selfEmployment == ""
                   ? <td ></td> :
                   selfEmployment.map((el, i) =>
-                    <td className="p-2" key={i}>{el.business_addr}</td>
+                    <td className="p-2 border-l-2 border-r-2" key={i}>{el.business_addr}</td>
                   )
                 }
               </tr>
@@ -1230,7 +1247,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                 {selfEmployment == null || selfEmployment == ""
                   ? <td></td> :
                   selfEmployment.map((el, i) =>
-                    <td className="p-2" key={i}>{el.business_start_date}</td>
+                    <td className="p-2 border-l-2 border-r-2" key={i}>{el.business_start_date}</td>
                   )
                 }
               </tr>
@@ -1239,7 +1256,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                 {selfEmployment == null || selfEmployment == ""
                   ? <td></td> :
                   selfEmployment.map((el, i) =>
-                    <td className="p-2" key={i}>{el.business_type}</td>
+                    <td className="p-2 border-l-2 border-r-2" key={i}>{el.business_type}</td>
                   )
                 }
               </tr>
@@ -1248,7 +1265,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                 {selfEmployment == null || selfEmployment == ""
                   ? <td></td> :
                   selfEmployment.map((el, i) =>
-                    <td className="p-2" key={i}>{el.figures_estimated}</td>
+                    <td className="p-2 border-l-2 border-r-2" key={i}>{el.figures_estimated}</td>
                   )
                 }
               </tr>
@@ -1257,7 +1274,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                 {selfEmployment == null || selfEmployment == ""
                   ? <td></td> :
                   selfEmployment.map((el, i) =>
-                    <td className="p-2" key={i}>{formatNumber(el.income_earned)}</td>
+                    <td className="p-2 border-l-2 border-r-2" key={i}>{formatNumber(el.income_earned)}</td>
                   )
                 }
               </tr>
@@ -1266,7 +1283,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                 {selfEmployment == null || selfEmployment == ""
                   ? <td></td> :
                   selfEmployment.map((el, i) =>
-                    <td className="p-2" key={i}>{formatNumber(el.other_income)}</td>
+                    <td className="p-2 border-l-2 border-r-2" key={i}>{formatNumber(el.other_income)}</td>
                   )
                 }
               </tr>

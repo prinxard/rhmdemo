@@ -16,8 +16,7 @@ const ViewSingleDirectAssessment = () => {
   useEffect(() => {
     if (router && router.query) {
       let routerData = String(router.query.ref);
-      let kgtin = routerData.split(',').pop()
-      console.log(kgtin); 
+      let kgtin = routerData.split(',').pop() 
       let assessId = routerData.split(',').shift()
       setAssessId(assessId) 
       let kgtinPost = {
