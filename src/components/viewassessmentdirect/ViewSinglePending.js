@@ -19,6 +19,8 @@ const ViewSinglePending = () => {
   const [residentialAddr, setResidentialAddr] = useState([]);
   const [payLoad, setPayload] = useState([]);
   const [pensDeduct, setPensionDeduct] = useState([]);
+  const [employment, setEmployment] = useState([]);
+  const [selfEmployment, setselfEmployment] = useState([]);
   const [routerAssId, setAssessId] = useState('');
 
   const router = useRouter();
@@ -41,12 +43,17 @@ const ViewSinglePending = () => {
           let payerDat = res.data.body.taxpayer;
           let resAddress = userAssData.residentialAddr
           let pensionD = userAssData.pensionDed
+          let employ = userAssData.employed
+          let selfEmp = userAssData.selfEmployed
+          setselfEmployment(selfEmp)
+          console.log(selfEmp);
+          setEmployment(employ)
           setPensionDeduct(pensionD)
           setPayload(userAssData)
           setResidentialAddr(resAddress)
           setpayerprop(payerDat)
           setIsFetching(false);
-            console.log(userAssData);
+          console.log(userAssData);
         } catch (e) {
           setIsFetching(false);
         }
@@ -59,7 +66,7 @@ const ViewSinglePending = () => {
     const residentialAddressCopy = [...residentialAddr];
     const temp = residentialAddressCopy[index]
     residentialAddressCopy[index] = null
-    let updatedAddress = {...temp}
+    let updatedAddress = { ...temp }
     updatedAddress[fieldName] = newValue
     residentialAddressCopy[index] = updatedAddress
     setResidentialAddr(residentialAddressCopy)
@@ -69,10 +76,30 @@ const ViewSinglePending = () => {
     const pensionDeductCopy = [...pensDeduct];
     const temp = pensionDeductCopy[index]
     pensionDeductCopy[index] = null
-    let unpdatePensionDe = {...temp}
+    let unpdatePensionDe = { ...temp }
     unpdatePensionDe[fieldName] = newValue
     pensionDeductCopy[index] = unpdatePensionDe
     setPensionDeduct(pensionDeductCopy)
+  }
+
+  function handleEmployed(newValue, index, fieldName) {
+    const employmentCopy = [...employment];
+    const temp = employmentCopy[index]
+    employmentCopy[index] = null
+    let updateEmployment = { ...temp }
+    updateEmployment[fieldName] = newValue
+    employmentCopy[index] = updateEmployment
+    setEmployment(employmentCopy)
+  }
+
+  function handleSelfEmployed(newValue, index, fieldName) {
+    const selEmploymentCopy = [...selfEmployment];
+    const temp = selEmploymentCopy[index]
+    selEmploymentCopy[index] = null
+    let updateSelfEmployment = { ...temp }
+    updateSelfEmployment[fieldName] = newValue
+    selEmploymentCopy[index] = updateSelfEmployment
+    setselfEmployment(selEmploymentCopy)
   }
 
   return (
@@ -94,10 +121,15 @@ const ViewSinglePending = () => {
       )}
       <Widget>
         <>
-          <ViewSinglePendingTable indvData={payerprop} pensDeduct={pensDeduct} 
-          changed={(e, index, fieldName)=> handleResidential(e.target.value, index, fieldName)}
-           changedPensDed={(e, index, fieldName)=> handlepensionDeduct(e.target.value, index, fieldName)}  routerAssId={routerAssId} residentialAd={residentialAddr} />
-
+          <ViewSinglePendingTable indvData={payerprop} pensDeduct={pensDeduct}
+            changed={(e, index, fieldName) => handleResidential(e.target.value, index, fieldName)}
+            changedPensDed={(e, index, fieldName) => handlepensionDeduct(e.target.value, index, fieldName)}
+            routerAssId={routerAssId} residentialAd={residentialAddr}
+            changedEmploy={(e, index, fieldName) => handleEmployed(e.target.value, index, fieldName)}
+            employment={employment}
+            changedSelfEmployed={(e, index, fieldName) => handleSelfEmployed(e.target.value, index, fieldName)}
+            selfEmployment={selfEmployment}
+          />
         </>
       </Widget>
     </>

@@ -89,7 +89,9 @@ export const ViewPendingTable = ({ remittance }) => {
   );
 };
 
-export const ViewSinglePendingTable = ({ indvData, residentialAd, pensDeduct, routerAssId, changed, changedPensDed }) => {
+export const ViewSinglePendingTable = ({ indvData, residentialAd, pensDeduct,
+  routerAssId, changed, changedPensDed, changedEmploy, employment, changedSelfEmployed, selfEmployment }) => {
+
   const [toggleel, setToggle] = useState('hidden')
   const [togglee2, setToggle2] = useState('hidden')
   const [togglee3, setToggle3] = useState('hidden')
@@ -136,7 +138,6 @@ export const ViewSinglePendingTable = ({ indvData, residentialAd, pensDeduct, ro
   let submitDataResAdd = async (e, index) => {
     e.preventDefault()
     setIsFetching6(true)
-
     try {
       let res = await axios.put(`${url.BASE_URL}forma/residence-addr`, residentialAddr[0]);
       setIsFetching6(false)
@@ -150,18 +151,58 @@ export const ViewSinglePendingTable = ({ indvData, residentialAd, pensDeduct, ro
 
   let submitDataPensDed = async (e, index) => {
     e.preventDefault()
-    // setIsFetching6(true)
+    setIsFetching12(true)
 
     let formVal = (pensDeduct)
     for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
       const element = formVal[indexAr];
       axios.put(`${url.BASE_URL}forma/pension-ded`, element)
         .then(function (response) {
-          // setIsFetching12(false)
-          toast.success("Saved Successfully!");
+          setIsFetching12(false)
+          toast.success("Updated Successfully!");
         })
         .catch(function (error) {
-          // setIsFetching12(false)
+          setIsFetching12(false)
+          toast.error("Failed! please try again");
+        });
+    }
+
+  }
+
+  let submitDataEmployment = async (e, index) => {
+    e.preventDefault()
+    setIsFetching12(true)
+    const formData = new FormData();
+    let formVal = (employment)
+    for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
+      const element = formVal[indexAr];
+      axios.put(`${url.BASE_URL}forma/employed`, element)
+        .then(function (response) {
+          setIsFetching12(false)
+          toast.success("Updated Successfully!");
+        })
+        .catch(function (error) {
+          setIsFetching12(false)
+          toast.error("Failed! please try again");
+        });
+    }
+
+  }
+
+  let submitDataSelfEmployment = async (e, index) => {
+    e.preventDefault()
+    setIsFetching12(true)
+    const formData = new FormData();
+    let formVal = (selfEmployment)
+    for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
+      const element = formVal[indexAr];
+      axios.put(`${url.BASE_URL}forma/self-employed`, element)
+        .then(function (response) {
+          setIsFetching12(false)
+          toast.success("Updated Successfully!");
+        })
+        .catch(function (error) {
+          setIsFetching12(false)
           toast.error("Failed! please try again");
         });
     }
@@ -450,7 +491,7 @@ export const ViewSinglePendingTable = ({ indvData, residentialAd, pensDeduct, ro
     setToggle15(toggleval)
 
   };
- 
+
   return (
     <>
       <ToastContainer />
@@ -660,10 +701,10 @@ export const ViewSinglePendingTable = ({ indvData, residentialAd, pensDeduct, ro
       </div>
 
 
-      {isFetching4 && (
+      {isFetching12 && (
         <div className="flex justify-center item mb-2">
           <Loader
-            visible={isFetching4}
+            visible={isFetching12}
             type="BallTriangle"
             color="#00FA9A"
             height={19}
@@ -675,14 +716,14 @@ export const ViewSinglePendingTable = ({ indvData, residentialAd, pensDeduct, ro
         </div>
       )}
       <h6>Pension</h6>
-      <div className={`flex justify-center border mb-3 block p-6 rounded-lg bg-white w-full`}>
+      <div className={`flex justify-center border mb-3 block p-6 rounded-lg bg-white w-full `}>
 
         <form onSubmit={submitDataPensDed}>
 
           {pensDeduct == null ?
             <div div className="">
               <div className="mb-6 grid grid-cols-3 gap-4">
-                <label htmlFor="employername">PFA:</label>
+                <label>PFA:</label>
                 <input name="pfa" type="text" className="form-control w-full rounded"
                 />
               </div>
@@ -730,7 +771,7 @@ export const ViewSinglePendingTable = ({ indvData, residentialAd, pensDeduct, ro
             </div>
 
             :
-            <div div className="">
+            <div className="">
               {pensDeduct.map((ind, i) => (
                 <div className="border-b-2 mb-3">
                   <div className="mb-6 grid grid-cols-3 gap-4">
@@ -764,7 +805,7 @@ export const ViewSinglePendingTable = ({ indvData, residentialAd, pensDeduct, ro
 
                 </div>
               ))}
-             
+
               <div className="mb-6 flex justify-between">
                 <button
                   style={{ backgroundColor: "#84abeb" }}
@@ -788,6 +829,712 @@ export const ViewSinglePendingTable = ({ indvData, residentialAd, pensDeduct, ro
           }
         </form>
       </div >
+
+      <div className="flex justify-between mb-5 ">
+        <p>Employment</p>
+        <div className="flex">
+          <div className="form-check form-check-inline">
+            <input onClick={onChange} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions" id="inlineRadio1" />
+            <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Yes</label>
+          </div>
+
+          <div className="form-check form-check-inline ml-5">
+            <input onClick={onChange2} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions" id="inlineRadio2" />
+            <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">No</label>
+          </div>
+        </div>
+      </div>
+
+      {isFetching3 && (
+        <div className="flex justify-center item mb-2">
+          <Loader
+            visible={isFetching3}
+            type="BallTriangle"
+            color="#00FA9A"
+            height={19}
+            width={19}
+            timeout={0}
+            className="ml-2"
+          />
+          <p className="font-bold">updating...</p>
+        </div>
+      )}
+
+      <div className={`flex justify-center border mb-3 p-6 rounded-lg bg-white w-full ${toggleel}`}>
+        <form onSubmit={submitDataEmployment}>
+          {employment == null ?
+            <div>
+              <div>
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Employer Name:</label>
+                  <input required type="text" name="emp_name" className="form-control w-full rounded" />
+                </div>
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Employer Address:</label>
+                  <input required type="text" name="emp_addr" className="form-control w-full rounded" />
+                </div>
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Your start date:</label>
+                  <input type="date" name="start_date" className="form-control w-full rounded"
+                  />
+                </div>
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Gross pay:</label>
+                  <input required placeholder="₦" placeholder="₦" type="number" name="gross_pay" className="form-control w-full rounded"
+                  />
+                </div>
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Tax deducted:</label>
+                  <input placeholder="₦" type="number" name="tax_deducted" className="form-control w-full rounded"
+                  />
+                </div>
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Upload Pay slip or schedule:</label>
+                  <input type="file" name="pay_slip" className="w-full"
+                  />
+                </div>
+                <div className='pb-5'>
+                  <hr />
+                </div>
+              </div>
+
+              <div className="mb-6 flex justify-around">
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                >
+                  Save
+                </button>
+                <button onClick={formTog1} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                  <a href="">
+                    <FiTriangle
+                      size={15}
+                      className="stroke-current text-green-500"
+                    />
+                  </a>
+                </button>
+              </div>
+            </div>
+            :
+            <div>
+              {employment.map((ind, i) => (
+                <div>
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Employer Name:</label>
+                    <input value={ind.emp_name} onChange={(e) => changedEmploy(e, i, "emp_name")} key={i} required type="text" name="emp_name" className="form-control w-full rounded" />
+                  </div>
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Employer Address:</label>
+                    <input value={ind.emp_addr} onChange={(e) => changedEmploy(e, i, "emp_addr")} key={i} required type="text" name="emp_addr" className="form-control w-full rounded" />
+                  </div>
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Your start date:</label>
+                    <input value={ind.start_date} onChange={(e) => changedEmploy(e, i, "start_date")} key={i} type="date" name="start_date" className="form-control w-full rounded"
+                    />
+                  </div>
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Gross pay:</label>
+                    <input required value={ind.gross_pay} onChange={(e) => changedEmploy(e, i, "gross_pay")} key={i} placeholder="₦" type="number" name="gross_pay" className="form-control w-full rounded"
+                    />
+                  </div>
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Tax deducted:</label>
+                    <input value={ind.tax_deducted} onChange={(e) => changedEmploy(e, i, "tax_deducted")} key={i} placeholder="₦" type="number" name="tax_deducted" className="form-control w-full rounded"
+                    />
+                  </div>
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Upload Pay slip or schedule:</label>
+                    <input type="file" onChange={(e) => changedEmploy(e, i, "pay_slip")} key={i} name="pay_slip" className="w-full"
+                    />
+                  </div>
+                  <div className='pb-5'>
+                    <hr />
+                  </div>
+                </div>
+              ))}
+
+              <div className="mb-6 flex justify-around">
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                >
+                  Update
+                </button>
+                <button onClick={formTog1} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                  <a href="">
+                    <FiTriangle
+                      size={15}
+                      className="stroke-current text-green-500"
+                    />
+                  </a>
+                </button>
+              </div>
+            </div>
+          }
+        </form>
+      </div>
+
+      <div>
+        <div className="flex justify-between mb-5">
+          <p>self employed </p>
+
+          <div className="flex">
+
+            <div className="form-check form-check-inline">
+              <input onClick={onChange3} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions2" id="inlineRadio1" value="option1" />
+              <label required className="form-check-label inline-block text-gray-800" for="inlineRadio10">Yes</label>
+            </div>
+
+            <div className="form-check form-check-inline ml-5">
+              <input required onClick={onChange4} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions2" id="inlineRadio2" value="option2" />
+              <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">No</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {isFetching7 && (
+        <div className="flex justify-center item mb-2">
+          <Loader
+            visible={isFetching7}
+            type="BallTriangle"
+            color="#00FA9A"
+            height={19}
+            width={19}
+            timeout={0}
+            className="ml-2"
+          />
+          <p className="font-bold">saving...</p>
+        </div>
+      )}
+      <div className={`flex justify-center border mb-3 p-6 rounded-lg bg-white w-fulll ${togglee2}`}>
+        <div>
+          <form onSubmit={submitDataSelfEmployment}>
+            {selfEmployment == null ?
+              <div>
+                <div>
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label htmlFor="typeofbusiness">Type of business:</label>
+                    <select className="form-select" name="business_type" >
+                      <option value="select">Select Business </option>
+                      <option value="Agro Allied Products">Agro Allied Products</option>
+                      <option value="Aircondition Repairer">Aircondition Repairer</option>
+                      <option value="Aluminum Doors & Windows">Aluminum Doors & Windows</option>
+                      <option value="Animal Feed Maker">Animal Feed Maker</option>
+                      <option value="Architechtural Design">Architechtural Design</option>
+                      <option value="Architect">Architect</option>
+                      <option value="Artist And Song-Writer">Artist And Song-Writer</option>
+                      <option value="Baby Wear">Baby Wear</option>
+                      <option value="Curtain & Interior Decoration">Curtain & Interior Decoration</option>
+                      <option value="Cyber Cafe Operator">Cyber Cafe Operator</option>
+                      <option value="Dealers In Mattress/Foams">Dealers In Mattress/Foams</option>
+                      <option value="Djs Entertainment">Djs Entertainment</option>
+                      <option value="Doors Seller">Doors Seller</option>
+                      <option value="Drama Group">Drama Group</option>
+                      <option value="Electrical Parts & Fitting">Electrical Parts & Fitting</option>
+                      <option value="Electrician">Electrician</option>
+                      <option value="Electronics Dealer">Electronics Dealer</option>
+                      <option value="Engine Oil/ Kerosene Seller">Engine Oil/ Kerosene Seller</option>
+                      <option value="Estate Managers/ Agent">Estate Managers/ Agent</option>
+                      <option value="Event Centre">Event Centre</option>
+                      <option value="Event Planner">Event Planner</option>
+                      <option value="Fashion Designer">Fashion Designer</option>
+                      <option value="Films & Cinemas Center">Films & Cinemas Center</option>
+                      <option value="Fish Seller">Fish Seller</option>
+                      <option value="Fowl Seller">Fowl Seller</option>
+                      <option value="Fruit Seller">Fruit Seller</option>
+                      <option value="Furnishing Materials Seller">Furnishing Materials Seller</option>
+                      <option value="Furniture / Furnishing Materials Seller">Furniture / Furnishing Materials Seller</option>
+                      <option value="Furniture Maker">Furniture Maker</option>
+                      <option value="Gas Refilling Seller">Gas Refilling Seller</option>
+                      <option value="Generator Mechanic">Generator Mechanic</option>
+                      <option value="Gift Shop">Gift Shop</option>
+                      <option value="Graphic Arts & Design">Graphic Arts & Design</option>
+                      <option value="Grinding Mill">Grinding Mill</option>
+                      <option value="Guest House">Guest House</option>
+                      <option value="Hairdressers And Barber">Hairdressers And Barber</option>
+                      <option value="Higher Institutions Private">Higher Institutions Private</option>
+                      <option value="Horticulture / Florist">Horticulture / Florist</option>
+                      <option value="Hotel Proprietor">Hotel Proprietor</option>
+                      <option value="Ict/ Computer Accessories">Ict/ Computer Accessories</option>
+                      <option value="Interior Decorator">Interior Decorator</option>
+                      <option value="Iron Bender">Iron Bender</option>
+                      <option value="Jewelry Seller">Jewelry Seller</option>
+                      <option value="Kerorine Retail Seller">Kerorine Retail Seller</option>
+                      <option value="Kiddies Shop And Botique">Kiddies Shop And Botique</option>
+                      <option value="Laundry (Dry Cleaner)">Laundry (Dry Cleaner)</option>
+                      <option value="Law Firm3">Law Firm</option>
+                      <option value="Leather Carpets (Linoleum)">Leather Carpets (Linoleum)</option>
+                      <option value="Liquor|Beer Palour">Liquor|Beer Palour</option>
+                      <option value="Mai Shai (Tea Maker)">Mai Shai (Tea Maker)</option>
+                      <option value="Mason">Mason</option>
+                      <option value="Maternity Home">Maternity Home</option>
+                      <option value="Maternity Private Proprietor">Maternity Private Proprietor</option>
+                      <option value="Meat Seller">Meat Seller</option>
+                      <option value="Medical Laboratory">Medical Laboratory</option>
+                      <option value="Mini Supermarket|Supermarket">Mini Supermarket|Supermarket</option>
+                      <option value="Mobile Phone Dealer">Mobile Phone Dealer</option>
+                      <option value="Mobile Phone Repairer">Mobile Phone Repairer</option>
+                      <option value="Mobile Phone Seller">Mobile Phone Seller</option>
+                      <option value="Money Lender">Money Lender</option>
+                      <option value="Motor Cycle Dealer">Motor Cycle Dealer</option>
+                      <option value="Motor Cycle Mechanic">Motor Cycle Mechanic</option>
+                      <option value="Motor Cycle Spare Part Dealer">Motor Cycle Spare Part Dealer</option>
+                      <option value="Motor Dealer/Seller">Motor Dealer/Seller</option>
+                      <option value="Motor Spare Part Dealer">Motor Spare Part Dealer</option>
+                      <option value="Motor Vehicle Mechanic">Motor Vehicle Mechanic</option>
+                      <option value="Musician">Musician</option>
+                      <option value="Newspaper/Magazine Vendor">Newspaper/Magazine Vendor</option>
+                      <option value="Optician">Optician</option>
+                      <option value="Other Businesses And Trade">Other Businesses And Trade</option>
+                      <option value="Painter And Decorator">Painter And Decorator</option>
+                      <option value="Paints Dealer">Paints Dealer</option>
+                      <option value="Palm Oil Miller">Palm Oil Miller</option>
+                      <option value="Panel Beaters & Sprayer">Panel Beaters & Sprayer</option>
+                      <option value="Patent/Propriety Medicine Vendor">Patent/Propriety Medicine Vendor</option>
+                      <option value="Petrol Filling Station">Petrol Filling Station</option>
+                      <option value="Pharmaceutical Shop">Pharmaceutical Shop</option>
+                      <option value="Phone Accessories"> Phone Accessories</option>
+                      <option value="Photo Color Laboratorie">Photo Color Laboratorie</option>
+                      <option value="Photographers / Photo Developer">Photographers / Photo Developer</option>
+                      <option value="Photographic Materials Shop">Photographic Materials Shop</option>
+                      <option value="Plastic Dealer">Plastic Dealer</option>
+                      <option value="Plastic/Rubber Seller">Plastic/Rubber Seller</option>
+                      <option value="Plumber">Plumber</option>
+                      <option value="Plumbing Material With Water Tanks & Access.">Plumbing Material With Water Tanks & Access.</option>
+                      <option value="Plumbing Materials Only">Plumbing Materials Only</option>
+                      <option value="Pool Agent">Pool Agent</option>
+                      <option value="Pool Promoter">Pool Promoter</option>
+                      <option value="Pos Operator (Mobile Money)">Pos Operator (Mobile Money)</option>
+                      <option value="Potter">Potter</option>
+                      <option value="Poultry Farmer">Poultry Farmer</option>
+                      <option value="Poultry Feed">Poultry Feed</option>
+                      <option value="Printer">Printer</option>
+                      <option value="Private Medical Practioner">Private Medical Practioner</option>
+                      <option value="Private N/P School">Private N/P School</option>
+                      <option value="Private Secondary School">Private Secondary School</option>
+                      <option value="Produce Buyer">Produce Buyer</option>
+                      <option value="Provision Store">Provision Store</option>
+                      <option value="Pure/Bottle Water Producer">Pure/Bottle Water Producer</option>
+                      <option value="Pure/Bottle Water Seller">Pure/Bottle Water Seller</option>
+                      <option value="Raw Food Seller">Raw Food Seller</option>
+                      <option value="Recharge Card Dealer">Recharge Card Dealer</option>
+                      <option value="Rental">Rental</option>
+                      <option value="Restaurant">Restaurant</option>
+                      <option value="Restaurant (Buka)">Restaurant (Buka)</option>
+                      <option value="Re-Wire & Battery Charger opt">Re-Wire & Battery Charger opt</option>
+                      <option value="Road Side Petty Trader">Road Side Petty Trader</option>
+                      <option value="Rugs & Carpet">Rugs & Carpet</option>
+                      <option value="Sack Bags Seller">Sack Bags Seller</option>
+                      <option value="Saw Mill">Saw Mill</option>
+                      <option value="School Proprietor">School Proprietor</option>
+                      <option value="Shoe Maker">Shoe Maker</option>
+                      <option value="Shoe Seller">Shoe Seller</option>
+                      <option value="Shops/Stall">Shops/Stall</option>
+                      <option value="Solar Panel">Solar Panel</option>
+                      <option value="Stylist">Stylist</option>
+                      <option value="Super Market">Super Market</option>
+                      <option value="Tailors/Fashion Designer">Tailors/Fashion Designer</option>
+                      <option value="Thrift Collector">Thrift Collector</option>
+                      <option value="Tiler">Tiler</option>
+                      <option value="Timber Wood Seller">Timber Wood Seller</option>
+                      <option value="Tomatoes Seller">Tomatoes Seller</option>
+                      <option value="Tuber Dealer">Tuber Dealer</option>
+                      <option value="Tyre Dealer">Tyre Dealer</option>
+                      <option value="Video Club">Video Club</option>
+                      <option value="Viewing Centre">Viewing Centre</option>
+                      <option value="Vulcanizer">Vulcanizer</option>
+                      <option value="Weaver">Weaver</option>
+                      <option value="Weaver">Welder</option>
+                      <option value="Wheel Barrow Quiosk">Wheel Barrow Quiosk</option>
+                      <option value="Wine And Beer License Operator">Wine And Beer License Operator</option>
+                      <option value="Yam Seller">Yam Seller</option>
+                      <option value="Yoghurt Seller">Yoghurt Seller</option>
+                    </select>
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label >Business Name:</label>
+                    <input name="business_name" type="text" className="form-control w-full rounded"
+                    />
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Business Address:</label>
+                    <input name="business_addr" type="text" id="businessaddress" className="form-control w-full rounded"
+                    />
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Business Start date:</label>
+                    <input name="business_start_date" type="date" className="form-control w-full rounded"
+                    />
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label htmlFor="turnover">Turnover-takings, fees, sales or money earned by your business:</label>
+                    <input required placeholder="₦" name="income_earned" type="number" className="form-control w-full rounded"
+                    />
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label htmlFor="turnover">Any other business income not included above:</label>
+                    <input placeholder="₦" name="other_income" type="number" className="form-control w-full rounded"
+                    />
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label htmlFor="cashbases">Do you use cash basis, money actually received and paid out, to calculate your income expense ?</label>
+                    <div className="flex">
+                      <div className="form-check form-check-inline">
+                        <input required value="Yes" name="cash_inc_expense" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
+                        <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">No</label>
+                      </div>
+
+                      <div className="form-check form-check-inline ml-5">
+                        <input required value="No" name="cash_inc_expense" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
+                        <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Yes</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label htmlFor="expenses">How would you like to record your expenses?</label>
+                      <div className="flex">
+                        <div className="form-check form-check-inline">
+                          <input value="Break down" name="expense" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
+                          <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Break down</label>
+                        </div>
+
+                        <div className="form-check form-check-inline ml-5">
+                          <input value="Total" name="expense" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
+                          <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Total</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label htmlFor="expenses">Are figures provided provisional or estimated?</label>
+                    <div className="flex">
+                      <div className="form-check form-check-inline">
+                        <input value="Estimated" name="figures_estimated" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
+                        <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Estimated</label>
+                      </div>
+
+                      <div className="form-check form-check-inline ml-5">
+                        <input value="Estimated" name="Provisional" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
+                        <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Provisional</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div className='pb-5'>
+                    <hr />
+                  </div>
+                </div><div className="mb-6 flex justify-between">
+                  <button
+                    style={{ backgroundColor: "#84abeb" }}
+                    className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                  >
+                    Save
+                  </button>
+
+                  <button onClick={formTog2} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <a href="">
+                      <FiTriangle
+                        size={15}
+                        className="stroke-current text-green-500"
+                      />
+                    </a>
+                  </button>
+                </div>
+              </div>
+              :
+              <div>
+                {selfEmployment.map((ind, i) => (
+                  <div>
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label htmlFor="typeofbusiness">Type of business:</label>
+                      <select onChange={(e) => changedSelfEmployed(e, i, "business_type")} key={i} value={ind.business_type} className="form-select" name="business_type" >
+                        <option value="select">Select Business </option>
+                        <option value="Agro Allied Products">Agro Allied Products</option>
+                        <option value="Aircondition Repairer">Aircondition Repairer</option>
+                        <option value="Aluminum Doors & Windows">Aluminum Doors & Windows</option>
+                        <option value="Animal Feed Maker">Animal Feed Maker</option>
+                        <option value="Architechtural Design">Architechtural Design</option>
+                        <option value="Architect">Architect</option>
+                        <option value="Artist And Song-Writer">Artist And Song-Writer</option>
+                        <option value="Baby Wear">Baby Wear</option>
+                        <option value="Curtain & Interior Decoration">Curtain & Interior Decoration</option>
+                        <option value="Cyber Cafe Operator">Cyber Cafe Operator</option>
+                        <option value="Dealers In Mattress/Foams">Dealers In Mattress/Foams</option>
+                        <option value="Djs Entertainment">Djs Entertainment</option>
+                        <option value="Doors Seller">Doors Seller</option>
+                        <option value="Drama Group">Drama Group</option>
+                        <option value="Electrical Parts & Fitting">Electrical Parts & Fitting</option>
+                        <option value="Electrician">Electrician</option>
+                        <option value="Electronics Dealer">Electronics Dealer</option>
+                        <option value="Engine Oil/ Kerosene Seller">Engine Oil/ Kerosene Seller</option>
+                        <option value="Estate Managers/ Agent">Estate Managers/ Agent</option>
+                        <option value="Event Centre">Event Centre</option>
+                        <option value="Event Planner">Event Planner</option>
+                        <option value="Fashion Designer">Fashion Designer</option>
+                        <option value="Films & Cinemas Center">Films & Cinemas Center</option>
+                        <option value="Fish Seller">Fish Seller</option>
+                        <option value="Fowl Seller">Fowl Seller</option>
+                        <option value="Fruit Seller">Fruit Seller</option>
+                        <option value="Furnishing Materials Seller">Furnishing Materials Seller</option>
+                        <option value="Furniture / Furnishing Materials Seller">Furniture / Furnishing Materials Seller</option>
+                        <option value="Furniture Maker">Furniture Maker</option>
+                        <option value="Gas Refilling Seller">Gas Refilling Seller</option>
+                        <option value="Generator Mechanic">Generator Mechanic</option>
+                        <option value="Gift Shop">Gift Shop</option>
+                        <option value="Graphic Arts & Design">Graphic Arts & Design</option>
+                        <option value="Grinding Mill">Grinding Mill</option>
+                        <option value="Guest House">Guest House</option>
+                        <option value="Hairdressers And Barber">Hairdressers And Barber</option>
+                        <option value="Higher Institutions Private">Higher Institutions Private</option>
+                        <option value="Horticulture / Florist">Horticulture / Florist</option>
+                        <option value="Hotel Proprietor">Hotel Proprietor</option>
+                        <option value="Ict/ Computer Accessories">Ict/ Computer Accessories</option>
+                        <option value="Interior Decorator">Interior Decorator</option>
+                        <option value="Iron Bender">Iron Bender</option>
+                        <option value="Jewelry Seller">Jewelry Seller</option>
+                        <option value="Kerorine Retail Seller">Kerorine Retail Seller</option>
+                        <option value="Kiddies Shop And Botique">Kiddies Shop And Botique</option>
+                        <option value="Laundry (Dry Cleaner)">Laundry (Dry Cleaner)</option>
+                        <option value="Law Firm3">Law Firm</option>
+                        <option value="Leather Carpets (Linoleum)">Leather Carpets (Linoleum)</option>
+                        <option value="Liquor|Beer Palour">Liquor|Beer Palour</option>
+                        <option value="Mai Shai (Tea Maker)">Mai Shai (Tea Maker)</option>
+                        <option value="Mason">Mason</option>
+                        <option value="Maternity Home">Maternity Home</option>
+                        <option value="Maternity Private Proprietor">Maternity Private Proprietor</option>
+                        <option value="Meat Seller">Meat Seller</option>
+                        <option value="Medical Laboratory">Medical Laboratory</option>
+                        <option value="Mini Supermarket|Supermarket">Mini Supermarket|Supermarket</option>
+                        <option value="Mobile Phone Dealer">Mobile Phone Dealer</option>
+                        <option value="Mobile Phone Repairer">Mobile Phone Repairer</option>
+                        <option value="Mobile Phone Seller">Mobile Phone Seller</option>
+                        <option value="Money Lender">Money Lender</option>
+                        <option value="Motor Cycle Dealer">Motor Cycle Dealer</option>
+                        <option value="Motor Cycle Mechanic">Motor Cycle Mechanic</option>
+                        <option value="Motor Cycle Spare Part Dealer">Motor Cycle Spare Part Dealer</option>
+                        <option value="Motor Dealer/Seller">Motor Dealer/Seller</option>
+                        <option value="Motor Spare Part Dealer">Motor Spare Part Dealer</option>
+                        <option value="Motor Vehicle Mechanic">Motor Vehicle Mechanic</option>
+                        <option value="Musician">Musician</option>
+                        <option value="Newspaper/Magazine Vendor">Newspaper/Magazine Vendor</option>
+                        <option value="Optician">Optician</option>
+                        <option value="Other Businesses And Trade">Other Businesses And Trade</option>
+                        <option value="Painter And Decorator">Painter And Decorator</option>
+                        <option value="Paints Dealer">Paints Dealer</option>
+                        <option value="Palm Oil Miller">Palm Oil Miller</option>
+                        <option value="Panel Beaters & Sprayer">Panel Beaters & Sprayer</option>
+                        <option value="Patent/Propriety Medicine Vendor">Patent/Propriety Medicine Vendor</option>
+                        <option value="Petrol Filling Station">Petrol Filling Station</option>
+                        <option value="Pharmaceutical Shop">Pharmaceutical Shop</option>
+                        <option value="Phone Accessories"> Phone Accessories</option>
+                        <option value="Photo Color Laboratorie">Photo Color Laboratorie</option>
+                        <option value="Photographers / Photo Developer">Photographers / Photo Developer</option>
+                        <option value="Photographic Materials Shop">Photographic Materials Shop</option>
+                        <option value="Plastic Dealer">Plastic Dealer</option>
+                        <option value="Plastic/Rubber Seller">Plastic/Rubber Seller</option>
+                        <option value="Plumber">Plumber</option>
+                        <option value="Plumbing Material With Water Tanks & Access.">Plumbing Material With Water Tanks & Access.</option>
+                        <option value="Plumbing Materials Only">Plumbing Materials Only</option>
+                        <option value="Pool Agent">Pool Agent</option>
+                        <option value="Pool Promoter">Pool Promoter</option>
+                        <option value="Pos Operator (Mobile Money)">Pos Operator (Mobile Money)</option>
+                        <option value="Potter">Potter</option>
+                        <option value="Poultry Farmer">Poultry Farmer</option>
+                        <option value="Poultry Feed">Poultry Feed</option>
+                        <option value="Printer">Printer</option>
+                        <option value="Private Medical Practioner">Private Medical Practioner</option>
+                        <option value="Private N/P School">Private N/P School</option>
+                        <option value="Private Secondary School">Private Secondary School</option>
+                        <option value="Produce Buyer">Produce Buyer</option>
+                        <option value="Provision Store">Provision Store</option>
+                        <option value="Pure/Bottle Water Producer">Pure/Bottle Water Producer</option>
+                        <option value="Pure/Bottle Water Seller">Pure/Bottle Water Seller</option>
+                        <option value="Raw Food Seller">Raw Food Seller</option>
+                        <option value="Recharge Card Dealer">Recharge Card Dealer</option>
+                        <option value="Rental">Rental</option>
+                        <option value="Restaurant">Restaurant</option>
+                        <option value="Restaurant (Buka)">Restaurant (Buka)</option>
+                        <option value="Re-Wire & Battery Charger opt">Re-Wire & Battery Charger opt</option>
+                        <option value="Road Side Petty Trader">Road Side Petty Trader</option>
+                        <option value="Rugs & Carpet">Rugs & Carpet</option>
+                        <option value="Sack Bags Seller">Sack Bags Seller</option>
+                        <option value="Saw Mill">Saw Mill</option>
+                        <option value="School Proprietor">School Proprietor</option>
+                        <option value="Shoe Maker">Shoe Maker</option>
+                        <option value="Shoe Seller">Shoe Seller</option>
+                        <option value="Shops/Stall">Shops/Stall</option>
+                        <option value="Solar Panel">Solar Panel</option>
+                        <option value="Stylist">Stylist</option>
+                        <option value="Super Market">Super Market</option>
+                        <option value="Tailors/Fashion Designer">Tailors/Fashion Designer</option>
+                        <option value="Thrift Collector">Thrift Collector</option>
+                        <option value="Tiler">Tiler</option>
+                        <option value="Timber Wood Seller">Timber Wood Seller</option>
+                        <option value="Tomatoes Seller">Tomatoes Seller</option>
+                        <option value="Tuber Dealer">Tuber Dealer</option>
+                        <option value="Tyre Dealer">Tyre Dealer</option>
+                        <option value="Video Club">Video Club</option>
+                        <option value="Viewing Centre">Viewing Centre</option>
+                        <option value="Vulcanizer">Vulcanizer</option>
+                        <option value="Weaver">Weaver</option>
+                        <option value="Weaver">Welder</option>
+                        <option value="Wheel Barrow Quiosk">Wheel Barrow Quiosk</option>
+                        <option value="Wine And Beer License Operator">Wine And Beer License Operator</option>
+                        <option value="Yam Seller">Yam Seller</option>
+                        <option value="Yoghurt Seller">Yoghurt Seller</option>
+                      </select>
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label >Business Name:</label>
+                      <input onChange={(e) => changedSelfEmployed(e, i, "business_name")} key={i} value={ind.business_name} name="business_name" type="text" className="form-control w-full rounded"
+                      />
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Business Address:</label>
+                      <input value={ind.business_addr} onChange={(e) => changedSelfEmployed(e, i, "business_addr")} key={i} name="business_addr" type="text" id="businessaddress" className="form-control w-full rounded"
+                      />
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Business Start date:</label>
+                      <input value={ind.business_start_date} onChange={(e) => changedSelfEmployed(e, i, "business_start_date")} name="business_start_date" type="date" className="form-control w-full rounded"
+                      />
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label htmlFor="turnover">Turnover-takings, fees, sales or money earned by your business:</label>
+                      <input value={ind.income_earned} onChange={(e) => changedSelfEmployed(e, i, "income_earned")} required placeholder="₦" name="income_earned" type="number" className="form-control w-full rounded"
+                      />
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label htmlFor="turnover">Any other business income not included above:</label>
+                      <input value={ind.other_income} onChange={(e) => changedSelfEmployed(e, i, "other_income")} placeholder="₦" name="other_income" type="number" className="form-control w-full rounded"
+                      />
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label htmlFor="cashbases">Do you use cash basis, money actually received and paid out, to calculate your income expense ?</label>
+                      <div className="flex">
+                        <div className="form-check form-check-inline">
+                          <input onChange={(e) => changedSelfEmployed(e, i, "cash_inc_expense")} name={`cash_inc_expense`} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
+                          <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">No</label>
+                        </div>
+
+                        <div className="form-check form-check-inline ml-5">
+                          <input onChange={(e) => changedSelfEmployed(e, i, "cash_inc_expense")} required  name={`cash_inc_expense`} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
+                          <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Yes</label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="mb-6 grid grid-cols-3 gap-4">
+                        <label htmlFor="expenses">How would you like to record your expenses?</label>
+                        <div className="flex">
+                          <div className="form-check form-check-inline">
+                            <input onChange={(e) => changedSelfEmployed(e, i, "expense")} value="Break down" name="expense" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
+                            <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Break down</label>
+                          </div>
+
+                          <div className="form-check form-check-inline ml-5">
+                            <input value="Total" name="expense" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
+                            <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Total</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label htmlFor="expenses">Are figures provided provisional or estimated?</label>
+                      <div className="flex">
+                        <div className="form-check form-check-inline">
+                          <input onChange={(e) => changedSelfEmployed(e, i, "figures_estimated")} value="Estimated" name="figures_estimated" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
+                          <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Estimated</label>
+                        </div>
+
+                        <div className="form-check form-check-inline ml-5">
+                          <input onChange={(e) => changedSelfEmployed(e, i, "figures_estimated")} value="Estimated" name="figures_estimated" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
+                          <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Provisional</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className='pb-5'>
+                      <hr />
+                    </div>
+                  </div>
+                ))}
+                <div className="mb-6 flex justify-between">
+                  <button
+                    style={{ backgroundColor: "#84abeb" }}
+                    className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                  >
+                    Update
+                  </button>
+
+                  <button onClick={formTog2} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <a href="">
+                      <FiTriangle
+                        size={15}
+                        className="stroke-current text-green-500"
+                      />
+                    </a>
+                  </button>
+                </div>
+              </div>
+            }
+
+
+
+          </form>
+          {isFetching10 && (
+            <div className="flex justify-center item mb-2">
+              <Loader
+                visible={isFetching10}
+                type="BallTriangle"
+                color="#00FA9A"
+                height={19}
+                width={19}
+                timeout={0}
+                className="ml-2"
+              />
+              <p className="font-bold">updating...</p>
+            </div>
+          )}
+          <form >
+            <p className="font-bold">Expenses</p>
+            <div className="mb-6 grid grid-cols-3 gap-4">
+              <input required name="item" type="text" className="form-control w-full rounded"
+                placeholder="Item"
+              />
+              <input required name="amount" type="number" className="form-control w-full rounded"
+                placeholder="Amount"
+              />
+            </div>
+
+            <div className="mb-6 grid grid-cols-3 gap-4">
+              <button
+                style={{ backgroundColor: "#84abeb" }}
+                className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                type="submit"
+              >
+                Update Expenses
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
 
 
     </>
