@@ -21,6 +21,8 @@ const ViewSinglePending = () => {
   const [pensDeduct, setPensionDeduct] = useState([]);
   const [employment, setEmployment] = useState([]);
   const [selfEmployment, setselfEmployment] = useState([]);
+  const [exepenses, setExpenses] = useState([]);
+  const [lap, setLap] = useState([]);
   const [routerAssId, setAssessId] = useState('');
 
   const router = useRouter();
@@ -45,6 +47,11 @@ const ViewSinglePending = () => {
           let pensionD = userAssData.pensionDed
           let employ = userAssData.employed
           let selfEmp = userAssData.selfEmployed
+          let expenData = userAssData.expenses
+          let lapDat = userAssData.lap
+          setLap(lapDat)
+          setExpenses(expenData)
+          console.log(lapDat);
           setselfEmployment(selfEmp)
           console.log(selfEmp);
           setEmployment(employ)
@@ -102,6 +109,38 @@ const ViewSinglePending = () => {
     setselfEmployment(selEmploymentCopy)
   }
 
+  function handleExpenses(newValue, index, fieldName) {
+    const expensesCopy = [...exepenses];
+    const temp = expensesCopy[index]
+    expensesCopy[index] = null
+    let updateExpenses = { ...temp }
+    updateExpenses[fieldName] = newValue
+    expensesCopy[index] = updateExpenses
+    setExpenses(expensesCopy)
+  }
+
+  function handleLap(newValue, index, fieldName) {
+    const LapCopy = [...lap];
+    const temp = LapCopy[index]
+    LapCopy[index] = null
+    let updateLap = { ...temp }
+    updateLap[fieldName] = newValue
+    LapCopy[index] = updateLap
+    setLap(LapCopy)
+  }
+  
+  function handleNHIS(newValue, index, fieldName) {
+    const LapCopy = [...lap];
+    const temp = LapCopy[index]
+    LapCopy[index] = null
+    let updateLap = { ...temp }
+    updateLap[fieldName] = newValue
+    LapCopy[index] = updateLap
+    setLap(LapCopy)
+  }
+
+
+
   return (
     <>
       <SectionTitle title="Edit Assessments" subtitle="Update Assesment" />
@@ -129,6 +168,10 @@ const ViewSinglePending = () => {
             employment={employment}
             changedSelfEmployed={(e, index, fieldName) => handleSelfEmployed(e.target.value, index, fieldName)}
             selfEmployment={selfEmployment}
+            expenses={exepenses} lifeass={lap}
+            changedExpenses={(e, index, fieldName) => handleExpenses(e.target.value, index, fieldName)}
+            changedLap={(e, index, fieldName) => handleLap(e.target.value, index, fieldName)}
+
           />
         </>
       </Widget>
