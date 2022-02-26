@@ -29,6 +29,7 @@ const ViewSinglePending = () => {
   const [bankInterest, setBankInterest] = useState([]);
   const [bankDividends, setBankDividends] = useState([]);
   const [pension, setPension] = useState([]);
+  const [asset, setAsset] = useState([]);
   const [routerAssId, setAssessId] = useState('');
 
   const router = useRouter();
@@ -61,6 +62,8 @@ const ViewSinglePending = () => {
           let bankIntDat = userAssData.bankInterest
           let bankDividDat = userAssData.dividends
           let pensionDat = userAssData.pension
+          let assetDat = userAssData.assetProfit
+          setAsset(assetDat)
           setPension(pensionDat)
           setBankDividends(bankDividDat)
           setBankInterest(bankIntDat)
@@ -206,6 +209,15 @@ const ViewSinglePending = () => {
     pensionCopy[index] = updatePension
     setPension(pensionCopy)
   }
+  function handleAsset(newValue, index, fieldName) {
+    const assetCopy = [...asset];
+    const temp = assetCopy[index]
+    assetCopy[index] = null
+    let updateAsset = { ...temp }
+    updateAsset[fieldName] = newValue
+    assetCopy[index] = updateAsset
+    setAsset(assetCopy)
+  }
 
 
 
@@ -245,7 +257,8 @@ const ViewSinglePending = () => {
             changedBankInterest={(e, index, fieldName) => handlebankInterest(e.target.value, index, fieldName)}
             changedBankDividends={(e, index, fieldName) => handlebankDividends(e.target.value, index, fieldName)}
             changedPension={(e, index, fieldName) => handlePension(e.target.value, index, fieldName)}
-            bankInterest={bankInterest} dividends={bankDividends} pension={pension}
+            changedAsset={(e, index, fieldName) => handleAsset(e.target.value, index, fieldName)}
+            bankInterest={bankInterest} dividends={bankDividends} pension={pension} asset={asset}
 
           />
         </>

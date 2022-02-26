@@ -93,7 +93,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
   routerAssId, changed, changedPensDed, changedEmploy, employment,
   changedSelfEmployed, selfEmployment, changedExpenses, expenses, lifeass, changedLap, nhis, changedNhis,
   partner, changedPartner, rentIncome, changedRentIncome, bankInterest, changedBankInterest, dividends,
-  changedBankDividends, changedPension, pension, residentialAddr
+  changedBankDividends, changedPension, pension, residentialAddr, asset, changedAsset
 
 }) => {
   console.log(bankInterest);
@@ -353,6 +353,25 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
       const element = formVal[indexAr];
       axios.put(`${url.BASE_URL}forma/pension`, element)
+        .then(function (response) {
+          setIsFetching12(false)
+          toast.success("Updated Successfully!");
+        })
+        .catch(function (error) {
+          setIsFetching12(false)
+          toast.error("Failed! please try again");
+        });
+    }
+
+  }
+
+  let submitDataAsset = async (e, index) => {
+    e.preventDefault()
+    setIsFetching12(true)
+    let formVal = (asset)
+    for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
+      const element = formVal[indexAr];
+      axios.put(`${url.BASE_URL}forma/assets`, element)
         .then(function (response) {
           setIsFetching12(false)
           toast.success("Updated Successfully!");
@@ -2662,6 +2681,155 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                   </a>
                 </button>
               </div>
+            </div>
+          }
+        </form>
+      </div>
+      <div className="flex justify-between mb-5">
+
+        <p>Sale of Asset </p>
+
+        <div className="flex">
+
+          <div className="form-check form-check-inline">
+            <input onClick={onChange15} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions8" id="inlineRadio1" value="option1" />
+            <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Yes</label>
+          </div>
+
+          <div onClick={onChange16} className="form-check form-check-inline ml-5">
+            <input className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions8" id="inlineRadio2" value="option2" />
+            <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">No</label>
+          </div>
+
+        </div>
+      </div>
+
+      <div className={`flex justify-center border mb-3 block p-6 rounded-lg bg-white w-full ${togglee8}`}>
+
+        <form onSubmit={submitDataAsset}>
+          {asset == null || asset == "" ?
+            <div className="">
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label >Asset Type:</label>
+                <select className="form-select" name="asset_type">
+                  <option value="landed property">Landed Property</option>
+                  <option value="house">House</option>
+                  <option value="farm land">Farm Land</option>
+                </select>
+              </div>
+
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label >Asset Address:</label>
+                <input name="asset_addr" type="text" className="form-control w-full rounded"
+                />
+              </div>
+
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>Buyer:</label>
+                <input name="buyer_name" type="text" className="form-control w-full rounded"
+                />
+              </div>
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>Buyer address:</label>
+                <input name="buyer_addr" type="text" id="employername" className="form-control w-full rounded"
+                />
+              </div>
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>Buyer Phone number:</label>
+                <input name="buyer_phone" type="text" id="employername" className="form-control w-full rounded"
+                />
+              </div>
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>Sale amount:</label>
+                <input required name="amount" placeholder="₦" type="number" id="employername" className="form-control w-full rounded"
+                />
+              </div>
+
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>Optional Comments:</label>
+                <textarea name="comments" cols="40" rows="2" className="rounded"></textarea>
+              </div>
+              <div className="mb-6 flex justify-between">
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                  disabled
+                >
+                  Save
+                </button>
+                <button onClick={formTog8} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                  <a href="">
+                    <FiTriangle
+                      size={15}
+                      className="stroke-current text-green-500"
+                    />
+                  </a>
+                </button>
+              </div>
+            </div> :
+            <div>
+              {asset.map((ind, i) => (
+                <div className="">
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label >Asset Type:</label>
+                    <select value={ind.asset_type} onChange={(e) => changedAsset(e, i, "asset_type")} className="form-select" name="asset_type">
+                      <option value="landed property">Landed Property</option>
+                      <option value="house">House</option>
+                      <option value="farm land">Farm Land</option>
+                    </select>
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label >Asset Address:</label>
+                    <textarea value={ind.asset_addr} onChange={(e) => changedAsset(e, i, "asset_addr")} name="asset_addr" className="form-control w-full rounded"
+                    />
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Buyer:</label>
+                    <input value={ind.buyer_name} onChange={(e) => changedAsset(e, i, "buyer_name")} name="buyer_name" type="text" className="form-control w-full rounded"
+                    />
+                  </div>
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Buyer address:</label>
+                    <textarea value={ind.buyer_addr} onChange={(e) => changedAsset(e, i, "buyer_addr")} name="buyer_addr" type="text" id="employername" className="form-control w-full rounded"
+                    />
+                  </div>
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Buyer Phone number:</label>
+                    <input value={ind.buyer_phone} onChange={(e) => changedAsset(e, i, "buyer_phone")} name="buyer_phone" type="text" className="form-control w-full rounded"
+                    />
+                  </div>
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Sale amount:</label>
+                    <input value={ind.amount} onChange={(e) => changedAsset(e, i, "amount")} required name="amount" placeholder="₦" type="number" className="form-control w-full rounded"
+                    />
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Optional Comments:</label>
+                    <textarea value={ind.comments} onChange={(e) => changedAsset(e, i, "comments")} name="comments" cols="40" rows="2" className="rounded"></textarea>
+                  </div>
+                  <div className="mb-6 flex justify-between">
+                    <button
+                      style={{ backgroundColor: "#84abeb" }}
+                      className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                      type="submit"
+                    >
+                      Update
+                    </button>
+                    <button onClick={formTog8} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                      <a href="">
+                        <FiTriangle
+                          size={15}
+                          className="stroke-current text-green-500"
+                        />
+                      </a>
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
           }
         </form>
