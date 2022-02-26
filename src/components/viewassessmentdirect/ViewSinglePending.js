@@ -23,6 +23,8 @@ const ViewSinglePending = () => {
   const [selfEmployment, setselfEmployment] = useState([]);
   const [exepenses, setExpenses] = useState([]);
   const [lap, setLap] = useState([]);
+  const [nhis, setNhis] = useState([]);
+  const [partner, setPartner] = useState([]);
   const [routerAssId, setAssessId] = useState('');
 
   const router = useRouter();
@@ -49,6 +51,10 @@ const ViewSinglePending = () => {
           let selfEmp = userAssData.selfEmployed
           let expenData = userAssData.expenses
           let lapDat = userAssData.lap
+          let nhisDat = userAssData.nhis
+          let partnerDat = userAssData.partner
+          setPartner(partnerDat)
+          setNhis(nhisDat)
           setLap(lapDat)
           setExpenses(expenData)
           console.log(lapDat);
@@ -129,14 +135,23 @@ const ViewSinglePending = () => {
     setLap(LapCopy)
   }
   
-  function handleNHIS(newValue, index, fieldName) {
-    const LapCopy = [...lap];
-    const temp = LapCopy[index]
-    LapCopy[index] = null
-    let updateLap = { ...temp }
-    updateLap[fieldName] = newValue
-    LapCopy[index] = updateLap
-    setLap(LapCopy)
+  function handleNhis(newValue, index, fieldName) {
+    const NhisCopy = [...nhis];
+    const temp = NhisCopy[index]
+    NhisCopy[index] = null
+    let updateNhis = { ...temp }
+    updateNhis[fieldName] = newValue
+    NhisCopy[index] = updateNhis
+    setNhis(NhisCopy)
+  }
+  function handlePartner(newValue, index, fieldName) {
+    const PartnerCopy = [...partner];
+    const temp = PartnerCopy[index]
+    PartnerCopy[index] = null
+    let updatePartner = { ...temp }
+    updatePartner[fieldName] = newValue
+    PartnerCopy[index] = updatePartner
+    setPartner(PartnerCopy)
   }
 
 
@@ -168,9 +183,11 @@ const ViewSinglePending = () => {
             employment={employment}
             changedSelfEmployed={(e, index, fieldName) => handleSelfEmployed(e.target.value, index, fieldName)}
             selfEmployment={selfEmployment}
-            expenses={exepenses} lifeass={lap}
+            expenses={exepenses} lifeass={lap} nhis={nhis} partner={partner}
             changedExpenses={(e, index, fieldName) => handleExpenses(e.target.value, index, fieldName)}
             changedLap={(e, index, fieldName) => handleLap(e.target.value, index, fieldName)}
+            changedNhis={(e, index, fieldName) => handleNhis(e.target.value, index, fieldName)}
+            changedPartner={(e, index, fieldName) => handlePartner(e.target.value, index, fieldName)}
 
           />
         </>

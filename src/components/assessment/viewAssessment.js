@@ -2449,7 +2449,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
             <div className="flex justify-between mb-5">
 
-              <p>Are you in a patnership ? </p>
+              <p>Are you in a partnership ? </p>
 
 
               <div className="flex">
