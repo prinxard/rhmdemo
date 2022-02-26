@@ -89,12 +89,14 @@ export const ViewPendingTable = ({ remittance }) => {
   );
 };
 
-export const ViewSinglePendingTable = ({ indvData, residentialAd, pensDeduct,
+export const ViewSinglePendingTable = ({ indvData, pensDeduct,
   routerAssId, changed, changedPensDed, changedEmploy, employment,
   changedSelfEmployed, selfEmployment, changedExpenses, expenses, lifeass, changedLap, nhis, changedNhis,
-  partner, changedPartner
+  partner, changedPartner, rentIncome, changedRentIncome, bankInterest, changedBankInterest, dividends,
+  changedBankDividends, changedPension, pension, residentialAddr
+
 }) => {
-  console.log(partner);
+  console.log(bankInterest);
   const [toggleel, setToggle] = useState('hidden')
   const [togglee2, setToggle2] = useState('hidden')
   const [togglee3, setToggle3] = useState('hidden')
@@ -134,7 +136,6 @@ export const ViewSinglePendingTable = ({ indvData, residentialAd, pensDeduct,
   const [isFetching22, setIsFetching22] = useState(() => false);
   const [isFetching23, setIsFetching23] = useState(() => false);
 
-  let residentialAddr = residentialAd
 
   setAuthToken();
 
@@ -215,7 +216,6 @@ export const ViewSinglePendingTable = ({ indvData, residentialAd, pensDeduct,
   let submitDataExpenses = async (e, index) => {
     e.preventDefault()
     setIsFetching12(true)
-    const formData = new FormData();
     let formVal = (expenses)
     for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
       const element = formVal[indexAr];
@@ -235,7 +235,6 @@ export const ViewSinglePendingTable = ({ indvData, residentialAd, pensDeduct,
   let submitDataLap = async (e, index) => {
     e.preventDefault()
     setIsFetching12(true)
-    const formData = new FormData();
     let formVal = (lifeass)
     for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
       const element = formVal[indexAr];
@@ -255,7 +254,6 @@ export const ViewSinglePendingTable = ({ indvData, residentialAd, pensDeduct,
   let submitDataNhis = async (e, index) => {
     e.preventDefault()
     setIsFetching12(true)
-    const formData = new FormData();
     let formVal = (nhis)
     for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
       const element = formVal[indexAr];
@@ -275,11 +273,86 @@ export const ViewSinglePendingTable = ({ indvData, residentialAd, pensDeduct,
   let submitDataPartner = async (e, index) => {
     e.preventDefault()
     setIsFetching12(true)
-    const formData = new FormData();
     let formVal = (partner)
     for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
       const element = formVal[indexAr];
       axios.put(`${url.BASE_URL}forma/partner`, element)
+        .then(function (response) {
+          setIsFetching12(false)
+          toast.success("Updated Successfully!");
+        })
+        .catch(function (error) {
+          setIsFetching12(false)
+          toast.error("Failed! please try again");
+        });
+    }
+
+  }
+
+  let submitDataRentIncome = async (e, index) => {
+    e.preventDefault()
+    setIsFetching12(true)
+    let formVal = (rentIncome)
+    for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
+      const element = formVal[indexAr];
+      axios.put(`${url.BASE_URL}forma/rent-income`, element)
+        .then(function (response) {
+          setIsFetching12(false)
+          toast.success("Updated Successfully!");
+        })
+        .catch(function (error) {
+          setIsFetching12(false)
+          toast.error("Failed! please try again");
+        });
+    }
+
+  }
+
+  let submitDataBankInterest = async (e, index) => {
+    e.preventDefault()
+    setIsFetching12(true)
+    let formVal = (bankInterest)
+    for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
+      const element = formVal[indexAr];
+      axios.put(`${url.BASE_URL}forma/bank-interest`, element)
+        .then(function (response) {
+          setIsFetching12(false)
+          toast.success("Updated Successfully!");
+        })
+        .catch(function (error) {
+          setIsFetching12(false)
+          toast.error("Failed! please try again");
+        });
+    }
+
+  }
+
+  let submitDataBankDividends = async (e, index) => {
+    e.preventDefault()
+    setIsFetching12(true)
+    let formVal = (dividends)
+    for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
+      const element = formVal[indexAr];
+      axios.put(`${url.BASE_URL}forma/dividends`, element)
+        .then(function (response) {
+          setIsFetching12(false)
+          toast.success("Updated Successfully!");
+        })
+        .catch(function (error) {
+          setIsFetching12(false)
+          toast.error("Failed! please try again");
+        });
+    }
+
+  }
+
+  let submitDataPension = async (e, index) => {
+    e.preventDefault()
+    setIsFetching12(true)
+    let formVal = (pension)
+    for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
+      const element = formVal[indexAr];
+      axios.put(`${url.BASE_URL}forma/pension`, element)
         .then(function (response) {
           setIsFetching12(false)
           toast.success("Updated Successfully!");
@@ -1999,15 +2072,16 @@ export const ViewSinglePendingTable = ({ indvData, residentialAd, pensDeduct,
                   <input name="percentage" type="text" className="form-control w-full rounded"
                   />
                 </div>
+
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label htmlFor="comments">Optional Comments:</label>
+                  <textarea name="comments" cols="40" rows="2" className="rounded"></textarea>
+                </div>
                 <div className='pb-5'>
                   <hr />
                 </div>
               </div>
 
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label htmlFor="comments">Optional Comments:</label>
-                <textarea name="comments" cols="40" rows="2" className="rounded"></textarea>
-              </div>
               <div className="mb-6 flex justify-between">
                 <button
                   style={{ backgroundColor: "#84abeb" }}
@@ -2051,15 +2125,15 @@ export const ViewSinglePendingTable = ({ indvData, residentialAd, pensDeduct,
                       <input value={ind.percentage} onChange={(e) => changedPartner(e, i, "percentage")} name="percentage" type="text" className="form-control w-full rounded"
                       />
                     </div>
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label htmlFor="comments">Optional Comments:</label>
+                      <textarea value={ind.comments} onChange={(e) => changedPartner(e, i, "comments")} name="comments" cols="40" rows="2" className="rounded"></textarea>
+                    </div>
                     <div className='pb-5'>
                       <hr />
                     </div>
                   </div>
 
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="comments">Optional Comments:</label>
-                    <textarea value={ind.comments} onChange={(e) => changedPartner(e, i, "comments")} name="comments" cols="40" rows="2" className="rounded"></textarea>
-                  </div>
                 </div>
               ))}
               <div className="mb-6 flex justify-between">
@@ -2071,6 +2145,515 @@ export const ViewSinglePendingTable = ({ indvData, residentialAd, pensDeduct,
                   Update
                 </button>
                 <button onClick={formTog3} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                  <a href="">
+                    <FiTriangle
+                      size={15}
+                      className="stroke-current text-green-500"
+                    />
+                  </a>
+                </button>
+              </div>
+            </div>
+          }
+        </form>
+      </div>
+
+      <div className="flex justify-between mb-5">
+
+        <p>Rent Income </p>
+
+        <div className="flex">
+
+          <div className="form-check form-check-inline">
+            <input onClick={onChange7} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions4" id="inlineRadio1" value="option1" />
+            <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Yes</label>
+          </div>
+
+          <div className="form-check form-check-inline ml-5">
+            <input onClick={onChange8} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions4" id="inlineRadio2" value="option2" />
+            <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">No</label>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div className={`flex justify-center border mb-3 block p-6 rounded-lg bg-white w-full ${togglee4}`}>
+
+        <form onSubmit={submitDataRentIncome}>
+          {rentIncome == null || rentIncome == "" ?
+
+            <div className="">
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>Property Type:</label>
+                <select name="prop_type">
+                  <option value="Bungalow">Bungalow</option>
+                  <option value="Penthouse">Penthouse</option>
+                  <option value="Mansion">Mansion</option>
+                  <option value="Apartment or Flat">Apartment or Flat</option>
+                  <option value="Terraced house">Terraced house</option>
+                  <option value="Duplex">Duplex</option>
+                  <option value="Traditional house">Traditional house</option>
+                </select>
+              </div>
+
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>Property Address:</label>
+                <input type="text" name="prop_address" className="form-control w-full rounded"
+                />
+              </div>
+
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>Rental Type:</label>
+                <select className="form-select" name="rental_type">
+                  <option value="Lease">Lease</option>
+                  <option value="Rent">Rent</option>
+                </select>
+              </div>
+
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>Rental Amount(Annual):</label>
+                <input type="number" placeholder="₦" name="rental_amount" className="form-control w-full rounded"
+                />
+              </div>
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>Renter Name:</label>
+                <input type="text" name="renter_name" className="form-control w-full rounded"
+                />
+              </div>
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <labe>Renter Phone number:</labe>
+                <input type="text" name="renter_phone" className="form-control w-full rounded"
+                />
+              </div>
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>Optional Comments:</label>
+                <textarea name="comments" cols="40" rows="2" className="rounded"></textarea>
+              </div>
+              <div className="mb-6 flex justify-between">
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  Save
+                </button>
+                <button onClick={formTog4} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                  <a href="">
+                    <FiTriangle
+                      size={15}
+                      className="stroke-current text-green-500"
+                    />
+                  </a>
+                </button>
+              </div>
+            </div> :
+            <div>
+              {rentIncome.map((ind, i) => (
+
+                <div className="">
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Property Type:</label>
+                    <select value={ind.prop_type} onChange={(e) => changedRentIncome(e, i, "prop_type")} name="prop_type">
+                      <option value="Bungalow">Bungalow</option>
+                      <option value="Penthouse">Penthouse</option>
+                      <option value="Mansion">Mansion</option>
+                      <option value="Apartment or Flat">Apartment or Flat</option>
+                      <option value="Terraced house">Terraced house</option>
+                      <option value="Duplex">Duplex</option>
+                      <option value="Traditional house">Traditional house</option>
+                    </select>
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Property Address:</label>
+                    <textarea onChange={(e) => changedRentIncome(e, i, "prop_address")} value={ind.prop_address} name="prop_address" className="form-control w-full rounded"
+                    />
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Rental Type:</label>
+                    <select value={ind.rental_type} onChange={(e) => changedRentIncome(e, i, "rental_type")} className="form-select" name="rental_type">
+                      <option value="Lease">Lease</option>
+                      <option value="Rent">Rent</option>
+                    </select>
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Rental Amount(Annual):</label>
+                    <input value={ind.rental_amount} onChange={(e) => changedRentIncome(e, i, "rental_amount")} type="number" placeholder="₦" name="rental_amount" className="form-control w-full rounded"
+                    />
+                  </div>
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Renter Name:</label>
+                    <input value={ind.renter_name} onChange={(e) => changedRentIncome(e, i, "renter_name")} type="text" name="renter_name" className="form-control w-full rounded"
+                    />
+                  </div>
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <labe>Renter Phone number:</labe>
+                    <input value={ind.renter_phone} onChange={(e) => changedRentIncome(e, i, "renter_phone")} type="text" name="renter_phone" className="form-control w-full rounded"
+                    />
+                  </div>
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Optional Comments:</label>
+                    <textarea value={ind.comments} onChange={(e) => changedRentIncome(e, i, "comments")} name="comments" cols="40" rows="2" className="rounded"></textarea>
+                  </div>
+                </div>
+              ))}
+              <div className="mb-6 flex justify-between">
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  Update
+                </button>
+                <button onClick={formTog4} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                  <a href="">
+                    <FiTriangle
+                      size={15}
+                      className="stroke-current text-green-500"
+                    />
+                  </a>
+                </button>
+              </div>
+            </div>
+          }
+        </form>
+      </div>
+
+
+      <div className="flex justify-between mb-5">
+
+        <p>Bank interest </p>
+
+
+        <div className="flex">
+
+          <div className="form-check form-check-inline">
+            <input onClick={onChange9} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions5" id="inlineRadio1" value="option1" />
+            <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Yes</label>
+          </div>
+
+          <div className="form-check form-check-inline ml-5">
+            <input onClick={onChange10} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions5" id="inlineRadio2" value="option2" />
+            <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">No</label>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div className={`flex justify-center border mb-3 block p-6 rounded-lg bg-white w-full ${togglee5}`}>
+        <form onSubmit={submitDataBankInterest}>
+          {bankInterest == null || bankInterest == "" ?
+
+            <div className="">
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>Bank Name:</label>
+                <input name="name" type="text" className="form-control w-full rounded"
+                />
+              </div>
+
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>Bank Account:</label>
+                <input name="account" type="text" className="form-control w-full rounded"
+                />
+              </div>
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>Bank Verification Number (BVN):</label>
+                <input name="bvn" type="text" id="employername" className="form-control w-full rounded"
+                />
+              </div>
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label >Gross Amount:</label>
+                <input required name="gross_amount" placeholder="₦" type="number" className="form-control w-full rounded"
+                />
+              </div>
+
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>Optional Comments:</label>
+                <textarea name="comments" cols="40" rows="2" className="rounded"></textarea>
+              </div>
+              <div className="mb-6 flex justify-between">
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  Save
+                </button>
+                <button onClick={formTog5} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                  <a href="">
+                    <FiTriangle
+                      size={15}
+                      className="stroke-current text-green-500"
+                    />
+                  </a>
+                </button>
+              </div>
+            </div> :
+            <div>
+              {bankInterest.map((ind, i) => (
+                <div className="">
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Bank Name:</label>
+                    <input value={ind.name} onChange={(e) => changedBankInterest(e, i, "name")} name="name" type="text" className="form-control w-full rounded"
+                    />
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Bank Account:</label>
+                    <input value={ind.account} onChange={(e) => changedBankInterest(e, i, "account")} name="account" type="text" className="form-control w-full rounded"
+                    />
+                  </div>
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Bank Verification Number (BVN):</label>
+                    <input value={ind.bvn} onChange={(e) => changedBankInterest(e, i, "bvn")} name="bvn" type="text" id="employername" className="form-control w-full rounded"
+                    />
+                  </div>
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label >Gross Amount:</label>
+                    <input value={ind.gross_amount} onChange={(e) => changedBankInterest(e, i, "gross_amount")} required name="gross_amount" placeholder="₦" type="number" className="form-control w-full rounded"
+                    />
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Optional Comments:</label>
+                    <textarea value={ind.comments} onChange={(e) => changedBankInterest(e, i, "comments")} name="comments" cols="40" rows="2" className="rounded"></textarea>
+                  </div>
+                </div>
+              ))}
+              <div className="mb-6 flex justify-between">
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  Update
+                </button>
+                <button onClick={formTog5} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                  <a href="">
+                    <FiTriangle
+                      size={15}
+                      className="stroke-current text-green-500"
+                    />
+                  </a>
+                </button>
+              </div>
+            </div>
+          }
+        </form>
+      </div>
+
+      <div className="flex justify-between mb-5">
+
+        <p>Bank dividends </p>
+
+        <div className="flex">
+
+          <div className="form-check form-check-inline">
+            <input onClick={onChange11} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions6" id="inlineRadio1" value="option1" />
+            <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Yes</label>
+          </div>
+
+          <div className="form-check form-check-inline ml-5">
+            <input onClick={onChange12} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions6" id="inlineRadio2" value="option2" />
+            <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">No</label>
+          </div>
+
+        </div>
+      </div>
+      <div className={`flex justify-center border mb-3 block p-6 rounded-lg bg-white w-full ${togglee6}`}>
+        <form onSubmit={submitDataBankDividends}>
+          {dividends == null || dividends == "" ?
+
+            <div className="">
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>Company Name:</label>
+                <input name="name" type="text" id="employername" className="form-control w-full rounded"
+                />
+              </div>
+
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>Company address:</label>
+                <textarea name="addr" type="text" id="employername" className="form-control w-full rounded"
+                />
+              </div>
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>Gross Amount:</label>
+                <input required name="amount" type="number" className="form-control w-full rounded"
+                />
+              </div>
+
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>Optional Comments:</label>
+                <textarea name="comments" id="comments" cols="40" rows="2" className="rounded"></textarea>
+              </div>
+              <div className="mb-6 flex justify-between">
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                  disabled
+                >
+                  Save
+                </button>
+                <button onClick={formTog6} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                  <a href="">
+                    <FiTriangle
+                      size={15}
+                      className="stroke-current text-green-500"
+                    />
+                  </a>
+                </button>
+              </div>
+            </div> :
+            <div>
+              {dividends.map((ind, i) => (
+                <div className="">
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Company Name:</label>
+                    <input value={ind.name} onChange={(e) => changedBankDividends(e, i, "name")} name="name" type="text" className="form-control w-full rounded"
+                    />
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Company address:</label>
+                    <textarea value={ind.addr} onChange={(e) => changedBankDividends(e, i, "addr")} name="addr" type="text" id="employername" className="form-control w-full rounded"
+                    />
+                  </div>
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Gross Amount:</label>
+                    <input value={ind.amount} onChange={(e) => changedBankDividends(e, i, "amount")} required name="amount" type="number" className="form-control w-full rounded"
+                    />
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Optional Comments:</label>
+                    <textarea value={ind.comments} onChange={(e) => changedBankDividends(e, i, "comments")} name="comments" id="comments" cols="40" rows="2" className="rounded"></textarea>
+                  </div>
+
+                </div>
+              ))}
+              <div className="mb-6 flex justify-between">
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  Update
+                </button>
+                <button onClick={formTog6} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                  <a href="">
+                    <FiTriangle
+                      size={15}
+                      className="stroke-current text-green-500"
+                    />
+                  </a>
+                </button>
+              </div>
+            </div>
+          }
+        </form>
+      </div>
+
+      <div className="flex justify-between mb-5">
+
+        <p>Pension </p>
+
+        <div className="flex">
+          <div className="form-check form-check-inline">
+            <input onClick={onChange13} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions7" id="inlineRadio1" value="option1" />
+            <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Yes</label>
+          </div>
+
+          <div className="form-check form-check-inline ml-5">
+            <input onClick={onChange14} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions7" id="inlineRadio2" value="option2" />
+            <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">No</label>
+          </div>
+        </div>
+      </div>
+      <div className={`flex justify-center border mb-3 block p-6 rounded-lg bg-white w-full ${togglee7}`}>
+        <form onSubmit={submitDataPension}>
+          {pension == null || pension == "" ?
+
+            <div className="">
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label >PFA:</label>
+                <input name="pfa" type="text" className="form-control w-full rounded"
+                />
+              </div>
+
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>PFA address:</label>
+                <input name="pfa_addr" type="text" id="employername" className="form-control w-full rounded"
+                />
+              </div>
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label> Gross Amount:</label>
+                <input required name="gross_amount" placeholder="₦" type="number" className="form-control w-full rounded"
+                />
+              </div>
+
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>Optional Comments:</label>
+                <textarea name="comments" cols="40" rows="2" className="rounded"></textarea>
+              </div>
+              <div className="mb-6 flex justify-between">
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  Save
+                </button>
+                <button onClick={formTog7} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                  <a href="">
+                    <FiTriangle
+                      size={15}
+                      className="stroke-current text-green-500"
+                    />
+                  </a>
+                </button>
+              </div>
+            </div> :
+            <div>
+              {pension.map((ind, i) => (
+
+                <div className="">
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label >PFA:</label>
+                    <input value={ind.pfa} onChange={(e) => changedPension(e, i, "pfa")} name="pfa" type="text" className="form-control w-full rounded"
+                    />
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>PFA address:</label>
+                    <textarea value={ind.pfa_addr} onChange={(e) => changedPension(e, i, "pfa_addr")} name="pfa_addr" id="employername" className="form-control w-full rounded"
+                    />
+                  </div>
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label> Gross Amount:</label>
+                    <input value={ind.gross_amount} onChange={(e) => changedPension(e, i, "gross_amount")} required name="gross_amount" placeholder="₦" type="number" className="form-control w-full rounded"
+                    />
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Optional Comments:</label>
+                    <textarea value={ind.comments} onChange={(e) => changedPension(e, i, "comments")} name="comments" cols="40" rows="2" className="rounded"></textarea>
+                  </div>
+                </div>
+              ))}
+              <div className="mb-6 flex justify-between">
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  Update
+                </button>
+                <button onClick={formTog7} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
                   <a href="">
                     <FiTriangle
                       size={15}

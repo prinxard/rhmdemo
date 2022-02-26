@@ -25,6 +25,10 @@ const ViewSinglePending = () => {
   const [lap, setLap] = useState([]);
   const [nhis, setNhis] = useState([]);
   const [partner, setPartner] = useState([]);
+  const [rentIncome, setRentIncome] = useState([]);
+  const [bankInterest, setBankInterest] = useState([]);
+  const [bankDividends, setBankDividends] = useState([]);
+  const [pension, setPension] = useState([]);
   const [routerAssId, setAssessId] = useState('');
 
   const router = useRouter();
@@ -53,6 +57,14 @@ const ViewSinglePending = () => {
           let lapDat = userAssData.lap
           let nhisDat = userAssData.nhis
           let partnerDat = userAssData.partner
+          let rentIncomeDat = userAssData.rentIncome
+          let bankIntDat = userAssData.bankInterest
+          let bankDividDat = userAssData.dividends
+          let pensionDat = userAssData.pension
+          setPension(pensionDat)
+          setBankDividends(bankDividDat)
+          setBankInterest(bankIntDat)
+          setRentIncome(rentIncomeDat)
           setPartner(partnerDat)
           setNhis(nhisDat)
           setLap(lapDat)
@@ -144,6 +156,7 @@ const ViewSinglePending = () => {
     NhisCopy[index] = updateNhis
     setNhis(NhisCopy)
   }
+
   function handlePartner(newValue, index, fieldName) {
     const PartnerCopy = [...partner];
     const temp = PartnerCopy[index]
@@ -152,6 +165,46 @@ const ViewSinglePending = () => {
     updatePartner[fieldName] = newValue
     PartnerCopy[index] = updatePartner
     setPartner(PartnerCopy)
+  }
+
+  function handlerentIncome(newValue, index, fieldName) {
+    const rentIncomeCopy = [...rentIncome];
+    const temp = rentIncomeCopy[index]
+    rentIncomeCopy[index] = null
+    let updaterentIncome = { ...temp }
+    updaterentIncome[fieldName] = newValue
+    rentIncomeCopy[index] = updaterentIncome
+    setRentIncome(rentIncomeCopy)
+  }
+
+  function handlebankInterest(newValue, index, fieldName) {
+    const bankInterestCopy = [...bankInterest];
+    const temp = bankInterestCopy[index]
+    bankInterestCopy[index] = null
+    let updatebankInterest = { ...temp }
+    updatebankInterest[fieldName] = newValue
+    bankInterestCopy[index] = updatebankInterest
+    setBankInterest(bankInterestCopy)
+  }
+
+  function handlebankDividends(newValue, index, fieldName) {
+    const bankDividendsCopy = [...bankDividends];
+    const temp = bankDividendsCopy[index]
+    bankDividendsCopy[index] = null
+    let updatebankDividends = { ...temp }
+    updatebankDividends[fieldName] = newValue
+    bankDividendsCopy[index] = updatebankDividends
+    setBankDividends(bankDividendsCopy)
+  }
+
+  function handlePension(newValue, index, fieldName) {
+    const pensionCopy = [...pension];
+    const temp = pensionCopy[index]
+    pensionCopy[index] = null
+    let updatePension = { ...temp }
+    updatePension[fieldName] = newValue
+    pensionCopy[index] = updatePension
+    setPension(pensionCopy)
   }
 
 
@@ -178,16 +231,21 @@ const ViewSinglePending = () => {
           <ViewSinglePendingTable indvData={payerprop} pensDeduct={pensDeduct}
             changed={(e, index, fieldName) => handleResidential(e.target.value, index, fieldName)}
             changedPensDed={(e, index, fieldName) => handlepensionDeduct(e.target.value, index, fieldName)}
-            routerAssId={routerAssId} residentialAd={residentialAddr}
+            routerAssId={routerAssId} residentialAddr={residentialAddr}
             changedEmploy={(e, index, fieldName) => handleEmployed(e.target.value, index, fieldName)}
             employment={employment}
             changedSelfEmployed={(e, index, fieldName) => handleSelfEmployed(e.target.value, index, fieldName)}
             selfEmployment={selfEmployment}
-            expenses={exepenses} lifeass={lap} nhis={nhis} partner={partner}
+            expenses={exepenses} lifeass={lap} nhis={nhis} partner={partner} rentIncome={rentIncome}
             changedExpenses={(e, index, fieldName) => handleExpenses(e.target.value, index, fieldName)}
             changedLap={(e, index, fieldName) => handleLap(e.target.value, index, fieldName)}
             changedNhis={(e, index, fieldName) => handleNhis(e.target.value, index, fieldName)}
             changedPartner={(e, index, fieldName) => handlePartner(e.target.value, index, fieldName)}
+            changedRentIncome={(e, index, fieldName) => handlerentIncome(e.target.value, index, fieldName)}
+            changedBankInterest={(e, index, fieldName) => handlebankInterest(e.target.value, index, fieldName)}
+            changedBankDividends={(e, index, fieldName) => handlebankDividends(e.target.value, index, fieldName)}
+            changedPension={(e, index, fieldName) => handlePension(e.target.value, index, fieldName)}
+            bankInterest={bankInterest} dividends={bankDividends} pension={pension}
 
           />
         </>
