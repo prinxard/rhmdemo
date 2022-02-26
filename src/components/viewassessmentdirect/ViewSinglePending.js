@@ -30,6 +30,7 @@ const ViewSinglePending = () => {
   const [bankDividends, setBankDividends] = useState([]);
   const [pension, setPension] = useState([]);
   const [asset, setAsset] = useState([]);
+  const [outsideSource, setOutsideSource] = useState([]);
   const [routerAssId, setAssessId] = useState('');
 
   const router = useRouter();
@@ -63,6 +64,8 @@ const ViewSinglePending = () => {
           let bankDividDat = userAssData.dividends
           let pensionDat = userAssData.pension
           let assetDat = userAssData.assetProfit
+          let outsideDat = userAssData.outsideSource
+          setOutsideSource(outsideDat)
           setAsset(assetDat)
           setPension(pensionDat)
           setBankDividends(bankDividDat)
@@ -219,6 +222,16 @@ const ViewSinglePending = () => {
     setAsset(assetCopy)
   }
 
+  function handleOutsideSource(newValue, index, fieldName) {
+    const outSideSourceCopy = [...outsideSource];
+    const temp = outSideSourceCopy[index]
+    outSideSourceCopy[index] = null
+    let updateOutsideSource = { ...temp }
+    updateOutsideSource[fieldName] = newValue
+    outSideSourceCopy[index] = updateOutsideSource
+    setOutsideSource(outSideSourceCopy)
+  }
+
 
 
   return (
@@ -259,6 +272,8 @@ const ViewSinglePending = () => {
             changedPension={(e, index, fieldName) => handlePension(e.target.value, index, fieldName)}
             changedAsset={(e, index, fieldName) => handleAsset(e.target.value, index, fieldName)}
             bankInterest={bankInterest} dividends={bankDividends} pension={pension} asset={asset}
+            changedOutsideSource={(e, index, fieldName) => handleOutsideSource(e.target.value, index, fieldName)}
+            outsideSource={outsideSource}
 
           />
         </>
