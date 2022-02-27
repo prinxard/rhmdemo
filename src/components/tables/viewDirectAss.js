@@ -94,7 +94,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
   changedSelfEmployed, selfEmployment, changedExpenses, expenses, lifeass, changedLap, nhis, changedNhis,
   partner, changedPartner, rentIncome, changedRentIncome, bankInterest, changedBankInterest, dividends,
   changedBankDividends, changedPension, pension, residentialAddr, asset, changedAsset, outsideSource,
-  changedOutsideSource
+  changedOutsideSource, changedVehicles, vehicles, changedLand, land, farm, changedFarm
 
 }) => {
   console.log(bankInterest);
@@ -392,6 +392,63 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
       const element = formVal[indexAr];
       axios.put(`${url.BASE_URL}forma/outside-source`, element)
+        .then(function (response) {
+          setIsFetching12(false)
+          toast.success("Updated Successfully!");
+        })
+        .catch(function (error) {
+          setIsFetching12(false)
+          toast.error("Failed! please try again");
+        });
+    }
+
+  }
+
+  let submitDataVehicles = async (e, index) => {
+    e.preventDefault()
+    setIsFetching12(true)
+    let formVal = (vehicles)
+    for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
+      const element = formVal[indexAr];
+      axios.put(`${url.BASE_URL}forma/vechicles`, element)
+        .then(function (response) {
+          setIsFetching12(false)
+          toast.success("Updated Successfully!");
+        })
+        .catch(function (error) {
+          setIsFetching12(false)
+          toast.error("Failed! please try again");
+        });
+    }
+
+  }
+
+  let submitDataLand = async (e, index) => {
+    e.preventDefault()
+    setIsFetching12(true)
+    let formVal = (land)
+    for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
+      const element = formVal[indexAr];
+      axios.put(`${url.BASE_URL}forma/land`, element)
+        .then(function (response) {
+          setIsFetching12(false)
+          toast.success("Updated Successfully!");
+        })
+        .catch(function (error) {
+          setIsFetching12(false)
+          toast.error("Failed! please try again");
+        });
+    }
+
+  }
+
+  let submitDataFarm = async (e, index) => {
+    e.preventDefault()
+    setIsFetching12(true)
+    let formVal = (farm)
+    for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
+      const element = formVal[indexAr];
+      axios.put(`${url.BASE_URL}forma/farm`, element)
         .then(function (response) {
           setIsFetching12(false)
           toast.success("Updated Successfully!");
@@ -2951,6 +3008,383 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                   </div>
                 </div>
               ))}
+            </div>
+          }
+        </form>
+      </div>
+
+      <div className="flex justify-between mb-5">
+
+        <p>Vehicle </p>
+
+
+        <div className="flex">
+          <div className="form-check form-check-inline flex ustify-evenly">
+            <input onClick={onChange25} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions13" id="inlineRadio1" value="option1" />
+            <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Yes</label>
+          </div>
+
+          <div className="form-check form-check-inline ml-5">
+            <input onClick={onChange26} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions13" id="inlineRadio2" value="option2" />
+            <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">No</label>
+          </div>
+        </div>
+      </div>
+
+      <div className={`flex justify-start border mb-3 block p-6 rounded-lg bg-white w-full ${togglee13}`}>
+        <form onSubmit={submitDataVehicles}>
+          {vehicles == null || vehicles == "" ?
+
+            <div className="">
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>Date of purchase:</label>
+                <input required name="purchase_date" type="date" className="form-control w-full rounded"
+                />
+              </div>
+
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>Cost:</label>
+                <input required name="cost" type="number" className="form-control w-full rounded"
+                />
+              </div>
+
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>Brand:</label>
+                <input type="text" name="brand"></input>
+              </div>
+
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <labe>Model:</labe>
+                <input name="model" type="text" className="form-control w-full rounded"
+                />
+              </div>
+
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>Year:</label>
+                <input type="number" placeholder="YYYY" min="1990" max="2100"></input>
+                {/* <input required name="year" type="date" className="form-control w-full rounded"
+                /> */}
+              </div>
+
+              <div className="mb-6 flex justify-between">
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  Save
+                </button>
+                <button onClick={formTog13} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                  <a href="">
+                    <FiTriangle
+                      size={15}
+                      className="stroke-current text-green-500"
+                    />
+                  </a>
+                </button>
+              </div>
+            </div> :
+            <div>
+              {vehicles.map((ind, i) => (
+                <div className="">
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Date of purchase:</label>
+                    <input value={ind.purchase_date} onChange={(e) => changedVehicles(e, i, "purchase_date")} required name="purchase_date" type="date" className="form-control w-full rounded"
+                    />
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Cost:</label>
+                    <input value={ind.cost} onChange={(e) => changedVehicles(e, i, "cost")} required name="cost" type="number" className="form-control w-full rounded"
+                    />
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Brand:</label>
+                    <input value={ind.brand} onChange={(e) => changedVehicles(e, i, "brand")} type="text" name="brand"></input>
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <labe>Model:</labe>
+                    <input value={ind.model} onChange={(e) => changedVehicles(e, i, "model")} name="model" type="text" className="form-control w-full rounded"
+                    />
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Year:</label>
+                    <input value={ind.year} onChange={(e) => changedVehicles(e, i, "year")} type="number" placeholder="YYYY" min="1990" max="2100"></input>
+
+
+                  </div>
+                  <div className="m-3">
+
+                    <hr />
+                  </div>
+                </div>
+              ))}
+              <div className="mb-6 flex justify-between">
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  Update
+                </button>
+                <button onClick={formTog13} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                  <a href="">
+                    <FiTriangle
+                      size={15}
+                      className="stroke-current text-green-500"
+                    />
+                  </a>
+                </button>
+              </div>
+            </div>
+          }
+        </form>
+      </div>
+
+      <div className="flex justify-between mb-5">
+
+        <p>Landed Property </p>
+
+
+        <div className="flex">
+          <div className="form-check form-check-inline flex ustify-evenly">
+            <input onClick={onChange27} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions14" id="inlineRadio1" value="option1" />
+            <label className="form-check-label inline-block text-gray-800" for="inlineRadio1">Yes</label>
+          </div>
+
+          <div className="form-check form-check-inline ml-5">
+            <input onClick={onChange28} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions14" id="inlineRadio2" value="option2" />
+            <label className="form-check-label inline-block text-gray-800" for="inlineRadio2">No</label>
+          </div>
+        </div>
+      </div>
+      <div className={`flex justify-start border mb-3 block p-6 rounded-lg bg-white w-full ${togglee14}`}>
+        <form onSubmit={submitDataLand}>
+          {land == null || land == "" ?
+            <div className="">
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>Address:</label>
+                <textarea name="addr" cols="40" rows="2" className="form-control w-full rounded"
+                />
+              </div>
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>Type of property:</label>
+                <select name="prop_type" className="form-select w-full">
+                  <option value="Bungalow">Bungalow</option>
+                  <option value="Penthouse">Penthouse</option>
+                  <option value="Mansion">Mansion</option>
+                  <option value="Apartment or Flat">Apartment or Flat</option>
+                  <option value="Terraced house">Terraced house</option>
+                  <option value="Duplex">Duplex</option>
+                  <option value="Traditional house">Traditional house</option>
+                </select>
+              </div>
+
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>Date of completion/acquisition:</label>
+                <input required name="date_completion" type="date" className="form-control w-full rounded"
+                />
+              </div>
+
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>Cost of construction/acquisition:</label>
+                <input required name="construction_cost" type="number" className="form-control w-full rounded"
+                />
+              </div>
+
+              <div className="mb-6 flex justify-between">
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  Save
+                </button>
+                <button onClick={formTog14} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                  <a href="">
+                    <FiTriangle
+                      size={15}
+                      className="stroke-current text-green-500"
+                    />
+                  </a>
+                </button>
+              </div>
+            </div> :
+            <div>
+              {land.map((ind, i) => (
+
+                <div className="" key={i}>
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Address:</label>
+                    <textarea value={ind.addr} onChange={(e) => changedLand(e, i, "addr")} name="addr" cols="40" rows="2" className="form-control w-full rounded"
+                    />
+                  </div>
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Type of property:</label>
+                    <select value={ind.prop_type} onChange={(e) => changedLand(e, i, "prop_type")} name="prop_type" className="form-select w-full">
+                      <option value="Bungalow">Bungalow</option>
+                      <option value="Penthouse">Penthouse</option>
+                      <option value="Mansion">Mansion</option>
+                      <option value="Apartment or Flat">Apartment or Flat</option>
+                      <option value="Terraced house">Terraced house</option>
+                      <option value="Duplex">Duplex</option>
+                      <option value="Traditional house">Traditional house</option>
+                    </select>
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Date of completion/acquisition:</label>
+                    <input value={ind.date_completion} onChange={(e) => changedLand(e, i, "date_completion")} required name="date_completion" type="date" className="form-control w-full rounded"
+                    />
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Cost of construction/acquisition:</label>
+                    <input value={ind.construction_cost} onChange={(e) => changedLand(e, i, "construction_cost")} required name="construction_cost" type="number" className="form-control w-full rounded"
+                    />
+                  </div>
+                  <div className="m-3">
+                    <hr />
+                  </div>
+                </div>
+              ))}
+              <div className="mb-6 flex justify-between">
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  Update
+                </button>
+                <button onClick={formTog14} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                  <a href="">
+                    <FiTriangle
+                      size={15}
+                      className="stroke-current text-green-500"
+                    />
+                  </a>
+                </button>
+              </div>
+            </div>
+          }
+        </form>
+      </div>
+      <div className="flex justify-between mb-5">
+
+        <p>Farmland </p>
+
+
+        <div className="flex">
+          <div className="form-check form-check-inline flex ustify-evenly">
+            <input onChange={onChange29} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions15" id="inlineRadio1" value="option1" />
+            <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Yes</label>
+          </div>
+
+          <div className="form-check form-check-inline ml-5">
+            <input onChange={onChange30} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions15" id="inlineRadio2" value="option2" />
+            <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">No</label>
+          </div>
+        </div>
+      </div>
+
+      <div className={`flex justify-start border mb-3 block p-6 rounded-lg bg-white w-full ${togglee15}`}>
+        <form onSubmit={submitDataFarm}>
+          {farm == null || farm == "" ?
+
+            <div className="">
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <abel>Address:</abel>
+                <input name="addr" type="text" className="form-control w-full rounded"
+                />
+              </div>
+
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>Date of acquisition:</label>
+                <input required name="acq_date" type="date" className="form-control w-full rounded"
+                />
+              </div>
+
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>Cost of Land:</label>
+                <input required placeholder="₦" name="land_cost" type="number" className="form-control w-full rounded"
+                />
+              </div>
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label>Cost of Produce:</label>
+                <input required name="produce_cost" type="number" className="form-control w-full rounded"
+                />
+              </div>
+
+              <div className="mb-6 flex justify-between">
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                  disabled
+                >
+                  Save
+                </button>
+                <button onClick={formTog15} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                  <a href="">
+                    <FiTriangle
+                      size={15}
+                      className="stroke-current text-green-500"
+                    />
+                  </a>
+                </button>
+              </div>
+            </div> :
+            <div>
+              {farm.map((ind, i) => (
+
+                <div className="">
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <abel>Address:</abel>
+                    <textarea value={ind.addr} onChange={(e) => changedFarm(e, i, "addr")} name="addr" type="text" className="form-control w-full rounded"
+                    />
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Date of acquisition:</label>
+                    <input value={ind.acq_date} onChange={(e) => changedFarm(e, i, "acq_date")} required name="acq_date" type="date" className="form-control w-full rounded"
+                    />
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Cost of Land:</label>
+                    <input value={ind.land_cost} onChange={(e) => changedFarm(e, i, "land_cost")} required placeholder="₦" name="land_cost" type="number" className="form-control w-full rounded"
+                    />
+                  </div>
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <label>Cost of Produce:</label>
+                    <input value={ind.produce_cost} onChange={(e) => changedFarm(e, i, "produce_cost")} required name="produce_cost" type="number" className="form-control w-full rounded"
+                    />
+                  </div>
+                  <div className="m-3">
+                    <hr />
+                  </div>
+                </div>
+              ))}
+              <div className="mb-6 flex justify-between">
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  Update
+                </button>
+                <button onClick={formTog15} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                  <a href="">
+                    <FiTriangle
+                      size={15}
+                      className="stroke-current text-green-500"
+                    />
+                  </a>
+                </button>
+              </div>
             </div>
           }
         </form>

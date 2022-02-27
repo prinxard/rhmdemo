@@ -31,6 +31,9 @@ const ViewSinglePending = () => {
   const [pension, setPension] = useState([]);
   const [asset, setAsset] = useState([]);
   const [outsideSource, setOutsideSource] = useState([]);
+  const [vehicles, setVehicles] = useState([]);
+  const [land, setLand] = useState([]);
+  const [farm, setFarm] = useState([]);
   const [routerAssId, setAssessId] = useState('');
 
   const router = useRouter();
@@ -65,6 +68,12 @@ const ViewSinglePending = () => {
           let pensionDat = userAssData.pension
           let assetDat = userAssData.assetProfit
           let outsideDat = userAssData.outsideSource
+          let vehiclesDat = userAssData.vechicles
+          let landDat = userAssData.land
+          let farmDat = userAssData.farm
+          setFarm(farmDat)
+          setLand(landDat)
+          setVehicles(vehiclesDat)
           setOutsideSource(outsideDat)
           setAsset(assetDat)
           setPension(pensionDat)
@@ -152,7 +161,7 @@ const ViewSinglePending = () => {
     LapCopy[index] = updateLap
     setLap(LapCopy)
   }
-  
+
   function handleNhis(newValue, index, fieldName) {
     const NhisCopy = [...nhis];
     const temp = NhisCopy[index]
@@ -232,6 +241,37 @@ const ViewSinglePending = () => {
     setOutsideSource(outSideSourceCopy)
   }
 
+  function handleVehicles(newValue, index, fieldName) {
+    const vehiclesCopy = [...vehicles];
+    const temp = vehiclesCopy[index]
+    vehiclesCopy[index] = null
+    let updateVehicles = { ...temp }
+    updateVehicles[fieldName] = newValue
+    vehiclesCopy[index] = updateVehicles
+    console.log((vehiclesCopy.year));
+    setVehicles(vehiclesCopy)
+  }
+
+  function handleLand(newValue, index, fieldName) {
+    const landCopy = [...land];
+    const temp = landCopy[index]
+    landCopy[index] = null
+    let updateLand = { ...temp }
+    updateLand[fieldName] = newValue
+    landCopy[index] = updateLand
+    setLand(landCopy)
+  }
+
+  function handleFarm(newValue, index, fieldName) {
+    const farmCopy = [...farm];
+    const temp = farmCopy[index]
+    farmCopy[index] = null
+    let updateFarm = { ...temp }
+    updateFarm[fieldName] = newValue
+    farmCopy[index] = updateFarm
+    setFarm(farmCopy)
+  }
+
 
 
   return (
@@ -273,7 +313,10 @@ const ViewSinglePending = () => {
             changedAsset={(e, index, fieldName) => handleAsset(e.target.value, index, fieldName)}
             bankInterest={bankInterest} dividends={bankDividends} pension={pension} asset={asset}
             changedOutsideSource={(e, index, fieldName) => handleOutsideSource(e.target.value, index, fieldName)}
-            outsideSource={outsideSource}
+            changedVehicles={(e, index, fieldName) => handleVehicles(e.target.value, index, fieldName)}
+            changedLand={(e, index, fieldName) => handleLand(e.target.value, index, fieldName)}
+            changedFarm={(e, index, fieldName) => handleFarm(e.target.value, index, fieldName)}
+            outsideSource={outsideSource} vehicles={vehicles} land={land} farm={farm}
 
           />
         </>

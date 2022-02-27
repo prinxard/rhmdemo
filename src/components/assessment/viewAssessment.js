@@ -1130,7 +1130,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       console.log(res);
       setIsFetching15(false)
       router.push('/view/completeddirect')
-      toast.success("Saved Successfully!");
+      toast.success("Submitted Successfully!");
     } catch (error) {
       toast.error("error, Please try again!");
       console.log(error);
