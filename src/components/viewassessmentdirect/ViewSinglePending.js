@@ -34,6 +34,7 @@ const ViewSinglePending = () => {
   const [vehicles, setVehicles] = useState([]);
   const [land, setLand] = useState([]);
   const [farm, setFarm] = useState([]);
+  const [spouse, setSpouse] = useState([]);
   const [routerAssId, setAssessId] = useState('');
 
   const router = useRouter();
@@ -71,6 +72,8 @@ const ViewSinglePending = () => {
           let vehiclesDat = userAssData.vechicles
           let landDat = userAssData.land
           let farmDat = userAssData.farm
+          let spouseDat = userAssData.spouse
+          setSpouse(spouseDat)
           setFarm(farmDat)
           setLand(landDat)
           setVehicles(vehiclesDat)
@@ -272,6 +275,16 @@ const ViewSinglePending = () => {
     setFarm(farmCopy)
   }
 
+  function handleSpouse(newValue, index, fieldName) {
+    const spouseCopy = [...spouse];
+    const temp = spouseCopy[index]
+    spouseCopy[index] = null
+    let updateSpouse = { ...temp }
+    updateSpouse[fieldName] = newValue
+    spouseCopy[index] = updateSpouse
+    setSpouse(spouseCopy)
+  }
+
 
 
   return (
@@ -316,7 +329,8 @@ const ViewSinglePending = () => {
             changedVehicles={(e, index, fieldName) => handleVehicles(e.target.value, index, fieldName)}
             changedLand={(e, index, fieldName) => handleLand(e.target.value, index, fieldName)}
             changedFarm={(e, index, fieldName) => handleFarm(e.target.value, index, fieldName)}
-            outsideSource={outsideSource} vehicles={vehicles} land={land} farm={farm}
+            changedSpouse={(e, index, fieldName) => handleSpouse(e.target.value, index, fieldName)}
+            outsideSource={outsideSource} vehicles={vehicles} land={land} farm={farm} spouse={spouse}
 
           />
         </>

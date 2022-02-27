@@ -1618,45 +1618,6 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
         </form>
       </div>
 
-      {/* <form onSubmit={handleSubmit1}>
-        {formValues.map((element, index) => (
-
-          <div className="" key={index}>
-            <div className="mb-6 grid grid-cols-3 gap-4">
-              <label>Source:</label>
-              <input name="source" value={element.source || ""} onChange={e => handleChange1(index, e)} type="text" className="form-control w-full rounded"
-              />
-            </div>
-
-            <div className="mb-6 grid grid-cols-3 gap-4">
-              <label>Gross Amount:</label>
-              <input required placeholder="₦" name="gross_amount" value={element.gross_amount || ""} onChange={e => handleChange1(index, e)} type="number" className="form-control w-full rounded"
-              />
-            </div>
-
-            <div className="mb-6 grid grid-cols-3 gap-4">
-              <label>Optional Comments:</label>
-              <textarea name="comments" value={element.comments || ""} onChange={e => handleChange1(index, e)} cols="40" rows="2" className="rounded"></textarea>
-            </div>
-          </div>
-
-        ))}
-        <button onClick={() => addFormFields1()}
-          style={{ backgroundColor: "#84abeb" }}
-          className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-          type="button"
-        >
-          Add
-        </button>
-        <button
-          style={{ backgroundColor: "#84abeb" }}
-          className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-          type="submit"
-        >
-          Save
-        </button>
-      </form> */}
-
       <div className="block p-6 rounded-lg bg-white w-full">
 
         <div className="grid grid-cols-3 gap-4">

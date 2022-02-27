@@ -94,7 +94,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
   changedSelfEmployed, selfEmployment, changedExpenses, expenses, lifeass, changedLap, nhis, changedNhis,
   partner, changedPartner, rentIncome, changedRentIncome, bankInterest, changedBankInterest, dividends,
   changedBankDividends, changedPension, pension, residentialAddr, asset, changedAsset, outsideSource,
-  changedOutsideSource, changedVehicles, vehicles, changedLand, land, farm, changedFarm
+  changedOutsideSource, changedVehicles, vehicles, changedLand, land, farm, changedFarm, changedSpouse, spouse
 
 }) => {
   console.log(bankInterest);
@@ -449,6 +449,25 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
       const element = formVal[indexAr];
       axios.put(`${url.BASE_URL}forma/farm`, element)
+        .then(function (response) {
+          setIsFetching12(false)
+          toast.success("Updated Successfully!");
+        })
+        .catch(function (error) {
+          setIsFetching12(false)
+          toast.error("Failed! please try again");
+        });
+    }
+
+  }
+
+  let submitDataSpouse = async (e, index) => {
+    e.preventDefault()
+    setIsFetching12(true)
+    let formVal = (spouse)
+    for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
+      const element = formVal[indexAr];
+      axios.put(`${url.BASE_URL}forma/spouse`, element)
         .then(function (response) {
           setIsFetching12(false)
           toast.success("Updated Successfully!");
@@ -830,20 +849,6 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
         <div className="flex">
           <h6 className="p-2">Current Residential address</h6>
         </div>
-        {isFetching6 && (
-          <div className="flex justify-center item mb-2">
-            <Loader
-              visible={isFetching6}
-              type="BallTriangle"
-              color="#00FA9A"
-              height={19}
-              width={19}
-              timeout={0}
-              className="ml-2"
-            />
-            <p className="font-bold">Saving...</p>
-          </div>
-        )}
 
         <form onSubmit={submitDataResAdd}>
           {residentialAddr.map((ind, i) => (
@@ -852,21 +857,21 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                 <div className="mb-6">
                   <p>House No</p>
 
-                  <input onChange={(e) => changed(e, i, "house_no")} name="house_no" key={i} type="text" className="form-control w-full rounded font-light text-gray-500"
+                  <input onChange={(e) => changed(e, i, "house_no")} name="house_no" type="text" className="form-control w-full rounded font-light text-gray-500"
                     value={ind.house_no} />
 
                 </div>
                 <div className="form-group mb-6">
                   <p>Street</p>
 
-                  <input onChange={(e) => changed(e, i, "street")} key={i} name="street" type="text" className="form-control w-full rounded font-light text-gray-500"
+                  <input onChange={(e) => changed(e, i, "street")} name="street" type="text" className="form-control w-full rounded font-light text-gray-500"
                     value={ind.street} />
 
                 </div>
                 <div className="form-group mb-6">
                   <p>LGA</p>
 
-                  <input onChange={(e) => changed(e, i, "lga")} name="lga" key={i} type="text" className="form-control w-full rounded font-light text-gray-500"
+                  <input onChange={(e) => changed(e, i, "lga")} name="lga" type="text" className="form-control w-full rounded font-light text-gray-500"
                     value={ind.lga} />
 
                 </div>
@@ -876,7 +881,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                 <div className="form-group mb-6">
                   <p>Town</p>
 
-                  <input onChange={(e) => changed(e, i, "town")} name="town" key={i} type="text" className="form-control w-full rounded font-light text-gray-500"
+                  <input onChange={(e) => changed(e, i, "town")} name="town" type="text" className="form-control w-full rounded font-light text-gray-500"
                     value={ind.town} />
 
                 </div>
@@ -919,7 +924,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                 <div className="form-group mb-6">
                   <p>Annual rent</p>
 
-                  <input onChange={(e) => changed(e, i, "annual_rent")} key={i} name="annual_rent" type="text" className="form-control w-full rounded font-light text-gray-500"
+                  <input onChange={(e) => changed(e, i, "annual_rent")} name="annual_rent" type="text" className="form-control w-full rounded font-light text-gray-500"
                     value={ind.annual_rent} />
 
                 </div>
@@ -927,14 +932,14 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                 <div className="form-group mb-6">
                   <p>Owner name</p>
 
-                  <input onChange={(e) => changed(e, i, "owner_name")} key={i} name="owner_name" type="text" className="form-control w-full rounded font-light text-gray-500"
+                  <input onChange={(e) => changed(e, i, "owner_name")} name="owner_name" type="text" className="form-control w-full rounded font-light text-gray-500"
                     value={ind.owner_name} />
 
                 </div>
                 <div className="form-group mb-6">
                   <p>Owner Phone</p>
 
-                  <input onChange={(e) => changed(e, i, "owner_phone")} key={i} name="owner_phone" type="text" className="form-control w-full rounded font-light text-gray-500"
+                  <input onChange={(e) => changed(e, i, "owner_phone")} name="owner_phone" type="text" className="form-control w-full rounded font-light text-gray-500"
                     value={ind.owner_phone} />
 
                 </div>
@@ -954,20 +959,126 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
       </div>
 
 
-      {isFetching12 && (
-        <div className="flex justify-center item mb-2">
-          <Loader
-            visible={isFetching12}
-            type="BallTriangle"
-            color="#00FA9A"
-            height={19}
-            width={19}
-            timeout={0}
-            className="ml-2"
-          />
-          <p className="font-bold">Saving...</p>
+
+      <div className="block p-6 rounded-lg bg-white w-full">
+
+        <div className="grid grid-cols-3 gap-4">
+          <div className="form-group mb-6">
+            <p>Spouse</p>
+          </div>
+          <div className="flex">
+            <div className="form-check form-check-inline">
+              <input onClick={MarriedYes} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" />
+              <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Yes</label>
+            </div>
+
+            <div className="form-check form-check-inline ml-5">
+              <input onClick={MarriedNo} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" />
+              <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">No</label>
+            </div>
+          </div>
         </div>
-      )}
+
+        <div className={`${marriedToggle}`}>
+
+          <form onSubmit={submitDataSpouse} className="border p-3">
+            {spouse == null || spouse == "" ?
+
+              <div>
+
+                <div className="grid border-b-2 m-3 p-3 grid-cols-3 gap-4">
+                  <div className="form-group mb-6">
+                    <p>Name of spouse</p>
+                    <input required name="name" type="text" className="form-control w-full rounded"
+                      placeholder="Name of spouse" />
+                  </div>
+
+                  <div className="form-group mb-6">
+                    <p>Date of Birth</p>
+                    <input required name="dob" type="date" className="form-control w-full rounded"
+                      placeholder="Date of birth" />
+                  </div>
+                  <div className="form-group mb-6">
+                    <p>Occupation</p>
+                    <input name="occupation" type="text" className="form-control w-full rounded"
+                      placeholder="Occupation" />
+                  </div>
+                  <div className="form-group mb-6">
+                    <p>Business/Employer</p>
+                    <input name="employer" type="text" className="form-control w-full rounded"
+                      placeholder="Employer/Business of spouse" />
+                  </div>
+                  <div className="form-group mb-6">
+                    <p>Office/Business Address</p>
+                    <input name="employer_addr" type="text" className="form-control w-full rounded"
+                      placeholder="Employer's/business address of spouse" />
+                  </div>
+                </div>
+
+                <div className="flex justify-between p-3">
+
+                  <button
+                    style={{ backgroundColor: "#84abeb" }}
+                    className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                    disabled
+                  >
+                    Save
+                  </button>
+
+                </div>
+              </div> :
+              <div>
+                {spouse.map((ind, i) => (
+
+                  <div>
+                    <div className="grid border-b-2 m-3 p-3 grid-cols-3 gap-4">
+                      <div className="form-group mb-6">
+                        <p>Name of spouse</p>
+                        <input value={ind.name} onChange={(e) => changedSpouse(e, i, "name")} required name="name" type="text" className="form-control w-full rounded" />
+                      </div>
+
+                      <div className="form-group mb-6">
+                        <p>Date of Birth</p>
+                        <input required name="dob" type="date" className="form-control w-full rounded"
+                          value={ind.dob} onChange={(e) => changedSpouse(e, i, "dob")} />
+                      </div>
+                      <div className="form-group mb-6">
+                        <p>Occupation</p>
+                        <input name="occupation" type="text" className="form-control w-full rounded"
+                          value={ind.occupation} onChange={(e) => changedSpouse(e, i, "occupation")}/>
+                      </div>
+                      <div className="form-group mb-6">
+                        <p>Business/Employer</p>
+                        <input name="employer" type="text" className="form-control w-full rounded"
+                          value={ind.employer} onChange={(e) => changedSpouse(e, i, "employer")} />
+                      </div>
+                      <div className="form-group mb-6">
+                        <p>Office/Business Address</p>
+                        <textarea name="employer_addr" type="text" className="form-control w-full rounded"
+                          value={ind.employer_addr} onChange={(e) => changedSpouse(e, i, "employer_addr")} />
+                      </div>
+                    </div>
+
+                  </div>
+                ))}
+                <div className="flex justify-between p-3">
+
+                  <button
+                    style={{ backgroundColor: "#84abeb" }}
+                    className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                  >
+                    Update
+                  </button>
+
+                </div>
+              </div>
+            }
+
+          </form>
+        </div>
+      </div>
 
       <div className="flex justify-between mb-5">
         <p>Pension deduction </p>
@@ -3279,12 +3390,12 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
         <div className="flex">
           <div className="form-check form-check-inline flex ustify-evenly">
-            <input onChange={onChange29} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions15" id="inlineRadio1" value="option1" />
+            <input onClick={onChange29} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions15" id="inlineRadio1" value="option1" />
             <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Yes</label>
           </div>
 
           <div className="form-check form-check-inline ml-5">
-            <input onChange={onChange30} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions15" id="inlineRadio2" value="option2" />
+            <input onClick={onChange30} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions15" id="inlineRadio2" value="option2" />
             <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">No</label>
           </div>
         </div>
