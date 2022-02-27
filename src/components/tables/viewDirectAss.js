@@ -94,7 +94,8 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
   changedSelfEmployed, selfEmployment, changedExpenses, expenses, lifeass, changedLap, nhis, changedNhis,
   partner, changedPartner, rentIncome, changedRentIncome, bankInterest, changedBankInterest, dividends,
   changedBankDividends, changedPension, pension, residentialAddr, asset, changedAsset, outsideSource,
-  changedOutsideSource, changedVehicles, vehicles, changedLand, land, farm, changedFarm, changedSpouse, spouse
+  changedOutsideSource, changedVehicles, vehicles, changedLand, land, farm, changedFarm, changedSpouse, spouse,
+  changedChildren, children, domestic, changedDomestic
 
 }) => {
   console.log(bankInterest);
@@ -115,6 +116,8 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
   const [togglee15, setToggle15] = useState('hidden')
   const [resiToggle, setresToggle] = useState('hidden')
   const [marriedToggle, setmarriedToggle] = useState('hidden')
+  const [childrenToggle, setchildrenToggle] = useState('hidden')
+  const [servantsToggle, setservantsToggle] = useState('hidden')
   const [isFetching3, setIsFetching3] = useState(() => false);
   const [isFetching4, setIsFetching4] = useState(() => false);
   const [isFetching5, setIsFetching5] = useState(() => false);
@@ -468,6 +471,44 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
       const element = formVal[indexAr];
       axios.put(`${url.BASE_URL}forma/spouse`, element)
+        .then(function (response) {
+          setIsFetching12(false)
+          toast.success("Updated Successfully!");
+        })
+        .catch(function (error) {
+          setIsFetching12(false)
+          toast.error("Failed! please try again");
+        });
+    }
+
+  }
+
+  let submitDataChildren = async (e, index) => {
+    e.preventDefault()
+    setIsFetching12(true)
+    let formVal = (children)
+    for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
+      const element = formVal[indexAr];
+      axios.put(`${url.BASE_URL}forma/spouse`, element)
+        .then(function (response) {
+          setIsFetching12(false)
+          toast.success("Updated Successfully!");
+        })
+        .catch(function (error) {
+          setIsFetching12(false)
+          toast.error("Failed! please try again");
+        });
+    }
+
+  }
+
+  let submitDataDomestic = async (e, index) => {
+    e.preventDefault()
+    setIsFetching12(true)
+    let formVal = (domestic)
+    for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
+      const element = formVal[indexAr];
+      axios.put(`${url.BASE_URL}forma/domestic-staff`, element)
         .then(function (response) {
           setIsFetching12(false)
           toast.success("Updated Successfully!");
@@ -1046,7 +1087,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                       <div className="form-group mb-6">
                         <p>Occupation</p>
                         <input name="occupation" type="text" className="form-control w-full rounded"
-                          value={ind.occupation} onChange={(e) => changedSpouse(e, i, "occupation")}/>
+                          value={ind.occupation} onChange={(e) => changedSpouse(e, i, "occupation")} />
                       </div>
                       <div className="form-group mb-6">
                         <p>Business/Employer</p>
@@ -1079,6 +1120,382 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
           </form>
         </div>
       </div>
+
+
+      <div className="block p-6 rounded-lg bg-white w-full">
+
+        <div className="grid grid-cols-3 gap-4">
+          <div className="form-group mb-6">
+            <p>Children</p>
+          </div>
+          <div className="flex">
+            <div className="form-check form-check-inline">
+              <input onClick={childrenYes} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" />
+              <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Yes</label>
+            </div>
+
+            <div className="form-check form-check-inline ml-5">
+              <input onClick={childrenNo} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" />
+              <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">No</label>
+            </div>
+          </div>
+        </div>
+        <div className={`${childrenToggle} border`}>
+
+          <form onSubmit={submitDataChildren}>
+            {children == null || children == "" ?
+
+              <div>
+
+                <div className={`grid m-3 p-3 border-b-2 grid-cols-3 gap-4`}>
+                  <div className="form-group mb-6">
+                    <p>Name of Child</p>
+                    <input name="name" type="text" className="form-control w-full rounded"
+                      placeholder="Name of child in full" />
+                  </div>
+                  <div className="form-group mb-6">
+                    <p>Date of Birth</p>
+                    <input required name="dob" type="date" className="form-control w-full rounded"
+                      placeholder="Date of birth" />
+                  </div>
+                  <div className="form-group mb-6">
+                    Child School Name
+                    <input name="school_name" type="text" className="form-control w-full rounded"
+                      placeholder="Name of child's school" />
+                  </div>
+                  <div className="form-group ">
+                    School Address
+                    <input name="school_addr" type="text" className="form-control w-full rounded"
+                      placeholder="Address of child's school" />
+                  </div>
+                  <div className="form-group">
+                    <p>School Fees</p>
+                    <input name="school_fees" type="number" className="form-control w-full rounded"
+                      placeholder="Child's school fees per session" />
+                  </div>
+                  <div className="form-group">
+                    <p>Child's Income</p>
+                    <input name="child_income" type="number" className="form-control w-full rounded"
+                      placeholder="Child's income in own right" />
+                  </div>
+                  <div></div>
+
+                  <div></div>
+                </div>
+
+                <div className="flex justify-between p-3">
+                  <button
+                    style={{ backgroundColor: "#84abeb" }}
+                    className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                  >
+                    Save
+                  </button>
+
+                </div>
+              </div> :
+              <div>
+                {children.map((ind, i) => (
+                  <div>
+                    <div className={`grid m-3 p-3 border-b-2 grid-cols-3 gap-4`}>
+                      <div className="form-group mb-6">
+                        <p>Name of Child</p>
+                        <input name="name" type="text" className="form-control w-full rounded"
+                          value={ind.name} onChange={(e) => changedChildren(e, i, "name")} />
+                      </div>
+                      <div className="form-group mb-6">
+                        <p>Date of Birth</p>
+                        <input required name="dob" type="date" className="form-control w-full rounded"
+                          value={ind.dob} onChange={(e) => changedChildren(e, i, "dob")} />
+                      </div>
+                      <div className="form-group mb-6">
+                        Child School Name
+                        <input name="school_name" type="text" className="form-control w-full rounded"
+                          value={ind.school_name} onChange={(e) => changedChildren(e, i, "school_name")} />
+                      </div>
+                      <div className="form-group ">
+                        School Address
+                        <input name="school_addr" type="text" className="form-control w-full rounded"
+                          value={ind.school_addr} onChange={(e) => changedChildren(e, i, "school_addr")} />
+                      </div>
+                      <div className="form-group">
+                        <p>School Fees</p>
+                        <input name="school_fees" type="number" className="form-control w-full rounded"
+                          value={ind.school_fees} onChange={(e) => changedChildren(e, i, "school_fees")} />
+                      </div>
+                      <div className="form-group">
+                        <p>Child's Income</p>
+                        <input name="child_income" type="number" className="form-control w-full rounded"
+                          value={ind.child_income} onChange={(e) => changedChildren(e, i, "child_income")} />
+                      </div>
+                      <div></div>
+
+                      <div></div>
+                    </div>
+
+                  </div>
+                ))}
+                <div className="flex justify-between p-3">
+                  <button
+                    style={{ backgroundColor: "#84abeb" }}
+                    className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                  >
+                    Update
+                  </button>
+
+                </div>
+              </div>
+            }
+          </form>
+        </div>
+      </div>
+
+      <div className="block p-6 rounded-lg bg-white w-full">
+
+        <div className="grid grid-cols-3 gap-4">
+          <div className="form-group mb-6">
+            <p>Domestic Staff</p>
+          </div>
+          <div className="flex">
+            <div className="form-check form-check-inline">
+              <input onClick={servantsYes} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" />
+              <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Yes</label>
+            </div>
+
+            <div className="form-check form-check-inline ml-5">
+              <input onClick={servantsNo} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" />
+              <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">No</label>
+            </div>
+          </div>
+
+        </div>
+
+        <form onSubmit={submitDataDomestic} className={`${servantsToggle} border`}>
+          {domestic == null || domestic == "" ?
+
+            <div>
+              <div className={`grid grid-cols-3 m-3 p-3 border-b-2 gap-4`}>
+                <div className="form-group mb-6">
+                  <p>Title</p>
+                  <select name="title" className="form-select w-full" >
+                    <option value="Mrs">Mrs</option>
+                    <option value="Mr">Mr</option>
+                    <option value="Miss">Miss</option>
+                  </select>
+                </div>
+
+                <div className="form-group mb-6">
+                  <p>Name</p>
+                  <input name="name" type="text" className="form-control w-full rounded"
+                    placeholder="Full name" />
+                </div>
+
+                <div className="form-group mb-6">
+                  <p>House Number</p>
+                  <input name="house_no" type="text" className="form-control w-full rounded"
+                    placeholder="House/plot no" />
+                </div>
+                <div className="form-group mb-6">
+                  <p>Street</p>
+                  <input name="street" type="text" className="form-control w-full rounded"
+                    placeholder="Street" />
+                </div>
+                <div className="form-group mb-6">
+                  <p>Town</p>
+                  <input type="text" name="town" className="form-control w-full rounded"
+                    placeholder="Town/Area" />
+                </div>
+                <div className="form-group mb-6">
+                  <p>LGA</p>
+                  <select name="lga" className="form-select w-full"  >
+                    <option value="kabba">Select</option>
+                    <option value="Adavi">Adavi</option>
+                    <option value="Ajaokuta">Ajaokuta</option>
+                    <option value="Ankpa">Ankpa</option>
+                    <option value="Bassa">Bassa</option>
+                  </select>
+                </div>
+                <div className="form-group mb-6">
+                  <p>State</p>
+                  <select className="form-select w-full" name="state">
+                    <option value="Abia">Abia</option>
+                    <option value="Akwa Ibom">Akwa Ibom</option>
+                    <option value="Bauchi">Bauchi</option>
+                    <option value="Bayelsa">Bayelsa</option>
+                    <option value="Benue">Benue</option>
+                    <option value="Borno">Borno</option>
+                    <option value="Cross River">Cross River</option>
+                    <option value="Delta">Delta</option>
+                    <option value="Edo">Edo</option>
+                    <option value="Ekiti">Ekiti</option>
+                    <option value="Enugu">Enugu</option>
+                    <option value="Gombe">Gombe</option>
+                    <option value="Imo">Imo</option>
+                    <option value="Jigawa">Jigawa</option>
+                    <option value="Kaduna">Kaduna</option>
+                    <option value="Kano">Kano</option>
+                    <option value="Katsina">Katsina</option>
+                    <option value="Kebbi">Kebbi</option>
+                    <option value="Kogi">Kogi</option>
+                    <option value="Kwara">Kwara</option>
+                    <option value="Lagos">Lagos</option>
+                    <option value="Nasarawa">Nasarawa</option>
+                    <option value="Niger">Niger</option>
+                    <option value="Ogun">Ogun</option>
+                    <option value="Ondo">Ondo</option>
+                    <option value="Osun">Osun</option>
+                  </select>
+                </div>
+                <div className="form-group mb-6">
+                  <p>Annual Pay</p>
+                  <input name="amount_paid" type="number" className="form-control w-full rounded"
+                    placeholder="Amount paid (Annual)" />
+                </div>
+
+                <div className="flex justify-between self-center">
+                  <div className="form-check form-check-inline ">
+                    <input name="payer" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" />
+                    <label className="form-check-label  text-gray-800" for="inlineRadio10">Paid by employer</label>
+                  </div>
+
+                  <div className="form-check form-check-inline ml-5">
+                    <input name="payer" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" />
+                    <label className="form-check-label  text-gray-800" for="inlineRadio20">Paid by self</label>
+                  </div>
+                </div>
+                <div></div>
+                <div></div>
+              </div>
+
+              <div className="flex justify-between p-3">
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  Save
+                </button>
+
+              </div>
+            </div> :
+            <div>
+              {domestic.map((ind, i) => (
+
+                <div>
+                  <div className={`grid grid-cols-3 m-3 p-3 border-b-2 gap-4`}>
+                    <div className="form-group mb-6">
+                      <p>Title</p>
+                      <select onChange={(e) => changedDomestic(e, i, "title")} value={ind.title} name="title" className="form-select w-full" >
+                        <option value="Mrs">Mrs</option>
+                        <option value="Mr">Mr</option>
+                        <option value="Miss">Miss</option>
+                      </select>
+                    </div>
+
+                    <div className="form-group mb-6">
+                      <p>Name</p>
+                      <input name="name" type="text" className="form-control w-full rounded"
+                        value={ind.name} onChange={(e) => changedDomestic(e, i, "name")} value={ind.title} />
+                    </div>
+
+                    <div className="form-group mb-6">
+                      <p>House Number</p>
+                      <input name="house_no" type="text" className="form-control w-full rounded"
+                        value={ind.house_no} onChange={(e) => changedDomestic(e, i, "house_no")} />
+                    </div>
+                    <div className="form-group mb-6">
+                      <p>Street</p>
+                      <input name="street" type="text" className="form-control w-full rounded"
+                        value={ind.street} onChange={(e) => changedDomestic(e, i, "street")} />
+                    </div>
+                    <div className="form-group mb-6">
+                      <p>Town</p>
+                      <input type="text" name="town" className="form-control w-full rounded"
+                        value={ind.town} onChange={(e) => changedDomestic(e, i, "town")} />
+                    </div>
+                    <div className="form-group mb-6">
+                      <p>LGA</p>
+                      <select value={ind.lga} onChange={(e) => changedDomestic(e, i, "lga")} name="lga" className="form-select w-full"  >
+                        <option value="kabba">Select</option>
+                        <option value="Adavi">Adavi</option>
+                        <option value="Ajaokuta">Ajaokuta</option>
+                        <option value="Ankpa">Ankpa</option>
+                        <option value="Bassa">Bassa</option>
+                      </select>
+                    </div>
+                    <div className="form-group mb-6">
+                      <p>State</p>
+                      <select value={ind.state} onChange={(e) => changedDomestic(e, i, "state")} className="form-select w-full" name="state">
+                        <option value="Abia">Abia</option>
+                        <option value="Akwa Ibom">Akwa Ibom</option>
+                        <option value="Bauchi">Bauchi</option>
+                        <option value="Bayelsa">Bayelsa</option>
+                        <option value="Benue">Benue</option>
+                        <option value="Borno">Borno</option>
+                        <option value="Cross River">Cross River</option>
+                        <option value="Delta">Delta</option>
+                        <option value="Edo">Edo</option>
+                        <option value="Ekiti">Ekiti</option>
+                        <option value="Enugu">Enugu</option>
+                        <option value="Gombe">Gombe</option>
+                        <option value="Imo">Imo</option>
+                        <option value="Jigawa">Jigawa</option>
+                        <option value="Kaduna">Kaduna</option>
+                        <option value="Kano">Kano</option>
+                        <option value="Katsina">Katsina</option>
+                        <option value="Kebbi">Kebbi</option>
+                        <option value="Kogi">Kogi</option>
+                        <option value="Kwara">Kwara</option>
+                        <option value="Lagos">Lagos</option>
+                        <option value="Nasarawa">Nasarawa</option>
+                        <option value="Niger">Niger</option>
+                        <option value="Ogun">Ogun</option>
+                        <option value="Ondo">Ondo</option>
+                        <option value="Osun">Osun</option>
+                      </select>
+                    </div>
+                    <div className="form-group mb-6">
+                      <p>Annual Pay</p>
+                      <input name="amount_paid" type="number" className="form-control w-full rounded"
+                        value={ind.amount_paid} onChange={(e) => changedDomestic(e, i, "amount_paid")} />
+                    </div>
+
+                    <div className="flex justify-between self-center">
+                      <div className="form-check form-check-inline ">
+                        <input value={ind.payer} name={i ? `payer${i}` : "payer"} onChange={(e) => changedDomestic(e, i, "payer")} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" />
+                        <label className="form-check-label  text-gray-800" for="inlineRadio10">Paid by employer</label>
+                      </div>
+
+                      <div className="form-check form-check-inline ml-5">
+                        <input value={ind.payer} name={i ? `payer${i}` : "payer"} onChange={(e) => changedDomestic(e, i, "payer")} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" />
+                        <label className="form-check-label  text-gray-800" for="inlineRadio20">Paid by self</label>
+                      </div>
+                    </div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                </div>
+              ))}
+
+              <div className="flex justify-between p-3">
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  Update
+                </button>
+
+              </div>
+            </div>
+          }
+        </form>
+
+
+      </div>
+
+
 
       <div className="flex justify-between mb-5">
         <p>Pension deduction </p>

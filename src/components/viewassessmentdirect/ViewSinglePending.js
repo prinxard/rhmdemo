@@ -35,6 +35,8 @@ const ViewSinglePending = () => {
   const [land, setLand] = useState([]);
   const [farm, setFarm] = useState([]);
   const [spouse, setSpouse] = useState([]);
+  const [children, setChildren] = useState([]);
+  const [domestic, setDomestic] = useState([]);
   const [routerAssId, setAssessId] = useState('');
 
   const router = useRouter();
@@ -73,6 +75,10 @@ const ViewSinglePending = () => {
           let landDat = userAssData.land
           let farmDat = userAssData.farm
           let spouseDat = userAssData.spouse
+          let childDat = userAssData.children
+          let domesticDat = userAssData.domestic
+          setDomestic(domesticDat)
+          setChildren(childDat)
           setSpouse(spouseDat)
           setFarm(farmDat)
           setLand(landDat)
@@ -285,6 +291,26 @@ const ViewSinglePending = () => {
     setSpouse(spouseCopy)
   }
 
+  function handleChildren(newValue, index, fieldName) {
+    const childrenCopy = [...children];
+    const temp = childrenCopy[index]
+    childrenCopy[index] = null
+    let updateChildren = { ...temp }
+    updateChildren[fieldName] = newValue
+    childrenCopy[index] = updateChildren
+    setChildren(childrenCopy)
+  }
+
+  function handleDomestic(newValue, index, fieldName) {
+    const domesticCopy = [...domestic];
+    const temp = domesticCopy[index]
+    domesticCopy[index] = null
+    let updateDomestic = { ...temp }
+    updateDomestic[fieldName] = newValue
+    domesticCopy[index] = updateDomestic
+    setDomestic(domesticCopy)
+  }
+
 
 
   return (
@@ -330,7 +356,10 @@ const ViewSinglePending = () => {
             changedLand={(e, index, fieldName) => handleLand(e.target.value, index, fieldName)}
             changedFarm={(e, index, fieldName) => handleFarm(e.target.value, index, fieldName)}
             changedSpouse={(e, index, fieldName) => handleSpouse(e.target.value, index, fieldName)}
+            changedChildren={(e, index, fieldName) => handleChildren(e.target.value, index, fieldName)}
+            changedDomestic={(e, index, fieldName) => handleDomestic(e.target.value, index, fieldName)}
             outsideSource={outsideSource} vehicles={vehicles} land={land} farm={farm} spouse={spouse}
+            children={children} domestic={domestic}
 
           />
         </>
