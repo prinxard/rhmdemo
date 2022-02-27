@@ -118,59 +118,40 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
   const [marriedToggle, setmarriedToggle] = useState('hidden')
   const [childrenToggle, setchildrenToggle] = useState('hidden')
   const [servantsToggle, setservantsToggle] = useState('hidden')
-  const [isFetching3, setIsFetching3] = useState(() => false);
-  const [isFetching4, setIsFetching4] = useState(() => false);
-  const [isFetching5, setIsFetching5] = useState(() => false);
-  const [isFetching6, setIsFetching6] = useState(() => false);
-  const [isFetching7, setIsFetching7] = useState(() => false);
-  const [isFetching8, setIsFetching8] = useState(() => false);
-  const [isFetching9, setIsFetching9] = useState(() => false);
-  const [isFetching10, setIsFetching10] = useState(() => false);
-  const [isFetching11, setIsFetching11] = useState(() => false);
-  const [isFetching12, setIsFetching12] = useState(() => false);
-  const [isFetching13, setIsFetching13] = useState(() => false);
-  const [isFetching14, setIsFetching14] = useState(() => false);
-  const [isFetching15, setIsFetching15] = useState(() => false);
-  const [isFetching16, setIsFetching16] = useState(() => false);
-  const [isFetching17, setIsFetching17] = useState(() => false);
-  const [isFetching18, setIsFetching18] = useState(() => false);
-  const [isFetching19, setIsFetching19] = useState(() => false);
-  const [isFetching20, setIsFetching20] = useState(() => false);
-  const [isFetching21, setIsFetching21] = useState(() => false);
-  const [isFetching22, setIsFetching22] = useState(() => false);
-  const [isFetching23, setIsFetching23] = useState(() => false);
+  const [isFetching, setIsFetching] = useState(() => false);
+
 
 
   setAuthToken();
 
   let submitDataResAdd = async (e, index) => {
     e.preventDefault()
-    setIsFetching6(true)
+    setIsFetching(true)
     try {
       let res = await axios.put(`${url.BASE_URL}forma/residence-addr`, residentialAddr[0]);
-      setIsFetching6(false)
+      setIsFetching(false)
       toast.success("Updated Successfully!");
     } catch (error) {
       toast.error("error, Please try again!");
-      setIsFetching6(false)
+      setIsFetching(false)
     }
 
   }
 
   let submitDataPensDed = async (e, index) => {
     e.preventDefault()
-    setIsFetching12(true)
+    setIsFetching(true)
 
     let formVal = (pensDeduct)
     for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
       const element = formVal[indexAr];
       axios.put(`${url.BASE_URL}forma/pension-ded`, element)
         .then(function (response) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.success("Updated Successfully!");
         })
         .catch(function (error) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.error("Failed! please try again");
         });
     }
@@ -179,18 +160,18 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
   let submitDataEmployment = async (e, index) => {
     e.preventDefault()
-    setIsFetching12(true)
+    setIsFetching(true)
     const formData = new FormData();
     let formVal = (employment)
     for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
       const element = formVal[indexAr];
       axios.put(`${url.BASE_URL}forma/employed`, element)
         .then(function (response) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.success("Updated Successfully!");
         })
         .catch(function (error) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.error("Failed! please try again");
         });
     }
@@ -199,18 +180,18 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
   let submitDataSelfEmployment = async (e, index) => {
     e.preventDefault()
-    setIsFetching12(true)
+    setIsFetching(true)
     const formData = new FormData();
     let formVal = (selfEmployment)
     for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
       const element = formVal[indexAr];
       axios.put(`${url.BASE_URL}forma/self-employed`, element)
         .then(function (response) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.success("Updated Successfully!");
         })
         .catch(function (error) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.error("Failed! please try again");
         });
     }
@@ -219,17 +200,17 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
   let submitDataExpenses = async (e, index) => {
     e.preventDefault()
-    setIsFetching12(true)
+    setIsFetching(true)
     let formVal = (expenses)
     for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
       const element = formVal[indexAr];
       axios.put(`${url.BASE_URL}forma/expenses`, element)
         .then(function (response) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.success("Updated Successfully!");
         })
         .catch(function (error) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.error("Failed! please try again");
         });
     }
@@ -238,17 +219,17 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
   let submitDataLap = async (e, index) => {
     e.preventDefault()
-    setIsFetching12(true)
+    setIsFetching(true)
     let formVal = (lifeass)
     for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
       const element = formVal[indexAr];
       axios.put(`${url.BASE_URL}forma/expenses`, element)
         .then(function (response) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.success("Updated Successfully!");
         })
         .catch(function (error) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.error("Failed! please try again");
         });
     }
@@ -257,17 +238,17 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
   let submitDataNhis = async (e, index) => {
     e.preventDefault()
-    setIsFetching12(true)
+    setIsFetching(true)
     let formVal = (nhis)
     for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
       const element = formVal[indexAr];
       axios.put(`${url.BASE_URL}forma/nhis`, element)
         .then(function (response) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.success("Updated Successfully!");
         })
         .catch(function (error) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.error("Failed! please try again");
         });
     }
@@ -276,17 +257,17 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
   let submitDataPartner = async (e, index) => {
     e.preventDefault()
-    setIsFetching12(true)
+    setIsFetching(true)
     let formVal = (partner)
     for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
       const element = formVal[indexAr];
       axios.put(`${url.BASE_URL}forma/partner`, element)
         .then(function (response) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.success("Updated Successfully!");
         })
         .catch(function (error) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.error("Failed! please try again");
         });
     }
@@ -295,17 +276,17 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
   let submitDataRentIncome = async (e, index) => {
     e.preventDefault()
-    setIsFetching12(true)
+    setIsFetching(true)
     let formVal = (rentIncome)
     for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
       const element = formVal[indexAr];
       axios.put(`${url.BASE_URL}forma/rent-income`, element)
         .then(function (response) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.success("Updated Successfully!");
         })
         .catch(function (error) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.error("Failed! please try again");
         });
     }
@@ -314,17 +295,17 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
   let submitDataBankInterest = async (e, index) => {
     e.preventDefault()
-    setIsFetching12(true)
+    setIsFetching(true)
     let formVal = (bankInterest)
     for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
       const element = formVal[indexAr];
       axios.put(`${url.BASE_URL}forma/bank-interest`, element)
         .then(function (response) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.success("Updated Successfully!");
         })
         .catch(function (error) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.error("Failed! please try again");
         });
     }
@@ -333,17 +314,17 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
   let submitDataBankDividends = async (e, index) => {
     e.preventDefault()
-    setIsFetching12(true)
+    setIsFetching(true)
     let formVal = (dividends)
     for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
       const element = formVal[indexAr];
       axios.put(`${url.BASE_URL}forma/dividends`, element)
         .then(function (response) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.success("Updated Successfully!");
         })
         .catch(function (error) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.error("Failed! please try again");
         });
     }
@@ -352,17 +333,17 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
   let submitDataPension = async (e, index) => {
     e.preventDefault()
-    setIsFetching12(true)
+    setIsFetching(true)
     let formVal = (pension)
     for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
       const element = formVal[indexAr];
       axios.put(`${url.BASE_URL}forma/pension`, element)
         .then(function (response) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.success("Updated Successfully!");
         })
         .catch(function (error) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.error("Failed! please try again");
         });
     }
@@ -371,17 +352,17 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
   let submitDataAsset = async (e, index) => {
     e.preventDefault()
-    setIsFetching12(true)
+    setIsFetching(true)
     let formVal = (asset)
     for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
       const element = formVal[indexAr];
       axios.put(`${url.BASE_URL}forma/assets`, element)
         .then(function (response) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.success("Updated Successfully!");
         })
         .catch(function (error) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.error("Failed! please try again");
         });
     }
@@ -390,17 +371,17 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
   let submitDataOutside = async (e, index) => {
     e.preventDefault()
-    setIsFetching12(true)
+    setIsFetching(true)
     let formVal = (outsideSource)
     for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
       const element = formVal[indexAr];
       axios.put(`${url.BASE_URL}forma/outside-source`, element)
         .then(function (response) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.success("Updated Successfully!");
         })
         .catch(function (error) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.error("Failed! please try again");
         });
     }
@@ -409,17 +390,17 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
   let submitDataVehicles = async (e, index) => {
     e.preventDefault()
-    setIsFetching12(true)
+    setIsFetching(true)
     let formVal = (vehicles)
     for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
       const element = formVal[indexAr];
       axios.put(`${url.BASE_URL}forma/vechicles`, element)
         .then(function (response) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.success("Updated Successfully!");
         })
         .catch(function (error) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.error("Failed! please try again");
         });
     }
@@ -428,17 +409,17 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
   let submitDataLand = async (e, index) => {
     e.preventDefault()
-    setIsFetching12(true)
+    setIsFetching(true)
     let formVal = (land)
     for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
       const element = formVal[indexAr];
       axios.put(`${url.BASE_URL}forma/land`, element)
         .then(function (response) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.success("Updated Successfully!");
         })
         .catch(function (error) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.error("Failed! please try again");
         });
     }
@@ -447,17 +428,17 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
   let submitDataFarm = async (e, index) => {
     e.preventDefault()
-    setIsFetching12(true)
+    setIsFetching(true)
     let formVal = (farm)
     for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
       const element = formVal[indexAr];
       axios.put(`${url.BASE_URL}forma/farm`, element)
         .then(function (response) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.success("Updated Successfully!");
         })
         .catch(function (error) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.error("Failed! please try again");
         });
     }
@@ -466,17 +447,17 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
   let submitDataSpouse = async (e, index) => {
     e.preventDefault()
-    setIsFetching12(true)
+    setIsFetching(true)
     let formVal = (spouse)
     for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
       const element = formVal[indexAr];
       axios.put(`${url.BASE_URL}forma/spouse`, element)
         .then(function (response) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.success("Updated Successfully!");
         })
         .catch(function (error) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.error("Failed! please try again");
         });
     }
@@ -485,17 +466,17 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
   let submitDataChildren = async (e, index) => {
     e.preventDefault()
-    setIsFetching12(true)
+    setIsFetching(true)
     let formVal = (children)
     for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
       const element = formVal[indexAr];
       axios.put(`${url.BASE_URL}forma/spouse`, element)
         .then(function (response) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.success("Updated Successfully!");
         })
         .catch(function (error) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.error("Failed! please try again");
         });
     }
@@ -504,17 +485,17 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
   let submitDataDomestic = async (e, index) => {
     e.preventDefault()
-    setIsFetching12(true)
+    setIsFetching(true)
     let formVal = (domestic)
     for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
       const element = formVal[indexAr];
       axios.put(`${url.BASE_URL}forma/domestic-staff`, element)
         .then(function (response) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.success("Updated Successfully!");
         })
         .catch(function (error) {
-          setIsFetching12(false)
+          setIsFetching(false)
           toast.error("Failed! please try again");
         });
     }
@@ -808,6 +789,24 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     <>
       <ToastContainer />
 
+      {isFetching && (
+        <div>
+
+          <div className="flex  justify-center item mb-2">
+            <Loader
+              visible={isFetching}
+              type="BallTriangle"
+              color="#00FA9A"
+              height={19}
+              width={19}
+              timeout={0}
+              className="ml-2"
+            />
+            <p className="font-bold">Updating...</p>
+          </div>
+        </div>
+      )}
+
       <div className="block p-6 rounded-lg bg-white w-full">
         <div className="flex">
           <h6 className="p-2">Taxpayer Information</h6>
@@ -1051,8 +1050,8 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                   </div>
                   <div className="form-group mb-6">
                     <p>Office/Business Address</p>
-                    <input name="employer_addr" type="text" className="form-control w-full rounded"
-                      placeholder="Employer's/business address of spouse" />
+                    <textarea name="employer_addr" type="text" className="form-control w-full rounded"
+                    />
                   </div>
                 </div>
 
@@ -1642,20 +1641,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
         </div>
       </div>
 
-      {isFetching3 && (
-        <div className="flex justify-center item mb-2">
-          <Loader
-            visible={isFetching3}
-            type="BallTriangle"
-            color="#00FA9A"
-            height={19}
-            width={19}
-            timeout={0}
-            className="ml-2"
-          />
-          <p className="font-bold">updating...</p>
-        </div>
-      )}
+
 
       <div className={`flex justify-center border mb-3 p-6 rounded-lg bg-white w-full ${toggleel}`}>
         <form onSubmit={submitDataEmployment}>
@@ -1791,20 +1777,6 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
         </div>
       </div>
 
-      {isFetching7 && (
-        <div className="flex justify-center item mb-2">
-          <Loader
-            visible={isFetching7}
-            type="BallTriangle"
-            color="#00FA9A"
-            height={19}
-            width={19}
-            timeout={0}
-            className="ml-2"
-          />
-          <p className="font-bold">saving...</p>
-        </div>
-      )}
       <div className={`flex justify-center border mb-3 p-6 rounded-lg bg-white w-fulll ${togglee2}`}>
         <div>
           <form onSubmit={submitDataSelfEmployment}>
@@ -2296,20 +2268,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
           </form>
 
-          {isFetching10 && (
-            <div className="flex justify-center item mb-2">
-              <Loader
-                visible={isFetching10}
-                type="BallTriangle"
-                color="#00FA9A"
-                height={19}
-                width={19}
-                timeout={0}
-                className="ml-2"
-              />
-              <p className="font-bold">updating...</p>
-            </div>
-          )}
+
 
           <form onSubmit={submitDataExpenses}>
             {expenses == null || expenses == "" ?
@@ -2382,20 +2341,6 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
         </div>
       </div>
 
-      {isFetching9 && (
-        <div className="flex justify-center item mb-2">
-          <Loader
-            visible={isFetching9}
-            type="BallTriangle"
-            color="#00FA9A"
-            height={19}
-            width={19}
-            timeout={0}
-            className="ml-2"
-          />
-          <p className="font-bold">Saving...</p>
-        </div>
-      )}
 
       <div className={`flex justify-center border mb-3 block p-6 rounded-lg bg-white w-full ${togglee11}`}>
         <form onSubmit={submitDataLap}>
@@ -2524,20 +2469,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
         </div>
       </div>
 
-      {isFetching8 && (
-        <div className="flex justify-center item mb-2">
-          <Loader
-            visible={isFetching8}
-            type="BallTriangle"
-            color="#00FA9A"
-            height={19}
-            width={19}
-            timeout={0}
-            className="ml-2"
-          />
-          <p className="font-bold">Saving...</p>
-        </div>
-      )}
+
 
       <div className={`flex justify-center border mb-3 block p-6 rounded-lg bg-white w-full ${togglee12}`}>
         <form onSubmit={submitDataNhis}>
@@ -2576,6 +2508,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                   style={{ backgroundColor: "#84abeb" }}
                   className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
                   type="submit"
+                  disabled
 
                 >
                   Save
@@ -2711,6 +2644,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                   style={{ backgroundColor: "#84abeb" }}
                   className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
                   type="submit"
+                  disabled
                 >
                   Save
                 </button>
@@ -2859,6 +2793,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                   style={{ backgroundColor: "#84abeb" }}
                   className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
                   type="submit"
+                  disabled
                 >
                   Save
                 </button>
@@ -3004,6 +2939,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                   style={{ backgroundColor: "#84abeb" }}
                   className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
                   type="submit"
+                  disabled
                 >
                   Save
                 </button>
@@ -3229,6 +3165,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                   style={{ backgroundColor: "#84abeb" }}
                   className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
                   type="submit"
+                  disabled
                 >
                   Save
                 </button>
@@ -3599,6 +3536,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                   style={{ backgroundColor: "#84abeb" }}
                   className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
                   type="submit"
+                  disabled
                 >
                   Save
                 </button>
@@ -3728,6 +3666,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                   style={{ backgroundColor: "#84abeb" }}
                   className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
                   type="submit"
+                  disabled
                 >
                   Save
                 </button>
