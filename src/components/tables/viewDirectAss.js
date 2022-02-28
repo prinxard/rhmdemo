@@ -15,7 +15,7 @@ import axios from "axios";
 import { stringify } from "uuid";
 import { useForm } from 'react-hook-form';
 import { FiTriangle } from "react-icons/fi";
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 const fields = [
   {
@@ -179,6 +179,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
           
           setIsFetching(false)
           toast.success("Updated Successfully!");
+          router.push('/view/completeddirect')
         })
         .catch(function (error) {
           setIsFetching(false)
@@ -199,7 +200,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
       let res = await axios.put(`${url.BASE_URL}forma/residence-addr`, residentialAddr[0]);
       setIsFetching(false)
       toast.success("Updated Successfully!");
-      router.push('/view/completeddirect')
+     
     } catch (error) {
       toast.error("error, Please try again!");
       setIsFetching(false)
