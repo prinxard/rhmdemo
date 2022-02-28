@@ -665,6 +665,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     formData.append('gross_pay', grossPay);
     formData.append('tax_deducted', taxDeduct);
     formData.append('pay_slip', paySLip);
+    console.log("Payslip", paySLip);
     try {
       let res = await axios.post(`${url.BASE_URL}forma/employed`, formData, {
         headers: {

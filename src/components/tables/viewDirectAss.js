@@ -121,6 +121,39 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
   const [isFetching, setIsFetching] = useState(() => false);
 
 
+  // function b64toBlob(b64Data, contentType, sliceSize) {
+  //   contentType = contentType || "";
+  //   sliceSize = sliceSize || 512;
+  //   var byteCharacters = atob(b64Data);
+  //   var byteArrays = [];
+  //   for (
+  //     var offset = 0;
+  //     offset < byteCharacters.length;
+  //     offset += sliceSize
+  //   ) {
+  //     var slice = byteCharacters.slice(offset, offset + sliceSize);
+  //     var byteNumbers = new Array(slice.length);
+  //     for (var i = 0; i < slice.length; i++) {
+  //       byteNumbers[i] = slice.charCodeAt(i);
+  //     }
+  //     var byteArray = new Uint8Array(byteNumbers);
+  //     byteArrays.push(byteArray);
+  //   }
+  //   var blob = new Blob(byteArrays, { type: contentType });
+  //   return blob;
+  // }
+
+  // const blob = b64toBlob(filegoesHere, fileTypeGoesHere);
+
+  // let data = new FormData();
+
+  // data.append("nameOFtheFieldAsTheBackendExpectsIt", blob, fileNameGoesHere);
+
+  // data.append(fieldName,fieldValue);
+
+
+
+
 
   setAuthToken();
 
@@ -1187,6 +1220,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                     style={{ backgroundColor: "#84abeb" }}
                     className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
                     type="submit"
+                    disabled
                   >
                     Save
                   </button>
@@ -1372,6 +1406,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                   style={{ backgroundColor: "#84abeb" }}
                   className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
                   type="submit"
+                  disabled
                 >
                   Save
                 </button>
