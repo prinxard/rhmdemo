@@ -158,7 +158,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
     try {
       let res = await axios.put(`${url.BASE_URL}forma/set-status`, declineDataObj);
       setIsFetching2(false)
-      router.push('/view/pendingdirect')
+      router.push('/view/completeddirect')
       toast.success("Success!");
     } catch (error) {
       toast.error("Failed!");
