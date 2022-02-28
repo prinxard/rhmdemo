@@ -1905,32 +1905,43 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
               <div className="form-group mb-6">
                 <p>State</p>
                 <select onChange={e => handleDomesticStaffChange(index, e)} value={element.state || ""} className="form-select w-full" name="state">
-                  <option value="Abia">Abia</option>
-                  <option value="Akwa Ibom">Akwa Ibom</option>
-                  <option value="Bauchi">Bauchi</option>
-                  <option value="Bayelsa">Bayelsa</option>
-                  <option value="Benue">Benue</option>
-                  <option value="Borno">Borno</option>
-                  <option value="Cross River">Cross River</option>
-                  <option value="Delta">Delta</option>
-                  <option value="Edo">Edo</option>
-                  <option value="Ekiti">Ekiti</option>
-                  <option value="Enugu">Enugu</option>
-                  <option value="Gombe">Gombe</option>
-                  <option value="Imo">Imo</option>
-                  <option value="Jigawa">Jigawa</option>
-                  <option value="Kaduna">Kaduna</option>
-                  <option value="Kano">Kano</option>
-                  <option value="Katsina">Katsina</option>
-                  <option value="Kebbi">Kebbi</option>
-                  <option value="Kogi">Kogi</option>
-                  <option value="Kwara">Kwara</option>
-                  <option value="Lagos">Lagos</option>
-                  <option value="Nasarawa">Nasarawa</option>
-                  <option value="Niger">Niger</option>
-                  <option value="Ogun">Ogun</option>
-                  <option value="Ondo">Ondo</option>
-                  <option value="Osun">Osun</option>
+                  <option>ABUJA FCT</option>
+                  <option>ABIA</option>
+                  <option>ADAMAWA</option>
+                  <option>AKWA IBOM</option>
+                  <option>ANAMBRA</option>
+                  <option>BAUCHI</option>
+                  <option>BAYELSA</option>
+                  <option>BENUE</option>
+                  <option>BORNO</option>
+                  <option>CROSS RIVER</option>
+                  <option>DELTA</option>
+                  <option>EBONYI</option>
+                  <option>EDO</option>
+                  <option>EKITI</option>
+                  <option>ENUGU</option>
+                  <option>GOMBE</option>
+                  <option>IMO</option>
+                  <option>JIGAWA</option>
+                  <option>KADUNA</option>
+                  <option>KANO</option>
+                  <option>KATSINA</option>
+                  <option>KEBBI</option>
+                  <option>KOGI</option>
+                  <option>KWARA</option>
+                  <option>LAGOS</option>
+                  <option>NASSARAWA</option>
+                  <option>NIGER</option>
+                  <option>OGUN</option>
+                  <option>ONDO</option>
+                  <option>OSUN</option>
+                  <option>OYO</option>
+                  <option>PLATEAU</option>
+                  <option>RIVERS</option>
+                  <option>SOKOTO</option>
+                  <option>TARABA</option>
+                  <option>YOBE</option>
+                  <option>ZAMFARA</option>
                 </select>
               </div>
               <div className="form-group mb-6">
