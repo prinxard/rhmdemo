@@ -179,6 +179,7 @@ const ViewSinglePending = () => {
     updateNhis[fieldName] = newValue
     NhisCopy[index] = updateNhis
     setNhis(NhisCopy)
+   
   }
 
   function handlePartner(newValue, index, fieldName) {

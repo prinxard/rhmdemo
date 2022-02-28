@@ -120,37 +120,69 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
   const [servantsToggle, setservantsToggle] = useState('hidden')
   const [isFetching, setIsFetching] = useState(() => false);
 
+  let assessment_id = routerAssId
+  let lapAmount = Number(0)
+  let NhisAmount = Number(0)
+  let penDeductAmount = Number(0)
+  let employmentGross = Number(0)
+  let incomeEarned = Number(0)
+  let otherIncome = Number(0)
+  let expenseAmout = Number(0)
 
-  // function b64toBlob(b64Data, contentType, sliceSize) {
-  //   contentType = contentType || "";
-  //   sliceSize = sliceSize || 512;
-  //   var byteCharacters = atob(b64Data);
-  //   var byteArrays = [];
-  //   for (
-  //     var offset = 0;
-  //     offset < byteCharacters.length;
-  //     offset += sliceSize
-  //   ) {
-  //     var slice = byteCharacters.slice(offset, offset + sliceSize);
-  //     var byteNumbers = new Array(slice.length);
-  //     for (var i = 0; i < slice.length; i++) {
-  //       byteNumbers[i] = slice.charCodeAt(i);
-  //     }
-  //     var byteArray = new Uint8Array(byteNumbers);
-  //     byteArrays.push(byteArray);
-  //   }
-  //   var blob = new Blob(byteArrays, { type: contentType });
-  //   return blob;
-  // }
+  lifeass.forEach((el, i) => (
+    lapAmount = el.amount
+  ))
 
-  // const blob = b64toBlob(filegoesHere, fileTypeGoesHere);
+  nhis.forEach((el, i) => (
+    NhisAmount = el.amount
+  ))
 
-  // let data = new FormData();
+  pensDeduct.forEach((el, i) => (
+    penDeductAmount = el.amount
+  ))
 
-  // data.append("nameOFtheFieldAsTheBackendExpectsIt", blob, fileNameGoesHere);
+  selfEmployment.forEach((el, i) => (
+    incomeEarned = el.income_earned
+  ))
 
-  // data.append(fieldName,fieldValue);
+  selfEmployment.forEach((el, i) => (
+    incomeEarned = el.other_income
+  ))
 
+  employment.forEach((el, i) => (
+    employmentGross = el.gross_pay
+  ))
+
+  expenses.forEach((el, i) => (
+    expenseAmout = el.amount
+  ))
+
+  const totalBusInc = incomeEarned + otherIncome
+  const netProfit = totalBusInc - expenseAmout
+  console.log(lapAmount);
+
+  let submitAssessmentForm = async (e) => {
+    e.preventDefault()
+    setIsFetching(true)
+    let assessFormObj = {
+      assessment_id: `${assessment_id}`,
+      employed: `${employmentGross}`,
+      selfEmployed: `${netProfit}`,
+      nhis: `${NhisAmount}`,
+      lap: `${lapAmount}`,
+      pension: `${penDeductAmount}`,
+    }
+    axios.put(`${url.BASE_URL}forma/tax-cal`, assessFormObj)
+    .then(function (response) {
+      setIsFetching(false)
+      toast.success("Updated Successfully!");
+    })
+    .catch(function (error) {
+      setIsFetching(false)
+      toast.error("Failed! please try again");
+    });
+
+  }
 
 
 
@@ -256,7 +288,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     let formVal = (lifeass)
     for (let indexAr = 0; indexAr < formVal.length; indexAr++) {
       const element = formVal[indexAr];
-      axios.put(`${url.BASE_URL}forma/expenses`, element)
+      axios.put(`${url.BASE_URL}forma/lap`, element)
         .then(function (response) {
           setIsFetching(false)
           toast.success("Updated Successfully!");
@@ -2361,7 +2393,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
         </div>
       </div>
       <div className="flex justify-between mb-5">
-        <p>Life Asurrance ? </p>
+        <p>Life Assurance </p>
         <div className="flex">
 
           <div className="form-check form-check-inline flex ustify-evenly">
@@ -3891,6 +3923,18 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
           }
         </form>
       </div>
+      <form onSubmit={submitAssessmentForm}>
+
+        <div className="mb-6 flex justify-center">
+          <button
+            style={{ backgroundColor: "#84abeb" }}
+            className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+            type="submit"
+          >
+            Submit form
+          </button>
+        </div>
+      </form>
     </>
   );
 };
