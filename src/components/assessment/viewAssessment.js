@@ -1941,12 +1941,12 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
               <div className="flex justify-between self-center">
                 <div className="form-check form-check-inline ">
-                  <input onChange={e => handleDomesticStaffChange(index, e)} value="employer" name={index ? `payer${index}` : "payer"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" />
+                  <input onChange={e => handleDomesticStaffChange(index, e)} value="employer" name="payer" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" />
                   <label className="form-check-label  text-gray-800" for="inlineRadio10">Paid by employer</label>
                 </div>
 
                 <div className="form-check form-check-inline ml-5">
-                  <input onChange={e => handleDomesticStaffChange(index, e)} value="self" name={index ? `payer${index}` : "payer"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" />
+                  <input onChange={e => handleDomesticStaffChange(index, e)} value="self" name="payer" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" />
                   <label className="form-check-label  text-gray-800" for="inlineRadio20">Paid by self</label>
                 </div>
               </div>
@@ -2336,7 +2336,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                         </div>
 
                         <div className="form-check form-check-inline ml-5">
-                          <input onChange={handleSelfEmployedChange} value="Estimated" name="Provisional" checked={selfEmployed.figures_estimated === "Provisional"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
+                          <input onChange={handleSelfEmployedChange} value="Estimated" name="figures_estimated" checked={selfEmployed.figures_estimated === "Provisional"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
                           <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Provisional</label>
                         </div>
                       </div>
