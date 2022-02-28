@@ -176,7 +176,6 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     }
     axios.put(`${url.BASE_URL}forma/tax-cal`, assessFormObj)
         .then(function (response) {
-          
           setIsFetching(false)
           toast.success("Updated Successfully!");
           router.push('/view/completeddirect')
