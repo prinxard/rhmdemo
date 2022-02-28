@@ -7,55 +7,55 @@ const initialState = [
     title: 'Applications',
     items: [
 
-      // {
-      //   url: '/',
-      //   icon: <FileReturns />,
-      //   title: 'Manage Taxpayer',
-      //   items: [
-      //     {
-      //       title: 'Dashboard',
-      //       url: '/',
-      //       items: [],
-      //     },
-      //     {
-      //       title: 'Individual',
-      //       items: [
-      //         { title: 'Create', url: '/', items: [] },
-      //         {
-      //           title: 'View',
-      //           url: '/view/individual',
-      //           items: [],
-      //         },
-      //       ],
-      //     },
-      //     {
-      //       title: 'Non-Individual',
-      //       items: [
-      //         { title: 'Create', url: '/', items: [] },
-      //         {
-      //           title: 'View',
-      //           url: '/view/nonindividual',
-      //           items: [],
-      //         },
-      //       ],
-      //     },
-      //   ],
-      // },
+      {
+        url: '/',
+        icon: <FileReturns />,
+        title: 'Manage Taxpayer',
+        items: [
+          // {
+          //   title: 'Dashboard',
+          //   url: '/',
+          //   items: [],
+          // },
+          {
+            title: 'Individual',
+            items: [
+              // { title: 'Create', url: '/', items: [] },
+              {
+                title: 'View',
+                url: '/view/individual',
+                items: [],
+              },
+            ],
+          },
+          {
+            title: 'Non-Individual',
+            items: [
+              // { title: 'Create', url: '/', items: [] },
+              {
+                title: 'View',
+                url: '/view/nonindividual',
+                items: [],
+              },
+            ],
+          },
+        ],
+      },
 
       {
         url: '/',
         icon: <FileReturns />,
         title: 'Manage User',
         items: [
-          {
-            title: 'Dashboard',
-            url: '/',
-            items: [],
-          },
+          // {
+          //   title: 'Dashboard',
+          //   url: '/',
+          //   items: [],
+          // },
           {
             title: 'User',
             items: [
-              { title: 'Create', url: '/', items: [] },
+              // { title: 'Create', url: '/', items: [] },
               {
                 title: 'View',
                 url: '/',

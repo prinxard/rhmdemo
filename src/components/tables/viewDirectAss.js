@@ -15,6 +15,7 @@ import axios from "axios";
 import { stringify } from "uuid";
 import { useForm } from 'react-hook-form';
 import { FiTriangle } from "react-icons/fi";
+import router, { useRouter } from "next/router";
 
 const fields = [
   {
@@ -119,6 +120,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
   const [childrenToggle, setchildrenToggle] = useState('hidden')
   const [servantsToggle, setservantsToggle] = useState('hidden')
   const [isFetching, setIsFetching] = useState(() => false);
+  const router = useRouter();
 
   let assessment_id = routerAssId
   let lapAmount = Number(0)
@@ -157,13 +159,13 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     expenseAmout = el.amount
   ))
 
-  const totalBusInc = incomeEarned + otherIncome
-  const netProfit = totalBusInc - expenseAmout
-  console.log(lapAmount);
+  let totalBusInc = incomeEarned + otherIncome
+  let netProfit = totalBusInc - expenseAmout
+  console.log("lap ",lapAmount, "pen ", penDeductAmount, "Nhis", NhisAmount);
 
-  let submitAssessmentForm = async (e) => {
+  setAuthToken();
+  let submitForm = (e) => {
     e.preventDefault()
-    setIsFetching(true)
     let assessFormObj = {
       assessment_id: `${assessment_id}`,
       employed: `${employmentGross}`,
@@ -173,15 +175,15 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
       pension: `${penDeductAmount}`,
     }
     axios.put(`${url.BASE_URL}forma/tax-cal`, assessFormObj)
-    .then(function (response) {
-      setIsFetching(false)
-      toast.success("Updated Successfully!");
-      router.push('/view/completeddirect')
-    })
-    .catch(function (error) {
-      setIsFetching(false)
-      toast.error("Failed! please try again");
-    });
+        .then(function (response) {
+          
+          setIsFetching(false)
+          toast.success("Updated Successfully!");
+        })
+        .catch(function (error) {
+          setIsFetching(false)
+          toast.error("Failed! please try again");
+        });
 
   }
 
@@ -197,6 +199,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
       let res = await axios.put(`${url.BASE_URL}forma/residence-addr`, residentialAddr[0]);
       setIsFetching(false)
       toast.success("Updated Successfully!");
+      router.push('/view/completeddirect')
     } catch (error) {
       toast.error("error, Please try again!");
       setIsFetching(false)
@@ -204,6 +207,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
   }
 
+  setAuthToken();
   let submitDataPensDed = async (e, index) => {
     e.preventDefault()
     setIsFetching(true)
@@ -223,7 +227,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     }
 
   }
-
+  setAuthToken();
   let submitDataEmployment = async (e, index) => {
     e.preventDefault()
     setIsFetching(true)
@@ -243,7 +247,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     }
 
   }
-
+  setAuthToken();
   let submitDataSelfEmployment = async (e, index) => {
     e.preventDefault()
     setIsFetching(true)
@@ -263,7 +267,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     }
 
   }
-
+  setAuthToken();
   let submitDataExpenses = async (e, index) => {
     e.preventDefault()
     setIsFetching(true)
@@ -282,7 +286,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     }
 
   }
-
+  setAuthToken();
   let submitDataLap = async (e, index) => {
     e.preventDefault()
     setIsFetching(true)
@@ -301,7 +305,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     }
 
   }
-
+  setAuthToken();
   let submitDataNhis = async (e, index) => {
     e.preventDefault()
     setIsFetching(true)
@@ -320,7 +324,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     }
 
   }
-
+  setAuthToken();
   let submitDataPartner = async (e, index) => {
     e.preventDefault()
     setIsFetching(true)
@@ -339,7 +343,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     }
 
   }
-
+  setAuthToken();
   let submitDataRentIncome = async (e, index) => {
     e.preventDefault()
     setIsFetching(true)
@@ -358,7 +362,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     }
 
   }
-
+  setAuthToken();
   let submitDataBankInterest = async (e, index) => {
     e.preventDefault()
     setIsFetching(true)
@@ -377,7 +381,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     }
 
   }
-
+  setAuthToken();
   let submitDataBankDividends = async (e, index) => {
     e.preventDefault()
     setIsFetching(true)
@@ -396,7 +400,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     }
 
   }
-
+  setAuthToken();
   let submitDataPension = async (e, index) => {
     e.preventDefault()
     setIsFetching(true)
@@ -415,7 +419,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     }
 
   }
-
+  setAuthToken();
   let submitDataAsset = async (e, index) => {
     e.preventDefault()
     setIsFetching(true)
@@ -434,7 +438,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     }
 
   }
-
+  setAuthToken();
   let submitDataOutside = async (e, index) => {
     e.preventDefault()
     setIsFetching(true)
@@ -453,7 +457,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     }
 
   }
-
+  setAuthToken();
   let submitDataVehicles = async (e, index) => {
     e.preventDefault()
     setIsFetching(true)
@@ -472,7 +476,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     }
 
   }
-
+  setAuthToken();
   let submitDataLand = async (e, index) => {
     e.preventDefault()
     setIsFetching(true)
@@ -491,7 +495,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     }
 
   }
-
+  setAuthToken();
   let submitDataFarm = async (e, index) => {
     e.preventDefault()
     setIsFetching(true)
@@ -510,7 +514,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     }
 
   }
-
+  setAuthToken();
   let submitDataSpouse = async (e, index) => {
     e.preventDefault()
     setIsFetching(true)
@@ -529,7 +533,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     }
 
   }
-
+  setAuthToken();
   let submitDataChildren = async (e, index) => {
     e.preventDefault()
     setIsFetching(true)
@@ -548,7 +552,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     }
 
   }
-
+  setAuthToken();
   let submitDataDomestic = async (e, index) => {
     e.preventDefault()
     setIsFetching(true)
@@ -3924,7 +3928,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
           }
         </form>
       </div>
-      <form onSubmit={submitAssessmentForm}>
+      <form onSubmit={submitForm}>
 
         <div className="mb-6 flex justify-center">
           <button
