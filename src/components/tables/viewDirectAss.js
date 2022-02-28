@@ -176,6 +176,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     .then(function (response) {
       setIsFetching(false)
       toast.success("Updated Successfully!");
+      router.push('/view/completeddirect')
     })
     .catch(function (error) {
       setIsFetching(false)
