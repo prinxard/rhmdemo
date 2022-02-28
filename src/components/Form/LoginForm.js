@@ -120,14 +120,14 @@ const LoginForm = () => {
           </div>
         </div>
 
-        <div className="mt-6">
+        {/* <div className="mt-6">
           <p>
             Don't have an account?
             <Link href="/signup">
               <a className="text-blue-500"> Sign Up</a>
             </Link>
           </p>
-        </div>
+        </div> */}
       </div>
     </form>
   );
