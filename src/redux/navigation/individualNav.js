@@ -250,11 +250,6 @@ const initialState = [
           },
           {
             url: '/',
-            title: 'Create',
-            items: [],
-          },
-          {
-            url: '/',
             title: 'View',
             items: [],
           },
