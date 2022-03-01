@@ -67,7 +67,7 @@ const Layout1 = ({ children }) => {
       ) : (
         <>
           <Head>
-            <title>KGIRS eTax Portal</title>
+            <title>KGIRS Revenue House Manager</title>
           </Head>
           <div
             data-layout={layout}

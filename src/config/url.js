@@ -8,6 +8,10 @@ const url = {
   // BASE_URL: "https://rhmapi.bespoque.dev/api/v1/",
 
   BASE_URL: "https://rhmlive.bespoque.dev/api/v1/",
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
   // PAY_URL: "https://etaxpay.irs.kg.gov.ng/",
 
   // Test Db

@@ -10,6 +10,17 @@ export const KgirsLogo = () => {
     />
   );
 };
+export const RHMLogo = () => {
+  return (
+    <Image
+      layout="fixed"
+      src="/images/rhm.png"
+      alt="login"
+      width={60}
+      height={60}
+    />
+  );
+};
 export const KogiGov = () => {
   return (
     <Image

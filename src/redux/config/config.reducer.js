@@ -1,7 +1,7 @@
 import { configActionTypes } from "./config.types";
 const initialState = {
-  name: "KGIRS",
-  description: "KGIRS eTax Portal",
+  name: "RHM",
+  description: "Revenue House Manager",
   url: "/",
   layout: "layout-1",
   collapsed: false,
