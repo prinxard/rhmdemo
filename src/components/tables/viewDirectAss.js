@@ -146,7 +146,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
   selfEmployment.forEach((el, i) => (
     incomeEarned = el.income_earned
   ))
-  
+
 
   selfEmployment.forEach((el, i) => (
     otherIncome = el.other_income
@@ -162,8 +162,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
   let totalBusInc = incomeEarned + otherIncome
   let netProfit = totalBusInc - expenseAmout
-  console.log("lap ", lapAmount, "pen ", penDeductAmount, "Nhis", NhisAmount);
-
+ 
   setAuthToken();
   let submitForm = (e) => {
     e.preventDefault()
@@ -1468,7 +1467,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                     <div className="form-group mb-6">
                       <p>Name</p>
                       <input name="name" type="text" className="form-control w-full rounded"
-                        value={ind.name} onChange={(e) => changedDomestic(e, i, "name")} value={ind.title} />
+                        value={ind.name} onChange={(e) => changedDomestic(e, i, "name")} />
                     </div>
 
                     <div className="form-group mb-6">
@@ -2070,6 +2069,10 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                         <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Provisional</label>
                       </div>
                     </div>
+                  </div>
+                  <div className="flex justify-center">
+                    <label className="font-bold"> Total Business Income :</label>
+                    <p className="font-bold"> NGN {totalBusInc}</p>
                   </div>
                   <div className='pb-5'>
                     <hr />
