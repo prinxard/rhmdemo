@@ -1,7 +1,7 @@
 import { FiMenu } from "react-icons/fi";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import Link from "next/link";
-import { KgirsLogo } from "../Images/Images";
+import { KgirsLogo, RHMLogo } from "../Images/Images";
 
 const Logo = () => {
   const dispatch = useDispatch();
@@ -19,8 +19,8 @@ const Logo = () => {
       <div className="logo truncate">
         <Link href="/">
           <a className="flex flex-row items-center justify-start space-x-2">
-            <KgirsLogo size={28} />
-            <span className="text-green-600">{name}</span>
+            <RHMLogo size={28} />
+            {/* <span className="text-green-600">{name}</span> */}
           </a>
         </Link>
         <button

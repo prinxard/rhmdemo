@@ -302,6 +302,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     let newChildValues = [...children];
     newChildValues[i][e.target.name] = e.target.value;
     setChildren(newChildValues);
+    console.log(newChildValues);
   }
 
   let addChildFields = () => {
@@ -312,6 +313,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     let newChildValues = [...children];
     newChildValues.splice(i, 1);
     setChildren(newChildValues)
+
   }
 
   let handleChildSubmit = (event) => {
@@ -333,7 +335,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
   }
   const [domesticStaff, setDomesticStaff] = useState(
     [{
-      assessment_id: "", title: "", name: "", house_no: "", street: "",
+      assessment_id: `${assessment_id}`, title: "", name: "", house_no: "", street: "",
       town: "", lga: "", state: "", amount_paid: "", payer: ""
     }]
   )
@@ -852,32 +854,32 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     }
   }
 
-  setAuthToken();
-  let submitDataStaff = async (e) => {
-    e.preventDefault()
-    setIsFetching12(true)
-    let staffDataObj = {
-      assessment_id: `${assessment_id}`,
-      title: `${domesticStaff.title}`,
-      name: `${domesticStaff.name}`,
-      street: `${domesticStaff.street}`,
-      house_no: `${domesticStaff.house_no}`,
-      town: `${domesticStaff.town}`,
-      lga: `${domesticStaff.lga}`,
-      state: `${domesticStaff.lga}`,
-      amount_paid: `${domesticStaff.amount_paid}`,
-      payer: `${domesticStaff.payer}`,
-    }
-    try {
-      let res = await axios.post(`${url.BASE_URL}forma/domestic-staff`, staffDataObj);
-      setIsFetching12(false)
-      toast.success("Saved Successfully!");
-    } catch (error) {
-      toast.error("error, Please try again!");
-      console.log(error);
-      setIsFetching12(false)
-    }
-  }
+  // setAuthToken();
+  // let submitDataStaff = async (e) => {
+  //   e.preventDefault()
+  //   setIsFetching12(true)
+  //   let staffDataObj = {
+  //     assessment_id: `${assessment_id}`,
+  //     title: `${domesticStaff.title}`,
+  //     name: `${domesticStaff.name}`,
+  //     street: `${domesticStaff.street}`,
+  //     house_no: `${domesticStaff.house_no}`,
+  //     town: `${domesticStaff.town}`,
+  //     lga: `${domesticStaff.lga}`,
+  //     state: `${domesticStaff.lga}`,
+  //     amount_paid: `${domesticStaff.amount_paid}`,
+  //     payer: `${domesticStaff.payer}`,
+  //   }
+  //   try {
+  //     let res = await axios.post(`${url.BASE_URL}forma/domestic-staff`, staffDataObj);
+  //     setIsFetching12(false)
+  //     toast.success("Saved Successfully!");
+  //   } catch (error) {
+  //     toast.error("error, Please try again!");
+  //     console.log(error);
+  //     setIsFetching12(false)
+  //   }
+  // }
 
   setAuthToken();
   let submitDataPartner = async (e) => {
@@ -1894,13 +1896,8 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
               </div>
               <div className="form-group mb-6">
                 <p>LGA</p>
-                <select name="lga" onChange={e => handleDomesticStaffChange(index, e)} value={element.lga || ""} className="form-select w-full"  >
-                  <option value="kabba">Select</option>
-                  <option value="Adavi">Adavi</option>
-                  <option value="Ajaokuta">Ajaokuta</option>
-                  <option value="Ankpa">Ankpa</option>
-                  <option value="Bassa">Bassa</option>
-                </select>
+                <input onChange={e => handleDomesticStaffChange(index, e)} type="text" name="lga" value={element.lga || ""} className="form-control w-full rounded"
+                  placeholder="LGA" />
               </div>
               <div className="form-group mb-6">
                 <p>State</p>
@@ -1946,21 +1943,18 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
               </div>
               <div className="form-group mb-6">
                 <p>Annual Pay</p>
-                <input required onChange={e => handleDomesticStaffChange(index, e)} name="amount_paid" value={element.amount_paid || ""} type="text" className="form-control w-full rounded"
+                <input required onChange={e => handleDomesticStaffChange(index, e)} name="amount_paid" type="text" className="form-control w-full rounded"
                   placeholder="Amount paid (Annual)" />
               </div>
 
-              <div className="flex justify-between self-center">
-                <div className="form-check form-check-inline ">
-                  <input onChange={e => handleDomesticStaffChange(index, e)} value="employer" name="payer" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" />
-                  <label className="form-check-label  text-gray-800" for="inlineRadio10">Paid by employer</label>
-                </div>
-
-                <div className="form-check form-check-inline ml-5">
-                  <input onChange={e => handleDomesticStaffChange(index, e)} value="self" name="payer" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" />
-                  <label className="form-check-label  text-gray-800" for="inlineRadio20">Paid by self</label>
-                </div>
+              <div className="form-group mb-6">
+                <p>Payer</p>
+                <select onChange={e => handleDomesticStaffChange(index, e)} value={element.payer || ""} name="payer" className="form-select w-full" >
+                  <option>Paid by Employer</option>
+                  <option>Paid by self</option>
+                </select>
               </div>
+
               <div></div>
               <div className="justify-self-center">
                 {

@@ -56,7 +56,7 @@ const LoginForm = () => {
   return (
     <form onSubmit={handleSubmit(SubmitHandler)} autoComplete="off">
       <div className="w-full p-1">
-        <FormHeader text="Welcome" />
+        <FormHeader text="Revenue House Manager" />
         {loginErrors !== null && (
           <p className="text-red-500 shadow-md py-2 px-2 border-l-2 border-red-500">
             {loginErrors}

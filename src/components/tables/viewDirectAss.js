@@ -161,7 +161,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
   let totalBusInc = incomeEarned + otherIncome
   let netProfit = totalBusInc - expenseAmout
-  console.log("lap ",lapAmount, "pen ", penDeductAmount, "Nhis", NhisAmount);
+  console.log("lap ", lapAmount, "pen ", penDeductAmount, "Nhis", NhisAmount);
 
   setAuthToken();
   let submitForm = (e) => {
@@ -175,15 +175,15 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
       pension: `${penDeductAmount}`,
     }
     axios.put(`${url.BASE_URL}forma/tax-cal`, assessFormObj)
-        .then(function (response) {
-          setIsFetching(false)
-          toast.success("Updated Successfully!");
-          router.push('/view/completeddirect')
-        })
-        .catch(function (error) {
-          setIsFetching(false)
-          toast.error("Failed! please try again");
-        });
+      .then(function (response) {
+        setIsFetching(false)
+        toast.success("Updated Successfully!");
+        router.push('/view/completeddirect')
+      })
+      .catch(function (error) {
+        setIsFetching(false)
+        toast.error("Failed! please try again");
+      });
 
   }
 
@@ -199,7 +199,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
       let res = await axios.put(`${url.BASE_URL}forma/residence-addr`, residentialAddr[0]);
       setIsFetching(false)
       toast.success("Updated Successfully!");
-     
+
     } catch (error) {
       toast.error("error, Please try again!");
       setIsFetching(false)
@@ -1487,43 +1487,49 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                     </div>
                     <div className="form-group mb-6">
                       <p>LGA</p>
-                      <select value={ind.lga} onChange={(e) => changedDomestic(e, i, "lga")} name="lga" className="form-select w-full"  >
-                        <option value="kabba">Select</option>
-                        <option value="Adavi">Adavi</option>
-                        <option value="Ajaokuta">Ajaokuta</option>
-                        <option value="Ankpa">Ankpa</option>
-                        <option value="Bassa">Bassa</option>
-                      </select>
+                      <input type="text" name="lga" className="form-control w-full rounded"
+                        value={ind.lga} onChange={(e) => changedDomestic(e, i, "lga")} />
                     </div>
                     <div className="form-group mb-6">
                       <p>State</p>
                       <select value={ind.state} onChange={(e) => changedDomestic(e, i, "state")} className="form-select w-full" name="state">
-                        <option value="Abia">Abia</option>
-                        <option value="Akwa Ibom">Akwa Ibom</option>
-                        <option value="Bauchi">Bauchi</option>
-                        <option value="Bayelsa">Bayelsa</option>
-                        <option value="Benue">Benue</option>
-                        <option value="Borno">Borno</option>
-                        <option value="Cross River">Cross River</option>
-                        <option value="Delta">Delta</option>
-                        <option value="Edo">Edo</option>
-                        <option value="Ekiti">Ekiti</option>
-                        <option value="Enugu">Enugu</option>
-                        <option value="Gombe">Gombe</option>
-                        <option value="Imo">Imo</option>
-                        <option value="Jigawa">Jigawa</option>
-                        <option value="Kaduna">Kaduna</option>
-                        <option value="Kano">Kano</option>
-                        <option value="Katsina">Katsina</option>
-                        <option value="Kebbi">Kebbi</option>
-                        <option value="Kogi">Kogi</option>
-                        <option value="Kwara">Kwara</option>
-                        <option value="Lagos">Lagos</option>
-                        <option value="Nasarawa">Nasarawa</option>
-                        <option value="Niger">Niger</option>
-                        <option value="Ogun">Ogun</option>
-                        <option value="Ondo">Ondo</option>
-                        <option value="Osun">Osun</option>
+                        <option>ABUJA FCT</option>
+                        <option>ABIA</option>
+                        <option>ADAMAWA</option>
+                        <option>AKWA IBOM</option>
+                        <option>ANAMBRA</option>
+                        <option>BAUCHI</option>
+                        <option>BAYELSA</option>
+                        <option>BENUE</option>
+                        <option>BORNO</option>
+                        <option>CROSS RIVER</option>
+                        <option>DELTA</option>
+                        <option>EBONYI</option>
+                        <option>EDO</option>
+                        <option>EKITI</option>
+                        <option>ENUGU</option>
+                        <option>GOMBE</option>
+                        <option>IMO</option>
+                        <option>JIGAWA</option>
+                        <option>KADUNA</option>
+                        <option>KANO</option>
+                        <option>KATSINA</option>
+                        <option>KEBBI</option>
+                        <option>KOGI</option>
+                        <option>KWARA</option>
+                        <option>LAGOS</option>
+                        <option>NASSARAWA</option>
+                        <option>NIGER</option>
+                        <option>OGUN</option>
+                        <option>ONDO</option>
+                        <option>OSUN</option>
+                        <option>OYO</option>
+                        <option>PLATEAU</option>
+                        <option>RIVERS</option>
+                        <option>SOKOTO</option>
+                        <option>TARABA</option>
+                        <option>YOBE</option>
+                        <option>ZAMFARA</option>
                       </select>
                     </div>
                     <div className="form-group mb-6">
@@ -1532,19 +1538,13 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                         value={ind.amount_paid} onChange={(e) => changedDomestic(e, i, "amount_paid")} />
                     </div>
 
-                    <div className="flex justify-between self-center">
-                      <div className="form-check form-check-inline ">
-                        <input value={ind.payer} name={i ? `payer${i}` : "payer"} onChange={(e) => changedDomestic(e, i, "payer")} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" />
-                        <label className="form-check-label  text-gray-800" for="inlineRadio10">Paid by employer</label>
-                      </div>
-
-                      <div className="form-check form-check-inline ml-5">
-                        <input value={ind.payer} name={i ? `payer${i}` : "payer"} onChange={(e) => changedDomestic(e, i, "payer")} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" />
-                        <label className="form-check-label  text-gray-800" for="inlineRadio20">Paid by self</label>
-                      </div>
+                    <div className="form-group mb-6">
+                      <p>Payer</p>
+                      <select value={ind.payer} onChange={(e) => changedDomestic(e, i, "payer")} name="payer" className="form-select w-full" >
+                        <option>Paid by Employer</option>
+                        <option>Paid by self</option>
+                      </select>
                     </div>
-                    <div></div>
-                    <div></div>
                   </div>
                 </div>
               ))}
