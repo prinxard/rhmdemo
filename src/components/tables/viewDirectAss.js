@@ -146,9 +146,10 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
   selfEmployment.forEach((el, i) => (
     incomeEarned = el.income_earned
   ))
+  
 
   selfEmployment.forEach((el, i) => (
-    incomeEarned = el.other_income
+    otherIncome = el.other_income
   ))
 
   employment.forEach((el, i) => (

@@ -7,14 +7,10 @@ export const login = (data) => async (dispatch) => {
   try {
     const login = await axios.post(`${url.BASE_URL}user/login`, data);
     const auth = login.data.accessToken;
-    console.log(data);
-    // let userKgtin = data.kgtin
-    // localStorage.setItem("kgtin", userKgtin)
-    // console.log(userKgtin)
-    // console.log("auth", auth);
-
+    const userGroup = login.data.userGroups
+    
     dispatch({ type: authActionTypes.SET_LOGIN_SUBMITTING });
-    dispatch({ type: authActionTypes.LOGIN, payload: auth });
+    dispatch({ type: authActionTypes.LOGIN, payload: auth, userAccess: userGroup});
   } catch (e) {
     dispatch({ type: authActionTypes.SET_LOGIN_SUBMITTING });
     if (e.response) {

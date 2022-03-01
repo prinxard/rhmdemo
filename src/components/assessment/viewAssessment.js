@@ -275,7 +275,8 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
 
   const [spouse, setSpouse] = useState(
-    [{ assessment_id: `${assessment_id}`, name: "", employer: "", dob: "", occupation: "", employer_addr: "" }]
+    [{ assessment_id: `${assessment_id}`, name: "", employer: "", 
+    dob: "", occupation: "", employer_addr: "" }]
   )
 
   let handleSpouseChange = (i, e) => {
@@ -285,7 +286,8 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
   }
 
   let addSpouseFields = () => {
-    setSpouse([...spouse, { assessment_id: `${assessment_id}`, name: "", employer: "", dob: "", occupation: "", employer_addr: "" }])
+    setSpouse([...spouse, { assessment_id: `${assessment_id}`,
+     name: "", employer: "", dob: "", occupation: "", employer_addr: "" }])
   }
 
   let removeSpouseFields = (i) => {
@@ -295,7 +297,8 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
   }
 
   const [children, setChildren] = useState(
-    [{ assessment_id: `${assessment_id}`, name: "", dob: "", school_name: "", school_addr: "", school_fees: "", child_income: "" }]
+    [{ assessment_id: `${assessment_id}`, name: "", dob: "", school_name: "", 
+    school_addr: "", school_fees: "", child_income: "" }]
   )
 
   let handleChildrenChange = (i, e) => {
@@ -306,7 +309,8 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
   }
 
   let addChildFields = () => {
-    setChildren([...children, { assessment_id: `${assessment_id}`, name: "", dob: "", school_name: "", school_addr: "", school_fees: "", child_income: "" }])
+    setChildren([...children, { assessment_id: `${assessment_id}`, name: "", dob: "", 
+    school_name: "", school_addr: "", school_fees: "", child_income: "" }])
   }
 
   let removeChildFields = (i) => {
@@ -471,7 +475,8 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
   const [rentIncome, setRentIncome] = useState(
     {
-      assessment_id: "", prop_type: "", prop_address: "", rental_type: "", rental_amount: "",
+      assessment_id: "", prop_type: "", prop_address: "", 
+      rental_type: "", rental_amount: "",
       renter_phone: "", renter_name: "", comments: ""
     }
   )
@@ -506,7 +511,8 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
   )
   const [land, SetLand] = useState(
     {
-      assessment_id: "", addr: "", prop_type: "", date_completion: "", construction_cost: "",
+      assessment_id: "", addr: "", prop_type: "", date_completion: "", 
+      construction_cost: "",
     }
   )
 
@@ -830,29 +836,29 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     }
   }
 
-  setAuthToken();
-  let submitDataChild = async (e) => {
-    e.preventDefault()
-    setIsFetching11(true)
-    let childDataObj = {
-      assessment_id: `${assessment_id}`,
-      name: `${childData.name}`,
-      dob: `${childData.dob}`,
-      school_name: `${childData.school_name}`,
-      school_addr: `${childData.school_name}`,
-      school_fees: `${childData.school_fees}`,
-      child_income: `${childData.school_fees}`,
-    }
-    try {
-      let res = await axios.post(`${url.BASE_URL}forma/children`, childDataObj);
-      setIsFetching11(false)
-      toast.success("Saved Successfully!");
-    } catch (error) {
-      toast.error("error, Please try again!");
-      console.log(error);
-      setIsFetching11(false)
-    }
-  }
+  // setAuthToken();
+  // let submitDataChild = async (e) => {
+  //   e.preventDefault()
+  //   setIsFetching11(true)
+  //   let childDataObj = {
+  //     assessment_id: `${assessment_id}`,
+  //     name: `${childData.name}`,
+  //     dob: `${childData.dob}`,
+  //     school_name: `${childData.school_name}`,
+  //     school_addr: `${childData.school_name}`,
+  //     school_fees: `${childData.school_fees}`,
+  //     child_income: `${childData.school_fees}`,
+  //   }
+  //   try {
+  //     let res = await axios.post(`${url.BASE_URL}forma/children`, childDataObj);
+  //     setIsFetching11(false)
+  //     toast.success("Saved Successfully!");
+  //   } catch (error) {
+  //     toast.error("error, Please try again!");
+  //     console.log(error);
+  //     setIsFetching11(false)
+  //   }
+  // }
 
   // setAuthToken();
   // let submitDataStaff = async (e) => {
