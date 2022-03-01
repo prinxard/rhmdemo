@@ -63,7 +63,7 @@ const ViewDoc = () => {
                             className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
                             type="submit"
                         >
-                            <a href={`https://annualuploads.bespoque.dev/rhm/uploads/da/forma/${el.pay_slip}`} target="_blank"> View Document</a>
+                            <a href={`https://annualuploads.bespoque.dev/rhm-live/uploads/da/forma/${el.pay_slip}`} target="_blank"> View Document</a>
                             
                         </button>
                     </div>
