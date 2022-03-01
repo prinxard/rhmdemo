@@ -1239,12 +1239,12 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                   </div>
                   <div className="form-group">
                     <p>School Fees</p>
-                    <input name="school_fees" type="number" className="form-control w-full rounded"
+                    <input name="school_fees" type="text" className="form-control w-full rounded"
                       placeholder="Child's school fees per session" />
                   </div>
                   <div className="form-group">
                     <p>Child's Income</p>
-                    <input name="child_income" type="number" className="form-control w-full rounded"
+                    <input name="child_income" type="text" className="form-control w-full rounded"
                       placeholder="Child's income in own right" />
                   </div>
                   <div></div>
@@ -1290,12 +1290,12 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                       </div>
                       <div className="form-group">
                         <p>School Fees</p>
-                        <input name="school_fees" type="number" className="form-control w-full rounded"
+                        <input name="school_fees" type="text" className="form-control w-full rounded"
                           value={ind.school_fees} onChange={(e) => changedChildren(e, i, "school_fees")} />
                       </div>
                       <div className="form-group">
                         <p>Child's Income</p>
-                        <input name="child_income" type="number" className="form-control w-full rounded"
+                        <input name="child_income" type="text" className="form-control w-full rounded"
                           value={ind.child_income} onChange={(e) => changedChildren(e, i, "child_income")} />
                       </div>
                       <div></div>
@@ -1419,7 +1419,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                 </div>
                 <div className="form-group mb-6">
                   <p>Annual Pay</p>
-                  <input name="amount_paid" type="number" className="form-control w-full rounded"
+                  <input name="amount_paid" type="text" className="form-control w-full rounded"
                     placeholder="Amount paid (Annual)" />
                 </div>
 
@@ -1534,7 +1534,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                     </div>
                     <div className="form-group mb-6">
                       <p>Annual Pay</p>
-                      <input name="amount_paid" type="number" className="form-control w-full rounded"
+                      <input name="amount_paid" type="text" className="form-control w-full rounded"
                         value={ind.amount_paid} onChange={(e) => changedDomestic(e, i, "amount_paid")} />
                     </div>
 
@@ -1604,13 +1604,13 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
               <div className="mb-6 grid grid-cols-3 gap-4">
                 <label htmlFor="employername">RSA No:</label>
-                <input name="rsa_no" type="number" className="form-control w-full rounded"
+                <input name="rsa_no" type="text" className="form-control w-full rounded"
                 />
               </div>
 
               <div className="mb-6 grid grid-cols-3 gap-4">
                 <label htmlFor="employername">Amount:</label>
-                <input required placeholder="₦" name="amount" type="number" className="form-control w-full rounded"
+                <input required placeholder="₦" name="amount" type="text" className="form-control w-full rounded"
                 />
               </div>
 
@@ -1656,13 +1656,13 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label htmlFor="employername">RSA No:</label>
-                    <input value={ind.rsa_no} name="rsa_no" type="number" onChange={(e) => changedPensDed(e, i, "rsa_no")} key={i} className="form-control w-full rounded"
+                    <input value={ind.rsa_no} name="rsa_no" type="text" onChange={(e) => changedPensDed(e, i, "rsa_no")} key={i} className="form-control w-full rounded"
                     />
                   </div>
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label htmlFor="employername">Amount:</label>
-                    <input value={ind.amount} required placeholder="₦" name="amount" type="number" onChange={(e) => changedPensDed(e, i, "amount")} key={i} className="form-control w-full rounded"
+                    <input value={ind.amount} required placeholder="₦" name="amount" type="text" onChange={(e) => changedPensDed(e, i, "amount")} key={i} className="form-control w-full rounded"
                     />
                   </div>
 
@@ -1735,12 +1735,12 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                 </div>
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label>Gross pay:</label>
-                  <input required placeholder="₦" placeholder="₦" type="number" name="gross_pay" className="form-control w-full rounded"
+                  <input required placeholder="₦" placeholder="₦" type="text" name="gross_pay" className="form-control w-full rounded"
                   />
                 </div>
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label>Tax deducted:</label>
-                  <input placeholder="₦" type="number" name="tax_deducted" className="form-control w-full rounded"
+                  <input placeholder="₦" type="text" name="tax_deducted" className="form-control w-full rounded"
                   />
                 </div>
                 <div className="mb-6 grid grid-cols-3 gap-4">
@@ -1790,12 +1790,12 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label>Gross pay:</label>
-                    <input required value={ind.gross_pay} onChange={(e) => changedEmploy(e, i, "gross_pay")} key={i} placeholder="₦" type="number" name="gross_pay" className="form-control w-full rounded"
+                    <input required value={ind.gross_pay} onChange={(e) => changedEmploy(e, i, "gross_pay")} key={i} placeholder="₦" type="text" name="gross_pay" className="form-control w-full rounded"
                     />
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label>Tax deducted:</label>
-                    <input value={ind.tax_deducted} onChange={(e) => changedEmploy(e, i, "tax_deducted")} key={i} placeholder="₦" type="number" name="tax_deducted" className="form-control w-full rounded"
+                    <input value={ind.tax_deducted} onChange={(e) => changedEmploy(e, i, "tax_deducted")} key={i} placeholder="₦" type="text" name="tax_deducted" className="form-control w-full rounded"
                     />
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
@@ -2015,13 +2015,13 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label htmlFor="turnover">Turnover-takings, fees, sales or money earned by your business:</label>
-                    <input required placeholder="₦" name="income_earned" type="number" className="form-control w-full rounded"
+                    <input required placeholder="₦" name="income_earned" type="text" className="form-control w-full rounded"
                     />
                   </div>
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label htmlFor="turnover">Any other business income not included above:</label>
-                    <input placeholder="₦" name="other_income" type="number" className="form-control w-full rounded"
+                    <input placeholder="₦" name="other_income" type="text" className="form-control w-full rounded"
                     />
                   </div>
 
@@ -2257,13 +2257,13 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
                     <div className="mb-6 grid grid-cols-3 gap-4">
                       <label htmlFor="turnover">Turnover-takings, fees, sales or money earned by your business:</label>
-                      <input value={ind.income_earned} onChange={(e) => changedSelfEmployed(e, i, "income_earned")} required placeholder="₦" name="income_earned" type="number" className="form-control w-full rounded"
+                      <input value={ind.income_earned} onChange={(e) => changedSelfEmployed(e, i, "income_earned")} required placeholder="₦" name="income_earned" type="text" className="form-control w-full rounded"
                       />
                     </div>
 
                     <div className="mb-6 grid grid-cols-3 gap-4">
                       <label htmlFor="turnover">Any other business income not included above:</label>
-                      <input value={ind.other_income} onChange={(e) => changedSelfEmployed(e, i, "other_income")} placeholder="₦" name="other_income" type="number" className="form-control w-full rounded"
+                      <input value={ind.other_income} onChange={(e) => changedSelfEmployed(e, i, "other_income")} placeholder="₦" name="other_income" type="text" className="form-control w-full rounded"
                       />
                     </div>
 
@@ -2351,7 +2351,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                   <input required name="item" type="text" className="form-control w-full rounded"
                     placeholder="Item"
                   />
-                  <input required name="amount" type="number" className="form-control w-full rounded"
+                  <input required name="amount" type="text" className="form-control w-full rounded"
                     placeholder="Amount"
                   />
                 </div>
@@ -2376,7 +2376,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                       <input required name="item" key={i} type="text" className="form-control w-full rounded"
                         value={ind.item} placeholder="Item" onChange={(e) => changedExpenses(e, i, "item")}
                       />
-                      <input required name="amount" type="number" className="form-control w-full rounded"
+                      <input required name="amount" type="text" className="form-control w-full rounded"
                         value={ind.amount} placeholder="Value" key={i} onChange={(e) => changedExpenses(e, i, "amount")}
                       />
                     </div>
@@ -2432,13 +2432,13 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
               <div className="mb-6 grid grid-cols-3 gap-4">
                 <label htmlFor="employername">RSA No:</label>
-                <input name="rsa_no" type="number" className="form-control w-full rounded"
+                <input name="rsa_no" type="text" className="form-control w-full rounded"
                 />
               </div>
 
               <div className="mb-6 grid grid-cols-3 gap-4">
                 <label htmlFor="employername">Amount:</label>
-                <input required placeholder="₦" name="amount" type="number" id="employername" className="form-control w-full rounded"
+                <input required placeholder="₦" name="amount" type="text" id="employername" className="form-control w-full rounded"
                 />
               </div>
 
@@ -2485,13 +2485,13 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label htmlFor="employername">RSA No:</label>
-                    <input value={ind.rsa_no} onChange={(e) => changedLap(e, i, "rsa_no")} name="rsa_no" type="number" className="form-control w-full rounded"
+                    <input value={ind.rsa_no} onChange={(e) => changedLap(e, i, "rsa_no")} name="rsa_no" type="text" className="form-control w-full rounded"
                     />
                   </div>
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label htmlFor="employername">Amount:</label>
-                    <input value={ind.amount} onChange={(e) => changedLap(e, i, "amount")} required placeholder="₦" name="amount" type="number" id="employername" className="form-control w-full rounded"
+                    <input value={ind.amount} onChange={(e) => changedLap(e, i, "amount")} required placeholder="₦" name="amount" type="text" id="employername" className="form-control w-full rounded"
                     />
                   </div>
 
@@ -2561,13 +2561,13 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
               <div className="mb-6 grid grid-cols-3 gap-4">
                 <label htmlFor="employername">Insurance No:</label>
-                <input required name="insurance_no" type="number" id="employername" className="form-control w-full rounded"
+                <input required name="insurance_no" type="text" id="employername" className="form-control w-full rounded"
                 />
               </div>
 
               <div className="mb-6 grid grid-cols-3 gap-4">
                 <label htmlFor="employername">Amount:</label>
-                <input required name="amount" type="number" id="employername" className="form-control w-full rounded"
+                <input required name="amount" type="text" id="employername" className="form-control w-full rounded"
                 />
               </div>
 
@@ -2612,13 +2612,13 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label>Insurance No:</label>
-                    <input value={ind.insurance_no} onChange={(e) => changedNhis(e, i, "insurance_no")} required name="insurance_no" type="number" id="employername" className="form-control w-full rounded"
+                    <input value={ind.insurance_no} onChange={(e) => changedNhis(e, i, "insurance_no")} required name="insurance_no" type="text" id="employername" className="form-control w-full rounded"
                     />
                   </div>
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label>Amount:</label>
-                    <input value={ind.amount} onChange={(e) => changedNhis(e, i, "amount")} required name="amount" type="number" id="employername" className="form-control w-full rounded"
+                    <input value={ind.amount} onChange={(e) => changedNhis(e, i, "amount")} required name="amount" type="text" id="employername" className="form-control w-full rounded"
                     />
                   </div>
 
@@ -2843,7 +2843,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
               <div className="mb-6 grid grid-cols-3 gap-4">
                 <label>Rental Amount(Annual):</label>
-                <input type="number" placeholder="₦" name="rental_amount" className="form-control w-full rounded"
+                <input type="text" placeholder="₦" name="rental_amount" className="form-control w-full rounded"
                 />
               </div>
               <div className="mb-6 grid grid-cols-3 gap-4">
@@ -2912,7 +2912,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label>Rental Amount(Annual):</label>
-                    <input value={ind.rental_amount} onChange={(e) => changedRentIncome(e, i, "rental_amount")} type="number" placeholder="₦" name="rental_amount" className="form-control w-full rounded"
+                    <input value={ind.rental_amount} onChange={(e) => changedRentIncome(e, i, "rental_amount")} type="text" placeholder="₦" name="rental_amount" className="form-control w-full rounded"
                     />
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
@@ -2998,7 +2998,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
               </div>
               <div className="mb-6 grid grid-cols-3 gap-4">
                 <label >Gross Amount:</label>
-                <input required name="gross_amount" placeholder="₦" type="number" className="form-control w-full rounded"
+                <input required name="gross_amount" placeholder="₦" type="text" className="form-control w-full rounded"
                 />
               </div>
 
@@ -3046,7 +3046,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label >Gross Amount:</label>
-                    <input value={ind.gross_amount} onChange={(e) => changedBankInterest(e, i, "gross_amount")} required name="gross_amount" placeholder="₦" type="number" className="form-control w-full rounded"
+                    <input value={ind.gross_amount} onChange={(e) => changedBankInterest(e, i, "gross_amount")} required name="gross_amount" placeholder="₦" type="text" className="form-control w-full rounded"
                     />
                   </div>
 
@@ -3114,7 +3114,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
               </div>
               <div className="mb-6 grid grid-cols-3 gap-4">
                 <label>Gross Amount:</label>
-                <input required name="amount" type="number" className="form-control w-full rounded"
+                <input required name="amount" type="text" className="form-control w-full rounded"
                 />
               </div>
 
@@ -3157,7 +3157,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label>Gross Amount:</label>
-                    <input value={ind.amount} onChange={(e) => changedBankDividends(e, i, "amount")} required name="amount" type="number" className="form-control w-full rounded"
+                    <input value={ind.amount} onChange={(e) => changedBankDividends(e, i, "amount")} required name="amount" type="text" className="form-control w-full rounded"
                     />
                   </div>
 
@@ -3224,7 +3224,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
               </div>
               <div className="mb-6 grid grid-cols-3 gap-4">
                 <label> Gross Amount:</label>
-                <input required name="gross_amount" placeholder="₦" type="number" className="form-control w-full rounded"
+                <input required name="gross_amount" placeholder="₦" type="text" className="form-control w-full rounded"
                 />
               </div>
 
@@ -3268,7 +3268,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label> Gross Amount:</label>
-                    <input value={ind.gross_amount} onChange={(e) => changedPension(e, i, "gross_amount")} required name="gross_amount" placeholder="₦" type="number" className="form-control w-full rounded"
+                    <input value={ind.gross_amount} onChange={(e) => changedPension(e, i, "gross_amount")} required name="gross_amount" placeholder="₦" type="text" className="form-control w-full rounded"
                     />
                   </div>
 
@@ -3355,7 +3355,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
               </div>
               <div className="mb-6 grid grid-cols-3 gap-4">
                 <label>Sale amount:</label>
-                <input required name="amount" placeholder="₦" type="number" id="employername" className="form-control w-full rounded"
+                <input required name="amount" placeholder="₦" type="text" id="employername" className="form-control w-full rounded"
                 />
               </div>
 
@@ -3417,7 +3417,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label>Sale amount:</label>
-                    <input value={ind.amount} onChange={(e) => changedAsset(e, i, "amount")} required name="amount" placeholder="₦" type="number" className="form-control w-full rounded"
+                    <input value={ind.amount} onChange={(e) => changedAsset(e, i, "amount")} required name="amount" placeholder="₦" type="text" className="form-control w-full rounded"
                     />
                   </div>
 
@@ -3480,7 +3480,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
               <div className="mb-6 grid grid-cols-3 gap-4">
                 <label>Gross Amount:</label>
-                <input required placeholder="₦" name="gross_amount" type="number" className="form-control w-full rounded"
+                <input required placeholder="₦" name="gross_amount" type="text" className="form-control w-full rounded"
                 />
               </div>
 
@@ -3518,7 +3518,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label>Gross Amount:</label>
-                    <input value={ind.gross_amount} onChange={(e) => changedOutsideSource(e, i, "gross_amount")} required placeholder="₦" name="gross_amount" type="number" className="form-control w-full rounded"
+                    <input value={ind.gross_amount} onChange={(e) => changedOutsideSource(e, i, "gross_amount")} required placeholder="₦" name="gross_amount" type="text" className="form-control w-full rounded"
                     />
                   </div>
 
@@ -3581,7 +3581,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
               <div className="mb-6 grid grid-cols-3 gap-4">
                 <label>Cost:</label>
-                <input required name="cost" type="number" className="form-control w-full rounded"
+                <input required name="cost" type="text" className="form-control w-full rounded"
                 />
               </div>
 
@@ -3598,7 +3598,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
               <div className="mb-6 grid grid-cols-3 gap-4">
                 <label>Year:</label>
-                <input type="number" placeholder="YYYY" min="1990" max="2100"></input>
+                <input type="text" placeholder="YYYY" min="1990" max="2100"></input>
                 {/* <input required name="year" type="date" className="form-control w-full rounded"
                 /> */}
               </div>
@@ -3633,7 +3633,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label>Cost:</label>
-                    <input value={ind.cost} onChange={(e) => changedVehicles(e, i, "cost")} required name="cost" type="number" className="form-control w-full rounded"
+                    <input value={ind.cost} onChange={(e) => changedVehicles(e, i, "cost")} required name="cost" type="text" className="form-control w-full rounded"
                     />
                   </div>
 
@@ -3650,7 +3650,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label>Year:</label>
-                    <input value={ind.year} onChange={(e) => changedVehicles(e, i, "year")} type="number" placeholder="YYYY" min="1990" max="2100"></input>
+                    <input value={ind.year} onChange={(e) => changedVehicles(e, i, "year")} type="text" placeholder="YYYY" min="1990" max="2100"></input>
 
 
                   </div>
@@ -3729,7 +3729,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
               <div className="mb-6 grid grid-cols-3 gap-4">
                 <label>Cost of construction/acquisition:</label>
-                <input required name="construction_cost" type="number" className="form-control w-full rounded"
+                <input required name="construction_cost" type="text" className="form-control w-full rounded"
                 />
               </div>
 
@@ -3782,7 +3782,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label>Cost of construction/acquisition:</label>
-                    <input value={ind.construction_cost} onChange={(e) => changedLand(e, i, "construction_cost")} required name="construction_cost" type="number" className="form-control w-full rounded"
+                    <input value={ind.construction_cost} onChange={(e) => changedLand(e, i, "construction_cost")} required name="construction_cost" type="text" className="form-control w-full rounded"
                     />
                   </div>
                   <div className="m-3">
@@ -3848,12 +3848,12 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
               <div className="mb-6 grid grid-cols-3 gap-4">
                 <label>Cost of Land:</label>
-                <input required placeholder="₦" name="land_cost" type="number" className="form-control w-full rounded"
+                <input required placeholder="₦" name="land_cost" type="text" className="form-control w-full rounded"
                 />
               </div>
               <div className="mb-6 grid grid-cols-3 gap-4">
                 <label>Cost of Produce:</label>
-                <input required name="produce_cost" type="number" className="form-control w-full rounded"
+                <input required name="produce_cost" type="text" className="form-control w-full rounded"
                 />
               </div>
 
@@ -3894,12 +3894,12 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label>Cost of Land:</label>
-                    <input value={ind.land_cost} onChange={(e) => changedFarm(e, i, "land_cost")} required placeholder="₦" name="land_cost" type="number" className="form-control w-full rounded"
+                    <input value={ind.land_cost} onChange={(e) => changedFarm(e, i, "land_cost")} required placeholder="₦" name="land_cost" type="text" className="form-control w-full rounded"
                     />
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label>Cost of Produce:</label>
-                    <input value={ind.produce_cost} onChange={(e) => changedFarm(e, i, "produce_cost")} required name="produce_cost" type="number" className="form-control w-full rounded"
+                    <input value={ind.produce_cost} onChange={(e) => changedFarm(e, i, "produce_cost")} required name="produce_cost" type="text" className="form-control w-full rounded"
                     />
                   </div>
                   <div className="m-3">
