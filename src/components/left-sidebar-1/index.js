@@ -17,10 +17,12 @@ const LeftSidebar = () => {
 
   let TaxPayerType;
   if (authentication) {
-    TaxPayerType = jwt.decode(authentication)?.type;
+    // TaxPayerType = jwt.decode(authentication)?.type;
+    TaxPayerType = jwt.decode(authentication).groups
+    console.log(jwt.decode(authentication));
   }
 
-  if (TaxPayerType === 'Non-Individual') {
+  if (TaxPayerType == '[2]') {
     return (
       <div className="left-sidebar left-sidebar-1">
         <Logo />
