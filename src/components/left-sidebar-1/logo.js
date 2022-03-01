@@ -21,6 +21,7 @@ const Logo = () => {
           <a className="flex flex-row items-center justify-start space-x-2">
             <RHMLogo size={28} />
             {/* <span className="text-green-600">{name}</span> */}
+            <span className="text-green-600 self-end">RHM</span>
           </a>
         </Link>
         <button
