@@ -81,11 +81,11 @@ const initialState = [
             url: '/view/pendingdirect',
             items: [],
           },
-          // {
-          //   title: 'Submitted Assessments',
-          //   url: '/view/completeddirect',
-          //   items: [],
-          // },
+          {
+            title: 'Submitted Assessments',
+            url: '/view/completeddirect',
+            items: [],
+          },
           {
             title: 'Approved Assessments',
             url: '/view/approvedasses',

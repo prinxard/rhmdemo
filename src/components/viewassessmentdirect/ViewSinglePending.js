@@ -37,6 +37,7 @@ const ViewSinglePending = () => {
   const [spouse, setSpouse] = useState([]);
   const [children, setChildren] = useState([]);
   const [domestic, setDomestic] = useState([]);
+  const [assessment, setAssessment] = useState([]);
   const [routerAssId, setAssessId] = useState('');
 
   const router = useRouter();
@@ -77,6 +78,8 @@ const ViewSinglePending = () => {
           let spouseDat = userAssData.spouse
           let childDat = userAssData.children
           let domesticDat = userAssData.domestic
+          let assessmentDat = userAssData.assessment
+          setAssessment(assessmentDat)
           setDomestic(domesticDat)
           setChildren(childDat)
           setSpouse(spouseDat)
@@ -340,7 +343,7 @@ const ViewSinglePending = () => {
             changedEmploy={(e, index, fieldName) => handleEmployed(e.target.value, index, fieldName)}
             employment={employment}
             changedSelfEmployed={(e, index, fieldName) => handleSelfEmployed(e.target.value, index, fieldName)}
-            selfEmployment={selfEmployment}
+            selfEmployment={selfEmployment} assessment={assessment}
             expenses={exepenses} lifeass={lap} nhis={nhis} partner={partner} rentIncome={rentIncome}
             changedExpenses={(e, index, fieldName) => handleExpenses(e.target.value, index, fieldName)}
             changedLap={(e, index, fieldName) => handleLap(e.target.value, index, fieldName)}
