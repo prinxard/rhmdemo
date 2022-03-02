@@ -11,6 +11,8 @@ import url from '../../config/url';
 import axios from "axios";
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from 'react-toastify';
+import jwt from "jsonwebtoken";
+import { useSelector, shallowEqual, useDispatch } from "react-redux";
 
 const fields = [
   {
@@ -86,12 +88,6 @@ export const ViewCompletedTable = ({ remittance }) => {
   );
 };
 
-{/* <Link href={`/view/completeddirect/${remittance.assessment_id},${remittance.kgtin}`}>
-<a classNameNameName="hover:text-blue-500">
-  {remittance[field.key]}
-</a>
-</Link> */}
-
 export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, taxcal,
   childObj, resAddObj, rentIncome, spouseObj, domesticStaff, selfEmployment, vehicles, land, employed, lap, nhis, expenses, pensionDed }) => {
   const [isFetching2, setIsFetching2] = useState(() => false);
@@ -99,6 +95,21 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
   const router = useRouter();
   const [modal, setModal] = useState(false);
   const [comment, setComment] = useState(false);
+
+  const { config, palettes, auth } = useSelector(
+    (state) => ({
+      config: state.config,
+      palettes: state.palettes,
+      auth: state.authentication.auth,
+    }),
+    shallowEqual
+  );
+
+  const Approval = [2, 3, 12]
+  const decoded = jwt.decode(auth);
+  const userGroup = decoded.groups
+  // console.log(userGroup);
+  
 
   const kgtinVal = payerArr.map(function (doc) {
     let kgtin = doc.KGTIN
@@ -117,8 +128,6 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
   const employedCal = Number(assobj.employed)
   const selfEmployedCal = Number(assobj.self_employed)
   const grossIncCal = employedCal + selfEmployedCal
-
-  console.log(comment);
 
   const pfcdata = Number(assobj.pension)
   const nhisdata = Number(assobj.nhis)
@@ -228,25 +237,46 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
           <p className="font-bold">Processing...</p>
         </div>
       )}
-      <div className="mb-6 flex justify-end">
-        <form onSubmit={approveAss}>
-          <button
-            className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-            type="submit"
-          >
-            Approve
-          </button>
-        </form>
+      <div>
+        {userGroup.some(r => Approval.includes(r)) ?
 
-        <button onClick={toggleModal}
-          className="btn w-32 bg-blue-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-          type="submit"
-        >
-          Decline
-        </button>
+          <div className="mb-6 flex justify-end">
+            <form onSubmit={approveAss}>
+              <button
+                className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                type="submit"
+              >
+                Approve
+              </button>
+            </form>
 
+            <button onClick={toggleModal}
+              className="btn w-32 bg-blue-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+              type="submit"
+            >
+              Decline
+            </button>
+          </div> :
+          <div className="mb-6 flex justify-end hidden">
+            <form onSubmit={approveAss}>
+              <button
+                className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                type="submit"
+              >
+                Approve
+              </button>
+            </form>
 
+            <button onClick={toggleModal}
+              className="btn w-32 bg-blue-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+              type="submit"
+            >
+              Decline
+            </button>
+          </div>
+        }
       </div>
+
       <div className="flex justify-around border">
 
         <table className="table-auto">
@@ -474,7 +504,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
               </tr>
               <tr>
                 <td className="border-r-2 p-1 text-center">1%(Minimun Tax)</td>
-                <td className="p-1 text-right font-bold">0</td>
+                <td className="p-1 text-right font-bold">{formatNumber(taxcal.tax1)}</td>
               </tr>
               <tr>
                 <td className="border-r-2 p-1 text-center">Total</td>

@@ -38,10 +38,10 @@ const fields = [
     name: "Status",
     key: "status",
   },
-  // {
-  //   name: "Comment",
-  //   key: "comment",
-  // },
+  {
+    name: "Comment",
+    key: "comment",
+  },
   {
     name: "Created Time",
     key: "createtime",
@@ -96,7 +96,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
   partner, changedPartner, rentIncome, changedRentIncome, bankInterest, changedBankInterest, dividends,
   changedBankDividends, changedPension, pension, residentialAddr, asset, changedAsset, outsideSource,
   changedOutsideSource, changedVehicles, vehicles, changedLand, land, farm, changedFarm, changedSpouse, spouse,
-  changedChildren, children, domestic, changedDomestic
+  changedChildren, children, domestic, changedDomestic, assessment
 
 }) => {
   console.log(bankInterest);
@@ -123,13 +123,15 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
   const router = useRouter();
 
   let assessment_id = routerAssId
-  let lapAmount = Number(0)
-  let NhisAmount = Number(0)
-  let penDeductAmount = Number(0)
-  let employmentGross = Number(0)
-  let incomeEarned = Number(0)
-  let otherIncome = Number(0)
-  let expenseAmout = Number(0)
+  let lapAmount
+  let NhisAmount
+  let penDeductAmount
+  let employmentGross
+  let incomeEarned
+  let otherIncome
+  let expenseAmout
+  let totalBusInc
+  let netProfit
 
   lifeass.forEach((el, i) => (
     lapAmount = el.amount
@@ -159,9 +161,21 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
   expenses.forEach((el, i) => (
     expenseAmout = el.amount
   ))
+  let earnedInc = Number(incomeEarned)
+  let otherInc = Number(otherIncome)
+  let expAmt = Number(expenseAmout)
 
-  let totalBusInc = incomeEarned + otherIncome
-  let netProfit = totalBusInc - expenseAmout
+  totalBusInc = earnedInc + otherInc
+
+  // console.log("earned", earnedInc);
+  // console.log("other", otherInc);
+  // console.log("Expenses", expAmt);
+
+  // console.log("total Bus Inc", totalBusInc);
+  netProfit = totalBusInc - expAmt
+
+  // console.log("Net", netProfit);
+  // console.log(totalBusInc - expenseAmout);
 
   setAuthToken();
   let submitForm = (e) => {
@@ -878,8 +892,20 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
       )}
 
       <div className="block p-6 rounded-lg bg-white w-full">
-        <div className="flex">
+        <div className="flex justify-around mb-5">
           <h6 className="p-2">Taxpayer Information</h6>
+          <div>
+            <div>
+              <div>
+                <p className="font-bold">
+                  Comment
+                </p>
+                {assessment.map((com, i) => (
+                  <p key={i}>{com.comment}</p>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
         <p className="mb-3 font-bold"></p>
         <form>
