@@ -1506,28 +1506,28 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                         <option value="EDO">EDO</option>
                         <option value="EKITI">EKITI</option>
                         <option value="ENUGU">ENUGU</option>
-                        <option>GOMBE</option>
-                        <option>IMO</option>
-                        <option>JIGAWA</option>
-                        <option>KADUNA</option>
-                        <option>KANO</option>
-                        <option>KATSINA</option>
-                        <option>KEBBI</option>
-                        <option>KOGI</option>
-                        <option>KWARA</option>
-                        <option>LAGOS</option>
-                        <option>NASSARAWA</option>
-                        <option>NIGER</option>
-                        <option>OGUN</option>
-                        <option>ONDO</option>
-                        <option>OSUN</option>
-                        <option>OYO</option>
-                        <option>PLATEAU</option>
-                        <option>RIVERS</option>
-                        <option>SOKOTO</option>
-                        <option>TARABA</option>
-                        <option>YOBE</option>
-                        <option>ZAMFARA</option>
+                        <option value="GOMBE">GOMBE</option>
+                        <option value="IMO">IMO</option>
+                        <option value="JIGAWA">JIGAWA</option>
+                        <option value="KADUNA">KADUNA</option>
+                        <option value="KANO">KANO</option>
+                        <option value="KATSINA">KATSINA</option>
+                        <option value="KEBBI">KEBBI</option>
+                        <option value="KOGI">KOGI</option>
+                        <option value="KWARA">KWARA</option>
+                        <option value="LAGOS">LAGOS</option>
+                        <option value="NASSARAWA">NASSARAWA</option>
+                        <option value="NIGER">NIGER</option>
+                        <option value="OGUN">OGUN</option>
+                        <option value="ONDO" >ONDO</option>
+                        <option value="OSUN">OSUN</option>
+                        <option value="OYO">OYO</option>
+                        <option value="PLATEAU">PLATEAU</option>
+                        <option value="RIVERS">RIVERS</option>
+                        <option value="SOKOTO">SOKOTO</option>
+                        <option value="TARABA">TARABA</option>
+                        <option value="YOBE">YOBE</option>
+                        <option value="ZAMFARA">ZAMFARA</option>
                       </select>
                     </div>
                     <div className="form-group mb-6">

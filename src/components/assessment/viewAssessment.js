@@ -1916,43 +1916,43 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
               <div className="form-group mb-6">
                 <p>State</p>
                 <select onChange={e => handleDomesticStaffChange(index, e)} value={element.state || ""} className="form-select w-full" name="state">
-                  <option>ABUJA FCT</option>
-                  <option>ABIA</option>
-                  <option>ADAMAWA</option>
-                  <option>AKWA IBOM</option>
-                  <option>ANAMBRA</option>
-                  <option>BAUCHI</option>
-                  <option>BAYELSA</option>
-                  <option>BENUE</option>
-                  <option>BORNO</option>
-                  <option>CROSS RIVER</option>
-                  <option>DELTA</option>
-                  <option>EBONYI</option>
-                  <option>EDO</option>
-                  <option>EKITI</option>
-                  <option>ENUGU</option>
-                  <option>GOMBE</option>
-                  <option>IMO</option>
-                  <option>JIGAWA</option>
-                  <option>KADUNA</option>
-                  <option>KANO</option>
-                  <option>KATSINA</option>
-                  <option>KEBBI</option>
-                  <option>KOGI</option>
-                  <option>KWARA</option>
-                  <option>LAGOS</option>
-                  <option>NASSARAWA</option>
-                  <option>NIGER</option>
-                  <option>OGUN</option>
-                  <option>ONDO</option>
-                  <option>OSUN</option>
-                  <option>OYO</option>
-                  <option>PLATEAU</option>
-                  <option>RIVERS</option>
-                  <option>SOKOTO</option>
-                  <option>TARABA</option>
-                  <option>YOBE</option>
-                  <option>ZAMFARA</option>
+                  <option value="ABUJA FCT">ABUJA FCT</option>
+                  <option value="ABIA">ABIA</option>
+                  <option value="ADAMAWA">ADAMAWA</option>
+                  <option value="AKWA IBOM">AKWA IBOM</option>
+                  <option value="ANAMBRA">ANAMBRA</option>
+                  <option value="BAUCHI">BAUCHI</option>
+                  <option value="BAYELSA">BAYELSA</option>
+                  <option value="BENUE">BENUE</option>
+                  <option value="BORNO">BORNO</option>
+                  <option value="CROSS RIVER">CROSS RIVER</option>
+                  <option value="DELTA">DELTA</option>
+                  <option value="EBONYI">EBONYI</option>
+                  <option value="EDO">EDO</option>
+                  <option value="EKITI">EKITI</option>
+                  <option value="ENUGU">ENUGU</option>
+                  <option value="GOMBE">GOMBE</option>
+                  <option value="IMO">IMO</option>
+                  <option value="JIGAWA">JIGAWA</option>
+                  <option value="KADUNA">KADUNA</option>
+                  <option value="KANO">KANO</option>
+                  <option value="KATSINA">KATSINA</option>
+                  <option value="KEBBI">KEBBI</option>
+                  <option value="KOGI">KOGI</option>
+                  <option value="KWARA">KWARA</option>
+                  <option value="LAGOS">LAGOS</option>
+                  <option value="NASSARAWA">NASSARAWA</option>
+                  <option value="NIGER">NIGER</option>
+                  <option value="OGUN">OGUN</option>
+                  <option value="ONDO" >ONDO</option>
+                  <option value="OSUN">OSUN</option>
+                  <option value="OYO">OYO</option>
+                  <option value="PLATEAU">PLATEAU</option>
+                  <option value="RIVERS">RIVERS</option>
+                  <option value="SOKOTO">SOKOTO</option>
+                  <option value="TARABA">TARABA</option>
+                  <option value="YOBE">YOBE</option>
+                  <option value="ZAMFARA">ZAMFARA</option>
                 </select>
               </div>
               <div className="form-group mb-6">
@@ -2314,7 +2314,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                       <label htmlFor="cashbases">Do you use cash basis, money actually received and paid out, to calculate your income expense ?</label>
                       <div className="flex">
                         <div className="form-check form-check-inline">
-                        <select required name="cash_inc_expense" onChange={handleSelfEmployedChange} value={selfEmployed.cash_inc_expense} id="" className="w-64">
+                          <select required name="cash_inc_expense" onChange={handleSelfEmployedChange} value={selfEmployed.cash_inc_expense} id="" className="w-64">
                             <option value="yes">Yes </option>
                             <option value="no">No</option>
                           </select>
@@ -2339,10 +2339,10 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                         <label>How would you like to record your expenses?</label>
                         <div className="flex">
                           <div className="form-check form-check-inline">
-                          <select name="expense" onChange={handleSelfEmployedChange} value={selfEmployed.expense} className="w-64">
-                            <option value="break down">Break Down </option>
-                            <option value="total">Total</option>
-                          </select>
+                            <select name="expense" onChange={handleSelfEmployedChange} value={selfEmployed.expense} className="w-64">
+                              <option value="break down">Break Down </option>
+                              <option value="total">Total</option>
+                            </select>
                             {/* <input onChange={handleSelfEmployedChange} value="Break down" name="expense" checked={selfEmployed.expense === "Break down"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
                             <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Break down</label>
                           </div>
