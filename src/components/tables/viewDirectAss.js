@@ -162,7 +162,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
   let totalBusInc = incomeEarned + otherIncome
   let netProfit = totalBusInc - expenseAmout
- 
+
   setAuthToken();
   let submitForm = (e) => {
     e.preventDefault()
@@ -998,9 +998,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
                 <div className="form-check form-check-inline">
                   <p>Type of Residence</p>
-
-
-                  <select onChange={(e) => changed(e, i, "residence_type")} className="form-select w-full" name="residence_type" >
+                  <select value={ind.residence_type} onChange={(e) => changed(e, i, "residence_type")} className="form-select w-full" name="residence_type" >
                     <option value="select">Select</option>
                     <option value="Bungalow">Bungalow</option>
                     <option value="Penthouse">Penthouse</option>
@@ -1018,12 +1016,12 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                   <p>Do you own your place of residence?</p>
                   <div className="flex">
                     <div className="form-check form-check-inline">
-                      <input onClick={onresidenceToggleYes} onChange={(e) => changed(e, i, "residence_owner")} name="residence_owner" value="Owner" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
+                      <input onClick={onresidenceToggleYes} onChange={(e) => changed(e, i, "residence_owner")} name="residence_owner" value={ind.residence_owner} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
                       <label className="form-check-label inline-block text-gray-800" htmlFor="inlineRadio10">Owner</label>
                     </div>
 
                     <div className="form-check form-check-inline ml-5">
-                      <input onClick={onresidenceToggleNo} onChange={(e) => changed(e, i, "residence_owner")} name="residence_owner" value="Rented" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
+                      <input onClick={onresidenceToggleNo} onChange={(e) => changed(e, i, "residence_owner")} name="residence_owner" value={ind.residence_owner} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
                       <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Rented</label>
                     </div>
                   </div>
@@ -1493,21 +1491,21 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                     <div className="form-group mb-6">
                       <p>State</p>
                       <select value={ind.state} onChange={(e) => changedDomestic(e, i, "state")} className="form-select w-full" name="state">
-                        <option>ABUJA FCT</option>
-                        <option>ABIA</option>
-                        <option>ADAMAWA</option>
-                        <option>AKWA IBOM</option>
-                        <option>ANAMBRA</option>
-                        <option>BAUCHI</option>
-                        <option>BAYELSA</option>
-                        <option>BENUE</option>
-                        <option>BORNO</option>
-                        <option>CROSS RIVER</option>
-                        <option>DELTA</option>
-                        <option>EBONYI</option>
-                        <option>EDO</option>
-                        <option>EKITI</option>
-                        <option>ENUGU</option>
+                        <option value="ABUJA FCT">ABUJA FCT</option>
+                        <option value="ABIA">ABIA</option>
+                        <option value="ADAMAWA">ADAMAWA</option>
+                        <option value="AKWA IBOM">AKWA IBOM</option>
+                        <option value="ANAMBRA">ANAMBRA</option>
+                        <option value="BAUCHI">BAUCHI</option>
+                        <option value="BAYELSA">BAYELSA</option>
+                        <option value="BENUE">BENUE</option>
+                        <option value="BORNO">BORNO</option>
+                        <option value="CROSS RIVER">CROSS RIVER</option>
+                        <option value="DELTA">DELTA</option>
+                        <option value="EBONYI">EBONYI</option>
+                        <option value="EDO">EDO</option>
+                        <option value="EKITI">EKITI</option>
+                        <option value="ENUGU">ENUGU</option>
                         <option>GOMBE</option>
                         <option>IMO</option>
                         <option>JIGAWA</option>
@@ -2272,16 +2270,20 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                     </div>
 
                     <div className="mb-6 grid grid-cols-3 gap-4">
-                      <label htmlFor="cashbases">Do you use cash basis, money actually received and paid out, to calculate your income expense ?</label>
+                      <label>Do you use cash basis, money actually received and paid out, to calculate your income expense ?</label>
                       <div className="flex">
                         <div className="form-check form-check-inline">
-                          <input onChange={(e) => changedSelfEmployed(e, i, "cash_inc_expense")} name={`cash_inc_expense`} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
+                          <select name="cash_inc_expense" onChange={(e) => changedSelfEmployed(e, i, "cash_inc_expense")} value={ind.cash_inc_expense} className="w-64">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                          </select>
+                          {/* <input onChange={(e) => changedSelfEmployed(e, i, "cash_inc_expense")} name={`cash_inc_expense`} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
                           <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">No</label>
                         </div>
 
                         <div className="form-check form-check-inline ml-5">
                           <input onChange={(e) => changedSelfEmployed(e, i, "cash_inc_expense")} required name={`cash_inc_expense`} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
-                          <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Yes</label>
+                          <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Yes</label> */}
                         </div>
                       </div>
                     </div>
@@ -2291,13 +2293,17 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                         <label htmlFor="expenses">How would you like to record your expenses?</label>
                         <div className="flex">
                           <div className="form-check form-check-inline">
-                            <input onChange={(e) => changedSelfEmployed(e, i, "expense")} value="Break down" name="expense" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
+                            <select name="expense" onChange={(e) => changedSelfEmployed(e, i, "expense")} value={ind.expense} className="w-64">
+                              <option value="break down">Break Down</option>
+                              <option value="total">Total</option>
+                            </select>
+                            {/* <input onChange={(e) => changedSelfEmployed(e, i, "expense")} value="Break down" name="expense" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
                             <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Break down</label>
                           </div>
 
                           <div className="form-check form-check-inline ml-5">
                             <input value="Total" name="expense" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
-                            <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Total</label>
+                            <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Total</label> */}
                           </div>
                         </div>
                       </div>
@@ -2306,13 +2312,17 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                       <label htmlFor="expenses">Are figures provided provisional or estimated?</label>
                       <div className="flex">
                         <div className="form-check form-check-inline">
-                          <input onChange={(e) => changedSelfEmployed(e, i, "figures_estimated")} value="Estimated" name="figures_estimated" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
+                          <select name="figures_estimated" onChange={(e) => changedSelfEmployed(e, i, "figures_estimated")} value={ind.figures_estimated} className="w-64">
+                            <option value="estimated">Estimated</option>
+                            <option value="provisional">Provisional</option>
+                          </select>
+                          {/* <input onChange={(e) => changedSelfEmployed(e, i, "figures_estimated")} value="Estimated" name="figures_estimated" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
                           <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Estimated</label>
                         </div>
 
                         <div className="form-check form-check-inline ml-5">
                           <input onChange={(e) => changedSelfEmployed(e, i, "figures_estimated")} value="Estimated" name="figures_estimated" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
-                          <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Provisional</label>
+                          <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Provisional</label> */}
                         </div>
                       </div>
                     </div>
