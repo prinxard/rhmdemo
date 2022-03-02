@@ -71,11 +71,11 @@ const initialState = [
         icon: <FileReturns />,
         title: 'Direct Assessment',
         items: [
-          {
-            title: 'Create',
-            url: '/direct-asses',
-            items: [],
-          },
+          // {
+          //   title: 'Create',
+          //   url: '/direct-asses',
+          //   items: [],
+          // },
           {
             title: 'Draft Assessments',
             url: '/view/pendingdirect',

@@ -10,7 +10,9 @@ import signUp from './signup/signup.reducer';
 import signUpAuth from './signup-auth/signup-auth.reducer';
 import authentication from './authentication/auth.reducer';
 import individualNavigation from './navigation/individualNav';
-import navigationLevel1 from './navigation/navigationLevel1';
+import navigationApprover from './navigation/navigationApprover';
+import navigationCreator from './navigation/navigationCreator';
+import navigationCreatorApprover from './navigation/navigationCreatorApprover';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
@@ -23,7 +25,9 @@ const persistConfig = {
 const rootReducer = combineReducers({
   dashboard,
   navigation,
-  navigationLevel1,
+  navigationApprover,
+  navigationCreator,
+  navigationCreatorApprover,
   individualNavigation,
   colors,
   config,
