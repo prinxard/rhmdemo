@@ -42,11 +42,11 @@ export const ViewCollectionsTable = ({ remittance }) => {
   return (
     <>
       <Widget>
-        <table className="table divide-y">
+        <table className="border divide-y">
           <thead>
             <tr className="">
               {fields.map((field, i) => (
-                <th key={i} className="">
+                <th key={i} className="border-r-2">
                   {field.name}
                 </th>
               ))}
@@ -55,15 +55,21 @@ export const ViewCollectionsTable = ({ remittance }) => {
           <tbody className="divide-y">
             {items.map((remittance, i) => (
               <tr key={i} className="">
-                {fields.map((field, j) => (
-                  <td key={j} className="">
-                    {remittance[field.key]}
 
-                    {/* <Link href={`/view/individual/${remittance.KGTIN}`}>
+                {fields.map((field, j) => (
+                  <td key={j} className="border-r-2 box-border p-1">
+                    <div>
+                      <div className="w-32 break-words ">
+
+                        {remittance[field.key]}
+
+                        {/* <Link href={`/view/individual/${remittance.KGTIN}`}>
                       <a className="hover:text-blue-500">
                         {remittance[field.key]}
                       </a>
                     </Link> */}
+                      </div>
+                    </div>
                   </td>
                 ))}
               </tr>
@@ -152,9 +158,9 @@ export const ViewCollectionsSingleTable = ({ indvdata }) => {
           </div>
           <div className="m-3 bg-green-400 text-white rounded-full">
             <CustomButton type="Submit">
-            {items.map((ind, i) => (
-                  <Link href={`/update-user/${ind.KGTIN}`} key={i}> Update User</Link>
-                ))}
+              {items.map((ind, i) => (
+                <Link href={`/update-user/${ind.KGTIN}`} key={i}> Update User</Link>
+              ))}
             </CustomButton>
           </div>
         </div>
