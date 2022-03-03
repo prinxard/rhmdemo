@@ -72,13 +72,13 @@ export const ViewPendingTable = ({ remittance }) => {
               <tr key={i} className="">
                 {fields.map((field, j) => (
                   <td key={j}>
-                    
-                      <Link href={`/view/pendingdirect/${remittance.assessment_id},${remittance.kgtin}`}>
-                        <a className="hover:text-blue-500">
-                          {remittance[field.key]}
-                        </a>
-                      </Link>
-                   
+
+                    <Link href={`/view/pendingdirect/${remittance.assessment_id},${remittance.kgtin}`}>
+                      <a className="hover:text-blue-500">
+                        {remittance[field.key]}
+                      </a>
+                    </Link>
+
                   </td>
                 ))}
               </tr>
@@ -151,7 +151,6 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     incomeEarned = el.income_earned
   ))
 
-
   selfEmployment.forEach((el, i) => (
     otherIncome = el.other_income
   ))
@@ -163,21 +162,37 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
   expenses.forEach((el, i) => (
     expenseAmout = el.amount
   ))
+
+ 
+  if (incomeEarned == null || incomeEarned == undefined || incomeEarned == "") {
+    incomeEarned = 0
+  } else {
+    incomeEarned = incomeEarned
+  }
+
+  if (otherIncome == null || otherIncome == undefined || otherIncome == "") {
+    otherIncome = 0
+  } else {
+    otherIncome = otherIncome
+  }
+
+  if (expenseAmout == null || expenseAmout == undefined || expenseAmout == "") {
+    expenseAmout = 0
+  } else {
+    expenseAmout = expenseAmout
+  }
+
   let earnedInc = Number(incomeEarned)
   let otherInc = Number(otherIncome)
   let expAmt = Number(expenseAmout)
 
   totalBusInc = earnedInc + otherInc
 
-  // console.log("earned", earnedInc);
-  // console.log("other", otherInc);
-  // console.log("Expenses", expAmt);
-
-  // console.log("total Bus Inc", totalBusInc);
   netProfit = totalBusInc - expAmt
 
-  // console.log("Net", netProfit);
-  // console.log(totalBusInc - expenseAmout);
+  console.log("net", netProfit);
+
+  console.log("Total Bus Income", totalBusInc);
 
   setAuthToken();
   let submitForm = (e) => {

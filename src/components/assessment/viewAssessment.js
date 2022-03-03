@@ -681,7 +681,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     formData.append('gross_pay', grossPay);
     formData.append('tax_deducted', taxDeduct);
     formData.append('pay_slip', paySLip);
-    console.log("Payslip", paySLip);
+    // console.log("Payslip", paySLip);
     try {
       let res = await axios.post(`${url.BASE_URL}forma/employed`, formData, {
         headers: {
@@ -2314,17 +2314,10 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                       <label htmlFor="cashbases">Do you use cash basis, money actually received and paid out, to calculate your income expense ?</label>
                       <div className="flex">
                         <div className="form-check form-check-inline">
-                          <select required name="cash_inc_expense" onChange={handleSelfEmployedChange} value={selfEmployed.cash_inc_expense} id="" className="w-64">
-                            <option value="yes">Yes </option>
+                          <select name="cash_inc_expense" onChange={handleSelfEmployedChange} value={selfEmployed.cash_inc_expense} id="" className="w-64">
+                            <option value="yes">Yes</option>
                             <option value="no">No</option>
                           </select>
-                          {/* <input required onChange={handleSelfEmployedChange} value="Yes" name="cash_inc_expense" checked={selfEmployed.cash_inc_expense === "Yes"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
-                          <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">No</label>
-                        </div>
-
-                        <div className="form-check form-check-inline ml-5">
-                          <input required onChange={handleSelfEmployedChange} value="No" name="cash_inc_expense" checked={selfEmployed.cash_inc_expense === "No"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
-                          <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Yes</label> */}
                         </div>
                       </div>
                     </div>
@@ -2334,26 +2327,6 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                       <p className="font-bold">NGN {totalBusInc}</p>
                     </div>
 
-                    <div>
-                      <div className="mb-6 grid grid-cols-3 gap-4">
-                        <label>How would you like to record your expenses?</label>
-                        <div className="flex">
-                          <div className="form-check form-check-inline">
-                            <select name="expense" onChange={handleSelfEmployedChange} value={selfEmployed.expense} className="w-64">
-                              <option value="break down">Break Down </option>
-                              <option value="total">Total</option>
-                            </select>
-                            {/* <input onChange={handleSelfEmployedChange} value="Break down" name="expense" checked={selfEmployed.expense === "Break down"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
-                            <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Break down</label>
-                          </div>
-
-                          <div className="form-check form-check-inline ml-5">
-                            <input onChange={handleSelfEmployedChange} value="Total" name="expense" checked={selfEmployed.expense === "Total"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
-                            <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Total</label> */}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                     <div className="mb-6 grid grid-cols-3 gap-4">
                       <label htmlFor="expenses">Are figures provided provisional or estimated?</label>
 
@@ -2363,13 +2336,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                             <option value="estimated">Estimated</option>
                             <option value="provisional">Provisional</option>
                           </select>
-                          {/* <input onChange={handleSelfEmployedChange} value="Estimated" name="figures_estimated" checked={selfEmployed.figures_estimated === "Estimated"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
-                          <label className="form-check-label inline-block text-gray-800" for="inlineRadio10">Estimated</label>
-                        </div>
-
-                        <div className="form-check form-check-inline ml-5">
-                          <input onChange={handleSelfEmployedChange} value="Provisional" name="figures_estimated" checked={selfEmployed.figures_estimated === "Provisional"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
-                          <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Provisional</label> */}
+                          
                         </div>
                       </div>
                     </div>
