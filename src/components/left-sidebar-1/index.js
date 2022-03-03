@@ -19,8 +19,8 @@ const LeftSidebar = () => {
       shallowEqual
     );
 
-  let approverRange = [2, 3, 12]
-  let creatorRange = [4, 13, 15]
+  let approverRange = [1, 2, 3, 12]
+  let creatorRange = [1, 4, 13, 15]
 
   let StaffType;
   if (authentication) {

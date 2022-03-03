@@ -105,7 +105,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
     shallowEqual
   );
 
-  const Approval = [2, 3, 12]
+  const Approval = [2, 3, 12, 1]
   const decoded = jwt.decode(auth);
   const userGroup = decoded.groups
   // console.log(userGroup);
