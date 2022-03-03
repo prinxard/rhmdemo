@@ -57,13 +57,13 @@ export const ViewCollectionsTable = ({ remittance }) => {
               <tr key={i} className="">
                 {fields.map((field, j) => (
                   <td key={j} className="">
-                    {/* {remittance[field.key]} */}
+                    {remittance[field.key]}
 
-                    <Link href={`/view/individual/${remittance.KGTIN}`}>
+                    {/* <Link href={`/view/individual/${remittance.KGTIN}`}>
                       <a className="hover:text-blue-500">
                         {remittance[field.key]}
                       </a>
-                    </Link>
+                    </Link> */}
                   </td>
                 ))}
               </tr>

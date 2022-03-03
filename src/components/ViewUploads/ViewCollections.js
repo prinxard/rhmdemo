@@ -30,6 +30,7 @@ const ViewCollections = () => {
         let records = [];
         for (let i = 0; i < res.length; i++) {
           let rec = res[i];
+          rec.amount = formatNumber(rec.amount)
           records.push(rec);
         }
         setIsFetching(false);
@@ -51,23 +52,23 @@ const ViewCollections = () => {
   const next = (currentPage) => setCurrentPage(() => currentPage + 1);
   const previous = (currentPage) => setCurrentPage(() => currentPage - 1);
 
-  const searchHandler = (e) => {
-    setQuery(() => e.target.value);
-  };
+  // const searchHandler = (e) => {
+  //   setQuery(() => e.target.value);
+  // };
 
   let res = [];
-  const search = (rows) => {
-    let data = [];
-    data = rows.filter((rows) => rows.KGTIN.toLowerCase().indexOf(query) > -1);
-    res.push(data);
-    return data;
-  };
+  // const search = (rows) => {
+  //   let data = [];
+  //   data = rows.filter((rows) => rows.KGTIN.toLowerCase().indexOf(query) > -1);
+  //   res.push(data);
+  //   return data;
+  // };
 
-  const searchedPost = search(post).slice(indexOfFirstPost, indexOfLastPost);
+  // const searchedPost = search(post).slice(indexOfFirstPost, indexOfLastPost);
 
   return (
     <>
-      <SectionTitle title="View Taxpayers" subtitle="Individual Taxpayers" />
+      <SectionTitle title="Collections" subtitle="View Collections" />
 
       {isFetching && (
         <div className="flex justify-center item mb-2">
@@ -84,7 +85,7 @@ const ViewCollections = () => {
         </div>
       )}
       <Widget>
-        <div className="flex flex-col lg:flex-row lg:flex-wrap w-full lg:space-x-4">
+        {/* <div className="flex flex-col lg:flex-row lg:flex-wrap w-full lg:space-x-4">
           <div className="w-full lg:w-2/12">
             <NewFormInput
               label="Search by kgtin"
@@ -92,19 +93,19 @@ const ViewCollections = () => {
               onChange={searchHandler}
             />
           </div>
-        </div>
+        </div> */}
 
         <div className="mt-4">
           {query !== "" ? (
             <>
               <ViewCollectionsTable remittance={searchedPost} />
               <CustomPagination
+                next={next}
+                previous={previous}
                 paginate={paginate}
                 totalPosts={res[0].length}
                 postPerPage={postPerPage}
                 currentPage={currentPage}
-                next={next}
-                previous={previous}
               />
             </>
           ) : (
