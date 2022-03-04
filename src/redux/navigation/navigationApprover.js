@@ -76,11 +76,11 @@ const initialState = [
           //   url: '/direct-asses',
           //   items: [],
           // },
-          {
-            title: 'Draft Assessments',
-            url: '/view/pendingdirect',
-            items: [],
-          },
+          // {
+          //   title: 'Draft Assessments',
+          //   url: '/view/pendingdirect',
+          //   items: [],
+          // },
           {
             title: 'Submitted Assessments',
             url: '/view/completeddirect',
