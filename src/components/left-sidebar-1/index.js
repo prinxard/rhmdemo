@@ -25,7 +25,7 @@ const LeftSidebar = () => {
   let StaffType;
   if (authentication) {
     StaffType = jwt.decode(authentication)?.groups;
-    console.log(StaffType);
+    // console.log(StaffType);
   }
 
   if (StaffType.some(r => approverRange.includes(r)) && StaffType.some(r => creatorRange.includes(r))) {
