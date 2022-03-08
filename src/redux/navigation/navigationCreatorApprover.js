@@ -20,7 +20,7 @@ const initialState = [
           {
             title: 'Individual',
             items: [
-              // { title: 'Create', url: '/', items: [] },
+              { title: 'Create', url: '/taxpayer', items: [] },
               {
                 title: 'View',
                 url: '/view/individual',
@@ -31,7 +31,7 @@ const initialState = [
           {
             title: 'Non-Individual',
             items: [
-              // { title: 'Create', url: '/', items: [] },
+              { title: 'Create', url: '/taxpayer', items: [] },
               {
                 title: 'View',
                 url: '/view/nonindividual',
@@ -55,7 +55,7 @@ const initialState = [
           {
             title: 'User',
             items: [
-              // { title: 'Create', url: '/', items: [] },
+              { title: 'Create', url: '/register', items: [] },
               {
                 title: 'View',
                 url: '/',

@@ -14,7 +14,7 @@ import { ViewCollectionsSingleTable } from "../tables/viewCollections";
 
 
 const ViewCollectionsSingle = () => {
-  const [individualRec, setindividualRec] = useState(() => []);
+  const [collections, setCollections] = useState(() => []);
   const [total, setTotal] = useState(() => []);
   const [isFetching, setIsFetching] = useState(() => true);
   const [currentPage, setCurrentPage] = useState(() => 1);
@@ -23,19 +23,24 @@ const ViewCollectionsSingle = () => {
   const router = useRouter();
   useEffect(() => {
     if (router && router.query) {
-      let indvkgtin = router.query.ref;
-      let kgtin = {
-        "KGTIN": `${indvkgtin}`
+      let paymentID = router.query.ref;
+      let paymentPayload = {
+        "idpymt": `${paymentID}`
       }
-      console.log(kgtin);
+      console.log(paymentID);
       setAuthToken();
       const fetchPost = async () => {
         try {
-          let res = await axios.post(
-            `${url.BASE_URL}taxpayer/view-individual`, kgtin
-          );
+          let res = await axios.post(`${url.BASE_URL}collection/view-collections`, paymentPayload);
           res = res.data.body;
-          setindividualRec(res)
+          let records = [];
+          for (let i = 0; i < res.length; i++) {
+            let rec = res[i];
+            rec.amount = formatNumber(rec.amount)
+            records.push(rec);
+          }
+          setCollections(records)
+          console.log(res);
           setIsFetching(false);
         } catch (e) {
           setIsFetching(false);
@@ -49,7 +54,7 @@ const ViewCollectionsSingle = () => {
 
   return (
     <>
-      <SectionTitle subtitle="Individual Taxpayer Biodata" />
+      <SectionTitle subtitle="View Collection" />
 
       <Widget>
 
@@ -68,7 +73,7 @@ const ViewCollectionsSingle = () => {
               <p>Fetching data...</p>
             </div>
           ) :
-            <ViewCollectionsSingleTable indvdata={individualRec} />
+            <ViewCollectionsSingleTable collections={collections} />
           }
         </>
       </Widget>

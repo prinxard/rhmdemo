@@ -5,79 +5,98 @@ import Widget1 from "../dashboard/widget-1";
 import dateformat from "dateformat";
 import Link from 'next/link';
 import CustomButton from "../CustomButton/CustomButton";
+import MaterialTable, { MTableToolbar } from "material-table";
+import Search from '@material-ui/icons/Search'
+import ViewColumn from '@material-ui/icons/ViewColumn'
+import SaveAlt from '@material-ui/icons/SaveAlt'
+import ChevronLeft from '@material-ui/icons/ChevronLeft'
+import ChevronRight from '@material-ui/icons/ChevronRight'
+import FirstPage from '@material-ui/icons/FirstPage'
+import LastPage from '@material-ui/icons/LastPage'
+import Add from '@material-ui/icons/Add'
+import Check from '@material-ui/icons/Check'
+import FilterList from '@material-ui/icons/FilterList'
+import Remove from '@material-ui/icons/Remove'
+import ArrowDownward from "@material-ui/icons/ArrowDownward";
+import Clear from "@material-ui/icons/Clear";
 
 const fields = [
   {
-    name: "Revenue Item",
-    key: "revenueItem",
+    title: "Name",
+    field: "taxpayerName",
   },
   {
-    name: "Name",
-    key: "taxpayerName",
+    title: "MDA",
+    field: "mda",
   },
   {
-    name: "Address",
-    key: "taxpayerAddress",
+    title: "Revenue Item",
+    field: "revenueItem",
   },
   {
-    name: "Station",
-    key: "station",
+    title: "Amount",
+    field: "amount",
+  },
+  // {
+  //   title: "Assessment ID",
+  //   field: "assessment_id",
+  // },
+  {
+    title: "Address",
+    field: "taxpayerAddress",
   },
   {
-    name: "Amount",
-    key: "amount",
+    title: "Station",
+    field: "station",
   },
   {
-    name: "MDA",
-    key: "mda",
-  },
-  {
-    name: "Transaction Date",
-    key: "tran_date",
+    title: "Transaction Date",
+    field: "tran_date",
   },
 ];
 
 export const ViewCollectionsTable = ({ remittance }) => {
   let items = remittance;
+  console.log("Items", items);
   return (
     <>
-      <Widget>
-        <table className="border divide-y">
-          <thead>
-            <tr className="">
-              {fields.map((field, i) => (
-                <th key={i} className="border-r-2">
-                  {field.name}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="divide-y">
-            {items.map((remittance, i) => (
-              <tr key={i} className="">
+      {/* <Widget> */}
+      <MaterialTable title="Collections List"
+        data={items}
+        options={{
+          search: true,
+          paging: true,
+          filtering: true,
+          exportButton: {
+            csv: true,
+            pdf: false
+          },
+          // searchFieldStyle:{
+          //   borderRadius: 10
+          // },
+          exportAllData: true
+        }}
+        columns={fields}
+        icons={{
+          Check: Check,
+          DetailPanel: ChevronRight,
+          Export: SaveAlt,
+          Filter: FilterList,
+          FirstPage: FirstPage,
+          LastPage: LastPage,
+          NextPage: ChevronRight,
+          PreviousPage: ChevronLeft,
+          Search: Search,
+          ThirdStateCheck: Remove,
+          Clear: Clear,
+          SortArrow: ArrowDownward
+        }}
 
-                {fields.map((field, j) => (
-                  <td key={j} className="border-r-2 box-border p-1">
-                    <div>
-                      <div className="w-32 break-words ">
-
-                        {remittance[field.key]}
-
-                        {/* <Link href={`/view/individual/${remittance.KGTIN}`}>
-                      <a className="hover:text-blue-500">
-                        {remittance[field.key]}
-                      </a>
-                    </Link> */}
-                      </div>
-                    </div>
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-      </Widget>
+        onRowClick={(event, rowData) => {
+          window.open(`collections/${rowData.idpymt}`)
+          event.stopPropagation();
+        }}
+      />
     </>
   );
 };
@@ -143,151 +162,116 @@ const singleFields = [
   },
 ];
 
-export const ViewCollectionsSingleTable = ({ indvdata }) => {
-  const items = indvdata;
+export const ViewCollectionsSingleTable = ({ collections }) => {
+  const items = collections;
   console.log(items);
 
   return (
     <>
       <Widget>
         <div className="flex justify-start mb-4">
-          <div className="m-3 bg-green-400 text-white rounded-full">
+          {/* <div className="m-3 bg-green-400 text-white rounded-full">
             <CustomButton type="Submit">
-              Print Certificate
+              Print Collection
             </CustomButton>
-          </div>
-          <div className="m-3 bg-green-400 text-white rounded-full">
-            <CustomButton type="Submit">
-              {items.map((ind, i) => (
-                <Link href={`/update-user/${ind.KGTIN}`} key={i}> Update User</Link>
-              ))}
-            </CustomButton>
-          </div>
+          </div> */}
         </div>
         <div className="w-2/3 flex mx-auto rounded border">
 
           <table className="table">
-
             <tbody className="divide-y ">
               <tr className="">
-                <td>KGTIN</td>
+                <td className="font-bold">Reference Id</td>
                 {items.map((ind, i) => (
-                  <td key={i}>{ind.KGTIN}</td>
+                  <td key={i}>{ind.ref}</td>
+                ))}
+              </tr>
+              <tr className="">
+                <td className="font-bold">Assessment Id</td>
+                {items.map((ind, i) => (
+                  <td key={i}>{ind.assessment_id}</td>
+                ))}
+              </tr>
+              <tr className="">
+                <td className="font-bold">Payment Channel</td>
+                {items.map((ind, i) => (
+                  <td key={i}>{ind.channel_id}</td>
                 ))}
               </tr>
 
               <tr className="">
-                <td>Title</td>
+                <td className="font-bold">Amount</td>
                 {items.map((ind, i) => (
-                  <td key={i}>{ind.indv_title}</td>
+                  <td key={i}>{ind.amount}</td>
                 ))}
               </tr>
 
               <tr className="">
-                <td>Gender</td>
+                <td className="font-bold">Transaction Date</td>
                 {items.map((ind, i) => (
-                  <td key={i}>{ind.gender}</td>
+                  <td key={i}>{ind.tran_date}</td>
                 ))}
               </tr>
 
               <tr className="">
-                <td>Marital Status</td>
+                <td className="font-bold">MDA</td>
                 {items.map((ind, i) => (
-                  <td key={i}>{ind.marital_status}</td>
+                  <td key={i}>{ind.mda}</td>
+                ))}
+              </tr>
+              <tr className="">
+                <td className="font-bold">Revenue Item</td>
+                {items.map((ind, i) => (
+                  <td key={i}>{ind.revenueItem}</td>
+                ))}
+              </tr>
+              <tr className="">
+                <td className="font-bold">Details</td>
+                {items.map((ind, i) => (
+                  <td key={i}>{ind.details}</td>
                 ))}
               </tr>
 
               <tr className="">
-                <td>Surname</td>
+                <td className="font-bold">Payment Method</td>
                 {items.map((ind, i) => (
-                  <td key={i}>{ind.surname}</td>
+                  <td key={i}>{ind.pmt_meth}</td>
+                ))}
+              </tr>
+              <tr className="">
+                <td className="font-bold">Bank</td>
+                {items.map((ind, i) => (
+                  <td key={i}>{ind.bank}</td>
                 ))}
               </tr>
 
               <tr className="">
-                <td>First Name</td>
+                <td className="font-bold">TaxPayer Name</td>
                 {items.map((ind, i) => (
-                  <td key={i}>{ind.first_name}</td>
+                  <td key={i}>{ind.taxpayerName}</td>
                 ))}
               </tr>
 
               <tr className="">
-                <td>Middle Name</td>
+                <td className="font-bold">Taxpayer Address</td>
                 {items.map((ind, i) => (
-                  <td key={i}>{ind.middle_name}</td>
+                  <td key={i}>{ind.taxpayerAddress}</td>
                 ))}
               </tr>
 
               <tr className="">
-                <td>Date of Birth</td>
+                <td className="font-bold">Station</td>
                 {items.map((ind, i) => (
-                  <td key={i}>{ind.birth_date}</td>
+                  <td key={i}>{ind.station}</td>
                 ))}
               </tr>
 
               <tr className="">
-                <td>Place of Birth</td>
+                <td className="font-bold">Create Time</td>
                 {items.map((ind, i) => (
-                  <td key={i}>{ind.birth_place}</td>
+                  <td key={i}>{ind.createtime}</td>
                 ))}
               </tr>
-
-              <tr className="">
-                <td>Nationality</td>
-                {items.map((ind, i) => (
-                  <td key={i}>{ind.nationality}</td>
-                ))}
-              </tr>
-
-              <tr className="">
-                <td>State of Origin</td>
-                {items.map((ind, i) => (
-                  <td key={i}>{ind.stateOfOrigin}</td>
-                ))}
-              </tr>
-
-              <tr className="">
-                <td>State of Residence</td>
-                {items.map((ind, i) => (
-                  <td key={i}>{ind.stateOfResidence}</td>
-                ))}
-              </tr>
-
-              <tr className="">
-                <td>Occupation</td>
-                {items.map((ind, i) => (
-                  <td key={i}>{ind.occupation}</td>
-                ))}
-              </tr>
-
-              <tr className="">
-                <td>Phone</td>
-                {items.map((ind, i) => (
-                  <td key={i}>{ind.phone_number}</td>
-                ))}
-              </tr>
-
-              <tr className="">
-                <td>Email</td>
-                {items.map((ind, i) => (
-                  <td key={i}>{ind.email}</td>
-                ))}
-              </tr>
-
-              <tr className="">
-                <td>Tax Office</td>
-                {items.map((ind, i) => (
-                  <td key={i}>{ind.tax_office}</td>
-                ))}
-              </tr>
-
-              <tr className="">
-                <td>Tax Authority</td>
-                {items.map((ind, i) => (
-                  <td key={i}>{ind.tax_authority}</td>
-                ))}
-              </tr>
-
             </tbody>
           </table>
 

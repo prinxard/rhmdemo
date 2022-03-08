@@ -2063,7 +2063,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label>Gross pay:</label>
-                    <input required placeholder="₦" onChange={(e) => setGrossPay(e.target.value)} placeholder="₦" type="text" name="gross_pay" className="form-control w-full rounded"
+                    <input required placeholder="₦" onChange={(e) => setGrossPay(e.target.value)} type="text" name="gross_pay" className="form-control w-full rounded"
                     />
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
