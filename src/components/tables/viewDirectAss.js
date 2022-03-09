@@ -72,13 +72,13 @@ export const ViewPendingTable = ({ remittance }) => {
               <tr key={i} className="">
                 {fields.map((field, j) => (
                   <td key={j}>
-                    
-                      <Link href={`/view/pendingdirect/${remittance.assessment_id},${remittance.kgtin}`}>
-                        <a className="hover:text-blue-500">
-                          {remittance[field.key]}
-                        </a>
-                      </Link>
-                   
+
+                    <Link href={`/view/pendingdirect/${remittance.assessment_id},${remittance.kgtin}`}>
+                      <a className="hover:text-blue-500">
+                        {remittance[field.key]}
+                      </a>
+                    </Link>
+
                   </td>
                 ))}
               </tr>
@@ -123,6 +123,100 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
   const [servantsToggle, setservantsToggle] = useState('hidden')
   const [isFetching, setIsFetching] = useState(() => false);
   const router = useRouter();
+
+  const [residentialAddress, setResidentialAddress] = useState(
+    {
+      assessment_id: "", house_no: "", street: "", town: "", lga: "", residence_type: "",
+      residence_owner: "", annual_rent: "", owner_name: "", owner_phone: ""
+    }
+  )
+
+  setAuthToken();
+  let submitDataResAddr = async (e) => {
+    e.preventDefault()
+    setIsFetching(true)
+    let resAddObj = {
+      assessment_id: `${assessment_id}`,
+      house_no: `${residentialAddress.house_no}`,
+      street: `${residentialAddress.street}`,
+      town: `${residentialAddress.town}`,
+      lga: `${residentialAddress.lga}`,
+      residence_type: `${residentialAddress.residence_type}`,
+      residence_owner: `${residentialAddress.residence_owner}`,
+      annual_rent: `${residentialAddress.annual_rent}`,
+      owner_name: `${residentialAddress.owner_name}`,
+      owner_phone: `${residentialAddress.owner_phone}`,
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/residence-addr`, resAddObj);
+      setIsFetching(false)
+      toast.success("Saved Successfully!");
+    } catch (error) {
+      toast.error("error, Please try again!");
+      setIsFetching(false)
+    }
+
+  }
+
+  function handleResidentialChange(evt) {
+    const value = evt.target.value;
+    setResidentialAddress({
+      ...residentialAddress,
+      [evt.target.name]: value
+    });
+    console.log(residentialAddress);
+  }
+
+
+  const [spouseIns, setSpouseIns] = useState(
+    [{
+      assessment_id: `${assessment_id}`, name: "", employer: "",
+      dob: "", occupation: "", employer_addr: ""
+    }]
+  )
+
+  let handleSpouseChange = (i, e) => {
+    let newSpouseValues = [...spouseIns];
+    newSpouseValues[i][e.target.name] = e.target.value;
+    setSpouseIns(newSpouseValues);
+  }
+
+  let addSpouseFields = () => {
+    setSpouseIns([...spouseIns, {
+      assessment_id: `${assessment_id}`,
+      name: "", employer: "", dob: "", occupation: "", employer_addr: ""
+    }])
+  }
+
+  let removeSpouseFields = (i) => {
+    let newSpouseValues = [...spouseIns];
+    newSpouseValues.splice(i, 1);
+    setSpouseIns(newSpouseValues)
+  }
+
+  let handleSpouseChangeIns = (i, e) => {
+    let newSpouseValues = [...spouseIns];
+    newSpouseValues[i][e.target.name] = e.target.value;
+    setSpouseIns(newSpouseValues);
+  }
+
+  let handleSpouseSubmit = (event) => {
+    setIsFetching(true)
+    event.preventDefault();
+    let formVal = (spouseIns)
+    for (let index = 0; index < formVal.length; index++) {
+      const element = formVal[index];
+      axios.post(`${url.BASE_URL}forma/spouse`, element)
+        .then(function (response) {
+          toast.success("Saved Successfully!");
+          setIsFetching(false)
+        })
+        .catch(function (error) {
+          toast.error("Failed! please try again");
+          setIsFetching(false)
+        });
+    }
+  }
 
   let assessment_id = routerAssId
   let lapAmount
@@ -988,45 +1082,39 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
           <h6 className="p-2">Current Residential address</h6>
         </div>
 
-        <form onSubmit={submitDataResAdd}>
-          {residentialAddr.map((ind, i) => (
-            <div>
+        <div>
+          {residentialAddr == null || residentialAddr == "" ?
+            <form onSubmit={submitDataResAddr}>
               <div className="grid grid-cols-3 gap-4">
                 <div className="mb-6">
                   <p>House No</p>
-
-                  <input onChange={(e) => changed(e, i, "house_no")} name="house_no" type="text" className="form-control w-full rounded font-light text-gray-500"
-                    value={ind.house_no} />
-
+                  <input onChange={handleResidentialChange} type="text" className="form-control w-full rounded font-light text-gray-500"
+                    name="house_no" value={residentialAddress.house_no} disabled />
                 </div>
+
                 <div className="form-group mb-6">
                   <p>Street</p>
-
-                  <input onChange={(e) => changed(e, i, "street")} name="street" type="text" className="form-control w-full rounded font-light text-gray-500"
-                    value={ind.street} />
-
+                  <input onChange={handleResidentialChange} type="text" className="form-control w-full rounded font-light text-gray-500"
+                    name="street" value={residentialAddress.street} disabled />
                 </div>
                 <div className="form-group mb-6">
                   <p>LGA</p>
-
-                  <input onChange={(e) => changed(e, i, "lga")} name="lga" type="text" className="form-control w-full rounded font-light text-gray-500"
-                    value={ind.lga} />
-
+                  <input onChange={handleResidentialChange} type="text" className="form-control w-full rounded font-light text-gray-500"
+                    name="lga" value={residentialAddress.lga} disabled />
                 </div>
               </div>
 
               <div className="grid grid-cols-3 gap-4">
                 <div className="form-group mb-6">
                   <p>Town</p>
-
-                  <input onChange={(e) => changed(e, i, "town")} name="town" type="text" className="form-control w-full rounded font-light text-gray-500"
-                    value={ind.town} />
+                  <input onChange={handleResidentialChange} type="text" className="form-control w-full rounded font-light text-gray-500"
+                    name="town" value={residentialAddress.town} />
 
                 </div>
 
                 <div className="form-check form-check-inline">
                   <p>Type of Residence</p>
-                  <select value={ind.residence_type} onChange={(e) => changed(e, i, "residence_type")} className="form-select w-full" name="residence_type" >
+                  <select onChange={handleResidentialChange} className="form-select w-full" name="residence_type" value={residentialAddress.residence_type}>
                     <option value="select">Select</option>
                     <option value="Bungalow">Bungalow</option>
                     <option value="Penthouse">Penthouse</option>
@@ -1036,20 +1124,18 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                     <option value="Duplex">Duplex</option>
                     <option value="Traditional house">Traditional house</option>
                   </select>
-
-
                 </div>
 
                 <div className="form-check form-check-inline ml-5 self-center">
                   <p>Do you own your place of residence?</p>
                   <div className="flex">
                     <div className="form-check form-check-inline">
-                      <input onClick={onresidenceToggleYes} onChange={(e) => changed(e, i, "residence_owner")} name="residence_owner" value={ind.residence_owner} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
+                      <input onClick={onresidenceToggleYes} onChange={handleResidentialChange} name="residence_owner" value="Owner" checked={residentialAddress.residence_owner === "Owner"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
                       <label className="form-check-label inline-block text-gray-800" htmlFor="inlineRadio10">Owner</label>
                     </div>
 
                     <div className="form-check form-check-inline ml-5">
-                      <input onClick={onresidenceToggleNo} onChange={(e) => changed(e, i, "residence_owner")} name="residence_owner" value={ind.residence_owner} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
+                      <input onClick={onresidenceToggleNo} onChange={handleResidentialChange} name="residence_owner" value="Rented" checked={residentialAddress.residence_owner === "Rented"} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
                       <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Rented</label>
                     </div>
                   </div>
@@ -1058,26 +1144,17 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
               <div className={`grid grid-cols-3 gap-4 ${resiToggle}`}>
                 <div className="form-group mb-6">
-                  <p>Annual rent</p>
-
-                  <input onChange={(e) => changed(e, i, "annual_rent")} name="annual_rent" type="text" className="form-control w-full rounded font-light text-gray-500"
-                    value={ind.annual_rent} />
-
+                  <input onChange={handleResidentialChange} type="text" name="annual_rent" value={residentialAddress.annual_rent} className="form-control w-full rounded"
+                    placeholder="Annual rent" />
                 </div>
 
                 <div className="form-group mb-6">
-                  <p>Owner name</p>
-
-                  <input onChange={(e) => changed(e, i, "owner_name")} name="owner_name" type="text" className="form-control w-full rounded font-light text-gray-500"
-                    value={ind.owner_name} />
-
+                  <input onChange={handleResidentialChange} type="text" name="owner_name" value={residentialAddress.owner_name} className="form-control w-full rounded"
+                    placeholder="Name of owner" />
                 </div>
                 <div className="form-group mb-6">
-                  <p>Owner Phone</p>
-
-                  <input onChange={(e) => changed(e, i, "owner_phone")} name="owner_phone" type="text" className="form-control w-full rounded font-light text-gray-500"
-                    value={ind.owner_phone} />
-
+                  <input onChange={handleResidentialChange} type="text" name="owner_phone" value={residentialAddress.owner_phone} className="form-control w-full rounded"
+                    placeholder="Phone number" />
                 </div>
               </div>
               <div>
@@ -1086,12 +1163,122 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                   className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
                   type="submit"
                 >
-                  Update
+                  Save
                 </button>
               </div>
+            </form> :
+            <div>
+              <form onSubmit={submitDataResAdd}>
+                {residentialAddr.map((ind, i) => (
+                  <div>
+                    <div className="grid grid-cols-3 gap-4">
+                      <div className="mb-6">
+                        <p>House No</p>
+
+                        <input onChange={(e) => changed(e, i, "house_no")} name="house_no" type="text" className="form-control w-full rounded font-light text-gray-500"
+                          value={ind.house_no} />
+
+                      </div>
+                      <div className="form-group mb-6">
+                        <p>Street</p>
+
+                        <input onChange={(e) => changed(e, i, "street")} name="street" type="text" className="form-control w-full rounded font-light text-gray-500"
+                          value={ind.street} />
+
+                      </div>
+                      <div className="form-group mb-6">
+                        <p>LGA</p>
+
+                        <input onChange={(e) => changed(e, i, "lga")} name="lga" type="text" className="form-control w-full rounded font-light text-gray-500"
+                          value={ind.lga} />
+
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-4">
+                      <div className="form-group mb-6">
+                        <p>Town</p>
+
+                        <input onChange={(e) => changed(e, i, "town")} name="town" type="text" className="form-control w-full rounded font-light text-gray-500"
+                          value={ind.town} />
+
+                      </div>
+
+                      <div className="form-check form-check-inline">
+                        <p>Type of Residence</p>
+                        <select value={ind.residence_type} onChange={(e) => changed(e, i, "residence_type")} className="form-select w-full" name="residence_type" >
+                          <option value="select">Select</option>
+                          <option value="Bungalow">Bungalow</option>
+                          <option value="Penthouse">Penthouse</option>
+                          <option value="Mansion">Mansion</option>
+                          <option value="Apartment or Flat">Apartment or Flat</option>
+                          <option value="Terraced house">Terraced house</option>
+                          <option value="Duplex">Duplex</option>
+                          <option value="Traditional house">Traditional house</option>
+                        </select>
+
+
+                      </div>
+
+                      <div className="form-check form-check-inline ml-5 self-center">
+                        <p>Do you own your place of residence?</p>
+                        <div className="flex">
+                          <div className="form-check form-check-inline">
+                            <input onClick={onresidenceToggleYes} onChange={(e) => changed(e, i, "residence_owner")} name="residence_owner" value={ind.residence_owner} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio1" />
+                            <label className="form-check-label inline-block text-gray-800" htmlFor="inlineRadio10">Owner</label>
+                          </div>
+
+                          <div className="form-check form-check-inline ml-5">
+                            <input onClick={onresidenceToggleNo} onChange={(e) => changed(e, i, "residence_owner")} name="residence_owner" value={ind.residence_owner} className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" id="inlineRadio2" />
+                            <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">Rented</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className={`grid grid-cols-3 gap-4 ${resiToggle}`}>
+                      <div className="form-group mb-6">
+                        <p>Annual rent</p>
+
+                        <input onChange={(e) => changed(e, i, "annual_rent")} name="annual_rent" type="text" className="form-control w-full rounded font-light text-gray-500"
+                          value={ind.annual_rent} />
+
+                      </div>
+
+                      <div className="form-group mb-6">
+                        <p>Owner name</p>
+
+                        <input onChange={(e) => changed(e, i, "owner_name")} name="owner_name" type="text" className="form-control w-full rounded font-light text-gray-500"
+                          value={ind.owner_name} />
+
+                      </div>
+                      <div className="form-group mb-6">
+                        <p>Owner Phone</p>
+
+                        <input onChange={(e) => changed(e, i, "owner_phone")} name="owner_phone" type="text" className="form-control w-full rounded font-light text-gray-500"
+                          value={ind.owner_phone} />
+
+                      </div>
+                    </div>
+                    <div>
+                      <button
+                        style={{ backgroundColor: "#84abeb" }}
+                        className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                      >
+                        Update
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </form>
+
             </div>
-          ))}
-        </form>
+          }
+
+
+        </div>
+
       </div>
 
 
@@ -1117,104 +1304,129 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
         <div className={`${marriedToggle}`}>
 
-          <form onSubmit={submitDataSpouse} className="border p-3">
-            {spouse == null || spouse == "" ?
-
-              <div>
-
-                <div className="grid border-b-2 m-3 p-3 grid-cols-3 gap-4">
-                  <div className="form-group mb-6">
-                    <p>Name of spouse</p>
-                    <input required name="name" type="text" className="form-control w-full rounded"
-                      placeholder="Name of spouse" />
-                  </div>
-
-                  <div className="form-group mb-6">
-                    <p>Date of Birth</p>
-                    <input required name="dob" type="date" className="form-control w-full rounded"
-                      placeholder="Date of birth" />
-                  </div>
-                  <div className="form-group mb-6">
-                    <p>Occupation</p>
-                    <input name="occupation" type="text" className="form-control w-full rounded"
-                      placeholder="Occupation" />
-                  </div>
-                  <div className="form-group mb-6">
-                    <p>Business/Employer</p>
-                    <input name="employer" type="text" className="form-control w-full rounded"
-                      placeholder="Employer/Business of spouse" />
-                  </div>
-                  <div className="form-group mb-6">
-                    <p>Office/Business Address</p>
-                    <textarea name="employer_addr" type="text" className="form-control w-full rounded"
-                    />
-                  </div>
-                </div>
-
-                <div className="flex justify-between p-3">
-
-                  <button
-                    style={{ backgroundColor: "#84abeb" }}
-                    className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
-                    type="submit"
-                    disabled
-                  >
-                    Save
-                  </button>
-
-                </div>
-              </div> :
-              <div>
-                {spouse.map((ind, i) => (
-
-                  <div>
-                    <div className="grid border-b-2 m-3 p-3 grid-cols-3 gap-4">
-                      <div className="form-group mb-6">
-                        <p>Name of spouse</p>
-                        <input value={ind.name} onChange={(e) => changedSpouse(e, i, "name")} required name="name" type="text" className="form-control w-full rounded" />
-                      </div>
-
-                      <div className="form-group mb-6">
-                        <p>Date of Birth</p>
-                        <input required name="dob" type="date" className="form-control w-full rounded"
-                          value={ind.dob} onChange={(e) => changedSpouse(e, i, "dob")} />
-                      </div>
-                      <div className="form-group mb-6">
-                        <p>Occupation</p>
-                        <input name="occupation" type="text" className="form-control w-full rounded"
-                          value={ind.occupation} onChange={(e) => changedSpouse(e, i, "occupation")} />
-                      </div>
-                      <div className="form-group mb-6">
-                        <p>Business/Employer</p>
-                        <input name="employer" type="text" className="form-control w-full rounded"
-                          value={ind.employer} onChange={(e) => changedSpouse(e, i, "employer")} />
-                      </div>
-                      <div className="form-group mb-6">
-                        <p>Office/Business Address</p>
-                        <textarea name="employer_addr" type="text" className="form-control w-full rounded"
-                          value={ind.employer_addr} onChange={(e) => changedSpouse(e, i, "employer_addr")} />
-                      </div>
+          {spouse == null || spouse == "" ?
+            <div>
+              <form className="border p-3" onSubmit={handleSpouseSubmit}>
+                {spouseIns.map((element, index) => (
+                  <div className="grid border-b-2 m-3 p-3 grid-cols-3 gap-4" key={index}>
+                    <div className="form-group mb-6">
+                      <p>Name of spouse</p>
+                      <input required name="name" value={element.name || ""} onChange={e => handleSpouseChangeIns(index, e)} type="text" className="form-control w-full rounded"
+                        placeholder="Name of spouse" />
                     </div>
+
+                    <div className="form-group mb-6">
+                      <p>Date of Birth</p>
+                      <input required name="dob" value={element.dob || ""} onChange={e => handleSpouseChangeIns(index, e)} type="date" className="form-control w-full rounded"
+                        placeholder="Date of birth" />
+                    </div>
+                    <div className="form-group mb-6">
+                      <p>Occupation</p>
+                      <input name="occupation" value={element.occupation || ""} onChange={e => handleSpouseChangeIns(index, e)} type="text" className="form-control w-full rounded"
+                        placeholder="Occupation" />
+                    </div>
+                    <div className="form-group mb-6">
+                      <p>Business/Employer</p>
+                      <input name="employer" value={element.employer || ""} onChange={e => handleSpouseChangeIns(index, e)} type="text" className="form-control w-full rounded"
+                        placeholder="Employer/Business of spouse" />
+                    </div>
+                    <div className="form-group mb-6">
+                      <p>Office/Business Address</p>
+                      <input name="employer_addr" value={element.employer_addr || ""} onChange={e => handleSpouseChangeIns(index, e)} type="text" className="form-control w-full rounded"
+                        placeholder="Employer's/business address of spouse" />
+                    </div>
+                    {
+                      index ?
+                        <div className="form-group place-self-center">
+                          <button onClick={removeSpouseFields}
+
+                            className="btn btn-default bg-red-600 text-white btn-outlined bg-transparent rounded-md"
+                            type="button"
+                          >
+                            Remove
+                          </button>
+                        </div>
+                        : null
+                    }
 
                   </div>
                 ))}
                 <div className="flex justify-between p-3">
-
-                  <button
+                  <button onClick={addSpouseFields}
                     style={{ backgroundColor: "#84abeb" }}
                     className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="button"
+                  >
+                    Add Spouse
+                  </button>
+                  <button
+                    // style={{ backgroundColor: "#84abeb" }}
+                    className="btn w-64 bg-green-600 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
                     type="submit"
                   >
-                    Update
+                    Save
                   </button>
-
                 </div>
-              </div>
-            }
+              </form>
+            </div>
+            :
+            <div>
+              <form onSubmit={submitDataSpouse} className="border p-3">
+                <div>
+                  {spouse.map((ind, i) => (
 
-          </form>
+                    <div>
+                      <div className="grid border-b-2 m-3 p-3 grid-cols-3 gap-4">
+                        <div className="form-group mb-6">
+                          <p>Name of spouse</p>
+                          <input value={ind.name} onChange={(e) => changedSpouse(e, i, "name")} required name="name" type="text" className="form-control w-full rounded" />
+                        </div>
+
+                        <div className="form-group mb-6">
+                          <p>Date of Birth</p>
+                          <input required name="dob" type="date" className="form-control w-full rounded"
+                            value={ind.dob} onChange={(e) => changedSpouse(e, i, "dob")} />
+                        </div>
+                        <div className="form-group mb-6">
+                          <p>Occupation</p>
+                          <input name="occupation" type="text" className="form-control w-full rounded"
+                            value={ind.occupation} onChange={(e) => changedSpouse(e, i, "occupation")} />
+                        </div>
+                        <div className="form-group mb-6">
+                          <p>Business/Employer</p>
+                          <input name="employer" type="text" className="form-control w-full rounded"
+                            value={ind.employer} onChange={(e) => changedSpouse(e, i, "employer")} />
+                        </div>
+                        <div className="form-group mb-6">
+                          <p>Office/Business Address</p>
+                          <textarea name="employer_addr" type="text" className="form-control w-full rounded"
+                            value={ind.employer_addr} onChange={(e) => changedSpouse(e, i, "employer_addr")} />
+                        </div>
+                      </div>
+
+                    </div>
+                  ))}
+                  <div className="flex justify-between p-3">
+
+                    <button
+                      style={{ backgroundColor: "#84abeb" }}
+                      className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
+                      type="submit"
+                    >
+                      Update
+                    </button>
+
+                  </div>
+                </div>
+              </form>
+            </div>
+
+          }
         </div>
+
+
       </div>
+
 
 
       <div className="block p-6 rounded-lg bg-white w-full">

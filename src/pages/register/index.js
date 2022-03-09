@@ -5,21 +5,23 @@ import url from "../../config/url";
 import setAuthToken from "../../functions/setAuthToken";
 import { Controller, useForm } from 'react-hook-form';
 import { MultiSelect } from "react-multi-select-component";
-import Select from 'react-select';
+import { useRouter } from 'next/router';
+import Loader from "react-loader-spinner";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function index() {
     const [taxStation, setTaxStation] = useState([])
     const [department, setDepartment] = useState([])
     const [rhmGroups, setRhmGroups] = useState([])
+    const [isFetching, setIsFetching] = useState(() => false);
+    const router = useRouter();
+
     const {
         register,
         handleSubmit,
         control,
         formState: { errors }, } = useForm()
-
-    // let handleStationChange = (e) => {
-    //     setTaxStation(e.target.value)
-    //   }
 
     useEffect(() => {
 
@@ -48,13 +50,41 @@ export default function index() {
             value: item.id
         }
     })
-    const onSubmit = (data) => console.log(data);
 
-    const [selectedOption, setSelectedOption] = useState(null);
-    console.log(selectedOption);
+    setAuthToken();
+    const onSubmit = (data) => {
+        setIsFetching(true)
+        try {
+            let res = axios.post(`${url.BASE_URL}user/signup`, data);
+            setIsFetching(false)
+            toast.success("Created Successfully!");
+        } catch (err) {
+            setIsFetching(false)
+            toast.error(); ("Created Successfully!");
+        }
+    };
+
+    // const onSubmit = (data) => console.log(data);
 
     return (
+
         <div>
+            <ToastContainer />
+
+            {isFetching && (
+                <div className="flex justify-center item mb-2">
+                    <Loader
+                        visible={isFetching}
+                        type="BallTriangle"
+                        color="#00FA9A"
+                        height={19}
+                        width={19}
+                        timeout={0}
+                        className="ml-2"
+                    />
+                    <p className="font-bold">Processing...</p>
+                </div>
+            )}
             <div className="block p-6 rounded-lg bg-white w-full">
                 <div className="flex justify-center mb-4">
                     <h6 className="p-2">Register User</h6>
@@ -65,21 +95,23 @@ export default function index() {
                         <div className="form-group ">
                             <p>Full name</p>
                             <input type="text" name="name" className="form-control mb-4 w-full rounded font-light text-gray-500"
-                                placeholder="Enter Full name" ref={register()}
+                                placeholder="Enter Full name" ref={register({ required: "Name is required" })}
                             />
+                            {errors.name && <p className="text-red-600">{errors.name.message}</p>}
                         </div>
 
                         <div className="form-group">
                             <p>Password</p>
                             <input name="password" type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
-                                placeholder="Enter Password" ref={register()}
+                                ref={register({ required: "Password is required", minLength: { value: 8, message: "password must be at least 8 charachers in length" } })}
                             />
+                            {errors.password && <p className="text-red-600">{errors.password.message}</p>}
                         </div>
 
                         <div className="form-group ">
                             <p>Department</p>
-                            <select name="department" ref={register()} className="form-control SlectBox mb-4 w-full rounded font-light text-gray-500">
-                                {department.map((dept) => <option key={dept.id} value={dept.name}>{dept.name}</option>)}
+                            <select name="dept" ref={register()} className="form-control SlectBox mb-4 w-full rounded font-light text-gray-500">
+                                {department.map((dept) => <option key={dept.id} value={dept.id}>{dept.name}</option>)}
                             </select>
                         </div>
 
@@ -94,81 +126,32 @@ export default function index() {
                     <div className="grid grid-cols-2 gap-4">
                         <div className="form-group">
                             <p>User group</p>
-                            {/* <select ref={register()} name="userGroup" class="form-multiselect block w-full mt-1" multiple>
-                                <option value="1">Option 1</option>
-                                <option value="2">Option 2</option>
-                                <option value="3">Option 3</option>
-                                <option value="4">Option 4</option>
-                                <option value="5">Option 5</option>
-                            </select> */}
 
-                            {/* 
                             <Controller
+
                                 control={control}
-                                defaultValue={selectedOption}
-                                name="test"
-                                render={({
-                                    // field: {  ref },
-                                    // fieldState: { invalid, isTouched, isDirty, error },
-                                    formState,
-                                }) => (
-                                    <Select
-                                        // onBlur={onBlur} // notify when input is touched
-                                        // onChange={onChange} // send value to hook form
-                                        // checked={value}
-                                        // inputRef={ref}
-                                        onChange={setSelectedOption}
-                                        isMulti
-                                        options={options}
-                                        defaultValue={selectedOption}
-                                    />
-                                )}
-                            /> */}
-
-                            {/* <Select
-                                className="form-control mb-4 w-full rounded font-light text-gray-500"
-                                defaultValue={selectedOption}
-                                onChange={setSelectedOption}
-                                options={options}
-                                value={selectedOption}
-                                isMulti
-                            /> */}
-                            {/* 
-                            <Controller
-                                as={Select}
+                                defaultValue={options.map(c => c.value).toString()}
                                 name="group"
-                                options={options}
-                                isMulti
-                                control={control}
-                            /> */}
-
-                            <Controller
-                                control={control}
-                                defaultValue={options.map(c => c.value)}
-                                name="group"
+                                rules={{ required: "please select user group" }}
                                 render={({ onChange, value, ref }) => (
                                     <MultiSelect
+
                                         inputRef={ref}
                                         options={options}
                                         value={((options.filter(c => value.includes(c.value))))}
                                         onChange={val => onChange(val.map(c => c.value).toString())}
-                                        labelledBy="Select"
+                                        labelledBy="Select group"
                                     />
-                                    // <Select
-                                    //     inputRef={ref}
-                                    //     value={((options.forEach(c => value.includes(c.value))))}
-                                    //     onChange={val => onChange(val.map(c => c.value))}
-                                    //     options={options}
-                                    //     isMulti
-                                    // />
                                 )}
                             />
+                            {errors.group && <p className="text-red-600">{errors.group.message}</p>}
                         </div>
 
                         <div className="form-group ">
                             <p>Email</p>
-                            <input name="email" ref={register()} type="email" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                            <input name="email" ref={register({ required: "Email is required" })} type="email" className="form-control mb-4 w-full rounded font-light text-gray-500"
                             />
+                            {errors.email && <p className="text-red-600">{errors.email.message}</p>}
                         </div>
                         <div className="form-group ">
                             <p>Phone Number</p>

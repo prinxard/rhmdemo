@@ -99,7 +99,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
 
   let date = new Date()
   let due_date = new Date(date)
-  due_date.setDate(due_date.getDate() + 30);
+  due_date.setDate(due_date.getDate() + 60);
   let paymentDue = dateformat(due_date, "dd mmm yyyy")
 
   const assessment_id = assId
