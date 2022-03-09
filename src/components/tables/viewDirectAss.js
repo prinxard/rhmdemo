@@ -218,6 +218,51 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     }
   }
 
+  const [domesticStaff, setDomesticStaff] = useState(
+    [{
+      assessment_id: `${assessment_id}`, title: "", name: "", house_no: "", street: "",
+      town: "", lga: "", state: "", amount_paid: "", payer: ""
+    }]
+  )
+
+  let handleDomesticStaffChange = (i, e) => {
+    let newStaffValues = [...domesticStaff];
+    newStaffValues[i][e.target.name] = e.target.value;
+    setDomesticStaff(newStaffValues);
+    console.log(newStaffValues);
+  }
+
+  let addStaffFields = () => {
+    setDomesticStaff([...domesticStaff, {
+      assessment_id: `${assessment_id}`, title: "", name: "", house_no: "", street: "",
+      town: "", lga: "", state: "", amount_paid: "", payer: ""
+    }])
+  }
+
+  let removeStaffFields = (i) => {
+    let newStaffValues = [...domesticStaff];
+    newStaffValues.splice(i, 1);
+    setDomesticStaff(newStaffValues)
+  }
+
+  let handleStaffSubmit = (event) => {
+    event.preventDefault();
+    setIsFetching(true)
+    let formVal = (domesticStaff)
+    for (let index = 0; index < formVal.length; index++) {
+      const element = formVal[index];
+      axios.post(`${url.BASE_URL}forma/domestic-staff`, element)
+        .then(function (response) {
+          setIsFetching(false)
+          toast.success("Saved Successfully!");
+        })
+        .catch(function (error) {
+          setIsFetching(false)
+          toast.error("Failed! please try again");
+        });
+    }
+  }
+
   let assessment_id = routerAssId
   let lapAmount
   let NhisAmount
@@ -1560,7 +1605,6 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
       </div>
 
       <div className="block p-6 rounded-lg bg-white w-full">
-
         <div className="grid grid-cols-3 gap-4">
           <div className="form-group mb-6">
             <p>Domestic Staff</p>
@@ -1576,126 +1620,17 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
               <label className="form-check-label inline-block text-gray-800" for="inlineRadio20">No</label>
             </div>
           </div>
-
         </div>
 
-        <form onSubmit={submitDataDomestic} className={`${servantsToggle} border`}>
+        <div className={`${servantsToggle} border rounded`}>
           {domestic == null || domestic == "" ?
-
             <div>
-              <div className={`grid grid-cols-3 m-3 p-3 border-b-2 gap-4`}>
-                <div className="form-group mb-6">
-                  <p>Title</p>
-                  <select name="title" className="form-select w-full" >
-                    <option value="Mrs">Mrs</option>
-                    <option value="Mr">Mr</option>
-                    <option value="Miss">Miss</option>
-                  </select>
-                </div>
-
-                <div className="form-group mb-6">
-                  <p>Name</p>
-                  <input name="name" type="text" className="form-control w-full rounded"
-                    placeholder="Full name" />
-                </div>
-
-                <div className="form-group mb-6">
-                  <p>House Number</p>
-                  <input name="house_no" type="text" className="form-control w-full rounded"
-                    placeholder="House/plot no" />
-                </div>
-                <div className="form-group mb-6">
-                  <p>Street</p>
-                  <input name="street" type="text" className="form-control w-full rounded"
-                    placeholder="Street" />
-                </div>
-                <div className="form-group mb-6">
-                  <p>Town</p>
-                  <input type="text" name="town" className="form-control w-full rounded"
-                    placeholder="Town/Area" />
-                </div>
-                <div className="form-group mb-6">
-                  <p>LGA</p>
-                  <select name="lga" className="form-select w-full"  >
-                    <option value="kabba">Select</option>
-                    <option value="Adavi">Adavi</option>
-                    <option value="Ajaokuta">Ajaokuta</option>
-                    <option value="Ankpa">Ankpa</option>
-                    <option value="Bassa">Bassa</option>
-                  </select>
-                </div>
-                <div className="form-group mb-6">
-                  <p>State</p>
-                  <select className="form-select w-full" name="state">
-                    <option value="Abia">Abia</option>
-                    <option value="Akwa Ibom">Akwa Ibom</option>
-                    <option value="Bauchi">Bauchi</option>
-                    <option value="Bayelsa">Bayelsa</option>
-                    <option value="Benue">Benue</option>
-                    <option value="Borno">Borno</option>
-                    <option value="Cross River">Cross River</option>
-                    <option value="Delta">Delta</option>
-                    <option value="Edo">Edo</option>
-                    <option value="Ekiti">Ekiti</option>
-                    <option value="Enugu">Enugu</option>
-                    <option value="Gombe">Gombe</option>
-                    <option value="Imo">Imo</option>
-                    <option value="Jigawa">Jigawa</option>
-                    <option value="Kaduna">Kaduna</option>
-                    <option value="Kano">Kano</option>
-                    <option value="Katsina">Katsina</option>
-                    <option value="Kebbi">Kebbi</option>
-                    <option value="Kogi">Kogi</option>
-                    <option value="Kwara">Kwara</option>
-                    <option value="Lagos">Lagos</option>
-                    <option value="Nasarawa">Nasarawa</option>
-                    <option value="Niger">Niger</option>
-                    <option value="Ogun">Ogun</option>
-                    <option value="Ondo">Ondo</option>
-                    <option value="Osun">Osun</option>
-                  </select>
-                </div>
-                <div className="form-group mb-6">
-                  <p>Annual Pay</p>
-                  <input name="amount_paid" type="text" className="form-control w-full rounded"
-                    placeholder="Amount paid (Annual)" />
-                </div>
-
-                <div className="flex justify-between self-center">
-                  <div className="form-check form-check-inline ">
-                    <input name="payer" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" />
-                    <label className="form-check-label  text-gray-800" for="inlineRadio10">Paid by employer</label>
-                  </div>
-
-                  <div className="form-check form-check-inline ml-5">
-                    <input name="payer" className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" />
-                    <label className="form-check-label  text-gray-800" for="inlineRadio20">Paid by self</label>
-                  </div>
-                </div>
-                <div></div>
-                <div></div>
-              </div>
-
-              <div className="flex justify-between p-3">
-                <button
-                  style={{ backgroundColor: "#84abeb" }}
-                  className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                  disabled
-                >
-                  Save
-                </button>
-
-              </div>
-            </div> :
-            <div>
-              {domestic.map((ind, i) => (
-
-                <div>
+              <form onSubmit={handleStaffSubmit}>
+                {domesticStaff.map((element, index) => (
                   <div className={`grid grid-cols-3 m-3 p-3 border-b-2 gap-4`}>
                     <div className="form-group mb-6">
                       <p>Title</p>
-                      <select onChange={(e) => changedDomestic(e, i, "title")} value={ind.title} name="title" className="form-select w-full" >
+                      <select value={element.title || ""} onChange={e => handleDomesticStaffChange(index, e)} name="title" className="form-select w-full" >
                         <option value="Mrs">Mrs</option>
                         <option value="Mr">Mr</option>
                         <option value="Miss">Miss</option>
@@ -1704,33 +1639,33 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
                     <div className="form-group mb-6">
                       <p>Name</p>
-                      <input name="name" type="text" className="form-control w-full rounded"
-                        value={ind.name} onChange={(e) => changedDomestic(e, i, "name")} />
+                      <input name="name" onChange={e => handleDomesticStaffChange(index, e)} value={element.name || ""} type="text" className="form-control w-full rounded"
+                        placeholder="Full name" />
                     </div>
 
                     <div className="form-group mb-6">
                       <p>House Number</p>
-                      <input name="house_no" type="text" className="form-control w-full rounded"
-                        value={ind.house_no} onChange={(e) => changedDomestic(e, i, "house_no")} />
+                      <input name="house_no" onChange={e => handleDomesticStaffChange(index, e)} value={element.house_no || ""} type="text" className="form-control w-full rounded"
+                        placeholder="House/plot no" />
                     </div>
                     <div className="form-group mb-6">
                       <p>Street</p>
-                      <input name="street" type="text" className="form-control w-full rounded"
-                        value={ind.street} onChange={(e) => changedDomestic(e, i, "street")} />
+                      <input onChange={e => handleDomesticStaffChange(index, e)} name="street" value={element.street || ""} type="text" className="form-control w-full rounded"
+                        placeholder="Street" />
                     </div>
                     <div className="form-group mb-6">
                       <p>Town</p>
-                      <input type="text" name="town" className="form-control w-full rounded"
-                        value={ind.town} onChange={(e) => changedDomestic(e, i, "town")} />
+                      <input onChange={e => handleDomesticStaffChange(index, e)} type="text" name="town" value={element.town || ""} className="form-control w-full rounded"
+                        placeholder="Town/Area" />
                     </div>
                     <div className="form-group mb-6">
                       <p>LGA</p>
-                      <input type="text" name="lga" className="form-control w-full rounded"
-                        value={ind.lga} onChange={(e) => changedDomestic(e, i, "lga")} />
+                      <input onChange={e => handleDomesticStaffChange(index, e)} type="text" name="lga" value={element.lga || ""} className="form-control w-full rounded"
+                        placeholder="LGA" />
                     </div>
                     <div className="form-group mb-6">
                       <p>State</p>
-                      <select value={ind.state} onChange={(e) => changedDomestic(e, i, "state")} className="form-select w-full" name="state">
+                      <select onChange={e => handleDomesticStaffChange(index, e)} value={element.state || ""} className="form-select w-full" name="state">
                         <option value="ABUJA FCT">ABUJA FCT</option>
                         <option value="ABIA">ABIA</option>
                         <option value="ADAMAWA">ADAMAWA</option>
@@ -1772,36 +1707,166 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                     </div>
                     <div className="form-group mb-6">
                       <p>Annual Pay</p>
-                      <input name="amount_paid" type="text" className="form-control w-full rounded"
-                        value={ind.amount_paid} onChange={(e) => changedDomestic(e, i, "amount_paid")} />
+                      <input required onChange={e => handleDomesticStaffChange(index, e)} name="amount_paid" type="text" className="form-control w-full rounded"
+                        placeholder="Amount paid (Annual)" />
                     </div>
 
                     <div className="form-group mb-6">
                       <p>Payer</p>
-                      <select value={ind.payer} onChange={(e) => changedDomestic(e, i, "payer")} name="payer" className="form-select w-full" >
+                      <select onChange={e => handleDomesticStaffChange(index, e)} value={element.payer || ""} name="payer" className="form-select w-full" >
                         <option>Paid by Employer</option>
                         <option>Paid by self</option>
                       </select>
                     </div>
+
+                    <div></div>
+                    <div className="justify-self-center">
+                      {
+                        index ? <button onClick={removeStaffFields}
+                          // style={{ backgroundColor: "#84abeb" }}
+                          className="btn bg-red-600 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
+                          type="button"
+                        >
+                          Remove
+                        </button> : null
+                      }
+
+                    </div>
+                    <div></div>
                   </div>
+                ))}
+                <div className="flex justify-between p-3">
+                  <button onClick={addStaffFields}
+                    style={{ backgroundColor: "#84abeb" }}
+                    className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="button"
+                  >
+                    Add Staff
+                  </button>
+                  <button
+                    // style={{ backgroundColor: "#84abeb" }}
+                    className="btn w-64 bg-green-600 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                  >
+                    Save
+                  </button>
+
                 </div>
-              ))}
+              </form>
+            </div> :
+            <div>
+              <form onSubmit={submitDataDomestic}>
+                {domestic.map((ind, i) => (
+                  <div>
+                    <div className={`grid grid-cols-3 m-3 p-3 border-b-2 gap-4`}>
+                      <div className="form-group mb-6">
+                        <p>Title</p>
+                        <select onChange={(e) => changedDomestic(e, i, "title")} value={ind.title} name="title" className="form-select w-full" >
+                          <option value="Mrs">Mrs</option>
+                          <option value="Mr">Mr</option>
+                          <option value="Miss">Miss</option>
+                        </select>
+                      </div>
 
-              <div className="flex justify-between p-3">
-                <button
-                  style={{ backgroundColor: "#84abeb" }}
-                  className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                >
-                  Update
-                </button>
+                      <div className="form-group mb-6">
+                        <p>Name</p>
+                        <input name="name" type="text" className="form-control w-full rounded"
+                          value={ind.name} onChange={(e) => changedDomestic(e, i, "name")} />
+                      </div>
 
-              </div>
+                      <div className="form-group mb-6">
+                        <p>House Number</p>
+                        <input name="house_no" type="text" className="form-control w-full rounded"
+                          value={ind.house_no} onChange={(e) => changedDomestic(e, i, "house_no")} />
+                      </div>
+                      <div className="form-group mb-6">
+                        <p>Street</p>
+                        <input name="street" type="text" className="form-control w-full rounded"
+                          value={ind.street} onChange={(e) => changedDomestic(e, i, "street")} />
+                      </div>
+                      <div className="form-group mb-6">
+                        <p>Town</p>
+                        <input type="text" name="town" className="form-control w-full rounded"
+                          value={ind.town} onChange={(e) => changedDomestic(e, i, "town")} />
+                      </div>
+                      <div className="form-group mb-6">
+                        <p>LGA</p>
+                        <input type="text" name="lga" className="form-control w-full rounded"
+                          value={ind.lga} onChange={(e) => changedDomestic(e, i, "lga")} />
+                      </div>
+                      <div className="form-group mb-6">
+                        <p>State</p>
+                        <select value={ind.state} onChange={(e) => changedDomestic(e, i, "state")} className="form-select w-full" name="state">
+                          <option value="ABUJA FCT">ABUJA FCT</option>
+                          <option value="ABIA">ABIA</option>
+                          <option value="ADAMAWA">ADAMAWA</option>
+                          <option value="AKWA IBOM">AKWA IBOM</option>
+                          <option value="ANAMBRA">ANAMBRA</option>
+                          <option value="BAUCHI">BAUCHI</option>
+                          <option value="BAYELSA">BAYELSA</option>
+                          <option value="BENUE">BENUE</option>
+                          <option value="BORNO">BORNO</option>
+                          <option value="CROSS RIVER">CROSS RIVER</option>
+                          <option value="DELTA">DELTA</option>
+                          <option value="EBONYI">EBONYI</option>
+                          <option value="EDO">EDO</option>
+                          <option value="EKITI">EKITI</option>
+                          <option value="ENUGU">ENUGU</option>
+                          <option value="GOMBE">GOMBE</option>
+                          <option value="IMO">IMO</option>
+                          <option value="JIGAWA">JIGAWA</option>
+                          <option value="KADUNA">KADUNA</option>
+                          <option value="KANO">KANO</option>
+                          <option value="KATSINA">KATSINA</option>
+                          <option value="KEBBI">KEBBI</option>
+                          <option value="KOGI">KOGI</option>
+                          <option value="KWARA">KWARA</option>
+                          <option value="LAGOS">LAGOS</option>
+                          <option value="NASSARAWA">NASSARAWA</option>
+                          <option value="NIGER">NIGER</option>
+                          <option value="OGUN">OGUN</option>
+                          <option value="ONDO" >ONDO</option>
+                          <option value="OSUN">OSUN</option>
+                          <option value="OYO">OYO</option>
+                          <option value="PLATEAU">PLATEAU</option>
+                          <option value="RIVERS">RIVERS</option>
+                          <option value="SOKOTO">SOKOTO</option>
+                          <option value="TARABA">TARABA</option>
+                          <option value="YOBE">YOBE</option>
+                          <option value="ZAMFARA">ZAMFARA</option>
+                        </select>
+                      </div>
+                      <div className="form-group mb-6">
+                        <p>Annual Pay</p>
+                        <input name="amount_paid" type="text" className="form-control w-full rounded"
+                          value={ind.amount_paid} onChange={(e) => changedDomestic(e, i, "amount_paid")} />
+                      </div>
+
+                      <div className="form-group mb-6">
+                        <p>Payer</p>
+                        <select value={ind.payer} onChange={(e) => changedDomestic(e, i, "payer")} name="payer" className="form-select w-full" >
+                          <option>Paid by Employer</option>
+                          <option>Paid by self</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+
+                <div className="flex justify-between p-3">
+                  <button
+                    style={{ backgroundColor: "#84abeb" }}
+                    className="btn w-64 mb-4 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                  >
+                    Update
+                  </button>
+
+                </div>
+              </form>
             </div>
           }
-        </form>
-
-
+        </div>
       </div>
 
 
