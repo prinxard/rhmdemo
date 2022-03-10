@@ -125,70 +125,70 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
   const router = useRouter();
   let assessment_id = routerAssId
 
-  
+
   const [residentialAddress, setResidentialAddress] = useState(
     {
       assessment_id: "", house_no: "", street: "", town: "", lga: "", residence_type: "",
       residence_owner: "", annual_rent: "", owner_name: "", owner_phone: ""
     }
-    )
-    let res_no = indvData.map(function (x) {
-      let houseNumb = x.house_no
-      return houseNumb
-    })
-  
-    residentialAddress.house_no = String(res_no)
-  
-    let streetVal = indvData.map(function (x) {
-      let street = x.street
-      return street
-    })
-  
-    residentialAddress.street = String(streetVal)
-  
-  
-    let lgaVal = indvData.map(function (x) {
-      let lga = x.lga
-      return lga
-    })
-  
-    residentialAddress.lga = String(lgaVal)
-    
-    
-    function handleResidentialChange(evt) {
-      const value = evt.target.value;
-      setResidentialAddress({
-        ...residentialAddress,
-        [evt.target.name]: value
-      });
-      console.log(residentialAddress);
+  )
+  let res_no = indvData.map(function (x) {
+    let houseNumb = x.house_no
+    return houseNumb
+  })
+
+  residentialAddress.house_no = String(res_no)
+
+  let streetVal = indvData.map(function (x) {
+    let street = x.street
+    return street
+  })
+
+  residentialAddress.street = String(streetVal)
+
+
+  let lgaVal = indvData.map(function (x) {
+    let lga = x.lga
+    return lga
+  })
+
+  residentialAddress.lga = String(lgaVal)
+
+
+  function handleResidentialChange(evt) {
+    const value = evt.target.value;
+    setResidentialAddress({
+      ...residentialAddress,
+      [evt.target.name]: value
+    });
+    console.log(residentialAddress);
+  }
+
+  setAuthToken();
+  let submitDataResAddr = async (e) => {
+    e.preventDefault()
+    setIsFetching(true)
+    let resAddObj = {
+      assessment_id: `${assessment_id}`,
+      house_no: `${residentialAddress.house_no}`,
+      street: `${residentialAddress.street}`,
+      town: `${residentialAddress.town}`,
+      lga: `${residentialAddress.lga}`,
+      residence_type: `${residentialAddress.residence_type}`,
+      residence_owner: `${residentialAddress.residence_owner}`,
+      annual_rent: `${residentialAddress.annual_rent}`,
+      owner_name: `${residentialAddress.owner_name}`,
+      owner_phone: `${residentialAddress.owner_phone}`,
     }
-    
-    setAuthToken();
-    let submitDataResAddr = async (e) => {
-      e.preventDefault()
-      setIsFetching(true)
-      let resAddObj = {
-        assessment_id: `${assessment_id}`,
-        house_no: `${residentialAddress.house_no}`,
-        street: `${residentialAddress.street}`,
-        town: `${residentialAddress.town}`,
-        lga: `${residentialAddress.lga}`,
-        residence_type: `${residentialAddress.residence_type}`,
-        residence_owner: `${residentialAddress.residence_owner}`,
-        annual_rent: `${residentialAddress.annual_rent}`,
-        owner_name: `${residentialAddress.owner_name}`,
-        owner_phone: `${residentialAddress.owner_phone}`,
-      }
-      try {
-        let res = await axios.post(`${url.BASE_URL}forma/residence-addr`, resAddObj);
-        setIsFetching(false)
-        toast.success("Saved Successfully!");
-      } catch (error) {
-        toast.error("error, Please try again!");
-        setIsFetching(false)
-      }
-      
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/residence-addr`, resAddObj);
+      setIsFetching(false)
+      toast.success("Saved Successfully!");
+    } catch (error) {
+      toast.error("error, Please try again!");
+      setIsFetching(false)
+    }
+
   }
 
 
@@ -373,6 +373,42 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
       setIsFetching(false)
     }
 
+  }
+
+  const [expensesData, setExpenses] = useState(
+    {
+      assessment_id: "", item: "", amount: ""
+    }
+  )
+
+  let expenseAmountIns = Number(expensesData.amount)
+  const netProfitIns = totalBusIncIns - expenseAmountIns
+
+  function handleExpenseChange(evt) {
+    const value = evt.target.value;
+    setExpenses({
+      ...expensesData,
+      [evt.target.name]: value
+    });
+  }
+
+  let submitDataExpense = async (e) => {
+    e.preventDefault()
+    setIsFetching(true)
+    let expenseDataObj = {
+      assessment_id: `${assessment_id}`,
+      item: `${expensesData.item}`,
+      amount: `${expensesData.amount}`,
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/expenses`, expenseDataObj);
+      setIsFetching(false)
+      toast.success("Saved Successfully!");
+    } catch (error) {
+      toast.error("error, Please try again!");
+      console.log(error);
+      setIsFetching(false)
+    }
   }
 
   let lapAmount
@@ -2621,61 +2657,64 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
           </div>
 
-
-
-          <form onSubmit={submitDataExpenses}>
+          <div>
             {expenses == null || expenses == "" ?
-              <div>
+              <form onSubmit={submitDataExpense}>
                 <p className="font-bold">Expenses</p>
                 <div className="mb-6 grid grid-cols-3 gap-4">
-
-                  <input required name="item" type="text" className="form-control w-full rounded"
+                  <input required onChange={handleExpenseChange} name="item" value={expensesData.item} type="text" className="form-control w-full rounded"
                     placeholder="Item"
                   />
-                  <input required name="amount" type="text" className="form-control w-full rounded"
+                  <input required onChange={handleExpenseChange} name="amount" value={expensesData.amount} type="text" className="form-control w-full rounded"
                     placeholder="Amount"
                   />
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
-                  <button
-                    style={{ backgroundColor: "#84abeb" }}
-                    className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                    type="submit"
-                    disabled
-                  >
-                    Save Expenses
-                  </button>
+                  <label className="font-bold">Net Profit/ Loss:</label>
+                  <p className="font-bold"> NGN {netProfitIns}</p>
                 </div>
-              </div>
-              :
-              <div>
-                {expenses.map((ind, i) => (
-                  <div>
-                    <p className="font-bold">Expenses</p>
-                    <div className="mb-6 grid grid-cols-3 gap-4">
-                      <input required name="item" key={i} type="text" className="form-control w-full rounded"
-                        value={ind.item} placeholder="Item" onChange={(e) => changedExpenses(e, i, "item")}
-                      />
-                      <input required name="amount" type="text" className="form-control w-full rounded"
-                        value={ind.amount} placeholder="Value" key={i} onChange={(e) => changedExpenses(e, i, "amount")}
-                      />
-                    </div>
-                  </div>
-
-                ))}
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <button
                     style={{ backgroundColor: "#84abeb" }}
                     className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
                     type="submit"
                   >
-                    Update Expenses
+                    Save Expenses
                   </button>
+
                 </div>
-              </div>
+              </form> :
+              <form onSubmit={submitDataExpenses}>
+                <div>
+                  {expenses.map((ind, i) => (
+                    <div>
+                      <p className="font-bold">Expenses</p>
+                      <div className="mb-6 grid grid-cols-3 gap-4">
+                        <input required name="item" key={i} type="text" className="form-control w-full rounded"
+                          value={ind.item} placeholder="Item" onChange={(e) => changedExpenses(e, i, "item")}
+                        />
+                        <input required name="amount" type="text" className="form-control w-full rounded"
+                          value={ind.amount} placeholder="Value" key={i} onChange={(e) => changedExpenses(e, i, "amount")}
+                        />
+                      </div>
+                    </div>
+
+                  ))}
+                  <div className="mb-6 grid grid-cols-3 gap-4">
+                    <button
+                      style={{ backgroundColor: "#84abeb" }}
+                      className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                      type="submit"
+                    >
+                      Update Expenses
+                    </button>
+                  </div>
+                </div>
+              </form>
             }
-          </form>
+          </div>
+
         </div>
       </div>
       <div className="flex justify-between mb-5">
