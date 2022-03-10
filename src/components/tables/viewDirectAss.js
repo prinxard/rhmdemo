@@ -1186,6 +1186,41 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     }
   }
 
+  const [farmland, setFarmland] = useState(
+    {
+      assessment_id: "", addr: "", acq_date: "", land_cost: "", produce_cost: "",
+    }
+  )
+
+  function handlefarmChange(evt) {
+    const value = evt.target.value;
+    setFarmland({
+      ...farmland,
+      [evt.target.name]: value
+    });
+  }
+
+  let submitDataFarmIns = async (e) => {
+    e.preventDefault()
+    setIsFetching(true)
+    let farmDataObj = {
+      assessment_id: `${assessment_id}`,
+      addr: `${farmland.addr}`,
+      acq_date: `${farmland.acq_date}`,
+      land_cost: `${farmland.land_cost}`,
+      produce_cost: `${farmland.produce_cost}`,
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/farm`, farmDataObj);
+      setIsFetching(false)
+      toast.success("Saved Successfully!");
+    } catch (error) {
+      toast.error("error, Please try again!");
+      console.log(error);
+      setIsFetching(false)
+    }
+  }
+
   setAuthToken();
   let submitDataVehicles = async (e, index) => {
     e.preventDefault()
@@ -4744,103 +4779,107 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
       </div>
 
       <div className={`flex justify-start border mb-3 block p-6 rounded-lg bg-white w-full ${togglee15}`}>
-        <form onSubmit={submitDataFarm}>
+        <div>
           {farm == null || farm == "" ?
-
-            <div className="">
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <abel>Address:</abel>
-                <input name="addr" type="text" className="form-control w-full rounded"
-                />
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>Date of acquisition:</label>
-                <input required name="acq_date" type="date" className="form-control w-full rounded"
-                />
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>Cost of Land:</label>
-                <input required placeholder="₦" name="land_cost" type="text" className="form-control w-full rounded"
-                />
-              </div>
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>Cost of Produce:</label>
-                <input required name="produce_cost" type="text" className="form-control w-full rounded"
-                />
-              </div>
-
-              <div className="mb-6 flex justify-between">
-                <button
-                  style={{ backgroundColor: "#84abeb" }}
-                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                  disabled
-                >
-                  Save
-                </button>
-                <button onClick={formTog15} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                  <a href="">
-                    <FiTriangle
-                      size={15}
-                      className="stroke-current text-green-500"
-                    />
-                  </a>
-                </button>
-              </div>
-            </div> :
-            <div>
-              {farm.map((ind, i) => (
-
-                <div className="">
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <abel>Address:</abel>
-                    <textarea value={ind.addr} onChange={(e) => changedFarm(e, i, "addr")} name="addr" type="text" className="form-control w-full rounded"
-                    />
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>Date of acquisition:</label>
-                    <input value={ind.acq_date} onChange={(e) => changedFarm(e, i, "acq_date")} required name="acq_date" type="date" className="form-control w-full rounded"
-                    />
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>Cost of Land:</label>
-                    <input value={ind.land_cost} onChange={(e) => changedFarm(e, i, "land_cost")} required placeholder="₦" name="land_cost" type="text" className="form-control w-full rounded"
-                    />
-                  </div>
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>Cost of Produce:</label>
-                    <input value={ind.produce_cost} onChange={(e) => changedFarm(e, i, "produce_cost")} required name="produce_cost" type="text" className="form-control w-full rounded"
-                    />
-                  </div>
-                  <div className="m-3">
-                    <hr />
-                  </div>
+            <form onSubmit={submitDataFarmIns}>
+              <div className="">
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Address:</label>
+                  <input onChange={handlefarmChange} name="addr" value={farmland.addr} type="text" className="form-control w-full rounded"
+                  />
                 </div>
-              ))}
-              <div className="mb-6 flex justify-between">
-                <button
-                  style={{ backgroundColor: "#84abeb" }}
-                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                >
-                  Update
-                </button>
-                <button onClick={formTog15} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                  <a href="">
-                    <FiTriangle
-                      size={15}
-                      className="stroke-current text-green-500"
-                    />
-                  </a>
-                </button>
+
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Date of acquisition:</label>
+                  <input required onChange={handlefarmChange} name="acq_date" value={farmland.acq_date} type="date" className="form-control w-full rounded"
+                  />
+                </div>
+
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Cost of Land:</label>
+                  <input required onChange={handlefarmChange} placeholder="₦" name="land_cost" value={farmland.land_cost} type="text" className="form-control w-full rounded"
+                  />
+                </div>
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Cost of Produce:</label>
+                  <input required onChange={handlefarmChange} name="produce_cost" value={farmland.produce_cost} type="text" className="form-control w-full rounded"
+                  />
+                </div>
+
+                <div className="mb-6 flex justify-between">
+                  <button
+                    style={{ backgroundColor: "#84abeb" }}
+                    className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                  >
+                    Save
+                  </button>
+                  <button onClick={formTog15} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <a href="">
+                      <FiTriangle
+                        size={15}
+                        className="stroke-current text-green-500"
+                      />
+                    </a>
+                  </button>
+                </div>
               </div>
-            </div>
+            </form> :
+            <form onSubmit={submitDataFarm}>
+              <div>
+                {farm.map((ind, i) => (
+
+                  <div className="">
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <abel>Address:</abel>
+                      <textarea value={ind.addr} onChange={(e) => changedFarm(e, i, "addr")} name="addr" type="text" className="form-control w-full rounded"
+                      />
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Date of acquisition:</label>
+                      <input value={ind.acq_date} onChange={(e) => changedFarm(e, i, "acq_date")} required name="acq_date" type="date" className="form-control w-full rounded"
+                      />
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Cost of Land:</label>
+                      <input value={ind.land_cost} onChange={(e) => changedFarm(e, i, "land_cost")} required placeholder="₦" name="land_cost" type="text" className="form-control w-full rounded"
+                      />
+                    </div>
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Cost of Produce:</label>
+                      <input value={ind.produce_cost} onChange={(e) => changedFarm(e, i, "produce_cost")} required name="produce_cost" type="text" className="form-control w-full rounded"
+                      />
+                    </div>
+                    <div className="m-3">
+                      <hr />
+                    </div>
+                  </div>
+                ))}
+                <div className="mb-6 flex justify-between">
+                  <button
+                    style={{ backgroundColor: "#84abeb" }}
+                    className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                  >
+                    Update
+                  </button>
+                  <button onClick={formTog15} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <a href="">
+                      <FiTriangle
+                        size={15}
+                        className="stroke-current text-green-500"
+                      />
+                    </a>
+                  </button>
+                </div>
+              </div>
+
+            </form>
+
           }
-        </form>
+        </div>
       </div>
       <form onSubmit={submitForm}>
 
