@@ -555,6 +555,47 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     }
   }
 
+  const [rentIncomeIns, setRentIncomeIns] = useState(
+    {
+      assessment_id: "", prop_type: "", prop_address: "",
+      rental_type: "", rental_amount: "",
+      renter_phone: "", renter_name: "", comments: ""
+    }
+  )
+
+  function handleRentIncomeChange(evt) {
+    const value = evt.target.value;
+    setRentIncomeIns({
+      ...rentIncomeIns,
+      [evt.target.name]: value
+    });
+
+  }
+
+  let submitDataRentInc = async (e) => {
+    e.preventDefault()
+    setIsFetching(true)
+    let rentIncomeDataObj = {
+      assessment_id: `${assessment_id}`,
+      prop_type: `${rentIncomeIns.prop_type}`,
+      prop_address: `${rentIncomeIns.prop_address}`,
+      rental_type: `${rentIncomeIns.rental_type}`,
+      rental_amount: `${rentIncomeIns.rental_amount}`,
+      renter_name: `${rentIncomeIns.renter_name}`,
+      renter_phone: `${rentIncomeIns.renter_phone}`,
+      comments: `${rentIncomeIns.comments}`,
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/rent-income`, rentIncomeDataObj);
+      setIsFetching(false)
+      toast.success("Saved Successfully!");
+    } catch (error) {
+      toast.error("error, Please try again!");
+      console.log(error);
+      setIsFetching(false)
+    }
+  }
+
   let lapAmount
   let NhisAmount
   let penDeductAmount
@@ -3405,147 +3446,151 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
       <div className={`flex justify-center border mb-3 block p-6 rounded-lg bg-white w-full ${togglee4}`}>
 
-        <form onSubmit={submitDataRentIncome}>
+        <div>
           {rentIncome == null || rentIncome == "" ?
-
-            <div className="">
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>Property Type:</label>
-                <select name="prop_type">
-                  <option value="Bungalow">Bungalow</option>
-                  <option value="Penthouse">Penthouse</option>
-                  <option value="Mansion">Mansion</option>
-                  <option value="Apartment or Flat">Apartment or Flat</option>
-                  <option value="Terraced house">Terraced house</option>
-                  <option value="Duplex">Duplex</option>
-                  <option value="Traditional house">Traditional house</option>
-                </select>
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>Property Address:</label>
-                <input type="text" name="prop_address" className="form-control w-full rounded"
-                />
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>Rental Type:</label>
-                <select className="form-select" name="rental_type">
-                  <option value="Lease">Lease</option>
-                  <option value="Rent">Rent</option>
-                </select>
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>Rental Amount(Annual):</label>
-                <input type="text" placeholder="₦" name="rental_amount" className="form-control w-full rounded"
-                />
-              </div>
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>Renter Name:</label>
-                <input type="text" name="renter_name" className="form-control w-full rounded"
-                />
-              </div>
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <labe>Renter Phone number:</labe>
-                <input type="text" name="renter_phone" className="form-control w-full rounded"
-                />
-              </div>
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>Optional Comments:</label>
-                <textarea name="comments" cols="40" rows="2" className="rounded"></textarea>
-              </div>
-              <div className="mb-6 flex justify-between">
-                <button
-                  style={{ backgroundColor: "#84abeb" }}
-                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                  disabled
-                >
-                  Save
-                </button>
-                <button onClick={formTog4} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                  <a href="">
-                    <FiTriangle
-                      size={15}
-                      className="stroke-current text-green-500"
-                    />
-                  </a>
-                </button>
-              </div>
-            </div> :
-            <div>
-              {rentIncome.map((ind, i) => (
-
-                <div className="">
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>Property Type:</label>
-                    <select value={ind.prop_type} onChange={(e) => changedRentIncome(e, i, "prop_type")} name="prop_type">
-                      <option value="Bungalow">Bungalow</option>
-                      <option value="Penthouse">Penthouse</option>
-                      <option value="Mansion">Mansion</option>
-                      <option value="Apartment or Flat">Apartment or Flat</option>
-                      <option value="Terraced house">Terraced house</option>
-                      <option value="Duplex">Duplex</option>
-                      <option value="Traditional house">Traditional house</option>
-                    </select>
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>Property Address:</label>
-                    <textarea onChange={(e) => changedRentIncome(e, i, "prop_address")} value={ind.prop_address} name="prop_address" className="form-control w-full rounded"
-                    />
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>Rental Type:</label>
-                    <select value={ind.rental_type} onChange={(e) => changedRentIncome(e, i, "rental_type")} className="form-select" name="rental_type">
-                      <option value="Lease">Lease</option>
-                      <option value="Rent">Rent</option>
-                    </select>
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>Rental Amount(Annual):</label>
-                    <input value={ind.rental_amount} onChange={(e) => changedRentIncome(e, i, "rental_amount")} type="text" placeholder="₦" name="rental_amount" className="form-control w-full rounded"
-                    />
-                  </div>
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>Renter Name:</label>
-                    <input value={ind.renter_name} onChange={(e) => changedRentIncome(e, i, "renter_name")} type="text" name="renter_name" className="form-control w-full rounded"
-                    />
-                  </div>
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <labe>Renter Phone number:</labe>
-                    <input value={ind.renter_phone} onChange={(e) => changedRentIncome(e, i, "renter_phone")} type="text" name="renter_phone" className="form-control w-full rounded"
-                    />
-                  </div>
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>Optional Comments:</label>
-                    <textarea value={ind.comments} onChange={(e) => changedRentIncome(e, i, "comments")} name="comments" cols="40" rows="2" className="rounded"></textarea>
-                  </div>
+            <form onSubmit={submitDataRentInc}>
+              <div className="">
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Property Type:</label>
+                  <select onChange={handleRentIncomeChange} name="prop_type" value={rentIncomeIns.prop_type}>
+                    <option value="Bungalow">Bungalow</option>
+                    <option value="Penthouse">Penthouse</option>
+                    <option value="Mansion">Mansion</option>
+                    <option value="Apartment or Flat">Apartment or Flat</option>
+                    <option value="Terraced house">Terraced house</option>
+                    <option value="Duplex">Duplex</option>
+                    <option value="Traditional house">Traditional house</option>
+                  </select>
                 </div>
-              ))}
-              <div className="mb-6 flex justify-between">
-                <button
-                  style={{ backgroundColor: "#84abeb" }}
-                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                >
-                  Update
-                </button>
-                <button onClick={formTog4} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                  <a href="">
-                    <FiTriangle
-                      size={15}
-                      className="stroke-current text-green-500"
-                    />
-                  </a>
-                </button>
+
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Property Address:</label>
+                  <input onChange={handleRentIncomeChange} type="text" name="prop_address" value={rentIncomeIns.prop_address} className="form-control w-full rounded"
+                  />
+                </div>
+
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Rental Type:</label>
+                  <select onChange={handleRentIncomeChange} className="form-select" name="rental_type" value={rentIncomeIns.rental_type}>
+                    <option value="Lease">Lease</option>
+                    <option value="Rent">Rent</option>
+                  </select>
+                </div>
+
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Rental Amount(Annual):</label>
+                  <input onChange={handleRentIncomeChange} type="text" placeholder="₦" name="rental_amount" value={rentIncomeIns.rental_amount} className="form-control w-full rounded"
+                  />
+                </div>
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Renter Name:</label>
+                  <input onChange={handleRentIncomeChange} type="text" name="renter_name" value={rentIncomeIns.renter_name} className="form-control w-full rounded"
+                  />
+                </div>
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <labe>Renter Phone number:</labe>
+                  <input onChange={handleRentIncomeChange} type="text" name="renter_phone" value={rentIncomeIns.phone_number} className="form-control w-full rounded"
+                  />
+                </div>
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Optional Comments:</label>
+                  <textarea onChange={handleRentIncomeChange} name="comments" value={rentIncomeIns.comments} cols="40" rows="2" className="rounded"></textarea>
+                </div>
+                <div className="mb-6 flex justify-between">
+                  <button
+                    style={{ backgroundColor: "#84abeb" }}
+                    className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                  >
+                    Save
+                  </button>
+                  <button onClick={formTog4} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <a href="">
+                      <FiTriangle
+                        size={15}
+                        className="stroke-current text-green-500"
+                      />
+                    </a>
+                  </button>
+                </div>
               </div>
-            </div>
+            </form> :
+
+            <form onSubmit={submitDataRentIncome}>
+              <div>
+                {rentIncome.map((ind, i) => (
+                  <div className="">
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Property Type:</label>
+                      <select value={ind.prop_type} onChange={(e) => changedRentIncome(e, i, "prop_type")} name="prop_type">
+                        <option value="Bungalow">Bungalow</option>
+                        <option value="Penthouse">Penthouse</option>
+                        <option value="Mansion">Mansion</option>
+                        <option value="Apartment or Flat">Apartment or Flat</option>
+                        <option value="Terraced house">Terraced house</option>
+                        <option value="Duplex">Duplex</option>
+                        <option value="Traditional house">Traditional house</option>
+                      </select>
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Property Address:</label>
+                      <textarea onChange={(e) => changedRentIncome(e, i, "prop_address")} value={ind.prop_address} name="prop_address" className="form-control w-full rounded"
+                      />
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Rental Type:</label>
+                      <select value={ind.rental_type} onChange={(e) => changedRentIncome(e, i, "rental_type")} className="form-select" name="rental_type">
+                        <option value="Lease">Lease</option>
+                        <option value="Rent">Rent</option>
+                      </select>
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Rental Amount(Annual):</label>
+                      <input value={ind.rental_amount} onChange={(e) => changedRentIncome(e, i, "rental_amount")} type="text" placeholder="₦" name="rental_amount" className="form-control w-full rounded"
+                      />
+                    </div>
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Renter Name:</label>
+                      <input value={ind.renter_name} onChange={(e) => changedRentIncome(e, i, "renter_name")} type="text" name="renter_name" className="form-control w-full rounded"
+                      />
+                    </div>
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <labe>Renter Phone number:</labe>
+                      <input value={ind.renter_phone} onChange={(e) => changedRentIncome(e, i, "renter_phone")} type="text" name="renter_phone" className="form-control w-full rounded"
+                      />
+                    </div>
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Optional Comments:</label>
+                      <textarea value={ind.comments} onChange={(e) => changedRentIncome(e, i, "comments")} name="comments" cols="40" rows="2" className="rounded"></textarea>
+                    </div>
+                  </div>
+                ))}
+                <div className="mb-6 flex justify-between">
+                  <button
+                    style={{ backgroundColor: "#84abeb" }}
+                    className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                  >
+                    Update
+                  </button>
+                  <button onClick={formTog4} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <a href="">
+                      <FiTriangle
+                        size={15}
+                        className="stroke-current text-green-500"
+                      />
+                    </a>
+                  </button>
+                </div>
+              </div>
+            </form>
+
           }
-        </form>
+        </div>
+
       </div>
 
 
