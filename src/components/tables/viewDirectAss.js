@@ -631,6 +631,76 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     }
   }
 
+  const [dividendsIns, setDividendsIns] = useState(
+    {
+      assessment_id: "", name: "", addr: "", amount: "", comments: "",
+    }
+  )
+
+  function handleDividendsChange(evt) {
+    const value = evt.target.value;
+    setDividendsIns({
+      ...dividendsIns,
+      [evt.target.name]: value
+    });
+  }
+
+  let submitDataDividends = async (e) => {
+    e.preventDefault()
+    setIsFetching(true)
+    let dividendsDataObj = {
+      assessment_id: `${assessment_id}`,
+      name: `${dividendsIns.name}`,
+      addr: `${dividendsIns.addr}`,
+      amount: `${dividendsIns.amount}`,
+      comments: `${dividendsIns.comments}`,
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/dividends`, dividendsDataObj);
+      setIsFetching(false)
+      toast.success("Saved Successfully!");
+    } catch (error) {
+      toast.error("error, Please try again!");
+      console.log(error);
+      setIsFetching(false)
+    }
+  }
+
+  const [pensionIns, setPensionIns] = useState(
+    {
+      assessment_id: "", pfa: "", pfa_addr: "", gross_amount: "", comments: "",
+    }
+  )
+
+  function handlePensionChange(evt) {
+    const value = evt.target.value;
+    setPensionIns({
+      ...pensionIns,
+      [evt.target.name]: value
+    });
+  }
+
+  let submitDataPensionIns = async (e) => {
+    e.preventDefault()
+    setIsFetching(true)
+    let pensionDataObj = {
+      assessment_id: `${assessment_id}`,
+      pfa: `${pensionIns.pfa}`,
+      pfa_addr: `${pensionIns.pfa_addr}`,
+      gross_amount: `${pensionIns.gross_amount}`,
+      comments: `${pensionIns.comments}`,
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/pension`, pensionDataObj);
+      setIsFetching(false)
+      toast.success("Saved Successfully!");
+    } catch (error) {
+      toast.error("error, Please try again!");
+      console.log(error);
+      setIsFetching(false)
+    }
+  }
+
   let lapAmount
   let NhisAmount
   let penDeductAmount
@@ -3779,97 +3849,99 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
         </div>
       </div>
       <div className={`flex justify-center border mb-3 block p-6 rounded-lg bg-white w-full ${togglee6}`}>
-        <form onSubmit={submitDataBankDividends}>
+        <div>
           {dividends == null || dividends == "" ?
-
-            <div className="">
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>Company Name:</label>
-                <input name="name" type="text" id="employername" className="form-control w-full rounded"
-                />
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>Company address:</label>
-                <textarea name="addr" type="text" id="employername" className="form-control w-full rounded"
-                />
-              </div>
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>Gross Amount:</label>
-                <input required name="amount" type="text" className="form-control w-full rounded"
-                />
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>Optional Comments:</label>
-                <textarea name="comments" id="comments" cols="40" rows="2" className="rounded"></textarea>
-              </div>
-              <div className="mb-6 flex justify-between">
-                <button
-                  style={{ backgroundColor: "#84abeb" }}
-                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                  disabled
-                >
-                  Save
-                </button>
-                <button onClick={formTog6} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                  <a href="">
-                    <FiTriangle
-                      size={15}
-                      className="stroke-current text-green-500"
-                    />
-                  </a>
-                </button>
-              </div>
-            </div> :
-            <div>
-              {dividends.map((ind, i) => (
-                <div className="">
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>Company Name:</label>
-                    <input value={ind.name} onChange={(e) => changedBankDividends(e, i, "name")} name="name" type="text" className="form-control w-full rounded"
-                    />
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>Company address:</label>
-                    <textarea value={ind.addr} onChange={(e) => changedBankDividends(e, i, "addr")} name="addr" type="text" id="employername" className="form-control w-full rounded"
-                    />
-                  </div>
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>Gross Amount:</label>
-                    <input value={ind.amount} onChange={(e) => changedBankDividends(e, i, "amount")} required name="amount" type="text" className="form-control w-full rounded"
-                    />
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>Optional Comments:</label>
-                    <textarea value={ind.comments} onChange={(e) => changedBankDividends(e, i, "comments")} name="comments" id="comments" cols="40" rows="2" className="rounded"></textarea>
-                  </div>
-
+            <form onSubmit={submitDataDividends}>
+              <div className="">
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Company Name:</label>
+                  <input onChange={handleDividendsChange} name="name" value={dividendsIns.name} type="text" id="employername" className="form-control w-full rounded"
+                  />
                 </div>
-              ))}
-              <div className="mb-6 flex justify-between">
-                <button
-                  style={{ backgroundColor: "#84abeb" }}
-                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                >
-                  Update
-                </button>
-                <button onClick={formTog6} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                  <a href="">
-                    <FiTriangle
-                      size={15}
-                      className="stroke-current text-green-500"
-                    />
-                  </a>
-                </button>
+
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Company address:</label>
+                  <input onChange={handleDividendsChange} name="addr" value={dividendsIns.addr} type="text" id="employername" className="form-control w-full rounded"
+                  />
+                </div>
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Gross Amount:</label>
+                  <input required onChange={handleDividendsChange} name="amount" value={dividendsIns.amount} type="text" className="form-control w-full rounded"
+                  />
+                </div>
+
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Optional Comments:</label>
+                  <textarea onChange={handleDividendsChange} name="comments" value={dividendsIns.comments} id="comments" cols="40" rows="2" className="rounded"></textarea>
+                </div>
+                <div className="mb-6 flex justify-between">
+                  <button
+                    style={{ backgroundColor: "#84abeb" }}
+                    className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                  >
+                    Save
+                  </button>
+                  <button onClick={formTog6} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <a href="">
+                      <FiTriangle
+                        size={15}
+                        className="stroke-current text-green-500"
+                      />
+                    </a>
+                  </button>
+                </div>
               </div>
-            </div>
+            </form> :
+            <form onSubmit={submitDataBankDividends}>
+              <div>
+                {dividends.map((ind, i) => (
+                  <div className="">
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Company Name:</label>
+                      <input value={ind.name} onChange={(e) => changedBankDividends(e, i, "name")} name="name" type="text" className="form-control w-full rounded"
+                      />
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Company address:</label>
+                      <textarea value={ind.addr} onChange={(e) => changedBankDividends(e, i, "addr")} name="addr" type="text" id="employername" className="form-control w-full rounded"
+                      />
+                    </div>
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Gross Amount:</label>
+                      <input value={ind.amount} onChange={(e) => changedBankDividends(e, i, "amount")} required name="amount" type="text" className="form-control w-full rounded"
+                      />
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Optional Comments:</label>
+                      <textarea value={ind.comments} onChange={(e) => changedBankDividends(e, i, "comments")} name="comments" id="comments" cols="40" rows="2" className="rounded"></textarea>
+                    </div>
+
+                  </div>
+                ))}
+                <div className="mb-6 flex justify-between">
+                  <button
+                    style={{ backgroundColor: "#84abeb" }}
+                    className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                  >
+                    Update
+                  </button>
+                  <button onClick={formTog6} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <a href="">
+                      <FiTriangle
+                        size={15}
+                        className="stroke-current text-green-500"
+                      />
+                    </a>
+                  </button>
+                </div>
+              </div>
+            </form>
           }
-        </form>
+        </div>
       </div>
 
       <div className="flex justify-between mb-5">
@@ -3889,97 +3961,99 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
         </div>
       </div>
       <div className={`flex justify-center border mb-3 block p-6 rounded-lg bg-white w-full ${togglee7}`}>
-        <form onSubmit={submitDataPension}>
+        <div>
           {pension == null || pension == "" ?
-
-            <div className="">
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label >PFA:</label>
-                <input name="pfa" type="text" className="form-control w-full rounded"
-                />
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>PFA address:</label>
-                <input name="pfa_addr" type="text" id="employername" className="form-control w-full rounded"
-                />
-              </div>
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label> Gross Amount:</label>
-                <input required name="gross_amount" placeholder="₦" type="text" className="form-control w-full rounded"
-                />
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>Optional Comments:</label>
-                <textarea name="comments" cols="40" rows="2" className="rounded"></textarea>
-              </div>
-              <div className="mb-6 flex justify-between">
-                <button
-                  style={{ backgroundColor: "#84abeb" }}
-                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                  disabled
-                >
-                  Save
-                </button>
-                <button onClick={formTog7} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                  <a href="">
-                    <FiTriangle
-                      size={15}
-                      className="stroke-current text-green-500"
-                    />
-                  </a>
-                </button>
-              </div>
-            </div> :
-            <div>
-              {pension.map((ind, i) => (
-
-                <div className="">
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label >PFA:</label>
-                    <input value={ind.pfa} onChange={(e) => changedPension(e, i, "pfa")} name="pfa" type="text" className="form-control w-full rounded"
-                    />
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>PFA address:</label>
-                    <textarea value={ind.pfa_addr} onChange={(e) => changedPension(e, i, "pfa_addr")} name="pfa_addr" id="employername" className="form-control w-full rounded"
-                    />
-                  </div>
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label> Gross Amount:</label>
-                    <input value={ind.gross_amount} onChange={(e) => changedPension(e, i, "gross_amount")} required name="gross_amount" placeholder="₦" type="text" className="form-control w-full rounded"
-                    />
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>Optional Comments:</label>
-                    <textarea value={ind.comments} onChange={(e) => changedPension(e, i, "comments")} name="comments" cols="40" rows="2" className="rounded"></textarea>
-                  </div>
+            <form onSubmit={submitDataPensionIns}>
+              <div className="">
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label >PFA:</label>
+                  <input onChange={handlePensionChange} name="pfa" value={pensionIns.pfa} type="text" className="form-control w-full rounded"
+                  />
                 </div>
-              ))}
-              <div className="mb-6 flex justify-between">
-                <button
-                  style={{ backgroundColor: "#84abeb" }}
-                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                >
-                  Update
-                </button>
-                <button onClick={formTog7} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                  <a href="">
-                    <FiTriangle
-                      size={15}
-                      className="stroke-current text-green-500"
-                    />
-                  </a>
-                </button>
+
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>PFA address:</label>
+                  <input onChange={handlePensionChange} name="pfa_addr" value={pensionIns.pfa_addr} type="text" id="employername" className="form-control w-full rounded"
+                  />
+                </div>
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label> Gross Amount:</label>
+                  <input required onChange={handlePensionChange} name="gross_amount" placeholder="₦" value={pensionIns.gross_amount} type="text" className="form-control w-full rounded"
+                  />
+                </div>
+
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Optional Comments:</label>
+                  <textarea onChange={handlePensionChange} name="comments" value={pensionIns.comments} cols="40" rows="2" className="rounded"></textarea>
+                </div>
+                <div className="mb-6 flex justify-between">
+                  <button
+                    style={{ backgroundColor: "#84abeb" }}
+                    className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                  >
+                    Save
+                  </button>
+                  <button onClick={formTog7} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <a href="">
+                      <FiTriangle
+                        size={15}
+                        className="stroke-current text-green-500"
+                      />
+                    </a>
+                  </button>
+                </div>
               </div>
-            </div>
+            </form> :
+            <form onSubmit={submitDataPension}>
+              <div>
+                {pension.map((ind, i) => (
+
+                  <div className="">
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label >PFA:</label>
+                      <input value={ind.pfa} onChange={(e) => changedPension(e, i, "pfa")} name="pfa" type="text" className="form-control w-full rounded"
+                      />
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>PFA address:</label>
+                      <textarea value={ind.pfa_addr} onChange={(e) => changedPension(e, i, "pfa_addr")} name="pfa_addr" id="employername" className="form-control w-full rounded"
+                      />
+                    </div>
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label> Gross Amount:</label>
+                      <input value={ind.gross_amount} onChange={(e) => changedPension(e, i, "gross_amount")} required name="gross_amount" placeholder="₦" type="text" className="form-control w-full rounded"
+                      />
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Optional Comments:</label>
+                      <textarea value={ind.comments} onChange={(e) => changedPension(e, i, "comments")} name="comments" cols="40" rows="2" className="rounded"></textarea>
+                    </div>
+                  </div>
+                ))}
+                <div className="mb-6 flex justify-between">
+                  <button
+                    style={{ backgroundColor: "#84abeb" }}
+                    className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                  >
+                    Update
+                  </button>
+                  <button onClick={formTog7} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <a href="">
+                      <FiTriangle
+                        size={15}
+                        className="stroke-current text-green-500"
+                      />
+                    </a>
+                  </button>
+                </div>
+              </div>
+            </form>
           }
-        </form>
+        </div>
       </div>
       <div className="flex justify-between mb-5">
 
