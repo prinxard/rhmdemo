@@ -740,6 +740,39 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     }
   }
 
+  const [outsideSourceIns, SetOutsideSourceIns] = useState(
+    {
+      assessment_id: "", source: "", gross_amount: "", comments: ""
+    }
+  )
+  function handleOutsideSourceChange(evt) {
+    const value = evt.target.value;
+    SetOutsideSourceIns({
+      ...outsideSourceIns,
+      [evt.target.name]: value
+    });
+  }
+
+  let submitDataOutsideSource = async (e) => {
+    e.preventDefault()
+    setIsFetching(true)
+    let outsideSourceDataObj = {
+      assessment_id: `${assessment_id}`,
+      source: `${outsideSourceIns.source}`,
+      gross_amount: `${outsideSourceIns.gross_amount}`,
+      comments: `${outsideSourceIns.comments}`,
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/outside-source`, outsideSourceDataObj);
+      setIsFetching(false)
+      toast.success("Saved Successfully!");
+    } catch (error) {
+      toast.error("error, Please try again!");
+      console.log(error);
+      setIsFetching(false)
+    }
+  }
+
   let lapAmount
   let NhisAmount
   let penDeductAmount
@@ -1080,6 +1113,44 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     }
 
   }
+
+  const [vehicle, setVehicle] = useState(
+    {
+      assessment_id: "", purchase_date: "", cost: "", brand: "", model: "", year: ""
+    }
+  )
+
+  function handleVehicleChange(evt) {
+    const value = evt.target.value;
+    setVehicle({
+      ...vehicle,
+      [evt.target.name]: value
+    });
+    console.log(vehicle);
+  }
+
+  let submitDataVehicleIns = async (e) => {
+    e.preventDefault()
+    setIsFetching(true)
+    let vehicleDataObj = {
+      assessment_id: `${assessment_id}`,
+      purchase_date: `${vehicle.purchase_date}`,
+      cost: `${vehicle.cost}`,
+      brand: `${vehicle.brand}`,
+      model: `${vehicle.model}`,
+      year: `${vehicle.year}`,
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/vechicles`, vehicleDataObj);
+      setIsFetching(false)
+      toast.success("Saved Successfully!");
+    } catch (error) {
+      toast.error("error, Please try again!");
+      console.log(error);
+      setIsFetching(false)
+    }
+  }
+
   setAuthToken();
   let submitDataVehicles = async (e, index) => {
     e.preventDefault()
@@ -4267,85 +4338,89 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
       </div>
 
       <div className={`flex justify-center border mb-3 block p-6 rounded-lg bg-white w-full ${togglee9}`}>
-        <form onSubmit={submitDataOutside}>
+        <div>
           {outsideSource == null || outsideSource == "" ?
-            <div className="">
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>Source:</label>
-                <input name="source" type="text" className="form-control w-full rounded"
-                />
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>Gross Amount:</label>
-                <input required placeholder="₦" name="gross_amount" type="text" className="form-control w-full rounded"
-                />
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>Optional Comments:</label>
-                <textarea name="comments" cols="40" rows="2" className="rounded"></textarea>
-              </div>
-              <div className="mb-6 flex justify-between">
-                <button
-                  style={{ backgroundColor: "#84abeb" }}
-                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                  disabled
-                >
-                  Save
-                </button>
-                <button onClick={formTog9} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                  <a href="">
-                    <FiTriangle
-                      size={15}
-                      className="stroke-current text-green-500"
-                    />
-                  </a>
-                </button>
-              </div>
-            </div> :
-            <div>
-              {outsideSource.map((ind, i) => (
-                <div className="">
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>Source:</label>
-                    <input value={ind.source} onChange={(e) => changedOutsideSource(e, i, "source")} name="source" type="text" className="form-control w-full rounded"
-                    />
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>Gross Amount:</label>
-                    <input value={ind.gross_amount} onChange={(e) => changedOutsideSource(e, i, "gross_amount")} required placeholder="₦" name="gross_amount" type="text" className="form-control w-full rounded"
-                    />
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>Optional Comments:</label>
-                    <textarea value={ind.comments} onChange={(e) => changedOutsideSource(e, i, "comments")} name="comments" cols="40" rows="2" className="rounded"></textarea>
-                  </div>
-                  <div className="mb-6 flex justify-between">
-                    <button
-                      style={{ backgroundColor: "#84abeb" }}
-                      className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                      type="submit"
-                    >
-                      Update
-                    </button>
-                    <button onClick={formTog9} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                      <a href="">
-                        <FiTriangle
-                          size={15}
-                          className="stroke-current text-green-500"
-                        />
-                      </a>
-                    </button>
-                  </div>
+            <form onSubmit={submitDataOutsideSource}>
+              <div className="">
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Source:</label>
+                  <input onChange={handleOutsideSourceChange} name="source" value={outsideSourceIns.source} type="text" className="form-control w-full rounded"
+                  />
                 </div>
-              ))}
-            </div>
+
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Gross Amount:</label>
+                  <input required onChange={handleOutsideSourceChange} placeholder="₦" name="gross_amount" value={outsideSourceIns.gross_amount} type="text" className="form-control w-full rounded"
+                  />
+                </div>
+
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Optional Comments:</label>
+                  <textarea onChange={handleOutsideSourceChange} name="comments" value={outsideSourceIns.comments} cols="40" rows="2" className="rounded"></textarea>
+                </div>
+                <div className="mb-6 flex justify-between">
+                  <button
+                    style={{ backgroundColor: "#84abeb" }}
+                    className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                  >
+                    Save
+                  </button>
+                  <button onClick={formTog9} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <a href="">
+                      <FiTriangle
+                        size={15}
+                        className="stroke-current text-green-500"
+                      />
+                    </a>
+                  </button>
+                </div>
+              </div>
+            </form> :
+            <form onSubmit={submitDataOutside}>
+              <div>
+                {outsideSource.map((ind, i) => (
+                  <div className="">
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Source:</label>
+                      <input value={ind.source} onChange={(e) => changedOutsideSource(e, i, "source")} name="source" type="text" className="form-control w-full rounded"
+                      />
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Gross Amount:</label>
+                      <input value={ind.gross_amount} onChange={(e) => changedOutsideSource(e, i, "gross_amount")} required placeholder="₦" name="gross_amount" type="text" className="form-control w-full rounded"
+                      />
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Optional Comments:</label>
+                      <textarea value={ind.comments} onChange={(e) => changedOutsideSource(e, i, "comments")} name="comments" cols="40" rows="2" className="rounded"></textarea>
+                    </div>
+                    <div className="mb-6 flex justify-between">
+                      <button
+                        style={{ backgroundColor: "#84abeb" }}
+                        className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                      >
+                        Update
+                      </button>
+                      <button onClick={formTog9} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                        <a href="">
+                          <FiTriangle
+                            size={15}
+                            className="stroke-current text-green-500"
+                          />
+                        </a>
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </form>
+
           }
-        </form>
+        </div>
       </div>
 
       <div className="flex justify-between mb-5">
@@ -4367,117 +4442,119 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
       </div>
 
       <div className={`flex justify-start border mb-3 block p-6 rounded-lg bg-white w-full ${togglee13}`}>
-        <form onSubmit={submitDataVehicles}>
+
+        <div>
           {vehicles == null || vehicles == "" ?
-
-            <div className="">
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>Date of purchase:</label>
-                <input required name="purchase_date" type="date" className="form-control w-full rounded"
-                />
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>Cost:</label>
-                <input required name="cost" type="text" className="form-control w-full rounded"
-                />
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>Brand:</label>
-                <input type="text" name="brand"></input>
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <labe>Model:</labe>
-                <input name="model" type="text" className="form-control w-full rounded"
-                />
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>Year:</label>
-                <input type="text" placeholder="YYYY" min="1990" max="2100"></input>
-                {/* <input required name="year" type="date" className="form-control w-full rounded"
-                /> */}
-              </div>
-
-              <div className="mb-6 flex justify-between">
-                <button
-                  style={{ backgroundColor: "#84abeb" }}
-                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                  disabled
-                >
-                  Save
-                </button>
-                <button onClick={formTog13} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                  <a href="">
-                    <FiTriangle
-                      size={15}
-                      className="stroke-current text-green-500"
-                    />
-                  </a>
-                </button>
-              </div>
-            </div> :
-            <div>
-              {vehicles.map((ind, i) => (
-                <div className="">
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>Date of purchase:</label>
-                    <input value={ind.purchase_date} onChange={(e) => changedVehicles(e, i, "purchase_date")} required name="purchase_date" type="date" className="form-control w-full rounded"
-                    />
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>Cost:</label>
-                    <input value={ind.cost} onChange={(e) => changedVehicles(e, i, "cost")} required name="cost" type="text" className="form-control w-full rounded"
-                    />
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>Brand:</label>
-                    <input value={ind.brand} onChange={(e) => changedVehicles(e, i, "brand")} type="text" name="brand"></input>
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <labe>Model:</labe>
-                    <input value={ind.model} onChange={(e) => changedVehicles(e, i, "model")} name="model" type="text" className="form-control w-full rounded"
-                    />
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>Year:</label>
-                    <input value={ind.year} onChange={(e) => changedVehicles(e, i, "year")} type="text" placeholder="YYYY" min="1990" max="2100"></input>
-
-
-                  </div>
-                  <div className="m-3">
-
-                    <hr />
-                  </div>
+            <form onSubmit={submitDataVehicleIns}>
+              <div className="">
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Date of purchase:</label>
+                  <input required onChange={handleVehicleChange} name="purchase_date" value={vehicle.purchase_date} type="date" className="form-control w-full rounded"
+                  />
                 </div>
-              ))}
-              <div className="mb-6 flex justify-between">
-                <button
-                  style={{ backgroundColor: "#84abeb" }}
-                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                >
-                  Update
-                </button>
-                <button onClick={formTog13} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                  <a href="">
-                    <FiTriangle
-                      size={15}
-                      className="stroke-current text-green-500"
-                    />
-                  </a>
-                </button>
+
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Cost:</label>
+                  <input required onChange={handleVehicleChange} name="cost" value={vehicle.cost} type="text" className="form-control w-full rounded"
+                  />
+                </div>
+
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Brand:</label>
+                  <input onChange={handleVehicleChange} type="text" name="brand" value={vehicle.brand}></input>
+                </div>
+
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <labe>Model:</labe>
+                  <input onChange={handleVehicleChange} name="model" value={vehicle.model} type="text" className="form-control w-full rounded"
+                  />
+                </div>
+
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Year:</label>
+                  <input required onChange={handleVehicleChange} name="year" value={vehicle.year} type="number" placeholder="YYYY" min="1990" max="2100" className="form-control w-full rounded"
+                  />
+                </div>
+
+                <div className="mb-6 flex justify-between">
+                  <button
+                    style={{ backgroundColor: "#84abeb" }}
+                    className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                  >
+                    Save
+                  </button>
+                  <button onClick={formTog13} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <a href="">
+                      <FiTriangle
+                        size={15}
+                        className="stroke-current text-green-500"
+                      />
+                    </a>
+                  </button>
+                </div>
               </div>
-            </div>
+            </form> :
+            <form onSubmit={submitDataVehicles}>
+              <div>
+                {vehicles.map((ind, i) => (
+                  <div className="">
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Date of purchase:</label>
+                      <input value={ind.purchase_date} onChange={(e) => changedVehicles(e, i, "purchase_date")} required name="purchase_date" type="date" className="form-control w-full rounded"
+                      />
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Cost:</label>
+                      <input value={ind.cost} onChange={(e) => changedVehicles(e, i, "cost")} required name="cost" type="text" className="form-control w-full rounded"
+                      />
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Brand:</label>
+                      <input value={ind.brand} onChange={(e) => changedVehicles(e, i, "brand")} type="text" name="brand"></input>
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <labe>Model:</labe>
+                      <input value={ind.model} onChange={(e) => changedVehicles(e, i, "model")} name="model" type="text" className="form-control w-full rounded"
+                      />
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Year:</label>
+                      <input value={ind.year} onChange={(e) => changedVehicles(e, i, "year")} type="number" placeholder="YYYY" min="1990" max="2100"></input>
+
+
+                    </div>
+                    <div className="m-3">
+
+                      <hr />
+                    </div>
+                  </div>
+                ))}
+                <div className="mb-6 flex justify-between">
+                  <button
+                    style={{ backgroundColor: "#84abeb" }}
+                    className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                  >
+                    Update
+                  </button>
+                  <button onClick={formTog13} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <a href="">
+                      <FiTriangle
+                        size={15}
+                        className="stroke-current text-green-500"
+                      />
+                    </a>
+                  </button>
+                </div>
+              </div>
+            </form>
           }
-        </form>
+        </div>
       </div>
 
       <div className="flex justify-between mb-5">
