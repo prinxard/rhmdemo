@@ -101,7 +101,6 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
   changedChildren, children, domestic, changedDomestic, assessment
 
 }) => {
-  console.log(bankInterest);
   const [toggleel, setToggle] = useState('hidden')
   const [togglee2, setToggle2] = useState('hidden')
   const [togglee3, setToggle3] = useState('hidden')
@@ -587,6 +586,42 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     }
     try {
       let res = await axios.post(`${url.BASE_URL}forma/rent-income`, rentIncomeDataObj);
+      setIsFetching(false)
+      toast.success("Saved Successfully!");
+    } catch (error) {
+      toast.error("error, Please try again!");
+      console.log(error);
+      setIsFetching(false)
+    }
+  }
+
+  const [bankInterestIns, setBankInterestIns] = useState(
+    {
+      assessment_id: "", name: "", account: "", bvn: "", gross_amount: "", comments: ""
+    }
+  )
+
+  function handleBankInterestChange(evt) {
+    const value = evt.target.value;
+    setBankInterestIns({
+      ...bankInterestIns,
+      [evt.target.name]: value
+    });
+  }
+
+  let submitDataBankInt = async (e) => {
+    e.preventDefault()
+    setIsFetching(true)
+    let bankInterestDataObj = {
+      assessment_id: `${assessment_id}`,
+      name: `${bankInterestIns.name}`,
+      account: `${bankInterestIns.account}`,
+      bvn: `${bankInterestIns.bvn}`,
+      gross_amount: `${bankInterestIns.gross_amount}`,
+      comments: `${bankInterestIns.comments}`,
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/bank-interest`, bankInterestDataObj);
       setIsFetching(false)
       toast.success("Saved Successfully!");
     } catch (error) {
@@ -3616,106 +3651,113 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
       </div>
 
       <div className={`flex justify-center border mb-3 block p-6 rounded-lg bg-white w-full ${togglee5}`}>
-        <form onSubmit={submitDataBankInterest}>
+
+        <div>
           {bankInterest == null || bankInterest == "" ?
-
-            <div className="">
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>Bank Name:</label>
-                <input name="name" type="text" className="form-control w-full rounded"
-                />
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>Bank Account:</label>
-                <input name="account" type="text" className="form-control w-full rounded"
-                />
-              </div>
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>Bank Verification Number (BVN):</label>
-                <input name="bvn" type="text" id="employername" className="form-control w-full rounded"
-                />
-              </div>
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label >Gross Amount:</label>
-                <input required name="gross_amount" placeholder="₦" type="text" className="form-control w-full rounded"
-                />
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>Optional Comments:</label>
-                <textarea name="comments" cols="40" rows="2" className="rounded"></textarea>
-              </div>
-              <div className="mb-6 flex justify-between">
-                <button
-                  style={{ backgroundColor: "#84abeb" }}
-                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                  disabled
-                >
-                  Save
-                </button>
-                <button onClick={formTog5} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                  <a href="">
-                    <FiTriangle
-                      size={15}
-                      className="stroke-current text-green-500"
-                    />
-                  </a>
-                </button>
-              </div>
-            </div> :
             <div>
-              {bankInterest.map((ind, i) => (
+              <form onSubmit={submitDataBankInt}>
                 <div className="">
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label>Bank Name:</label>
-                    <input value={ind.name} onChange={(e) => changedBankInterest(e, i, "name")} name="name" type="text" className="form-control w-full rounded"
+                    <input onChange={handleBankInterestChange} name="name" value={bankInterestIns.name} type="text" className="form-control w-full rounded"
                     />
                   </div>
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label>Bank Account:</label>
-                    <input value={ind.account} onChange={(e) => changedBankInterest(e, i, "account")} name="account" type="text" className="form-control w-full rounded"
+                    <input onChange={handleBankInterestChange} name="account" value={bankInterestIns.account} type="text" className="form-control w-full rounded"
                     />
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label>Bank Verification Number (BVN):</label>
-                    <input value={ind.bvn} onChange={(e) => changedBankInterest(e, i, "bvn")} name="bvn" type="text" id="employername" className="form-control w-full rounded"
+                    <input onChange={handleBankInterestChange} name="bvn" value={bankInterestIns.bvn} type="text" id="employername" className="form-control w-full rounded"
                     />
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label >Gross Amount:</label>
-                    <input value={ind.gross_amount} onChange={(e) => changedBankInterest(e, i, "gross_amount")} required name="gross_amount" placeholder="₦" type="text" className="form-control w-full rounded"
+                    <input required onChange={handleBankInterestChange} name="gross_amount" placeholder="₦" value={bankInterestIns.gross_amount} type="text" className="form-control w-full rounded"
                     />
                   </div>
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label>Optional Comments:</label>
-                    <textarea value={ind.comments} onChange={(e) => changedBankInterest(e, i, "comments")} name="comments" cols="40" rows="2" className="rounded"></textarea>
+                    <textarea onChange={handleBankInterestChange} name="comments" value={bankInterestIns.comments} cols="40" rows="2" className="rounded"></textarea>
+                  </div>
+                  <div className="mb-6 flex justify-between">
+                    <button
+                      style={{ backgroundColor: "#84abeb" }}
+                      className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                      type="submit"
+                    >
+                      Save
+                    </button>
+                    <button onClick={formTog5} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                      <a href="">
+                        <FiTriangle
+                          size={15}
+                          className="stroke-current text-green-500"
+                        />
+                      </a>
+                    </button>
                   </div>
                 </div>
-              ))}
-              <div className="mb-6 flex justify-between">
-                <button
-                  style={{ backgroundColor: "#84abeb" }}
-                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                >
-                  Update
-                </button>
-                <button onClick={formTog5} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                  <a href="">
-                    <FiTriangle
-                      size={15}
-                      className="stroke-current text-green-500"
-                    />
-                  </a>
-                </button>
+              </form>
+            </div> :
+            <form onSubmit={submitDataBankInterest}>
+              <div>
+                {bankInterest.map((ind, i) => (
+                  <div className="">
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Bank Name:</label>
+                      <input value={ind.name} onChange={(e) => changedBankInterest(e, i, "name")} name="name" type="text" className="form-control w-full rounded"
+                      />
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Bank Account:</label>
+                      <input value={ind.account} onChange={(e) => changedBankInterest(e, i, "account")} name="account" type="text" className="form-control w-full rounded"
+                      />
+                    </div>
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Bank Verification Number (BVN):</label>
+                      <input value={ind.bvn} onChange={(e) => changedBankInterest(e, i, "bvn")} name="bvn" type="text" id="employername" className="form-control w-full rounded"
+                      />
+                    </div>
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label >Gross Amount:</label>
+                      <input value={ind.gross_amount} onChange={(e) => changedBankInterest(e, i, "gross_amount")} required name="gross_amount" placeholder="₦" type="text" className="form-control w-full rounded"
+                      />
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Optional Comments:</label>
+                      <textarea value={ind.comments} onChange={(e) => changedBankInterest(e, i, "comments")} name="comments" cols="40" rows="2" className="rounded"></textarea>
+                    </div>
+                  </div>
+                ))}
+                <div className="mb-6 flex justify-between">
+                  <button
+                    style={{ backgroundColor: "#84abeb" }}
+                    className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                  >
+                    Update
+                  </button>
+                  <button onClick={formTog5} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <a href="">
+                      <FiTriangle
+                        size={15}
+                        className="stroke-current text-green-500"
+                      />
+                    </a>
+                  </button>
+                </div>
               </div>
-            </div>
+
+            </form>
+
           }
-        </form>
+        </div>
       </div>
 
       <div className="flex justify-between mb-5">
