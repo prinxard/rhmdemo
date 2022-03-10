@@ -415,6 +415,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       comments: ""
     }
   )
+  
   const [farmland, setFarmland] = useState(
     {
       assessment_id: "", addr: "", acq_date: "", land_cost: "", produce_cost: "",

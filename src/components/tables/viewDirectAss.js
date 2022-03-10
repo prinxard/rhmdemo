@@ -447,6 +447,114 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
   }
 
+  const [pensionDeduct, setPensionDeduct] = useState(
+    { assessment_id: "", pfa: "", pfa_addr: "", rsa_no: "", amount: "", comments: "" }
+  )
+
+  function handlePenDeductChange(evt) {
+    const value = evt.target.value;
+    setPensionDeduct({
+      ...pensionDeduct,
+      [evt.target.name]: value
+    });
+  }
+
+  let submitDataPenDeduct = async (e) => {
+    e.preventDefault()
+    setIsFetching(true)
+    let pendedObj = {
+      assessment_id: `${assessment_id}`,
+      pfa: `${pensionDeduct.pfa}`,
+      pfa_addr: `${pensionDeduct.pfa_addr}`,
+      rsa_no: `${pensionDeduct.rsa_no}`,
+      amount: `${pensionDeduct.amount}`,
+      comments: `${pensionDeduct.comments}`,
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/pension-ded`, pendedObj);
+      setIsFetching(false)
+      toast.success("Saved Successfully!");
+    } catch (error) {
+      toast.error("error, Please try again!");
+      setIsFetching(false)
+    }
+
+  }
+
+  const [nhisData, setNhis] = useState(
+    {
+      assessment_id: "", company: "", addr: "", insurance_no: "", amount: "", comments: ""
+    }
+  )
+
+  function handleNHISChange(evt) {
+    const value = evt.target.value;
+    setNhis({
+      ...nhisData,
+      [evt.target.name]: value
+    });
+  }
+
+  let submitDataNhisIns = async (e) => {
+    e.preventDefault()
+    setIsFetching(true)
+    let nhisDataObj = {
+      assessment_id: `${assessment_id}`,
+      company: `${nhisData.company}`,
+      addr: `${nhisData.addr}`,
+      insurance_no: `${nhisData.insurance_no}`,
+      amount: `${nhisData.amount}`,
+      comments: `${nhisData.comments}`,
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/nhis`, nhisDataObj);
+      setIsFetching(false)
+      toast.success("Saved Successfully!");
+    } catch (error) {
+      toast.error("error, Please try again!");
+      console.log(error);
+      setIsFetching(false)
+    }
+
+  }
+
+  const [partnerData, setPartnerData] = useState(
+    {
+      assessment_id: "", name: "", addr: "", phone: "", percentage: "",
+      comments: ""
+    }
+  )
+
+  function handlePartnershipChange(evt) {
+    const value = evt.target.value;
+    setPartnerData({
+      ...partnerData,
+      [evt.target.name]: value
+    });
+  }
+
+  let submitDataPartnerIns = async (e) => {
+    e.preventDefault()
+    setIsFetching(true)
+    let partnerDataObj = {
+      assessment_id: `${assessment_id}`,
+      name: `${partnerData.name}`,
+      addr: `${partnerData.addr}`,
+      phone: `${partnerData.phone}`,
+      percentage: `${partnerData.percentage}`,
+      comments: `${partnerData.comments}`,
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/partner`, partnerDataObj);
+      setIsFetching(false)
+      toast.success("Saved Successfully!");
+    } catch (error) {
+      toast.error("error, Please try again!");
+      console.log(error);
+      setIsFetching(false)
+    }
+  }
+
   let lapAmount
   let NhisAmount
   let penDeductAmount
@@ -2900,117 +3008,114 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
       </div>
 
       <div className={`flex justify-center border mb-3 block p-6 rounded-lg bg-white w-full ${togglee10}`}>
-
-        <form onSubmit={submitDataPensDed}>
-
+        <div>
           {pensDeduct == null || pensDeduct == "" ?
-            <div div className="">
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>PFA:</label>
-                <input name="pfa" type="text" className="form-control w-full rounded"
-                />
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label htmlFor="employername">PFA Address:</label>
-                <input name="pfa_addr" type="text" className="form-control w-full rounded"
-                />
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label htmlFor="employername">RSA No:</label>
-                <input name="rsa_no" type="text" className="form-control w-full rounded"
-                />
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label htmlFor="employername">Amount:</label>
-                <input required placeholder="₦" name="amount" type="text" className="form-control w-full rounded"
-                />
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label htmlFor="comments">Optional Comments:</label>
-                <textarea name="comments" id="comments" cols="40" rows="2" className="rounded"></textarea>
-              </div>
-              <div className="mb-6 flex justify-between">
-                <button
-                  style={{ backgroundColor: "#84abeb" }}
-                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                  disabled
-                >
-                  Save
-                </button>
-                <button onClick={formTog10} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                  <a href="">
-                    <FiTriangle
-                      size={15}
-                      className="stroke-current text-green-500"
-                    />
-                  </a>
-                </button>
-              </div>
-            </div>
-
-            :
-            <div className="">
-              {pensDeduct.map((ind, i) => (
-                <div className="border-b-2 mb-3">
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">PFA:</label>
-                    <input value={ind.pfa} name="pfa" type="text" onChange={(e) => changedPensDed(e, i, "pfa")} key={i} className="form-control w-full rounded"
-                    />
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">PFA Address:</label>
-                    <input value={ind.pfa_addr} name="pfa_addr" type="text" onChange={(e) => changedPensDed(e, i, "pfa_addr")} key={i} className="form-control w-full rounded"
-                    />
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">RSA No:</label>
-                    <input value={ind.rsa_no} name="rsa_no" type="text" onChange={(e) => changedPensDed(e, i, "rsa_no")} key={i} className="form-control w-full rounded"
-                    />
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">Amount:</label>
-                    <input value={ind.amount} required placeholder="₦" name="amount" type="text" onChange={(e) => changedPensDed(e, i, "amount")} key={i} className="form-control w-full rounded"
-                    />
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="comments">Optional Comments:</label>
-                    <textarea value={ind.comments} name="comments" onChange={(e) => changedPensDed(e, i, "comments")} key={i} cols="40" rows="2" className="rounded"></textarea>
-                  </div>
-
+            <form onSubmit={submitDataPenDeduct}>
+              <div className="">
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label htmlFor="employername">PFA:</label>
+                  <input onChange={handlePenDeductChange} name="pfa" value={pensionDeduct.pfa} type="text" id="employername" className="form-control w-full rounded"
+                  />
                 </div>
-              ))}
 
-              <div className="mb-6 flex justify-between">
-                <button
-                  style={{ backgroundColor: "#84abeb" }}
-                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                >
-                  Update
-                </button>
-                <button onClick={formTog10} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                  <a href="">
-                    <FiTriangle
-                      size={15}
-                      className="stroke-current text-green-500"
-                    />
-                  </a>
-                </button>
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label htmlFor="employername">PFA Address:</label>
+                  <input onChange={handlePenDeductChange} name="pfa_addr" value={pensionDeduct.pfa_addr} type="text" id="employername" className="form-control w-full rounded"
+                  />
+                </div>
+
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label htmlFor="employername">RSA No:</label>
+                  <input onChange={handlePenDeductChange} name="rsa_no" value={pensionDeduct.rsa_no} type="text" id="employername" className="form-control w-full rounded"
+                  />
+                </div>
+
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label htmlFor="employername">Amount:</label>
+                  <input required onChange={handlePenDeductChange} placeholder="₦" name="amount" value={pensionDeduct.amount} type="text" id="employername" className="form-control w-full rounded"
+                  />
+                </div>
+
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label htmlFor="comments">Optional Comments:</label>
+                  <textarea onChange={handlePenDeductChange} name="comments" value={pensionDeduct.comments} id="comments" cols="40" rows="2" className="rounded"></textarea>
+                </div>
+                <div className="mb-6 flex justify-between">
+                  <button
+                    style={{ backgroundColor: "#84abeb" }}
+                    className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                  >
+                    Save
+                  </button>
+                  <button onClick={formTog10} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <a href="">
+                      <FiTriangle
+                        size={15}
+                        className="stroke-current text-green-500"
+                      />
+                    </a>
+                  </button>
+                </div>
               </div>
-            </div>
+            </form> :
+            <form onSubmit={submitDataPensDed}>
+              <div className="">
+                {pensDeduct.map((ind, i) => (
+                  <div className="border-b-2 mb-3">
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label htmlFor="employername">PFA:</label>
+                      <input value={ind.pfa} name="pfa" type="text" onChange={(e) => changedPensDed(e, i, "pfa")} key={i} className="form-control w-full rounded"
+                      />
+                    </div>
 
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label htmlFor="employername">PFA Address:</label>
+                      <input value={ind.pfa_addr} name="pfa_addr" type="text" onChange={(e) => changedPensDed(e, i, "pfa_addr")} key={i} className="form-control w-full rounded"
+                      />
+                    </div>
 
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label htmlFor="employername">RSA No:</label>
+                      <input value={ind.rsa_no} name="rsa_no" type="text" onChange={(e) => changedPensDed(e, i, "rsa_no")} key={i} className="form-control w-full rounded"
+                      />
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label htmlFor="employername">Amount:</label>
+                      <input value={ind.amount} required placeholder="₦" name="amount" type="text" onChange={(e) => changedPensDed(e, i, "amount")} key={i} className="form-control w-full rounded"
+                      />
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label htmlFor="comments">Optional Comments:</label>
+                      <textarea value={ind.comments} name="comments" onChange={(e) => changedPensDed(e, i, "comments")} key={i} cols="40" rows="2" className="rounded"></textarea>
+                    </div>
+
+                  </div>
+                ))}
+
+                <div className="mb-6 flex justify-between">
+                  <button
+                    style={{ backgroundColor: "#84abeb" }}
+                    className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                  >
+                    Update
+                  </button>
+                  <button onClick={formTog10} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <a href="">
+                      <FiTriangle
+                        size={15}
+                        className="stroke-current text-green-500"
+                      />
+                    </a>
+                  </button>
+                </div>
+              </div>
+            </form>
           }
-        </form>
+        </div>
       </div >
 
       <div className="flex justify-between mb-5">
@@ -3032,115 +3137,117 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
 
       <div className={`flex justify-center border mb-3 block p-6 rounded-lg bg-white w-full ${togglee12}`}>
-        <form onSubmit={submitDataNhis}>
+
+        <div>
           {nhis == null || nhis == "" ?
-            <div div className="">
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label htmlFor="employername">Company:</label>
-                <input name="company" type="text" id="employername" className="form-control w-full rounded"
-                />
-              </div>
+            <form onSubmit={submitDataNhisIns}>
 
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label htmlFor="employername">Address:</label>
-                <input name="addr" type="text" id="employername" className="form-control w-full rounded"
-                />
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label htmlFor="employername">Insurance No:</label>
-                <input required name="insurance_no" type="text" id="employername" className="form-control w-full rounded"
-                />
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label htmlFor="employername">Amount:</label>
-                <input required name="amount" type="text" id="employername" className="form-control w-full rounded"
-                />
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label htmlFor="comments">Optional Comments:</label>
-                <textarea name="comments" cols="40" rows="2" className="rounded"></textarea>
-              </div>
-              <div className="mb-6 flex justify-between">
-                <button
-                  style={{ backgroundColor: "#84abeb" }}
-                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                  disabled
-
-                >
-                  Save
-                </button>
-                <button onClick={formTog12} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                  <a href="">
-                    <FiTriangle
-                      size={15}
-                      className="stroke-current text-green-500"
-                    />
-                  </a>
-                </button>
-              </div>
-            </div> :
-            <div className="">
-              {nhis.map((ind, i) => (
-                <div>
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>Company:</label>
-                    <input value={ind.company} onChange={(e) => changedNhis(e, i, "company")} name="company" type="text" className="form-control w-full rounded"
-                    />
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>Address:</label>
-                    <input value={ind.addr} onChange={(e) => changedNhis(e, i, "addr")} name="addr" type="text" id="employername" className="form-control w-full rounded"
-                    />
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>Insurance No:</label>
-                    <input value={ind.insurance_no} onChange={(e) => changedNhis(e, i, "insurance_no")} required name="insurance_no" type="text" id="employername" className="form-control w-full rounded"
-                    />
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>Amount:</label>
-                    <input value={ind.amount} onChange={(e) => changedNhis(e, i, "amount")} required name="amount" type="text" id="employername" className="form-control w-full rounded"
-                    />
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>Optional Comments:</label>
-                    <textarea value={ind.comments} onChange={(e) => changedNhis(e, i, "comments")} name="comments" cols="40" rows="2" className="rounded"></textarea>
-                  </div>
-
+              <div className="">
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label htmlFor="employername">Company:</label>
+                  <input onChange={handleNHISChange} name="company" value={nhisData.company} type="text" id="employername" className="form-control w-full rounded"
+                  />
                 </div>
-              ))}
-              <div className="mb-6 flex justify-between">
-                <button
-                  style={{ backgroundColor: "#84abeb" }}
-                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
 
-                >
-                  Update
-                </button>
-                <button onClick={formTog12} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                  <a href="">
-                    <FiTriangle
-                      size={15}
-                      className="stroke-current text-green-500"
-                    />
-                  </a>
-                </button>
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label htmlFor="employername">Address:</label>
+                  <input onChange={handleNHISChange} name="addr" value={nhisData.addr} type="text" id="employername" className="form-control w-full rounded"
+                  />
+                </div>
+
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label htmlFor="employername">Insurance No:</label>
+                  <input onChange={handleNHISChange} required name="insurance_no" value={nhisData.insurance_no} type="text" id="employername" className="form-control w-full rounded"
+                  />
+                </div>
+
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label htmlFor="employername">Amount:</label>
+                  <input onChange={handleNHISChange} required name="amount" value={nhisData.amount} type="text" id="employername" className="form-control w-full rounded"
+                  />
+                </div>
+
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label htmlFor="comments">Optional Comments:</label>
+                  <textarea onChange={handleNHISChange} name="comments" value={nhisData.comments} cols="40" rows="2" className="rounded"></textarea>
+                </div>
+                <div className="mb-6 flex justify-between">
+                  <button
+                    style={{ backgroundColor: "#84abeb" }}
+                    className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                  >
+                    Save
+                  </button>
+                  <button onClick={formTog12} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <a href="">
+                      <FiTriangle
+                        size={15}
+                        className="stroke-current text-green-500"
+                      />
+                    </a>
+                  </button>
+                </div>
               </div>
-            </div>
+            </form> :
+            <form onSubmit={submitDataNhis}>
+              <div className="">
+                {nhis.map((ind, i) => (
+                  <div>
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Company:</label>
+                      <input value={ind.company} onChange={(e) => changedNhis(e, i, "company")} name="company" type="text" className="form-control w-full rounded"
+                      />
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Address:</label>
+                      <input value={ind.addr} onChange={(e) => changedNhis(e, i, "addr")} name="addr" type="text" id="employername" className="form-control w-full rounded"
+                      />
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Insurance No:</label>
+                      <input value={ind.insurance_no} onChange={(e) => changedNhis(e, i, "insurance_no")} required name="insurance_no" type="text" id="employername" className="form-control w-full rounded"
+                      />
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Amount:</label>
+                      <input value={ind.amount} onChange={(e) => changedNhis(e, i, "amount")} required name="amount" type="text" id="employername" className="form-control w-full rounded"
+                      />
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Optional Comments:</label>
+                      <textarea value={ind.comments} onChange={(e) => changedNhis(e, i, "comments")} name="comments" cols="40" rows="2" className="rounded"></textarea>
+                    </div>
+
+                  </div>
+                ))}
+                <div className="mb-6 flex justify-between">
+                  <button
+                    style={{ backgroundColor: "#84abeb" }}
+                    className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+
+                  >
+                    Update
+                  </button>
+                  <button onClick={formTog12} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <a href="">
+                      <FiTriangle
+                        size={15}
+                        className="stroke-current text-green-500"
+                      />
+                    </a>
+                  </button>
+                </div>
+              </div>
+            </form>
           }
-
-
-        </form>
-      </div >
+        </div>
+      </div>
 
       <div className="flex justify-between mb-5">
 
@@ -3163,48 +3270,45 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
       </div>
 
       <div className={`flex justify-center border mb-3 block p-6 rounded-lg bg-white w-full ${togglee3}`}>
-        <form onSubmit={submitDataPartner}>
+        <div>
           {partner == null || partner == "" ?
-
-            <div>
+            <form onSubmit={submitDataPartnerIns}>
               <div className="">
                 <p className="font-bold flex justify-center mb-4"></p>
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label >Partner Name:</label>
-                  <input required name="name" type="text" className="form-control w-full rounded"
+                  <input required onChange={handlePartnershipChange} name="name" value={partnerData.name} type="text" className="form-control w-full rounded"
                   />
                 </div>
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label htmlFor="employername">Partner Address:</label>
-                  <input name="addr" type="text" className="form-control w-full rounded"
+                  <input onChange={handlePartnershipChange} name="addr" value={partnerData.addr} type="text" className="form-control w-full rounded"
                   />
                 </div>
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label htmlFor="employername">Partner Phone:</label>
-                  <input name="phone" type="text" className="form-control w-full rounded"
+                  <input onChange={handlePartnershipChange} name="phone" type="text" value={partnerData.phone} className="form-control w-full rounded"
                   />
                 </div>
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label htmlFor="employername">Partner Percentage:</label>
-                  <input name="percentage" type="text" className="form-control w-full rounded"
+                  <input onChange={handlePartnershipChange} name="percentage" value={partnerData.percentage} type="text" className="form-control w-full rounded"
                   />
-                </div>
-
-                <div className="mb-6 grid grid-cols-3 gap-4">
-                  <label htmlFor="comments">Optional Comments:</label>
-                  <textarea name="comments" cols="40" rows="2" className="rounded"></textarea>
                 </div>
                 <div className='pb-5'>
                   <hr />
                 </div>
               </div>
 
+              <div className="mb-6 grid grid-cols-3 gap-4">
+                <label htmlFor="comments">Optional Comments:</label>
+                <textarea onChange={handlePartnershipChange} name="comments" value={partnerData.comments} cols="40" rows="2" className="rounded"></textarea>
+              </div>
               <div className="mb-6 flex justify-between">
                 <button
                   style={{ backgroundColor: "#84abeb" }}
                   className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
                   type="submit"
-                  disabled
                 >
                   Save
                 </button>
@@ -3217,63 +3321,66 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                   </a>
                 </button>
               </div>
-            </div> :
-            <div>
-              {partner.map((ind, i) => (
-                <div>
-                  <div className="">
-                    <p className="font-bold flex justify-center mb-4"></p>
-                    <div className="mb-6 grid grid-cols-3 gap-4">
-                      <label >Partner Name:</label>
-                      <input value={ind.name} onChange={(e) => changedPartner(e, i, "name")} required name="name" type="text" className="form-control w-full rounded"
-                      />
+            </form> :
+            <form onSubmit={submitDataPartner}>
+              <div>
+                {partner.map((ind, i) => (
+                  <div>
+                    <div className="">
+                      <p className="font-bold flex justify-center mb-4"></p>
+                      <div className="mb-6 grid grid-cols-3 gap-4">
+                        <label >Partner Name:</label>
+                        <input value={ind.name} onChange={(e) => changedPartner(e, i, "name")} required name="name" type="text" className="form-control w-full rounded"
+                        />
+                      </div>
+                      <div className="mb-6 grid grid-cols-3 gap-4">
+                        <label>Partner Address:</label>
+                        <input value={ind.addr} onChange={(e) => changedPartner(e, i, "addr")} name="addr" type="text" className="form-control w-full rounded"
+                        />
+                      </div>
+                      <div className="mb-6 grid grid-cols-3 gap-4">
+                        <label htmlFor="employername">Partner Phone:</label>
+                        <input value={ind.phone} onChange={(e) => changedPartner(e, i, "phone")} name="phone" type="text" className="form-control w-full rounded"
+                        />
+                      </div>
+                      <div className="mb-6 grid grid-cols-3 gap-4">
+                        <label htmlFor="employername">Partner Percentage:</label>
+                        <input value={ind.percentage} onChange={(e) => changedPartner(e, i, "percentage")} name="percentage" type="text" className="form-control w-full rounded"
+                        />
+                      </div>
+                      <div className="mb-6 grid grid-cols-3 gap-4">
+                        <label htmlFor="comments">Optional Comments:</label>
+                        <textarea value={ind.comments} onChange={(e) => changedPartner(e, i, "comments")} name="comments" cols="40" rows="2" className="rounded"></textarea>
+                      </div>
+                      <div className='pb-5'>
+                        <hr />
+                      </div>
                     </div>
-                    <div className="mb-6 grid grid-cols-3 gap-4">
-                      <label>Partner Address:</label>
-                      <input value={ind.addr} onChange={(e) => changedPartner(e, i, "addr")} name="addr" type="text" className="form-control w-full rounded"
-                      />
-                    </div>
-                    <div className="mb-6 grid grid-cols-3 gap-4">
-                      <label htmlFor="employername">Partner Phone:</label>
-                      <input value={ind.phone} onChange={(e) => changedPartner(e, i, "phone")} name="phone" type="text" className="form-control w-full rounded"
-                      />
-                    </div>
-                    <div className="mb-6 grid grid-cols-3 gap-4">
-                      <label htmlFor="employername">Partner Percentage:</label>
-                      <input value={ind.percentage} onChange={(e) => changedPartner(e, i, "percentage")} name="percentage" type="text" className="form-control w-full rounded"
-                      />
-                    </div>
-                    <div className="mb-6 grid grid-cols-3 gap-4">
-                      <label htmlFor="comments">Optional Comments:</label>
-                      <textarea value={ind.comments} onChange={(e) => changedPartner(e, i, "comments")} name="comments" cols="40" rows="2" className="rounded"></textarea>
-                    </div>
-                    <div className='pb-5'>
-                      <hr />
-                    </div>
-                  </div>
 
+                  </div>
+                ))}
+                <div className="mb-6 flex justify-between">
+                  <button
+                    style={{ backgroundColor: "#84abeb" }}
+                    className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                  >
+                    Update
+                  </button>
+                  <button onClick={formTog3} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <a href="">
+                      <FiTriangle
+                        size={15}
+                        className="stroke-current text-green-500"
+                      />
+                    </a>
+                  </button>
                 </div>
-              ))}
-              <div className="mb-6 flex justify-between">
-                <button
-                  style={{ backgroundColor: "#84abeb" }}
-                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                >
-                  Update
-                </button>
-                <button onClick={formTog3} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                  <a href="">
-                    <FiTriangle
-                      size={15}
-                      className="stroke-current text-green-500"
-                    />
-                  </a>
-                </button>
               </div>
-            </div>
+            </form>
+
           }
-        </form>
+        </div>
       </div>
 
       <div className="flex justify-between mb-5">
