@@ -1151,6 +1151,41 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     }
   }
 
+  const [landIns, setLandIns] = useState(
+    {
+      assessment_id: "", addr: "", prop_type: "", date_completion: "",
+      construction_cost: "",
+    }
+  )
+  function handleLandChange(evt) {
+    const value = evt.target.value;
+    setLandIns({
+      ...landIns,
+      [evt.target.name]: value
+    });
+  }
+
+  let submitDataLandIns = async (e) => {
+    e.preventDefault()
+    setIsFetching(true)
+    let landDataObj = {
+      assessment_id: `${assessment_id}`,
+      addr: `${landIns.addr}`,
+      prop_type: `${landIns.prop_type}`,
+      date_completion: `${landIns.date_completion}`,
+      construction_cost: `${landIns.construction_cost}`,
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/land`, landDataObj);
+      setIsFetching(false)
+      toast.success("Saved Successfully!");
+    } catch (error) {
+      toast.error("error, Please try again!");
+      console.log(error);
+      setIsFetching(false)
+    }
+  }
+
   setAuthToken();
   let submitDataVehicles = async (e, index) => {
     e.preventDefault()
@@ -4575,116 +4610,120 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
         </div>
       </div>
       <div className={`flex justify-start border mb-3 block p-6 rounded-lg bg-white w-full ${togglee14}`}>
-        <form onSubmit={submitDataLand}>
+        <div>
           {land == null || land == "" ?
-            <div className="">
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>Address:</label>
-                <textarea name="addr" cols="40" rows="2" className="form-control w-full rounded"
-                />
-              </div>
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>Type of property:</label>
-                <select name="prop_type" className="form-select w-full">
-                  <option value="Bungalow">Bungalow</option>
-                  <option value="Penthouse">Penthouse</option>
-                  <option value="Mansion">Mansion</option>
-                  <option value="Apartment or Flat">Apartment or Flat</option>
-                  <option value="Terraced house">Terraced house</option>
-                  <option value="Duplex">Duplex</option>
-                  <option value="Traditional house">Traditional house</option>
-                </select>
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>Date of completion/acquisition:</label>
-                <input required name="date_completion" type="date" className="form-control w-full rounded"
-                />
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>Cost of construction/acquisition:</label>
-                <input required name="construction_cost" type="text" className="form-control w-full rounded"
-                />
-              </div>
-
-              <div className="mb-6 flex justify-between">
-                <button
-                  style={{ backgroundColor: "#84abeb" }}
-                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                  disabled
-                >
-                  Save
-                </button>
-                <button onClick={formTog14} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                  <a href="">
-                    <FiTriangle
-                      size={15}
-                      className="stroke-current text-green-500"
-                    />
-                  </a>
-                </button>
-              </div>
-            </div> :
-            <div>
-              {land.map((ind, i) => (
-
-                <div className="" key={i}>
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>Address:</label>
-                    <textarea value={ind.addr} onChange={(e) => changedLand(e, i, "addr")} name="addr" cols="40" rows="2" className="form-control w-full rounded"
-                    />
-                  </div>
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>Type of property:</label>
-                    <select value={ind.prop_type} onChange={(e) => changedLand(e, i, "prop_type")} name="prop_type" className="form-select w-full">
-                      <option value="Bungalow">Bungalow</option>
-                      <option value="Penthouse">Penthouse</option>
-                      <option value="Mansion">Mansion</option>
-                      <option value="Apartment or Flat">Apartment or Flat</option>
-                      <option value="Terraced house">Terraced house</option>
-                      <option value="Duplex">Duplex</option>
-                      <option value="Traditional house">Traditional house</option>
-                    </select>
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>Date of completion/acquisition:</label>
-                    <input value={ind.date_completion} onChange={(e) => changedLand(e, i, "date_completion")} required name="date_completion" type="date" className="form-control w-full rounded"
-                    />
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label>Cost of construction/acquisition:</label>
-                    <input value={ind.construction_cost} onChange={(e) => changedLand(e, i, "construction_cost")} required name="construction_cost" type="text" className="form-control w-full rounded"
-                    />
-                  </div>
-                  <div className="m-3">
-                    <hr />
-                  </div>
+            <form onSubmit={submitDataLandIns}>
+              <div className="">
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Address:</label>
+                  <textarea onChange={handleLandChange} name="addr" value={landIns.addr} cols="40" rows="2" className="form-control w-full rounded"
+                  />
                 </div>
-              ))}
-              <div className="mb-6 flex justify-between">
-                <button
-                  style={{ backgroundColor: "#84abeb" }}
-                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                >
-                  Update
-                </button>
-                <button onClick={formTog14} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                  <a href="">
-                    <FiTriangle
-                      size={15}
-                      className="stroke-current text-green-500"
-                    />
-                  </a>
-                </button>
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Type of property:</label>
+                  <select onChange={handleLandChange} name="prop_type" value={landIns.prop_type} className="form-select w-full">
+                    <option value="Bungalow">Bungalow</option>
+                    <option value="Penthouse">Penthouse</option>
+                    <option value="Mansion">Mansion</option>
+                    <option value="Apartment or Flat">Apartment or Flat</option>
+                    <option value="Terraced house">Terraced house</option>
+                    <option value="Duplex">Duplex</option>
+                    <option value="Traditional house">Traditional house</option>
+                  </select>
+                </div>
+
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Date of completion/acquisition:</label>
+                  <input required onChange={handleLandChange} name="date_completion" value={landIns.date_completion} type="date" className="form-control w-full rounded"
+                  />
+                </div>
+
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label>Cost of construction/acquisition:</label>
+                  <input required onChange={handleLandChange} name="construction_cost" value={landIns.construction_cost} type="text" className="form-control w-full rounded"
+                  />
+                </div>
+
+                <div className="mb-6 flex justify-between">
+                  <button
+                    style={{ backgroundColor: "#84abeb" }}
+                    className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                  >
+                    Save
+                  </button>
+                  <button onClick={formTog14} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <a href="">
+                      <FiTriangle
+                        size={15}
+                        className="stroke-current text-green-500"
+                      />
+                    </a>
+                  </button>
+                </div>
               </div>
-            </div>
+            </form> :
+            <form onSubmit={submitDataLand}>
+              <div>
+                {land.map((ind, i) => (
+                  <div className="" key={i}>
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Address:</label>
+                      <textarea value={ind.addr} onChange={(e) => changedLand(e, i, "addr")} name="addr" cols="40" rows="2" className="form-control w-full rounded"
+                      />
+                    </div>
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Type of property:</label>
+                      <select value={ind.prop_type} onChange={(e) => changedLand(e, i, "prop_type")} name="prop_type" className="form-select w-full">
+                        <option value="Bungalow">Bungalow</option>
+                        <option value="Penthouse">Penthouse</option>
+                        <option value="Mansion">Mansion</option>
+                        <option value="Apartment or Flat">Apartment or Flat</option>
+                        <option value="Terraced house">Terraced house</option>
+                        <option value="Duplex">Duplex</option>
+                        <option value="Traditional house">Traditional house</option>
+                      </select>
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Date of completion/acquisition:</label>
+                      <input value={ind.date_completion} onChange={(e) => changedLand(e, i, "date_completion")} required name="date_completion" type="date" className="form-control w-full rounded"
+                      />
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label>Cost of construction/acquisition:</label>
+                      <input value={ind.construction_cost} onChange={(e) => changedLand(e, i, "construction_cost")} required name="construction_cost" type="text" className="form-control w-full rounded"
+                      />
+                    </div>
+                    <div className="m-3">
+                      <hr />
+                    </div>
+                  </div>
+                ))}
+                <div className="mb-6 flex justify-between">
+                  <button
+                    style={{ backgroundColor: "#84abeb" }}
+                    className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                  >
+                    Update
+                  </button>
+                  <button onClick={formTog14} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <a href="">
+                      <FiTriangle
+                        size={15}
+                        className="stroke-current text-green-500"
+                      />
+                    </a>
+                  </button>
+                </div>
+              </div>
+
+            </form>
+
           }
-        </form>
+        </div>
       </div>
       <div className="flex justify-between mb-5">
 
