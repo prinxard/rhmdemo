@@ -836,57 +836,6 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     }
   }
 
-  // setAuthToken();
-  // let submitDataChild = async (e) => {
-  //   e.preventDefault()
-  //   setIsFetching11(true)
-  //   let childDataObj = {
-  //     assessment_id: `${assessment_id}`,
-  //     name: `${childData.name}`,
-  //     dob: `${childData.dob}`,
-  //     school_name: `${childData.school_name}`,
-  //     school_addr: `${childData.school_name}`,
-  //     school_fees: `${childData.school_fees}`,
-  //     child_income: `${childData.school_fees}`,
-  //   }
-  //   try {
-  //     let res = await axios.post(`${url.BASE_URL}forma/children`, childDataObj);
-  //     setIsFetching11(false)
-  //     toast.success("Saved Successfully!");
-  //   } catch (error) {
-  //     toast.error("error, Please try again!");
-  //     console.log(error);
-  //     setIsFetching11(false)
-  //   }
-  // }
-
-  // setAuthToken();
-  // let submitDataStaff = async (e) => {
-  //   e.preventDefault()
-  //   setIsFetching12(true)
-  //   let staffDataObj = {
-  //     assessment_id: `${assessment_id}`,
-  //     title: `${domesticStaff.title}`,
-  //     name: `${domesticStaff.name}`,
-  //     street: `${domesticStaff.street}`,
-  //     house_no: `${domesticStaff.house_no}`,
-  //     town: `${domesticStaff.town}`,
-  //     lga: `${domesticStaff.lga}`,
-  //     state: `${domesticStaff.lga}`,
-  //     amount_paid: `${domesticStaff.amount_paid}`,
-  //     payer: `${domesticStaff.payer}`,
-  //   }
-  //   try {
-  //     let res = await axios.post(`${url.BASE_URL}forma/domestic-staff`, staffDataObj);
-  //     setIsFetching12(false)
-  //     toast.success("Saved Successfully!");
-  //   } catch (error) {
-  //     toast.error("error, Please try again!");
-  //     console.log(error);
-  //     setIsFetching12(false)
-  //   }
-  // }
-
   setAuthToken();
   let submitDataPartner = async (e) => {
     e.preventDefault()

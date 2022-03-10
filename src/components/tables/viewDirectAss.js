@@ -411,6 +411,42 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     }
   }
 
+  const [lifeInsData, setLifeInsData] = useState(
+    {
+      assessment_id: "", company: "", addr: "", rsa_no: "", amount: "", comments: ""
+    }
+  )
+
+  function handleLifeInsChange(evt) {
+    const value = evt.target.value;
+    setLifeInsData({
+      ...lifeInsData,
+      [evt.target.name]: value
+    });
+  }
+
+  let submitDataLifIns = async (e) => {
+    e.preventDefault()
+    setIsFetching(true)
+    let lifeInsDataObj = {
+      assessment_id: `${assessment_id}`,
+      company: `${lifeInsData.company}`,
+      addr: `${lifeInsData.addr}`,
+      rsa_no: `${lifeInsData.rsa_no}`,
+      amount: `${lifeInsData.amount}`,
+      comments: `${lifeInsData.comments}`,
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/lap`, lifeInsDataObj);
+      setIsFetching(false)
+      toast.success("Saved Successfully!");
+    } catch (error) {
+      toast.error("error, Please try again!");
+      setIsFetching(false)
+    }
+
+  }
+
   let lapAmount
   let NhisAmount
   let penDeductAmount
@@ -2735,114 +2771,115 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
 
       <div className={`flex justify-center border mb-3 block p-6 rounded-lg bg-white w-full ${togglee11}`}>
-        <form onSubmit={submitDataLap}>
+
+        <div>
           {lifeass == null || lifeass == "" ?
-            <div div className="">
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label htmlFor="employername">Insurance Company:</label>
-                <input name="company" type="text" className="form-control w-full rounded"
-                />
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label htmlFor="employername">Address:</label>
-                <input name="addr" type="text" className="form-control w-full rounded"
-                />
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label htmlFor="employername">RSA No:</label>
-                <input name="rsa_no" type="text" className="form-control w-full rounded"
-                />
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label htmlFor="employername">Amount:</label>
-                <input required placeholder="₦" name="amount" type="text" id="employername" className="form-control w-full rounded"
-                />
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label htmlFor="comments">Optional Comments:</label>
-                <textarea name="comments" cols="40" rows="2" className="rounded"></textarea>
-              </div>
-              <div className="mb-6 flex justify-between">
-                <button
-                  style={{ backgroundColor: "#84abeb" }}
-                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                  disabled
-                >
-                  Save
-                </button>
-                <button onClick={formTog11} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                  <a href="">
-                    <FiTriangle
-                      size={15}
-                      className="stroke-current text-green-500"
-                    />
-                  </a>
-                </button>
-              </div>
-
-            </div>
-            :
-            <div>
-              {lifeass.map((ind, i) => (
-
-                <div div className="">
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">Insurance Company:</label>
-                    <input value={ind.company} key={i} onChange={(e) => changedLap(e, i, "company")} name="company" type="text" className="form-control w-full rounded"
-                    />
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">Address:</label>
-                    <input value={ind.addr} key={i} onChange={(e) => changedLap(e, i, "addr")} name="addr" type="text" className="form-control w-full rounded"
-                    />
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">RSA No:</label>
-                    <input value={ind.rsa_no} onChange={(e) => changedLap(e, i, "rsa_no")} name="rsa_no" type="text" className="form-control w-full rounded"
-                    />
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="employername">Amount:</label>
-                    <input value={ind.amount} onChange={(e) => changedLap(e, i, "amount")} required placeholder="₦" name="amount" type="text" id="employername" className="form-control w-full rounded"
-                    />
-                  </div>
-
-                  <div className="mb-6 grid grid-cols-3 gap-4">
-                    <label htmlFor="comments">Optional Comments:</label>
-                    <textarea value={ind.comments} onChange={(e) => changedLap(e, i, "comments")} name="comments" cols="40" rows="2" className="rounded"></textarea>
-                  </div>
+            <form onSubmit={submitDataLifIns}>
+              <div className="">
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label htmlFor="employername">Insurance Company:</label>
+                  <input onChange={handleLifeInsChange} name="company" value={lifeInsData.company} type="text" className="form-control w-full rounded"
+                  />
                 </div>
-              ))}
-              <div className="mb-6 flex justify-between">
-                <button
-                  style={{ backgroundColor: "#84abeb" }}
-                  className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                >
-                  Update Lap
-                </button>
-                <button onClick={formTog11} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                  <a href="">
-                    <FiTriangle
-                      size={15}
-                      className="stroke-current text-green-500"
-                    />
-                  </a>
-                </button>
+
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label htmlFor="employername">Address:</label>
+                  <input onChange={handleLifeInsChange} name="addr" value={lifeInsData.addr} type="text" className="form-control w-full rounded"
+                  />
+                </div>
+
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label htmlFor="employername">RSA No:</label>
+                  <input onChange={handleLifeInsChange} name="rsa_no" value={lifeInsData.rsa_no} type="text" className="form-control w-full rounded"
+                  />
+                </div>
+
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label htmlFor="employername">Amount:</label>
+                  <input required onChange={handleLifeInsChange} placeholder="₦" name="amount" value={lifeInsData.amount} type="text" id="employername" className="form-control w-full rounded"
+                  />
+                </div>
+
+                <div className="mb-6 grid grid-cols-3 gap-4">
+                  <label htmlFor="comments">Optional Comments:</label>
+                  <textarea onChange={handleLifeInsChange} name="comments" value={lifeInsData.comments} cols="40" rows="2" className="rounded"></textarea>
+                </div>
+                <div className="mb-6 flex justify-between">
+                  <button
+                    style={{ backgroundColor: "#84abeb" }}
+                    className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                  >
+                    Save
+                  </button>
+                  <button onClick={formTog11} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <a href="">
+                      <FiTriangle
+                        size={15}
+                        className="stroke-current text-green-500"
+                      />
+                    </a>
+                  </button>
+                </div>
+
               </div>
-            </div>
+            </form> :
+            <form onSubmit={submitDataLap}>
+              <div>
+                {lifeass.map((ind, i) => (
+
+                  <div div className="">
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label htmlFor="employername">Insurance Company:</label>
+                      <input value={ind.company} key={i} onChange={(e) => changedLap(e, i, "company")} name="company" type="text" className="form-control w-full rounded"
+                      />
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label htmlFor="employername">Address:</label>
+                      <input value={ind.addr} key={i} onChange={(e) => changedLap(e, i, "addr")} name="addr" type="text" className="form-control w-full rounded"
+                      />
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label htmlFor="employername">RSA No:</label>
+                      <input value={ind.rsa_no} onChange={(e) => changedLap(e, i, "rsa_no")} name="rsa_no" type="text" className="form-control w-full rounded"
+                      />
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label htmlFor="employername">Amount:</label>
+                      <input value={ind.amount} onChange={(e) => changedLap(e, i, "amount")} required placeholder="₦" name="amount" type="text" id="employername" className="form-control w-full rounded"
+                      />
+                    </div>
+
+                    <div className="mb-6 grid grid-cols-3 gap-4">
+                      <label htmlFor="comments">Optional Comments:</label>
+                      <textarea value={ind.comments} onChange={(e) => changedLap(e, i, "comments")} name="comments" cols="40" rows="2" className="rounded"></textarea>
+                    </div>
+                  </div>
+                ))}
+                <div className="mb-6 flex justify-between">
+                  <button
+                    style={{ backgroundColor: "#84abeb" }}
+                    className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                  >
+                    Update Lap
+                  </button>
+                  <button onClick={formTog11} className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <a href="">
+                      <FiTriangle
+                        size={15}
+                        className="stroke-current text-green-500"
+                      />
+                    </a>
+                  </button>
+                </div>
+              </div>
+            </form>
           }
-
-
-        </form>
+        </div>
       </div >
 
 
