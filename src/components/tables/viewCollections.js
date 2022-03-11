@@ -176,10 +176,29 @@ export const ViewCollectionsSingleTable = ({ collections }) => {
             </CustomButton>
           </div> */}
         </div>
-        <div className="w-2/3 flex mx-auto rounded border">
+        <div className="w-2/3 flex mx-auto">
 
-          <table className="table">
+          <table className="table border rounded striped">
             <tbody className="divide-y ">
+              <tr className="">
+                <td className="font-bold">TaxPayer Name</td>
+                {items.map((ind, i) => (
+                  <td key={i}>{ind.taxpayerName}</td>
+                ))}
+              </tr>
+
+              <tr className="">
+                <td className="font-bold">Taxpayer Address</td>
+                {items.map((ind, i) => (
+                  <td key={i}>{ind.taxpayerAddress}</td>
+                ))}
+              </tr>
+              <tr className="">
+                <td className="font-bold">Station</td>
+                {items.map((ind, i) => (
+                  <td key={i}>{ind.station}</td>
+                ))}
+              </tr>
               <tr className="">
                 <td className="font-bold">Reference Id</td>
                 {items.map((ind, i) => (
@@ -242,27 +261,6 @@ export const ViewCollectionsSingleTable = ({ collections }) => {
                 <td className="font-bold">Bank</td>
                 {items.map((ind, i) => (
                   <td key={i}>{ind.bank}</td>
-                ))}
-              </tr>
-
-              <tr className="">
-                <td className="font-bold">TaxPayer Name</td>
-                {items.map((ind, i) => (
-                  <td key={i}>{ind.taxpayerName}</td>
-                ))}
-              </tr>
-
-              <tr className="">
-                <td className="font-bold">Taxpayer Address</td>
-                {items.map((ind, i) => (
-                  <td key={i}>{ind.taxpayerAddress}</td>
-                ))}
-              </tr>
-
-              <tr className="">
-                <td className="font-bold">Station</td>
-                {items.map((ind, i) => (
-                  <td key={i}>{ind.station}</td>
                 ))}
               </tr>
 

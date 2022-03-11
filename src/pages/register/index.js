@@ -54,23 +54,33 @@ export default function index() {
     setAuthToken();
     const onSubmit = (data) => {
         setIsFetching(true)
-        try {
-            let res = axios.post(`${url.BASE_URL}user/signup`, data);
-            setIsFetching(false)
-            toast.success("Created Successfully!");
-        } catch (err) {
-            setIsFetching(false)
-            toast.error(); ("Created Successfully!");
-        }
+        // try {
+        //     let res = axios.post(`${url.BASE_URL}user/signup`, data);
+        //     setIsFetching(false)
+        //     // toast.success("Created Successfully!");
+        // } catch (err) {
+        //     setIsFetching(false)
+        //     toast.error("Failed to create user!");
+        // }
+        axios.post(`${url.BASE_URL}user/signup`, data)
+            .then(function (response) {
+                setIsFetching(false)
+                toast.success("Created Successfully!");
+            })
+            .catch(function (error) {
+                console.log(error);
+                setIsFetching(false)
+                toast.error("Failed to create user!");
+            })
     };
+
+
 
     // const onSubmit = (data) => console.log(data);
 
     return (
 
         <div>
-            <ToastContainer />
-
             {isFetching && (
                 <div className="flex justify-center item mb-2">
                     <Loader
@@ -85,6 +95,8 @@ export default function index() {
                     <p className="font-bold">Processing...</p>
                 </div>
             )}
+            <ToastContainer />
+
             <div className="block p-6 rounded-lg bg-white w-full">
                 <div className="flex justify-center mb-4">
                     <h6 className="p-2">Register User</h6>
@@ -111,7 +123,7 @@ export default function index() {
                         <div className="form-group ">
                             <p>Department</p>
                             <select name="dept" ref={register()} className="form-control SlectBox mb-4 w-full rounded font-light text-gray-500">
-                                {department.map((dept) => <option key={dept.id} value={dept.id}>{dept.name}</option>)}
+                                {department.map((dept) => <option key={dept.id} value={(dept.id)}>{dept.name}</option>)}
                             </select>
                         </div>
 
@@ -122,7 +134,6 @@ export default function index() {
                             </select>
                         </div>
                     </div>
-
                     <div className="grid grid-cols-2 gap-4">
                         <div className="form-group">
                             <p>User group</p>
