@@ -14,7 +14,7 @@ import { ViewSingleNonIndividualTable } from "../tables/viewNonIndividual";
 
 
 const ViewNonIndividualSingle = () => {
-  const [individualRec, setindividualRec] = useState(() => []);
+  const [individualRec, setindividualRec] = useState(() => {});
   const [total, setTotal] = useState(() => []);
   const [isFetching, setIsFetching] = useState(() => true);
   const [currentPage, setCurrentPage] = useState(() => 1);

@@ -25,6 +25,7 @@ const ViewCollections = () => {
 
   useEffect(() => {
     setAuthToken();
+    let num = 1
     const fetchPost = async () => {
       try {
         let res = await axios.get(`${url.BASE_URL}collection/list-collections`);
@@ -33,8 +34,8 @@ const ViewCollections = () => {
         for (let i = 0; i < res.length; i++) {
           let rec = res[i];
           rec.amount = formatNumber(rec.amount)
+          rec.serialNo = num + i
           records.push(rec);
-          rec.autInc = rec
         }
         setIsFetching(false);
         setData(() => records);

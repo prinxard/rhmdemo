@@ -7,18 +7,17 @@ import { Controller, useForm } from 'react-hook-form';
 import Select from 'react-select';
 
 export default function index() {
-    const [taxStation, setTaxStation] = useState([])
     const [department, setDepartment] = useState([])
-    const [rhmGroups, setRhmGroups] = useState([])
+    const [taxOffice, setTaxOffice] = useState([])
+    const [sector, setSector] = useState([])
+    const [incomeSource, setIncomSource] = useState([])
+    const [state, setState] = useState([])
+    const [lga, setLga] = useState([])
     const {
         register,
         handleSubmit,
         control,
         formState: { errors }, } = useForm()
-
-    // let handleStationChange = (e) => {
-    //     setTaxStation(e.target.value)
-    //   }
 
     useEffect(() => {
 
@@ -28,29 +27,38 @@ export default function index() {
                 let res = await axios.get(`${url.BASE_URL}user/items`);
                 let itemsBody = res.data.body
                 let taxOffice = itemsBody.taxOffice
-                let department = itemsBody.department
-                let rhmGroups = itemsBody.rhmGroups
-                setTaxStation(taxOffice)
-                setDepartment(department)
-                setRhmGroups(rhmGroups)
-
+                let sector = itemsBody.sector
+                let incSource = itemsBody.incomeSource
+                let stat = itemsBody.state
+                let lg = itemsBody.lga
+                setIncomSource(incSource)
+                setTaxOffice(taxOffice)
+                setSector(sector)
+                setState(stat)
+                setLga(lg)
             } catch (e) {
-                // setIsFetching(false);
+
             }
         };
         fetchPost();
 
     }, []);
-    const options = rhmGroups.map(item => {
-        return {
-            label: item.role,
-            value: item.id
-        }
-    })
-    const onSubmit = (data) => console.log(data);
 
-    const [selectedOption, setSelectedOption] = useState(null);
-    console.log(selectedOption);
+    const onSubmit = (data) => {
+        setIsFetching(true)
+        axios.post(`${url.BASE_URL}user/signup`, data)
+            .then(function (response) {
+                setIsFetching(false)
+                toast.success("Created Successfully!");
+            })
+            .catch(function (error) {
+                console.log(error);
+                setIsFetching(false)
+                toast.error("Failed to create user!");
+            })
+    };
+
+
 
     return (
         <div>
@@ -120,42 +128,34 @@ export default function index() {
                         </div>
 
                         <div className="form-group ">
-                            <p>Nationality</p>
-                            <select name="state" ref={register()} className="form-control SlectBox mb-4 w-full rounded font-light text-gray-500">
-                                <option value="mr">Nigeria</option>
-                                <option value="mrs">Fishery</option>
-                            </select>
-                        </div>
-                        <div className="form-group ">
-                            <p>State of Origin</p>
-                            <select name="state" ref={register()} className="form-control SlectBox mb-4 w-full rounded font-light text-gray-500">
-                                <option value="mr">Kogi</option>
-                                <option value="mrs">Fishery</option>
-                            </select>
-                        </div>
-                        <div className="form-group ">
                             <p>State of residence</p>
                             <select name="state_of_residence" ref={register()} className="form-control SlectBox mb-4 w-full rounded font-light text-gray-500">
-                                <option value="mr">Kogi</option>
-                                <option value="mrs">Fishery</option>
-                            </select>
-                        </div>
-                        <div className="form-group ">
-                            <p>Income Source</p>
-                            <select name="income_source" ref={register()} className="form-control SlectBox mb-4 w-full rounded font-light text-gray-500">
-                                <option value="mr">Kogi</option>
-                                <option value="mrs">Fishery</option>
+                                {state.map((st) => <option key={st.jtb_idstates} value={st.jtb_idstates}>{st.state}</option>)}
                             </select>
                         </div>
 
                         <div className="form-group ">
-                            <p>Occupation</p>
-                            <input name="occupation" ref={register()} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                            <p>LGA</p>
+                            <select name="lga" ref={register()} className="form-control SlectBox mb-4 w-full rounded font-light text-gray-500">
+                                {lga.map((lg) => <option key={lg.idlga} value={lg.name}>{lg.name}</option>)}
+                            </select>
+                        </div>
+                        <div className="form-group ">
+                            <p>BVN</p>
+                            <input name="bvn" ref={register()} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
                             />
                         </div>
-
+                        <div className="form-group ">
+                            <p>Tax Office</p>
+                            <select name="office" ref={register()} className="form-control SlectBox mb-4 w-full rounded font-light text-gray-500">
+                                {taxOffice.map((office) => <option key={office.idstation} value={office.station_code}>{office.name}</option>)}
+                            </select>
+                        </div>
                     </div>
-
+                    <div className="m-4">
+                        <hr />
+                        <h6 className="m-3 text-right">Additional Information</h6>
+                    </div>
                     <div className="grid grid-cols-3 gap-4">
                         <div className="form-group">
                             <p>Email</p>
@@ -163,11 +163,6 @@ export default function index() {
                             />
                         </div>
 
-                        <div className="form-group ">
-                            <p>BVN</p>
-                            <input name="bvn" ref={register()} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
-                            />
-                        </div>
                         <div className="form-group ">
                             <p>NIN</p>
                             <input name="nin" ref={register()} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
@@ -177,6 +172,11 @@ export default function index() {
                         <div className="form-group ">
                             <p>Birth Place</p>
                             <input name="birthplace" ref={register()} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                            />
+                        </div>
+                        <div className="form-group ">
+                            <p>Occupation</p>
+                            <input name="occupation" ref={register()} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
                             />
                         </div>
                         <div className="form-group ">
@@ -205,19 +205,24 @@ export default function index() {
                             <input name="city" ref={register()} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
                             />
                         </div>
+                        <div className="form-group ">
+                            <p>Nationality</p>
+                            <select name="state" ref={register()} className="form-control SlectBox mb-4 w-full rounded font-light text-gray-500">
+                                <option value="mr">Nigeria</option>
+                                <option value="mrs">Fishery</option>
+                            </select>
+                        </div>
 
                         <div className="form-group ">
-                            <p>LGA</p>
-                            <select name="lga" ref={register()} className="form-control SlectBox mb-4 w-full rounded font-light text-gray-500">
-                                <option value="mr">Kabba</option>
-                                <option value="mrs">Anpka</option>
+                            <p>State of Origin</p>
+                            <select name="state" ref={register()} className="form-control SlectBox mb-4 w-full rounded font-light text-gray-500">
+                                {state.map((st) => <option key={st.jtb_idstates} value={st.jtb_idstates}>{st.state}</option>)}
                             </select>
                         </div>
                         <div className="form-group ">
                             <p>Sector</p>
                             <select name="sector" ref={register()} className="form-control SlectBox mb-4 w-full rounded font-light text-gray-500">
-                                <option value="mr">Agric</option>
-                                <option value="mrs">Fishery</option>
+                                {sector.map((sect) => <option key={sect.id} value={sect.sector_name}>{sect.sector_name}</option>)}
                             </select>
                         </div>
                         <div className="form-group ">
@@ -227,6 +232,17 @@ export default function index() {
                                 <option value="mrs">Fishery</option>
                             </select>
                         </div>
+
+                        <div className="form-group ">
+                            <p>Income Source</p>
+                            <select name="income_source" ref={register()} className="form-control SlectBox mb-4 w-full rounded font-light text-gray-500">
+                                {incomeSource.map((src) => <option key={src.id} value={src.source}>{src.source}</option>)}
+                            </select>
+                        </div>
+                        <div className="form-group ">
+                            <p>Tax Authority</p>
+                            <input disabled name="emptin"  value="Kogi State Internal Revenue Service" ref={register()} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500" />
+                        </div>
                         <div className="form-group ">
                             <p>Employer TIN</p>
                             <input name="emptin" ref={register()} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500" />
@@ -235,13 +251,7 @@ export default function index() {
                             <p>Employer's Name</p>
                             <input name="emp_name" ref={register()} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500" />
                         </div>
-                        <div className="form-group ">
-                            <p>Tax Office</p>
-                            <select name="office" ref={register()} className="form-control SlectBox mb-4 w-full rounded font-light text-gray-500">
-                                <option value="mr">Lokoja</option>
-                                <option value="mrs">Fishery</option>
-                            </select>
-                        </div>
+
                     </div>
 
                     <div className="mb-6 flex justify-center">

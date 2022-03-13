@@ -23,6 +23,7 @@ const ViewNonIndividual = () => {
   const [query, setQuery] = useState(() => "");
   useEffect(() => {
     setAuthToken();
+    let num = 1
     const fetchPost = async () => {
       try {
         let res = await axios.get(`${url.BASE_URL}taxpayer/non-individual`);
@@ -30,6 +31,7 @@ const ViewNonIndividual = () => {
         let records = [];
         for (let i = 0; i < res.length; i++) {
           let rec = res[i];
+          rec.serialNo = num + i
           records.push(rec);
         }
         setIsFetching(false);

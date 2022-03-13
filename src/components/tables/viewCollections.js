@@ -22,6 +22,10 @@ import Clear from "@material-ui/icons/Clear";
 
 const fields = [
   {
+    title: "SN",
+    field: "serialNo",
+  },
+  {
     title: "Name",
     field: "taxpayerName",
   },
@@ -57,12 +61,13 @@ const fields = [
 
 export const ViewCollectionsTable = ({ remittance }) => {
   let items = remittance;
-  console.log("Items", items);
   return (
     <>
       {/* <Widget> */}
       <MaterialTable title="Collections List"
         data={items}
+        columns={fields}
+
         options={{
           search: true,
           paging: true,
@@ -74,9 +79,9 @@ export const ViewCollectionsTable = ({ remittance }) => {
           // searchFieldStyle:{
           //   borderRadius: 10
           // },
-          exportAllData: true
+          exportAllData: true,
+          
         }}
-        columns={fields}
         icons={{
           Check: Check,
           DetailPanel: ChevronRight,
@@ -176,7 +181,7 @@ export const ViewCollectionsSingleTable = ({ collections }) => {
             </CustomButton>
           </div> */}
         </div>
-        <div className="w-2/3 flex mx-auto">
+        <div className=" flex mx-auto">
 
           <table className="table border rounded striped">
             <tbody className="divide-y ">

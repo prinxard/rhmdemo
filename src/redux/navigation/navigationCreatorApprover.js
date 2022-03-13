@@ -31,7 +31,7 @@ const initialState = [
           {
             title: 'Non-Individual',
             items: [
-              { title: 'Create', url: '/taxpayer', items: [] },
+              { title: 'Create', url: '/taxpayer/non-individual', items: [] },
               {
                 title: 'View',
                 url: '/view/nonindividual',

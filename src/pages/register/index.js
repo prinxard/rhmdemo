@@ -44,6 +44,7 @@ export default function index() {
         fetchPost();
 
     }, []);
+
     const options = rhmGroups.map(item => {
         return {
             label: item.role,
@@ -54,14 +55,6 @@ export default function index() {
     setAuthToken();
     const onSubmit = (data) => {
         setIsFetching(true)
-        // try {
-        //     let res = axios.post(`${url.BASE_URL}user/signup`, data);
-        //     setIsFetching(false)
-        //     // toast.success("Created Successfully!");
-        // } catch (err) {
-        //     setIsFetching(false)
-        //     toast.error("Failed to create user!");
-        // }
         axios.post(`${url.BASE_URL}user/signup`, data)
             .then(function (response) {
                 setIsFetching(false)
@@ -74,9 +67,6 @@ export default function index() {
             })
     };
 
-
-
-    // const onSubmit = (data) => console.log(data);
 
     return (
 

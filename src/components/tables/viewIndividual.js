@@ -8,6 +8,10 @@ import CustomButton from "../CustomButton/CustomButton";
 
 const fields = [
   {
+    name: "SN",
+    key: "serialNo",
+  },
+  {
     name: "KGTIN",
     key: "KGTIN",
   },
@@ -144,15 +148,15 @@ export const ViewIndividualSingleTable = ({ indvdata }) => {
           </div>
           <div className="m-3 bg-green-400 text-white rounded-full">
             <CustomButton type="Submit">
-            {items.map((ind, i) => (
-                  <Link href={`/update-user/${ind.KGTIN}`} key={i}> Update User</Link>
-                ))}
+              Update User
+              {/* <Link href={`/update-user/${ind.KGTIN}`} key={i}> Update User</Link> */}
+
             </CustomButton>
           </div>
         </div>
         <div className="w-2/3 flex mx-auto rounded border">
 
-          <table className="table">
+          <table className="table striped">
 
             <tbody className="divide-y ">
               <tr className="">
