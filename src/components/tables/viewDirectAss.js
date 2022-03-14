@@ -811,6 +811,25 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
   expenses.forEach((el, i) => (
     expenseAmout = el.amount
   ))
+
+  if (incomeEarned == null || incomeEarned == undefined || incomeEarned == "") {
+    incomeEarned = 0
+  } else {
+    incomeEarned = incomeEarned
+  }
+
+  if (otherIncome == null || otherIncome == undefined || otherIncome == "") {
+    otherIncome = 0
+  } else {
+    otherIncome = otherIncome
+  }
+
+  if (expenseAmout == null || expenseAmout == undefined || expenseAmout == "") {
+    expenseAmout = 0
+  } else {
+    expenseAmout = expenseAmout
+  }
+  
   let earnedInc = Number(incomeEarned)
   let otherInc = Number(otherIncome)
   let expAmt = Number(expenseAmout)

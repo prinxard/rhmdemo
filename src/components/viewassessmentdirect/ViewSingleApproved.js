@@ -27,6 +27,7 @@ const ViewSingleApproved = () => {
   const [vehicles, setVehicles] = useState({})
   const [land, setLand] = useState({})
   const [employed, setEmployed] = useState({})
+  const [additionalAsse, setAdditionalAssessment] = useState([])
 
   const componentRef = useRef();
 
@@ -55,6 +56,7 @@ const ViewSingleApproved = () => {
           let vechicles = IndData.vechicles
           let landObj = IndData.land
           let employed = IndData.employed
+          let additionalAssess = IndData.addAssessment
           console.log(res);
           setEmployed(employed)
           setLand(landObj)
@@ -67,6 +69,8 @@ const ViewSingleApproved = () => {
           setmakeObj(makeObjdata)
           setTaxCalDa(taxCalData)
           setpayerprop(IndData)
+          setAdditionalAssessment(additionalAssess)
+          console.log(additionalAssess);
           setIsFetching(false);
         } catch (err) {
           console.log(err);
@@ -111,7 +115,7 @@ const ViewSingleApproved = () => {
             <p>Fetching data...</p>
           </div>
         ) : <ViewSingleApprovedTable ref={componentRef} payerprop={payerprop} assId={globalAssId}
-          payerAyy={makeArray} assobj={makeObj} taxcal={taxcalDa}
+          payerAyy={makeArray} additionalAsse={additionalAsse} assobj={makeObj} taxcal={taxcalDa}
           childObj={childObj} resAddObj={resAddObj} employed={employed} spouseObj={spouseObj}
           domesticStaff={domesticStaff} vehicles={vehicles} land={land} />}
 

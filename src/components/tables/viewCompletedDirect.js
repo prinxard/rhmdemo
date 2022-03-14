@@ -90,7 +90,7 @@ export const ViewCompletedTable = ({ remittance }) => {
   );
 };
 
-export const ViewSingleCompletedTable = ({additionalAsse, payerprop, assId, payerArr, assobj, taxcal,
+export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, payerArr, assobj, taxcal,
   childObj, resAddObj, rentIncome, spouseObj, domesticStaff, selfEmployment, vehicles, land, employed, lap, nhis, expenses, pensionDed }) => {
   const [isFetching2, setIsFetching2] = useState(() => false);
   const [isFetching3, setIsFetching3] = useState(() => false);
@@ -150,6 +150,18 @@ export const ViewSingleCompletedTable = ({additionalAsse, payerprop, assId, paye
 
   const deductionsTotal = (pfcdata + nhisdata + lapdata)
 
+  let addAssAmount
+
+  additionalAsse.forEach((el, i) => (
+    addAssAmount = el.amount
+  ))
+
+  if (addAssAmount == null || addAssAmount == undefined || addAssAmount == "") {
+    addAssAmount = 0
+  } else {
+    addAssAmount = addAssAmount
+  }
+
   setAuthToken();
   let approveAss = async (e) => {
     e.preventDefault()
@@ -202,6 +214,7 @@ export const ViewSingleCompletedTable = ({additionalAsse, payerprop, assId, paye
         // handle success
         setIsFetching2(false)
         toast.success("Operation Successful!");
+        window.location.reload(true);
       })
       .catch(function (error) {
         // handle error
@@ -598,7 +611,7 @@ export const ViewSingleCompletedTable = ({additionalAsse, payerprop, assId, paye
                 <td className="border-r-2 p-1 text-right font-bold">Total Tax due </td>
                 {taxcal == null || taxcal == ""
                   ? <td className="p-1 text-right font-bold">0</td> :
-                  <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax)}</td>
+                  <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax + (Number(addAssAmount)))}</td>
                 }
               </tr>
               <tr>
@@ -607,14 +620,11 @@ export const ViewSingleCompletedTable = ({additionalAsse, payerprop, assId, paye
               </tr>
               <tr>
                 <td className="border-r-2 p-1 text-right font-bold">Set off 1st Assessment </td>
-                {additionalAsse.map((el, i) =>
-                <td className="pl-1 text-right font-bold" key={i}>{formatNumber(el.amount)}</td>
-              )}
-                
+                <td className="p-1 text-right font-bold">0</td>
               </tr>
               <tr>
                 <td className="border-r-2 p-1 text-right font-bold">Set off Additional Assessment</td>
-                <td className="p-1 text-right font-bold">0</td>
+                <td className="p-1 text-right font-bold">{formatNumber(addAssAmount)}</td>
               </tr>
               <tr>
                 <td className="border-r-2 p-1 text-right font-bold">Total Tax Due for Payment</td>

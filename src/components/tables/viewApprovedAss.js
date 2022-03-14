@@ -90,6 +90,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
   const taxcal = props.taxcal
   const childObj = props.childObj
   const resAddObj = props.resAddObj
+  const additionalAsse = props.additionalAsse
 
   const kgtinVal = payerAyy.map(function (doc) {
     let kgtin = doc.KGTIN
@@ -113,6 +114,18 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
   const lapdata = Number(assobj.lap)
 
   const deductionsTotal = (pfcdata + nhisdata + lapdata)
+
+  let addAssAmount
+
+  additionalAsse.forEach((el, i)=>(
+    addAssAmount = el.amount
+  ))
+
+  if (addAssAmount == null || addAssAmount == undefined || addAssAmount == "") {
+    addAssAmount = 0
+  } else {
+    addAssAmount = addAssAmount
+  }
 
   return (
     <>
@@ -351,11 +364,11 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                     </tr>
                     <tr>
                       <td className='tb'><div align='center' className='style16'>1%(Minimun Tax)</div></td>
-                      <td className='tb'><p className="font-bold text-right">0</p></td>
+                      <td className='tb'><p className="font-bold text-right">{formatNumber(taxcal.tax1)}</p></td>
                     </tr>
                     <tr>
                       <td className='tb'><div align='center' className='style16'>Total </div></td>
-                      <td className='tb'><p className="font-bold text-right"> {formatNumber(Number(taxcal.tax) + Number(taxcal.devy_levy))}</p> </td>
+                      <td className='tb'><p className="font-bold text-right"> {formatNumber(Number(taxcal.tax) )}</p> </td>
                     </tr>
                     <tr>
                       <td className='tb'><div align='center' className='style16'>Dev. Levy </div></td>
@@ -364,7 +377,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                     </tr>
                     <tr>
                       <td className='tb'><div align='right' className='style16 font-bold'>Total Tax Due </div></td>
-                      <td className='tb'><div align='right' className='style16 font-bold'>{formatNumber(taxcal.tax)}</div></td>
+                      <td className='tb'><div align='right' className='style16 font-bold'>{formatNumber(taxcal.tax + (Number(addAssAmount)))}</div></td>
                     </tr>
 
                     <tr>
@@ -377,7 +390,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                     </tr>
                     <tr>
                       <td height='28' className='tb'><div align='right' className='style16 font-bold'>Set off Additional Assessment </div></td>
-                      <td className='tb'> <p className="text-right font-bold">0</p> </td>
+                      <td className='tb'> <p className="text-right font-bold">{formatNumber(addAssAmount)}</p> </td>
                     </tr>
                     <tr>
                       <td height='30' className='tb'><div align='right' className='style16 font-bold'>Total Tax Due for Payment </div></td>
