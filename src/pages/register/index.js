@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function index() {
     const [taxStation, setTaxStation] = useState([])
+    const [uploadErrors, setUploadErrors] = useState(() => []);
     const [department, setDepartment] = useState([])
     const [rhmGroups, setRhmGroups] = useState([])
     const [isFetching, setIsFetching] = useState(() => false);
@@ -31,10 +32,10 @@ export default function index() {
                 let res = await axios.get(`${url.BASE_URL}user/items`);
                 let itemsBody = res.data.body
                 let taxOffice = itemsBody.taxOffice
-                let department = itemsBody.department
+                let depart = itemsBody.department
                 let rhmGroups = itemsBody.rhmGroups
                 setTaxStation(taxOffice)
-                setDepartment(department)
+                setDepartment(depart)
                 setRhmGroups(rhmGroups)
 
             } catch (e) {
@@ -61,9 +62,13 @@ export default function index() {
                 toast.success("Created Successfully!");
             })
             .catch(function (error) {
-                console.log(error);
                 setIsFetching(false)
-                toast.error("Failed to create user!");
+                if (error.response) {
+                    setUploadErrors(() => error.response.data.message);
+                    toast.error(uploadErrors)
+                }else{
+                    toast.error("Failed to create user!");
+                }
             })
     };
 
@@ -71,27 +76,27 @@ export default function index() {
     return (
 
         <div>
-            {isFetching && (
-                <div className="flex justify-center item mb-2">
-                    <Loader
-                        visible={isFetching}
-                        type="BallTriangle"
-                        color="#00FA9A"
-                        height={19}
-                        width={19}
-                        timeout={0}
-                        className="ml-2"
-                    />
-                    <p className="font-bold">Processing...</p>
-                </div>
-            )}
+
             <ToastContainer />
 
             <div className="block p-6 rounded-lg bg-white w-full">
                 <div className="flex justify-center mb-4">
                     <h6 className="p-2">Register User</h6>
                 </div>
-
+                {isFetching && (
+                    <div className="flex justify-center item mb-2">
+                        <Loader
+                            visible={isFetching}
+                            type="BallTriangle"
+                            color="#00FA9A"
+                            height={19}
+                            width={19}
+                            timeout={0}
+                            className="ml-2"
+                        />
+                        <p className="font-bold">Processing...</p>
+                    </div>
+                )}
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="grid grid-cols-2 gap-4">
                         <div className="form-group ">
@@ -112,8 +117,8 @@ export default function index() {
 
                         <div className="form-group ">
                             <p>Department</p>
-                            <select name="dept" ref={register()} className="form-control SlectBox mb-4 w-full rounded font-light text-gray-500">
-                                {department.map((dept) => <option key={dept.id} value={(dept.id)}>{dept.name}</option>)}
+                            <select name="dept" ref={register({ valueAsNumber: true })} className="form-control SlectBox mb-4 w-full rounded font-light text-gray-500">
+                                {department.map((dept) => <option key={dept.id} value={dept.id}>{dept.name}</option>)}
                             </select>
                         </div>
 
@@ -132,7 +137,7 @@ export default function index() {
 
                                 control={control}
                                 defaultValue={options.map(c => c.value).toString()}
-                                name="group"
+                                name="userGroup"
                                 rules={{ required: "please select user group" }}
                                 render={({ onChange, value, ref }) => (
                                     <MultiSelect
@@ -145,7 +150,7 @@ export default function index() {
                                     />
                                 )}
                             />
-                            {errors.group && <p className="text-red-600">{errors.group.message}</p>}
+                            {errors.userGroup && <p className="text-red-600">{errors.userGroup.message}</p>}
                         </div>
 
                         <div className="form-group ">
@@ -167,6 +172,12 @@ export default function index() {
                                 <option value="Y">Yes</option>
                                 <option value="N">No</option>
                             </select>
+                        </div>
+                        <div className="form-group">
+                            <p>Created By</p>
+                            <input name="createdBy" ref={register({ required: "Created by is required" })} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                            />
+                            {errors.createdBy && <p className="text-red-600">{errors.createdBy.message}</p>}
                         </div>
                     </div>
                     <div className="mb-6 flex justify-center">
