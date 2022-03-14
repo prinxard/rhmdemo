@@ -64,7 +64,7 @@ export default function index() {
         <div>
             <div className="block p-6 rounded-lg bg-white w-full">
                 <div className="flex justify-center mb-4">
-                    <h6 className="p-2">Register Individual Taxpayer</h6>
+                    <h6 className="p-2 font-bold">Register Individual Taxpayer</h6>
                 </div>
 
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -154,7 +154,7 @@ export default function index() {
                     </div>
                     <div className="m-4">
                         <hr />
-                        <h6 className="m-3 text-right">Additional Information</h6>
+                        <h6 className="m-3 font-bold">Additional Information</h6>
                     </div>
                     <div className="grid grid-cols-3 gap-4">
                         <div className="form-group">
