@@ -679,8 +679,8 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
             <div>
               {resAddObj == null || resAddObj == "" ? "" :
 
-                <table class="table-auto">
-                  <tbody>
+                <table class="table-auto border">
+                  <tbody className="divide-y">
                     <tr>
                       <td className="font-bold p-2">Residence Owner</td>
                       {resAddObj == null || resAddObj == ""
@@ -1181,8 +1181,8 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
             </div>
             <div>
               {spouseObj == null || spouseObj == "" ? "" :
-                <table class="table-auto">
-                  <tbody>
+                <table class="table-auto border">
+                  <tbody className="divide-y">
                     <tr>
                       <td className="font-bold p-2">Name</td>
                       {spouseObj == null || spouseObj == ""
@@ -1399,10 +1399,10 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
           <div className="">
             <h5 className="font-bold">SELF EMPLOYMENT</h5>
           </div>
-          <table class="table-auto">
+          <table class="table-auto border">
             <div>
               {selfEmployment == null || selfEmployment == "" ? "" :
-                <tbody>
+                <tbody className="divide-y">
                   <tr>
                     <td className="font-bold p-2">Business name</td>
                     {selfEmployment == null || selfEmployment == ""
