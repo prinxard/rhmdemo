@@ -22,7 +22,8 @@ export default function index() {
         register,
         handleSubmit,
         control,
-        formState: { errors }, } = useForm()
+        formState: { errors }, 
+    } = useForm()
 
     useEffect(() => {
 
@@ -66,7 +67,7 @@ export default function index() {
                 if (error.response) {
                     setUploadErrors(() => error.response.data.message);
                     toast.error(uploadErrors)
-                }else{
+                } else {
                     toast.error("Failed to create user!");
                 }
             })

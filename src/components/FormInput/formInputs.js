@@ -120,6 +120,7 @@ export const FormatMoneyComponent = ({
   <Controller
     as={
       <NumberFormat
+        className="w-full rounded my-3 form-control"
         // customInput={TextField}
         thousandSeparator={true}
         prefix={"₦ "}

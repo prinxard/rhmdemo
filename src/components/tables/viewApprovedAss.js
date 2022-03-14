@@ -178,10 +178,6 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                       <td><strong>ASSESSMENT NO </strong></td>
                       {assessment_id}
                     </tr>
-                    {/* <tr>
-                      <td><strong>Date Assessed </strong></td>
-                      <td className=''> {createdTime} </td>
-                    </tr> */}
                   </table>
                   </td>
                 </tr>

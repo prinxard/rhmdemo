@@ -31,6 +31,7 @@ const ViewSingleCompleted = () => {
   const [pensionDed, setPensionDed] = useState([])
   const [selfEmployment, setselfEmployment] = useState([])
   const [rentIncome, setRentIncome] = useState([])
+  const [additionalAsse, setAdditionalAssessment] = useState([])
 
 
   useEffect(() => {
@@ -64,6 +65,8 @@ const ViewSingleCompleted = () => {
           let pendeddat = IndData.pensionDed
           let selfempdat = IndData.selfEmployed
           let rentIncdat = IndData.rentIncome
+          let additionalAssess = IndData.addAssessment
+          setAdditionalAssessment(additionalAssess)
           setRentIncome(rentIncdat)
           console.log(IndData);
           setselfEmployment(selfempdat)
@@ -115,7 +118,7 @@ const ViewSingleCompleted = () => {
           </div>
         ) : <ViewSingleCompletedTable rentIncome={rentIncome} payerprop={payerprop} assId={globalAssId}
           payerArr={makeArray} selfEmployment={selfEmployment} assobj={makeObj} taxcal={taxcalDa} childObj={childObj}
-          resAddObj={resAddObj} pensionDed={pensionDed} expenses={expenses} nhis={nhis} spouseObj={spouseObj} employed = {employed} domesticStaff = {domesticStaff} vehicles = {vehicles} land = {land} lap={lap}/>}
+          resAddObj={resAddObj} additionalAsse={additionalAsse} pensionDed={pensionDed} expenses={expenses} nhis={nhis} spouseObj={spouseObj} employed = {employed} domesticStaff = {domesticStaff} vehicles = {vehicles} land = {land} lap={lap}/>}
       </Widget>
     </>
   );

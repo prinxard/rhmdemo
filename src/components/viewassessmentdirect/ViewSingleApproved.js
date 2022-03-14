@@ -55,7 +55,7 @@ const ViewSingleApproved = () => {
           let vechicles = IndData.vechicles
           let landObj = IndData.land
           let employed = IndData.employed
-          console.log(taxCalData);
+          console.log(res);
           setEmployed(employed)
           setLand(landObj)
           setVehicles(vechicles)

@@ -74,7 +74,7 @@ const ViewApprovedAss = () => {
   };
 
   const searchedPost = search(post).slice(indexOfFirstPost, indexOfLastPost);
-  console.log(currentPosts);
+  // console.log(currentPosts);
 
   return (
     <>
