@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Controller } from "react-hook-form";
+import NumberFormat from "react-number-format";
 import { PasswordHideIcon, PasswordShowIcon } from "../Icons";
 
 const Input = React.forwardRef((props, ref) => {
@@ -108,6 +110,32 @@ const Input = React.forwardRef((props, ref) => {
 });
 export default Input;
 
+
+export const FormatMoneyComponent = ({
+  control,
+  onValueChange,
+  name,
+  defaultValue
+}) => (
+  <Controller
+    as={
+      <NumberFormat
+        // customInput={TextField}
+        thousandSeparator={true}
+        prefix={"₦ "}
+        onValueChange={(v) => {
+          onValueChange(v.value);
+          // console.log(v.value);
+        }}
+      />
+    }
+    name={name}
+    variant="outlined"
+    defaultValue={defaultValue}
+    control={control}
+  />
+);
+
 export const NewFormInput = React.forwardRef((props, ref) => {
   return (
     <>
@@ -116,9 +144,8 @@ export const NewFormInput = React.forwardRef((props, ref) => {
           <input ref={ref} name={props.name} {...props} />
           {props.label ? (
             <label
-              className={`label-name  border-b ${
-                props.bordercolor ? props.bordercolor : `border-black`
-              } `}
+              className={`label-name  border-b ${props.bordercolor ? props.bordercolor : `border-black`
+                } `}
             >
               <span className="content-name">{props.label}</span>
             </label>

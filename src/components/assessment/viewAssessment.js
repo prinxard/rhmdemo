@@ -16,6 +16,7 @@ import { useRouter } from "next/router";
 import Loader from "react-loader-spinner";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FormatMoneyComponent } from "../FormInput/formInputs";
 
 export const StartAssessment = () => {
   const [kgtEnentered, setKgtEentered] = useState('')
@@ -234,6 +235,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     newFormValues[i][e.target.name] = e.target.value;
     setFormValues(newFormValues);
   }
+
+  const [fixedValues, fixValues] = useState({ amount: 0 });
+  const { control, handleSubmit } = useForm({ amount: 0 });
 
   let handleSubmit1 = (event) => {
     event.preventDefault();
@@ -3375,6 +3379,13 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label>Cost of construction/acquisition:</label>
+                  {/* <FormatMoneyComponent 
+                    name="amount"
+                    control={control}
+                    defaultValue="0"
+                    onValueChange={(v) => fixValues({ amount: v })}
+                    className="form-control w-full rounded"
+                  /> */}
                   <input required onChange={handleLandChange} name="construction_cost" value={land.construction_cost} type="text" className="form-control w-full rounded"
                   />
                 </div>

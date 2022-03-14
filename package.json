@@ -60,6 +60,7 @@
     "react-loader-spinner": "^4.0.0",
     "react-modal": "^3.14.4",
     "react-multi-select-component": "^4.2.3",
+    "react-number-format": "^4.9.1",
     "react-popper": "^2.2.4",
     "react-qr-code": "^1.1.1",
     "react-redux": "^7.2.2",
