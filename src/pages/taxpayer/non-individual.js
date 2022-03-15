@@ -67,7 +67,7 @@ export default function index() {
         <div>
             <div className="block p-6 rounded-lg bg-white w-full">
                 <div className="flex justify-center mb-4">
-                    <h6 className="p-2">Non-Individual Taxpayer</h6>
+                    <h6 className="p-2 font-bold">Non-Individual Taxpayer</h6>
                 </div>
 
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -157,9 +157,11 @@ export default function index() {
 
                         <div className="form-group ">
                             <p>State</p>
-                            <select name="state" ref={register()} className="form-control SlectBox mb-4 w-full rounded font-light text-gray-500">
+                            <input name="state" value="Kogi" disabled ref={register()} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                            />
+                            {/* <select name="state" ref={register()} className="form-control SlectBox mb-4 w-full rounded font-light text-gray-500">
                                 {state.map((st) => <option key={st.jtb_idstates} value={st.jtb_idstates}>{st.state}</option>)}
-                            </select>
+                            </select> */}
                         </div>
 
                         <div className="form-group ">
@@ -182,7 +184,7 @@ export default function index() {
                     </div>
                     <div className="m-4">
                         <hr />
-                        <h6 className="m-3 text-right">Additional Information</h6>
+                        <h6 className="m-3 font-bold">Additional Information</h6>
                     </div>
                     <div className="grid grid-cols-3 gap-4">
                         <div className="form-group">

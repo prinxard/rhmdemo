@@ -129,9 +129,11 @@ export default function index() {
 
                         <div className="form-group ">
                             <p>State of residence</p>
-                            <select name="state_of_residence" ref={register()} className="form-control SlectBox mb-4 w-full rounded font-light text-gray-500">
+                            <input disabled name="state_of_residence" value="Kogi" ref={register()} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                            />
+                            {/* <select name="state_of_residence" ref={register()} className="form-control SlectBox mb-4 w-full rounded font-light text-gray-500">
                                 {state.map((st) => <option key={st.jtb_idstates} value={st.jtb_idstates}>{st.state}</option>)}
-                            </select>
+                            </select> */}
                         </div>
 
                         <div className="form-group ">

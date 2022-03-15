@@ -679,8 +679,8 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
             <div>
               {resAddObj == null || resAddObj == "" ? "" :
 
-                <table class="table-auto border">
-                  <tbody className="divide-y">
+                <table class="table-auto">
+                  <tbody className="divide-y border">
                     <tr>
                       <td className="font-bold p-2">Residence Owner</td>
                       {resAddObj == null || resAddObj == ""
@@ -750,7 +750,7 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
             <div>
               {rentIncome == null || rentIncome == "" ? "" :
                 <table class="table-auto">
-                  <tbody>
+                  <tbody className="divide-y border">
                     <tr>
                       <td className="font-bold p-2">Property Type</td>
                       {rentIncome == null || rentIncome == ""
@@ -820,7 +820,7 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
               <div>
                 {nhis == null || nhis == "" ? "" :
                   <table class="table-auto">
-                    <tbody>
+                    <tbody className="divide-y border">
                       <tr>
                         <td className="font-bold  p-2">Company</td>
                         {nhis == null || nhis == ""
@@ -871,7 +871,7 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
             <table class="table-auto">
               <div>
                 {lap == null || lap == "" ? "" :
-                  <tbody>
+                  <tbody className="divide-y border">
                     <tr>
                       <td className="font-bold p-2">Company</td>
                       {lap == null || lap == ""
@@ -924,7 +924,7 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
               <div>
                 {vehicles == null || vehicles == "" ? "" :
                   <table class="table-auto">
-                    <tbody>
+                    <tbody className="divide-y border">
                       <tr>
                         <td className="font-bold  p-2">Purchase date</td>
                         {vehicles == null || vehicles == ""
@@ -984,8 +984,8 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
             <div>
               {land == null || land == "" ? "" :
 
-                <table class="table-auto">
-                  <tbody>
+                <table className="table-auto border">
+                  <tbody className="divide-y">
                     <tr>
                       <td className="font-bold p-2">Address</td>
                       {land == null || land == ""
@@ -1037,8 +1037,8 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
             </div>
             <div>
               {pensionDed == null || pensionDed == "" ? "" :
-                <table class="table-auto">
-                  <tbody>
+                <table className="table-auto border">
+                  <tbody className="divide-y">
                     <tr>
                       <td className="font-bold p-2">PFA</td>
                       {pensionDed == null || pensionDed == ""
@@ -1087,8 +1087,8 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
               </div>
               <div>
                 {expenses == null || expenses == "" ? "" :
-                  <table class="table-auto">
-                    <tbody>
+                  <table className="table-auto border">
+                    <tbody className="divide-y">
                       <tr>
                         <td className="font-bold p-2">Item</td>
                         {expenses == null || expenses == ""
@@ -1122,8 +1122,8 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
             </div>
             <div>
               {employed == null || employed == "" ? "" :
-                <table class="table-auto">
-                  <tbody>
+                <table className="table-auto border">
+                  <tbody className="divide-y">
                     <tr>
                       <td className="font-bold p-2">Employer</td>
                       {employed == null || employed == ""
@@ -1181,8 +1181,8 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
             </div>
             <div>
               {spouseObj == null || spouseObj == "" ? "" :
-                <table class="table-auto border">
-                  <tbody className="divide-y">
+                <table class="table-auto">
+                  <tbody className="divide-y border">
                     <tr>
                       <td className="font-bold p-2">Name</td>
                       {spouseObj == null || spouseObj == ""
@@ -1306,8 +1306,8 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
           <div>
             {domesticStaff == null || domesticStaff == "" ? "" :
 
-              <table class="table-auto">
-                <tbody>
+              <table className="table-auto border">
+                <tbody className="divide-y">
                   <tr>
                     <td className="font-bold p-2">TItle</td>
                     {domesticStaff == null || domesticStaff == ""
@@ -1399,10 +1399,10 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
           <div className="">
             <h5 className="font-bold">SELF EMPLOYMENT</h5>
           </div>
-          <table class="table-auto border">
+          <table class="table-auto">
             <div>
               {selfEmployment == null || selfEmployment == "" ? "" :
-                <tbody className="divide-y">
+                <tbody className="divide-y border">
                   <tr>
                     <td className="font-bold p-2">Business name</td>
                     {selfEmployment == null || selfEmployment == ""
