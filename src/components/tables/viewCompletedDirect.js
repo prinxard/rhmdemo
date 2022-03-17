@@ -611,7 +611,14 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
                 <td className="border-r-2 p-1 text-right font-bold">Total Tax due </td>
                 {taxcal == null || taxcal == ""
                   ? <td className="p-1 text-right font-bold">0</td> :
-                  <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax + (Number(addAssAmount)))}</td>
+                  <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax)}</td>
+                }
+              </tr>
+              <tr>
+                <td className="border-r-2 p-1 text-right font-bold">Additional Assessment</td>
+                {addAssAmount == null || addAssAmount == "" || addAssAmount == 0
+                  ? <td className="p-1 text-right font-bold">0</td> :
+                  <td className="p-1 text-right font-bold">{formatNumber(addAssAmount)}</td>
                 }
               </tr>
               <tr>
@@ -624,13 +631,14 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
               </tr>
               <tr>
                 <td className="border-r-2 p-1 text-right font-bold">Set off Additional Assessment</td>
-                <td className="p-1 text-right font-bold">{formatNumber(addAssAmount)}</td>
+                <td className="p-1 text-right font-bold">0</td>
+                {/* <td className="p-1 text-right font-bold">{formatNumber(addAssAmount)}</td> */}
               </tr>
               <tr>
                 <td className="border-r-2 p-1 text-right font-bold">Total Tax Due for Payment</td>
                 {taxcal == null || taxcal == ""
                   ? <td className="p-1 text-right font-bold">0</td> :
-                  <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax)}</td>
+                  <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax + (Number(addAssAmount)))}</td>
                 }
               </tr>
             </tbody>

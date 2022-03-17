@@ -6,6 +6,12 @@ const initialState = [
   {
     title: 'Applications',
     items: [
+      {
+        url: '/dashboard',
+        icon: <Dashboard />,
+        title: 'Dashboard',
+        items: [],
+      },
 
       {
         url: '/',
@@ -58,7 +64,7 @@ const initialState = [
               { title: 'Create', url: '/register', items: [] },
               {
                 title: 'View',
-                url: '/',
+                url: '/view/users',
                 items: [],
               },
             ],
@@ -93,12 +99,6 @@ const initialState = [
           },
         ],
       },
-      {
-        url: '/dashboard',
-        icon: <Dashboard />,
-        title: 'Dashboard',
-        items: [],
-      },
 
       {
         url: '/',
@@ -125,7 +125,7 @@ const initialState = [
             title: 'Tax Clearance (TCC)',
             items: [
               {
-                url: '/',
+                url: '/tcc',
                 title: 'Create',
                 items: [],
               },

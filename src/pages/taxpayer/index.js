@@ -6,6 +6,7 @@ import setAuthToken from "../../functions/setAuthToken";
 import { Controller, useForm } from 'react-hook-form';
 import Select from 'react-select';
 
+
 export default function index() {
     const [department, setDepartment] = useState([])
     const [taxOffice, setTaxOffice] = useState([])
@@ -19,12 +20,15 @@ export default function index() {
         control,
         formState: { errors }, } = useForm()
 
+    // console.log(decoded);
+
     useEffect(() => {
 
         setAuthToken();
         const fetchPost = async () => {
             try {
                 let res = await axios.get(`${url.BASE_URL}user/items`);
+                console.log(res);
                 let itemsBody = res.data.body
                 let taxOffice = itemsBody.taxOffice
                 let sector = itemsBody.sector
@@ -37,7 +41,7 @@ export default function index() {
                 setState(stat)
                 setLga(lg)
             } catch (e) {
-
+                console.log(e);
             }
         };
         fetchPost();
@@ -243,7 +247,7 @@ export default function index() {
                         </div>
                         <div className="form-group ">
                             <p>Tax Authority</p>
-                            <input disabled name="emptin"  value="Kogi State Internal Revenue Service" ref={register()} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500" />
+                            <input disabled name="emptin" value="Kogi State Internal Revenue Service" ref={register()} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500" />
                         </div>
                         <div className="form-group ">
                             <p>Employer TIN</p>

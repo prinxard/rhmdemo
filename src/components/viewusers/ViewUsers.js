@@ -13,8 +13,9 @@ import dateformat from "dateformat";
 import Loader from "react-loader-spinner";
 import Widget1 from "../dashboard/widget-1";
 import * as Icons from '../Icons/index';
+import { ViewUsersTable } from "../tables/viewUsers";
 
-const ViewIndividual = () => {
+const ViewUsers = () => {
   const [post, setPost] = useState(() => []);
   const [isFetching, setIsFetching] = useState(() => true);
   const [currentPage, setCurrentPage] = useState(() => 1);
@@ -25,13 +26,14 @@ const ViewIndividual = () => {
     let num = 1
     const fetchPost = async () => {
       try {
-        let res = await axios.get(`${url.BASE_URL}taxpayer/individual`);
-        res = res.data.body;
-        let records = [];
+        let res = await axios.get(`${url.BASE_URL}user/users`);
+        res = res.data.body.users;
         console.log(res);
+        let records = [];
         for (let i = 0; i < res.length; i++) {
           let rec = res[i];
           rec.serialNo = num + i
+          rec.createdAt = dateformat(rec.createdAt, "dd mmm yyyy")
           records.push(rec);
         }
         setIsFetching(false);
@@ -60,7 +62,7 @@ const ViewIndividual = () => {
   let res = [];
   const search = (rows) => {
     let data = [];
-    data = rows.filter((rows) => rows.KGTIN.toLowerCase().indexOf(query) > -1);
+    data = rows.filter((rows) => rows.email.toLowerCase().indexOf(query) > -1);
     res.push(data);
     return data;
   };
@@ -70,7 +72,7 @@ const ViewIndividual = () => {
 
   return (
     <>
-      <SectionTitle title="View Taxpayers" subtitle="Individual Taxpayers" />
+      <SectionTitle title="View Users" subtitle="User List" />
 
       {isFetching && (
         <div className="flex justify-center item mb-2">
@@ -90,7 +92,7 @@ const ViewIndividual = () => {
         <div className="flex flex-col lg:flex-row lg:flex-wrap w-full lg:space-x-4">
           <div className="w-full lg:w-2/12">
             <NewFormInput
-              label="Search by kgtin"
+              label="Search by Email"
               required
               onChange={searchHandler}
             />
@@ -100,7 +102,7 @@ const ViewIndividual = () => {
         <div className="mt-4">
           {query !== "" ? (
             <>
-              <ViewIndividualTable remittance={searchedPost} />
+              <ViewUsersTable remittance={searchedPost} />
               <CustomPagination
                 paginate={paginate}
                 totalPosts={res[0].length}
@@ -112,7 +114,7 @@ const ViewIndividual = () => {
             </>
           ) : (
             <>
-              <ViewIndividualTable remittance={currentPosts} />
+              <ViewUsersTable remittance={currentPosts} />
               <CustomPagination
                 paginate={paginate}
                 totalPosts={post.length}
@@ -129,4 +131,4 @@ const ViewIndividual = () => {
   );
 };
 
-export default ViewIndividual;
+export default ViewUsers;

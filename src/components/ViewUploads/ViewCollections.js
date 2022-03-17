@@ -30,6 +30,7 @@ const ViewCollections = () => {
       try {
         let res = await axios.get(`${url.BASE_URL}collection/list-collections`);
         res = res.data.body;
+        console.log(res);
         let records = [];
         for (let i = 0; i < res.length; i++) {
           let rec = res[i];

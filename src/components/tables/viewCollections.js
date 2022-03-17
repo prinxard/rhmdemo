@@ -61,6 +61,7 @@ const fields = [
 
 export const ViewCollectionsTable = ({ remittance }) => {
   let items = remittance;
+  console.log(items);
   return (
     <>
       {/* <Widget> */}

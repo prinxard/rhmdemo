@@ -9,6 +9,8 @@ import { useRouter } from 'next/router';
 import Loader from "react-loader-spinner";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { shallowEqual, useSelector } from 'react-redux';
+import jwt from "jsonwebtoken";
 
 export default function index() {
     const [taxStation, setTaxStation] = useState([])
@@ -22,8 +24,21 @@ export default function index() {
         register,
         handleSubmit,
         control,
-        formState: { errors }, 
+        formState: { errors },
     } = useForm()
+
+    const { config, palettes, auth } = useSelector(
+        (state) => ({
+            config: state.config,
+            palettes: state.palettes,
+            auth: state.authentication.auth,
+        }),
+        shallowEqual
+    );
+
+    const Approval = [2, 3, 12, 1]
+    const decoded = jwt.decode(auth);
+    const creator = decoded.user
 
     useEffect(() => {
 
@@ -61,6 +76,7 @@ export default function index() {
             .then(function (response) {
                 setIsFetching(false)
                 toast.success("Created Successfully!");
+                router.push("/dashboard")
             })
             .catch(function (error) {
                 setIsFetching(false)
@@ -174,9 +190,9 @@ export default function index() {
                                 <option value="N">No</option>
                             </select>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group hidden">
                             <p>Created By</p>
-                            <input name="createdBy" ref={register({ required: "Created by is required" })} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                            <input name="createdBy" value={creator} ref={register({ required: "Created by is required" })} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
                             />
                             {errors.createdBy && <p className="text-red-600">{errors.createdBy.message}</p>}
                         </div>

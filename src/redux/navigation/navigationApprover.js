@@ -6,6 +6,12 @@ const initialState = [
   {
     title: 'Applications',
     items: [
+      {
+        url: '/dashboard',
+        icon: <Dashboard />,
+        title: 'Dashboard',
+        items: [],
+      },
 
       {
         url: '/',
@@ -93,12 +99,7 @@ const initialState = [
           },
         ],
       },
-      {
-        url: '/dashboard',
-        icon: <Dashboard />,
-        title: 'Dashboard',
-        items: [],
-      },
+  
 
       {
         url: '/',

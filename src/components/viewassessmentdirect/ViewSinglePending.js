@@ -319,7 +319,7 @@ const ViewSinglePending = () => {
 
   return (
     <>
-      <SectionTitle title="Edit Assessments" subtitle="Update Assesment" />
+      <SectionTitle title="Edit Assessments" subtitle="Update Assessment" />
       {isFetching && (
         <div className="flex justify-center item mb-2">
           <Loader
