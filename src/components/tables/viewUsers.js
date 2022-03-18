@@ -14,6 +14,10 @@ import url from "../../config/url";
 
 const fields = [
   {
+    name: "SN",
+    key: "serialNo",
+  },
+  {
     name: "Name",
     key: "name",
   },
@@ -80,7 +84,7 @@ export const ViewUsersTable = ({ remittance }) => {
 };
 
 
-export default function UpdateUser() {
+export default function UpdateUser({user, groups}) {
   const [taxStation, setTaxStation] = useState([])
   const [uploadErrors, setUploadErrors] = useState(() => []);
   const [department, setDepartment] = useState([])
@@ -137,13 +141,21 @@ export default function UpdateUser() {
     }
   })
 
+  let emailTest
+  user.forEach((el) => (
+    emailTest = el.email
+  ))
+
+  
+  console.log(emailTest);
+
   setAuthToken();
   const onSubmit = (data) => {
     setIsFetching(true)
-    axios.post(`${url.BASE_URL}user/signup`, data)
+    axios.post(`${url.BASE_URL}user/update-user`, data)
       .then(function (response) {
         setIsFetching(false)
-        toast.success("Created Successfully!");
+        toast.success("Updated Successfully!");
         router.push("/dashboard")
       })
       .catch(function (error) {
@@ -152,7 +164,7 @@ export default function UpdateUser() {
           setUploadErrors(() => error.response.data.message);
           toast.error(uploadErrors)
         } else {
-          toast.error("Failed to create user!");
+          toast.error("Failed to Updated user!");
         }
       })
   };
@@ -203,14 +215,14 @@ export default function UpdateUser() {
             <div className="form-group ">
               <p>Department</p>
               <select name="dept" ref={register({ valueAsNumber: true })} className="form-control SlectBox mb-4 w-full rounded font-light text-gray-500">
-                {department.map((dept) => <option key={dept.id} defaultValue={dept.id}>{dept.name}</option>)}
+                {department.map((dept) => <option key={dept.id}>{dept.name}</option>)}
               </select>
             </div>
 
             <div className="form-group ">
               <p>Tax Station</p>
               <select ref={register()} name="station" class="form-control mb-4 SlectBox w-full rounded font-light text-gray-500" id="taxStation">
-                {taxStation.map((office) => <option key={office.idstation} defaultValue={office.station_code}>{office.name}</option>)}
+                {taxStation.map((office) => <option key={office.idstation}>{office.name}</option>)}
               </select>
             </div>
           </div>
@@ -239,7 +251,7 @@ export default function UpdateUser() {
 
             <div className="form-group ">
               <p>Email</p>
-              <input name="email" ref={register({ required: "Email is required" })} type="email" className="form-control mb-4 w-full rounded font-light text-gray-500"
+              <input name="email" disabled defaultValue={emailTest} ref={register({ required: "Email is required" })} type="email" className="form-control mb-4 w-full rounded font-light text-gray-500"
               />
               {errors.email && <p className="text-red-600">{errors.email.message}</p>}
             </div>
@@ -261,7 +273,6 @@ export default function UpdateUser() {
               <p>Created By</p>
               <input name="createdBy" value={creator} ref={register({ required: "Created by is required" })} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
               />
-              {errors.createdBy && <p className="text-red-600">{errors.createdBy.message}</p>}
             </div>
           </div>
           <div className="mb-6 flex justify-center">

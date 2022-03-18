@@ -1,42 +1,39 @@
 import SectionTitle from "../section-title";
 import Widget from "../widget";
-import { NewFormInput } from "../FormInput/formInputs";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { CustomPagination } from "../pagination/customPagination";
 import url from "../../config/url";
 import setAuthToken from "../../functions/setAuthToken";
-import { formatNumber } from "../../functions/numbers";
-import { DeleteButton } from "../CustomButton/CustomButton";
 import Loader from "react-loader-spinner";
-import { ViewIndividualSingleTable } from "../tables/viewIndividual";
 import UpdateUser from "../tables/viewUsers";
 
 
 const UpdateSingleUser = () => {
-  const [individualRec, setindividualRec] = useState(() => []);
-  const [total, setTotal] = useState(() => []);
+  const [user, setUser] = useState([]);
+  const [groups, setGroups] = useState([]);
+
   const [isFetching, setIsFetching] = useState(() => true);
-  const [currentPage, setCurrentPage] = useState(() => 1);
-  const [postPerPage, setPostPerPage] = useState(10);
-  const [query, setQuery] = useState(() => "");
+
   const router = useRouter();
   useEffect(() => {
     if (router && router.query) {
-      let indvkgtin = router.query.ref;
-      let kgtin = {
-        "KGTIN": `${indvkgtin}`
+      let useEmail = router.query.ref;
+      let email = {
+        "email": `${useEmail}`
       }
-      console.log(kgtin);
       setAuthToken();
       const fetchPost = async () => {
         try {
           let res = await axios.post(
-            `${url.BASE_URL}taxpayer/view-individual`, kgtin
+            `${url.BASE_URL}user/user`, email
           );
           res = res.data.body;
-          setindividualRec(res)
+          let userDet = res.user
+          let userGrp = res.groups
+          setUser(userDet)
+          setGroups(userGrp)
+          console.log(res);
           setIsFetching(false);
         } catch (e) {
           setIsFetching(false);
@@ -50,7 +47,7 @@ const UpdateSingleUser = () => {
 
   return (
     <>
-      <SectionTitle subtitle="Individual Taxpayer Biodata" />
+      <SectionTitle subtitle="Edit User" />
 
       <Widget>
 
@@ -69,7 +66,7 @@ const UpdateSingleUser = () => {
               <p>Fetching data...</p>
             </div>
           ) :
-            <UpdateUser indvdata={individualRec} />
+            <UpdateUser user={user} groups={groups}/>
           }
         </>
       </Widget>
