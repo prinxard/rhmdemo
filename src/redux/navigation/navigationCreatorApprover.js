@@ -6,6 +6,12 @@ const initialState = [
   {
     title: 'Applications',
     items: [
+      {
+        url: '/dashboard',
+        icon: <Dashboard />,
+        title: 'Dashboard',
+        items: [],
+      },
 
       {
         url: '/',
@@ -20,7 +26,7 @@ const initialState = [
           {
             title: 'Individual',
             items: [
-              // { title: 'Create', url: '/', items: [] },
+              { title: 'Create', url: '/taxpayer', items: [] },
               {
                 title: 'View',
                 url: '/view/individual',
@@ -31,7 +37,7 @@ const initialState = [
           {
             title: 'Non-Individual',
             items: [
-              // { title: 'Create', url: '/', items: [] },
+              { title: 'Create', url: '/taxpayer/non-individual', items: [] },
               {
                 title: 'View',
                 url: '/view/nonindividual',
@@ -55,10 +61,10 @@ const initialState = [
           {
             title: 'User',
             items: [
-              // { title: 'Create', url: '/', items: [] },
+              { title: 'Create', url: '/register', items: [] },
               {
                 title: 'View',
-                url: '/',
+                url: '/view/users',
                 items: [],
               },
             ],
@@ -93,12 +99,6 @@ const initialState = [
           },
         ],
       },
-      {
-        url: '/dashboard',
-        icon: <Dashboard />,
-        title: 'Dashboard',
-        items: [],
-      },
 
       {
         url: '/',
@@ -125,7 +125,7 @@ const initialState = [
             title: 'Tax Clearance (TCC)',
             items: [
               {
-                url: '/',
+                url: '/tcc',
                 title: 'Create',
                 items: [],
               },
@@ -149,52 +149,52 @@ const initialState = [
         icon: <Invoice />,
         title: 'Collections',
         items: [
+          // {
+          //   url: '/',
+          //   title: 'Dashboard',
+          //   items: [],
+          // },
           {
-            url: '/',
-            title: 'Dashboard',
-            items: [],
-          },
-          {
-            url: '/',
+            url: '/view/collections',
             title: 'View',
             items: [],
           },
-          {
-            url: '/',
-            title: 'Reconcilliations',
-            items: [],
-          },
-          {
-            url: '/',
-            title: 'Generate Receipt',
-            items: [
-              {
-                url: '/',
-                title: 'Create',
-                items: [],
-              },
-              {
-                url: '/',
-                title: 'View',
-                items: [],
-              },
-              {
-                url: '/',
-                title: 'Verify',
-                items: [],
-              },
-              {
-                url: '/',
-                title: 'Approve',
-                items: [],
-              },
-              {
-                url: '/',
-                title: 'Recon Report',
-                items: [],
-              },
-            ],
-          },
+          // {
+          //   url: '/',
+          //   title: 'Reconcilliations',
+          //   items: [],
+          // },
+          // {
+          //   url: '/',
+          //   title: 'Generate Receipt',
+          //   items: [
+          //     {
+          //       url: '/',
+          //       title: 'Create',
+          //       items: [],
+          //     },
+          //     {
+          //       url: '/',
+          //       title: 'View',
+          //       items: [],
+          //     },
+          //     {
+          //       url: '/',
+          //       title: 'Verify',
+          //       items: [],
+          //     },
+          //     {
+          //       url: '/',
+          //       title: 'Approve',
+          //       items: [],
+          //     },
+          //     {
+          //       url: '/',
+          //       title: 'Recon Report',
+          //       items: [],
+          //     },
+          //   ],
+          // },
         ],
       },
 

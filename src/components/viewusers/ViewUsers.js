@@ -2,6 +2,7 @@ import SectionTitle from "../section-title";
 import Widget from "../widget";
 import { SubmitButton } from "../CustomButton/CustomButton";
 import { NewFormInput } from "../FormInput/formInputs";
+import { ViewIndividualTable } from "../../components/tables/viewIndividual"
 import url from "../../config/url";
 import setAuthToken from "../../functions/setAuthToken";
 import { useEffect, useState } from "react";
@@ -12,40 +13,33 @@ import dateformat from "dateformat";
 import Loader from "react-loader-spinner";
 import Widget1 from "../dashboard/widget-1";
 import * as Icons from '../Icons/index';
-import { ViewPendingTable } from "../tables/viewDirectAss";
-import { ViewCompletedTable } from "../tables/viewCompletedDirect";
-import { ViewApprovedTable } from "../tables/viewApprovedAss";
+import { ViewUsersTable } from "../tables/viewUsers";
 
-const ViewApprovedAss = () => {
+const ViewUsers = () => {
   const [post, setPost] = useState(() => []);
-  const [sum, setSum] = useState(() => null);
-  const [totalemp, setTotalemp] = useState('');
   const [isFetching, setIsFetching] = useState(() => true);
   const [currentPage, setCurrentPage] = useState(() => 1);
   const [postPerPage, setPostPerPage] = useState(() => 10);
-  const [year, setYear] = useState('');
   const [query, setQuery] = useState(() => "");
   useEffect(() => {
     setAuthToken();
+    let num = 1
     const fetchPost = async () => {
       try {
-        let res = await axios.get(`${url.BASE_URL}forma/list-assessment` );
-        res = res.data.body.assessmentApproved;
-        console.log(res)
+        let res = await axios.get(`${url.BASE_URL}user/users`);
+        res = res.data.body.users;
+        console.log(res);
         let records = [];
-        let sum = [];
         for (let i = 0; i < res.length; i++) {
           let rec = res[i];
-          rec.gross_income = formatNumber(rec.gross_income)
-          rec.tax = formatNumber(rec.tax)
-          rec.createtime = dateformat(rec.createtime, "dd mmm yyyy")
+          rec.serialNo = num + i
+          rec.createdAt = dateformat(rec.createdAt, "dd mmm yyyy")
           records.push(rec);
         }
         setIsFetching(false);
         setPost(() => records);
       } catch (e) {
         setIsFetching(false);
-        console.log(e.response);
       }
     };
     fetchPost();
@@ -68,17 +62,17 @@ const ViewApprovedAss = () => {
   let res = [];
   const search = (rows) => {
     let data = [];
-    data = rows.filter((rows) => rows.kgtin.toLowerCase().indexOf(query) > -1);
+    data = rows.filter((rows) => rows.email.toLowerCase().indexOf(query) > -1);
     res.push(data);
     return data;
   };
 
   const searchedPost = search(post).slice(indexOfFirstPost, indexOfLastPost);
-  // console.log(currentPosts);
+  console.log("searched", searchedPost);
 
   return (
     <>
-      <SectionTitle title="View direct assessments" subtitle="View Approved Assessments" />
+      <SectionTitle title="View Users" subtitle="User List" />
 
       {isFetching && (
         <div className="flex justify-center item mb-2">
@@ -98,7 +92,7 @@ const ViewApprovedAss = () => {
         <div className="flex flex-col lg:flex-row lg:flex-wrap w-full lg:space-x-4">
           <div className="w-full lg:w-2/12">
             <NewFormInput
-              label="Search by kgtin"
+              label="Search by Email"
               required
               onChange={searchHandler}
             />
@@ -108,7 +102,7 @@ const ViewApprovedAss = () => {
         <div className="mt-4">
           {query !== "" ? (
             <>
-              <ViewApprovedTable remittance={searchedPost} />
+              <ViewUsersTable remittance={searchedPost} />
               <CustomPagination
                 paginate={paginate}
                 totalPosts={res[0].length}
@@ -120,7 +114,7 @@ const ViewApprovedAss = () => {
             </>
           ) : (
             <>
-              <ViewApprovedTable remittance={currentPosts} />
+              <ViewUsersTable remittance={currentPosts} />
               <CustomPagination
                 paginate={paginate}
                 totalPosts={post.length}
@@ -137,4 +131,4 @@ const ViewApprovedAss = () => {
   );
 };
 
-export default ViewApprovedAss;
+export default ViewUsers;

@@ -8,6 +8,10 @@ import CustomButton from "../CustomButton/CustomButton";
 
 const fields = [
   {
+    name: "SN",
+    key: "serialNo",
+  },
+  {
     name: "KGTIN",
     key: "KGTIN",
   },
@@ -144,9 +148,22 @@ export const ViewSingleNonIndividualTable = ({ indvdata }) => {
   return (
     <>
       <Widget>
-        <div className="w-2/3 flex mx-auto rounded border">
+        <div className="flex justify-start mb-4">
+          <div className="m-3 bg-green-400 text-white rounded-full">
+            <CustomButton type="Submit">
+              Print Certificate
+            </CustomButton>
+          </div>
+          <div className="m-3 bg-green-400 text-white rounded-full">
+            <CustomButton type="Submit">
+              Update User
+              {/* <Link href={`/update-user/${ind.KGTIN}`} key={i}> Update User</Link> */}
 
-          <table className="table">
+            </CustomButton>
+          </div>
+        </div>
+        <div className="w-2/3 flex mx-auto rounded border">
+          <table className="table striped">
 
             <tbody className="divide-y ">
               <tr className="">
@@ -219,19 +236,6 @@ export const ViewSingleNonIndividualTable = ({ indvdata }) => {
               </tr>
             </tbody>
           </table>
-
-        </div>
-        <div className="flex justify-end">
-          <div className="m-3 bg-green-400 text-white rounded-full">
-            <CustomButton type="Submit">
-              Print certificate
-            </CustomButton>
-          </div>
-          <div className="m-3 bg-green-400 text-white rounded-full">
-            <CustomButton type="Submit">
-              Edit
-            </CustomButton>
-          </div>
         </div>
       </Widget>
     </>

@@ -10,11 +10,11 @@ import setAuthToken from "../../functions/setAuthToken";
 import { formatNumber } from "../../functions/numbers";
 import { DeleteButton } from "../CustomButton/CustomButton";
 import Loader from "react-loader-spinner";
-import { ViewSingleNonIndividualTable } from "../tables/viewNonIndividual";
+import { ViewCollectionsSingleTable } from "../tables/viewCollections";
 
 
-const ViewNonIndividualSingle = () => {
-  const [individualRec, setindividualRec] = useState(() => {});
+const ViewCollectionsSingle = () => {
+  const [collections, setCollections] = useState(() => []);
   const [total, setTotal] = useState(() => []);
   const [isFetching, setIsFetching] = useState(() => true);
   const [currentPage, setCurrentPage] = useState(() => 1);
@@ -23,20 +23,24 @@ const ViewNonIndividualSingle = () => {
   const router = useRouter();
   useEffect(() => {
     if (router && router.query) {
-      let indvkgtin = router.query.ref;
-      let kgtin = {
-        "KGTIN": `${indvkgtin}`
+      let paymentID = router.query.ref;
+      let paymentPayload = {
+        "idpymt": `${paymentID}`
       }
-      console.log(kgtin);
+      console.log(paymentID);
       setAuthToken();
       const fetchPost = async () => {
         try {
-          let res = await axios.post(
-            `${url.BASE_URL}taxpayer/view-non-individual`, kgtin
-          );
+          let res = await axios.post(`${url.BASE_URL}collection/view-collections`, paymentPayload);
           res = res.data.body;
+          let records = [];
+          for (let i = 0; i < res.length; i++) {
+            let rec = res[i];
+            rec.amount = formatNumber(rec.amount)
+            records.push(rec);
+          }
+          setCollections(records)
           console.log(res);
-          setindividualRec(res)
           setIsFetching(false);
         } catch (e) {
           setIsFetching(false);
@@ -50,7 +54,7 @@ const ViewNonIndividualSingle = () => {
 
   return (
     <>
-      <SectionTitle subtitle="Non-Individual Taxpayer Biodata" />
+      <SectionTitle subtitle="View Collection" />
 
       <Widget>
 
@@ -69,7 +73,7 @@ const ViewNonIndividualSingle = () => {
               <p>Fetching data...</p>
             </div>
           ) :
-            <ViewSingleNonIndividualTable indvdata={individualRec} />
+            <ViewCollectionsSingleTable collections={collections} />
           }
         </>
       </Widget>
@@ -77,4 +81,4 @@ const ViewNonIndividualSingle = () => {
   );
 };
 
-export default ViewNonIndividualSingle;
+export default ViewCollectionsSingle;

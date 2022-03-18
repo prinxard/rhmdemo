@@ -16,6 +16,7 @@ import { useRouter } from "next/router";
 import Loader from "react-loader-spinner";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FormatMoneyComponent } from "../FormInput/formInputs";
 
 export const StartAssessment = () => {
   const [kgtEnentered, setKgtEentered] = useState('')
@@ -235,6 +236,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     setFormValues(newFormValues);
   }
 
+  const [fixedValues, fixValues] = useState({ amount: 0 });
+  const { control, handleSubmit } = useForm({ amount: 0 });
+
   let handleSubmit1 = (event) => {
     event.preventDefault();
     let formVal = (formValues)
@@ -345,6 +349,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
         });
     }
   }
+
   const [domesticStaff, setDomesticStaff] = useState(
     [{
       assessment_id: `${assessment_id}`, title: "", name: "", house_no: "", street: "",
@@ -414,6 +419,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       comments: ""
     }
   )
+  
   const [farmland, setFarmland] = useState(
     {
       assessment_id: "", addr: "", acq_date: "", land_cost: "", produce_cost: "",
@@ -574,15 +580,6 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       [evt.target.name]: value
     });
   }
-
-
-  // function handleDomesticStaffChange(evt) {
-  //   const value = evt.target.value;
-  //   setDomesticStaff({
-  //     ...domesticStaff,
-  //     [evt.target.name]: value
-  //   });
-  // }
 
   function handlePartnershipChange(evt) {
     const value = evt.target.value;
@@ -843,57 +840,6 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       setIsFetching10(false)
     }
   }
-
-  // setAuthToken();
-  // let submitDataChild = async (e) => {
-  //   e.preventDefault()
-  //   setIsFetching11(true)
-  //   let childDataObj = {
-  //     assessment_id: `${assessment_id}`,
-  //     name: `${childData.name}`,
-  //     dob: `${childData.dob}`,
-  //     school_name: `${childData.school_name}`,
-  //     school_addr: `${childData.school_name}`,
-  //     school_fees: `${childData.school_fees}`,
-  //     child_income: `${childData.school_fees}`,
-  //   }
-  //   try {
-  //     let res = await axios.post(`${url.BASE_URL}forma/children`, childDataObj);
-  //     setIsFetching11(false)
-  //     toast.success("Saved Successfully!");
-  //   } catch (error) {
-  //     toast.error("error, Please try again!");
-  //     console.log(error);
-  //     setIsFetching11(false)
-  //   }
-  // }
-
-  // setAuthToken();
-  // let submitDataStaff = async (e) => {
-  //   e.preventDefault()
-  //   setIsFetching12(true)
-  //   let staffDataObj = {
-  //     assessment_id: `${assessment_id}`,
-  //     title: `${domesticStaff.title}`,
-  //     name: `${domesticStaff.name}`,
-  //     street: `${domesticStaff.street}`,
-  //     house_no: `${domesticStaff.house_no}`,
-  //     town: `${domesticStaff.town}`,
-  //     lga: `${domesticStaff.lga}`,
-  //     state: `${domesticStaff.lga}`,
-  //     amount_paid: `${domesticStaff.amount_paid}`,
-  //     payer: `${domesticStaff.payer}`,
-  //   }
-  //   try {
-  //     let res = await axios.post(`${url.BASE_URL}forma/domestic-staff`, staffDataObj);
-  //     setIsFetching12(false)
-  //     toast.success("Saved Successfully!");
-  //   } catch (error) {
-  //     toast.error("error, Please try again!");
-  //     console.log(error);
-  //     setIsFetching12(false)
-  //   }
-  // }
 
   setAuthToken();
   let submitDataPartner = async (e) => {
@@ -2327,6 +2273,19 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                       <p className="font-bold">NGN {totalBusInc}</p>
                     </div>
 
+                    <div>
+                      <div className="mb-6 grid grid-cols-3 gap-4">
+                        <label>How would you like to record your expenses?</label>
+                        <div className="flex">
+                          <div className="form-check form-check-inline">
+                            <select name="expense" onChange={handleSelfEmployedChange} value={selfEmployed.expense} className="w-64">
+                              <option value="break down">Break Down </option>
+                              <option value="total">Total</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                     <div className="mb-6 grid grid-cols-3 gap-4">
                       <label htmlFor="expenses">Are figures provided provisional or estimated?</label>
 
@@ -2336,7 +2295,6 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                             <option value="estimated">Estimated</option>
                             <option value="provisional">Provisional</option>
                           </select>
-                          
                         </div>
                       </div>
                     </div>
@@ -3421,6 +3379,13 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label>Cost of construction/acquisition:</label>
+                  {/* <FormatMoneyComponent 
+                    name="amount"
+                    control={control}
+                    defaultValue="0"
+                    onValueChange={(v) => fixValues({ amount: v })}
+                    className="form-control w-full rounded"
+                  /> */}
                   <input required onChange={handleLandChange} name="construction_cost" value={land.construction_cost} type="text" className="form-control w-full rounded"
                   />
                 </div>

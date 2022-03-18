@@ -13,6 +13,8 @@ import { useRouter } from "next/router";
 import { ToastContainer, toast } from 'react-toastify';
 import jwt from "jsonwebtoken";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
+import { FormatMoneyComponent } from "../FormInput/formInputs";
 
 const fields = [
   {
@@ -88,13 +90,23 @@ export const ViewCompletedTable = ({ remittance }) => {
   );
 };
 
-export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, taxcal,
+export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, payerArr, assobj, taxcal,
   childObj, resAddObj, rentIncome, spouseObj, domesticStaff, selfEmployment, vehicles, land, employed, lap, nhis, expenses, pensionDed }) => {
   const [isFetching2, setIsFetching2] = useState(() => false);
   const [isFetching3, setIsFetching3] = useState(() => false);
   const router = useRouter();
   const [modal, setModal] = useState(false);
+  const [assessmentModal, setAssessmentModalModal] = useState(false);
   const [comment, setComment] = useState(false);
+
+  const [fixedValues, fixValues] = useState({ amount: 0 });
+  const [submittedResult, updateResult] = useState({ amount: 0 });
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm()
 
   const { config, palettes, auth } = useSelector(
     (state) => ({
@@ -108,8 +120,6 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
   const Approval = [2, 3, 12, 1]
   const decoded = jwt.decode(auth);
   const userGroup = decoded.groups
-  // console.log(userGroup);
-
 
   const kgtinVal = payerArr.map(function (doc) {
     let kgtin = doc.KGTIN
@@ -119,6 +129,11 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
   const toggleModal = (e) => {
     // e.preventDefault()
     setModal(!modal);
+  };
+
+  const asseModal = (e) => {
+    // e.preventDefault()
+    setAssessmentModalModal(!assessmentModal);
   };
 
   const kgtinString = String(kgtinVal)
@@ -134,6 +149,18 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
   const lapdata = Number(assobj.lap)
 
   const deductionsTotal = (pfcdata + nhisdata + lapdata)
+
+  let addAssAmount
+
+  additionalAsse.forEach((el, i) => (
+    addAssAmount = el.amount
+  ))
+
+  if (addAssAmount == null || addAssAmount == undefined || addAssAmount == "") {
+    addAssAmount = 0
+  } else {
+    addAssAmount = addAssAmount
+  }
 
   setAuthToken();
   let approveAss = async (e) => {
@@ -176,35 +203,94 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
     }
   }
 
+  const SubmitAdditionalAssessnet = (data) => {
+    setIsFetching2(true)
+    data.amount = fixedValues.amount
+    data.assessment_id = assessment_id
+    // const submittedResult = data;
+    // updateResult(submittedResult);
+    axios.post(`${url.BASE_URL}forma/add-assessment`, data)
+      .then(function (response) {
+        // handle success
+        setIsFetching2(false)
+        toast.success("Operation Successful!");
+        window.location.reload(true);
+      })
+      .catch(function (error) {
+        // handle error
+        setIsFetching2(false)
+        toast.error("Failed! please try again");
+      })
+
+    console.log(data);
+  };
+
   return (
     <>
       <ToastContainer />
       {modal && (
         <div className="modal">
           {/* <div onClick={toggleModal} className="overlay"></div> */}
-
           <div className="modal-content" width="300">
             <p>Are you sure you want to decline?</p>
             <p>Please state reason why</p>
+            <form action="">
+              <textarea required className="form-control w-full rounded" minlength="10" maxlength="50" onChange={(e) => setComment(e.target.value)}></textarea>
+              <div className="mt-2 flex justify-between">
+                <button onClick={toggleModal}
+                  className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                >
+                  Cancel
+                </button>
+                <div>
 
-            <textarea minlength="10" maxlength="50" onChange={(e) => setComment(e.target.value)}></textarea>
-            <div className="mt-2 flex justify-between">
-              <button onClick={toggleModal}
-                className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-              >
-                Cancel
-              </button>
-              <div>
+                </div>
+                <button onSubmit={DeclineAss}
+                  className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  Continue
+                </button>
 
               </div>
-              <button onClick={DeclineAss}
-                className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                type="submit"
-              >
-                Continue
-              </button>
+            </form>
+          </div>
+        </div>
+      )}
 
+      {assessmentModal && (
+        <div className="modal">
+          {/* <div onClick={toggleModal} className="overlay"></div> */}
+          <div className="modal-content" width="300">
+            <div className="text-center">
+              <p>Are you sure you want to raise an additional Assessment ?</p>
+              <p>Please enter amount and state reason why</p>
             </div>
+
+            <form onSubmit={handleSubmit(SubmitAdditionalAssessnet)}>
+              <FormatMoneyComponent
+                name="amount"
+                control={control}
+                defaultValue="0"
+                onValueChange={(v) => fixValues({ amount: v })}
+              />
+              {/* <input name="amount" required ref={register()} className="mb-3 form-control w-full rounded" type="text" placeholder="Amount" /> */}
+              <textarea name="comment" required ref={register()} className="form-control w-full rounded" minlength="10" maxlength="50" placeholder="comment" onChange={(e) => setComment(e.target.value)}></textarea>
+              <div className="mt-2 flex justify-between">
+                <button onClick={asseModal}
+                  className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                >
+                  Cancel
+                </button>
+
+                <button
+                  className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  Continue
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}
@@ -241,9 +327,9 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
         {userGroup.some(r => Approval.includes(r)) ?
 
           <div className="mb-6 flex justify-end">
-            <form onSubmit={approveAss}>
+            <form onSubmit={approveAss} className=" mr-3">
               <button
-                className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
                 type="submit"
               >
                 Approve
@@ -251,11 +337,19 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
             </form>
 
             <button onClick={toggleModal}
-              className="btn w-32 bg-blue-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+              className="btn bg-red-600  mr-3 btn-default text-white btn-outlined bg-transparent rounded-md"
               type="submit"
             >
               Decline
             </button>
+
+            <button onClick={asseModal}
+              className="btn mr-3 bg-blue-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+              type="submit"
+            >
+              Additional Assessment
+            </button>
+
           </div> :
           <div className="mb-6 flex justify-end hidden">
             <form onSubmit={approveAss}>
@@ -292,7 +386,6 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
               {payerArr.map((el, i) =>
                 <td className="pl-3" key={i}>{el.surname}</td>
               )}
-
             </tr>
             <tr>
               <td className="font-bold">OTHERNAME</td>
@@ -522,6 +615,13 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
                 }
               </tr>
               <tr>
+                <td className="border-r-2 p-1 text-right font-bold">Additional Assessment</td>
+                {addAssAmount == null || addAssAmount == "" || addAssAmount == 0
+                  ? <td className="p-1 text-right font-bold">0</td> :
+                  <td className="p-1 text-right font-bold">{formatNumber(addAssAmount)}</td>
+                }
+              </tr>
+              <tr>
                 <td className="border-r-2 p-1 text-right font-bold">Set off WHT </td>
                 <td className="p-1 text-right font-bold">0</td>
               </tr>
@@ -532,12 +632,13 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
               <tr>
                 <td className="border-r-2 p-1 text-right font-bold">Set off Additional Assessment</td>
                 <td className="p-1 text-right font-bold">0</td>
+                {/* <td className="p-1 text-right font-bold">{formatNumber(addAssAmount)}</td> */}
               </tr>
               <tr>
                 <td className="border-r-2 p-1 text-right font-bold">Total Tax Due for Payment</td>
                 {taxcal == null || taxcal == ""
                   ? <td className="p-1 text-right font-bold">0</td> :
-                  <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax)}</td>
+                  <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax + (Number(addAssAmount)))}</td>
                 }
               </tr>
             </tbody>
@@ -587,7 +688,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
               {resAddObj == null || resAddObj == "" ? "" :
 
                 <table class="table-auto">
-                  <tbody>
+                  <tbody className="divide-y border">
                     <tr>
                       <td className="font-bold p-2">Residence Owner</td>
                       {resAddObj == null || resAddObj == ""
@@ -657,7 +758,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
             <div>
               {rentIncome == null || rentIncome == "" ? "" :
                 <table class="table-auto">
-                  <tbody>
+                  <tbody className="divide-y border">
                     <tr>
                       <td className="font-bold p-2">Property Type</td>
                       {rentIncome == null || rentIncome == ""
@@ -727,7 +828,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
               <div>
                 {nhis == null || nhis == "" ? "" :
                   <table class="table-auto">
-                    <tbody>
+                    <tbody className="divide-y border">
                       <tr>
                         <td className="font-bold  p-2">Company</td>
                         {nhis == null || nhis == ""
@@ -778,7 +879,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
             <table class="table-auto">
               <div>
                 {lap == null || lap == "" ? "" :
-                  <tbody>
+                  <tbody className="divide-y border">
                     <tr>
                       <td className="font-bold p-2">Company</td>
                       {lap == null || lap == ""
@@ -831,7 +932,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
               <div>
                 {vehicles == null || vehicles == "" ? "" :
                   <table class="table-auto">
-                    <tbody>
+                    <tbody className="divide-y border">
                       <tr>
                         <td className="font-bold  p-2">Purchase date</td>
                         {vehicles == null || vehicles == ""
@@ -891,8 +992,8 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
             <div>
               {land == null || land == "" ? "" :
 
-                <table class="table-auto">
-                  <tbody>
+                <table className="table-auto border">
+                  <tbody className="divide-y">
                     <tr>
                       <td className="font-bold p-2">Address</td>
                       {land == null || land == ""
@@ -944,8 +1045,8 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
             </div>
             <div>
               {pensionDed == null || pensionDed == "" ? "" :
-                <table class="table-auto">
-                  <tbody>
+                <table className="table-auto border">
+                  <tbody className="divide-y">
                     <tr>
                       <td className="font-bold p-2">PFA</td>
                       {pensionDed == null || pensionDed == ""
@@ -994,8 +1095,8 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
               </div>
               <div>
                 {expenses == null || expenses == "" ? "" :
-                  <table class="table-auto">
-                    <tbody>
+                  <table className="table-auto border">
+                    <tbody className="divide-y">
                       <tr>
                         <td className="font-bold p-2">Item</td>
                         {expenses == null || expenses == ""
@@ -1029,8 +1130,8 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
             </div>
             <div>
               {employed == null || employed == "" ? "" :
-                <table class="table-auto">
-                  <tbody>
+                <table className="table-auto border">
+                  <tbody className="divide-y">
                     <tr>
                       <td className="font-bold p-2">Employer</td>
                       {employed == null || employed == ""
@@ -1089,7 +1190,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
             <div>
               {spouseObj == null || spouseObj == "" ? "" :
                 <table class="table-auto">
-                  <tbody>
+                  <tbody className="divide-y border">
                     <tr>
                       <td className="font-bold p-2">Name</td>
                       {spouseObj == null || spouseObj == ""
@@ -1213,8 +1314,8 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
           <div>
             {domesticStaff == null || domesticStaff == "" ? "" :
 
-              <table class="table-auto">
-                <tbody>
+              <table className="table-auto border">
+                <tbody className="divide-y">
                   <tr>
                     <td className="font-bold p-2">TItle</td>
                     {domesticStaff == null || domesticStaff == ""
@@ -1309,7 +1410,7 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
           <table class="table-auto">
             <div>
               {selfEmployment == null || selfEmployment == "" ? "" :
-                <tbody>
+                <tbody className="divide-y border">
                   <tr>
                     <td className="font-bold p-2">Business name</td>
                     {selfEmployment == null || selfEmployment == ""
@@ -1380,7 +1481,6 @@ export const ViewSingleCompletedTable = ({ payerprop, assId, payerArr, assobj, t
 
           </table>
         </div>
-
       </div>
       <style
         jsx>{

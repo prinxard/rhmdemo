@@ -6,6 +6,12 @@ const initialState = [
   {
     title: 'Applications',
     items: [
+      {
+        url: '/dashboard',
+        icon: <Dashboard />,
+        title: 'Dashboard',
+        items: [],
+      },
 
       {
         url: '/',
@@ -93,12 +99,7 @@ const initialState = [
           },
         ],
       },
-      {
-        url: '/dashboard',
-        icon: <Dashboard />,
-        title: 'Dashboard',
-        items: [],
-      },
+ 
 
       {
         url: '/',
@@ -149,52 +150,52 @@ const initialState = [
         icon: <Invoice />,
         title: 'Collections',
         items: [
+          // {
+          //   url: '/',
+          //   title: 'Dashboard',
+          //   items: [],
+          // },
           {
-            url: '/',
-            title: 'Dashboard',
-            items: [],
-          },
-          {
-            url: '/',
+            url: '/view/collections',
             title: 'View',
             items: [],
           },
-          {
-            url: '/',
-            title: 'Reconcilliations',
-            items: [],
-          },
-          {
-            url: '/',
-            title: 'Generate Receipt',
-            items: [
-              {
-                url: '/',
-                title: 'Create',
-                items: [],
-              },
-              {
-                url: '/',
-                title: 'View',
-                items: [],
-              },
-              {
-                url: '/',
-                title: 'Verify',
-                items: [],
-              },
-              {
-                url: '/',
-                title: 'Approve',
-                items: [],
-              },
-              {
-                url: '/',
-                title: 'Recon Report',
-                items: [],
-              },
-            ],
-          },
+          // {
+          //   url: '/',
+          //   title: 'Reconcilliations',
+          //   items: [],
+          // },
+          // {
+          //   url: '/',
+          //   title: 'Generate Receipt',
+          //   items: [
+          //     {
+          //       url: '/',
+          //       title: 'Create',
+          //       items: [],
+          //     },
+          //     {
+          //       url: '/',
+          //       title: 'View',
+          //       items: [],
+          //     },
+          //     {
+          //       url: '/',
+          //       title: 'Verify',
+          //       items: [],
+          //     },
+          //     {
+          //       url: '/',
+          //       title: 'Approve',
+          //       items: [],
+          //     },
+          //     {
+          //       url: '/',
+          //       title: 'Recon Report',
+          //       items: [],
+          //     },
+          //   ],
+          // },
         ],
       },
 
