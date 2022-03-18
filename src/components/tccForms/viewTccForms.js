@@ -120,9 +120,9 @@ export const StartTcc = () => {
       )}
       <Widget>
         <div >
-          <form onSubmit={handleSubmit(onSubmitform)} className="flex justify-around">
+          <form onSubmit={handleSubmit(onSubmitform)} className="">
 
-            <div className="flex">
+            <div className="flex justify-around">
               <div>
                 <label className="block" htmlFor="kgtin">Enter Taxpayer KGTIN</label>
                 <input onChange={event => setKgtEentered(event.target.value)} type="text" placeholder="Enter KGTIN" />
@@ -147,7 +147,7 @@ export const StartTcc = () => {
               </div>
             </div>
 
-            <div>
+            {/* <div>
               <SelectAnnual
                 label="Select Year"
                 required
@@ -155,7 +155,7 @@ export const StartTcc = () => {
                 name="year"
 
               />
-            </div>
+            </div> */}
           </form>
         </div>
       </Widget>
