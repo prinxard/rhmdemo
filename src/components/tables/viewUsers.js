@@ -85,6 +85,7 @@ export const ViewUsersTable = ({ remittance }) => {
 
 
 export default function UpdateUser({ user, groups }) {
+
   const [taxStation, setTaxStation] = useState([])
   const [uploadErrors, setUploadErrors] = useState(() => []);
   const [department, setDepartment] = useState([])
@@ -144,7 +145,6 @@ export default function UpdateUser({ user, groups }) {
   })
 
   let passwordCompare
-  let UserGroups
 
 
   user.forEach((el) => (
@@ -156,16 +156,6 @@ export default function UpdateUser({ user, groups }) {
   })
 
   const stringUserGrp = String(userGrp)
-  console.log("User Group", stringUserGrp);
-
-
-
-  // console.log("Length1", userte.length);
-  // console.log("Length2", stringUserGrp.length);
-
-  console.log("User", user);
-  console.log("Groups", groups);
-
 
   setAuthToken();
   const onSubmit = (data) => {
