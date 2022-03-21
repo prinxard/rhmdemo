@@ -64,13 +64,13 @@ export const ViewUsersTable = ({ remittance }) => {
               <tr key={i} className="">
                 {fields.map((field, j) => (
                   <td key={j} className="">
-                    {remittance[field.key]}
+                    {/* {remittance[field.key]} */}
 
-                    {/* <Link href={`/view/users/${remittance.email}`}>
+                    <Link href={`/view/users/${remittance.email}`}>
                       <a className="hover:text-blue-500">
                         {remittance[field.key]}
                       </a>
-                    </Link> */}
+                    </Link>
                   </td>
                 ))}
               </tr>
@@ -90,6 +90,7 @@ export default function UpdateUser({ user, groups }) {
   const [department, setDepartment] = useState([])
   const [rhmGroups, setRhmGroups] = useState([])
   const [isFetching, setIsFetching] = useState(() => false);
+  const [isFetching2, setIsFetching2] = useState(() => false);
   const [passwordCheck, setPasswordCheck] = useState("")
   const router = useRouter();
 
@@ -142,13 +143,9 @@ export default function UpdateUser({ user, groups }) {
     }
   })
 
-  let email
   let passwordCompare
   let UserGroups
 
-  user.forEach((el) => (
-    email = el.email
-  ))
 
   user.forEach((el) => (
     passwordCompare = el.password
@@ -168,22 +165,49 @@ export default function UpdateUser({ user, groups }) {
 
   console.log("User", user);
   console.log("Groups", groups);
-  
+
 
   setAuthToken();
   const onSubmit = (data) => {
 
     if (passwordCompare === data.password) {
+      setIsFetching(true)
       delete data.password
       console.log(data);
+      axios.put(`${url.BASE_URL}user/update-user`, data)
+        .then(function (response) {
+          setIsFetching(false)
+          toast.success("Updated Successfully!");
+          router.push("/dashboard")
+        })
+        .catch(function (error) {
+          setIsFetching(false)
+          if (error.response) {
+            setUploadErrors(() => error.response.data.message);
+            toast.error(uploadErrors)
+          } else {
+            toast.error("Failed to Updated user!");
+          }
+        })
       console.log("Both the same");
     } else {
+      setIsFetching(true)
       console.log(data);
-      try {
-
-      } catch (error) {
-
-      }
+      axios.put(`${url.BASE_URL}user/update-user`, data)
+        .then(function (response) {
+          setIsFetching(false)
+          toast.success("Updated Successfully!");
+          router.push("/dashboard")
+        })
+        .catch(function (error) {
+          setIsFetching(false)
+          if (error.response) {
+            setUploadErrors(() => error.response.data.message);
+            toast.error(uploadErrors)
+          } else {
+            toast.error("Failed to Updated user!");
+          }
+        })
     }
 
 
@@ -210,6 +234,7 @@ export default function UpdateUser({ user, groups }) {
   return (
 
     <div>
+
       <ToastContainer />
 
       {isFetching ? (
@@ -293,12 +318,23 @@ export default function UpdateUser({ user, groups }) {
                 {errors.userGroup && <p className="text-red-600">{errors.userGroup.message}</p>}
               </div>
 
+              {/* <div className="form-group ">
+                <p>Email</p>
+                {user.map((el, i) => (
+                  <input name="email" disabled defaultValue={el.station} ref={register({ required: "Email is required" })} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                  />
+                ))}
+                {errors.email && <p className="text-red-600">{errors.email.message}</p>}
+              </div> */}
+
               <div className="form-group ">
                 <p>Email</p>
-                <input name="email" disabled defaultValue={email} ref={register({ required: "Email is required" })} type="email" className="form-control mb-4 w-full rounded font-light text-gray-500"
-                />
-                {errors.email && <p className="text-red-600">{errors.email.message}</p>}
+                {user.map((el, i) => (
+                  <input readOnly name="email" defaultValue={el.email} ref={register()} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                  />
+                ))}
               </div>
+
               <div className="form-group ">
                 <p>Phone Number</p>
                 {user.map((el, i) => (
@@ -319,8 +355,10 @@ export default function UpdateUser({ user, groups }) {
               </div>
               <div className="form-group hidden">
                 <p>Created By</p>
-                <input name="createdBy" value={creator} ref={register({ required: "Created by is required" })} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
-                />
+                {user.map((el, i) => (
+                  <input name="createdBy" defaultValue={el.createdBy} ref={register()} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                  />
+                ))}
               </div>
             </div>
             <div className="mb-6 flex justify-center">

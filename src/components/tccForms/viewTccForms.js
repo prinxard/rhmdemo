@@ -95,6 +95,7 @@ export const StartTcc = () => {
         let res = await axios.post(`${url.BASE_URL}forma/view-tax-income`, kgtinYear);
         res = res.data.body
         let assessment = res.assessment
+        console.log(assessment);
         setAssessmentData(assessment)
         setIsFetching2(false)
 
@@ -310,8 +311,9 @@ export const StartTcc = () => {
         <div className={`flex justify-between border mb-3 rounded-lg bg-white w-full`}>
 
           <div className="p-3">
+            {/* <h6 className="text-right mb-6">Year 1</h6> */}
             <div className="mb-6 grid grid-cols-2 ">
-              <label>Assessment year 1</label>
+              <label>Assessment year </label>
               <Controller
                 name="year1"
                 control={control}
@@ -333,7 +335,7 @@ export const StartTcc = () => {
 
             <div className="mb-6 grid grid-cols-2 gap-3">
               <label>Tax Payable </label>
-              {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input disabled type="text" defaultValue={0} />
+              {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input disabled className="form-control w-full rounded" type="text" defaultValue={0} />
                 :
                 <div>
 
@@ -349,7 +351,7 @@ export const StartTcc = () => {
 
             <div className="mb-6 grid grid-cols-2 gap-3">
               <label>Income from employment</label>
-              {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input disabled type="text" defaultValue={0} />
+              {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input className="form-control w-full rounded" disabled type="text" defaultValue={0} />
                 :
                 <div>
 
@@ -364,7 +366,7 @@ export const StartTcc = () => {
 
             <div className="mb-6 grid grid-cols-2 gap-3">
               <label>Income from Trade/Professional</label>
-              {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input disabled type="text" defaultValue={0} />
+              {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input className="form-control w-full rounded" disabled type="text" defaultValue={0} />
                 :
                 <div>
 
@@ -379,7 +381,7 @@ export const StartTcc = () => {
 
             <div className="mb-6 grid grid-cols-2 gap-3">
               <label>Other Income</label>
-              {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input disabled type="text" defaultValue={0} />
+              {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input className="form-control w-full rounded" disabled type="text" defaultValue={0} />
                 :
                 <div>
 
@@ -394,7 +396,7 @@ export const StartTcc = () => {
 
             <div className="mb-6 grid grid-cols-2 gap-3">
               <label>Assessment ID</label>
-              {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input disabled type="text" placeholder="Assessment ID" />
+              {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input className="form-control w-full rounded" disabled type="text" placeholder="Assessment ID" />
                 :
                 <div>
 
@@ -408,9 +410,10 @@ export const StartTcc = () => {
             </div>
           </div>
 
-          <div className="p-3">
-            <div className="mb-6 grid grid-cols-2 gap-3">
-              <label htmlFor="employername">Assessment year 2:</label>
+          <div className="p-3 grid justify-items-stretch">
+          {/* <h6 className="text-right mb-6">Year 2</h6> */}
+            <div className="mb-6 justify-self-center">
+              
               <Controller
                 name="year2"
                 control={control}
@@ -430,9 +433,9 @@ export const StartTcc = () => {
                 }}
               />
             </div>
-            <div className="mb-6 grid grid-cols-2 gap-3">
-              <label>Tax Payable Year 2:</label>
-              {assessmentData2 == null || assessmentData2 == "" || assessmentData2 == undefined ? <input disabled type="text" defaultValue={0} />
+            <div className="mb-6 justify-self-center">
+              
+              {assessmentData2 == null || assessmentData2 == "" || assessmentData2 == undefined ? <input className="form-control w-full rounded" disabled type="text" defaultValue={0} />
                 :
                 <div>
 
@@ -444,9 +447,9 @@ export const StartTcc = () => {
               }
             </div>
 
-            <div className="mb-6 grid grid-cols-2 gap-3">
-              <label>Employment Year 2:</label>
-              {assessmentData2 == null || assessmentData2 == "" || assessmentData2 == undefined ? <input disabled type="text" defaultValue={0} />
+            <div className="mb-6 justify-self-center">
+              
+              {assessmentData2 == null || assessmentData2 == "" || assessmentData2 == undefined ? <input className="form-control w-full rounded" disabled type="text" defaultValue={0} />
                 :
                 <div>
 
@@ -459,9 +462,9 @@ export const StartTcc = () => {
             </div>
 
 
-            <div className="mb-6 grid grid-cols-2 gap-3">
-              <label>Trade/Professional Year 2:</label>
-              {assessmentData2 == null || assessmentData2 == "" || assessmentData2 == undefined ? <input disabled type="text" defaultValue={0} />
+            <div className="mb-6 justify-self-center">
+              
+              {assessmentData2 == null || assessmentData2 == "" || assessmentData2 == undefined ? <input className="form-control w-full rounded" disabled type="text" defaultValue={0} />
                 :
                 <div>
 
@@ -473,9 +476,9 @@ export const StartTcc = () => {
               }
             </div>
 
-            <div className="mb-6 grid grid-cols-2 gap-3">
-              <label>Other Income for year 2</label>
-              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input disabled type="text" defaultValue={0} />
+            <div className="mb-6 justify-self-center">
+              
+              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" disabled type="text" defaultValue={0} />
                 :
                 <div>
 
@@ -488,9 +491,9 @@ export const StartTcc = () => {
               }
             </div>
 
-            <div className="mb-6 grid grid-cols-2 gap-3">
-              <label>Assessment ID 2</label>
-              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input disabled type="text" placeholder="Assessment ID" />
+            <div className="mb-6 justify-self-center">
+              
+              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" disabled type="text" placeholder="Assessment ID" />
                 :
                 <div>
 
@@ -505,10 +508,10 @@ export const StartTcc = () => {
 
           </div>
 
-          <div className="p-3">
-
-            <div className="mb-6 grid grid-cols-2 gap-3">
-              <label htmlFor="employername">Asseement Year 3:</label>
+          <div className="p-3 grid justify-items-stretch">
+          {/* <h6 className="text-right mb-6">Year 3</h6> */}
+            <div className="mb-6 justify-self-center">
+              
               <Controller
                 name="year3"
                 control={control}
@@ -529,9 +532,9 @@ export const StartTcc = () => {
               />
             </div>
 
-            <div className="mb-6 grid grid-cols-2 gap-3">
-              <label>Tax Payable Year 3:</label>
-              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input disabled type="text" defaultValue={0} />
+            <div className="mb-6 justify-self-center">
+              
+              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" disabled type="text" defaultValue={0} />
                 :
                 <div>
 
@@ -544,9 +547,9 @@ export const StartTcc = () => {
               }
             </div>
 
-            <div className="mb-6 grid grid-cols-2 gap-3">
-              <label>Employment Year 3:</label>
-              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input disabled type="text" defaultValue={0} />
+            <div className="mb-6 justify-self-center">
+             
+              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" disabled type="text" defaultValue={0} />
                 :
                 <div>
 
@@ -558,9 +561,9 @@ export const StartTcc = () => {
               }
             </div>
 
-            <div className="mb-6 grid grid-cols-2 gap-3">
-              <label>Trade/Professional Year 3:</label>
-              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input disabled type="text" defaultValue={0} />
+            <div className="mb-6 justify-self-center">
+              
+              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" disabled type="text" defaultValue={0} />
                 :
                 <div>
 
@@ -571,9 +574,9 @@ export const StartTcc = () => {
                 </div>
               }
             </div>
-            <div className="mb-6 grid grid-cols-2 gap-3">
-              <label>Other Income for year 3</label>
-              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input disabled type="text" defaultValue={0} />
+            <div className="mb-6 justify-self-center">
+              
+              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" disabled type="text" defaultValue={0} />
                 :
                 <div>
 
@@ -586,9 +589,9 @@ export const StartTcc = () => {
               }
             </div>
 
-            <div className="mb-6 grid grid-cols-2 gap-3">
-              <label>Assessment ID 3</label>
-              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input disabled type="text" placeholder="Assessment ID" />
+            <div className="mb-6 justify-self-center">
+             
+              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" disabled type="text" placeholder="Assessment ID" />
                 :
                 <div>
 
