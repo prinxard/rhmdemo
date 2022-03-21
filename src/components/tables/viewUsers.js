@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Controller, useForm } from "react-hook-form";
 import setAuthToken from "../../functions/setAuthToken";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import Loader from "react-loader-spinner";
 import { MultiSelect } from "react-multi-select-component";
 import axios from "axios";
@@ -64,13 +64,13 @@ export const ViewUsersTable = ({ remittance }) => {
               <tr key={i} className="">
                 {fields.map((field, j) => (
                   <td key={j} className="">
-                    {/* {remittance[field.key]} */}
+                    {remittance[field.key]}
 
-                    <Link href={`/view/users/${remittance.email}`}>
+                    {/* <Link href={`/view/users/${remittance.email}`}>
                       <a className="hover:text-blue-500">
                         {remittance[field.key]}
                       </a>
-                    </Link>
+                    </Link> */}
                   </td>
                 ))}
               </tr>
@@ -84,12 +84,13 @@ export const ViewUsersTable = ({ remittance }) => {
 };
 
 
-export default function UpdateUser({user, groups}) {
+export default function UpdateUser({ user, groups }) {
   const [taxStation, setTaxStation] = useState([])
   const [uploadErrors, setUploadErrors] = useState(() => []);
   const [department, setDepartment] = useState([])
   const [rhmGroups, setRhmGroups] = useState([])
   const [isFetching, setIsFetching] = useState(() => false);
+  const [passwordCheck, setPasswordCheck] = useState("")
   const router = useRouter();
 
   const {
@@ -108,7 +109,6 @@ export default function UpdateUser({user, groups}) {
     shallowEqual
   );
 
-  const Approval = [2, 3, 12, 1]
   const decoded = jwt.decode(auth);
   const creator = decoded.user
 
@@ -134,6 +134,7 @@ export default function UpdateUser({user, groups}) {
 
   }, []);
 
+
   const options = rhmGroups.map(item => {
     return {
       label: item.role,
@@ -141,151 +142,202 @@ export default function UpdateUser({user, groups}) {
     }
   })
 
-  let emailTest
+  let email
+  let passwordCompare
+  let UserGroups
+
   user.forEach((el) => (
-    emailTest = el.email
+    email = el.email
   ))
 
+  user.forEach((el) => (
+    passwordCompare = el.password
+  ))
+
+  let userGrp = groups.map((el) => {
+    return el.group
+  })
+
+  const stringUserGrp = String(userGrp)
+  console.log("User Group", stringUserGrp);
+
+
+
+  // console.log("Length1", userte.length);
+  // console.log("Length2", stringUserGrp.length);
+
+  console.log("User", user);
+  console.log("Groups", groups);
   
-  console.log(emailTest);
 
   setAuthToken();
   const onSubmit = (data) => {
-    setIsFetching(true)
-    axios.post(`${url.BASE_URL}user/update-user`, data)
-      .then(function (response) {
-        setIsFetching(false)
-        toast.success("Updated Successfully!");
-        router.push("/dashboard")
-      })
-      .catch(function (error) {
-        setIsFetching(false)
-        if (error.response) {
-          setUploadErrors(() => error.response.data.message);
-          toast.error(uploadErrors)
-        } else {
-          toast.error("Failed to Updated user!");
-        }
-      })
+
+    if (passwordCompare === data.password) {
+      delete data.password
+      console.log(data);
+      console.log("Both the same");
+    } else {
+      console.log(data);
+      try {
+
+      } catch (error) {
+
+      }
+    }
+
+
+    // console.log(data);
+    // setIsFetching(true)
+    // axios.put(`${url.BASE_URL}user/update-user`, data)
+    //   .then(function (response) {
+    //     setIsFetching(false)
+    //     toast.success("Updated Successfully!");
+    //     router.push("/dashboard")
+    //   })
+    //   .catch(function (error) {
+    //     setIsFetching(false)
+    //     if (error.response) {
+    //       setUploadErrors(() => error.response.data.message);
+    //       toast.error(uploadErrors)
+    //     } else {
+    //       toast.error("Failed to Updated user!");
+    //     }
+    //   })
   };
 
 
   return (
 
     <div>
-
       <ToastContainer />
 
-      <div className="block p-6 rounded-lg bg-white w-full">
-        <div className="flex justify-center mb-4">
-          <h6 className="p-2">Update User</h6>
+      {isFetching ? (
+        <div className="flex justify-center item mb-2">
+          <Loader
+            visible={isFetching}
+            type="BallTriangle"
+            color="#00FA9A"
+            height={19}
+            width={19}
+            timeout={0}
+            className="ml-2"
+          />
+          <p className="font-bold">Processing...</p>
         </div>
-        {isFetching && (
-          <div className="flex justify-center item mb-2">
-            <Loader
-              visible={isFetching}
-              type="BallTriangle"
-              color="#00FA9A"
-              height={19}
-              width={19}
-              timeout={0}
-              className="ml-2"
-            />
-            <p className="font-bold">Processing...</p>
+      ) :
+        <div className="block p-6 rounded-lg bg-white w-full">
+          <div className="flex justify-center mb-4">
+            <h6 className="p-2">Update User</h6>
           </div>
-        )}
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="form-group ">
-              <p>Full name</p>
-              <input type="text" name="name" className="form-control mb-4 w-full rounded font-light text-gray-500"
-                placeholder="Enter Full name" ref={register({ required: "Name is required" })}
-              />
-              {errors.name && <p className="text-red-600">{errors.name.message}</p>}
-            </div>
 
-            <div className="form-group">
-              <p>Password</p>
-              <input name="password" type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
-                ref={register({ required: "Password is required", minLength: { value: 8, message: "password must be at least 8 charachers in length" } })}
-              />
-              {errors.password && <p className="text-red-600">{errors.password.message}</p>}
-            </div>
-
-            <div className="form-group ">
-              <p>Department</p>
-              <select name="dept" ref={register({ valueAsNumber: true })} className="form-control SlectBox mb-4 w-full rounded font-light text-gray-500">
-                {department.map((dept) => <option key={dept.id}>{dept.name}</option>)}
-              </select>
-            </div>
-
-            <div className="form-group ">
-              <p>Tax Station</p>
-              <select ref={register()} name="station" class="form-control mb-4 SlectBox w-full rounded font-light text-gray-500" id="taxStation">
-                {taxStation.map((office) => <option key={office.idstation}>{office.name}</option>)}
-              </select>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="form-group">
-              <p>User group</p>
-
-              <Controller
-                control={control}
-                defaultValue={options.map(c => c.value).toString()}
-                name="userGroup"
-                rules={{ required: "please select user group" }}
-                render={({ onChange, value, ref }) => (
-                  <MultiSelect
-
-                    inputRef={ref}
-                    options={options}
-                    value={((options.filter(c => value.includes(c.value))))}
-                    onChange={val => onChange(val.map(c => c.value).toString())}
-                    labelledBy="Select group"
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="form-group ">
+                <p>Full name</p>
+                {user.map((el, i) => (
+                  <input type="text" name="name" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                    placeholder="Enter Full name" defaultValue={el.name} ref={register({ required: "Name is required" })}
                   />
-                )}
-              />
-              {errors.userGroup && <p className="text-red-600">{errors.userGroup.message}</p>}
-            </div>
+                ))}
+                {errors.name && <p className="text-red-600">{errors.name.message}</p>}
+              </div>
 
-            <div className="form-group ">
-              <p>Email</p>
-              <input name="email" disabled defaultValue={emailTest} ref={register({ required: "Email is required" })} type="email" className="form-control mb-4 w-full rounded font-light text-gray-500"
-              />
-              {errors.email && <p className="text-red-600">{errors.email.message}</p>}
-            </div>
-            <div className="form-group ">
-              <p>Phone Number</p>
-              <input name="phone" ref={register()} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
-              />
-            </div>
+              <div className="form-group">
+                <p>Password</p>
+                {user.map((el, i) => (
+                  <input name="password" type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                    defaultValue={el.password} ref={register({ required: "Password is required", minLength: { value: 8, message: "password must be at least 8 charachers in length" } })}
+                  />
+                ))}
+                {errors.password && <p className="text-red-600">{errors.password.message}</p>}
+              </div>
 
-            <div className="form-group ">
-              <p>Active</p>
+              <div className="form-group ">
+                <p>Department</p>
+                <select name="dept" ref={register({ valueAsNumber: true })} className="form-control SlectBox mb-4 w-full rounded font-light text-gray-500">
+                  {user.map((def, i) => <option selected value={def.dept} key={def.id}>{def.department}</option>)}
+                  {department.map((dept) => <option value={dept.id} key={dept.id}>{dept.name}</option>)}
+                </select>
+              </div>
 
-              <select ref={register()} name="active" class="form-control mb-4 SlectBox  w-full rounded font-light text-gray-500">
-                <option value="Y">Yes</option>
-                <option value="N">No</option>
-              </select>
+              <div className="form-group ">
+                <p>Tax Station</p>
+                <select ref={register()} name="station" class="form-control mb-4 SlectBox w-full rounded font-light text-gray-500" id="taxStation">
+                  {user.map((stat, i) => <option selected value={stat.station} key={stat.id}>{stat.station}</option>)}
+                  {taxStation.map((office) => <option key={office.idstation}>{office.name}</option>)}
+                </select>
+              </div>
             </div>
-            <div className="form-group hidden">
-              <p>Created By</p>
-              <input name="createdBy" value={creator} ref={register({ required: "Created by is required" })} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
-              />
+            <div className="grid grid-cols-2 gap-4">
+              <div className="form-group">
+                <p>User group</p>
+
+                <Controller
+                  control={control}
+                  // defaultValue={options.map(c => c.value).toString()}
+                  defaultValue={stringUserGrp}
+                  name="userGroup"
+                  rules={{ required: "please select user group" }}
+                  render={({ onChange, value, ref }) => (
+                    <MultiSelect
+
+                      inputRef={ref}
+                      options={options}
+                      value={((options.filter(c => value.includes(c.value))))}
+                      onChange={val => onChange(val.map(c => c.value).toString())}
+                      labelledBy="Select group"
+                    />
+                  )}
+                />
+                {errors.userGroup && <p className="text-red-600">{errors.userGroup.message}</p>}
+              </div>
+
+              <div className="form-group ">
+                <p>Email</p>
+                <input name="email" disabled defaultValue={email} ref={register({ required: "Email is required" })} type="email" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                />
+                {errors.email && <p className="text-red-600">{errors.email.message}</p>}
+              </div>
+              <div className="form-group ">
+                <p>Phone Number</p>
+                {user.map((el, i) => (
+                  <input name="phone" defaultValue={el.phone} ref={register()} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                  />
+                ))}
+              </div>
+
+              <div className="form-group ">
+                <p>Active</p>
+                {user.map((el, i) => (
+                  <select ref={register()} defaultValue={el.active} name="active" class="form-control mb-4 SlectBox  w-full rounded font-light text-gray-500">
+                    <option value="Y">Yes</option>
+                    <option value="N">No</option>
+                  </select>
+
+                ))}
+              </div>
+              <div className="form-group hidden">
+                <p>Created By</p>
+                <input name="createdBy" value={creator} ref={register({ required: "Created by is required" })} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                />
+              </div>
             </div>
-          </div>
-          <div className="mb-6 flex justify-center">
-            <button
-              style={{ backgroundColor: "#84abeb" }}
-              className="btn btn-default text-white btn-outlined bg-transparent rounded-md"
-              type="submit"
-            >
-              Update
-            </button>
-          </div>
-        </form>
-      </div>
+            <div className="mb-6 flex justify-center">
+              <button
+                style={{ backgroundColor: "#84abeb" }}
+                className="btn btn-default text-white btn-outlined bg-transparent rounded-md"
+                type="submit"
+              >
+                Update
+              </button>
+            </div>
+          </form>
+        </div>
+
+      }
+
+
     </div>
   )
 }

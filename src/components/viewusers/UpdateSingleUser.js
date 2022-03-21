@@ -33,7 +33,7 @@ const UpdateSingleUser = () => {
           let userGrp = res.groups
           setUser(userDet)
           setGroups(userGrp)
-          console.log(res);
+          console.log("res", res);
           setIsFetching(false);
         } catch (e) {
           setIsFetching(false);

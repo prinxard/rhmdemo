@@ -24,8 +24,8 @@ const ViewCollections = () => {
   const [query, setQuery] = useState(() => "");
 
   useEffect(() => {
-    setAuthToken();
     let num = 1
+    setAuthToken();
     const fetchPost = async () => {
       try {
         let res = await axios.get(`${url.BASE_URL}collection/list-collections`);
