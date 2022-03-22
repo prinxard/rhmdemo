@@ -277,7 +277,7 @@ export default function UpdateUser({ user, groups }) {
                 <p>Tax Station</p>
                 <select ref={register()} name="station" class="form-control mb-4 SlectBox w-full rounded font-light text-gray-500" id="taxStation">
                   {user.map((stat, i) => <option selected value={stat.station} key={stat.id}>{stat.station}</option>)}
-                  {taxStation.map((office) => <option value={office.name} key={office.idstation}>{office.name}</option>)}
+                  {taxStation.map((office) => <option value={office.station_code} key={office.idstation}>{office.name}</option>)}
                 </select>
               </div>
             </div>

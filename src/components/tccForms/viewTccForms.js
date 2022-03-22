@@ -173,7 +173,6 @@ export const StartTcc = () => {
       alert("Cannot have same year twice")
       setIsFetching2(false)
     } else {
-      alert("completely different years")
       try {
         axios.post(`${url.BASE_URL}forma/tcc`, createTCC);
         setIsFetching2(false)
@@ -266,8 +265,9 @@ export const StartTcc = () => {
 
             <div className="mb-6 grid grid-cols-3 gap-2">
               <label>File no:</label>
-              <input ref={register()} name="file_ref" type="text" className="form-control w-full rounded"
+              <input ref={register({ required: "File no is required" })} name="file_ref" type="text" className="form-control w-full rounded"
               />
+              {errors.file_ref && <p className="text-red-600">{errors.file_ref.message}</p>}
             </div>
 
             <div className="mb-6 grid grid-cols-3 gap-2">
