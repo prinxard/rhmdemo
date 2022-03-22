@@ -130,7 +130,7 @@ const initialState = [
                 items: [],
               },
               {
-                url: '/',
+                url: '/view/listtcc',
                 title: 'View',
                 items: [],
               },

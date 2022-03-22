@@ -1,5 +1,5 @@
-import ViewIndividualSingle from "../../../components/ViewUploads/ViewIndividualSingle";
+import SingleTcc from "../../../components/tcclist/ListSingleTcc";
 
-const Index = () => <ViewIndividualSingle />;
+const Index = () => <SingleTcc />;
 
 export default Index;
