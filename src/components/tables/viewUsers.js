@@ -164,6 +164,7 @@ export default function UpdateUser({ user, groups }) {
     if (passwordCompare === data.password) {
       setIsFetching4(true)
       delete data.password
+      console.log(data);
       axios.put(`${url.BASE_URL}user/update-user`, data)
         .then(function (response) {
           setIsFetching4(false)
@@ -267,7 +268,7 @@ export default function UpdateUser({ user, groups }) {
               <div className="form-group ">
                 <p>Department</p>
                 <select name="dept" ref={register({ valueAsNumber: true })} className="form-control SlectBox mb-4 w-full rounded font-light text-gray-500">
-                  {user.map((def, i) => <option selected value={def.dept} key={def.id}>{def.department}</option>)}
+                  {user.map((def, i) => <option selected defaultValue={def.dept} key={def.id}>{def.department}</option>)}
                   {department.map((dept) => <option value={dept.id} key={dept.id}>{dept.name}</option>)}
                 </select>
               </div>
@@ -276,7 +277,7 @@ export default function UpdateUser({ user, groups }) {
                 <p>Tax Station</p>
                 <select ref={register()} name="station" class="form-control mb-4 SlectBox w-full rounded font-light text-gray-500" id="taxStation">
                   {user.map((stat, i) => <option selected value={stat.station} key={stat.id}>{stat.station}</option>)}
-                  {taxStation.map((office) => <option key={office.idstation}>{office.name}</option>)}
+                  {taxStation.map((office) => <option value={office.name} key={office.idstation}>{office.name}</option>)}
                 </select>
               </div>
             </div>
@@ -303,15 +304,6 @@ export default function UpdateUser({ user, groups }) {
                 />
                 {errors.userGroup && <p className="text-red-600">{errors.userGroup.message}</p>}
               </div>
-
-              {/* <div className="form-group ">
-                <p>Email</p>
-                {user.map((el, i) => (
-                  <input name="email" disabled defaultValue={el.station} ref={register({ required: "Email is required" })} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
-                  />
-                ))}
-                {errors.email && <p className="text-red-600">{errors.email.message}</p>}
-              </div> */}
 
               <div className="form-group ">
                 <p>Email</p>
