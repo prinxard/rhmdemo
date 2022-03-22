@@ -160,31 +160,30 @@ export const StartTcc = () => {
 
   setAuthToken();
   const onSubmitform = data => {
+    setIsFetching2(true)
+    let createTCC = {
+      file_ref: data.file_ref,
+      prc_fee: data.prc_fee,
+      tp_id: data.tp_id,
+      assmt_1: data.assmt_1,
+      assmt_2: data.assmt_2,
+      assmt_3: data.assmt_3
+    }
     if (watchYear1.getFullYear() === watchYear2.getFullYear() || watchYear1.getFullYear() === watchYear3.getFullYear() || watchYear2.getFullYear() === watchYear3.getFullYear()) {
       alert("Cannot have same year twice")
+      setIsFetching2(false)
     } else {
       alert("completely different years")
-      console.log(data);
+      try {
+        axios.post(`${url.BASE_URL}forma/tcc`, createTCC);
+        setIsFetching2(false)
+      } catch (e) {
+        setIsFetching2(false)
+        console.log(e);
+      }
     }
-    console.log(data);
-    // const userkgtin = kgtEnentered
-    // const year = data.year;
-    // let createAsses = {
-    //   "year": `${year}`,
-    //   "kgtin": `${KGTIN}`
-    // }
-    // setIsFetching2(true)
-    // try {
-    //   const res = await axios.post(`${url.BASE_URL}forma/new-assessment`, createAsses);
-    //   let assessment_id = res.data.body.assessment_id
-    //   setIsFetching2(false)
-    //   router.push(`/direct-asses/${assessment_id},${KGTIN}`)
-    //   console.log("Assesment Created");
-    // }
-    // catch (err) {
-    //   setIsFetching2(false)
-    //   console.log(err);
-    // }
+
+
   };
 
   return (
@@ -203,7 +202,6 @@ export const StartTcc = () => {
           <p className="font-bold">Processing...</p>
         </div>
       )}
-
 
       <div className="border mb-3 block p-6 rounded-lg bg-white w-full">
         <div className="flex justify-around">
@@ -240,12 +238,12 @@ export const StartTcc = () => {
 
             <div className="mb-6 grid grid-cols-3 gap-2">
               <label>Taxpayer:</label>
-              {payerDetails == null || payerDetails == "" || payerDetails == undefined ? <input disabled type="text" placeholder="Taxpayer name" />
+              {payerDetails == null || payerDetails == "" || payerDetails == undefined ? <input ref={register()} readOnly name="taxpayername" type="text" placeholder="Taxpayer name" />
                 :
                 <div>
 
                   {payerDetails.map((ind, i) => (
-                    <input name="taxpayername" disabled type="text" defaultValue={`${ind.surname} ${ind.first_name}`} className="form-control w-full rounded"
+                    <input ref={register()} name="taxpayername" readOnly type="text" defaultValue={`${ind.surname} ${ind.first_name}`} className="form-control w-full rounded"
                     />
                   ))}
                 </div>
@@ -254,12 +252,12 @@ export const StartTcc = () => {
 
             <div className="mb-6 grid grid-cols-3 gap-2">
               <label>KGTIN:</label>
-              {payerDetails == null || payerDetails == "" || payerDetails == undefined ? <input disabled type="text" placeholder="KGTIN" />
+              {payerDetails == null || payerDetails == "" || payerDetails == undefined ? <input ref={register()} readOnly name="tp_id" type="text" placeholder="KGTIN" />
                 :
                 <div>
 
                   {payerDetails.map((ind, i) => (
-                    <input name="taxpayername" disabled type="text" defaultValue={ind.KGTIN} className="form-control w-full rounded"
+                    <input ref={register()} name="tp_id" readOnly type="text" defaultValue={ind.KGTIN} className="form-control w-full rounded"
                     />
                   ))}
                 </div>
@@ -267,20 +265,20 @@ export const StartTcc = () => {
             </div>
 
             <div className="mb-6 grid grid-cols-3 gap-2">
-              <label htmlFor="employername">File no:</label>
-              <input name="file_no" type="text" id="employername" className="form-control w-full rounded"
+              <label>File no:</label>
+              <input ref={register()} name="file_ref" type="text" className="form-control w-full rounded"
               />
             </div>
 
             <div className="mb-6 grid grid-cols-3 gap-2">
               <label htmlFor="employername">Tax Office:</label>
 
-              {payerDetails == null || payerDetails == "" || payerDetails == undefined ? <input disabled type="text" placeholder="Tax Station" />
+              {payerDetails == null || payerDetails == "" || payerDetails == undefined ? <input ref={register()} readOnly type="text" name="tax_office" placeholder="Tax Station" />
                 :
                 <div>
 
                   {payerDetails.map((ind, i) => (
-                    <input name="taxpayername" disabled type="text" defaultValue={ind.tax_office} className="form-control w-full rounded"
+                    <input ref={register()} name="tax_office" readOnly type="text" defaultValue={ind.tax_office} className="form-control w-full rounded"
                     />
                   ))}
                 </div>
@@ -289,7 +287,7 @@ export const StartTcc = () => {
             </div>
             <div className="mb-6 grid grid-cols-3 gap-4">
               <label htmlFor="employername">Processing Fee:</label>
-              <input placeholder="₦" name="fee" type="text" className="form-control w-full rounded"
+              <input ref={register()} placeholder="₦" name="prc_fee" type="text" className="form-control w-full rounded"
               />
             </div>
           </div>
@@ -311,7 +309,7 @@ export const StartTcc = () => {
         <div className={`flex justify-between border mb-3 rounded-lg bg-white w-full`}>
 
           <div className="p-3">
-            {/* <h6 className="text-right mb-6">Year 1</h6> */}
+            <h6 className="text-right mb-6">Year 1</h6>
             <div className="mb-6 grid grid-cols-2 ">
               <label>Assessment year </label>
               <Controller
@@ -326,7 +324,7 @@ export const StartTcc = () => {
                       selected={value}
                       showYearPicker
                       dateFormat="yyyy"
-                      yearItemNumber={4}
+                      yearItemNumber={8}
                     />
                   );
                 }}
@@ -335,12 +333,12 @@ export const StartTcc = () => {
 
             <div className="mb-6 grid grid-cols-2 gap-3">
               <label>Tax Payable </label>
-              {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input disabled className="form-control w-full rounded" type="text" defaultValue={0} />
+              {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input readOnly className="form-control w-full rounded" type="text" defaultValue={0} />
                 :
                 <div>
 
                   {assessmentData.map((ele, i) => (
-                    <input disabled name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.tax)} ref={register()} type="text"
+                    <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.tax)} ref={register()} type="text"
                     />
                   ))}
 
@@ -351,12 +349,12 @@ export const StartTcc = () => {
 
             <div className="mb-6 grid grid-cols-2 gap-3">
               <label>Income from employment</label>
-              {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input className="form-control w-full rounded" disabled type="text" defaultValue={0} />
+              {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
                 :
                 <div>
 
                   {assessmentData.map((ele, i) => (
-                    <input disabled name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.employed)} ref={register()} type="text"
+                    <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.employed)} ref={register()} type="text"
                     />
                   ))}
 
@@ -366,12 +364,12 @@ export const StartTcc = () => {
 
             <div className="mb-6 grid grid-cols-2 gap-3">
               <label>Income from Trade/Professional</label>
-              {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input className="form-control w-full rounded" disabled type="text" defaultValue={0} />
+              {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
                 :
                 <div>
 
                   {assessmentData.map((ele, i) => (
-                    <input disabled name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.self_employed)} ref={register()} type="text"
+                    <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.self_employed)} ref={register()} type="text"
                     />
                   ))}
 
@@ -381,12 +379,12 @@ export const StartTcc = () => {
 
             <div className="mb-6 grid grid-cols-2 gap-3">
               <label>Other Income</label>
-              {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input className="form-control w-full rounded" disabled type="text" defaultValue={0} />
+              {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
                 :
                 <div>
 
                   {assessmentData.map((ele, i) => (
-                    <input disabled name="other_income" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.other_income)} ref={register()} type="text"
+                    <input readOnly name="other_income" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.other_income)} ref={register()} type="text"
                     />
                   ))}
 
@@ -396,12 +394,12 @@ export const StartTcc = () => {
 
             <div className="mb-6 grid grid-cols-2 gap-3">
               <label>Assessment ID</label>
-              {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input className="form-control w-full rounded" disabled type="text" placeholder="Assessment ID" />
+              {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input className="form-control w-full rounded" ref={register()} name="assmt_1" readOnly type="text" placeholder="Assessment ID" />
                 :
                 <div>
 
                   {assessmentData.map((ele, i) => (
-                    <input disabled name="other_income" className="form-control w-full rounded" key={i} defaultValue={(ele.assessment_id)} ref={register()} type="text"
+                    <input readOnly name="assmt_1" ref={register()} className="form-control w-full rounded" key={i} defaultValue={(ele.assessment_id)} type="text"
                     />
                   ))}
 
@@ -411,9 +409,9 @@ export const StartTcc = () => {
           </div>
 
           <div className="p-3 grid justify-items-stretch">
-          {/* <h6 className="text-right mb-6">Year 2</h6> */}
+            <h6 className="text-center mb-6">Year 2</h6>
             <div className="mb-6 justify-self-center">
-              
+
               <Controller
                 name="year2"
                 control={control}
@@ -434,13 +432,13 @@ export const StartTcc = () => {
               />
             </div>
             <div className="mb-6 justify-self-center">
-              
-              {assessmentData2 == null || assessmentData2 == "" || assessmentData2 == undefined ? <input className="form-control w-full rounded" disabled type="text" defaultValue={0} />
+
+              {assessmentData2 == null || assessmentData2 == "" || assessmentData2 == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
                 :
                 <div>
 
                   {assessmentData2.map((ele, i) => (
-                    <input disabled name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.tax)} ref={register()} type="text"
+                    <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.tax)} ref={register()} type="text"
                     />
                   ))}
                 </div>
@@ -448,13 +446,13 @@ export const StartTcc = () => {
             </div>
 
             <div className="mb-6 justify-self-center">
-              
-              {assessmentData2 == null || assessmentData2 == "" || assessmentData2 == undefined ? <input className="form-control w-full rounded" disabled type="text" defaultValue={0} />
+
+              {assessmentData2 == null || assessmentData2 == "" || assessmentData2 == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
                 :
                 <div>
 
                   {assessmentData2.map((ele, i) => (
-                    <input disabled name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.employed)} ref={register()} type="text"
+                    <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.employed)} ref={register()} type="text"
                     />
                   ))}
                 </div>
@@ -463,13 +461,13 @@ export const StartTcc = () => {
 
 
             <div className="mb-6 justify-self-center">
-              
-              {assessmentData2 == null || assessmentData2 == "" || assessmentData2 == undefined ? <input className="form-control w-full rounded" disabled type="text" defaultValue={0} />
+
+              {assessmentData2 == null || assessmentData2 == "" || assessmentData2 == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
                 :
                 <div>
 
                   {assessmentData2.map((ele, i) => (
-                    <input disabled name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.self_employed)} ref={register()} type="text"
+                    <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.self_employed)} ref={register()} type="text"
                     />
                   ))}
                 </div>
@@ -477,13 +475,13 @@ export const StartTcc = () => {
             </div>
 
             <div className="mb-6 justify-self-center">
-              
-              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" disabled type="text" defaultValue={0} />
+
+              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
                 :
                 <div>
 
                   {assessmentData3.map((ele, i) => (
-                    <input disabled name="other_income" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.other_income)} ref={register()} type="text"
+                    <input readOnly name="other_income" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.other_income)} ref={register()} type="text"
                     />
                   ))}
 
@@ -492,13 +490,13 @@ export const StartTcc = () => {
             </div>
 
             <div className="mb-6 justify-self-center">
-              
-              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" disabled type="text" placeholder="Assessment ID" />
+
+              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" readOnly name="assmt_2" ref={register()} type="text" placeholder="Assessment ID" />
                 :
                 <div>
 
                   {assessmentData3.map((ele, i) => (
-                    <input disabled name="other_income" className="form-control w-full rounded" key={i} defaultValue={(ele.assessment_id)} ref={register()} type="text"
+                    <input readOnly name="assmt_2" ref={register()} className="form-control w-full rounded" key={i} defaultValue={(ele.assessment_id)} type="text"
                     />
                   ))}
 
@@ -509,9 +507,9 @@ export const StartTcc = () => {
           </div>
 
           <div className="p-3 grid justify-items-stretch">
-          {/* <h6 className="text-right mb-6">Year 3</h6> */}
+            <h6 className="text-center mb-6">Year 3</h6>
             <div className="mb-6 justify-self-center">
-              
+
               <Controller
                 name="year3"
                 control={control}
@@ -533,13 +531,13 @@ export const StartTcc = () => {
             </div>
 
             <div className="mb-6 justify-self-center">
-              
-              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" disabled type="text" defaultValue={0} />
+
+              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
                 :
                 <div>
 
                   {assessmentData3.map((ele, i) => (
-                    <input disabled name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.tax)} ref={register()} type="text"
+                    <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.tax)} ref={register()} type="text"
                     />
                   ))}
 
@@ -548,13 +546,13 @@ export const StartTcc = () => {
             </div>
 
             <div className="mb-6 justify-self-center">
-             
-              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" disabled type="text" defaultValue={0} />
+
+              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
                 :
                 <div>
 
                   {assessmentData3.map((ele, i) => (
-                    <input disabled name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.employed)} ref={register()} type="text"
+                    <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.employed)} ref={register()} type="text"
                     />
                   ))}
                 </div>
@@ -562,26 +560,26 @@ export const StartTcc = () => {
             </div>
 
             <div className="mb-6 justify-self-center">
-              
-              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" disabled type="text" defaultValue={0} />
+
+              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
                 :
                 <div>
 
                   {assessmentData3.map((ele, i) => (
-                    <input disabled name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.self_employed)} ref={register()} type="text"
+                    <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.self_employed)} ref={register()} type="text"
                     />
                   ))}
                 </div>
               }
             </div>
             <div className="mb-6 justify-self-center">
-              
-              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" disabled type="text" defaultValue={0} />
+
+              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
                 :
                 <div>
 
                   {assessmentData3.map((ele, i) => (
-                    <input disabled name="other_income" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.other_income)} ref={register()} type="text"
+                    <input readOnly name="other_income" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.other_income)} ref={register()} type="text"
                     />
                   ))}
 
@@ -590,13 +588,13 @@ export const StartTcc = () => {
             </div>
 
             <div className="mb-6 justify-self-center">
-             
-              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" disabled type="text" placeholder="Assessment ID" />
+
+              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" readOnly name="assmt_3" ref={register()} type="text" placeholder="Assessment ID" />
                 :
                 <div>
 
                   {assessmentData3.map((ele, i) => (
-                    <input disabled name="other_income" className="form-control w-full rounded" key={i} defaultValue={(ele.assessment_id)} ref={register()} type="text"
+                    <input readOnly name="assmt_3" ref={register()} className="form-control w-full rounded" key={i} defaultValue={(ele.assessment_id)} type="text"
                     />
                   ))}
 

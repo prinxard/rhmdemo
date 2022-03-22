@@ -92,6 +92,7 @@ export default function UpdateUser({ user, groups }) {
   const [rhmGroups, setRhmGroups] = useState([])
   const [isFetching, setIsFetching] = useState(() => false);
   const [isFetching2, setIsFetching2] = useState(() => false);
+  const [isFetching4, setIsFetching4] = useState(() => false);
   const [passwordCheck, setPasswordCheck] = useState("")
   const router = useRouter();
 
@@ -161,17 +162,16 @@ export default function UpdateUser({ user, groups }) {
   const onSubmit = (data) => {
 
     if (passwordCompare === data.password) {
-      setIsFetching(true)
+      setIsFetching4(true)
       delete data.password
-      console.log(data);
       axios.put(`${url.BASE_URL}user/update-user`, data)
         .then(function (response) {
-          setIsFetching(false)
+          setIsFetching4(false)
           toast.success("Updated Successfully!");
           router.push("/dashboard")
         })
         .catch(function (error) {
-          setIsFetching(false)
+          setIsFetching4(false)
           if (error.response) {
             setUploadErrors(() => error.response.data.message);
             toast.error(uploadErrors)
@@ -179,18 +179,17 @@ export default function UpdateUser({ user, groups }) {
             toast.error("Failed to Updated user!");
           }
         })
-      console.log("Both the same");
     } else {
-      setIsFetching(true)
+      setIsFetching4(true)
       console.log(data);
       axios.put(`${url.BASE_URL}user/update-user`, data)
         .then(function (response) {
-          setIsFetching(false)
+          setIsFetching4(false)
           toast.success("Updated Successfully!");
           router.push("/dashboard")
         })
         .catch(function (error) {
-          setIsFetching(false)
+          setIsFetching4(false)
           if (error.response) {
             setUploadErrors(() => error.response.data.message);
             toast.error(uploadErrors)
@@ -199,25 +198,6 @@ export default function UpdateUser({ user, groups }) {
           }
         })
     }
-
-
-    // console.log(data);
-    // setIsFetching(true)
-    // axios.put(`${url.BASE_URL}user/update-user`, data)
-    //   .then(function (response) {
-    //     setIsFetching(false)
-    //     toast.success("Updated Successfully!");
-    //     router.push("/dashboard")
-    //   })
-    //   .catch(function (error) {
-    //     setIsFetching(false)
-    //     if (error.response) {
-    //       setUploadErrors(() => error.response.data.message);
-    //       toast.error(uploadErrors)
-    //     } else {
-    //       toast.error("Failed to Updated user!");
-    //     }
-    //   })
   };
 
 
@@ -242,6 +222,22 @@ export default function UpdateUser({ user, groups }) {
         </div>
       ) :
         <div className="block p-6 rounded-lg bg-white w-full">
+
+          {isFetching4 && (
+            <div className="flex justify-center item mb-2">
+              <Loader
+                visible={isFetching4}
+                type="BallTriangle"
+                color="#00FA9A"
+                height={19}
+                width={19}
+                timeout={0}
+                className="ml-2"
+              />
+              <p className="font-bold">Processing...</p>
+            </div>
+          )}
+
           <div className="flex justify-center mb-4">
             <h6 className="p-2">Update User</h6>
           </div>
