@@ -87,7 +87,7 @@ export const ViewCollectionsTable = ({ remittance }) => {
           Check: Check,
           DetailPanel: ChevronRight,
           Export: SaveAlt,
-          Filter: FilterList,
+          Filter: () => <Icons.Filter />,
           FirstPage: FirstPage,
           LastPage: LastPage,
           NextPage: ChevronRight,

@@ -288,6 +288,20 @@ export const Settings = () => {
   );
 };
 
+export const Filter = () => {
+  return (
+    <div className="">
+      <Image
+        layout="fixed"
+        src="/images/rhmicons/filter.png"
+        alt=""
+        width={18}
+        height={18}
+      />
+    </div>
+  );
+};
+
 export const FileReturns = () => {
   const router = useRouter();
   let { pathname } = { ...router };
