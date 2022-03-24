@@ -625,6 +625,7 @@ export const UploadTccForms = () => {
   const [file8, setFile8] = useState(null);
   const [file9, setFile9] = useState(null);
   const [uploadedFile, setUploadedFile] = useState(false);
+  const [uploadedFile2, setUploadedFile2] = useState(false);
   const [isFetching, setIsFetching] = useState(() => false);
   const [uploadErrors, setUploadErrors] = useState(() => []);
 
@@ -658,6 +659,28 @@ export const UploadTccForms = () => {
     }
   };
 
+  const onChange2 = e => {
+    const file2 = e.target.files[0]
+    if (file2) {
+      if (!file2) {
+        setFile2(null);
+        return;
+      }
+      if (file2.type !== "image/jpeg" && file2.type !== "application/pdf" && file2.type !== "image/png") {
+        alert("file2 type not allowed. only pdf, png and jpeg are allowed");
+        setFile2(null);
+        return;
+      }
+      if (file2.size > 1024 * 200) {
+        alert("file too large..file size shoulde not exceed 200kb");
+        return
+      }
+      else {
+        setFile2(file2);
+      }
+    }
+  };
+
   const onSubmitform = async data => {
     setIsFetching(true)
     const formData = new FormData();
@@ -674,13 +697,48 @@ export const UploadTccForms = () => {
       setUploadedFile(true);
       toast.success("Upload Successful!")
     } catch (error) {
-      setUploadedFile(true);
+      toast.error("Failed to upload!")
+      setUploadedFile(false);
       setIsFetching(false)
       if (error.response) {
+        setUploadedFile(false);
         setUploadErrors(() => error.response.data.message);
         toast.error(uploadErrors)
       } else {
-        toast.error("Failed to create user!");
+        setUploadedFile(false);
+        toast.error("Failed to upload!");
+      }
+      console.log(error);
+    }
+
+  };
+
+  const onSubmitform2 = async data => {
+    setIsFetching(true)
+    const formData = new FormData();
+    formData.append('item', 'payslip');
+    formData.append('tcc_id', 1);
+    formData.append('doc', file2.name);
+    try {
+      const res = await axios.post(`${url.BASE_URL}forma/tcc-uploads`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+      });
+      setIsFetching(false)
+      setUploadedFile(true);
+      toast.success("Upload Successful!")
+    } catch (error) {
+      toast.error("Failed to upload!")
+      setUploadedFile(false);
+      setIsFetching(false)
+      if (error.response) {
+        setUploadedFile(false);
+        setUploadErrors(() => error.response.data.message);
+        toast.error(uploadErrors)
+      } else {
+        setUploadedFile(false);
+        toast.error("Failed to upload!");
       }
       console.log(error);
     }
@@ -689,8 +747,8 @@ export const UploadTccForms = () => {
 
   return (
     <>
-    
-    <ToastContainer />
+
+      <ToastContainer />
 
       {isFetching && (
         <div className="flex justify-center item mb-2">
@@ -726,6 +784,7 @@ export const UploadTccForms = () => {
               <div className="flex justify-evenly">
 
                 <p className="self-center">{file ? file.name : ""}</p>
+
                 <label
                   htmlFor='customFile'
                   style={{ backgroundColor: "#84abeb" }}
@@ -738,7 +797,6 @@ export const UploadTccForms = () => {
                   style={{ backgroundColor: "#84abeb" }}
                   className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
                   type="submit"
-                // disabled={disabled}
                 >
                   Submit
                 </button>
@@ -757,21 +815,21 @@ export const UploadTccForms = () => {
 
           <hr className="mb-2" />
 
-          <form >
+          <form onSubmit={handleSubmit(onSubmitform2)}>
             <div className="flex justify-between mb-5">
               <p>Payslip or salary schedule</p>
               <input
                 type="file"
                 className="hidden"
                 id='customFile2'
-              // onChange={onChange2}
-              // onClick={(e) => (e.target.value = null)}
+                ref={register()}
+                onChange={onChange2}
+                onClick={(e) => (e.target.value = null)}
+                required
               />
 
               <div className="flex justify-evenly">
-
-                {/* <p >{file2 ? file2.name : ""}</p> */}
-
+                <p >{file2 ? file2.name : ""}</p>
                 <label
                   htmlFor='customFile2'
                   style={{ backgroundColor: "#84abeb" }}
@@ -784,7 +842,6 @@ export const UploadTccForms = () => {
                   style={{ backgroundColor: "#84abeb" }}
                   className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
                   type="submit"
-                // disabled={disabled2}
                 >
                   Submit
                 </button>
@@ -793,7 +850,7 @@ export const UploadTccForms = () => {
                   <div className='mb-2 w-24'>
                     <Progress percentage={uploadPercentage2} />
                   </div>
-                  : ''}
+                  : ''} */}
 
                 {uploadedFile2 ? (
                   <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
@@ -801,7 +858,7 @@ export const UploadTccForms = () => {
                       size={18}
                       className="stroke-current text-green-500"
                     />
-                  </span>) : null} */}
+                  </span>) : null}
 
               </div>
             </div>
