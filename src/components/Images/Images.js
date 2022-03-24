@@ -10,6 +10,7 @@ export const KgirsLogo = () => {
     />
   );
 };
+
 export const RHMLogo = () => {
   return (
     <Image
@@ -21,6 +22,19 @@ export const RHMLogo = () => {
     />
   );
 };
+
+export const Signature = () => {
+  return (
+    <Image
+      layout="fixed"
+      src="/images/signature.png"
+      alt="login"
+      width={121}
+      height={49}
+    />
+  );
+};
+
 export const KogiGov = () => {
   return (
     <Image

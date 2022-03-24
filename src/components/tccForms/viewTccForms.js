@@ -626,6 +626,9 @@ export const UploadTccForms = () => {
   const [file9, setFile9] = useState(null);
   const [uploadedFile, setUploadedFile] = useState(false);
   const [uploadedFile2, setUploadedFile2] = useState(false);
+  const [uploadedFile3, setUploadedFile3] = useState(false);
+  const [uploadedFile4, setUploadedFile4] = useState(false);
+  const [uploadedFile5, setUploadedFile5] = useState(false);
   const [isFetching, setIsFetching] = useState(() => false);
   const [uploadErrors, setUploadErrors] = useState(() => []);
 
@@ -639,6 +642,7 @@ export const UploadTccForms = () => {
 
   const onChange = e => {
     const file = e.target.files[0]
+    console.log(file);
     if (file) {
       if (!file) {
         setFile(null);
@@ -681,12 +685,78 @@ export const UploadTccForms = () => {
     }
   };
 
+  const onChange3 = e => {
+    const file3 = e.target.files[0]
+    if (file3) {
+      if (!file3) {
+        setFile3(null);
+        return;
+      }
+      if (file3.type !== "image/jpeg" && file3.type !== "application/pdf" && file3.type !== "image/png") {
+        alert("file type not allowed. only pdf, png and jpeg are allowed");
+        setFile3(null);
+        return;
+      }
+      if (file3.size > 1024 * 200) {
+        alert("file too large..file size shoulde not exceed 200kb");
+        return
+      }
+      else {
+        setFile3(file3);
+      }
+    }
+  };
+
+  const onChange4 = e => {
+    const file4 = e.target.files[0]
+    if (file4) {
+      if (!file4) {
+        setFile4(null);
+        return;
+      }
+      if (file4.type !== "image/jpeg" && file4.type !== "application/pdf" && file4.type !== "image/png") {
+        alert("file type not allowed. only pdf, png and jpeg are allowed");
+        setFile4(null);
+        return;
+      }
+      if (file4.size > 1024 * 200) {
+        alert("file too large..file size shoulde not exceed 200kb");
+        return
+      }
+      else {
+        setFile4(file4);
+      }
+    }
+  };
+
+  const onChange5 = e => {
+    const file5 = e.target.files[0]
+    if (file5) {
+      if (!file5) {
+        setFile5(null);
+        return;
+      }
+      if (file5.type !== "image/jpeg" && file5.type !== "application/pdf" && file5.type !== "image/png") {
+        alert("file type not allowed. only pdf, png and jpeg are allowed");
+        setFile5(null);
+        return;
+      }
+      if (file5.size > 1024 * 200) {
+        alert("file too large..file size shoulde not exceed 200kb");
+        return
+      }
+      else {
+        setFile5(file5);
+      }
+    }
+  };
+
   const onSubmitform = async data => {
     setIsFetching(true)
     const formData = new FormData();
     formData.append('item', 'application_letter');
     formData.append('tcc_id', 1);
-    formData.append('doc', file.name);
+    formData.append('doc', file);
     try {
       const res = await axios.post(`${url.BASE_URL}forma/tcc-uploads`, formData, {
         headers: {
@@ -697,7 +767,7 @@ export const UploadTccForms = () => {
       setUploadedFile(true);
       toast.success("Upload Successful!")
     } catch (error) {
-      toast.error("Failed to upload!")
+      // toast.error("Failed to upload!")
       setUploadedFile(false);
       setIsFetching(false)
       if (error.response) {
@@ -718,7 +788,7 @@ export const UploadTccForms = () => {
     const formData = new FormData();
     formData.append('item', 'payslip');
     formData.append('tcc_id', 1);
-    formData.append('doc', file2.name);
+    formData.append('doc', file2);
     try {
       const res = await axios.post(`${url.BASE_URL}forma/tcc-uploads`, formData, {
         headers: {
@@ -726,18 +796,114 @@ export const UploadTccForms = () => {
         },
       });
       setIsFetching(false)
-      setUploadedFile(true);
+      setUploadedFile2(true);
       toast.success("Upload Successful!")
     } catch (error) {
-      toast.error("Failed to upload!")
-      setUploadedFile(false);
+      // toast.error("Failed to upload!")
+      setUploadedFile2(false);
       setIsFetching(false)
       if (error.response) {
-        setUploadedFile(false);
+        setUploadedFile2(false);
         setUploadErrors(() => error.response.data.message);
         toast.error(uploadErrors)
       } else {
-        setUploadedFile(false);
+        setUploadedFile2(false);
+        toast.error("Failed to upload!");
+      }
+      console.log(error);
+    }
+
+  };
+
+  const onSubmitform3 = async data => {
+    setIsFetching(true)
+    const formData = new FormData();
+    formData.append('item', 'passport');
+    formData.append('tcc_id', 1);
+    formData.append('doc', file3);
+    try {
+      const res = await axios.post(`${url.BASE_URL}forma/tcc-uploads`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+      });
+      setIsFetching(false)
+      setUploadedFile3(true);
+      toast.success("Upload Successful!")
+    } catch (error) {
+      // toast.error("Failed to upload!")
+      setUploadedFile3(false);
+      setIsFetching(false)
+      if (error.response) {
+        setUploadedFile3(false);
+        setUploadErrors(() => error.response.data.message);
+        toast.error(uploadErrors)
+      } else {
+        setUploadedFile3(false);
+        toast.error("Failed to upload!");
+      }
+      console.log(error);
+    }
+
+  };
+
+  const onSubmitform4 = async data => {
+    setIsFetching(true)
+    const formData = new FormData();
+    formData.append('item', 'idcard');
+    formData.append('tcc_id', 1);
+    formData.append('doc', file4);
+    try {
+      const res = await axios.post(`${url.BASE_URL}forma/tcc-uploads`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+      });
+      setIsFetching(false)
+      setUploadedFile4(true);
+      toast.success("Upload Successful!")
+    } catch (error) {
+      // toast.error("Failed to upload!")
+      setUploadedFile4(false);
+      setIsFetching(false)
+      if (error.response) {
+        setUploadedFile4(false);
+        setUploadErrors(() => error.response.data.message);
+        toast.error(uploadErrors)
+      } else {
+        setUploadedFile4(false);
+        toast.error("Failed to upload!");
+      }
+      console.log(error);
+    }
+
+  };
+
+  const onSubmitform5 = async data => {
+    setIsFetching(true)
+    const formData = new FormData();
+    formData.append('item', 'income_form');
+    formData.append('tcc_id', 1);
+    formData.append('doc', file5);
+    try {
+      const res = await axios.post(`${url.BASE_URL}forma/tcc-uploads`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+      });
+      setIsFetching(false)
+      setUploadedFile5(true);
+      toast.success("Upload Successful!")
+    } catch (error) {
+      // toast.error("Failed to upload!")
+      setUploadedFile5(false);
+      setIsFetching(false)
+      if (error.response) {
+        setUploadedFile5(false);
+        setUploadErrors(() => error.response.data.message);
+        toast.error(uploadErrors)
+      } else {
+        setUploadedFile5(false);
         toast.error("Failed to upload!");
       }
       console.log(error);
@@ -775,7 +941,7 @@ export const UploadTccForms = () => {
                 className="hidden"
                 id='customFile'
                 name="application_letter"
-                ref={register()}
+                // ref={register()}
                 onChange={onChange}
                 onClick={(e) => (e.target.value = null)}
                 required
@@ -822,7 +988,7 @@ export const UploadTccForms = () => {
                 type="file"
                 className="hidden"
                 id='customFile2'
-                ref={register()}
+                // ref={register()}
                 onChange={onChange2}
                 onClick={(e) => (e.target.value = null)}
                 required
@@ -866,20 +1032,21 @@ export const UploadTccForms = () => {
 
           <hr className="mb-2" />
 
-          <form >
+          <form onSubmit={handleSubmit(onSubmitform3)}>
             <div className="flex justify-between mb-5">
               <p>Passport Photograph </p>
               <input
                 type="file"
                 className="hidden"
                 id='customFile3'
-              // onChange={onChange3}
-              // onClick={(e) => (e.target.value = null)}
+                required
+                onChange={onChange3}
+                onClick={(e) => (e.target.value = null)}
               />
 
               <div className="flex justify-evenly">
 
-                {/* <p >{file3 ? file3.name : ""}</p> */}
+                <p >{file3 ? file3.name : ""}</p>
 
                 <label
                   htmlFor='customFile3'
@@ -902,7 +1069,7 @@ export const UploadTccForms = () => {
                   <div className='mb-2 w-24'>
                     <Progress percentage={uploadPercentage3} />
                   </div>
-                  : ''}
+                  : ''} */}
 
                 {uploadedFile3 ? (
                   <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
@@ -910,7 +1077,7 @@ export const UploadTccForms = () => {
                       size={18}
                       className="stroke-current text-green-500"
                     />
-                  </span>) : null} */}
+                  </span>) : null}
 
               </div>
             </div>
@@ -918,23 +1085,24 @@ export const UploadTccForms = () => {
 
           <hr className="mb-2" />
 
-          <form >
+          <form onSubmit={handleSubmit(onSubmitform4)} >
             <div className="flex justify-between mb-5">
               <p>Staff ID Card </p>
               <input
                 type="file"
                 className="hidden"
-                id='customFile3'
-              // onChange={onChange3}
-              // onClick={(e) => (e.target.value = null)}
+                id='customFile4'
+                required
+                onChange={onChange4}
+                onClick={(e) => (e.target.value = null)}
               />
 
               <div className="flex justify-evenly">
 
-                {/* <p >{file3 ? file3.name : ""}</p> */}
+                <p >{file4 ? file4.name : ""}</p>
 
                 <label
-                  htmlFor='customFile3'
+                  htmlFor='customFile4'
                   style={{ backgroundColor: "#84abeb" }}
                   className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
                 >
@@ -954,15 +1122,15 @@ export const UploadTccForms = () => {
                   <div className='mb-2 w-24'>
                     <Progress percentage={uploadPercentage3} />
                   </div>
-                  : ''}
+                  : ''} */}
 
-                {uploadedFile3 ? (
+                {uploadedFile4 ? (
                   <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
                     <FiCheck
                       size={18}
                       className="stroke-current text-green-500"
                     />
-                  </span>) : null} */}
+                  </span>) : null}
 
               </div>
             </div>
@@ -970,23 +1138,23 @@ export const UploadTccForms = () => {
 
           <hr className="mb-2" />
 
-          <form>
+          <form onSubmit={handleSubmit(onSubmitform5)}>
             <div className="flex justify-between mb-5">
               <p>Income Declaration form (F3) </p>
               <input
                 type="file"
                 className="hidden"
-                id='customFile3'
-              // onChange={onChange3}
-              // onClick={(e) => (e.target.value = null)}
+                id='customFile5'
+              onChange={onChange5}
+              onClick={(e) => (e.target.value = null)}
               />
 
               <div className="flex justify-evenly">
 
-                {/* <p >{file3 ? file3.name : ""}</p> */}
+                <p >{file5 ? file5.name : ""}</p>
 
                 <label
-                  htmlFor='customFile3'
+                  htmlFor='customFile5'
                   style={{ backgroundColor: "#84abeb" }}
                   className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
                 >
@@ -1006,15 +1174,15 @@ export const UploadTccForms = () => {
                   <div className='mb-2 w-24'>
                     <Progress percentage={uploadPercentage3} />
                   </div>
-                  : ''}
+                  : ''} */}
 
-                {uploadedFile3 ? (
+                {uploadedFile5 ? (
                   <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
                     <FiCheck
                       size={18}
                       className="stroke-current text-green-500"
                     />
-                  </span>) : null} */}
+                  </span>) : null}
 
               </div>
             </div>

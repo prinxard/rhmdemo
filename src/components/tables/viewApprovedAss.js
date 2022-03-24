@@ -4,7 +4,7 @@ import * as Icons from '../Icons/index';
 import Widget1 from "../dashboard/widget-1";
 import dateformat from "dateformat";
 import Link from 'next/link';
-import { KgirsLogo, KogiGov } from "../Images/Images";
+import { KgirsLogo, KogiGov, Signature } from "../Images/Images";
 import React from "react";
 
 const fields = [
@@ -424,13 +424,17 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                         We have made an Assesment on you as set out Opposite, for the year {assobj.year},
                         Under the provision of personal Income Tax Act 2011 amended
                       </p>
+                      <div className="flex mt-4 justify-center">
+                        <Signature />
+                      </div>
                       <div className="flex justify-center">
                         <div>
-                          <p className="font-bold mt-6" align="center"> Sule Salihu Enehe </p>
+                          <p className="font-bold mt-3" align="center"> Sule Salihu Enehe </p>
                           <p>Ag. Executive Chaiman</p>
                           <p>Kogi State Internal Revenue Service</p>
                         </div>
                       </div>
+
                       <div className="mb-3 mt-4">
                         <p>Prepared By:</p>
                         <p>Collection Authority:     KGIRS CORPORATE HQTRS</p>
