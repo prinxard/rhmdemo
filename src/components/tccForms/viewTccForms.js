@@ -1,13 +1,8 @@
 import Widget from "../widget";
 import { formatNumber } from "../../functions/numbers";
 import * as Icons from '../Icons/index';
-import Widget1 from "../dashboard/widget-1";
-import dateformat from "dateformat";
 import Link from 'next/link';
-import { SelectAnnual } from "../forms/selects";
-import SectionTitle from "../section-title";
 import { useEffect, useState } from "react";
-import { FiTriangle } from "react-icons/fi";
 import { Controller, useForm } from "react-hook-form";
 import url from '../../config/url';
 import axios from "axios";
@@ -20,7 +15,7 @@ import { FormatMoneyComponent } from "../FormInput/formInputs";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { SubmitButton } from "../CustomButton/CustomButton";
-import { FiX, FiCheck } from 'react-icons/fi';
+import { FiCheck } from 'react-icons/fi';
 
 export const StartTcc = () => {
   const [kgtEnentered, setKgtEentered] = useState('')
@@ -630,6 +625,8 @@ export const UploadTccForms = () => {
   const [file8, setFile8] = useState(null);
   const [file9, setFile9] = useState(null);
   const [uploadedFile, setUploadedFile] = useState(false);
+  const [isFetching, setIsFetching] = useState(() => false);
+  const [uploadErrors, setUploadErrors] = useState(() => []);
 
   const {
     register,
@@ -639,22 +636,16 @@ export const UploadTccForms = () => {
     formState: { errors },
   } = useForm()
 
-
-
   const onChange = e => {
     const file = e.target.files[0]
-    // const fileName = file.name
-    // console.log(file);
     if (file) {
       if (!file) {
         setFile(null);
-        // setDisabled(true);
         return;
       }
       if (file.type !== "image/jpeg" && file.type !== "application/pdf" && file.type !== "image/png") {
         alert("file type not allowed. only pdf, png and jpeg are allowed");
         setFile(null);
-        // setDisabled(true);
         return;
       }
       if (file.size > 1024 * 200) {
@@ -663,55 +654,58 @@ export const UploadTccForms = () => {
       }
       else {
         setFile(file);
-        // setDisabled(false);
       }
     }
   };
 
   const onSubmitform = async data => {
-    console.log(data);
+    setIsFetching(true)
     const formData = new FormData();
     formData.append('item', 'application_letter');
     formData.append('tcc_id', 1);
     formData.append('doc', file.name);
-    // console.log(file.name);
     try {
       const res = await axios.post(`${url.BASE_URL}forma/tcc-uploads`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         },
       });
+      setIsFetching(false)
       setUploadedFile(true);
+      toast.success("Upload Successful!")
     } catch (error) {
+      setUploadedFile(true);
+      setIsFetching(false)
+      if (error.response) {
+        setUploadErrors(() => error.response.data.message);
+        toast.error(uploadErrors)
+      } else {
+        toast.error("Failed to create user!");
+      }
       console.log(error);
     }
-    // setIsFetching2(true)
-    // let createTCC = {
-    //   file_ref: data.file_ref,
-    //   prc_fee: data.prc_fee,
-    //   tp_id: data.tp_id,
-    //   assmt_1: data.assmt_1,
-    //   assmt_2: data.assmt_2,
-    //   assmt_3: data.assmt_3
-    // }
-    // if (watchYear1.getFullYear() === watchYear2.getFullYear() || watchYear1.getFullYear() === watchYear3.getFullYear() || watchYear2.getFullYear() === watchYear3.getFullYear()) {
-    //   alert("Cannot have same year twice")
-    //   setIsFetching2(false)
-    // } else {
-    //   try {
-    //     axios.post(`${url.BASE_URL}forma/tcc`, createTCC);
-    //     setIsFetching2(false)
-    //   } catch (e) {
-    //     setIsFetching2(false)
-    //     console.log(e);
-    //   }
-    // }
-
 
   };
 
   return (
     <>
+    
+    <ToastContainer />
+
+      {isFetching && (
+        <div className="flex justify-center item mb-2">
+          <Loader
+            visible={isFetching}
+            type="BallTriangle"
+            color="#00FA9A"
+            height={19}
+            width={19}
+            timeout={0}
+            className="ml-2"
+          />
+          <p className="font-bold">Uploading...</p>
+        </div>
+      )}
       <h6 className="p-2 font-bold">Upload Documents</h6>
       <Widget>
         <div>
@@ -726,6 +720,7 @@ export const UploadTccForms = () => {
                 ref={register()}
                 onChange={onChange}
                 onClick={(e) => (e.target.value = null)}
+                required
               />
 
               <div className="flex justify-evenly">
@@ -747,11 +742,6 @@ export const UploadTccForms = () => {
                 >
                   Submit
                 </button>
-                {/* {submitting ?
-                  <div className='mb-2 w-24'>
-                    <Progress percentage={uploadPercentage} />
-                  </div>
-                  : ''} */}
 
                 {uploadedFile ? (
                   <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">

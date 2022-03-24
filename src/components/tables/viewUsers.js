@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { Controller, useForm } from "react-hook-form";
 import setAuthToken from "../../functions/setAuthToken";
 import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import Loader from "react-loader-spinner";
 import { MultiSelect } from "react-multi-select-component";
 import axios from "axios";
