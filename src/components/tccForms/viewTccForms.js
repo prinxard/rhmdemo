@@ -19,6 +19,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { FormatMoneyComponent } from "../FormInput/formInputs";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { SubmitButton } from "../CustomButton/CustomButton";
+import { FiX, FiCheck } from 'react-icons/fi';
 
 export const StartTcc = () => {
   const [kgtEnentered, setKgtEentered] = useState('')
@@ -34,8 +36,6 @@ export const StartTcc = () => {
   const [assessmentData2, setAssessmentData2] = useState([]);
   const [assessmentData3, setAssessmentData3] = useState([]);
   const router = useRouter();
-
-
 
   const {
     register,
@@ -618,4 +618,481 @@ export const StartTcc = () => {
   );
 };
 
-export default StartTcc;
+
+export const UploadTccForms = () => {
+  const [file, setFile] = useState(null);
+  const [file2, setFile2] = useState(null);
+  const [file3, setFile3] = useState(null);
+  const [file4, setFile4] = useState(null);
+  const [file5, setFile5] = useState(null);
+  const [file6, setFile6] = useState(null);
+  const [file7, setFile7] = useState(null);
+  const [file8, setFile8] = useState(null);
+  const [file9, setFile9] = useState(null);
+  const [uploadedFile, setUploadedFile] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    control,
+    formState: { errors },
+  } = useForm()
+
+
+
+  const onChange = e => {
+    const file = e.target.files[0]
+    // const fileName = file.name
+    // console.log(file);
+    if (file) {
+      if (!file) {
+        setFile(null);
+        // setDisabled(true);
+        return;
+      }
+      if (file.type !== "image/jpeg" && file.type !== "application/pdf" && file.type !== "image/png") {
+        alert("file type not allowed. only pdf, png and jpeg are allowed");
+        setFile(null);
+        // setDisabled(true);
+        return;
+      }
+      if (file.size > 1024 * 200) {
+        alert("file too large..file size shoulde not exceed 200kb");
+        return
+      }
+      else {
+        setFile(file);
+        // setDisabled(false);
+      }
+    }
+  };
+
+  const onSubmitform = async data => {
+    console.log(data);
+    const formData = new FormData();
+    formData.append('item', 'application_letter');
+    formData.append('tcc_id', 1);
+    formData.append('doc', file.name);
+    // console.log(file.name);
+    try {
+      const res = await axios.post(`${url.BASE_URL}forma/tcc-uploads`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+      });
+      setUploadedFile(true);
+    } catch (error) {
+      console.log(error);
+    }
+    // setIsFetching2(true)
+    // let createTCC = {
+    //   file_ref: data.file_ref,
+    //   prc_fee: data.prc_fee,
+    //   tp_id: data.tp_id,
+    //   assmt_1: data.assmt_1,
+    //   assmt_2: data.assmt_2,
+    //   assmt_3: data.assmt_3
+    // }
+    // if (watchYear1.getFullYear() === watchYear2.getFullYear() || watchYear1.getFullYear() === watchYear3.getFullYear() || watchYear2.getFullYear() === watchYear3.getFullYear()) {
+    //   alert("Cannot have same year twice")
+    //   setIsFetching2(false)
+    // } else {
+    //   try {
+    //     axios.post(`${url.BASE_URL}forma/tcc`, createTCC);
+    //     setIsFetching2(false)
+    //   } catch (e) {
+    //     setIsFetching2(false)
+    //     console.log(e);
+    //   }
+    // }
+
+
+  };
+
+  return (
+    <>
+      <h6 className="p-2 font-bold">Upload Documents</h6>
+      <Widget>
+        <div>
+          <form onSubmit={handleSubmit(onSubmitform)}>
+            <div className="flex justify-between mb-5">
+              <p>Application letter </p>
+              <input
+                type="file"
+                className="hidden"
+                id='customFile'
+                name="application_letter"
+                ref={register()}
+                onChange={onChange}
+                onClick={(e) => (e.target.value = null)}
+              />
+
+              <div className="flex justify-evenly">
+
+                <p className="self-center">{file ? file.name : ""}</p>
+                <label
+                  htmlFor='customFile'
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                >
+                  Select File
+                </label>
+
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                  type="submit"
+                // disabled={disabled}
+                >
+                  Submit
+                </button>
+                {/* {submitting ?
+                  <div className='mb-2 w-24'>
+                    <Progress percentage={uploadPercentage} />
+                  </div>
+                  : ''} */}
+
+                {uploadedFile ? (
+                  <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <FiCheck
+                      size={15}
+                      className="stroke-current text-green-500"
+                    />
+                  </span>) : null}
+
+              </div>
+            </div>
+          </form>
+
+          <hr className="mb-2" />
+
+          <form >
+            <div className="flex justify-between mb-5">
+              <p>Payslip or salary schedule</p>
+              <input
+                type="file"
+                className="hidden"
+                id='customFile2'
+              // onChange={onChange2}
+              // onClick={(e) => (e.target.value = null)}
+              />
+
+              <div className="flex justify-evenly">
+
+                {/* <p >{file2 ? file2.name : ""}</p> */}
+
+                <label
+                  htmlFor='customFile2'
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                >
+                  Select File
+                </label>
+
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                  type="submit"
+                // disabled={disabled2}
+                >
+                  Submit
+                </button>
+
+                {/* {submitting2 ?
+                  <div className='mb-2 w-24'>
+                    <Progress percentage={uploadPercentage2} />
+                  </div>
+                  : ''}
+
+                {uploadedFile2 ? (
+                  <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <FiCheck
+                      size={18}
+                      className="stroke-current text-green-500"
+                    />
+                  </span>) : null} */}
+
+              </div>
+            </div>
+          </form>
+
+          <hr className="mb-2" />
+
+          <form >
+            <div className="flex justify-between mb-5">
+              <p>Passport Photograph </p>
+              <input
+                type="file"
+                className="hidden"
+                id='customFile3'
+              // onChange={onChange3}
+              // onClick={(e) => (e.target.value = null)}
+              />
+
+              <div className="flex justify-evenly">
+
+                {/* <p >{file3 ? file3.name : ""}</p> */}
+
+                <label
+                  htmlFor='customFile3'
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                >
+                  Select File
+                </label>
+
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                  type="submit"
+                // disabled={disabled3}
+                >
+                  Submit
+                </button>
+
+                {/* {submitting3 ?
+                  <div className='mb-2 w-24'>
+                    <Progress percentage={uploadPercentage3} />
+                  </div>
+                  : ''}
+
+                {uploadedFile3 ? (
+                  <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <FiCheck
+                      size={18}
+                      className="stroke-current text-green-500"
+                    />
+                  </span>) : null} */}
+
+              </div>
+            </div>
+          </form>
+
+          <hr className="mb-2" />
+
+          <form >
+            <div className="flex justify-between mb-5">
+              <p>Staff ID Card </p>
+              <input
+                type="file"
+                className="hidden"
+                id='customFile3'
+              // onChange={onChange3}
+              // onClick={(e) => (e.target.value = null)}
+              />
+
+              <div className="flex justify-evenly">
+
+                {/* <p >{file3 ? file3.name : ""}</p> */}
+
+                <label
+                  htmlFor='customFile3'
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                >
+                  Select File
+                </label>
+
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                  type="submit"
+                // disabled={disabled3}
+                >
+                  Submit
+                </button>
+
+                {/* {submitting3 ?
+                  <div className='mb-2 w-24'>
+                    <Progress percentage={uploadPercentage3} />
+                  </div>
+                  : ''}
+
+                {uploadedFile3 ? (
+                  <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <FiCheck
+                      size={18}
+                      className="stroke-current text-green-500"
+                    />
+                  </span>) : null} */}
+
+              </div>
+            </div>
+          </form>
+
+          <hr className="mb-2" />
+
+          <form>
+            <div className="flex justify-between mb-5">
+              <p>Income Declaration form (F3) </p>
+              <input
+                type="file"
+                className="hidden"
+                id='customFile3'
+              // onChange={onChange3}
+              // onClick={(e) => (e.target.value = null)}
+              />
+
+              <div className="flex justify-evenly">
+
+                {/* <p >{file3 ? file3.name : ""}</p> */}
+
+                <label
+                  htmlFor='customFile3'
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                >
+                  Select File
+                </label>
+
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                  type="submit"
+                // disabled={disabled3}
+                >
+                  Submit
+                </button>
+
+                {/* {submitting3 ?
+                  <div className='mb-2 w-24'>
+                    <Progress percentage={uploadPercentage3} />
+                  </div>
+                  : ''}
+
+                {uploadedFile3 ? (
+                  <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <FiCheck
+                      size={18}
+                      className="stroke-current text-green-500"
+                    />
+                  </span>) : null} */}
+
+              </div>
+            </div>
+          </form>
+
+          <hr className="mb-2" />
+
+          <form >
+            <div className="flex justify-between mb-5">
+              <p>Letter of Introduction </p>
+              <input
+                type="file"
+                className="hidden"
+                id='customFile3'
+              // onChange={onChange3}
+              // onClick={(e) => (e.target.value = null)}
+              />
+
+              <div className="flex justify-evenly">
+
+                {/* <p >{file3 ? file3.name : ""}</p> */}
+
+                <label
+                  htmlFor='customFile3'
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                >
+                  Select File
+                </label>
+
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                  type="submit"
+                // disabled={disabled3}
+                >
+                  Submit
+                </button>
+
+                {/* {submitting3 ?
+                  <div className='mb-2 w-24'>
+                    <Progress percentage={uploadPercentage3} />
+                  </div>
+                  : ''}
+
+                {uploadedFile3 ? (
+                  <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <FiCheck
+                      size={18}
+                      className="stroke-current text-green-500"
+                    />
+                  </span>) : null} */}
+
+              </div>
+            </div>
+          </form>
+
+          <hr className="mb-2" />
+
+          <form >
+            <div className="flex justify-between mb-5">
+              <p>Scanned Signature</p>
+              <input
+                type="file"
+                className="hidden"
+                id='customFile3'
+              // onChange={onChange3}
+              // onClick={(e) => (e.target.value = null)}
+              />
+
+              <div className="flex justify-evenly">
+
+                {/* <p >{file3 ? file3.name : ""}</p> */}
+
+                <label
+                  htmlFor='customFile3'
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                >
+                  Select File
+                </label>
+
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                  type="submit"
+                // disabled={disabled3}
+                >
+                  Submit
+                </button>
+
+                {/* {submitting3 ?
+                  <div className='mb-2 w-24'>
+                    <Progress percentage={uploadPercentage3} />
+                  </div>
+                  : ''}
+
+                {uploadedFile3 ? (
+                  <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <FiCheck
+                      size={18}
+                      className="stroke-current text-green-500"
+                    />
+                  </span>) : null} */}
+
+              </div>
+            </div>
+
+            <div className="flex justify-center">
+              <SubmitButton>Done</SubmitButton>
+            </div>
+
+          </form>
+
+        </div>
+      </Widget>
+
+    </>
+
+  )
+}
+
+
+
+
+
+
+
