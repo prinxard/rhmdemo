@@ -139,9 +139,9 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
           <h5>Kogi State Internal Revenue Service</h5>
           <h6>Notice Of Assessment</h6>
         </div>
-        <table width='800' height='1575' align='center' className='print'>
+        <table width='800' height='1200' align='center' className='print'>
           <tr>
-            <td width='800' height='1569' align='center' valign='top'>
+            <td width='800' height='1200' align='center' valign='top'>
               <h6 align="left">Personal Income Tax {assobj.year}</h6>
               <table width='800' className='tb mb-4'>
                 <tr>
@@ -509,6 +509,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
               </table>
             </td>
           </tr>
+        
         </table>
       </div>
       <style
