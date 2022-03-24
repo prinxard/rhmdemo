@@ -135,6 +135,7 @@ export const PendingRemittance = () => {
   );
 };
 
+
 export const RevenueItems = () => {
   return (
     <Image
@@ -182,6 +183,104 @@ export const Dashboard = () => {
         layout="fixed"
         src="/images/icons/dashboard.png"
         alt="login"
+        width={18}
+        height={18}
+      />
+    </div>
+  );
+};
+
+export const RhmDashboard = () => {
+  return (
+    <div className="mx-6 flex items-center">
+      <Image
+        layout="fixed"
+        src="/images/rhmicons/dashboard.png"
+        alt=""
+        width={18}
+        height={18}
+      />
+    </div>
+  );
+};
+
+export const ManageTaxpayer = () => {
+  return (
+    <div className="mx-6 flex items-center">
+      <Image
+        layout="fixed"
+        src="/images/rhmicons/manage_taxpayer.png"
+        alt=""
+        width={18}
+        height={18}
+      />
+    </div>
+  );
+};
+
+export const ManageUser = () => {
+  return (
+    <div className="mx-6 flex items-center">
+      <Image
+        layout="fixed"
+        src="/images/rhmicons/manage_user.png"
+        alt=""
+        width={18}
+        height={18}
+      />
+    </div>
+  );
+};
+
+export const DirectAssessment = () => {
+  return (
+    <div className="mx-6 flex items-center">
+      <Image
+        layout="fixed"
+        src="/images/rhmicons/Direct_assessment.png"
+        alt=""
+        width={18}
+        height={18}
+      />
+    </div>
+  );
+};
+
+export const Paye = () => {
+  return (
+    <div className="mx-6 flex items-center">
+      <Image
+        layout="fixed"
+        src="/images/rhmicons/paye.png"
+        alt=""
+        width={18}
+        height={18}
+      />
+    </div>
+  );
+};
+
+export const Collections = () => {
+  return (
+    <div className="mx-6 flex items-center">
+      <Image
+        layout="fixed"
+        src="/images/rhmicons/collections.png"
+        alt=""
+        width={18}
+        height={18}
+      />
+    </div>
+  );
+};
+
+export const Settings = () => {
+  return (
+    <div className="mx-6 flex items-center">
+      <Image
+        layout="fixed"
+        src="/images/rhmicons/settings.png"
+        alt=""
         width={18}
         height={18}
       />

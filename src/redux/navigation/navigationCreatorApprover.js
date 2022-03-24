@@ -1,4 +1,4 @@
-import { Dashboard, Invoice, UserGuide, FileReturns } from '../../components/Icons/index';
+import { Dashboard, Invoice, FileReturns, RhmDashboard, ManageTaxpayer, ManageUser, DirectAssessment, Paye, Collections, Settings } from '../../components/Icons/index';
 
 // Added non individual navigation to side menu
 
@@ -8,14 +8,14 @@ const initialState = [
     items: [
       {
         url: '/dashboard',
-        icon: <Dashboard />,
+        icon: <RhmDashboard />,
         title: 'Dashboard',
         items: [],
       },
 
       {
         url: '/',
-        icon: <FileReturns />,
+        icon: <ManageTaxpayer />,
         title: 'Manage Taxpayer',
         items: [
           // {
@@ -50,7 +50,7 @@ const initialState = [
 
       {
         url: '/',
-        icon: <FileReturns />,
+        icon: <ManageUser />,
         title: 'Manage User',
         items: [
           // {
@@ -74,7 +74,7 @@ const initialState = [
 
       {
         url: '/',
-        icon: <FileReturns />,
+        icon: <DirectAssessment />,
         title: 'Direct Assessment',
         items: [
           {
@@ -102,7 +102,7 @@ const initialState = [
 
       {
         url: '/',
-        icon: <Invoice />,
+        icon: <Paye />,
         title: 'PAYE',
         items: [
           {
@@ -146,7 +146,7 @@ const initialState = [
 
       {
         url: '/',
-        icon: <Invoice />,
+        icon: <Collections />,
         title: 'Collections',
         items: [
           // {
@@ -200,7 +200,7 @@ const initialState = [
 
       {
         url: '/',
-        icon: <FileReturns />,
+        icon: <Settings />,
         title: 'Settings',
         items: [
           {
