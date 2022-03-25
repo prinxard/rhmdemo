@@ -92,6 +92,47 @@ export const ViewSingleTccTable = ({ payerDetails, assessmentData, assessmentDat
     <>
       <Widget>
         <div>
+          <div className="mb-6 flex justify-end">
+            <form className=" mr-3">
+              <button
+                className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                type="submit"
+              >
+                Approve
+              </button>
+            </form>
+            <form className=" mr-3">
+              <button
+                className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                type="submit"
+              >
+                Decline
+              </button>
+            </form>
+            <form className=" mr-3">
+              <button
+                className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
+                type="submit"
+              >
+                Verify
+              </button>
+            </form>
+
+            <button
+              className="btn bg-green-400  mr-3 btn-default text-white btn-outlined bg-transparent rounded-md"
+              type="submit"
+            >
+              Audit Check
+            </button>
+
+            <button
+              className="btn mr-3 bg-blue-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+              type="submit"
+            >
+              Aprrove Print
+            </button>
+
+          </div>
 
           <div className="flex border mb-3 block p-3 rounded-lg bg-white w-full">
 

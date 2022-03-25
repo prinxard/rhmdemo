@@ -36,8 +36,14 @@ export const StartAssessment = () => {
     return kgtin
   })
 
+  const TaxOffice = payerDetails.map(function (det) {
+    let taxOf = det.tax_office
+    return taxOf
+  })
+
   const KGTIN = userKGTN[0]
-  console.log(KGTIN);
+  const station = TaxOffice[0]
+  console.log(station);
 
   setAuthToken();
   const onSubmitform = async data => {
@@ -45,7 +51,8 @@ export const StartAssessment = () => {
     const year = data.year;
     let createAsses = {
       "year": `${year}`,
-      "kgtin": `${KGTIN}`
+      "kgtin": `${KGTIN}`,
+      "tax_office": `${station}`
     }
     setIsFetching2(true)
     try {

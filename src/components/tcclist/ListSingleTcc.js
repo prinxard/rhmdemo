@@ -41,6 +41,7 @@ const SingleTcc = () => {
           let firstass = fetctTcc.assessment1
           let secondass = fetctTcc.assessment2
           let thirdass = fetctTcc.assessment3
+          console.log(fetctTcc);
           setTccData(tccdat)
           setAssess1(firstass)
           setAssess2(secondass)

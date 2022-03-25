@@ -30,6 +30,7 @@ export const StartTcc = () => {
   const [assessmentData, setAssessmentData] = useState([]);
   const [assessmentData2, setAssessmentData2] = useState([]);
   const [assessmentData3, setAssessmentData3] = useState([]);
+  const [tccErrors, settccErrors] = useState(() => []);
   const router = useRouter();
 
   const {
@@ -168,13 +169,23 @@ export const StartTcc = () => {
       alert("Cannot have same year twice")
       setIsFetching2(false)
     } else {
-      try {
-        axios.post(`${url.BASE_URL}forma/tcc`, createTCC);
-        setIsFetching2(false)
-      } catch (e) {
-        setIsFetching2(false)
-        console.log(e);
-      }
+      axios.post(`${url.BASE_URL}forma/tcc`, createTCC)
+        .then(function (response) {
+          // handle success
+          toast.success("Created Successfully!");
+          console.log(response.data.body[0].id);
+          router.push(`tcc/${response.data.body[0].id}`)
+        })
+        .catch(function (error) {
+          // handle error
+          if (error.response) {
+            settccErrors(() => error.response.data.message);
+            toast.error(tccErrors)
+          } else {
+            setUploadedFile(false);
+            toast.error("Failed to Create!");
+          }
+        })
     }
 
 
@@ -232,7 +243,7 @@ export const StartTcc = () => {
 
             <div className="mb-6 grid grid-cols-3 gap-2">
               <label>Taxpayer:</label>
-              {payerDetails == null || payerDetails == "" || payerDetails == undefined ? <input ref={register()} readOnly name="taxpayername" type="text" placeholder="Taxpayer name" />
+              {payerDetails == null || payerDetails == "" || payerDetails == undefined ? <input ref={register()} readOnly name="taxpayername" className="form-control w-full rounded" type="text" placeholder="Taxpayer name" />
                 :
                 <div>
 
@@ -246,10 +257,13 @@ export const StartTcc = () => {
 
             <div className="mb-6 grid grid-cols-3 gap-2">
               <label>KGTIN:</label>
-              {payerDetails == null || payerDetails == "" || payerDetails == undefined ? <input ref={register()} readOnly name="tp_id" type="text" placeholder="KGTIN" />
+              {payerDetails == null || payerDetails == "" || payerDetails == undefined ?
+                <div>
+                  <input ref={register({ required: "KGTIN is required" })} readOnly name="tp_id" type="text" className="form-control w-full rounded" placeholder="KGTIN" />
+                  {errors.tp_id && <p className="text-red-600">{errors.tp_id.message}</p>}
+                </div>
                 :
                 <div>
-
                   {payerDetails.map((ind, i) => (
                     <input ref={register()} name="tp_id" readOnly type="text" defaultValue={ind.KGTIN} className="form-control w-full rounded"
                     />
@@ -263,12 +277,13 @@ export const StartTcc = () => {
               <input ref={register({ required: "File no is required" })} name="file_ref" type="text" className="form-control w-full rounded"
               />
               {errors.file_ref && <p className="text-red-600">{errors.file_ref.message}</p>}
+
             </div>
 
             <div className="mb-6 grid grid-cols-3 gap-2">
               <label htmlFor="employername">Tax Office:</label>
 
-              {payerDetails == null || payerDetails == "" || payerDetails == undefined ? <input ref={register()} readOnly type="text" name="tax_office" placeholder="Tax Station" />
+              {payerDetails == null || payerDetails == "" || payerDetails == undefined ? <input ref={register()} readOnly type="text" className="form-control w-full rounded" name="tax_office" placeholder="Tax Station" />
                 :
                 <div>
 
@@ -282,8 +297,9 @@ export const StartTcc = () => {
             </div>
             <div className="mb-6 grid grid-cols-3 gap-4">
               <label htmlFor="employername">Processing Fee:</label>
-              <input ref={register()} placeholder="₦" name="prc_fee" type="text" className="form-control w-full rounded"
+              <input ref={register({ required: "Processing fee is required" })} placeholder="₦" name="prc_fee" type="text" className="form-control w-full rounded"
               />
+              {errors.prc_fee && <p className="text-red-600">{errors.prc_fee.message}</p>}
             </div>
           </div>
         </div>
@@ -389,15 +405,18 @@ export const StartTcc = () => {
 
             <div className="mb-6 grid grid-cols-2 gap-3">
               <label>Assessment ID</label>
-              {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input className="form-control w-full rounded" ref={register()} name="assmt_1" readOnly type="text" placeholder="Assessment ID" />
+              {assessmentData == null || assessmentData == "" || assessmentData == undefined ?
+                <div>
+                  <input className="form-control w-full rounded" ref={register({ required: "First year Assessment is required " })} name="assmt_1" readOnly type="text" placeholder="Assessment ID" />
+                  {errors.assmt_1 && <p className="text-red-600">{errors.assmt_1.message}</p>}
+                </div>
                 :
                 <div>
-
                   {assessmentData.map((ele, i) => (
-                    <input readOnly name="assmt_1" ref={register()} className="form-control w-full rounded" key={i} defaultValue={(ele.assessment_id)} type="text"
+                    <input readOnly name="assmt_1" ref={register({ required: "First year Assessment is required " })} className="form-control w-full rounded" key={i} defaultValue={(ele.assessment_id)} type="text"
                     />
                   ))}
-
+                  {errors.assmt_1 && <p className="text-red-600">{errors.assmt_1.message}</p>}
                 </div>
               }
             </div>
@@ -614,7 +633,7 @@ export const StartTcc = () => {
 };
 
 
-export const UploadTccForms = () => {
+export const UploadTccForms = ({ tccId }) => {
   const [file, setFile] = useState(null);
   const [file2, setFile2] = useState(null);
   const [file3, setFile3] = useState(null);
@@ -622,13 +641,13 @@ export const UploadTccForms = () => {
   const [file5, setFile5] = useState(null);
   const [file6, setFile6] = useState(null);
   const [file7, setFile7] = useState(null);
-  const [file8, setFile8] = useState(null);
-  const [file9, setFile9] = useState(null);
   const [uploadedFile, setUploadedFile] = useState(false);
   const [uploadedFile2, setUploadedFile2] = useState(false);
   const [uploadedFile3, setUploadedFile3] = useState(false);
   const [uploadedFile4, setUploadedFile4] = useState(false);
   const [uploadedFile5, setUploadedFile5] = useState(false);
+  const [uploadedFile6, setUploadedFile6] = useState(false);
+  const [uploadedFile7, setUploadedFile7] = useState(false);
   const [isFetching, setIsFetching] = useState(() => false);
   const [uploadErrors, setUploadErrors] = useState(() => []);
 
@@ -751,11 +770,56 @@ export const UploadTccForms = () => {
     }
   };
 
+  const onChange6 = e => {
+    const file6 = e.target.files[0]
+    if (file6) {
+      if (!file6) {
+        setFile6(null);
+        return;
+      }
+      if (file6.type !== "image/jpeg" && file6.type !== "application/pdf" && file6.type !== "image/png") {
+        alert("file type not allowed. only pdf, png and jpeg are allowed");
+        setFile6(null);
+        return;
+      }
+      if (file6.size > 1024 * 200) {
+        alert("file too large..file size shoulde not exceed 200kb");
+        return
+      }
+      else {
+        setFile6(file6);
+      }
+    }
+  };
+
+  const onChange7 = e => {
+    const file7 = e.target.files[0]
+    if (file7) {
+      if (!file7) {
+        setFile7(null);
+        return;
+      }
+      if (file7.type !== "image/jpeg" && file7.type !== "application/pdf" && file7.type !== "image/png") {
+        alert("file type not allowed. only pdf, png and jpeg are allowed");
+        setFile7(null);
+        return;
+      }
+      if (file7.size > 1024 * 200) {
+        alert("file too large..file size shoulde not exceed 200kb");
+        return
+      }
+      else {
+        setFile7(file7);
+      }
+    }
+  };
+
+  setAuthToken()
   const onSubmitform = async data => {
     setIsFetching(true)
     const formData = new FormData();
     formData.append('item', 'application_letter');
-    formData.append('tcc_id', 1);
+    formData.append('tcc_id', tccId);
     formData.append('doc', file);
     try {
       const res = await axios.post(`${url.BASE_URL}forma/tcc-uploads`, formData, {
@@ -787,7 +851,7 @@ export const UploadTccForms = () => {
     setIsFetching(true)
     const formData = new FormData();
     formData.append('item', 'payslip');
-    formData.append('tcc_id', 1);
+    formData.append('tcc_id', tccId);
     formData.append('doc', file2);
     try {
       const res = await axios.post(`${url.BASE_URL}forma/tcc-uploads`, formData, {
@@ -819,7 +883,7 @@ export const UploadTccForms = () => {
     setIsFetching(true)
     const formData = new FormData();
     formData.append('item', 'passport');
-    formData.append('tcc_id', 1);
+    formData.append('tcc_id', tccId);
     formData.append('doc', file3);
     try {
       const res = await axios.post(`${url.BASE_URL}forma/tcc-uploads`, formData, {
@@ -851,7 +915,7 @@ export const UploadTccForms = () => {
     setIsFetching(true)
     const formData = new FormData();
     formData.append('item', 'idcard');
-    formData.append('tcc_id', 1);
+    formData.append('tcc_id', tccId);
     formData.append('doc', file4);
     try {
       const res = await axios.post(`${url.BASE_URL}forma/tcc-uploads`, formData, {
@@ -883,7 +947,7 @@ export const UploadTccForms = () => {
     setIsFetching(true)
     const formData = new FormData();
     formData.append('item', 'income_form');
-    formData.append('tcc_id', 1);
+    formData.append('tcc_id', tccId);
     formData.append('doc', file5);
     try {
       const res = await axios.post(`${url.BASE_URL}forma/tcc-uploads`, formData, {
@@ -904,6 +968,70 @@ export const UploadTccForms = () => {
         toast.error(uploadErrors)
       } else {
         setUploadedFile5(false);
+        toast.error("Failed to upload!");
+      }
+      console.log(error);
+    }
+
+  };
+
+  const onSubmitform6 = async data => {
+    setIsFetching(true)
+    const formData = new FormData();
+    formData.append('item', 'intro_letter');
+    formData.append('tcc_id', tccId);
+    formData.append('doc', file6);
+    try {
+      const res = await axios.post(`${url.BASE_URL}forma/tcc-uploads`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+      });
+      setIsFetching(false)
+      setUploadedFile6(true);
+      toast.success("Upload Successful!")
+    } catch (error) {
+      // toast.error("Failed to upload!")
+      setUploadedFile6(false);
+      setIsFetching(false)
+      if (error.response) {
+        setUploadedFile6(false);
+        setUploadErrors(() => error.response.data.message);
+        toast.error(uploadErrors)
+      } else {
+        setUploadedFile6(false);
+        toast.error("Failed to upload!");
+      }
+      console.log(error);
+    }
+
+  };
+
+  const onSubmitform7 = async data => {
+    setIsFetching(true)
+    const formData = new FormData();
+    formData.append('item', 'sign');
+    formData.append('tcc_id', tccId);
+    formData.append('doc', file7);
+    try {
+      const res = await axios.post(`${url.BASE_URL}forma/tcc-uploads`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+      });
+      setIsFetching(false)
+      setUploadedFile7(true);
+      toast.success("Upload Successful!")
+    } catch (error) {
+      // toast.error("Failed to upload!")
+      setUploadedFile7(false);
+      setIsFetching(false)
+      if (error.response) {
+        setUploadedFile7(false);
+        setUploadErrors(() => error.response.data.message);
+        toast.error(uploadErrors)
+      } else {
+        setUploadedFile7(false);
         toast.error("Failed to upload!");
       }
       console.log(error);
@@ -1142,11 +1270,12 @@ export const UploadTccForms = () => {
             <div className="flex justify-between mb-5">
               <p>Income Declaration form (F3) </p>
               <input
+                required
                 type="file"
                 className="hidden"
                 id='customFile5'
-              onChange={onChange5}
-              onClick={(e) => (e.target.value = null)}
+                onChange={onChange5}
+                onClick={(e) => (e.target.value = null)}
               />
 
               <div className="flex justify-evenly">
@@ -1190,23 +1319,24 @@ export const UploadTccForms = () => {
 
           <hr className="mb-2" />
 
-          <form >
+          <form onSubmit={handleSubmit(onSubmitform6)}>
             <div className="flex justify-between mb-5">
               <p>Letter of Introduction </p>
               <input
+                required
                 type="file"
                 className="hidden"
-                id='customFile3'
-              // onChange={onChange3}
-              // onClick={(e) => (e.target.value = null)}
+                id='customFile6'
+                onChange={onChange6}
+                onClick={(e) => (e.target.value = null)}
               />
 
               <div className="flex justify-evenly">
 
-                {/* <p >{file3 ? file3.name : ""}</p> */}
+                <p >{file6 ? file6.name : ""}</p>
 
                 <label
-                  htmlFor='customFile3'
+                  htmlFor='customFile6'
                   style={{ backgroundColor: "#84abeb" }}
                   className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
                 >
@@ -1226,15 +1356,15 @@ export const UploadTccForms = () => {
                   <div className='mb-2 w-24'>
                     <Progress percentage={uploadPercentage3} />
                   </div>
-                  : ''}
+                  : ''} */}
 
-                {uploadedFile3 ? (
+                {uploadedFile6 ? (
                   <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
                     <FiCheck
                       size={18}
                       className="stroke-current text-green-500"
                     />
-                  </span>) : null} */}
+                  </span>) : null}
 
               </div>
             </div>
@@ -1242,23 +1372,24 @@ export const UploadTccForms = () => {
 
           <hr className="mb-2" />
 
-          <form >
+          <form onSubmit={handleSubmit(onSubmitform7)}>
             <div className="flex justify-between mb-5">
               <p>Scanned Signature</p>
               <input
+                required
                 type="file"
                 className="hidden"
-                id='customFile3'
-              // onChange={onChange3}
-              // onClick={(e) => (e.target.value = null)}
+                id='customFile7'
+                onChange={onChange7}
+                onClick={(e) => (e.target.value = null)}
               />
 
               <div className="flex justify-evenly">
 
-                {/* <p >{file3 ? file3.name : ""}</p> */}
+                <p >{file7 ? file7.name : ""}</p>
 
                 <label
-                  htmlFor='customFile3'
+                  htmlFor='customFile7'
                   style={{ backgroundColor: "#84abeb" }}
                   className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
                 >
@@ -1278,24 +1409,32 @@ export const UploadTccForms = () => {
                   <div className='mb-2 w-24'>
                     <Progress percentage={uploadPercentage3} />
                   </div>
-                  : ''}
+                  : ''} */}
 
-                {uploadedFile3 ? (
+                {uploadedFile7 ? (
                   <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
                     <FiCheck
                       size={18}
                       className="stroke-current text-green-500"
                     />
-                  </span>) : null} */}
+                  </span>) : null}
 
               </div>
             </div>
-
-            <div className="flex justify-center">
-              <SubmitButton>Done</SubmitButton>
-            </div>
-
           </form>
+
+
+          <div className="flex justify-center">
+
+            <button
+              // onClick={window.Location("/")}
+              className="disabled:opacity-50 bg-white-500 py-2 px-6 rounded-md  text-dark border hover:text-white hover:bg-green-500 hover:border-green-500"
+              type="submit"
+            >
+              <Link href={`/view/listtcc/${tccId}`}>Done</Link>
+
+            </button>
+          </div>
 
         </div>
       </Widget>

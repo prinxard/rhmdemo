@@ -15,7 +15,7 @@ import { UploadTccForms } from "../tccForms/viewTccForms";
 
 
 const UploadTcc = () => {
-  const [individualRec, setindividualRec] = useState(() => []);
+  const [tccId, setTccId] = useState(() => []);
   const [total, setTotal] = useState(() => []);
   const [isFetching, setIsFetching] = useState(() => true);
   const [currentPage, setCurrentPage] = useState(() => 1);
@@ -24,25 +24,26 @@ const UploadTcc = () => {
   const router = useRouter();
   useEffect(() => {
     if (router && router.query) {
-      let indvkgtin = router.query.ref;
-      let kgtin = {
-        "KGTIN": `${indvkgtin}`
-      }
-      console.log(kgtin);
-      setAuthToken();
-      const fetchPost = async () => {
-        try {
-          let res = await axios.post(
-            `${url.BASE_URL}taxpayer/view-individual`, kgtin
-          );
-          res = res.data.body;
-          setindividualRec(res)
-          setIsFetching(false);
-        } catch (e) {
-          setIsFetching(false);
-        }
-      };
-      fetchPost();
+      let createId = router.query.ref;
+      setTccId(createId)
+      // let tccId = {
+      //   "id": `${createId}`
+      // }
+      console.log(createId);
+      // setAuthToken();
+      // const fetchPost = async () => {
+      //   try {
+      //     let res = await axios.post(
+      //       `${url.BASE_URL}taxpayer/view-individual`, kgtin
+      //     );
+      //     res = res.data.body;
+      //     setindividualRec(res)
+      //     setIsFetching(false);
+      //   } catch (e) {
+      //     setIsFetching(false);
+      //   }
+      // };
+      // fetchPost();
     }
   }, [router]);
 
@@ -55,7 +56,7 @@ const UploadTcc = () => {
       <Widget>
 
         <>
-          {isFetching ? (
+          {/* {isFetching ? (
             <div className="flex justify-center item mb-2">
               <Loader
                 visible={isFetching}
@@ -69,8 +70,8 @@ const UploadTcc = () => {
               <p>Fetching data...</p>
             </div>
           ) :
-            <UploadTccForms indvdata={individualRec} />
-          }
+        } */}
+            <UploadTccForms tccId={tccId} />
         </>
       </Widget>
     </>
