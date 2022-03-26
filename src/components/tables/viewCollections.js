@@ -24,6 +24,7 @@ const fields = [
   {
     title: "SN",
     field: "serialNo",
+    filtering: false
   },
   {
     title: "Name",
@@ -76,12 +77,9 @@ export const ViewCollectionsTable = ({ remittance }) => {
           exportButton: {
             csv: true,
             pdf: false
-          },
-          // searchFieldStyle:{
-          //   borderRadius: 10
-          // },
+          },  
           exportAllData: true,
-          
+
         }}
         icons={{
           Check: Check,

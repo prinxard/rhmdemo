@@ -68,7 +68,7 @@ const TccList = () => {
   };
 
   const searchedPost = search(post).slice(indexOfFirstPost, indexOfLastPost);
- 
+
 
   return (
     <>

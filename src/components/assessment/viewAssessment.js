@@ -1395,7 +1395,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
   return (
     <>
       <ToastContainer />
-      <div className="flex justify-start">
+      {/* <div className="flex justify-start">
         <div className="mr-2">
           <SectionTitle title="Applicable during the year ended 31st December" />
         </div>
@@ -1405,7 +1405,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
           // ref={register()}
           name="year"
         />
-      </div>
+      </div> */}
       <div className="block p-6 rounded-lg bg-white w-full">
         <div className="flex">
           <h6 className="p-2">Taxpayer Information</h6>
