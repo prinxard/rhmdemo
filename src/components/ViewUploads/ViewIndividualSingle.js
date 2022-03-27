@@ -15,6 +15,7 @@ import { ViewIndividualSingleTable } from "../tables/viewIndividual";
 
 const ViewIndividualSingle = () => {
   const [individualRec, setindividualRec] = useState(() => []);
+  const [payerKgtin, setPayerKgtin] = useState(() => []);
   const [total, setTotal] = useState(() => []);
   const [isFetching, setIsFetching] = useState(() => true);
   const [currentPage, setCurrentPage] = useState(() => 1);
@@ -27,7 +28,7 @@ const ViewIndividualSingle = () => {
       let kgtin = {
         "KGTIN": `${indvkgtin}`
       }
-      console.log(kgtin);
+      setPayerKgtin(indvkgtin);
       setAuthToken();
       const fetchPost = async () => {
         try {
@@ -68,7 +69,7 @@ const ViewIndividualSingle = () => {
               <p>Fetching data...</p>
             </div>
           ) :
-            <ViewIndividualSingleTable indvdata={individualRec} />
+            <ViewIndividualSingleTable indvdata={individualRec}  payerKgtin={payerKgtin}/>
           }
         </>
       </Widget>

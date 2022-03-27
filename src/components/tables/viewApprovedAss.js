@@ -473,34 +473,41 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                         </tr>
                         <tr width="300">
                           <td width="300" className="font-bold tb">Net Tax Payable</td>
-                          <td width="300" className="font-bold tb">{formatNumber(taxcal.tax)}</td>
+                          <td width="300" className="font-bold tb">{formatNumber(taxcal.tax + (Number(addAssAmount)))}</td>
                         </tr>
                         <tr width="300">
                           <td width="300" className="font-bold tb">Payment due date</td>
                           <td width="300" className="font-bold tb">{paymentDue}</td>
                         </tr>
-                        <p className="font-bold mt-4" align="center">COLLECTION BANK</p>
+                        <p className="font-bold mt-14" align="center">COLLECTION BANK</p>
                         <tr width="300">
-                          <td width="80" className="font-bold tb">Access Bank</td>
-                          <td width="80" className="font-bold tb">Eco Bank</td>
-                          <td width="80" className="font-bold tb">FCMB</td>
-                          <td width="80" className="font-bold tb">Fidelity Bank</td>
-                          <td width="80" className="font-bold tb">First Bank</td>
+                          <td width="300" className="font-bold tb">Access Bank</td>
+                          <td width="300" className="font-bold tb">Eco Bank</td>
+                          <td width="300" className="font-bold tb">Zenith Bank</td>
                         </tr>
-                        <tr width="40">
-                          <td width="80" className="font-bold tb">Heritage Bank</td>
-                          <td width="80" className="font-bold tb">KeyStone Bank</td>
-                          <td width="80" className="font-bold tb">Kogi Savings</td>
-                          <td width="80" className="font-bold tb">Polaris Bank</td>
-                          <td width="80" className="font-bold tb">Stanbic IBTC Bank</td>
+                        <tr width="300">
+                          <td width="300" className="font-bold tb">FCMB</td>
+                          <td width="300" className="font-bold tb">Fidelity Bank</td>
+                          <td width="300" className="font-bold tb">First Bank</td>
                         </tr>
-                        <tr width="40">
-                          <td width="80" className="font-bold tb">UBA</td>
-                          <td width="80" className="font-bold tb">Union Bank</td>
-                          <td width="80" className="font-bold tb">Unity Bank</td>
-                          <td width="80" className="font-bold tb">Wema Bank</td>
-                          <td width="80" className="font-bold tb">Zenith Bank</td>
+                        <tr width="300">
+                          <td width="300" className="font-bold tb">Heritage Bank</td>
+                          <td width="300" className="font-bold tb">KeyStone Bank</td>
+                          <td width="300" className="font-bold tb">Stanbic IBTC Bank</td>
                         </tr>
+                        <tr width="300">
+                          <td width="300" className="font-bold tb">Kogi Savings</td>
+                          <td width="300" className="font-bold tb">Polaris Bank</td>
+                          <td width="300" className="font-bold tb">Wema Bank</td>
+                        </tr>
+                        <tr width="300">
+                          <td width="300" className="font-bold tb">UBA</td>
+                          <td width="300" className="font-bold tb">Union Bank</td>
+                          <td width="300" className="font-bold tb">Unity Bank</td>
+                        </tr>
+
+
+
                       </div>
                     </div>
                   </td>
@@ -509,7 +516,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
               </table>
             </td>
           </tr>
-        
+
         </table>
       </div>
       <style

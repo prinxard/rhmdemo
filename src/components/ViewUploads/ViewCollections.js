@@ -16,12 +16,8 @@ import * as Icons from '../Icons/index';
 import { ViewCollectionsTable } from "../tables/viewCollections";
 
 const ViewCollections = () => {
-  const [post, setPost] = useState(() => []);
   const [datatos, setData] = useState(() => []);
   const [isFetching, setIsFetching] = useState(() => true);
-  const [currentPage, setCurrentPage] = useState(() => 1);
-  const [postPerPage, setPostPerPage] = useState(() => 10);
-  const [query, setQuery] = useState(() => "");
 
   useEffect(() => {
     let num = 1
@@ -70,10 +66,10 @@ const ViewCollections = () => {
         </div>
       )}
       <Widget>
-            <>
+          
               <ViewCollectionsTable remittance={datatos} />
     
-            </> 
+            
       </Widget>
     </>
   );

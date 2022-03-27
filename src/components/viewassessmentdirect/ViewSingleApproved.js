@@ -57,7 +57,7 @@ const ViewSingleApproved = () => {
           let landObj = IndData.land
           let employed = IndData.employed
           let additionalAssess = IndData.addAssessment
-          console.log(res);
+          console.log(IndData);
           setEmployed(employed)
           setLand(landObj)
           setVehicles(vechicles)
@@ -70,7 +70,6 @@ const ViewSingleApproved = () => {
           setTaxCalDa(taxCalData)
           setpayerprop(IndData)
           setAdditionalAssessment(additionalAssess)
-          console.log(additionalAssess);
           setIsFetching(false);
         } catch (err) {
           console.log(err);

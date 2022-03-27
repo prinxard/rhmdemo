@@ -1,96 +1,108 @@
 import Widget from "../widget";
-import { formatNumber } from "../../functions/numbers";
 import * as Icons from '../Icons/index';
-import Widget1 from "../dashboard/widget-1";
-import dateformat from "dateformat";
 import Link from 'next/link';
 import CustomButton from "../CustomButton/CustomButton";
+import Search from '@material-ui/icons/Search'
+import SaveAlt from '@material-ui/icons/SaveAlt'
+import ChevronLeft from '@material-ui/icons/ChevronLeft'
+import ChevronRight from '@material-ui/icons/ChevronRight'
+import FirstPage from '@material-ui/icons/FirstPage'
+import LastPage from '@material-ui/icons/LastPage'
+import Check from '@material-ui/icons/Check'
+import Remove from '@material-ui/icons/Remove'
+import ArrowDownward from "@material-ui/icons/ArrowDownward";
+import Clear from "@material-ui/icons/Clear";
+import MaterialTable from "material-table";
 
-const fields = [
+const columns = [
   {
-    name: "SN",
-    key: "serialNo",
+    title: "SN",
+    field: "serialNo",
+    filtering: false,
+    width: "10%"
   },
   {
     name: "KGTIN",
-    key: "KGTIN",
+    field: "KGTIN",
   },
   {
     name: "First Name",
-    key: "first_name",
+    field: "first_name",
   },
   {
     name: "Last Name",
-    key: "surname",
+    field: "surname",
   },
   {
     name: "Tax Office",
-    key: "tax_office",
+    field: "tax_office",
   },
   {
     name: "Phone",
-    key: "phone_number",
+    field: "phone_number",
   },
 ];
 
-export const ViewIndividualTable = ({ remittance }) => {
-  let items = remittance;
+
+export const ViewIndividualTable = ({ individualData }) => {
+  let data = individualData;
   return (
     <>
-      <Widget>
-        <table className="table divide-y">
-          <thead>
-            <tr className="">
-              {fields.map((field, i) => (
-                <th key={i} className="">
-                  {field.name}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="divide-y">
-            {items.map((remittance, i) => (
-              <tr key={i} className="">
-                {fields.map((field, j) => (
-                  <td key={j} className="">
-                    {/* {remittance[field.key]} */}
+      <MaterialTable title="Individual Taxpayers List"
+        columns={columns}
+        data={data}
 
-                    <Link href={`/view/individual/${remittance.KGTIN}`}>
-                      <a className="hover:text-blue-500">
-                        {remittance[field.key]}
-                      </a>
-                    </Link>
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        options={{
+          search: true,
+          paging: true,
+          filtering: true,
+          exportButton: {
+            csv: true,
+            pdf: false
+          },
+          exportAllData: true,
 
-      </Widget>
+        }}
+        icons={{
+          Check: Check,
+          DetailPanel: ChevronRight,
+          Export: SaveAlt,
+          Filter: () => <Icons.Filter />,
+          FirstPage: FirstPage,
+          LastPage: LastPage,
+          NextPage: ChevronRight,
+          PreviousPage: ChevronLeft,
+          Search: Search,
+          ThirdStateCheck: Remove,
+          Clear: Clear,
+          SortArrow: ArrowDownward
+        }}
+
+        onRowClick={(event, rowData) => {
+          window.open(`/view/individual/${rowData.KGTIN}`)
+          event.stopPropagation();
+        }}
+      />
     </>
   );
 };
 
 
-export const ViewIndividualSingleTable = ({ indvdata }) => {
-  const items = indvdata;
-  console.log(items);
 
+export const ViewIndividualSingleTable = ({ indvdata, payerKgtin }) => {
+  const items = indvdata;
   return (
     <>
       <Widget>
         <div className="flex justify-start mb-4">
-          <div className="m-3 bg-green-400 text-white rounded-full">
+          {/* <div className="m-3 bg-green-400 text-white rounded-full">
             <CustomButton type="Submit">
               Print Certificate
             </CustomButton>
-          </div>
+          </div> */}
           <div className="m-3 bg-green-400 text-white rounded-full">
             <CustomButton type="Submit">
-              Update User
-              {/* <Link href={`/update-user/${ind.KGTIN}`} key={i}> Update User</Link> */}
-
+              <Link href={`/update-individual/${payerKgtin}`}> Update Taxpayer</Link>
             </CustomButton>
           </div>
         </div>
