@@ -5,88 +5,107 @@ import Widget1 from "../dashboard/widget-1";
 import dateformat from "dateformat";
 import Link from 'next/link';
 import CustomButton from "../CustomButton/CustomButton";
+import MaterialTable, { MTableToolbar } from "material-table";
+import Search from '@material-ui/icons/Search'
+import ViewColumn from '@material-ui/icons/ViewColumn'
+import SaveAlt from '@material-ui/icons/SaveAlt'
+import ChevronLeft from '@material-ui/icons/ChevronLeft'
+import ChevronRight from '@material-ui/icons/ChevronRight'
+import FirstPage from '@material-ui/icons/FirstPage'
+import LastPage from '@material-ui/icons/LastPage'
+import Add from '@material-ui/icons/Add'
+import Check from '@material-ui/icons/Check'
+import FilterList from '@material-ui/icons/FilterList'
+import Remove from '@material-ui/icons/Remove'
+import ArrowDownward from "@material-ui/icons/ArrowDownward";
+import Clear from "@material-ui/icons/Clear";
 
 const fields = [
   {
-    name: "SN",
-    key: "serialNo",
+    title: "SN",
+    field: "serialNo",
+    filtering: false,
+    width: "10%"
   },
   {
-    name: "Name",
-    key: "taxpayer_name",
+    title: "File Ref",
+    field: "file_ref",
   },
   {
-    name: "KGTIN",
-    key: "tp_id",
+    title: "KGTIN",
+    field: "tp_id",
   },
   {
-    name: "File No",
-    key: "file_ref",
+    title: "Name",
+    field: "taxpayer_name",
   },
   {
-    name: "Fee",
-    key: "prc_fee",
+    title: "Station",
+    field: "tax_office",
   },
   {
-    name: "Station",
-    key: "tax_office",
+    title: "Create Time",
+    field: "crt_time",
   },
   {
-    name: "Assessment 1",
-    key: "assmt_1",
-  },
-  {
-    name: "Assessment 2",
-    key: "assmt_2",
-  },
-  {
-    name: "Assessment 3",
-    key: "assmt_3",
-  },
+    title: "Status",
+    field: "status",
+    // render: rowData => {
+    //   return (
+    //     rowData.status == "Draft" ? <p style={{ color: "#E87722", fontWeight: "bold" }}>{rowData.status}</p> :
+    //       rowData.status == "SUCCESS" ? <p style={{ color: "#008240", fontWeight: "bold" }}>{rowData.status}</p> :
+    //         <p style={{ color: "#B0B700", fontWeight: "bold" }}>{rowData.status}</p>
+    //   )
+    // }
+  }
 ];
 
-export const ViewTccTable = ({ remittance }) => {
-  let items = remittance;
-  console.log(items);
+
+
+export const ViewTccTable = ({ tccdata }) => {
+  let items = tccdata;
   return (
     <>
-      <Widget>
-        <table className="table divide-y">
-          <thead>
-            <tr className="">
-              {fields.map((field, i) => (
-                <th key={i} className="">
-                  {field.name}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="divide-y">
-            {items.map((remittance, i) => (
-              <tr key={i} className="">
-                {fields.map((field, j) => (
-                  <td key={j} className="">
-                    {/* {remittance[field.key]} */}
+      <MaterialTable title="Tcc List"
+        data={items}
+        columns={fields}
 
-                    <Link href={`/view/listtcc/${remittance.id}`}>
-                      <a className="hover:text-blue-500">
-                        {remittance[field.key]}
-                      </a>
-                    </Link>
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        options={{
+          search: true,
+          paging: true,
+          filtering: true,
+          exportButton: {
+            csv: true,
+            pdf: false
+          },
+          exportAllData: true,
 
-      </Widget>
+        }}
+        icons={{
+          Check: Check,
+          DetailPanel: ChevronRight,
+          Export: SaveAlt,
+          Filter: () => <Icons.Filter />,
+          FirstPage: FirstPage,
+          LastPage: LastPage,
+          NextPage: ChevronRight,
+          PreviousPage: ChevronLeft,
+          Search: Search,
+          ThirdStateCheck: Remove,
+          Clear: Clear,
+          SortArrow: ArrowDownward
+        }}
+
+        onRowClick={(event, rowData) => {
+          window.open(`/view/listtcc/${rowData.id}`)
+          event.stopPropagation();
+        }}
+      />
     </>
   );
 };
 
-
-export const ViewSingleTccTable = ({ payerDetails, assessmentData, assessmentData2, assessmentData3 }) => {
+export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assessmentData2, assessmentData3 }) => {
 
   return (
     <>
@@ -98,7 +117,7 @@ export const ViewSingleTccTable = ({ payerDetails, assessmentData, assessmentDat
                 className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
                 type="submit"
               >
-                <Link href={`/view-tcc-docs/1`}> View Documents</Link>
+                <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
               </button>
             </form>
 

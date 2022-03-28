@@ -22,23 +22,23 @@ const columns = [
     width: "10%"
   },
   {
-    name: "KGTIN",
+    title: "KGTIN",
     field: "KGTIN",
   },
   {
-    name: "First Name",
+    title: "First Name",
     field: "first_name",
   },
   {
-    name: "Last Name",
+    title: "Last Name",
     field: "surname",
   },
   {
-    name: "Tax Office",
+    title: "Tax Office",
     field: "tax_office",
   },
   {
-    name: "Phone",
+    title: "Phone",
     field: "phone_number",
   },
 ];

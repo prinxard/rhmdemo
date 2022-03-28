@@ -24,11 +24,12 @@ const SingleTcc = () => {
   const [assess1, setAssess1] = useState(() => []);
   const [assess2, setAssess2] = useState(() => []);
   const [assess3, setAssess3] = useState(() => []);
+  const [tccID, setTccID] = useState(() => []);
   const router = useRouter();
   useEffect(() => {
     if (router && router.query) {
       let tCCId = router.query.ref;
-      console.log("Tcc id", tCCId);
+      setTccID(tCCId)
       let id = {
         id: `${tCCId}`
       }
@@ -56,7 +57,6 @@ const SingleTcc = () => {
     }
   }, [router]);
 
-console.log("tccdta", tccdata);
 
   return (
     <>
@@ -79,7 +79,7 @@ console.log("tccdta", tccdata);
               <p>Fetching data...</p>
             </div>
           ) :
-            <ViewSingleTccTable payerDetails={tccdata} assessmentData={assess1} assessmentData2={assess2} assessmentData3={assess3}/>
+            <ViewSingleTccTable tccID={tccID} payerDetails={tccdata} assessmentData={assess1} assessmentData2={assess2} assessmentData3={assess3}/>
           }
         </>
       </Widget>

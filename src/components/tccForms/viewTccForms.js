@@ -99,11 +99,31 @@ export const StartTcc = () => {
         setIsFetching2(false)
         console.log(e);
       }
+      // let res = axios.post(`${url.BASE_URL}forma/view-tax-income`, kgtinYear)
+      //   .then(function (response) {
+      //     // handle success
+      //     settccErrors(null)
+      //     let assessment = res.assessment
+      //     setAssessmentData(assessment)
+      //     setIsFetching2(false)
+      //   })
+      //   .catch(function (error) {
+      //     // handle error
+      //     if (error.response) {
+      //       settccErrors(() => error.response.data.message);
+      //       toast.error(tccErrors)
+      //       setIsFetching2(false)
+      //     } else {
+      //     setIsFetching2(false)
+      //       // setUploadedFile(false);
+      //       toast.error("Failed to Create!");
+      //     }
+      //   })
     };
     fetchPostYear1();
 
   }, [watchYear1.getFullYear()]);
-
+ console.log("tccerror", tccErrors);
 
   useEffect(() => {
     const kgtinYear = {
@@ -161,6 +181,7 @@ export const StartTcc = () => {
       file_ref: data.file_ref,
       prc_fee: data.prc_fee,
       tp_id: data.tp_id,
+      tax_office: data.tax_office,
       assmt_1: data.assmt_1,
       assmt_2: data.assmt_2,
       assmt_3: data.assmt_3
@@ -190,6 +211,20 @@ export const StartTcc = () => {
 
 
   };
+
+  var d = new Date();
+  var year = d.getFullYear();
+  var month = d.getMonth();
+  var day = d.getDate();
+  var c = new Date(year + 1, month, day);
+  console.log(c);
+
+  var e = new Date();
+  var year2 = e.getFullYear();
+  var month2 = e.getMonth();
+  var day2 = e.getDate();
+  var f = new Date(year + 2, month, day);
+  console.log(f);
 
   return (
     <>
@@ -360,7 +395,7 @@ export const StartTcc = () => {
 
             <div className="mb-6 grid grid-cols-2 gap-3">
               <label>Income from employment</label>
-              {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
+              {assessmentData == null ||  assessmentData == "" || assessmentData == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
                 :
                 <div>
 
@@ -429,7 +464,7 @@ export const StartTcc = () => {
               <Controller
                 name="year2"
                 control={control}
-                defaultValue={new Date()}
+                defaultValue={c}
                 render={({ onChange, value }) => {
                   return (
                     <DatePicker
@@ -438,7 +473,7 @@ export const StartTcc = () => {
                       selected={value}
                       showYearPicker
                       dateFormat="yyyy"
-                      yearItemNumber={4}
+                      yearItemNumber={8}
 
                     />
                   );
@@ -527,7 +562,7 @@ export const StartTcc = () => {
               <Controller
                 name="year3"
                 control={control}
-                defaultValue={new Date()}
+                defaultValue={f}
                 render={({ onChange, value }) => {
                   return (
                     <DatePicker
@@ -536,7 +571,7 @@ export const StartTcc = () => {
                       selected={value}
                       showYearPicker
                       dateFormat="yyyy"
-                      yearItemNumber={4}
+                      yearItemNumber={8}
                       placeholderText="Enter Year"
                     />
                   );
@@ -1431,7 +1466,7 @@ export const UploadTccForms = ({ tccId }) => {
               className="disabled:opacity-50 bg-white-500 py-2 px-6 rounded-md  text-dark border hover:text-white hover:bg-green-500 hover:border-green-500"
               type="submit"
             >
-              <Link href={`/view/listtcc/${tccId}`}>Done</Link>
+              <Link href={`/view/listtcc`}>Done</Link>
 
             </button>
           </div>
