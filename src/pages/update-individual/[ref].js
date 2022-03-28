@@ -38,12 +38,12 @@ export default function index() {
             console.log(indvkgtin)
             setAuthToken();
             const fetchPost = async () => {
+                setIsFetching(true);
                 try {
                     let res = await axios.post(
                         `${url.BASE_URL}taxpayer/view-individual`, kgtin
                     );
                     res = res.data.body;
-                    console.log("res", res);
                     setindividualRec(res)
                     setIsFetching(false);
                 } catch (e) {
@@ -55,18 +55,34 @@ export default function index() {
     }, [router]);
 
     const onSubmit = (data) => {
-        console.log(data);
         setIsFetching(true)
-        axios.put(`${url.BASE_URL}taxpayer/update-individual`, data)
-            .then(function (response) {
-                setIsFetching(false)
-                toast.success("Updated Successfully!");
-            })
-            .catch(function (error) {
-                console.log(error);
-                setIsFetching(false)
-                toast.error("Failed to update Taxpayer!");
-            })
+        if (data.bvn === "") {
+            delete data.bvn
+            axios.put(`${url.BASE_URL}taxpayer/update-individual`, data)
+                .then(function (response) {
+                    setIsFetching(false)
+                    toast.success("Updated Successfully!");
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    setIsFetching(false)
+                    toast.error("Failed to update Taxpayer!");
+                })
+        }
+        else {
+            axios.put(`${url.BASE_URL}taxpayer/update-individual`, data)
+                .then(function (response) {
+                    setIsFetching(false)
+                    toast.success("Updated Successfully!");
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    setIsFetching(false)
+                    toast.error("Failed to update Taxpayer!");
+                })
+        }
+
+
     };
 
     console.log(indvRecord);
