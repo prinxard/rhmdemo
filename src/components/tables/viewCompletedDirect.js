@@ -234,7 +234,7 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
           <div className="modal-content" width="300">
             <p>Are you sure you want to decline?</p>
             <p>Please state reason why</p>
-            <form action="">
+            <form onSubmit={DeclineAss}>
               <textarea required className="form-control w-full rounded" minlength="10" maxlength="50" onChange={(e) => setComment(e.target.value)}></textarea>
               <div className="mt-2 flex justify-between">
                 <button onClick={toggleModal}
@@ -245,7 +245,7 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
                 <div>
 
                 </div>
-                <button onSubmit={DeclineAss}
+                <button
                   className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
                   type="submit"
                 >
