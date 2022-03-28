@@ -1,4 +1,4 @@
-import { Dashboard, Invoice, UserGuide, FileReturns } from '../../components/Icons/index';
+import { Dashboard, Invoice, FileReturns, RhmDashboard, ManageTaxpayer, ManageUser, DirectAssessment, Paye, Collections, Settings } from '../../components/Icons/index';
 
 // Added non individual navigation to side menu
 
@@ -8,14 +8,14 @@ const initialState = [
     items: [
       {
         url: '/dashboard',
-        icon: <Dashboard />,
+        icon: <RhmDashboard />,
         title: 'Dashboard',
         items: [],
       },
 
       {
         url: '/',
-        icon: <FileReturns />,
+        icon: <ManageTaxpayer />,
         title: 'Manage Taxpayer',
         items: [
           // {
@@ -26,7 +26,7 @@ const initialState = [
           {
             title: 'Individual',
             items: [
-              // { title: 'Create', url: '/', items: [] },
+              { title: 'Create', url: '/taxpayer', items: [] },
               {
                 title: 'View',
                 url: '/view/individual',
@@ -37,7 +37,7 @@ const initialState = [
           {
             title: 'Non-Individual',
             items: [
-              // { title: 'Create', url: '/', items: [] },
+              { title: 'Create', url: '/taxpayer/non-individual', items: [] },
               {
                 title: 'View',
                 url: '/view/nonindividual',
@@ -50,7 +50,7 @@ const initialState = [
 
       {
         url: '/',
-        icon: <FileReturns />,
+        icon: <ManageUser />,
         title: 'Manage User',
         items: [
           // {
@@ -61,10 +61,10 @@ const initialState = [
           {
             title: 'User',
             items: [
-              // { title: 'Create', url: '/', items: [] },
+              { title: 'Create', url: '/register', items: [] },
               {
                 title: 'View',
-                url: '/',
+                url: '/view/users',
                 items: [],
               },
             ],
@@ -74,7 +74,7 @@ const initialState = [
 
       {
         url: '/',
-        icon: <FileReturns />,
+        icon: <DirectAssessment />,
         title: 'Direct Assessment',
         items: [
           {
@@ -99,11 +99,10 @@ const initialState = [
           },
         ],
       },
- 
 
       {
         url: '/',
-        icon: <Invoice />,
+        icon: <Paye />,
         title: 'PAYE',
         items: [
           {
@@ -126,12 +125,12 @@ const initialState = [
             title: 'Tax Clearance (TCC)',
             items: [
               {
-                url: '/',
+                url: '/tcc',
                 title: 'Create',
                 items: [],
               },
               {
-                url: '/',
+                url: '/view/listtcc',
                 title: 'View',
                 items: [],
               },
@@ -147,7 +146,7 @@ const initialState = [
 
       {
         url: '/',
-        icon: <Invoice />,
+        icon: <Collections />,
         title: 'Collections',
         items: [
           // {
@@ -201,7 +200,7 @@ const initialState = [
 
       {
         url: '/',
-        icon: <FileReturns />,
+        icon: <Settings />,
         title: 'Settings',
         items: [
           {
