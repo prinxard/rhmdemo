@@ -26,24 +26,7 @@ const UploadTcc = () => {
     if (router && router.query) {
       let createId = router.query.ref;
       setTccId(createId)
-      // let tccId = {
-      //   "id": `${createId}`
-      // }
       console.log(createId);
-      // setAuthToken();
-      // const fetchPost = async () => {
-      //   try {
-      //     let res = await axios.post(
-      //       `${url.BASE_URL}taxpayer/view-individual`, kgtin
-      //     );
-      //     res = res.data.body;
-      //     setindividualRec(res)
-      //     setIsFetching(false);
-      //   } catch (e) {
-      //     setIsFetching(false);
-      //   }
-      // };
-      // fetchPost();
     }
   }, [router]);
 
@@ -54,24 +37,8 @@ const UploadTcc = () => {
       <SectionTitle subtitle="Upload Tcc" />
 
       <Widget>
-
         <>
-          {/* {isFetching ? (
-            <div className="flex justify-center item mb-2">
-              <Loader
-                visible={isFetching}
-                type="BallTriangle"
-                color="#00FA9A"
-                height={19}
-                width={19}
-                timeout={0}
-                className="ml-2"
-              />
-              <p>Fetching data...</p>
-            </div>
-          ) :
-        } */}
-            <UploadTccForms tccId={tccId} />
+          <UploadTccForms tccId={tccId} />
         </>
       </Widget>
     </>

@@ -97,6 +97,7 @@ export const StartTcc = () => {
 
       } catch (e) {
         setIsFetching2(false)
+        setAssessmentData([])
         console.log(e);
       }
       // let res = axios.post(`${url.BASE_URL}forma/view-tax-income`, kgtinYear)
@@ -141,6 +142,7 @@ export const StartTcc = () => {
         setIsFetching2(false)
 
       } catch (e) {
+        setAssessmentData2([])
         setIsFetching2(false)
         console.log(e);
       }
@@ -166,6 +168,7 @@ export const StartTcc = () => {
         setIsFetching2(false)
 
       } catch (e) {
+        setAssessmentData3([])
         setIsFetching2(false)
         console.log(e);
       }

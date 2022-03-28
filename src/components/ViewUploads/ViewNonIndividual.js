@@ -43,6 +43,7 @@ const ViewNonIndividual = () => {
     fetchPost();
   }, []);
 
+  console.log("post", post);
 
   // Get current post
   const indexOfLastPost = currentPage * postPerPage;

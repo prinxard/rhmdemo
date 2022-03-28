@@ -69,6 +69,7 @@ export default function index() {
             })
     };
 
+    console.log(indvRecord);
 
 
     return (
@@ -98,6 +99,12 @@ export default function index() {
                     {indvRecord.map((ind, i) => (
                         <div>
                             <div className="grid grid-cols-3 gap-4">
+                                <div className="form-group hidden">
+                                    <p>Id</p>
+                                    <input defaultValue={ind.id} name="id" readOnly ref={register()} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                                    />
+                                </div>
+
                                 <div className="form-group ">
                                     <p>Title</p>
                                     <input defaultValue={ind.indv_title} name="indv_title" readOnly ref={register()} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
