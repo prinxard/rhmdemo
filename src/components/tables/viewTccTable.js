@@ -19,6 +19,13 @@ import FilterList from '@material-ui/icons/FilterList'
 import Remove from '@material-ui/icons/Remove'
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Clear from "@material-ui/icons/Clear";
+import { shallowEqual, useSelector } from "react-redux";
+import jwt from "jsonwebtoken";
+import setAuthToken from "../../functions/setAuthToken";
+import { useState } from "react";
+import Loader from "react-loader-spinner";
+import url from '../../config/url';
+import axios from "axios";
 
 const fields = [
   {
@@ -106,12 +113,34 @@ export const ViewTccTable = ({ tccdata }) => {
 };
 
 export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assessmentData2, assessmentData3 }) => {
+  console.log(payerDetails);
+  const { config, palettes, auth } = useSelector(
+    (state) => ({
+      config: state.config,
+      palettes: state.palettes,
+      auth: state.authentication.auth,
+    }),
+    shallowEqual
+  );
+
+  const TCCStatus = payerDetails.map((data, i) => {
+    let stat = data.status
+    return stat
+  })
+  const statusTCC = String(TCCStatus)
+  // console.log(statusTCC);
+
+  const admin = [1]
+  const Approval = [2, 3, 12, 1]
+  const decoded = jwt.decode(auth);
+  const userGroup = decoded.groups
 
   return (
     <>
       <Widget>
         <div>
           <div className="mb-6 flex justify-between">
+
             <form className=" mr-3">
               <button
                 className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
@@ -121,48 +150,161 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
               </button>
             </form>
 
-            <div className="flex">
-              <form className=" mr-3">
-                <button
-                  className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                >
-                  Approve
-                </button>
-              </form>
-              <form className=" mr-3">
-                <button
-                  className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                >
-                  Decline
-                </button>
-              </form>
-              <form className=" mr-3">
-                <button
-                  className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                >
-                  Verify
-                </button>
-              </form>
+            {userGroup.some(r => admin.includes(r)) ?
+              <div className="flex">
+                <div>
+                  {statusTCC === "Approved" ?
+                    <form className="mr-3 hidden">
+                      <button
+                        className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                      >
+                        Approve
+                      </button>
+                    </form> :
+                    <form className=" mr-3">
+                      <button
+                        className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                      >
+                        Approve
+                      </button>
+                    </form>
+                  }
+                </div>
+                <div>
+                  {statusTCC === "Declined" ?
+                    <form className="mr-3 hidden">
+                      <button
+                        className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                      >
+                        Decline
+                      </button>
+                    </form> :
+                    <form className=" mr-3">
+                      <button
+                        className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                      >
+                        Decline
+                      </button>
+                    </form>
+                  }
+                </div>
 
-              <button
-                className="btn bg-green-400  mr-3 btn-default text-white btn-outlined bg-transparent rounded-md"
-                type="submit"
-              >
-                Audit Check
-              </button>
+                <div>
+                  {statusTCC === "Verified" ?
+                    <form className="mr-3 hidden">
+                      <button
+                        className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                      >
+                        Verify
+                      </button>
+                    </form> :
+                    <form className=" mr-3">
+                      <button
+                        className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                      >
+                        Verify
+                      </button>
+                    </form>
+                  }
+                </div>
 
-              <button
-                className="btn mr-3 bg-blue-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                type="submit"
-              >
-                Aprrove Print
-              </button>
-            </div>
+                <div>
+                  {statusTCC === "AuditChecked" ?
+                    <form className="mr-3 hidden">
+                      <button
+                        className="btn bg-green-400  mr-3 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                      >
+                        Audit Check
+                      </button>
+                    </form> :
+                    <form className=" mr-3">
+                      <button
+                        className="btn bg-green-400  mr-3 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                      >
+                        Audit Check
+                      </button>
+                    </form>
+                  }
+                </div>
 
+                <div>
+                  {statusTCC === "AuditChecked" ?
+                    <form className="mr-3 hidden">
+                      <button
+                        className="btn mr-3 bg-blue-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                      >
+                        Aprrove Print
+                      </button>
+                    </form> :
+                    <form className=" mr-3">
+                      <button
+                        className="btn mr-3 bg-blue-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                      >
+                        Aprrove Print
+                      </button>
+                    </form>
+                  }
+                </div>
 
+              </div>
+              :
+              <div>
+                {userGroup.some(r => Approval.includes(r)) ?
+                  <div className="flex">
+                    <div>
+                      {statusTCC === "Approved" ?
+                        <form className="mr-3 hidden">
+                          <button
+                            className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                            type="submit"
+                          >
+                            Approve
+                          </button>
+                        </form> :
+                        <form className=" mr-3">
+                          <button
+                            className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                            type="submit"
+                          >
+                            Approve
+                          </button>
+                        </form>
+                      }
+                    </div>
+                    <div>
+                      {statusTCC === "Declined" ?
+                        <form className="mr-3 hidden">
+                          <button
+                            className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                            type="submit"
+                          >
+                            Decline
+                          </button>
+                        </form> :
+                        <form className=" mr-3">
+                          <button
+                            className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                            type="submit"
+                          >
+                            Decline
+                          </button>
+                        </form>
+                      }
+                    </div>
+                  </div> : ""
+                }
+              </div>
+            }
           </div>
 
           <div className="flex border mb-3 block p-3 rounded-lg bg-white w-full">

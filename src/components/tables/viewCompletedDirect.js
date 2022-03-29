@@ -323,6 +323,7 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
           <p className="font-bold">Processing...</p>
         </div>
       )}
+
       <div>
         {userGroup.some(r => Approval.includes(r)) ?
 
