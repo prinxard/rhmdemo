@@ -38,10 +38,10 @@ const fields = [
     key: "gross_income",
   },
 
-  {
-    name: "Tax",
-    key: "tax",
-  },
+  // {
+  //   name: "Tax",
+  //   key: "tax",
+  // },
   {
     name: "Status",
     key: "status",
