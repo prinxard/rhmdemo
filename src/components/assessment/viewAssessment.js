@@ -2114,6 +2114,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                         <option value="Architect">Architect</option>
                         <option value="Artist And Song-Writer">Artist And Song-Writer</option>
                         <option value="Baby Wear">Baby Wear</option>
+                        <option value="Building Material">Building Material Dealer</option>
                         <option value="Curtain & Interior Decoration">Curtain & Interior Decoration</option>
                         <option value="Cyber Cafe Operator">Cyber Cafe Operator</option>
                         <option value="Dealers In Mattress/Foams">Dealers In Mattress/Foams</option>
