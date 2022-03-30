@@ -130,7 +130,7 @@ export const StartAssessment = () => {
 
             <div className="flex">
               <div>
-                <label className="block" htmlFor="kgtin">Enter Taxpayer KGTIN</label>
+                <p>Enter Taxpayer KGTIN</p>
                 <input onChange={event => setKgtEentered(event.target.value)} type="text" placeholder="Enter KGTIN" />
                 <div className="">
                   {payerDetails.map((ind, i) => (
@@ -153,14 +153,23 @@ export const StartAssessment = () => {
               </div>
             </div>
 
-            <div>
+            <div className="self-center">
+              <label>Select year</label>
               <SelectAnnual
-                label="Select Year"
+                // label="Select Year"
                 required
                 ref={register()}
                 name="year"
 
               />
+            </div>
+
+            <div>
+              <p>Select Type</p>
+              <select ref={register()} name="type" id="">
+                <option value="regular">Direct Assessment</option>
+                <option value="BOJ">BOJ Assessment</option>
+              </select>
             </div>
 
             <div className="self-center">
@@ -426,7 +435,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       comments: ""
     }
   )
-  
+
   const [farmland, setFarmland] = useState(
     {
       assessment_id: "", addr: "", acq_date: "", land_cost: "", produce_cost: "",
