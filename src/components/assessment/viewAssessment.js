@@ -50,17 +50,21 @@ export const StartAssessment = () => {
     const userkgtin = kgtEnentered
     const year = data.year;
     let createAsses = {
-      "year": `${year}`,
-      "kgtin": `${KGTIN}`,
-      "tax_office": `${station}`
+      year: `${year}`,
+      kgtin: `${KGTIN}`,
+      tax_office: `${station}`,
+      assessment_type: data.type
     }
     setIsFetching2(true)
     try {
       const res = await axios.post(`${url.BASE_URL}forma/new-assessment`, createAsses);
       let assessment_id = res.data.body.assessment_id
       setIsFetching2(false)
-      router.push(`/direct-asses/${assessment_id},${KGTIN}`)
-      console.log("Assesment Created");
+      if (data.type === "assessment") {
+        router.push(`/direct-asses/${assessment_id},${KGTIN}`)
+      } else {
+        router.push(`/view/boj/${assessment_id}`)
+      }
     }
     catch (err) {
       setIsFetching2(false)
@@ -155,18 +159,17 @@ export const StartAssessment = () => {
 
             <div className="self-center">
               <SelectAnnual
-                // label="Select Year"
+                label="Select Year"
                 required
                 ref={register()}
                 name="year"
-
               />
             </div>
 
             <div>
               <p>Select Type</p>
-              <select name="" id="">
-                <option value="regular">Direct Assessment</option>
+              <select ref={register()} name="type" id="">
+                <option value="assessment">Direct Assessment</option>
                 <option value="BOJ">BOJ Assessment</option>
               </select>
             </div>
