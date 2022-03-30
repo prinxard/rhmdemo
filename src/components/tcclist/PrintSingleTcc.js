@@ -33,6 +33,7 @@ const PrintSingleTcc = () => {
         try {
           let res = await axios.post(`${url.BASE_URL}forma/view-tcc`, id);
           let fetctTcc = res.data.body;
+          console.log(fetctTcc);
           let tccdat = fetctTcc.tcc
           let firstass = fetctTcc.assessment1
           let secondass = fetctTcc.assessment2
@@ -55,7 +56,7 @@ const PrintSingleTcc = () => {
 
   return (
     <>
-      <SectionTitle subtitle="View Tcc" />
+      <SectionTitle subtitle="Print Tcc" />
 
       <Widget>
 

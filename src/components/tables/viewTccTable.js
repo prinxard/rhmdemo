@@ -215,7 +215,7 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
                 </div>
 
                 <div>
-                  {statusTCC === "AuditChecked" ?
+                  {statusTCC === "Audit Checked" ?
                     <form className="mr-3 hidden">
                       <button
                         className="btn bg-green-400  mr-3 btn-default text-white btn-outlined bg-transparent rounded-md"
@@ -236,21 +236,21 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
                 </div>
 
                 <div>
-                  {statusTCC === "AuditChecked" ?
+                  {statusTCC === "Print Authorized" ?
                     <form className="mr-3 hidden">
                       <button
                         className="btn mr-3 bg-blue-600 btn-default text-white btn-outlined bg-transparent rounded-md"
                         type="submit"
                       >
-                        Aprrove Print
+                        Aprove Print
                       </button>
                     </form> :
-                    <form className=" mr-3">
+                    <form className="mr-3">
                       <button
                         className="btn mr-3 bg-blue-600 btn-default text-white btn-outlined bg-transparent rounded-md"
                         type="submit"
                       >
-                        Aprrove Print
+                        Aprove Print
                       </button>
                     </form>
                   }

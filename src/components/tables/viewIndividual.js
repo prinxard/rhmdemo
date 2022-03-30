@@ -106,6 +106,7 @@ export const ViewIndividualSingleTable = ({ indvdata, payerKgtin }) => {
             </CustomButton>
           </div>
         </div>
+
         <div className="w-2/3 flex mx-auto rounded border">
 
           <table className="table striped">
@@ -234,6 +235,7 @@ export const ViewIndividualSingleTable = ({ indvdata, payerKgtin }) => {
           </table>
 
         </div>
+        
       </Widget>
     </>
   );

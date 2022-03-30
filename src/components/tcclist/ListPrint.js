@@ -26,7 +26,7 @@ const TccPrintList = () => {
     const fetchPost = async () => {
       try {
         let res = await axios.get(`${url.BASE_URL}forma/list-tcc`);
-        res = res.data.body;
+        res = res.data.body.tccPrint;
         let records = [];
         console.log(res);
         for (let i = 0; i < res.length; i++) {
