@@ -11,6 +11,7 @@ import url from '../../config/url';
 import axios from "axios";
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import jwt from "jsonwebtoken";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";

@@ -26,6 +26,10 @@ import { useState } from "react";
 import Loader from "react-loader-spinner";
 import url from '../../config/url';
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
 
 const fields = [
   {
@@ -113,7 +117,8 @@ export const ViewTccTable = ({ tccdata }) => {
 };
 
 export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assessmentData2, assessmentData3 }) => {
-  console.log(payerDetails);
+  const [isFetching, setIsFetching] = useState(false)
+  const [declineModal, setDeclineModal] = useState(false);
   const { config, palettes, auth } = useSelector(
     (state) => ({
       config: state.config,
@@ -122,6 +127,14 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
     }),
     shallowEqual
   );
+
+  const router = useRouter();
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm()
 
   const TCCStatus = payerDetails.map((data, i) => {
     let stat = data.status
@@ -135,8 +148,176 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
   const decoded = jwt.decode(auth);
   const userGroup = decoded.groups
 
+  const declinePopup = (e) => {
+    // e.preventDefault()
+    setDeclineModal(!declineModal);
+  };
+
+  setAuthToken();
+  let VerifyTcc = async (e) => {
+    e.preventDefault()
+    setIsFetching(true)
+    let approveTcc = {
+      id: `${tccID}`,
+      comments: "",
+      status: "Verified"
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/tcc-status`, approveTcc);
+      setIsFetching(false)
+      router.push('/view/listtcc')
+      toast.success("Success!");
+    } catch (error) {
+      toast.error("Failed!");
+      console.log(error);
+      setIsFetching(false)
+    }
+  }
+
+  let AuditChecked = async (e) => {
+    e.preventDefault()
+    setIsFetching(true)
+    let auditTcc = {
+      id: `${tccID}`,
+      comments: "",
+      status: "Audit Checked"
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/tcc-status`, auditTcc);
+      setIsFetching(false)
+      router.push('/view/listtcc')
+      toast.success("Success!");
+    } catch (error) {
+      toast.error("Failed!");
+      console.log(error);
+      setIsFetching(false)
+    }
+  }
+
+  let PrintAuthorized = async (e) => {
+    e.preventDefault()
+    setIsFetching(true)
+    let printTcc = {
+      id: `${tccID}`,
+      comments: "",
+      status: "Print Authorized"
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/tcc-status`, printTcc);
+      setIsFetching(false)
+      router.push('/view/listtcc')
+      toast.success("Success!");
+    } catch (error) {
+      toast.error("Failed!");
+      console.log(error);
+      setIsFetching(false)
+    }
+  }
+
+  let Approve = async (e) => {
+    e.preventDefault()
+    setIsFetching(true)
+    let approveTcc = {
+      id: `${tccID}`,
+      comments: "",
+      status: "Approved"
+    }
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/tcc-status`, approveTcc);
+      setIsFetching(false)
+      router.push('/view/listtcc')
+      toast.success("Success!");
+    } catch (error) {
+      toast.error("Failed!");
+      console.log(error);
+      setIsFetching(false)
+    }
+  }
+
+  let Decline = (data) => {
+    console.log(data);
+    setIsFetching(true)
+    let declineTcc = {
+      id: `${tccID}`,
+      comments: data.comment,
+      status: "Declined"
+    }
+    axios.post(`${url.BASE_URL}forma/tcc-status`, declineTcc)
+      .then(function (response) {
+        // handle success
+        setIsFetching(false)
+        toast.success("Success!");
+        router.push('/view/listtcc')
+        console.log(response);
+      })
+      .catch(function (error) {
+        // handle error
+        toast.error("Failed!");
+      
+        setIsFetching(false)
+      
+      })
+
+    // try {
+    //   let res = axios.post(`${url.BASE_URL}forma/tcc-status`, declineTcc);
+    //   setIsFetching(false)
+    //   toast.success("Success!");
+    //   router.push('/view/listtcc')
+    // } catch (error) {
+    //   toast.error("Failed!");
+    //   console.log(error);
+    //   setIsFetching(false)
+    // }
+  }
+
   return (
     <>
+      <ToastContainer />
+
+      {declineModal && (
+        <div className="modal">
+          {/* <div onClick={toggleModal} className="overlay"></div> */}
+          <div className="modal-content" width="300">
+            <div className="text-center">
+              <p>Are you sure you want to Decline ?</p>
+              <p>Please state reason why</p>
+            </div>
+
+            <form onSubmit={handleSubmit(Decline)}>
+              <textarea name="comment" ref={register()} required className="form-control w-full rounded" minlength="10" maxlength="50" placeholder="comment"></textarea>
+              <div className="mt-2 flex justify-between">
+                <button onClick={declinePopup}
+                  className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                >
+                  Cancel
+                </button>
+
+                <button
+                  className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  Continue
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {isFetching && (
+        <div className="flex justify-start item mb-2">
+          <Loader
+            visible={isFetching}
+            type="BallTriangle"
+            color="#00FA9A"
+            height={19}
+            width={19}
+            timeout={0}
+            className="ml-2"
+          />
+          <p className="font-bold">Processing...</p>
+        </div>
+      )}
       <Widget>
         <div>
           <div className="mb-6 flex justify-between">
@@ -162,7 +343,7 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
                         Approve
                       </button>
                     </form> :
-                    <form className=" mr-3">
+                    <form onSubmit={Approve} className=" mr-3">
                       <button
                         className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
                         type="submit"
@@ -182,14 +363,14 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
                         Decline
                       </button>
                     </form> :
-                    <form className=" mr-3">
-                      <button
+                    <div className=" mr-3">
+                      <button onClick={declinePopup}
                         className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
+
                       >
                         Decline
                       </button>
-                    </form>
+                    </div>
                   }
                 </div>
 
@@ -203,7 +384,7 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
                         Verify
                       </button>
                     </form> :
-                    <form className=" mr-3">
+                    <form onSubmit={VerifyTcc} className=" mr-3">
                       <button
                         className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
                         type="submit"
@@ -224,7 +405,7 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
                         Audit Check
                       </button>
                     </form> :
-                    <form className=" mr-3">
+                    <form onSubmit={AuditChecked} className=" mr-3">
                       <button
                         className="btn bg-green-400  mr-3 btn-default text-white btn-outlined bg-transparent rounded-md"
                         type="submit"
@@ -245,7 +426,7 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
                         Aprove Print
                       </button>
                     </form> :
-                    <form className="mr-3">
+                    <form onSubmit={PrintAuthorized} className="mr-3">
                       <button
                         className="btn mr-3 bg-blue-600 btn-default text-white btn-outlined bg-transparent rounded-md"
                         type="submit"
@@ -271,7 +452,7 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
                             Approve
                           </button>
                         </form> :
-                        <form className=" mr-3">
+                        <form onSubmit={Approve} className=" mr-3">
                           <button
                             className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
                             type="submit"
@@ -291,14 +472,14 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
                             Decline
                           </button>
                         </form> :
-                        <form className=" mr-3">
-                          <button
+                        <div className=" mr-3">
+                          <button onClick={declinePopup}
                             className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                            type="submit"
+
                           >
                             Decline
                           </button>
-                        </form>
+                        </div>
                       }
                     </div>
                   </div> : ""
@@ -656,6 +837,56 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
           </div>
         </div>
       </Widget>
+
+      <style
+        jsx>{
+          `
+        body.active-modal {
+          overflow-y: hidden;
+      }
+      
+      // .btn-modal {
+      //     padding: 10px 20px;
+      //     display: block;
+      //     margin: 100px auto 0;
+      //     font-size: 18px;
+      // }
+      
+      .modal, .overlay {
+          width: 100vw;
+          height: 100vh;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          position: fixed;
+      }
+      
+      .overlay {
+          background: rgba(49,49,49,0.8);
+      }
+      .modal-content {
+          position: absolute;
+          top: 20%;
+          left: 60%;
+          transform: translate(-50%, -50%);
+          line-height: 1.4;
+          background: #f1f1f1;
+          padding: 14px 28px;
+          border-radius: 3px;
+          max-width: 400px;
+          min-width: 300px;
+      }
+      
+      .close-modal {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          padding: 5px 7px;
+      }
+        `
+        }
+      </style>
     </>
   );
 };
