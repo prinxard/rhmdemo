@@ -125,7 +125,7 @@ export const StartBOJ = () => {
 
             <div className="mb-6 grid grid-cols-3 gap-2">
               <label>Tax Paid for previous year:</label>
-              <input name="previous_tax" type="text" className="form-control w-full rounded"
+              <input name="previous_tax" ref={register()} type="text" className="form-control w-full rounded"
               />
             </div>
 
