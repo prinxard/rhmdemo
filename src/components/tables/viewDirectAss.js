@@ -39,6 +39,10 @@ const fields = [
     key: "status",
   },
   {
+    name: "Type",
+    key: "assessment_type",
+  },
+  {
     name: "Comment",
     key: "comment",
   },

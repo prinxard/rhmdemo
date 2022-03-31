@@ -47,6 +47,12 @@ const fields = [
     name: "Status",
     key: "status",
   },
+
+  {
+    name: "Type",
+    key: "assessment_type",
+  },
+
   {
     name: "Created Time",
     key: "createtime",
@@ -325,7 +331,16 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
         </div>
       )}
 
-      <div>
+      <div className="ml-10">
+        <div>
+          {assobj.assessment_type === null || assobj.assessment_type === "" || assobj.assessment_type === undefined ? "" :
+            <div>
+              <p className="font-bold">TYPE OF ASSESSMENT</p>
+              <p>{assobj.assessment_type}</p>
+            </div>
+          }
+
+        </div>
         {userGroup.some(r => Approval.includes(r)) ?
 
           <div className="mb-6 flex justify-end">

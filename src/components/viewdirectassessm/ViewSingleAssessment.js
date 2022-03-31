@@ -13,6 +13,7 @@ const ViewSingleDirectAssessment = () => {
   const [payerprop, setpayerprop] = useState([]);
   const [isFetching, setIsFetching] = useState(() => true);
   const [routerAssId, setAssessId] = useState('');
+  
   useEffect(() => {
     if (router && router.query) {
       let routerData = String(router.query.ref);

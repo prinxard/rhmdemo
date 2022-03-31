@@ -63,7 +63,7 @@ export const StartAssessment = () => {
       if (data.type === "assessment") {
         router.push(`/direct-asses/${assessment_id},${KGTIN}`)
       } else {
-        router.push(`/view/boj/${assessment_id}`)
+        router.push(`/view/boj/${assessment_id},${KGTIN}`)
       }
     }
     catch (err) {
@@ -1420,7 +1420,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       <div className="block p-6 rounded-lg bg-white w-full">
         <div className="flex">
           <h6 className="p-2">Taxpayer Information</h6>
-          <a href="" className="text-blue-600 self-center">Edit</a>
+          {/* <a href="" className="text-blue-600 self-center">Edit</a> */}
         </div>
         <p className="mb-3 font-bold"></p>
         <form>
