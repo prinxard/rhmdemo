@@ -50,17 +50,21 @@ export const StartAssessment = () => {
     const userkgtin = kgtEnentered
     const year = data.year;
     let createAsses = {
-      "year": `${year}`,
-      "kgtin": `${KGTIN}`,
-      "tax_office": `${station}`
+      year: `${year}`,
+      kgtin: `${KGTIN}`,
+      tax_office: `${station}`,
+      assessment_type: data.type
     }
     setIsFetching2(true)
     try {
       const res = await axios.post(`${url.BASE_URL}forma/new-assessment`, createAsses);
       let assessment_id = res.data.body.assessment_id
       setIsFetching2(false)
-      router.push(`/direct-asses/${assessment_id},${KGTIN}`)
-      console.log("Assesment Created");
+      if (data.type === "assessment") {
+        router.push(`/direct-asses/${assessment_id},${KGTIN}`)
+      } else {
+        router.push(`/view/boj/${assessment_id},${KGTIN}`)
+      }
     }
     catch (err) {
       setIsFetching2(false)
@@ -154,20 +158,18 @@ export const StartAssessment = () => {
             </div>
 
             <div className="self-center">
-              <label>Select year</label>
               <SelectAnnual
-                // label="Select Year"
+                label="Select Year"
                 required
                 ref={register()}
                 name="year"
-
               />
             </div>
 
             <div>
               <p>Select Type</p>
               <select ref={register()} name="type" id="">
-                <option value="regular">Direct Assessment</option>
+                <option value="assessment">Direct Assessment</option>
                 <option value="BOJ">BOJ Assessment</option>
               </select>
             </div>
@@ -1418,7 +1420,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       <div className="block p-6 rounded-lg bg-white w-full">
         <div className="flex">
           <h6 className="p-2">Taxpayer Information</h6>
-          <a href="" className="text-blue-600 self-center">Edit</a>
+          {/* <a href="" className="text-blue-600 self-center">Edit</a> */}
         </div>
         <p className="mb-3 font-bold"></p>
         <form>

@@ -37,6 +37,10 @@ const fields = [
     key: "status",
   },
   {
+    name: "Type",
+    key: "assessment_type",
+  },
+  {
     name: "Created Time",
     key: "createtime",
   },
@@ -419,11 +423,29 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                   </td>
                   <td valign='top'>
                     <div>
-                      <p className="text-justify">
-                        Be informed that Tax payment is not a fine, It is a civic responsibility.
-                        We have made an Assesment on you as set out Opposite, for the year {assobj.year},
-                        Under the provision of personal Income Tax Act 2011 amended
-                      </p>
+                      <div>
+                        <div>
+                          {assobj.assessment_type === null || assobj.assessment_type === "" || assobj.assessment_type === 'assessment' ?
+                            <div>
+                              <p className="text-justify">
+                                Be informed that Tax payment is not a fine, It is a civic responsibility.
+                                We have made an Assesment on you as set out Opposite, for the year {assobj.year},
+                                Under the provision of personal Income Tax Act 2011 amended
+                              </p>
+                            </div>
+                            :
+                            <div>
+                              <p className="text-justify">
+                                Be informed that Tax payment is not a fine, It is a civic responsibility.
+                                We have made an Assesment on you <span className="font-bold">Based on Best of Judgement</span> as set out Opposite, for the year {assobj.year},
+                                Under the provision of personal Income Tax Act 2011 amended.
+                                <p className="font-bold">Reason:  <span>{assobj.boj_comment}</span> </p>
+                              </p>
+                            </div>
+                          }
+
+                        </div>
+                      </div>
                       <div className="flex mt-4 justify-center">
                         <Signature />
                       </div>

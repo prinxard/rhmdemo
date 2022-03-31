@@ -42,7 +42,7 @@ export const StartTcc = () => {
   } = useForm()
 
   const watchAllFields = watch();
-  const watchYear1 = watch("year1", new Date);
+  const watchYear1 = watch("year1", new Date());
   const watchYear2 = watch("year2", new Date());
   const watchYear3 = watch("year3", new Date());
 
