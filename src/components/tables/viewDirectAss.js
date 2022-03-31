@@ -77,13 +77,14 @@ export const ViewPendingTable = ({ remittance }) => {
                 {fields.map((field, j) => (
                   <td key={j}>
                     <div>
-                      {remittance.assessment_type == "BOJ" ?
 
+                      {remittance.assessment_type == "BOJ" ?
                         <Link href={`/view/boj/${remittance.assessment_id},${remittance.kgtin}`}>
                           <a className="hover:text-blue-500">
                             {remittance[field.key]}
                           </a>
                         </Link>
+
                         :
                         <Link href={`/view/pendingdirect/${remittance.assessment_id},${remittance.kgtin}`}>
                           <a className="hover:text-blue-500">
