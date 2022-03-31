@@ -396,7 +396,7 @@ export const StartBOJ = () => {
                 <div className="mb-6 grid grid-cols-3 gap-2">
                   <label>Other Income:</label>
                   <div>
-                    <input ref={register()} name="other_income" type="text" className="form-control w-full rounded"
+                    <input ref={register()} defaultValue={0} name="other_income" type="text" className="form-control w-full rounded"
                     />
                   </div>
                 </div>
