@@ -122,15 +122,18 @@ export const StartBOJ = () => {
   const watchAllFields = watch();;
   const emplFigure = watchAllFields.employment;
   const selfemplFigure = watchAllFields.self_employment;
+  const otherIncomeFigure = watchAllFields.other_income
+
+  const TotalIncome = (Number(emplFigure) + Number(selfemplFigure) + Number(otherIncomeFigure))
 
   setAuthToken();
   let CreatBOJ = async (data) => {
-
     setIsFetching(true)
     let BOJObject = {
       assessment_id: routerAssId,
       employed: data.employment,
-      self_employed: data.self_employed,
+      self_employed: data.self_employment,
+      other_income: data.other_income,
       tax: JsonTax,
       previous_yr_tax: data.previous_tax,
       boj_comment: data.comment
@@ -159,10 +162,11 @@ export const StartBOJ = () => {
     let BOJObject = {
       assessment_id: routerAssId,
       employed: data.employment,
-      self_employed: data.self_employed,
+      self_employed: data.self_employment,
       tax: JsonTax,
       previous_yr_tax: data.previous_tax,
-      boj_comment: data.comment
+      boj_comment: data.comment,
+      other_income: data.other_income
     }
     try {
       let res = await axios.put(`${url.BASE_URL}forma/boj-assessment`, BOJObject);
@@ -269,7 +273,7 @@ export const StartBOJ = () => {
   let JsonTax = String(tax_paid)
 
   // console.log(tax_paid);
-
+  console.log("Obj", bojData);
 
   return (
     <>
@@ -289,9 +293,7 @@ export const StartBOJ = () => {
         </div>
       )}
 
-      {bojData == "" || bojData == null || bojData == undefined ?
-
-
+      {bojData.boj_comment === null ?
         <div>
           <SectionTitle subtitle="BOJ Assessment" />
           {payerDetails.map((ind, i) => (
@@ -370,7 +372,7 @@ export const StartBOJ = () => {
               <div className="">
 
                 <div className="mb-6 grid grid-cols-3 gap-2">
-                  <label>Employment:</label>
+                  <label>Employment Income:</label>
 
                   <div>
 
@@ -382,15 +384,21 @@ export const StartBOJ = () => {
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-2">
-                  <label>Self Employment:</label>
+                  <label>Self Employment Income:</label>
 
                   <div>
-
                     <input ref={register()} name="self_employment" type="text" className="form-control w-full rounded"
                     />
-
                   </div>
 
+                </div>
+
+                <div className="mb-6 grid grid-cols-3 gap-2">
+                  <label>Other Income:</label>
+                  <div>
+                    <input ref={register()} name="other_income" type="text" className="form-control w-full rounded"
+                    />
+                  </div>
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-2">
@@ -418,6 +426,7 @@ export const StartBOJ = () => {
                   </div>
                   {errors.comment && <small className="text-red-600">{errors.comment.message}</small>}
                 </div>
+                <p className="font-bold">Total Income: <span className="font-bold">{formatNumber(TotalIncome)}</span> </p>
                 <div className="flex justify-end mt-5">
                   <button
                     style={{ backgroundColor: "#84abeb" }}
@@ -509,13 +518,12 @@ export const StartBOJ = () => {
           <form onSubmit={handleSubmit(UpdateBOJ)}>
             {bojData.map((ind, i) => (
 
-
               <div className="flex justify border mb-3 block p-8 rounded-lg bg-white w-full">
 
                 <div className="">
 
                   <div className="mb-6 grid grid-cols-3 gap-2">
-                    <label>Employment:</label>
+                    <label>Employment Income:</label>
 
                     <div>
 
@@ -527,7 +535,7 @@ export const StartBOJ = () => {
                   </div>
 
                   <div className="mb-6 grid grid-cols-3 gap-2">
-                    <label>Self Employment:</label>
+                    <label>Self Employment Income:</label>
 
                     <div>
 
@@ -536,6 +544,14 @@ export const StartBOJ = () => {
 
                     </div>
 
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-2">
+                    <label>Other Income:</label>
+                    <div>
+                      <input defaultValue={ind.other_income} ref={register()} name="other_income" type="text" className="form-control w-full rounded"
+                      />
+                    </div>
                   </div>
 
                   <div className="mb-6 grid grid-cols-3 gap-2">
@@ -563,6 +579,7 @@ export const StartBOJ = () => {
                     </div>
                     {errors.comment && <small className="text-red-600">{errors.comment.message}</small>}
                   </div>
+                  <p className="font-bold">Total Income: <span className="font-bold">{formatNumber(TotalIncome)}</span> </p>
                   <div className="flex justify-end mt-5">
                     <button
                       style={{ backgroundColor: "#84abeb" }}
