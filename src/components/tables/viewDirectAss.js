@@ -76,12 +76,22 @@ export const ViewPendingTable = ({ remittance }) => {
               <tr key={i} className="">
                 {fields.map((field, j) => (
                   <td key={j}>
+                    <div>
+                      {remittance.assessment_type == "BOJ" ?
 
-                    <Link href={`/view/pendingdirect/${remittance.assessment_id},${remittance.kgtin}`}>
-                      <a className="hover:text-blue-500">
-                        {remittance[field.key]}
-                      </a>
-                    </Link>
+                        <Link href={`/view/boj/${remittance.assessment_id},${remittance.kgtin}`}>
+                          <a className="hover:text-blue-500">
+                            {remittance[field.key]}
+                          </a>
+                        </Link>
+                        :
+                        <Link href={`/view/pendingdirect/${remittance.assessment_id},${remittance.kgtin}`}>
+                          <a className="hover:text-blue-500">
+                            {remittance[field.key]}
+                          </a>
+                        </Link>
+                      }
+                    </div>
 
                   </td>
                 ))}
@@ -832,7 +842,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
   } else {
     expenseAmout = expenseAmout
   }
-  
+
   let earnedInc = Number(incomeEarned)
   let otherInc = Number(otherIncome)
   let expAmt = Number(expenseAmout)

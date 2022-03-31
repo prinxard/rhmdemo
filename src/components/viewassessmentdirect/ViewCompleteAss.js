@@ -36,24 +36,10 @@ const ViewCompleteAss = () => {
         let records = [];
         for (let i = 0; i < res.length; i++) {
           let rec = res[i];
-          // console.log(rec.tax_pay_cal);
-          // sum.push(rec.tax_pay_cal);
-          // rec.grossCal = employeddata
-          // rec.grossCalc = (rec.employed + self_employed)
-          // rec.net_tax_ded = formatNumber(rec.net_tax_ded);
-          // rec.con_rel_cal = formatNumber(rec.con_rel_cal);
-          // rec.gross_income = formatNumber(rec.gross_income);
-          // rec.nhf = formatNumber(rec.nhf);
-          // rec.tax_pay_cal = formatNumber(rec.tax_pay_cal);
-          // rec.basicSalary = formatNumber(rec.basicSalary);
-          // rec.netTaxDeduct = formatNumber(rec.netTaxDeduct);
-          // rec.totalSalary = formatNumber(rec.totalSalary);
-          // rec.totalChargeable = rec.totalChargeable / 12;
-          // rec.totalChargeable = formatNumber(rec.totalChargeable);
-          // rec.period = rec.payPeriod;
           rec.gross_income = formatNumber(rec.gross_income)
           rec.tax = formatNumber(rec.tax)
-           rec.createtime = dateformat(rec.createtime, "dd mmm yyyy")
+          rec.overallGross = formatNumber(Number(rec.employed) + Number(rec.self_employed) + Number(rec.other_income))
+          rec.createtime = dateformat(rec.createtime, "dd mmm yyyy")
           // rec.year = dateformat(rec.year, "yyyy");
           records.push(rec);
         }

@@ -21,20 +21,12 @@ import { set } from "nprogress";
 import { data } from "autoprefixer";
 
 export const StartBOJ = () => {
-  const [kgtEnentered, setKgtEentered] = useState('')
-  const [validkgtinmessage, Setvalidkgtinmessage] = useState('')
-  const [invalidkgtinmessage, Setinvalidkgtinmessage] = useState('')
-  const [disabled, setDisabled] = useState(true);
-  const [validmsg, setvalidmsg] = useState("hidden");
-  const [invalidmsg, setinvalidmsg] = useState("hidden");
+
   const [payerDetails, setpayerDetails] = useState([]);
   const [isFetching, setIsFetching] = useState(() => false);
   const [isFetching2, setIsFetching2] = useState(() => false);
-  const [assessmentData, setAssessmentData] = useState([]);
-  const [assessmentData2, setAssessmentData2] = useState([]);
-  const [assessmentData3, setAssessmentData3] = useState([]);
-  const [tccErrors, settccErrors] = useState(() => []);
-  const [assessment_id, setAssessmentId] = useState(() => []);
+  const [bojErrors, setErrors] = useState(() => []);
+  const [bojData, setBojData] = useState(() => []);
   const [employed, setEmployed] = useState('');
   const [self_employed, setSelfEmployed] = useState('');
   const [routerAssId, setAssessId] = useState('');
@@ -74,7 +66,7 @@ export const StartBOJ = () => {
           let res = await axios.post(`${url.BASE_URL}taxpayer/view-individual`, kgtinPost);
           let IndData = res.data.body
           setpayerDetails(IndData)
-          console.log();
+          // console.log(IndData);
           setIsFetching(false);
         } catch (err) {
           console.log(err);
@@ -85,7 +77,38 @@ export const StartBOJ = () => {
     }
   }, [router]);
 
-  console.log("payer", payerDetails);
+  useEffect(() => {
+    if (router && router.query) {
+      let routerData = String(router.query.ref);
+      let kgtin = routerData.split(',').pop()
+      let assessId = routerData.split(',').shift()
+      // setAssessId(assessId)
+      let fetchboj = {
+        KGTIN: kgtin,
+        assessment_id: assessId
+      }
+
+      setAuthToken();
+      const bojPost = async () => {
+        setIsFetching(true)
+        try {
+          let res = await axios.post(`${url.BASE_URL}forma/view-assessment`, fetchboj);
+          let IndData = res.data.body.assessment
+          setBojData(IndData)
+          console.log(IndData);
+          // setpayerDetails(IndData)
+          // console.log(IndData);
+          setIsFetching(false);
+        } catch (err) {
+          console.log(err);
+          setIsFetching(false);
+        }
+      };
+      bojPost();
+    }
+  }, [router]);
+
+  // console.log("payer", payerDetails);
 
   const {
     register,
@@ -118,9 +141,44 @@ export const StartBOJ = () => {
       toast.success("Success!");
       router.push('/view/completeddirect')
     } catch (error) {
-      toast.error("Failed!");
-      console.log(error);
+      // toast.error("Failed!");
+      // console.log(error);
       setIsFetching(false)
+      if (error.response.status == 400) {
+        // setUploadErrors(() => error.response.data.message);
+        toast.error("BOJ Already Exist")
+      } else {
+        toast.error("Failed to create BOJ!");
+      }
+    }
+  }
+
+  setAuthToken();
+  let UpdateBOJ = async (data) => {
+    setIsFetching(true)
+    let BOJObject = {
+      assessment_id: routerAssId,
+      employed: data.employment,
+      self_employed: data.self_employed,
+      tax: JsonTax,
+      previous_yr_tax: data.previous_tax,
+      boj_comment: data.comment
+    }
+    try {
+      let res = await axios.put(`${url.BASE_URL}forma/boj-assessment`, BOJObject);
+      setIsFetching(false)
+      toast.success("Success!");
+      router.push('/view/completeddirect')
+    } catch (error) {
+      // toast.error("Failed!");
+      // console.log(error);
+      setIsFetching(false)
+      if (error.response.status == 400) {
+        // setUploadErrors(() => error.response.data.message);
+        toast.error("Nothing was updated")
+      } else {
+        toast.error("Failed to update BOJ!");
+      }
     }
   }
 
@@ -130,7 +188,8 @@ export const StartBOJ = () => {
   }
 
 
-  consolidatedIncome = selfEmployedF + employedF;
+  consolidatedIncome = (Number(selfEmployedF) + Number(employedF));
+  // console.log("Consl", consolidatedIncome);
 
   totalRelief = 0;
   let gross_inc = consolidatedIncome - totalRelief;
@@ -143,7 +202,7 @@ export const StartBOJ = () => {
     //console.log(gross_inc);
   } else {
     consolidatedRelief = 200000 + 0.2 * gross_inc;
-    //console.log(gross_inc);
+    // console.log("Gross INC", gross_inc);
   }
 
   totalDeduction = consolidatedRelief + totalRelief;
@@ -209,11 +268,12 @@ export const StartBOJ = () => {
 
   let JsonTax = String(tax_paid)
 
-  console.log(tax_paid);
+  // console.log(tax_paid);
 
 
   return (
     <>
+      <ToastContainer />
       {isFetching && (
         <div className="flex justify-center item mb-2">
           <Loader
@@ -229,145 +289,298 @@ export const StartBOJ = () => {
         </div>
       )}
 
-      <SectionTitle subtitle="BOJ Form" />
-      {payerDetails.map((ind, i) => (
+      {bojData == "" || bojData == null || bojData == undefined ?
 
 
-        <div className="border mb-3 block p-8 rounded-lg bg-white w-full">
-          <div className="flex">
-            <h6 className="p-2">Taxpayer Information</h6>
-            {/* <a href="" className="text-blue-600 self-center">Edit</a> */}
-          </div>
-          <p className="mb-3 font-bold"></p>
-          <form>
-            <div className="grid grid-cols-3 gap-4">
+        <div>
+          <SectionTitle subtitle="BOJ Assessment" />
+          {payerDetails.map((ind, i) => (
+
+
+            <div className="border mb-3 block p-8 rounded-lg bg-white w-full">
+              <div className="flex">
+                <h6 className="p-2">Taxpayer Information</h6>
+                {/* <a href="" className="text-blue-600 self-center">Edit</a> */}
+              </div>
+              <p className="mb-3 font-bold"></p>
+              <form>
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="">
+                    <p>Surname</p>
+                    <input readOnly defaultValue={ind.surname} type="text" className="form-control w-full rounded font-light text-gray-500"
+                    />
+                  </div>
+
+                  <div className="form-group mb-6">
+                    <p>First Name</p>
+                    <input readOnly defaultValue={ind.first_name} type="text" className="form-control w-full rounded font-light text-gray-500"
+                    />
+                  </div>
+
+                  <div className="form-group mb-6">
+                    <p>Middle Name</p>
+                    <input readOnly defaultValue={ind.middle_name} type="text" className="form-control w-full rounded font-light text-gray-500"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="form-group mb-6">
+                    <p>Title</p>
+
+                    <input readOnly defaultValue={ind.indv_title} type="text" className="form-control w-full rounded font-light text-gray-500"
+                    />
+
+                  </div>
+
+                  <div className="form-group mb-6">
+                    <p>Date of Birth</p>
+
+                    <input readOnly defaultValue={ind.birth_date} type="text" className="form-control w-full rounded font-light text-gray-500"
+                    />
+
+                  </div>
+                  <div className="form-group mb-6">
+                    <p>Phone number</p>
+                    <input readOnly defaultValue={ind.phone_number} type="text" className="form-control w-full rounded font-light text-gray-500"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="form-group mb-6">
+                    <p>Tax Office</p>
+                    <input readOnly defaultValue={ind.tax_office} type="text" className="form-control w-full rounded font-light text-gray-500"
+                    />
+                  </div>
+
+                  <div className="form-group mb-6">
+                    <p>Email</p>
+                    <input readOnly defaultValue={ind.email} type="text" className="form-control w-full rounded font-light text-gray-500"
+                    />
+                  </div>
+                </div>
+              </form>
+            </div>
+          ))}
+          <form onSubmit={handleSubmit(CreatBOJ)}>
+
+            <div className="flex justify border mb-3 block p-8 rounded-lg bg-white w-full">
+
               <div className="">
-                <p>Surname</p>
-                <input readOnly defaultValue={ind.surname} type="text" className="form-control w-full rounded font-light text-gray-500"
-                />
-              </div>
 
-              <div className="form-group mb-6">
-                <p>First Name</p>
-                <input readOnly defaultValue={ind.first_name} type="text" className="form-control w-full rounded font-light text-gray-500"
-                />
-              </div>
+                <div className="mb-6 grid grid-cols-3 gap-2">
+                  <label>Employment:</label>
 
-              <div className="form-group mb-6">
-                <p>Middle Name</p>
-                <input readOnly defaultValue={ind.middle_name} type="text" className="form-control w-full rounded font-light text-gray-500"
-                />
-              </div>
-            </div>
+                  <div>
 
-            <div className="grid grid-cols-3 gap-4">
-              <div className="form-group mb-6">
-                <p>Title</p>
+                    <input ref={register()} name="employment" type="text" className="form-control w-full rounded"
+                    />
 
-                <input readOnly defaultValue={ind.indv_title} type="text" className="form-control w-full rounded font-light text-gray-500"
-                />
+                  </div>
 
-              </div>
+                </div>
 
-              <div className="form-group mb-6">
-                <p>Date of Birth</p>
+                <div className="mb-6 grid grid-cols-3 gap-2">
+                  <label>Self Employment:</label>
 
-                <input readOnly defaultValue={ind.birth_date} type="text" className="form-control w-full rounded font-light text-gray-500"
-                />
+                  <div>
 
-              </div>
-              <div className="form-group mb-6">
-                <p>Phone number</p>
-                <input readOnly defaultValue={ind.phone_number} type="text" className="form-control w-full rounded font-light text-gray-500"
-                />
-              </div>
-            </div>
+                    <input ref={register()} name="self_employment" type="text" className="form-control w-full rounded"
+                    />
 
-            <div className="grid grid-cols-3 gap-4">
-              <div className="form-group mb-6">
-                <p>Tax Office</p>
-                <input readOnly defaultValue={ind.tax_office} type="text" className="form-control w-full rounded font-light text-gray-500"
-                />
-              </div>
+                  </div>
 
-              <div className="form-group mb-6">
-                <p>Email</p>
-                <input readOnly defaultValue={ind.email} type="text" className="form-control w-full rounded font-light text-gray-500"
-                />
-              </div>
-            </div>
-          </form>
-        </div>
-      ))}
-      <form onSubmit={handleSubmit(CreatBOJ)}>
+                </div>
 
-        <div className="flex justify border mb-3 block p-8 rounded-lg bg-white w-full">
+                <div className="mb-6 grid grid-cols-3 gap-2">
+                  <label>Tax Paid for previous year:</label>
+                  <input name="previous_tax" ref={register({ required: "Previous year tax is required" })} type="text" className="form-control w-full rounded"
+                  />
+                  {errors.previous_tax && <small className="text-red-600">{errors.previous_tax.message}</small>}
+                </div>
 
-          <div className="">
+                <div className="mb-6 grid grid-cols-3 gap-2">
+                  <label htmlFor="employername">Tax to be paid:</label>
 
-            <div className="mb-6 grid grid-cols-3 gap-2">
-              <label>Employment:</label>
+                  <div>
+                    <div className="flex">
+                      <button type="button" onClick={CalTax} style={{ backgroundColor: "#84abeb" }} className=" w-32 ml-3 btn text-white btn-outlined bg-transparent rounded-md">Show tax</button>
+                      <h6 className="ml-3">{formatNumber(tax_paid)}</h6>
+                    </div>
+                  </div>
 
-              <div>
-
-                <input ref={register()} name="employment" type="text" className="form-control w-full rounded"
-                />
-
-              </div>
-
-            </div>
-
-            <div className="mb-6 grid grid-cols-3 gap-2">
-              <label>Self Employment:</label>
-
-              <div>
-
-                <input ref={register()} name="self_employment" type="text" className="form-control w-full rounded"
-                />
-
-              </div>
-
-            </div>
-
-            <div className="mb-6 grid grid-cols-3 gap-2">
-              <label>Tax Paid for previous year:</label>
-              <input name="previous_tax" ref={register({ required: "Previous year tax is required" })} type="text" className="form-control w-full rounded"
-              />
-              {errors.previous_tax && <small className="text-red-600">{errors.previous_tax.message}</small>}
-            </div>
-
-            <div className="mb-6 grid grid-cols-3 gap-2">
-              <label htmlFor="employername">Tax to be paid:</label>
-
-              <div>
-                <div className="flex">
-                  <button type="button" onClick={CalTax} style={{ backgroundColor: "#84abeb" }} className=" w-32 ml-3 btn text-white btn-outlined bg-transparent rounded-md">Show tax</button>
-                  <h6 className="ml-3">{formatNumber(tax_paid)}</h6>
+                </div>
+                <div className="mb-6 grid grid-cols-3 gap-2">
+                  <label>Reason for BOJ:</label>
+                  <div>
+                    <textarea ref={register({ required: "Reason for BOJ is required" })} name="comment" cols="34" rows="2" className="rounded"></textarea>
+                  </div>
+                  {errors.comment && <small className="text-red-600">{errors.comment.message}</small>}
+                </div>
+                <div className="flex justify-end mt-5">
+                  <button
+                    style={{ backgroundColor: "#84abeb" }}
+                    className="btn btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                  >
+                    Create Assessmnent
+                  </button>
                 </div>
               </div>
 
             </div>
-            <div className="mb-6 grid grid-cols-3 gap-2">
-              <label>Reason for BOJ:</label>
-              <div>
-                <textarea ref={register({ required: "Reason for BOJ is required" })} name="comment" cols="34" rows="2" className="rounded"></textarea>
+
+          </form>
+
+        </div>
+        :
+
+        <div>
+          <SectionTitle subtitle="Update Assessment" />
+          {payerDetails.map((ind, i) => (
+
+            <div className="border mb-3 block p-8 rounded-lg bg-white w-full">
+              <div className="flex">
+                <h6 className="p-2">Taxpayer Information</h6>
+                {/* <a href="" className="text-blue-600 self-center">Edit</a> */}
               </div>
-              {errors.comment && <small className="text-red-600">{errors.comment.message}</small>}
+              <p className="mb-3 font-bold"></p>
+              <form>
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="">
+                    <p>Surname</p>
+                    <input readOnly defaultValue={ind.surname} type="text" className="form-control w-full rounded font-light text-gray-500"
+                    />
+                  </div>
+
+                  <div className="form-group mb-6">
+                    <p>First Name</p>
+                    <input readOnly defaultValue={ind.first_name} type="text" className="form-control w-full rounded font-light text-gray-500"
+                    />
+                  </div>
+
+                  <div className="form-group mb-6">
+                    <p>Middle Name</p>
+                    <input readOnly defaultValue={ind.middle_name} type="text" className="form-control w-full rounded font-light text-gray-500"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="form-group mb-6">
+                    <p>Title</p>
+
+                    <input readOnly defaultValue={ind.indv_title} type="text" className="form-control w-full rounded font-light text-gray-500"
+                    />
+
+                  </div>
+
+                  <div className="form-group mb-6">
+                    <p>Date of Birth</p>
+
+                    <input readOnly defaultValue={ind.birth_date} type="text" className="form-control w-full rounded font-light text-gray-500"
+                    />
+
+                  </div>
+                  <div className="form-group mb-6">
+                    <p>Phone number</p>
+                    <input readOnly defaultValue={ind.phone_number} type="text" className="form-control w-full rounded font-light text-gray-500"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="form-group mb-6">
+                    <p>Tax Office</p>
+                    <input readOnly defaultValue={ind.tax_office} type="text" className="form-control w-full rounded font-light text-gray-500"
+                    />
+                  </div>
+
+                  <div className="form-group mb-6">
+                    <p>Email</p>
+                    <input readOnly defaultValue={ind.email} type="text" className="form-control w-full rounded font-light text-gray-500"
+                    />
+                  </div>
+                </div>
+              </form>
             </div>
-          </div>
+          ))}
+          <form onSubmit={handleSubmit(UpdateBOJ)}>
+            {bojData.map((ind, i) => (
+
+
+              <div className="flex justify border mb-3 block p-8 rounded-lg bg-white w-full">
+
+                <div className="">
+
+                  <div className="mb-6 grid grid-cols-3 gap-2">
+                    <label>Employment:</label>
+
+                    <div>
+
+                      <input defaultValue={ind.employed} ref={register()} name="employment" type="text" className="form-control w-full rounded"
+                      />
+
+                    </div>
+
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-2">
+                    <label>Self Employment:</label>
+
+                    <div>
+
+                      <input defaultValue={ind.self_employed} ref={register()} name="self_employment" type="text" className="form-control w-full rounded"
+                      />
+
+                    </div>
+
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-2">
+                    <label>Tax Paid for previous year:</label>
+                    <input defaultValue={ind.previous_yr_tax} name="previous_tax" ref={register({ required: "Previous year tax is required" })} type="text" className="form-control w-full rounded"
+                    />
+                    {errors.previous_tax && <small className="text-red-600">{errors.previous_tax.message}</small>}
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-3 gap-2">
+                    <label htmlFor="employername">Tax to be paid:</label>
+
+                    <div>
+                      <div className="flex">
+                        <button type="button" onClick={CalTax} style={{ backgroundColor: "#84abeb" }} className=" w-32 ml-3 btn text-white btn-outlined bg-transparent rounded-md">Show tax</button>
+                        <h6 className="ml-3">{formatNumber(tax_paid)}</h6>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div className="mb-6 grid grid-cols-3 gap-2">
+                    <label>Reason for BOJ:</label>
+                    <div>
+                      <textarea defaultValue={ind.boj_comment} ref={register({ required: "Reason for BOJ is required" })} name="comment" cols="34" rows="2" className="rounded"></textarea>
+                    </div>
+                    {errors.comment && <small className="text-red-600">{errors.comment.message}</small>}
+                  </div>
+                  <div className="flex justify-end mt-5">
+                    <button
+                      style={{ backgroundColor: "#84abeb" }}
+                      className="btn btn-default text-white btn-outlined bg-transparent rounded-md"
+                      type="submit"
+                    >
+                      Update Assessmnent
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            ))}
+
+          </form>
 
         </div>
-
-        <div className="flex justify-center mt-5">
-          <button
-            style={{ backgroundColor: "#84abeb" }}
-            className="btn btn-default text-white btn-outlined bg-transparent rounded-md"
-            type="submit"
-          >
-            Create BOJ
-          </button>
-        </div>
-      </form>
+      }
     </>
   );
 };

@@ -156,7 +156,7 @@ export default function index() {
 
                         <div className="form-group ">
                             <p>State of residence</p>
-                            <input readOnly  name="state_of_residence" value="Kogi" ref={register()} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                            <input readOnly name="state_of_residence" value="Kogi" ref={register()} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
                             />
                         </div>
 
@@ -190,6 +190,7 @@ export default function index() {
                             <p>Email</p>
                             <input name="email" ref={register()} type="email" className="form-control mb-4 w-full rounded font-light text-gray-500"
                             />
+
                         </div>
 
                         {/* <div className="form-group ">
@@ -200,8 +201,9 @@ export default function index() {
 
                         <div className="form-group ">
                             <p>Birth Place</p>
-                            <input name="birth_place" ref={register()} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                            <input name="birth_place" ref={register({ required: "Birth Place is Required" })} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
                             />
+                            {errors.birth_place && <small className="text-red-600">{errors.birth_place.message}</small>}
                         </div>
                         <div className="form-group ">
                             <p>Occupation</p>

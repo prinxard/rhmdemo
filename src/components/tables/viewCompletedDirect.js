@@ -36,7 +36,7 @@ const fields = [
   },
   {
     name: "Gross Income",
-    key: "gross_income",
+    key: "overallGross",
   },
 
   // {
