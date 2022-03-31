@@ -33,6 +33,10 @@ const fields = [
   //   key: "tax",
   // },
   {
+    name: "Additional Assessment",
+    key: "add_assmt",
+  },
+  {
     name: "Status",
     key: "status",
   },

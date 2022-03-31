@@ -39,10 +39,10 @@ const fields = [
     key: "overallGross",
   },
 
-  // {
-  //   name: "Tax",
-  //   key: "tax",
-  // },
+  {
+    name: "Tax",
+    key: "tax",
+  },
   {
     name: "Status",
     key: "status",
@@ -86,6 +86,11 @@ export const ViewCompletedTable = ({ remittance }) => {
                         {remittance[field.key]}
                       </a>
                     </Link>
+                    {/* <Link href={`/view/boj/${remittance.assessment_id},${remittance.kgtin}`}>
+                      <a className="hover:text-blue-500">
+                        {remittance[field.key]}
+                      </a>
+                    </Link> */}
                   </td>
                 ))}
               </tr>
