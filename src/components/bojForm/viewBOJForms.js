@@ -129,7 +129,7 @@ export const StartBOJ = () => {
   // if (TotalIncome) {
   //   console.log(TotalIncome);
   // } else {
-    
+
   // }
 
   setAuthToken();
@@ -283,177 +283,6 @@ export const StartBOJ = () => {
 
   return (
     <>
-      {/* <ToastContainer />
-      {isFetching && (
-        <div className="flex justify-center item mb-2">
-          <Loader
-            visible={isFetching}
-            type="BallTriangle"
-            color="#00FA9A"
-            height={19}
-            width={19}
-            timeout={0}
-            className="ml-2"
-          />
-          <p className="font-bold">Processing...</p>
-        </div>
-      )}
-
-      {bojData.boj_comment === null ?
-        <div>
-          <SectionTitle subtitle="BOJ Assessment" />
-          {payerDetails.map((ind, i) => (
-
-
-            <div className="border mb-3 block p-8 rounded-lg bg-white w-full">
-              <div className="flex">
-                <h6 className="p-2">Taxpayer Information</h6>
-              
-              </div>
-              <p className="mb-3 font-bold"></p>
-              <form>
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="">
-                    <p>Surname</p>
-                    <input readOnly defaultValue={ind.surname} type="text" className="form-control w-full rounded font-light text-gray-500"
-                    />
-                  </div>
-
-                  <div className="form-group mb-6">
-                    <p>First Name</p>
-                    <input readOnly defaultValue={ind.first_name} type="text" className="form-control w-full rounded font-light text-gray-500"
-                    />
-                  </div>
-
-                  <div className="form-group mb-6">
-                    <p>Middle Name</p>
-                    <input readOnly defaultValue={ind.middle_name} type="text" className="form-control w-full rounded font-light text-gray-500"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="form-group mb-6">
-                    <p>Title</p>
-
-                    <input readOnly defaultValue={ind.indv_title} type="text" className="form-control w-full rounded font-light text-gray-500"
-                    />
-
-                  </div>
-
-                  <div className="form-group mb-6">
-                    <p>Date of Birth</p>
-
-                    <input readOnly defaultValue={ind.birth_date} type="text" className="form-control w-full rounded font-light text-gray-500"
-                    />
-
-                  </div>
-                  <div className="form-group mb-6">
-                    <p>Phone number</p>
-                    <input readOnly defaultValue={ind.phone_number} type="text" className="form-control w-full rounded font-light text-gray-500"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="form-group mb-6">
-                    <p>Tax Office</p>
-                    <input readOnly defaultValue={ind.tax_office} type="text" className="form-control w-full rounded font-light text-gray-500"
-                    />
-                  </div>
-
-                  <div className="form-group mb-6">
-                    <p>Email</p>
-                    <input readOnly defaultValue={ind.email} type="text" className="form-control w-full rounded font-light text-gray-500"
-                    />
-                  </div>
-                </div>
-              </form>
-            </div>
-          ))}
-          <form onSubmit={handleSubmit(CreatBOJ)}>
-
-            <div className="flex justify border mb-3 block p-8 rounded-lg bg-white w-full">
-
-              <div className="">
-
-                <div className="mb-6 grid grid-cols-3 gap-2">
-                  <label>Employment Income:</label>
-
-                  <div>
-
-                    <input ref={register()} name="employment" type="text" className="form-control w-full rounded"
-                    />
-
-                  </div>
-
-                </div>
-
-                <div className="mb-6 grid grid-cols-3 gap-2">
-                  <label>Self Employment Income:</label>
-
-                  <div>
-                    <input ref={register()} name="self_employment" type="text" className="form-control w-full rounded"
-                    />
-                  </div>
-
-                </div>
-
-                <div className="mb-6 grid grid-cols-3 gap-2">
-                  <label>Other Income:</label>
-                  <div>
-                    <input ref={register()} defaultValue={0} name="other_income" type="text" className="form-control w-full rounded"
-                    />
-                  </div>
-                </div>
-
-                <div className="mb-6 grid grid-cols-3 gap-2">
-                  <label>Tax Paid for previous year:</label>
-                  <input name="previous_tax" ref={register({ required: "Previous year tax is required" })} type="text" className="form-control w-full rounded"
-                  />
-                  {errors.previous_tax && <small className="text-red-600">{errors.previous_tax.message}</small>}
-                </div>
-
-                <div className="mb-6 grid grid-cols-3 gap-2">
-                  <label htmlFor="employername">Tax to be paid:</label>
-
-                  <div>
-                    <div className="flex">
-                      <button type="button" onClick={CalTax} style={{ backgroundColor: "#84abeb" }} className=" w-32 ml-3 btn text-white btn-outlined bg-transparent rounded-md">Show tax</button>
-                      <h6 className="ml-3">{formatNumber(tax_paid)}</h6>
-                    </div>
-                  </div>
-
-                </div>
-                <div className="mb-6 grid grid-cols-3 gap-2">
-                  <label>Reason for BOJ:</label>
-                  <div>
-                    <textarea ref={register({ required: "Reason for BOJ is required" })} name="comment" cols="34" rows="2" className="rounded"></textarea>
-                  </div>
-                  {errors.comment && <small className="text-red-600">{errors.comment.message}</small>}
-                </div>
-                <p className="font-bold">Total Income: <span className="font-bold">{formatNumber(TotalIncome)}</span> </p>
-                <div className="flex justify-end mt-5">
-                  <button
-                    style={{ backgroundColor: "#84abeb" }}
-                    className="btn btn-default text-white btn-outlined bg-transparent rounded-md"
-                    type="submit"
-                  >
-                    Create Assessmnent
-                  </button>
-                </div>
-              </div>
-
-            </div>
-
-          </form>
-
-        </div>
-        :
-
-       
-      } */}
-
       <div>
         {bojData.map((ind, i) => (
           <div>
@@ -544,7 +373,7 @@ export const StartBOJ = () => {
                 <div className="mb-6 grid grid-cols-3 gap-2">
                   <label>Employment Income:</label>
                   <div>
-                    <input defaultValue={ind.employed} ref={register()} name="employment" type="text" className="form-control w-full rounded"
+                    <input defaultValue={0} ref={register()} name="employment" type="text" className="form-control w-full rounded"
                     />
                   </div>
                 </div>
