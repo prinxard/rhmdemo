@@ -26,7 +26,7 @@ const fields = [
   },
   {
     name: "Gross Income",
-    key: "gross_income",
+    key: "overallGross",
   },
   // {
   //   name: "Tax",
@@ -173,7 +173,12 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                     <tr>
                       <td><strong>ADDRESS:</strong></td>
                       {payerAyy.map((data, idx) => (
-                        <p key={idx}>{data.street}</p>
+                        <div>
+                          {data.city == null ? data.street :
+                          <p>{`${data.street}, ${data.city}`}</p>
+                          }
+                        </div>
+                        // <p key={idx}>, ${data.city}`}</p>
                       ))}
                     </tr>
                   </table></td>

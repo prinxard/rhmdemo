@@ -169,7 +169,7 @@ export const StartAssessment = () => {
             <div>
               <p>Select Type</p>
               <select ref={register()} name="type" id="">
-                <option value="assessment">Direct Assessment</option>
+                <option value="assessment">Assessment</option>
                 <option value="BOJ">BOJ Assessment</option>
               </select>
             </div>

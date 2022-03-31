@@ -528,11 +528,11 @@ export const StartTcc = () => {
 
             <div className="mb-6 justify-self-center">
 
-              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
+              {assessmentData2 == null || assessmentData2 == "" || assessmentData2 == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
                 :
                 <div>
 
-                  {assessmentData3.map((ele, i) => (
+                  {assessmentData2.map((ele, i) => (
                     <input readOnly name="other_income" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.other_income)} ref={register()} type="text"
                     />
                   ))}
@@ -543,11 +543,11 @@ export const StartTcc = () => {
 
             <div className="mb-6 justify-self-center">
 
-              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" readOnly name="assmt_2" ref={register()} type="text" placeholder="Assessment ID" />
+              {assessmentData2 == null || assessmentData2 == "" || assessmentData2 == undefined ? <input className="form-control w-full rounded" readOnly name="assmt_2" ref={register()} type="text" placeholder="Assessment ID" />
                 :
                 <div>
 
-                  {assessmentData3.map((ele, i) => (
+                  {assessmentData2.map((ele, i) => (
                     <input readOnly name="assmt_2" ref={register()} className="form-control w-full rounded" key={i} defaultValue={(ele.assessment_id)} type="text"
                     />
                   ))}
