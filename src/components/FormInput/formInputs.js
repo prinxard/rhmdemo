@@ -120,12 +120,13 @@ export const FormatMoneyComponent = ({
   <Controller
     as={
       <NumberFormat
-        className="w-full rounded my-3 form-control"
+        className="w-full rounded form-control"
+        
         // customInput={TextField}
         thousandSeparator={true}
-        prefix={"₦ "}
+        // prefix={"₦ "}
         onValueChange={(v) => {
-          onValueChange(v.value);
+          onValueChange((v.value));
           // console.log(v.value);
         }}
       />
@@ -134,6 +135,35 @@ export const FormatMoneyComponent = ({
     variant="outlined"
     defaultValue={defaultValue}
     control={control}
+  />
+);
+
+export const FormatMoneyComponentBOJ = ({
+  control,
+  onValueChange,
+  name,
+  defaultValue,
+  required
+}) => (
+  <Controller
+    as={
+      <NumberFormat
+        className="w-full rounded my-3 form-control"
+        
+        // customInput={TextField}
+        thousandSeparator={true}
+        // prefix={"₦ "}
+        onValueChange={(v) => {
+          onValueChange((v.value));
+          // console.log(v.value);
+        }}
+      />
+    }
+    name={name}
+    variant="outlined"
+    defaultValue={defaultValue}
+    control={control}
+    required={required}
   />
 );
 

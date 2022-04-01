@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 import Loader from "react-loader-spinner";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FormatMoneyComponent } from "../FormInput/formInputs";
+import { FormatMoneyComponent, FormatMoneyComponentBOJ } from "../FormInput/formInputs";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { SubmitButton } from "../CustomButton/CustomButton";
@@ -30,6 +30,10 @@ export const StartBOJ = () => {
   const [employed, setEmployed] = useState('');
   const [self_employed, setSelfEmployed] = useState('');
   const [routerAssId, setAssessId] = useState('');
+  const [fixedValues, fixValues] = useState({ amount: 0 });
+  const [fixedValues2, fixValues2] = useState({ amount: 0 });
+  const [fixedValues3, fixValues3] = useState({ amount: 0 });
+  const [fixedValues4, fixValues4] = useState({ amount: 0 });
   const router = useRouter();
 
 
@@ -120,9 +124,9 @@ export const StartBOJ = () => {
 
 
   const watchAllFields = watch();;
-  const emplFigure = Number(watchAllFields.employment);
-  const selfemplFigure = Number(watchAllFields.self_employment);
-  const otherIncomeFigure = Number(watchAllFields.other_income)
+  const selfemplFigure = Number(fixedValues.amount);
+  const emplFigure = Number(fixedValues2.amount);
+  const otherIncomeFigure = Number(fixedValues3.amount)
 
   const TotalIncome = Number(emplFigure) + Number(selfemplFigure) + Number(otherIncomeFigure)
 
@@ -165,6 +169,11 @@ export const StartBOJ = () => {
   setAuthToken();
   let UpdateBOJ = async (data) => {
     setIsFetching(true)
+    data.self_employment = String(fixedValues.amount)
+    data.employment = String(fixedValues2.amount)
+    data.other_income = String(fixedValues3.amount)
+    data.previous_tax = String(fixedValues4.amount)
+    // console.log(data);
     let BOJObject = {
       assessment_id: routerAssId,
       employed: data.employment,
@@ -180,11 +189,8 @@ export const StartBOJ = () => {
       toast.success("Success!");
       router.push('/view/completeddirect')
     } catch (error) {
-      // toast.error("Failed!");
-      // console.log(error);
       setIsFetching(false)
       if (error.response.status == 400) {
-        // setUploadErrors(() => error.response.data.message);
         toast.error("Nothing was updated")
       } else {
         toast.error("Failed to update BOJ!");
@@ -271,7 +277,7 @@ export const StartBOJ = () => {
     //console.log(tax + ' 7');
   }
 
-  tax = tax.toFixed(2);
+  tax = tax;
   // console.log(tax, ' 2')
   tax = parseInt(tax);
   tax_paid = tax;
@@ -293,6 +299,21 @@ export const StartBOJ = () => {
             }
           </div>
         ))}
+
+        {isFetching && (
+          <div className="flex justify-center item mb-2">
+            <Loader
+              visible={isFetching}
+              type="BallTriangle"
+              color="#00FA9A"
+              height={19}
+              width={19}
+              timeout={0}
+              className="ml-2"
+            />
+            <p>Updating data...</p>
+          </div>
+        )}
 
         {payerDetails.map((ind, i) => (
 
@@ -370,40 +391,55 @@ export const StartBOJ = () => {
 
               <div className="">
 
-                <div className="mb-6 grid grid-cols-3 gap-2">
-                  <label>Employment Income:</label>
-                  <div>
-                    <input defaultValue={0} ref={register()} name="employment" type="text" className="form-control w-full rounded"
-                    />
-                  </div>
-                </div>
-
-                <div className="mb-6 grid grid-cols-3 gap-2">
+                <div className="mb-2 grid grid-cols-3 gap-2">
                   <label>Self Employment Income:</label>
-                  <div>
-                    <input defaultValue={ind.self_employed} ref={register()} name="self_employment" type="text" className="form-control w-full rounded"
-                    />
-                  </div>
+                  <FormatMoneyComponentBOJ
+                    ref={register()}
+                    name="self_employment"
+                    control={control}
+                    defaultValue={ind.self_employed}
+                    onValueChange={(v) => fixValues({ amount: v })}
+                  />
                 </div>
 
-                <div className="mb-6 grid grid-cols-3 gap-2">
+
+                <div className="mb-2 grid grid-cols-3 gap-2">
+                  <label>Employment Income:</label>
+                  <FormatMoneyComponentBOJ
+                    ref={register()}
+                    name="employment"
+                    control={control}
+                    defaultValue={ind.employed}
+                    onValueChange={(v) => fixValues2({ amount: v })}
+                  />
+                </div>
+
+                <div className="mb-2 grid grid-cols-3 gap-2">
                   <label>Other Income:</label>
-                  <div>
-                    <input defaultValue={ind.other_income} ref={register()} name="other_income" type="text" className="form-control w-full rounded"
-                    />
-                  </div>
+                  <FormatMoneyComponentBOJ
+                    ref={register()}
+                    name="other_income"
+                    control={control}
+                    defaultValue={ind.other_income === "" || ind.other_income === null ? 0 : ind.other_income}
+                    onValueChange={(v) => fixValues3({ amount: v })}
+                  />
                 </div>
 
-                <div className="mb-6 grid grid-cols-3 gap-2">
+                <div className="mb-2 grid grid-cols-3 gap-2">
                   <label>Tax Paid for previous year:</label>
-                  <input defaultValue={ind.previous_yr_tax} name="previous_tax" ref={register({ required: "Previous year tax is required" })} type="text" className="form-control w-full rounded"
+                  <FormatMoneyComponentBOJ
+                    ref={register()}
+                    name="previous_tax"
+                    control={control}
+                    defaultValue={ind.previous_yr_tax}
+                    onValueChange={(v) => fixValues4({ amount: v })}
+                    required
                   />
                   {errors.previous_tax && <small className="text-red-600">{errors.previous_tax.message}</small>}
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-2">
                   <label htmlFor="employername">Tax to be paid:</label>
-
                   <div>
                     <div className="flex">
                       <button type="button" onClick={CalTax} style={{ backgroundColor: "#84abeb" }} className=" w-32 ml-3 btn text-white btn-outlined bg-transparent rounded-md">Show tax</button>
