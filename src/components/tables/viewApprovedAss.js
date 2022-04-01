@@ -28,10 +28,10 @@ const fields = [
     name: "Gross Income",
     key: "overallGross",
   },
-  // {
-  //   name: "Tax",
-  //   key: "tax",
-  // },
+  {
+    name: "Tax",
+    key: "tax",
+  },
   {
     name: "Additional Assessment",
     key: "add_assmt",
