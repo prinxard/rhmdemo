@@ -47,8 +47,10 @@ export const StartAssessment = () => {
 
   setAuthToken();
   const onSubmitform = async data => {
+
     const userkgtin = kgtEnentered
     const year = data.year;
+    console.log(data.type);
     let createAsses = {
       year: `${year}`,
       kgtin: `${KGTIN}`,
@@ -60,7 +62,7 @@ export const StartAssessment = () => {
       const res = await axios.post(`${url.BASE_URL}forma/new-assessment`, createAsses);
       let assessment_id = res.data.body.assessment_id
       setIsFetching2(false)
-      if (data.type === "assessment") {
+      if (data.type === "Assessment") {
         router.push(`/direct-asses/${assessment_id},${KGTIN}`)
       } else {
         router.push(`/view/boj/${assessment_id},${KGTIN}`)
@@ -169,7 +171,7 @@ export const StartAssessment = () => {
             <div>
               <p>Select Type</p>
               <select ref={register()} name="type" id="">
-                <option value="AChanged ssessment">Assessment</option>
+                <option value="Assessment">Assessment</option>
                 <option value="BOJ">BOJ Assessment</option>
               </select>
             </div>
@@ -2275,7 +2277,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                       />
                     </div>
 
-                    <div className="mb-6 grid grid-cols-3 gap-4">
+                    {/* <div className="mb-6 grid grid-cols-3 gap-4">
                       <label htmlFor="cashbases">Do you use cash basis, money actually received and paid out, to calculate your income expense ?</label>
                       <div className="flex">
                         <div className="form-check form-check-inline">
@@ -2285,7 +2287,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                           </select>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
 
                     <div className="mb-6 grid grid-cols-3 gap-4">
                       <label className="font-bold">Total Business Income:</label>

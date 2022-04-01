@@ -129,6 +129,8 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
     shallowEqual
   );
 
+
+
   const Approval = [2, 3, 12, 1]
   const decoded = jwt.decode(auth);
   const userGroup = decoded.groups
@@ -364,13 +366,17 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
             >
               Decline
             </button>
+            {assobj.assessment_type === "BOJ" ? "" :
 
-            <button onClick={asseModal}
-              className="btn mr-3 bg-blue-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-              type="submit"
-            >
-              Additional Assessment
-            </button>
+              <div>
+                <button onClick={asseModal}
+                  className="btn mr-3 bg-blue-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  Additional Assessment
+                </button>
+              </div>
+            }
 
           </div> :
           <div className="mb-6 flex justify-end hidden">
