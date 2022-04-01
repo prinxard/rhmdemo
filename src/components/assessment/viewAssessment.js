@@ -47,8 +47,10 @@ export const StartAssessment = () => {
 
   setAuthToken();
   const onSubmitform = async data => {
+
     const userkgtin = kgtEnentered
     const year = data.year;
+    console.log(data.type);
     let createAsses = {
       year: `${year}`,
       kgtin: `${KGTIN}`,
@@ -169,7 +171,7 @@ export const StartAssessment = () => {
             <div>
               <p>Select Type</p>
               <select ref={register()} name="type" id="">
-                <option value="AChanged ssessment">Assessment</option>
+                <option value="Assessment">Assessment</option>
                 <option value="BOJ">BOJ Assessment</option>
               </select>
             </div>
