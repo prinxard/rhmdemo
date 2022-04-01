@@ -497,7 +497,7 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
               </tr>
               <tr>
                 <td className="border-r-2 p-1 text-right font-bold">Gross Income</td>
-                <td className="p-1 text-right font-bold">{formatNumber(grossIncCal)}</td>
+                <td className="p-1 text-right font-bold">{formatNumber(grossIncCal) + Number(assobj.other_income)}</td>
               </tr>
               <tr>
                 <td className="border-r-2 p-1">PFC</td>
