@@ -169,33 +169,38 @@ export const StartBOJ = () => {
   setAuthToken();
   let UpdateBOJ = async (data) => {
     setIsFetching(true)
-    data.self_employment = String(fixedValues.amount)
-    data.employment = String(fixedValues2.amount)
-    data.other_income = String(fixedValues3.amount)
-    data.previous_tax = String(fixedValues4.amount)
-    // console.log(data);
-    let BOJObject = {
-      assessment_id: routerAssId,
-      employed: data.employment,
-      self_employed: data.self_employment,
-      tax: JsonTax,
-      previous_yr_tax: data.previous_tax,
-      boj_comment: data.comment,
-      other_income: data.other_income
-    }
-    try {
-      let res = await axios.put(`${url.BASE_URL}forma/boj-assessment`, BOJObject);
-      setIsFetching(false)
-      toast.success("Success!");
-      router.push('/view/completeddirect')
-    } catch (error) {
-      setIsFetching(false)
-      if (error.response.status == 400) {
-        toast.error("Nothing was updated")
-      } else {
-        toast.error("Failed to update BOJ!");
+    if (!data.self_employment && !data.employment) {
+      alert("Please fill out either employment or self employment amount")
+    } else {
+      data.self_employment = String(fixedValues.amount)
+      data.employment = String(fixedValues2.amount)
+      data.other_income = String(fixedValues3.amount)
+      data.previous_tax = String(fixedValues4.amount)
+      let BOJObject = {
+        assessment_id: routerAssId,
+        employed: data.employment,
+        self_employed: data.self_employment,
+        tax: JsonTax,
+        previous_yr_tax: data.previous_tax,
+        boj_comment: data.comment,
+        other_income: data.other_income
       }
+      try {
+        let res = await axios.put(`${url.BASE_URL}forma/boj-assessment`, BOJObject);
+        setIsFetching(false)
+        toast.success("Success!");
+        router.push('/view/completeddirect')
+      } catch (error) {
+        setIsFetching(false)
+        if (error.response.status == 400) {
+          toast.error("Nothing was updated")
+        } else {
+          toast.error("Failed to update BOJ!");
+        }
+      }
+
     }
+
   }
 
   let CalTax = () => {
@@ -279,7 +284,8 @@ export const StartBOJ = () => {
 
   tax = tax;
   // console.log(tax, ' 2')
-  tax = parseInt(tax);
+  // tax = parseInt(tax);
+  tax = (tax).toFixed(2);
   tax_paid = tax;
 
   let JsonTax = String(tax_paid)
@@ -292,7 +298,7 @@ export const StartBOJ = () => {
       <div>
         {bojData.map((ind, i) => (
           <div>
-            {ind.boj_comment === null && ind.employed == null && ind.self_employed === null ?
+            {ind.boj_comment === null && ind.employed === null && ind.self_employed === null ?
               <SectionTitle subtitle="Create Assessment" />
               :
               <SectionTitle subtitle="Update Assessment" />
@@ -392,30 +398,30 @@ export const StartBOJ = () => {
               <div className="">
 
                 <div className="mb-2 grid grid-cols-3 gap-2">
-                  <label>Self Employment Income:</label>
+                  <label className="self-center">Self Employment Income:</label>
                   <FormatMoneyComponentBOJ
                     ref={register()}
                     name="self_employment"
                     control={control}
-                    defaultValue={ind.self_employed}
+                    defaultValue={ind.self_employed === "" || ind.self_employed === null ? 0 : ind.self_employed}
                     onValueChange={(v) => fixValues({ amount: v })}
                   />
                 </div>
 
 
                 <div className="mb-2 grid grid-cols-3 gap-2">
-                  <label>Employment Income:</label>
+                  <label className="self-center">Employment Income:</label>
                   <FormatMoneyComponentBOJ
                     ref={register()}
                     name="employment"
                     control={control}
-                    defaultValue={ind.employed}
+                    defaultValue={ind.employed === "" || ind.employed === null ? 0 : ind.employed}
                     onValueChange={(v) => fixValues2({ amount: v })}
                   />
                 </div>
 
                 <div className="mb-2 grid grid-cols-3 gap-2">
-                  <label>Other Income:</label>
+                  <label className="self-center">Other Income:</label>
                   <FormatMoneyComponentBOJ
                     ref={register()}
                     name="other_income"
@@ -426,7 +432,7 @@ export const StartBOJ = () => {
                 </div>
 
                 <div className="mb-2 grid grid-cols-3 gap-2">
-                  <label>Tax Paid for previous year:</label>
+                  <label className="self-center">Tax Paid for previous year: <span className="text-red-600 text-center">*</span> </label>
                   <FormatMoneyComponentBOJ
                     ref={register()}
                     name="previous_tax"
@@ -439,7 +445,7 @@ export const StartBOJ = () => {
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-2">
-                  <label htmlFor="employername">Tax to be paid:</label>
+                  <label className="self-center">Tax to be paid:</label>
                   <div>
                     <div className="flex">
                       <button type="button" onClick={CalTax} style={{ backgroundColor: "#84abeb" }} className=" w-32 ml-3 btn text-white btn-outlined bg-transparent rounded-md">Show tax</button>
@@ -449,12 +455,14 @@ export const StartBOJ = () => {
 
                 </div>
                 <div className="mb-6 grid grid-cols-3 gap-2">
-                  <label>Reason for BOJ:</label>
+                  <label>Reason for BOJ: <span className="text-red-600">*</span></label>
                   <div>
                     <textarea defaultValue={ind.boj_comment} ref={register({ required: "Reason for BOJ is required" })} name="comment" cols="34" rows="2" className="rounded"></textarea>
+                    <p className="pt-2">(Note that the reason for BOJ will be reflected in the assessment notice)</p>
                   </div>
                   {errors.comment && <small className="text-red-600">{errors.comment.message}</small>}
                 </div>
+
                 <p className="font-bold">Total Income: <span className="font-bold">{formatNumber(TotalIncome)}</span> </p>
                 <div className="flex justify-end mt-5">
                   {ind.boj_comment === null & ind.employed == null && ind.self_employed === null ?
