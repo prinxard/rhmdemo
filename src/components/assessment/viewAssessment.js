@@ -62,7 +62,7 @@ export const StartAssessment = () => {
       const res = await axios.post(`${url.BASE_URL}forma/new-assessment`, createAsses);
       let assessment_id = res.data.body.assessment_id
       setIsFetching2(false)
-      if (data.type === "assessment") {
+      if (data.type === "Assessment") {
         router.push(`/direct-asses/${assessment_id},${KGTIN}`)
       } else {
         router.push(`/view/boj/${assessment_id},${KGTIN}`)
