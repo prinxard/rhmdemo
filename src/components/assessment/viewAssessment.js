@@ -2277,7 +2277,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                       />
                     </div>
 
-                    <div className="mb-6 grid grid-cols-3 gap-4">
+                    {/* <div className="mb-6 grid grid-cols-3 gap-4">
                       <label htmlFor="cashbases">Do you use cash basis, money actually received and paid out, to calculate your income expense ?</label>
                       <div className="flex">
                         <div className="form-check form-check-inline">
@@ -2287,7 +2287,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                           </select>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
 
                     <div className="mb-6 grid grid-cols-3 gap-4">
                       <label className="font-bold">Total Business Income:</label>
