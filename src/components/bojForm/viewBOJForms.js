@@ -293,6 +293,15 @@ export const StartBOJ = () => {
   // console.log(tax_paid);
   console.log("Obj", bojData);
 
+  let APITotalSum
+
+  bojData.forEach(ind => {
+    APITotalSum = Number(ind.employed) + Number(ind.other_income) + Number(ind.self_employed)
+    return APITotalSum
+  })
+  console.log("Tot", APITotalSum);
+  console.log("TotCal", TotalIncome);
+
   return (
     <>
       <div>
@@ -430,6 +439,13 @@ export const StartBOJ = () => {
                     onValueChange={(v) => fixValues3({ amount: v })}
                   />
                 </div>
+                <div className="mb-2 grid grid-cols-3 gap-2">
+                  <p className="font-bold">Total Income:  </p>
+                  {/* <p><span className="font-bold">{formatNumber(TotalIncome)}</span></p> */}
+                  <p><span className="font-bold">{TotalIncome == 0 ? formatNumber(APITotalSum) : (formatNumber(TotalIncome)) }</span></p>
+                </div>
+
+
 
                 <div className="mb-2 grid grid-cols-3 gap-2">
                   <label className="self-center">Tax Paid for previous year: <span className="text-red-600 text-center">*</span> </label>
@@ -462,8 +478,6 @@ export const StartBOJ = () => {
                   </div>
                   {errors.comment && <small className="text-red-600">{errors.comment.message}</small>}
                 </div>
-
-                <p className="font-bold">Total Income: <span className="font-bold">{formatNumber(TotalIncome)}</span> </p>
                 <div className="flex justify-end mt-5">
                   {ind.boj_comment === null & ind.employed == null && ind.self_employed === null ?
                     <button
