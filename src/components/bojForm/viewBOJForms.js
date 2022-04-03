@@ -36,16 +36,96 @@ export const StartBOJ = () => {
   const [fixedValues4, fixValues4] = useState({ amount: 0 });
   const router = useRouter();
 
+  const {
+    register,
+    handleSubmit,
+    watch,
+    control,
+    formState: { errors },
+  } = useForm()
+
+
+  let APIEmployed
+  let APISelfEmployed
+  let APIOtherIncome
+  let APIPreviousTax
+  // let APITax 
+
+  console.log(bojData);
+
+  bojData.forEach(ind => {
+    APIEmployed = ind.employed
+    return APIEmployed
+  })
+
+  bojData.forEach(ind => {
+    APISelfEmployed = ind.self_employed
+    return APISelfEmployed
+  })
+
+  bojData.forEach(ind => {
+    APIOtherIncome = ind.other_income
+    return APIOtherIncome
+  })
+
+  bojData.forEach(ind => {
+    APIPreviousTax = ind.previous_yr_tax
+    return APIPreviousTax
+  })
+
+
+
+  if (APIEmployed === null || APIEmployed === '') {
+    APIEmployed = '0'
+  } else {
+    APIEmployed = APIEmployed
+  }
+
+  if (APISelfEmployed === null || APISelfEmployed === '') {
+    APISelfEmployed = '0'
+  } else {
+    APISelfEmployed = APISelfEmployed
+  }
+
+  if (APIOtherIncome === null || APIOtherIncome === '') {
+    APIOtherIncome = '0'
+  } else {
+    APIOtherIncome = APIOtherIncome
+  }
+
+  if (APIPreviousTax === null || APIPreviousTax === '') {
+    APIPreviousTax = '0'
+  } else {
+    APIPreviousTax = APIPreviousTax
+  }
+
+
+// let selfemplFigureInit = watch("self_employment", `${APISelfEmployed}`)
+// let emplFigureiInit = watch("employment", `${APIEmployed}`);
+// let otherIncomeFigureInit = watch("other_income", `${APIOtherIncome}`)
+// let previousTaxFigureInit = watch("previous_tax", `${APIPreviousTax}`)
+
+let selfemplFigureInit = watch("self_employment", `${APISelfEmployed}`)
+let emplFigureInit = watch("employment", `${APIEmployed}`);
+let otherIncomeFigureInit = watch("other_income", `${APIOtherIncome}`)
+let previousTaxFigureInit = watch("previous_tax", `${APIPreviousTax}`)
+
+let selfemplFigure = selfemplFigureInit.replace(/,/g, '')
+let emplFigure = emplFigureInit.replace(/,/g, '')
+let otherIncomeFigure = otherIncomeFigureInit.replace(/,/g, '')
+let previousTaxFigure = previousTaxFigureInit.replace(/,/g, '')
+
+
 
   //taxcal
   let tax;
   let tax_paid;
 
   ///TAX CAL
-  let employedF = employed;
-  let selfEmployedF = self_employed;
+  let employedF = emplFigure;
+  let selfEmployedF = selfemplFigure;
 
-  // console.log(employedF, selfEmployedF);
+  console.log(employedF, selfEmployedF);
 
   let consolidatedRelief;
   let chargeableIncome;
@@ -114,76 +194,37 @@ export const StartBOJ = () => {
 
   // console.log("payer", payerDetails);
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    control,
-    formState: { errors },
-  } = useForm()
 
+  console.log("selfemplFigure", selfemplFigure);
+  console.log("emplFigure", emplFigure);
+  console.log("otherIncome", otherIncomeFigure);
+  console.log("previousTax", previousTaxFigure);
 
-  const watchAllFields = watch();;
-  const selfemplFigure = Number(fixedValues.amount);
-  const emplFigure = Number(fixedValues2.amount);
-  const otherIncomeFigure = Number(fixedValues3.amount)
 
   const TotalIncome = Number(emplFigure) + Number(selfemplFigure) + Number(otherIncomeFigure)
-
-  // if (TotalIncome) {
-  //   console.log(TotalIncome);
-  // } else {
-
-  // }
-
-  setAuthToken();
-  let CreatBOJ = async (data) => {
-    setIsFetching(true)
-    let BOJObject = {
-      assessment_id: routerAssId,
-      employed: data.employment,
-      self_employed: data.self_employment,
-      other_income: data.other_income,
-      tax: JsonTax,
-      previous_yr_tax: data.previous_tax,
-      boj_comment: data.comment
-    }
-    try {
-      let res = await axios.put(`${url.BASE_URL}forma/boj-assessment`, BOJObject);
-      setIsFetching(false)
-      toast.success("Success!");
-      router.push('/view/completeddirect')
-    } catch (error) {
-      // toast.error("Failed!");
-      // console.log(error);
-      setIsFetching(false)
-      if (error.response.status == 400) {
-        // setUploadErrors(() => error.response.data.message);
-        toast.error("BOJ Already Exist")
-      } else {
-        toast.error("Failed to create BOJ!");
-      }
-    }
-  }
+  console.log("TotCal", TotalIncome);
 
   setAuthToken();
   let UpdateBOJ = async (data) => {
+    console.log(data);
+    console.log(JsonTax);
     setIsFetching(true)
     if (!data.self_employment && !data.employment) {
       alert("Please fill out either employment or self employment amount")
-    } else {
-      data.self_employment = String(fixedValues.amount)
-      data.employment = String(fixedValues2.amount)
-      data.other_income = String(fixedValues3.amount)
-      data.previous_tax = String(fixedValues4.amount)
+    }
+    else {
+      // data.self_employment = String(fixedValues.amount)
+      // data.employment = String(fixedValues2.amount)
+      // data.other_income = String(fixedValues3.amount)
+      // data.previous_tax = String(fixedValues4.amount)
       let BOJObject = {
         assessment_id: routerAssId,
-        employed: data.employment,
-        self_employed: data.self_employment,
+        employed: emplFigure,
+        self_employed: selfemplFigure,
         tax: JsonTax,
-        previous_yr_tax: data.previous_tax,
+        previous_yr_tax: previousTaxFigure,
         boj_comment: data.comment,
-        other_income: data.other_income
+        other_income: otherIncomeFigure
       }
       try {
         let res = await axios.put(`${url.BASE_URL}forma/boj-assessment`, BOJObject);
@@ -285,13 +326,22 @@ export const StartBOJ = () => {
   tax = tax;
   // console.log(tax, ' 2')
   // tax = parseInt(tax);
-  tax = (tax).toFixed(2);
+  // tax = (tax).toFixed(2);
   tax_paid = tax;
 
   let JsonTax = String(tax_paid)
 
-  // console.log(tax_paid);
-  console.log("Obj", bojData);
+
+  console.log("T", tax_paid);
+  // console.log("Obj", bojData);
+  // console.log("JSONTAX", JsonTax);
+  // console.log("APITAX", APITax);
+
+  // console.log("Taxpaid", tax_paid);
+
+
+
+
 
   return (
     <>
@@ -390,8 +440,8 @@ export const StartBOJ = () => {
           </div>
         ))}
 
-        <form onSubmit={handleSubmit(UpdateBOJ)}>
-          {bojData.map((ind, i) => (
+        {bojData.map((ind, i) => (
+          <form onSubmit={handleSubmit(UpdateBOJ)}>
 
             <div className="flex justify border mb-3 block p-8 rounded-lg bg-white w-full">
 
@@ -403,7 +453,7 @@ export const StartBOJ = () => {
                     ref={register()}
                     name="self_employment"
                     control={control}
-                    defaultValue={ind.self_employed === "" || ind.self_employed === null ? 0 : ind.self_employed}
+                    defaultValue={ind.self_employed === "" || ind.self_employed === null ? '0.00' : ind.self_employed}
                     onValueChange={(v) => fixValues({ amount: v })}
                   />
                 </div>
@@ -415,7 +465,7 @@ export const StartBOJ = () => {
                     ref={register()}
                     name="employment"
                     control={control}
-                    defaultValue={ind.employed === "" || ind.employed === null ? 0 : ind.employed}
+                    defaultValue={ind.employed === "" || ind.employed === null ? '0.00' : ind.employed}
                     onValueChange={(v) => fixValues2({ amount: v })}
                   />
                 </div>
@@ -426,10 +476,16 @@ export const StartBOJ = () => {
                     ref={register()}
                     name="other_income"
                     control={control}
-                    defaultValue={ind.other_income === "" || ind.other_income === null ? 0 : ind.other_income}
+                    defaultValue={ind.other_income === "" || ind.other_income === null ? '0.00' : ind.other_income}
                     onValueChange={(v) => fixValues3({ amount: v })}
                   />
                 </div>
+                <div className="mb-2 grid grid-cols-3 gap-2">
+                  <p className="font-bold">Total Income:  </p>
+                  <p><span className="font-bold">{formatNumber(TotalIncome)}</span></p>
+                </div>
+
+
 
                 <div className="mb-2 grid grid-cols-3 gap-2">
                   <label className="self-center">Tax Paid for previous year: <span className="text-red-600 text-center">*</span> </label>
@@ -437,7 +493,7 @@ export const StartBOJ = () => {
                     ref={register()}
                     name="previous_tax"
                     control={control}
-                    defaultValue={ind.previous_yr_tax}
+                    defaultValue={ind.previous_yr_tax == null || ind.previous_yr_tax == "" ? '0.00' : ind.previous_yr_tax}
                     onValueChange={(v) => fixValues4({ amount: v })}
                     required
                   />
@@ -445,11 +501,12 @@ export const StartBOJ = () => {
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-2">
-                  <label className="self-center">Tax to be paid:</label>
+                  <label className="self-center font-bold">Tax to be paid:</label>
                   <div>
-                    <div className="flex">
-                      <button type="button" onClick={CalTax} style={{ backgroundColor: "#84abeb" }} className=" w-32 ml-3 btn text-white btn-outlined bg-transparent rounded-md">Show tax</button>
-                      <h6 className="ml-3">{formatNumber(tax_paid)}</h6>
+                    <div className="flex justify-evenly">
+                      {/* <button type="button" onClick={CalTax} style={{ backgroundColor: "#84abeb" }} className="btn w-32 text-white btn-outlined bg-transparent rounded-md">Show tax</button> */}
+                      {/* <input readOnly defaultValue={formatNumber(tax_paid)} ref={register()} type="text" name="tax" className="w-32" id="" /> */}
+                      <p className="font-bold">{formatNumber(JsonTax)}</p>
                     </div>
                   </div>
 
@@ -462,8 +519,6 @@ export const StartBOJ = () => {
                   </div>
                   {errors.comment && <small className="text-red-600">{errors.comment.message}</small>}
                 </div>
-
-                <p className="font-bold">Total Income: <span className="font-bold">{formatNumber(TotalIncome)}</span> </p>
                 <div className="flex justify-end mt-5">
                   {ind.boj_comment === null && ind.employed == null && ind.self_employed === null ?
                     <button
@@ -487,8 +542,8 @@ export const StartBOJ = () => {
                 </div>
               </div>
             </div>
-          ))}
-        </form>
+          </form>
+        ))}
       </div>
     </>
   );

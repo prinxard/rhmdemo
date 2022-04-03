@@ -47,11 +47,11 @@ const fields = [
     field: "tp_id",
   },
   {
-    title: "Name",
+    title: "Taxpayer Name",
     field: "taxpayer_name",
   },
   {
-    title: "Station",
+    title: "Tax Office",
     field: "tax_office",
   },
   {

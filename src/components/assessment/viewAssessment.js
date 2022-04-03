@@ -26,6 +26,7 @@ export const StartAssessment = () => {
   const [validmsg, setvalidmsg] = useState("hidden");
   const [invalidmsg, setinvalidmsg] = useState("hidden");
   const [payerDetails, setpayerDetails] = useState([]);
+  const [validateMssg, setValidateMssg] = useState([]);
   const { register, handleSubmit } = useForm();
   const router = useRouter();
   const [isFetching, setIsFetching] = useState(() => false);
@@ -99,6 +100,24 @@ export const StartAssessment = () => {
       Setinvalidkgtinmessage("Invalid KGTIN");
     }
   };
+
+  setAuthToken();
+  const ValidateAss = (data) => {
+    setIsFetching(true)
+    axios.post(`${url.BASE_URL}forma/validate-assessment`, data)
+      .then(function (response) {
+        setIsFetching(false)
+        setValidateMssg(response.data.body);
+      })
+      .catch(function (error) {
+        setIsFetching(false)
+        if (error.response) {
+          setValidateMssg(() => error.response.data.message);
+        } else {
+          toast.error("Failed!");
+        }
+      })
+  };
   return (
     <>
       {isFetching && (
@@ -112,7 +131,7 @@ export const StartAssessment = () => {
             timeout={0}
             className="ml-2"
           />
-          <p className="font-bold">Verifying kgtin...</p>
+          <p className="font-bold">Processing ...</p>
         </div>
       )}
 
@@ -130,6 +149,40 @@ export const StartAssessment = () => {
           <p className="font-bold">Creating Assessment...</p>
         </div>
       )}
+      <p className="flex justify-center font-bold">Validate Assessment</p>
+      <Widget>
+        <form onSubmit={handleSubmit(ValidateAss)}>
+          <div className="flex justify-around">
+            <div className="flex">
+              <div className="self-center">
+                {/* <p>Check If Assessment Exist</p> */}
+                <input required placeholder="KGTIN" type="text" ref={register()} name="kgtin" id="" />
+              </div>
+
+              <div className="self-center ml-4">
+                {/* <small> Select year</small> */}
+                <SelectAnnual
+                  // label="Select Year"
+                  required
+                  ref={register()}
+                  name="year"
+                />
+              </div>
+              <div className="self-center ml-4">
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  Check
+                </button>
+              </div>
+            </div>
+          </div>
+          <p className="flex justify-center">{validateMssg}</p>
+        </form>
+      </Widget>
+      <p className="flex justify-center font-bold">Start Assessment</p>
       <Widget>
         <div >
           <form onSubmit={handleSubmit(onSubmitform)} className="flex justify-around">

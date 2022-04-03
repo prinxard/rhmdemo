@@ -27,12 +27,16 @@ const fields = [
     key: "kgtin",
   },
   {
-    name: "Name",
+    name: "Taxpayer Name",
     key: "tp_name",
   },
   {
     name: "Year",
     key: "year",
+  },
+  {
+    name: "Tax Office",
+    key: "tax_office",
   },
   {
     name: "Status",
@@ -42,10 +46,10 @@ const fields = [
     name: "Type",
     key: "assessment_type",
   },
-  {
-    name: "Comment",
-    key: "comment",
-  },
+  // {
+  //   name: "Comment",
+  //   key: "comment",
+  // },
   {
     name: "Created Time",
     key: "createtime",
@@ -113,7 +117,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
   partner, changedPartner, rentIncome, changedRentIncome, bankInterest, changedBankInterest, dividends,
   changedBankDividends, changedPension, pension, residentialAddr, asset, changedAsset, outsideSource,
   changedOutsideSource, changedVehicles, vehicles, changedLand, land, farm, changedFarm, changedSpouse, spouse,
-  changedChildren, children, domestic, changedDomestic, assessment
+  changedChildren, children, domestic, changedDomestic, assessment, kgtinVal
 
 }) => {
   const [toggleel, setToggle] = useState('hidden')
@@ -1675,10 +1679,10 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
       )}
 
       <div className="block p-6 rounded-lg bg-white w-full">
-        <div className="flex justify-around mb-5">
-          <h6 className="p-2">Taxpayer Information</h6>
-          <div>
-            <div>
+        <div className="flex justify-around mb-8">
+          <h6 className="p-2">Taxpayer Information <small className="text-blue-600"><Link href={`/update-individual/${kgtinVal}`}>Edit</Link></small></h6>
+          <div className="border p-4">
+            <div >
               <div>
                 <p className="font-bold">
                   Comment

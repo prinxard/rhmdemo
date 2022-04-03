@@ -21,7 +21,7 @@ const fields = [
     key: "kgtin",
   },
   {
-    name: "Name",
+    name: "Taxpayer Name",
     key: "tp_name",
   },
   {
@@ -29,12 +29,12 @@ const fields = [
     key: "overallGross",
   },
   {
-    name: "Tax",
+    name: "Tax Due",
     key: "tax",
   },
   {
-    name: "Additional Assessment",
-    key: "add_assmt",
+    name: "Tax Office",
+    key: "tax_office",
   },
   {
     name: "Status",
