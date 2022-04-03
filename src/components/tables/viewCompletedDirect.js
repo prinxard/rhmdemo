@@ -35,6 +35,10 @@ const fields = [
     key: "tp_name",
   },
   {
+    name: "Tax Office",
+    key: "tax_office",
+  },
+  {
     name: "Gross Income",
     key: "overallGross",
   },
