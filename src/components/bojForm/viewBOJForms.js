@@ -100,13 +100,18 @@ export const StartBOJ = () => {
   }
 
 
+// let selfemplFigureInit = watch("self_employment", `${APISelfEmployed}`)
+// let emplFigureiInit = watch("employment", `${APIEmployed}`);
+// let otherIncomeFigureInit = watch("other_income", `${APIOtherIncome}`)
+// let previousTaxFigureInit = watch("previous_tax", `${APIPreviousTax}`)
+
 let selfemplFigureInit = watch("self_employment", `${APISelfEmployed}`)
-let emplFigureiInit = watch("employment", `${APIEmployed}`);
+let emplFigureInit = watch("employment", `${APIEmployed}`);
 let otherIncomeFigureInit = watch("other_income", `${APIOtherIncome}`)
 let previousTaxFigureInit = watch("previous_tax", `${APIPreviousTax}`)
 
 let selfemplFigure = selfemplFigureInit.replace(/,/g, '')
-let emplFigure = emplFigureiInit.replace(/,/g, '')
+let emplFigure = emplFigureInit.replace(/,/g, '')
 let otherIncomeFigure = otherIncomeFigureInit.replace(/,/g, '')
 let previousTaxFigure = previousTaxFigureInit.replace(/,/g, '')
 
@@ -488,7 +493,7 @@ let previousTaxFigure = previousTaxFigureInit.replace(/,/g, '')
                     ref={register()}
                     name="previous_tax"
                     control={control}
-                    defaultValue={ind.previous_yr_tax}
+                    defaultValue={ind.previous_yr_tax == null || ind.previous_yr_tax == "" ? '0.00' : ind.previous_yr_tax}
                     onValueChange={(v) => fixValues4({ amount: v })}
                     required
                   />
