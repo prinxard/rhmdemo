@@ -107,16 +107,14 @@ export const StartAssessment = () => {
     axios.post(`${url.BASE_URL}forma/validate-assessment`, data)
       .then(function (response) {
         setIsFetching(false)
-        toast.success("Created Successfully!");
-        router.push("/dashboard")
+        setValidateMssg(response.data.body);
       })
       .catch(function (error) {
         setIsFetching(false)
         if (error.response) {
-          setUploadErrors(() => error.response.data.message);
-          toast.error(uploadErrors)
+          setValidateMssg(() => error.response.data.message);
         } else {
-          toast.error("Failed to create user!");
+          toast.error("Failed!");
         }
       })
   };
@@ -153,7 +151,7 @@ export const StartAssessment = () => {
       )}
       <p className="flex justify-center font-bold">Validate Assessment</p>
       <Widget>
-        <form>
+        <form onSubmit={handleSubmit(ValidateAss)}>
           <div className="flex justify-around">
             <div className="flex">
               <div className="self-center">
@@ -181,6 +179,7 @@ export const StartAssessment = () => {
               </div>
             </div>
           </div>
+          <p className="flex justify-center">{validateMssg}</p>
         </form>
       </Widget>
       <p className="flex justify-center font-bold">Start Assessment</p>
