@@ -39,6 +39,7 @@ const ViewSinglePending = () => {
   const [domestic, setDomestic] = useState([]);
   const [assessment, setAssessment] = useState([]);
   const [routerAssId, setAssessId] = useState('');
+  const [kgtinVal, setKGTINVal] = useState('');
 
   const router = useRouter();
   useEffect(() => {
@@ -47,6 +48,7 @@ const ViewSinglePending = () => {
       let kgtin = routerData.split(',').pop()
       let assessmentId = routerData.split(',').shift()
       setAssessId(assessmentId)
+      setKGTINVal(kgtin)
       let sendData = {
         KGTIN: `${kgtin}`,
         assessment_id: `${assessmentId}`
@@ -363,7 +365,7 @@ const ViewSinglePending = () => {
             changedChildren={(e, index, fieldName) => handleChildren(e.target.value, index, fieldName)}
             changedDomestic={(e, index, fieldName) => handleDomestic(e.target.value, index, fieldName)}
             outsideSource={outsideSource} vehicles={vehicles} land={land} farm={farm} spouse={spouse}
-            children={children} domestic={domestic}
+            children={children} domestic={domestic} kgtinVal={kgtinVal}
 
           />
         </>

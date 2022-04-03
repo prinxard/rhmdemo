@@ -31,7 +31,7 @@ const fields = [
     key: "kgtin",
   },
   {
-    name: "Name",
+    name: "Taxpayer Name",
     key: "tp_name",
   },
   {
@@ -40,7 +40,7 @@ const fields = [
   },
 
   {
-    name: "Tax",
+    name: "Tax Due",
     key: "tax",
   },
   {
