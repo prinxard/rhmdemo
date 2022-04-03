@@ -7,14 +7,19 @@ import Dropdown4 from './dropdown-4';
 import Dropdown5 from './dropdown-5';
 import Dropdown6 from './dropdown-6';
 import Search from './search';
+import jwt from "jsonwebtoken";
 
 const Navbar = () => {
-  const { config } = useSelector(
+  const { config, auth } = useSelector(
     (state) => ({
       config: state.config,
+      auth: state.authentication.auth,
     }),
     shallowEqual
   );
+  const decoded = jwt.decode(auth);
+  const email = decoded.user
+ 
   let { rightSidebar, collapsed } = { ...config };
   const dispatch = useDispatch();
   return (
@@ -35,6 +40,7 @@ const Navbar = () => {
 
         <span className="ml-auto"></span>
 
+          <p>{email}</p>
         <Dropdown5 />
         <button
           className="btn-transparent flex items-center justify-center h-16 w-8 mx-4"
