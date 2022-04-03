@@ -465,7 +465,7 @@ export const StartBOJ = () => {
 
                 <p className="font-bold">Total Income: <span className="font-bold">{formatNumber(TotalIncome)}</span> </p>
                 <div className="flex justify-end mt-5">
-                  {ind.boj_comment === null & ind.employed == null && ind.self_employed === null ?
+                  {ind.boj_comment === null && ind.employed == null && ind.self_employed === null ?
                     <button
                       style={{ backgroundColor: "#84abeb" }}
                       className="btn btn-default text-white btn-outlined bg-transparent rounded-md"
