@@ -31,6 +31,7 @@ const ViewNonIndividual = () => {
         let records = [];
         for (let i = 0; i < res.length; i++) {
           let rec = res[i];
+          rec.createtime = dateformat(rec.createtime, "dd mmm yyyy")
           rec.serialNo = num + i
           records.push(rec);
         }
@@ -45,28 +46,28 @@ const ViewNonIndividual = () => {
 
   console.log("post", post);
 
-  // Get current post
-  const indexOfLastPost = currentPage * postPerPage;
-  const indexOfFirstPost = indexOfLastPost - postPerPage;
-  const currentPosts = post.slice(indexOfFirstPost, indexOfLastPost);
+  // // Get current post
+  // const indexOfLastPost = currentPage * postPerPage;
+  // const indexOfFirstPost = indexOfLastPost - postPerPage;
+  // const currentPosts = post.slice(indexOfFirstPost, indexOfLastPost);
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  const next = (currentPage) => setCurrentPage(() => currentPage + 1);
-  const previous = (currentPage) => setCurrentPage(() => currentPage - 1);
+  // const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  // const next = (currentPage) => setCurrentPage(() => currentPage + 1);
+  // const previous = (currentPage) => setCurrentPage(() => currentPage - 1);
 
-  const searchHandler = (e) => {
-    setQuery(() => e.target.value);
-  };
+  // const searchHandler = (e) => {
+  //   setQuery(() => e.target.value);
+  // };
 
-  let res = [];
-  const search = (rows) => {
-    let data = [];
-    data = rows.filter((rows) => rows.KGTIN.toLowerCase().indexOf(query) > -1);
-    res.push(data);
-    return data;
-  };
+  // let res = [];
+  // const search = (rows) => {
+  //   let data = [];
+  //   data = rows.filter((rows) => rows.KGTIN.toLowerCase().indexOf(query) > -1);
+  //   res.push(data);
+  //   return data;
+  // };
 
-  const searchedPost = search(post).slice(indexOfFirstPost, indexOfLastPost);
+  // const searchedPost = search(post).slice(indexOfFirstPost, indexOfLastPost);
 
   return (
     <>
@@ -87,7 +88,7 @@ const ViewNonIndividual = () => {
         </div>
       )}
       <Widget>
-        <div className="flex flex-col lg:flex-row lg:flex-wrap w-full lg:space-x-4">
+        {/* <div className="flex flex-col lg:flex-row lg:flex-wrap w-full lg:space-x-4">
           <div className="w-full lg:w-2/12">
             <NewFormInput
               label="Search by kgtin"
@@ -112,7 +113,6 @@ const ViewNonIndividual = () => {
             </>
           ) : (
             <>
-              <ViewNonIndividualTable remittance={currentPosts} />
               <CustomPagination
                 paginate={paginate}
                 totalPosts={post.length}
@@ -123,7 +123,8 @@ const ViewNonIndividual = () => {
               />
             </>
           )}
-        </div>
+        </div> */}
+        <ViewNonIndividualTable nonIndData={post} />
       </Widget>
     </>
   );

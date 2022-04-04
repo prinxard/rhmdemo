@@ -124,6 +124,7 @@ let previousTaxFigure = previousTaxFigureInit.replace(/,/g, '')
   ///TAX CAL
   let employedF = emplFigure;
   let selfEmployedF = selfemplFigure;
+  let otherIncomeF = otherIncomeFigure
 
   console.log(employedF, selfEmployedF);
 
@@ -250,7 +251,7 @@ let previousTaxFigure = previousTaxFigureInit.replace(/,/g, '')
   }
 
 
-  consolidatedIncome = (Number(selfEmployedF) + Number(employedF));
+  consolidatedIncome = (Number(selfEmployedF) + Number(employedF) + Number(otherIncomeF));
   // console.log("Consl", consolidatedIncome);
 
   totalRelief = 0;
