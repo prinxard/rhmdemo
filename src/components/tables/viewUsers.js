@@ -46,6 +46,20 @@ const fields = [
 
 export const ViewUsersTable = ({ remittance }) => {
   let items = remittance;
+
+  const { config, palettes, auth } = useSelector(
+    (state) => ({
+      config: state.config,
+      palettes: state.palettes,
+      auth: state.authentication.auth,
+    }),
+    shallowEqual
+  );
+
+  const admin = [1]
+  const decoded = jwt.decode(auth);
+  const userGroup = decoded.groups
+
   console.log("Items", items);
   return (
     <>
@@ -67,11 +81,20 @@ export const ViewUsersTable = ({ remittance }) => {
                   <td key={j} className="">
                     {/* {remittance[field.key]} */}
 
-                    <Link href={`/view/users/${remittance.email}`}>
-                      <a className="hover:text-blue-500">
+
+                    {userGroup.some(r => admin.includes(r)) ?
+                      <Link href={`/view/users/${remittance.email}`}>
+                        <a className="hover:text-blue-500">
+                          {remittance[field.key]}
+                        </a>
+                      </Link>
+
+                      :
+                      <p>
                         {remittance[field.key]}
-                      </a>
-                    </Link>
+                      </p>
+                    }
+
                   </td>
                 ))}
               </tr>
