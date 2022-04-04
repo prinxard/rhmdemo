@@ -94,13 +94,8 @@ export const StartAssessment = () => {
     setIsFetching2(true)
     try {
       const res = await axios.post(`${url.BASE_URL}forma/validate-assessment`, createAsses);
-      let assessment_id = res.data.body.assessment_id
       setIsFetching2(false)
-      // if (data.type === "Assessment") {
-      //   router.push(`/direct-asses/${assessment_id},${KGTIN}`)
-      // } else {
-      //   router.push(`/view/boj/${assessment_id},${KGTIN}`)
-      // }
+      setModal(true)
     }
     catch (err) {
       setIsFetching2(false)
@@ -134,23 +129,23 @@ export const StartAssessment = () => {
     }
   };
 
-  setAuthToken();
-  const ValidateAss = (data) => {
-    setIsFetching(true)
-    axios.post(`${url.BASE_URL}forma/validate-assessment`, data)
-      .then(function (response) {
-        setIsFetching(false)
-        setValidateMssg(response.data.body);
-      })
-      .catch(function (error) {
-        setIsFetching(false)
-        if (error.response) {
-          setValidateMssg(() => error.response.data.message);
-        } else {
-          toast.error("Failed!");
-        }
-      })
-  };
+  // setAuthToken();
+  // const ValidateAss = (data) => {
+  //   setIsFetching(true)
+  //   axios.post(`${url.BASE_URL}forma/validate-assessment`, data)
+  //     .then(function (response) {
+  //       setIsFetching(false)
+  //       setValidateMssg(response.data.body);
+  //     })
+  //     .catch(function (error) {
+  //       setIsFetching(false)
+  //       if (error.response) {
+  //         setValidateMssg(() => error.response.data.message);
+  //       } else {
+  //         toast.error("Failed!");
+  //       }
+  //     })
+  // };
 
   return (
     <>
@@ -183,7 +178,37 @@ export const StartAssessment = () => {
           <p className="font-bold">Creating Assessment...</p>
         </div>
       )}
-     
+
+      {modal && (
+        <div className="modal">
+          {/* <div onClick={toggleModal} className="overlay"></div> */}
+          <div className="modal-content" width="300">
+            <p>Are you sure you want to decline?</p>
+            <p>Please state reason why</p>
+            <form onSubmit={DeclineAss}>
+              <textarea required className="form-control w-full rounded" minlength="10" maxlength="50" onChange={(e) => setComment(e.target.value)}></textarea>
+              <div className="mt-2 flex justify-between">
+                <button onClick={toggleModal}
+                  className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                >
+                  Cancel
+                </button>
+                <div>
+
+                </div>
+                <button
+                  className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  Continue
+                </button>
+
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
       <p className="flex justify-center font-bold">Start Assessment</p>
       <Widget>
         <div >
