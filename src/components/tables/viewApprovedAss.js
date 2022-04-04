@@ -33,6 +33,14 @@ const fields = [
     key: "totalTaxDue",
   },
   {
+    name: "Tax Paid",
+    key: "taxPaid",
+  },
+  // {
+  //   name: "Balance",
+  //   key: "balance",
+  // },
+  {
     name: "Tax Office",
     key: "tax_office",
   },

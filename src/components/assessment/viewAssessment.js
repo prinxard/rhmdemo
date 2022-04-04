@@ -27,7 +27,7 @@ export const StartAssessment = () => {
   const [invalidmsg, setinvalidmsg] = useState("hidden");
   const [payerDetails, setpayerDetails] = useState([]);
   const [validateMssg, setValidateMssg] = useState([]);
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, watch } = useForm();
   const router = useRouter();
   const [isFetching, setIsFetching] = useState(() => false);
   const [isFetching2, setIsFetching2] = useState(() => false);
@@ -48,21 +48,22 @@ export const StartAssessment = () => {
     return taxOf
   })
 
+  let kgtinWatch = watch("kgtin")
+  let typeWatch = watch("type")
+  let yearWatch = watch("year")
+
   const KGTIN = userKGTN[0]
   const station = TaxOffice[0]
   console.log(station);
 
   setAuthToken();
   const onSubmitform = async data => {
-
-    const userkgtin = kgtEnentered
-    const year = data.year;
-    console.log(data.type);
+ 
     let createAsses = {
-      year: `${year}`,
-      kgtin: `${KGTIN}`,
-      tax_office: `${station}`,
-      assessment_type: data.type
+      year: yearWatch,
+      kgtin: kgtinWatch,
+      tax_office: station,
+      assessment_type: typeWatch
     }
     setIsFetching2(true)
     try {
@@ -82,33 +83,56 @@ export const StartAssessment = () => {
   };
 
   setAuthToken();
-  const validateAssessment = async data => {
+  const validateAssessment = data => {
+    setIsFetching(true)
 
-    const userkgtin = kgtEnentered
-    const year = data.year;
-    console.log(data.type);
     let createAsses = {
-      year: `${year}`,
-      kgtin: `${KGTIN}`,
+      year: data.year,
+      kgtin: data.kgtin,
     }
-    setIsFetching2(true)
-    try {
-      const res = await axios.post(`${url.BASE_URL}forma/validate-assessment`, createAsses);
-      setIsFetching2(false)
-      setModal(true)
-    }
-    catch (err) {
-      setIsFetching2(false)
-      console.log(err);
-    }
+
+    axios.post(`${url.BASE_URL}forma/validate-assessment`, createAsses)
+      .then(function (response) {
+        setIsFetching(false)
+        setModal(true)
+        setValidateMssg(response.data.body);
+      })
+      .catch(function (error) {
+        setIsFetching(false)
+        setModal(true)
+        if (error.response) {
+          setValidateMssg(() => error.response.data.message);
+        } else {
+          toast.error("Failed!");
+        }
+      })
+
+    // let createAsses = {
+    //   year: `${year}`,
+    //   kgtin: `${KGTIN}`,
+    // }
+    // setIsFetching2(true)
+    // try {
+    //   const res = await axios.post(`${url.BASE_URL}forma/validate-assessment`, createAsses);
+    //   let messageToDisplay = res.data.body
+    //   setValidateMssg(messageToDisplay)
+    //   setIsFetching2(false)
+    //   setModal(true)
+    // }
+    // catch (err) {
+    //   let messageToDisplay = res.data.body.message
+    //   setIsFetching2(false)
+    //   setValidateMssg(messageToDisplay)
+    //   setModal(true)
+    //   console.log(err);
+    // }
   };
 
 
   setAuthToken();
   const verifiyKGTIN = async () => {
-    let testkgtin = kgtEnentered
     let kgtin = {
-      "KGTIN": `${testkgtin}`
+      KGTIN: kgtinWatch
     }
     setIsFetching(true)
     try {
@@ -183,10 +207,9 @@ export const StartAssessment = () => {
         <div className="modal">
           {/* <div onClick={toggleModal} className="overlay"></div> */}
           <div className="modal-content" width="300">
-            <p>Are you sure you want to decline?</p>
-            <p>Please state reason why</p>
-            <form onSubmit={DeclineAss}>
-              <textarea required className="form-control w-full rounded" minlength="10" maxlength="50" onChange={(e) => setComment(e.target.value)}></textarea>
+            <form onSubmit={handleSubmit(onSubmitform)}>
+              <p>{validateMssg}</p>
+              {/* <textarea required className="form-control w-full rounded" minlength="10" maxlength="50" onChange={(e) => setComment(e.target.value)}></textarea> */}
               <div className="mt-2 flex justify-between">
                 <button onClick={toggleModal}
                   className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
@@ -212,12 +235,12 @@ export const StartAssessment = () => {
       <p className="flex justify-center font-bold">Start Assessment</p>
       <Widget>
         <div >
-          <form onSubmit={handleSubmit(onSubmitform)} className="flex justify-around">
+          <form onSubmit={handleSubmit(validateAssessment)} className="flex justify-around">
 
             <div className="flex">
               <div>
                 <p>Enter Taxpayer KGTIN</p>
-                <input onChange={event => setKgtEentered(event.target.value)} type="text" placeholder="Enter KGTIN" />
+                <input ref={register()} type="text" name="kgtin" placeholder="Enter KGTIN" />
                 <div className="">
                   {payerDetails.map((ind, i) => (
                     <small className={`${validmsg}`} key={i}>{ind.surname} {ind.first_name}</small>
@@ -269,6 +292,55 @@ export const StartAssessment = () => {
           </form>
         </div>
       </Widget>
+      <style
+        jsx>{
+          `
+        body.active-modal {
+          overflow-y: hidden;
+      }
+      
+      // .btn-modal {
+      //     padding: 10px 20px;
+      //     display: block;
+      //     margin: 100px auto 0;
+      //     font-size: 18px;
+      // }
+      
+      .modal, .overlay {
+          width: 100vw;
+          height: 100vh;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          position: fixed;
+      }
+      
+      .overlay {
+          background: rgba(49,49,49,0.8);
+      }
+      .modal-content {
+          position: absolute;
+          top: 20%;
+          left: 60%;
+          transform: translate(-50%, -50%);
+          line-height: 1.4;
+          background: #f1f1f1;
+          padding: 14px 28px;
+          border-radius: 3px;
+          max-width: 400px;
+          min-width: 300px;
+      }
+      
+      .close-modal {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          padding: 5px 7px;
+      }
+        `
+        }
+      </style>
     </>
   );
 };
@@ -3618,6 +3690,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
           </form>
         </div>
       </Widget>
+
 
     </>
   )

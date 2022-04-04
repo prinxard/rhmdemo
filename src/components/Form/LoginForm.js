@@ -112,11 +112,11 @@ const LoginForm = () => {
             />
           </CustomButton>
           <div className="mt-2">
-            <p>
+            {/* <p>
               <Link href="/reset-password">
                 <a className="text-blue-500">Forgot password ?</a>
               </Link>
-            </p>
+            </p> */}
           </div>
         </div>
 

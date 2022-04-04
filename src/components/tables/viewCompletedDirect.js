@@ -1515,6 +1515,7 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
           </table>
         </div>
       </div>
+      
       <style
         jsx>{
           `

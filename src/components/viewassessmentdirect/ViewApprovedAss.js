@@ -38,9 +38,9 @@ const ViewApprovedAss = () => {
           let rec = res[i];
           rec.gross_income = formatNumber(rec.gross_income)
           rec.tax = formatNumber(rec.tax)
-          rec.totalTaxDue = formatNumber(Number(rec.add_assmt) + Number(rec.tax))
+          rec.totalTaxDue = formatNumber(Number(rec.add_assmt ?? '0') + Number(rec.tax))
+          // rec.balance = formatNumber(Number(rec.taxPaid) - Number(rec.totalTaxDue))
           rec.overallGross = formatNumber(Number(rec.employed) + Number(rec.self_employed) + Number(rec.other_income))
-          // rec.totalTaxDue = formatNumber(Number(rec.tax) + Number(rec.add_ass) )
           rec.createtime = dateformat(rec.createtime, "dd mmm yyyy")
           records.push(rec);
         }

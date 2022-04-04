@@ -230,7 +230,7 @@ const LeftSidebar = () => {
     <div className="left-sidebar left-sidebar-1">
       <Logo />
 
-      {individualNavigation.map((menu, i) => (
+      {navigationCreator.map((menu, i) => (
         <React.Fragment key={i}>
           <Title>{menu.title}</Title>
           <ul>
