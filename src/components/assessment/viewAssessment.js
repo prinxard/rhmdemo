@@ -58,7 +58,7 @@ export const StartAssessment = () => {
 
   setAuthToken();
   const onSubmitform = async data => {
- 
+
     let createAsses = {
       year: yearWatch,
       kgtin: kgtinWatch,
@@ -86,16 +86,52 @@ export const StartAssessment = () => {
   const validateAssessment = data => {
     setIsFetching(true)
 
-    let createAsses = {
+    let valAsses = {
       year: data.year,
       kgtin: data.kgtin,
     }
 
-    axios.post(`${url.BASE_URL}forma/validate-assessment`, createAsses)
+    let createAssesment = {
+      year: yearWatch,
+      kgtin: kgtinWatch,
+      tax_office: station,
+      assessment_type: typeWatch
+    }
+
+    axios.post(`${url.BASE_URL}forma/validate-assessment`, valAsses)
       .then(function (response) {
         setIsFetching(false)
-        setModal(true)
-        setValidateMssg(response.data.body);
+
+        // try {
+        //   const res = axios.post(`${url.BASE_URL}forma/new-assessment`, createAssesment);
+        //   let assessment_id = res.data.body.assessment_id
+        //   console.log("RES", res);
+        //   setIsFetching(false)
+        //   console.log("TypeWatch1", typeWatch);
+        //   if (typeWatch === "Assessment") {
+        //     console.log("TypeWatch2", typeWatch);
+        //     router.push(`/direct-asses/${assessment_id},${kgtinWatch}`)
+        //   } else {
+        //     router.push(`/view/boj/${assessment_id},${kgtinWatch}`)
+        //   }
+        // }
+        // catch (err) {
+        //   setIsFetching(false)
+        //   console.log(err);
+        // }
+
+        axios.post(`${url.BASE_URL}forma/new-assessment`, createAssesment)
+        .then(function (response){
+          let assessment_id = response.data.body.assessment_id
+             if (typeWatch === "Assessment") {
+            console.log("TypeWatch2", typeWatch);
+            router.push(`/direct-asses/${assessment_id},${kgtinWatch}`)
+          } else {
+            router.push(`/view/boj/${assessment_id},${kgtinWatch}`)
+          }
+        })
+        // setModal(true)
+        // setValidateMssg(response.data.body);
       })
       .catch(function (error) {
         setIsFetching(false)
