@@ -155,14 +155,14 @@ export const StartAssessment = () => {
           <div className="flex justify-around">
             <div className="flex">
               <div className="self-center">
-                {/* <p>Check If Assessment Exist</p> */}
+                
                 <input required placeholder="KGTIN" type="text" ref={register()} name="kgtin" id="" />
               </div>
 
               <div className="self-center ml-4">
-                {/* <small> Select year</small> */}
+               
                 <SelectAnnual
-                  // label="Select Year"
+                  label="Select Year"
                   required
                   ref={register()}
                   name="year"
