@@ -5,47 +5,96 @@ import Widget1 from "../dashboard/widget-1";
 import dateformat from "dateformat";
 import Link from 'next/link';
 import CustomButton from "../CustomButton/CustomButton";
+import MaterialTable from "material-table";
+import Search from '@material-ui/icons/Search'
+import SaveAlt from '@material-ui/icons/SaveAlt'
+import ChevronLeft from '@material-ui/icons/ChevronLeft'
+import ChevronRight from '@material-ui/icons/ChevronRight'
+import FirstPage from '@material-ui/icons/FirstPage'
+import LastPage from '@material-ui/icons/LastPage'
+import Check from '@material-ui/icons/Check'
+import Remove from '@material-ui/icons/Remove'
+import ArrowDownward from "@material-ui/icons/ArrowDownward";
+import Clear from "@material-ui/icons/Clear";
 
-const fields = [
+
+const columns = [
   {
-    name: "SN",
-    key: "serialNo",
+    title: "SN",
+    field: "serialNo",
+    filtering: false,
+    width: "10%"
+  },
+
+  {
+    title: "KGTIN",
+    field: "KGTIN",
+  },
+
+  {
+    title: "Company Name",
+    field: "regist_name",
   },
   {
-    name: "KGTIN",
-    key: "KGTIN",
+    title: "Type of Org",
+    field: "type_of_organisation",
   },
   {
-    name: "JTB TIN",
-    key: "jtb_tin",
+    title: "Phone",
+    field: "phone_no",
   },
   {
-    name: "Reg Name",
-    key: "regist_name",
+    title: "Tax Office",
+    field: "tax_office",
   },
+
   {
-    name: "Type of Org",
-    key: "type_of_organisation",
+    title: "Create Time",
+    field: "createtime",
   },
-  {
-    name: "Tax Office",
-    key: "tax_office",
-  },
-  {
-    name: "Tax Authority",
-    key: "tax_authority",
-  },
-  {
-    name: "Phone",
-    key: "phone_no",
-  },
+ 
+  
 ];
 
-export const ViewNonIndividualTable = ({ remittance }) => {
-  let items = remittance;
+export const ViewNonIndividualTable = ({ nonIndData }) => {
+  let data = nonIndData;
   return (
     <>
-      <Widget>
+      <MaterialTable title="Non-Individual Taxpayers List"
+        columns={columns}
+        data={data}
+        options={{
+          search: true,
+          paging: true,
+          filtering: true,
+          exportButton: {
+            csv: true,
+            pdf: false
+          },
+          exportAllData: true,
+
+        }}
+        icons={{
+          Check: Check,
+          DetailPanel: ChevronRight,
+          Export: SaveAlt,
+          Filter: () => <Icons.Filter />,
+          FirstPage: FirstPage,
+          LastPage: LastPage,
+          NextPage: ChevronRight,
+          PreviousPage: ChevronLeft,
+          Search: Search,
+          ThirdStateCheck: Remove,
+          Clear: Clear,
+          SortArrow: ArrowDownward
+        }}
+        onRowClick={(event, rowData) => {
+          window.open(`/view/individual/${rowData.KGTIN}`)
+          event.stopPropagation();
+        }}
+      />
+
+      {/* <Widget>
         <table className="table divide-y">
           <thead>
             <tr className="">
@@ -61,7 +110,7 @@ export const ViewNonIndividualTable = ({ remittance }) => {
               <tr key={i} className="">
                 {fields.map((field, j) => (
                   <td key={j} className="">
-                    {/* {remittance[field.key]} */}
+                    {remittance[field.key]}
 
                     <Link href={`/view/nonindividual/${remittance.KGTIN}`}>
                       <a className="hover:text-blue-500">
@@ -75,7 +124,7 @@ export const ViewNonIndividualTable = ({ remittance }) => {
           </tbody>
         </table>
 
-      </Widget>
+      </Widget> */}
     </>
   );
 };

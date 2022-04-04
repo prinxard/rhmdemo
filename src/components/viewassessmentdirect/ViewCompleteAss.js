@@ -37,6 +37,7 @@ const ViewCompleteAss = () => {
         for (let i = 0; i < res.length; i++) {
           let rec = res[i];
           rec.gross_income = formatNumber(rec.gross_income)
+          rec.totalTaxDue = formatNumber(Number(rec.add_assmt) + Number(rec.tax))
           rec.tax = formatNumber(rec.tax)
           rec.overallGross = formatNumber(Number(rec.employed) + Number(rec.self_employed) + Number(rec.other_income))
           rec.createtime = dateformat(rec.createtime, "dd mmm yyyy")

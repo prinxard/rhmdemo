@@ -124,6 +124,7 @@ let previousTaxFigure = previousTaxFigureInit.replace(/,/g, '')
   ///TAX CAL
   let employedF = emplFigure;
   let selfEmployedF = selfemplFigure;
+  let otherIncomeF = otherIncomeFigure
 
   console.log(employedF, selfEmployedF);
 
@@ -250,7 +251,7 @@ let previousTaxFigure = previousTaxFigureInit.replace(/,/g, '')
   }
 
 
-  consolidatedIncome = (Number(selfEmployedF) + Number(employedF));
+  consolidatedIncome = (Number(selfEmployedF) + Number(employedF) + Number(otherIncomeF));
   // console.log("Consl", consolidatedIncome);
 
   totalRelief = 0;
@@ -345,6 +346,7 @@ let previousTaxFigure = previousTaxFigureInit.replace(/,/g, '')
 
   return (
     <>
+
       <div>
         {bojData.map((ind, i) => (
           <div>
@@ -520,7 +522,7 @@ let previousTaxFigure = previousTaxFigureInit.replace(/,/g, '')
                   {errors.comment && <small className="text-red-600">{errors.comment.message}</small>}
                 </div>
                 <div className="flex justify-end mt-5">
-                  {ind.boj_comment === null & ind.employed == null && ind.self_employed === null ?
+                  {ind.boj_comment === null && ind.employed == null && ind.self_employed === null ?
                     <button
                       style={{ backgroundColor: "#84abeb" }}
                       className="btn btn-default text-white btn-outlined bg-transparent rounded-md"

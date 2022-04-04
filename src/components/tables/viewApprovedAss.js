@@ -29,8 +29,8 @@ const fields = [
     key: "overallGross",
   },
   {
-    name: "Tax Due",
-    key: "tax",
+    name: "Total Tax Due",
+    key: "totalTaxDue",
   },
   {
     name: "Tax Office",
@@ -279,7 +279,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                     </tr>
                     <tr>
                       <td className='tb font-bold'><div align='right' className='style16'>Assessable Income </div></td>
-                      <td className='tb'> <p className="font-bold text-right">{formatNumber(taxcal.gross_inc)}</p> </td>
+                      <td className='tb'> <p className="font-bold text-right">{formatNumber((((grossIncCal) + Number(assobj.other_income))) - deductionsTotal) }</p> </td>
                     </tr>
                     <tr>
                       <td className='tb'>ADD</td>
@@ -307,7 +307,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                     </tr>
                     <tr>
                       <td className='tb'><div align='right' className='style16 font-bold'>Total Income</div></td>
-                      <td className='tb'> <p className="font-bold text-right">0</p> </td>
+                      <td className='tb'> <p className="font-bold text-right">{formatNumber((((grossIncCal) + Number(assobj.other_income))) - deductionsTotal) }</p> </td>
                     </tr>
                     <tr>
                       <td className='tb'>Consolidated Relief Allowance</td>
