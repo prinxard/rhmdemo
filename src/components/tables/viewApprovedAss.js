@@ -29,8 +29,8 @@ const fields = [
     key: "overallGross",
   },
   {
-    name: "Tax Due",
-    key: "tax",
+    name: "Total Tax Due",
+    key: "totalTaxDue",
   },
   {
     name: "Tax Office",

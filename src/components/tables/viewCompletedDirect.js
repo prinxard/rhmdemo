@@ -232,7 +232,8 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
         // handle success
         setIsFetching2(false)
         toast.success("Operation Successful!");
-        window.location.reload(true);
+
+        router.push("/view/approvedasses")
       })
       .catch(function (error) {
         // handle error
