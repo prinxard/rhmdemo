@@ -346,6 +346,7 @@ let previousTaxFigure = previousTaxFigureInit.replace(/,/g, '')
 
   return (
     <>
+
       <div>
         {bojData.map((ind, i) => (
           <div>

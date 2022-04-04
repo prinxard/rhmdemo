@@ -529,12 +529,12 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
                 }
               </tr>
               <tr>
-                <td className="border-r-2 p-1 text-right font-bold">Total</td>
+                <td className="border-r-2 p-1 text-right font-bold">Total Deductions</td>
                 <td className="p-1 text-right font-bold">{formatNumber(deductionsTotal)}</td>
               </tr>
               <tr>
                 <td className="border-r-2 p-1 text-right font-bold">Assessable Income</td>
-                <td className="p-1 text-right font-bold">0</td>
+                <td className="p-1 text-right font-bold">{formatNumber((((grossIncCal) + Number(assobj.other_income))) - deductionsTotal) }</td>
               </tr>
               <tr>
                 <td className="border-r-2 p-1">ADD</td>
