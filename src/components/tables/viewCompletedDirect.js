@@ -44,8 +44,8 @@ const fields = [
   },
 
   {
-    name: "Tax Due",
-    key: "tax",
+    name: "Total Tax Due",
+    key: "totalTaxDue",
   },
   {
     name: "Status",
