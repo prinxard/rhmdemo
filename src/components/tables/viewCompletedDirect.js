@@ -534,7 +534,7 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
               </tr>
               <tr>
                 <td className="border-r-2 p-1 text-right font-bold">Assessable Income</td>
-                <td className="p-1 text-right font-bold">0</td>
+                <td className="p-1 text-right font-bold">{formatNumber((((grossIncCal) + Number(assobj.other_income))) - deductionsTotal) }</td>
               </tr>
               <tr>
                 <td className="border-r-2 p-1">ADD</td>
@@ -562,7 +562,7 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
               </tr>
               <tr>
                 <td className="border-r-2 p-1 text-right font-bold">Total Income</td>
-                <td className="p-1 text-right font-bold">0</td>
+                <td className="p-1 text-right font-bold">{formatNumber((((grossIncCal) + Number(assobj.other_income))) - deductionsTotal) }</td>
               </tr>
               <tr>
                 <td className="border-r-2 p-1">Consolidated relief Allowance</td>
@@ -676,7 +676,7 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
             </tbody>
           </table>
         </div>
-        <div className="mt-4 flex justify-around">
+        {/* <div className="mt-4 flex justify-around">
           <div>
             <p>Captured by : {assobj.staffName} </p>
             <p>Date of capture : {createdTime} </p>
@@ -695,7 +695,7 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
               <p className="font-bold text-center">{formatNumber(taxcal.taxPaid)}</p>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="flex m-10 justify-center">
           <button
