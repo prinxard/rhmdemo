@@ -149,39 +149,7 @@ export const StartAssessment = () => {
           <p className="font-bold">Creating Assessment...</p>
         </div>
       )}
-      <p className="flex justify-center font-bold">Validate Assessment</p>
-      <Widget>
-        <form onSubmit={handleSubmit(ValidateAss)}>
-          <div className="flex justify-around">
-            <div className="flex">
-              <div className="self-center">
-                {/* <p>Check If Assessment Exist</p> */}
-                <input required placeholder="KGTIN" type="text" ref={register()} name="kgtin" id="" />
-              </div>
-
-              <div className="self-center ml-4">
-                {/* <small> Select year</small> */}
-                <SelectAnnual
-                  // label="Select Year"
-                  required
-                  ref={register()}
-                  name="year"
-                />
-              </div>
-              <div className="self-center ml-4">
-                <button
-                  style={{ backgroundColor: "#84abeb" }}
-                  className="btn btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                >
-                  Check
-                </button>
-              </div>
-            </div>
-          </div>
-          <p className="flex justify-center">{validateMssg}</p>
-        </form>
-      </Widget>
+     
       <p className="flex justify-center font-bold">Start Assessment</p>
       <Widget>
         <div >
