@@ -106,28 +106,28 @@ export const ViewPendingTable = ({ draftData }) => {
         }}
 
         onRowClick={(event, rowData) => {
-          window.open(`/view/individual/${rowData.KGTIN}`)
+          <div>
+            {rowData.type == "BOJ" ?
+              <Link href={`/view/boj/${rowData.assessment_id},${rowData.kgtin}`}>
+                <a className="hover:text-blue-500">
+                  
+                </a>
+              </Link>
+              :
+              <Link href={`/view/pendingdirect/${rowData.assessment_id},${rowData.kgtin}`}>
+                <a className="hover:text-blue-500">
+                
+                </a>
+              </Link>
+            }
+          </div>
+          // window.open(`/view/individual/${rowData.KGTIN}`)
           event.stopPropagation();
         }}
       />
     </>
   );
 };
-{/* <div>
-  {remittance.assessment_type == "BOJ" ?
-    <Link href={`/view/boj/${remittance.assessment_id},${remittance.kgtin}`}>
-      <a className="hover:text-blue-500">
-        {remittance[field.key]}
-      </a>
-    </Link>
-    :
-    <Link href={`/view/pendingdirect/${remittance.assessment_id},${remittance.kgtin}`}>
-      <a className="hover:text-blue-500">
-        {remittance[field.key]}
-      </a>
-    </Link>
-  }
-</div> */}
 
 export const ViewSinglePendingTable = ({ indvData, pensDeduct,
   routerAssId, changed, changedPensDed, changedEmploy, employment,
