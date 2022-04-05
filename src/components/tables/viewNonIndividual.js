@@ -52,8 +52,8 @@ const columns = [
     title: "Create Time",
     field: "createtime",
   },
- 
-  
+
+
 ];
 
 export const ViewNonIndividualTable = ({ nonIndData }) => {
@@ -93,38 +93,6 @@ export const ViewNonIndividualTable = ({ nonIndData }) => {
           event.stopPropagation();
         }}
       />
-
-      {/* <Widget>
-        <table className="table divide-y">
-          <thead>
-            <tr className="">
-              {fields.map((field, i) => (
-                <th key={i} className="">
-                  {field.name}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="divide-y">
-            {items.map((remittance, i) => (
-              <tr key={i} className="">
-                {fields.map((field, j) => (
-                  <td key={j} className="">
-                    {remittance[field.key]}
-
-                    <Link href={`/view/nonindividual/${remittance.KGTIN}`}>
-                      <a className="hover:text-blue-500">
-                        {remittance[field.key]}
-                      </a>
-                    </Link>
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-      </Widget> */}
     </>
   );
 };

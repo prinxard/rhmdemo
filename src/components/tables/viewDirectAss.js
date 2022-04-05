@@ -16,100 +16,118 @@ import { stringify } from "uuid";
 import { useForm } from 'react-hook-form';
 import { FiTriangle } from "react-icons/fi";
 import { useRouter } from "next/router";
+import MaterialTable from "material-table";
+import Search from '@material-ui/icons/Search'
+import SaveAlt from '@material-ui/icons/SaveAlt'
+import ChevronLeft from '@material-ui/icons/ChevronLeft'
+import ChevronRight from '@material-ui/icons/ChevronRight'
+import FirstPage from '@material-ui/icons/FirstPage'
+import LastPage from '@material-ui/icons/LastPage'
+import Check from '@material-ui/icons/Check'
+import Remove from '@material-ui/icons/Remove'
+import ArrowDownward from "@material-ui/icons/ArrowDownward";
+import Clear from "@material-ui/icons/Clear";
 
-const fields = [
+const columns = [
   {
-    name: "Assessment Id",
-    key: "assessment_id",
+    title: "SN",
+    field: "serialNo",
+    filtering: false,
+    width: "10%"
   },
   {
-    name: "KGTIN",
-    key: "kgtin",
+    title: "KGTIN",
+    field: "kgtin",
   },
   {
-    name: "Taxpayer Name",
-    key: "tp_name",
+    title: "Taxpayer Name",
+    field: "tp_name",
   },
   {
-    name: "Year",
-    key: "year",
+    title: "Year",
+    field: "year",
   },
   {
-    name: "Tax Office",
-    key: "tax_office",
+    title: "Tax Office",
+    field: "tax_office",
   },
   {
-    name: "Status",
-    key: "status",
+    title: "Status",
+    field: "status",
   },
   {
-    name: "Type",
-    key: "assessment_type",
+    title: "Type",
+    field: "assessment_type",
   },
   // {
-  //   name: "Comment",
-  //   key: "comment",
+  //   title: "Comment",
+  //   filed: "comment",
   // },
   {
-    name: "Created Time",
-    key: "createtime",
+    title: "Created Time",
+    field: "createtime",
   },
 
 ];
 
-export const ViewPendingTable = ({ remittance }) => {
-  let items = remittance;
-  console.log(remittance)
-
+export const ViewPendingTable = ({ draftData }) => {
+  let data = draftData;
 
   return (
     <>
-      <Widget>
-        <table className="table divide-y">
-          <thead>
-            <tr className="">
-              {fields.map((field, i) => (
-                <th key={i} className="">
-                  {field.name}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="divide-y">
-            {items.map((remittance, i) => (
-              <tr key={i} className="">
-                {fields.map((field, j) => (
-                  <td key={j}>
-                    <div>
+      <MaterialTable title="Draft Assessment List"
+        columns={columns}
+        data={data}
 
-                      {remittance.assessment_type == "BOJ" ?
-                        <Link href={`/view/boj/${remittance.assessment_id},${remittance.kgtin}`}>
-                          <a className="hover:text-blue-500">
-                            {remittance[field.key]}
-                          </a>
-                        </Link>
+        options={{
+          search: true,
+          paging: true,
+          filtering: true,
+          exportButton: {
+            csv: true,
+            pdf: false
+          },
+          exportAllData: true,
 
-                        :
-                        <Link href={`/view/pendingdirect/${remittance.assessment_id},${remittance.kgtin}`}>
-                          <a className="hover:text-blue-500">
-                            {remittance[field.key]}
-                          </a>
-                        </Link>
-                      }
-                    </div>
+        }}
+        icons={{
+          Check: Check,
+          DetailPanel: ChevronRight,
+          Export: SaveAlt,
+          Filter: () => <Icons.Filter />,
+          FirstPage: FirstPage,
+          LastPage: LastPage,
+          NextPage: ChevronRight,
+          PreviousPage: ChevronLeft,
+          Search: Search,
+          ThirdStateCheck: Remove,
+          Clear: Clear,
+          SortArrow: ArrowDownward
+        }}
 
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <div className="mt-16"></div>
-        <hr />
-      </Widget>
+        onRowClick={(event, rowData) => {
+          window.open(`/view/individual/${rowData.KGTIN}`)
+          event.stopPropagation();
+        }}
+      />
     </>
   );
 };
+{/* <div>
+  {remittance.assessment_type == "BOJ" ?
+    <Link href={`/view/boj/${remittance.assessment_id},${remittance.kgtin}`}>
+      <a className="hover:text-blue-500">
+        {remittance[field.key]}
+      </a>
+    </Link>
+    :
+    <Link href={`/view/pendingdirect/${remittance.assessment_id},${remittance.kgtin}`}>
+      <a className="hover:text-blue-500">
+        {remittance[field.key]}
+      </a>
+    </Link>
+  }
+</div> */}
 
 export const ViewSinglePendingTable = ({ indvData, pensDeduct,
   routerAssId, changed, changedPensDed, changedEmploy, employment,

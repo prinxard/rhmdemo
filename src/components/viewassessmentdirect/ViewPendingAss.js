@@ -23,6 +23,8 @@ const ViewPendingAssessment = () => {
   const [postPerPage, setPostPerPage] = useState(() => 10);
   const [year, setYear] = useState('');
   const [query, setQuery] = useState(() => "");
+
+  let num = 1
   useEffect(() => {
     setAuthToken();
     const fetchPost = async () => {
@@ -35,6 +37,7 @@ const ViewPendingAssessment = () => {
         let records = [];
         for (let i = 0; i < res.length; i++) {
           let rec = res[i];
+          rec.serialNo = num + i
           rec.createtime = dateformat(rec.createtime, "dd mmm yyyy")
           records.push(rec);
         }
@@ -48,28 +51,6 @@ const ViewPendingAssessment = () => {
   }, []);
 
 
-  // Get current post
-  const indexOfLastPost = currentPage * postPerPage;
-  const indexOfFirstPost = indexOfLastPost - postPerPage;
-  const currentPosts = post.slice(indexOfFirstPost, indexOfLastPost);
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  const next = (currentPage) => setCurrentPage(() => currentPage + 1);
-  const previous = (currentPage) => setCurrentPage(() => currentPage - 1);
-
-  const searchHandler = (e) => {
-    setQuery(() => e.target.value);
-  };
-
-  let res = [];
-  const search = (rows) => {
-    let data = [];
-    data = rows.filter((rows) => rows.kgtin.toLowerCase().indexOf(query) > -1);
-    res.push(data);
-    return data;
-  };
-
-  const searchedPost = search(post).slice(indexOfFirstPost, indexOfLastPost);
 
   return (
     <>
@@ -89,45 +70,8 @@ const ViewPendingAssessment = () => {
           <p>Fetching data...</p>
         </div>
       )}
-      <Widget>
-        <div className="flex flex-col lg:flex-row lg:flex-wrap w-full lg:space-x-4">
-          <div className="w-full lg:w-2/12">
-            <NewFormInput
-              label="Search by kgtin"
-              required
-              onChange={searchHandler}
-            />
-          </div>
-        </div>
-
-        <div className="mt-4">
-          {query !== "" ? (
-            <>
-              <ViewPendingTable remittance={searchedPost} />
-              <CustomPagination
-                paginate={paginate}
-                totalPosts={res[0].length}
-                postPerPage={postPerPage}
-                currentPage={currentPage}
-                next={next}
-                previous={previous}
-              />
-            </>
-          ) : (
-            <>
-              <ViewPendingTable remittance={currentPosts} />
-              <CustomPagination
-                paginate={paginate}
-                totalPosts={post.length}
-                postPerPage={postPerPage}
-                currentPage={currentPage}
-                next={next}
-                previous={previous}
-              />
-            </>
-          )}
-        </div>
-      </Widget>
+      
+      <ViewPendingTable draftData={post} />
     </>
   );
 };
