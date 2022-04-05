@@ -33,7 +33,7 @@ const fields = [
     key: "totalTaxFormated",
   },
   {
-    name: "Tax Paid",
+    name: "Amount Paid",
     key: "taxPaid",
   },
   {
