@@ -2,6 +2,7 @@ import SectionTitle from "../section-title";
 import Widget from "../widget";
 import { SubmitButton } from "../CustomButton/CustomButton";
 import { NewFormInput } from "../FormInput/formInputs";
+import { ViewIndividualTable } from "../tables/viewIndividual"
 import url from "../../config/url";
 import setAuthToken from "../../functions/setAuthToken";
 import { useEffect, useState } from "react";
@@ -12,37 +13,33 @@ import dateformat from "dateformat";
 import Loader from "react-loader-spinner";
 import Widget1 from "../dashboard/widget-1";
 import * as Icons from '../Icons/index';
-import { ViewPendingTable } from "../tables/viewDirectAss";
+import { ViewTccTable } from "../tables/viewTccTable";
+import { ViewBOJTable } from "../tables/viewBojTable";
 
-const ViewPendingAssessment = () => {
-  const [post, setPost] = useState(() => []);
-  const [sum, setSum] = useState(() => null);
-  const [totalemp, setTotalemp] = useState('');
+const BOJList = () => {
+  const [bojdata, setBojData] = useState(() => []);
   const [isFetching, setIsFetching] = useState(() => true);
-  const [currentPage, setCurrentPage] = useState(() => 1);
-  const [postPerPage, setPostPerPage] = useState(() => 10);
-  const [year, setYear] = useState('');
-  const [query, setQuery] = useState(() => "");
 
-  let num = 1
   useEffect(() => {
     setAuthToken();
+    let num = 1
     const fetchPost = async () => {
       try {
-        let res = await axios.get(`${url.BASE_URL}forma/list-assessment?assmt=Draft`);
-        res = res.data.body.assessmentDraft;
-        console.log(res)
-        let employeessTotal = res.length
-        setTotalemp(employeessTotal)
+        let res = await axios.get(`${url.BASE_URL}forma/list-assessment`);
+        res = res.data.body.assessmentVerified;
         let records = [];
         for (let i = 0; i < res.length; i++) {
           let rec = res[i];
           rec.serialNo = num + i
+          rec.gross_income = formatNumber(rec.gross_income)
+          rec.totalTaxDue = formatNumber(Number(rec.add_assmt) + Number(rec.tax))
+          rec.tax = formatNumber(rec.tax)
+          rec.overallGross = formatNumber(Number(rec.employed) + Number(rec.self_employed) + Number(rec.other_income))
           rec.createtime = dateformat(rec.createtime, "dd mmm yyyy")
           records.push(rec);
         }
         setIsFetching(false);
-        setPost(() => records);
+        setBojData(() => records);
       } catch (e) {
         setIsFetching(false);
       }
@@ -52,9 +49,12 @@ const ViewPendingAssessment = () => {
 
 
 
+
+
+
   return (
     <>
-      <SectionTitle title="View direct assessments" subtitle="Pending Direct Assessments" />
+      <SectionTitle title="Verified Assessments" subtitle="View Verified Assessments" />
 
       {isFetching && (
         <div className="flex justify-center item mb-2">
@@ -70,10 +70,9 @@ const ViewPendingAssessment = () => {
           <p>Fetching data...</p>
         </div>
       )}
-      
-      <ViewPendingTable draftData={post} />
+      <ViewBOJTable bojdata={bojdata} />
     </>
   );
 };
 
-export default ViewPendingAssessment;
+export default BOJList;

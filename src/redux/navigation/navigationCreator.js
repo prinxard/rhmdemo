@@ -92,6 +92,11 @@ const initialState = [
             url: '/view/completeddirect',
             items: [],
           },
+          // {
+          //   title: 'Verified BOJ',
+          //   url: '/view/listverifiedboj',
+          //   items: [],
+          // },
           {
             title: 'Approved Assessments',
             url: '/view/approvedasses',

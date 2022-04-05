@@ -190,7 +190,11 @@ export default function index() {
                             <p>Email</p>
                             <input name="email" ref={register()} type="email" className="form-control mb-4 w-full rounded font-light text-gray-500"
                             />
-
+                        </div>
+                        <div className="form-group">
+                            <p>Mobile Number</p>
+                            <input name="mobile_number" ref={register()} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                            />
                         </div>
 
                         {/* <div className="form-group ">

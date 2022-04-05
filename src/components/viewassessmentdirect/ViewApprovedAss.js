@@ -29,7 +29,7 @@ const ViewApprovedAss = () => {
     setAuthToken();
     const fetchPost = async () => {
       try {
-        let res = await axios.get(`${url.BASE_URL}forma/list-assessment` );
+        let res = await axios.get(`${url.BASE_URL}forma/list-assessment?assmt=Approved` );
         res = res.data.body.assessmentApproved;
         console.log(res)
         let records = [];
@@ -38,6 +38,7 @@ const ViewApprovedAss = () => {
           let rec = res[i];
           rec.taxPaidFormatted = formatNumber(rec.taxPaid)
           rec.gross_income = formatNumber(rec.gross_income)
+          rec.taxPaidFormatted = formatNumber(rec.taxPaid)
           // rec.tax = formatNumber(rec.tax)
           rec.totalTaxFormated = formatNumber((Number(rec.add_assmt) + Number(rec.tax)))
           rec.totalTaxDue = (Number(rec.add_assmt) + Number(rec.tax))

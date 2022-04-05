@@ -138,6 +138,7 @@ export const StartAssessment = () => {
         setModal(true)
         if (error.response) {
           setValidateMssg(() => error.response.data.message);
+          console.log(error.response.data.message);
         } else {
           toast.error("Failed!");
         }
@@ -675,7 +676,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
   )
 
   let expenseAmount = Number(expensesData.amount)
-  const netProfit = totalBusInc - expenseAmount
+  const netProfit = Number(totalBusInc) - expenseAmount
 
   const [nhisData, setNhis] = useState(
     {
@@ -2479,7 +2480,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
                     <div className="mb-6 grid grid-cols-3 gap-4">
                       <label className="font-bold">Total Business Income:</label>
-                      <p className="font-bold">NGN {totalBusInc}</p>
+                      <p className="font-bold">NGN {formatNumber(totalBusInc)}</p>
                     </div>
 
                     <div>
@@ -2558,7 +2559,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label className="font-bold">Net Profit/ Loss:</label>
-                    <p className="font-bold"> NGN {netProfit}</p>
+                    <p className="font-bold"> NGN {formatNumber(netProfit)}</p>
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <button
