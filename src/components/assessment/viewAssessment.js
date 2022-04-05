@@ -138,6 +138,7 @@ export const StartAssessment = () => {
         setModal(true)
         if (error.response) {
           setValidateMssg(() => error.response.data.message);
+          console.log(error.response.data.message);
         } else {
           toast.error("Failed!");
         }
@@ -2558,7 +2559,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label className="font-bold">Net Profit/ Loss:</label>
-                    <p className="font-bold"> NGN {netProfit}</p>
+                    <p className="font-bold"> NGN {Number(netProfit)}</p>
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <button

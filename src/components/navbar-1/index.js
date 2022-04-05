@@ -18,7 +18,7 @@ const Navbar = () => {
     shallowEqual
   );
   const decoded = jwt.decode(auth);
-  const email = decoded.user
+  const userName = decoded.staffName
  
   let { rightSidebar, collapsed } = { ...config };
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ const Navbar = () => {
 
         <span className="ml-auto"></span>
 
-          <p>{email}</p>
+          <p>{userName}</p>
         <Dropdown5 />
         <button
           className="btn-transparent flex items-center justify-center h-16 w-8 mx-4"

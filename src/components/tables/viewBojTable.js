@@ -4,115 +4,141 @@ import * as Icons from '../Icons/index';
 import Widget1 from "../dashboard/widget-1";
 import dateformat from "dateformat";
 import Link from 'next/link';
+import CustomButton from "../CustomButton/CustomButton";
+import MaterialTable, { MTableToolbar } from "material-table";
+import Search from '@material-ui/icons/Search'
+import ViewColumn from '@material-ui/icons/ViewColumn'
+import SaveAlt from '@material-ui/icons/SaveAlt'
+import ChevronLeft from '@material-ui/icons/ChevronLeft'
+import ChevronRight from '@material-ui/icons/ChevronRight'
+import FirstPage from '@material-ui/icons/FirstPage'
+import LastPage from '@material-ui/icons/LastPage'
+import Add from '@material-ui/icons/Add'
+import Check from '@material-ui/icons/Check'
+import FilterList from '@material-ui/icons/FilterList'
+import Remove from '@material-ui/icons/Remove'
+import ArrowDownward from "@material-ui/icons/ArrowDownward";
+import Clear from "@material-ui/icons/Clear";
+import { shallowEqual, useSelector } from "react-redux";
+import jwt from "jsonwebtoken";
 import setAuthToken from "../../functions/setAuthToken";
 import { useState } from "react";
 import Loader from "react-loader-spinner";
 import url from '../../config/url';
 import axios from "axios";
-import { useRouter } from "next/router";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import jwt from "jsonwebtoken";
-import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { FormatMoneyComponent } from "../FormInput/formInputs";
+import { useRouter } from "next/router";
 
 const fields = [
   {
-    name: "Assesment Id",
-    key: "assessment_id",
+    title: "SN",
+    field: "serialNo",
+    filtering: false,
+    width: "10%"
   },
   {
-    name: "Year",
-    key: "year",
+    title: "Assesment Id",
+    field: "assessment_id",
   },
   {
-    name: "KGTIN",
-    key: "kgtin",
+    title: "Year",
+    field: "year",
   },
   {
-    name: "Taxpayer Name",
-    key: "tp_name",
+    title: "KGTIN",
+    field: "kgtin",
   },
   {
-    name: "Tax Office",
-    key: "tax_office",
+    title: "Taxpayer Name",
+    field: "tp_name",
   },
   {
-    name: "Gross Income",
-    key: "overallGross",
+    title: "Tax Office",
+    field: "tax_office",
+  },
+  {
+    title: "Gross Income",
+    field: "overallGross",
   },
 
   {
-    name: "Total Tax Due",
-    key: "totalTaxDue",
+    title: "Total Tax Due",
+    field: "totalTaxDue",
   },
   {
-    name: "Status",
-    key: "status",
+    title: "Type",
+    field: "assessment_type",
   },
 
   {
-    name: "Type",
-    key: "assessment_type",
+    title: "Created Time",
+    field: "createtime",
   },
-
   {
-    name: "Created Time",
-    key: "createtime",
-  },
-
+    title: "Status",
+    field: "status",
+    // render: rowData => {
+    //   return (
+    //     rowData.status == "Draft" ? <p style={{ color: "#E87722", fontWeight: "bold" }}>{rowData.status}</p> :
+    //       rowData.status == "SUCCESS" ? <p style={{ color: "#008240", fontWeight: "bold" }}>{rowData.status}</p> :
+    //         <p style={{ color: "#B0B700", fontWeight: "bold" }}>{rowData.status}</p>
+    //   )
+    // }
+  }
 ];
 
-export const ViewCompletedTable = ({ remittance }) => {
-  let items = remittance;
+
+
+export const ViewBOJTable = ({ bojdata }) => {
+  let items = bojdata;
   return (
     <>
-      <Widget>
-        <table className="table divide-y">
-          <thead>
-            <tr className="">
-              {fields.map((field, i) => (
-                <th key={i} className="">
-                  {field.name}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="divide-y">
-            {items.map((remittance, i) => (
-              <tr key={i} className="">
-                {fields.map((field, j) => (
-                  <td key={j} className="">
-                    {/* {remittance[field.key]} */}
-                    <Link href={`/view/completeddirect/${remittance.assessment_id},${remittance.kgtin}`}>
-                      <a classNameNameName="hover:text-blue-500">
-                        {remittance[field.key]}
-                      </a>
-                    </Link>
-                    {/* <Link href={`/view/boj/${remittance.assessment_id},${remittance.kgtin}`}>
-                      <a className="hover:text-blue-500">
-                        {remittance[field.key]}
-                      </a>
-                    </Link> */}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </Widget>
+      <MaterialTable title="Verified Assessments List"
+        data={items}
+        columns={fields}
+
+        options={{
+          search: true,
+          paging: true,
+          filtering: true,
+          exportButton: {
+            csv: true,
+            pdf: false
+          },
+          exportAllData: true,
+
+        }}
+        icons={{
+          Check: Check,
+          DetailPanel: ChevronRight,
+          Export: SaveAlt,
+          Filter: () => <Icons.Filter />,
+          FirstPage: FirstPage,
+          LastPage: LastPage,
+          NextPage: ChevronRight,
+          PreviousPage: ChevronLeft,
+          Search: Search,
+          ThirdStateCheck: Remove,
+          Clear: Clear,
+          SortArrow: ArrowDownward
+        }}
+
+        onRowClick={(event, rowData) => {
+          window.open(`/view/listverifiedboj/${rowData.assessment_id},${rowData.kgtin}`)
+          event.stopPropagation();
+        }}
+      />
     </>
   );
 };
 
-export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, payerArr, assobj, taxcal,
+export const ViewSingleBojTable = ({ additionalAsse, payerprop, assId, payerArr, assobj, taxcal,
   childObj, resAddObj, rentIncome, spouseObj, domesticStaff, selfEmployment, vehicles, land, employed, lap, nhis, expenses, pensionDed }) => {
-  const [isFetching2, setIsFetching2] = useState(() => false);
-  const [isFetching3, setIsFetching3] = useState(() => false);
+  const [isFetching, setIsFetching] = useState(() => false);
   const router = useRouter();
   const [modal, setModal] = useState(false);
-  const [assessmentModal, setAssessmentModalModal] = useState(false);
   const [comment, setComment] = useState(false);
 
   const [fixedValues, fixValues] = useState({ amount: 0 });
@@ -135,7 +161,7 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
 
 
 
-  const Approval = [2, 3, 1]
+  const Approval = [12, 1]
   const decoded = jwt.decode(auth);
   const userGroup = decoded.groups
 
@@ -147,11 +173,6 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
   const toggleModal = (e) => {
     // e.preventDefault()
     setModal(!modal);
-  };
-
-  const asseModal = (e) => {
-    // e.preventDefault()
-    setAssessmentModalModal(!assessmentModal);
   };
 
   const kgtinString = String(kgtinVal)
@@ -183,45 +204,27 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
   setAuthToken();
   let approveAss = async (e) => {
     e.preventDefault()
-    setIsFetching3(true)
+    setIsFetching(true)
     let apprDataObj = {
       assessment_id: `${assessment_id}`,
       status: "Approved",
     }
     try {
       let res = await axios.put(`${url.BASE_URL}forma/set-status`, apprDataObj);
-      setIsFetching3(false)
+      setIsFetching(false)
       toast.success("Success!");
       router.push('/approvere')
     } catch (error) {
       toast.error("Failed!");
       console.log(error);
-      setIsFetching3(false)
-    }
-  }
-
-  let verifyBoj = async (e) => {
-    e.preventDefault()
-    setIsFetching3(true)
-    let bojDataObj = {
-      assessment_id: `${assessment_id}`,
-      status: "Verified",
-    }
-    try {
-      let res = await axios.put(`${url.BASE_URL}forma/set-status`, bojDataObj);
-      setIsFetching3(false)
-      router.push('/view/listverifiedboj')
-    } catch (error) {
-      toast.error("Failed!");
-      console.log(error);
-      setIsFetching3(false)
+      setIsFetching(false)
     }
   }
 
   setAuthToken();
   let DeclineAss = async (e) => {
     e.preventDefault()
-    setIsFetching2(true)
+    setIsFetching(true)
     let declineDataObj = {
       assessment_id: `${assessment_id}`,
       comment: `${comment}`,
@@ -229,38 +232,16 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
     }
     try {
       let res = await axios.put(`${url.BASE_URL}forma/set-status`, declineDataObj);
-      setIsFetching2(false)
+      setIsFetching(false)
       router.push('/view/completeddirect')
       toast.success("Success!");
     } catch (error) {
       toast.error("Failed!");
       console.log(error);
-      setIsFetching2(false)
+      setIsFetching(false)
     }
   }
 
-  const SubmitAdditionalAssessnet = (data) => {
-    setIsFetching2(true)
-    data.amount = fixedValues.amount
-    data.assessment_id = assessment_id
-    // const submittedResult = data;
-    // updateResult(submittedResult);
-    axios.post(`${url.BASE_URL}forma/add-assessment`, data)
-      .then(function (response) {
-        // handle success
-        setIsFetching2(false)
-        toast.success("Operation Successful!");
-
-        router.push("/view/approvedasses")
-      })
-      .catch(function (error) {
-        // handle error
-        setIsFetching2(false)
-        toast.error("Failed! please try again");
-      })
-
-    console.log(data);
-  };
 
   return (
     <>
@@ -295,61 +276,10 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
         </div>
       )}
 
-      {assessmentModal && (
-        <div className="modal">
-          {/* <div onClick={toggleModal} className="overlay"></div> */}
-          <div className="modal-content" width="300">
-            <div className="text-center">
-              <p>Are you sure you want to raise an additional Assessment ?</p>
-              <p>Please enter amount and state reason why</p>
-            </div>
-
-            <form onSubmit={handleSubmit(SubmitAdditionalAssessnet)}>
-              <FormatMoneyComponent
-                name="amount"
-                control={control}
-                defaultValue="0"
-                onValueChange={(v) => fixValues({ amount: v })}
-              />
-              {/* <input name="amount" required ref={register()} className="mb-3 form-control w-full rounded" type="text" placeholder="Amount" /> */}
-              <textarea name="comment" required ref={register()} className="form-control w-full rounded" minlength="10" maxlength="50" placeholder="comment" onChange={(e) => setComment(e.target.value)}></textarea>
-              <div className="mt-2 flex justify-between">
-                <button onClick={asseModal}
-                  className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                >
-                  Cancel
-                </button>
-
-                <button
-                  className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                >
-                  Continue
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {isFetching3 && (
+      {isFetching && (
         <div className="flex justify-start item mb-2">
           <Loader
-            visible={isFetching3}
-            type="BallTriangle"
-            color="#00FA9A"
-            height={19}
-            width={19}
-            timeout={0}
-            className="ml-2"
-          />
-          <p className="font-bold">Approving...</p>
-        </div>
-      )}
-      {isFetching2 && (
-        <div className="flex justify-start item mb-2">
-          <Loader
-            visible={isFetching2}
+            visible={isFetching}
             type="BallTriangle"
             color="#00FA9A"
             height={19}
@@ -362,74 +292,27 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
       )}
 
       <div className="ml-10">
-        <div>
-          {assobj.assessment_type === null || assobj.assessment_type === "" || assobj.assessment_type === undefined ? "" :
-            <div>
-              <p className="font-bold">TYPE OF ASSESSMENT</p>
-              <p>{assobj.assessment_type}</p>
-            </div>
-          }
-
-        </div>
         {userGroup.some(r => Approval.includes(r)) ?
 
           <div className="mb-6 flex justify-end">
-            {assobj.assessment_type === "BOJ" ?
-              <form onSubmit={verifyBoj} className=" mr-3">
-                <button
-                  className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                >
-                  Verify
-                </button>
-              </form>
-              :
-              <form onSubmit={approveAss} className=" mr-3">
-                <button
-                  className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                >
-                  Approve
-                </button>
-              </form>
-            }
+
+            <form onSubmit={approveAss} className=" mr-3">
+              <button
+                className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                type="submit"
+              >
+                Approve
+              </button>
+            </form>
+
             <button onClick={toggleModal}
               className="btn bg-red-600  mr-3 btn-default text-white btn-outlined bg-transparent rounded-md"
               type="submit"
             >
               Decline
             </button>
-            {assobj.assessment_type === "BOJ" ? "" :
-
-              <div>
-                <button onClick={asseModal}
-                  className="btn mr-3 bg-blue-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                >
-                  Additional Assessment
-                </button>
-              </div>
-            }
           </div> :
-
-          <div className="mb-6 flex justify-end hidden">
-            {assobj.assessment_type === "BOJ" ? "" :
-              <form onSubmit={approveAss}>
-                <button
-                  className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                >
-                  Approve
-                </button>
-              </form>
-            }
-            <button onClick={toggleModal}
-              className="btn w-32 bg-blue-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-              type="submit"
-            >
-              Decline
-            </button>
-          </div>
+          ""
         }
       </div>
 

@@ -89,7 +89,7 @@ export const ViewNonIndividualTable = ({ nonIndData }) => {
           SortArrow: ArrowDownward
         }}
         onRowClick={(event, rowData) => {
-          window.open(`/view/individual/${rowData.KGTIN}`)
+          window.open(`/view/nonindividual/${rowData.KGTIN}`)
           event.stopPropagation();
         }}
       />

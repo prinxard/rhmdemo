@@ -33,7 +33,7 @@ const fields = [
     key: "totalTaxFormated",
   },
   {
-    name: "Tax Paid",
+    name: "Amount Paid",
     key: "taxPaid",
   },
   {
@@ -442,7 +442,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                     <div>
                       <div>
                         <div>
-                          {assobj.assessment_type === null || assobj.assessment_type === "" || assobj.assessment_type === 'assessment' ?
+                          {assobj.assessment_type === null || assobj.assessment_type === "" || assobj.assessment_type === 'Assessment' ?
                             <div>
                               <p className="text-justify">
                                 Be informed that Tax payment is not a fine, It is a civic responsibility.
