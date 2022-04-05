@@ -36,7 +36,7 @@ const ViewApprovedAss = () => {
         let sum = [];
         for (let i = 0; i < res.length; i++) {
           let rec = res[i];
-          // rec.taxPaidFormatted = formatNumber(rec.taxPaid)
+          rec.taxPaidFormatted = formatNumber(rec.taxPaid)
           rec.gross_income = formatNumber(rec.gross_income)
           // rec.tax = formatNumber(rec.tax)
           rec.totalTaxFormated = formatNumber((Number(rec.add_assmt) + Number(rec.tax)))
