@@ -93,7 +93,7 @@ const initialState = [
             items: [],
           },
           {
-            title: 'Verified Assessments',
+            title: 'Verified BOJ',
             url: '/view/listverifiedboj',
             items: [],
           },

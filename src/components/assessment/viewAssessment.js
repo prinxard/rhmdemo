@@ -676,7 +676,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
   )
 
   let expenseAmount = Number(expensesData.amount)
-  const netProfit = totalBusInc - expenseAmount
+  const netProfit = Number(totalBusInc) - expenseAmount
 
   const [nhisData, setNhis] = useState(
     {
@@ -2480,7 +2480,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
                     <div className="mb-6 grid grid-cols-3 gap-4">
                       <label className="font-bold">Total Business Income:</label>
-                      <p className="font-bold">NGN {totalBusInc}</p>
+                      <p className="font-bold">NGN {formatNumber(totalBusInc)}</p>
                     </div>
 
                     <div>
@@ -2559,7 +2559,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
 
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <label className="font-bold">Net Profit/ Loss:</label>
-                    <p className="font-bold"> NGN {Number(netProfit)}</p>
+                    <p className="font-bold"> NGN {formatNumber(netProfit)}</p>
                   </div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
                     <button
