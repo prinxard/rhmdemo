@@ -29,7 +29,7 @@ const ViewPendingAssessment = () => {
     setAuthToken();
     const fetchPost = async () => {
       try {
-        let res = await axios.get(`${url.BASE_URL}forma/list-assessment`);
+        let res = await axios.get(`${url.BASE_URL}forma/list-assessment?assmt=Draft`);
         res = res.data.body.assessmentDraft;
         console.log(res)
         let employeessTotal = res.length

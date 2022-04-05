@@ -34,7 +34,7 @@ const fields = [
   },
   {
     name: "Amount Paid",
-    key: "taxPaid",
+    key: "taxPaidFormatted",
   },
   {
     name: "Balance",

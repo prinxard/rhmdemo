@@ -29,7 +29,7 @@ const ViewCompleteAss = () => {
     setAuthToken();
     const fetchPost = async () => {
       try {
-        let res = await axios.get(`${url.BASE_URL}forma/list-assessment?assmt=Draft` );
+        let res = await axios.get(`${url.BASE_URL}forma/list-assessment?assmt=Submitted` );
         console.log("All",res)
         res = res.data.body.assessmentSubmitted;
       

@@ -192,7 +192,7 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
       let res = await axios.put(`${url.BASE_URL}forma/set-status`, apprDataObj);
       setIsFetching3(false)
       toast.success("Success!");
-      router.push('/approvere')
+      router.push('/view/completeddirect')
     } catch (error) {
       toast.error("Failed!");
       console.log(error);
