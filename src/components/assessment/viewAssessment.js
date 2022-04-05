@@ -17,6 +17,7 @@ import Loader from "react-loader-spinner";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FormatMoneyComponent } from "../FormInput/formInputs";
+import { CastForEducation, WarningRounded } from "@material-ui/icons";
 
 export const StartAssessment = () => {
   const [kgtEnentered, setKgtEentered] = useState('')
@@ -121,15 +122,15 @@ export const StartAssessment = () => {
         // }
 
         axios.post(`${url.BASE_URL}forma/new-assessment`, createAssesment)
-        .then(function (response){
-          let assessment_id = response.data.body.assessment_id
-             if (typeWatch === "Assessment") {
-            console.log("TypeWatch2", typeWatch);
-            router.push(`/direct-asses/${assessment_id},${kgtinWatch}`)
-          } else {
-            router.push(`/view/boj/${assessment_id},${kgtinWatch}`)
-          }
-        })
+          .then(function (response) {
+            let assessment_id = response.data.body.assessment_id
+            if (typeWatch === "Assessment") {
+              console.log("TypeWatch2", typeWatch);
+              router.push(`/direct-asses/${assessment_id},${kgtinWatch}`)
+            } else {
+              router.push(`/view/boj/${assessment_id},${kgtinWatch}`)
+            }
+          })
         // setModal(true)
         // setValidateMssg(response.data.body);
       })
@@ -137,8 +138,8 @@ export const StartAssessment = () => {
         setIsFetching(false)
         setModal(true)
         if (error.response) {
-          setValidateMssg(() => error.response.data.message);
-          console.log(error.response.data.message);
+          setValidateMssg((error.response.data.message).replaceAll("Error", "Warning"));
+          console.log((error.response.data.message).replaceAll("Error", "Warning"));
         } else {
           toast.error("Failed!");
         }
@@ -245,6 +246,12 @@ export const StartAssessment = () => {
           {/* <div onClick={toggleModal} className="overlay"></div> */}
           <div className="modal-content" width="300">
             <form onSubmit={handleSubmit(onSubmitform)}>
+              <div className="flex justify-center">
+                <WarningRounded
+                  size={15}
+                  className="text-yellow-400"
+                />
+              </div>
               <p>{validateMssg}</p>
               {/* <textarea required className="form-control w-full rounded" minlength="10" maxlength="50" onChange={(e) => setComment(e.target.value)}></textarea> */}
               <div className="mt-2 flex justify-between">
