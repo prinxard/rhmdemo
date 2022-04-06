@@ -6,65 +6,116 @@ import dateformat from "dateformat";
 import Link from 'next/link';
 import { KgirsLogo, KogiGov, Signature } from "../Images/Images";
 import React from "react";
+import Search from '@material-ui/icons/Search'
+import SaveAlt from '@material-ui/icons/SaveAlt'
+import ChevronLeft from '@material-ui/icons/ChevronLeft'
+import ChevronRight from '@material-ui/icons/ChevronRight'
+import FirstPage from '@material-ui/icons/FirstPage'
+import LastPage from '@material-ui/icons/LastPage'
+import Check from '@material-ui/icons/Check'
+import Remove from '@material-ui/icons/Remove'
+import ArrowDownward from "@material-ui/icons/ArrowDownward";
+import Clear from "@material-ui/icons/Clear";
+import MaterialTable from "material-table";
 
 const fields = [
   {
-    name: "Assesment Id",
-    key: "assessment_id",
+    title: "SN",
+    field: "serialNo",
+    filtering: false,
+    width: "10%"
   },
   {
-    name: "Year",
-    key: "year",
+    title: "Assesment Id",
+    field: "assessment_id",
   },
   {
-    name: "KGTIN",
-    key: "kgtin",
+    title: "Year",
+    field: "year",
   },
   {
-    name: "Taxpayer Name",
-    key: "tp_name",
+    title: "KGTIN",
+    field: "kgtin",
   },
   {
-    name: "Gross Income",
-    key: "overallGross",
+    title: "Taxpayer Name",
+    field: "tp_name",
   },
   {
-    name: "Total Tax Due",
-    key: "totalTaxFormated",
+    title: "Gross Income",
+    field: "overallGross",
   },
   {
-    name: "Amount Paid",
-    key: "taxPaidFormatted",
+    title: "Total Tax Due",
+    field: "totalTaxFormated",
   },
   {
-    name: "Balance",
-    key: "balance",
+    title: "Amount Paid",
+    field: "taxPaidFormatted",
   },
   {
-    name: "Tax Office",
-    key: "tax_office",
+    title: "Balance",
+    field: "balance",
   },
   {
-    name: "Status",
-    key: "status",
+    title: "Tax Office",
+    field: "tax_office",
   },
   {
-    name: "Type",
-    key: "assessment_type",
+    title: "Status",
+    field: "status",
   },
   {
-    name: "Created Time",
-    key: "createtime",
+    title: "Type",
+    field: "assessment_type",
+  },
+  {
+    title: "Created Time",
+    field: "createtime",
   },
 
 ];
 
-export const ViewApprovedTable = ({ remittance }) => {
-  let items = remittance;
+export const ViewApprovedTable = ({ ApprovedData }) => {
+  let items = ApprovedData;
 
   return (
     <>
-      <Widget>
+      <MaterialTable title="Approved Assessments List"
+        data={items}
+        columns={fields}
+        options={{
+          search: true,
+          paging: true,
+          filtering: true,
+          exportButton: {
+            csv: true,
+            pdf: false
+          },
+          exportAllData: true,
+
+        }}
+        icons={{
+          Check: Check,
+          DetailPanel: ChevronRight,
+          Export: SaveAlt,
+          Filter: () => <Icons.Filter />,
+          FirstPage: FirstPage,
+          LastPage: LastPage,
+          NextPage: ChevronRight,
+          PreviousPage: ChevronLeft,
+          Search: Search,
+          ThirdStateCheck: Remove,
+          Clear: Clear,
+          SortArrow: ArrowDownward
+        }}
+
+        onRowClick={(event, rowData) => {
+          window.open(`/view/completeddirect/${rowData.assessment_id},${rowData.kgtin}`)
+          event.stopPropagation();
+        }}
+      />
+      {/* <Widget>
         <table className="table divide-y">
           <thead>
             <tr className="">
@@ -80,7 +131,7 @@ export const ViewApprovedTable = ({ remittance }) => {
               <tr key={i} className="">
                 {fields.map((field, j) => (
                   <td key={j} className="">
-                    {/* {remittance[field.key]} */}
+                    {remittance[field.key]}
                     <Link href={`/view/approvedasses/${remittance.assessment_id},${remittance.kgtin}`}>
                       <a className="hover:text-blue-500">
                         {remittance[field.key]}
@@ -92,7 +143,7 @@ export const ViewApprovedTable = ({ remittance }) => {
             ))}
           </tbody>
         </table>
-      </Widget>
+      </Widget> */}
     </>
   );
 };
@@ -187,7 +238,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                       {payerAyy.map((data, idx) => (
                         <div>
                           {data.city == null || data.city == "" ? data.street :
-                          <p>{`${data.street}, ${data.city}`}</p>
+                            <p>{`${data.street}, ${data.city}`}</p>
                           }
                         </div>
                         // <p key={idx}>, ${data.city}`}</p>
@@ -287,7 +338,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                     </tr>
                     <tr>
                       <td className='tb font-bold'><div align='right' className='style16'>Assessable Income </div></td>
-                      <td className='tb'> <p className="font-bold text-right">{formatNumber((((grossIncCal) + Number(assobj.other_income))) - deductionsTotal) }</p> </td>
+                      <td className='tb'> <p className="font-bold text-right">{formatNumber((((grossIncCal) + Number(assobj.other_income))) - deductionsTotal)}</p> </td>
                     </tr>
                     <tr>
                       <td className='tb'>ADD</td>
@@ -315,7 +366,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                     </tr>
                     <tr>
                       <td className='tb'><div align='right' className='style16 font-bold'>Total Income</div></td>
-                      <td className='tb'> <p className="font-bold text-right">{formatNumber((((grossIncCal) + Number(assobj.other_income))) - deductionsTotal) }</p> </td>
+                      <td className='tb'> <p className="font-bold text-right">{formatNumber((((grossIncCal) + Number(assobj.other_income))) - deductionsTotal)}</p> </td>
                     </tr>
                     <tr>
                       <td className='tb'>Consolidated Relief Allowance</td>
