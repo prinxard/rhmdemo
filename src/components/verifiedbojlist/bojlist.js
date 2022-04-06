@@ -25,7 +25,7 @@ const BOJList = () => {
     let num = 1
     const fetchPost = async () => {
       try {
-        let res = await axios.get(`${url.BASE_URL}forma/list-assessment`);
+        let res = await axios.get(`${url.BASE_URL}forma/list-assessment?assmt=Verified`);
         res = res.data.body.assessmentVerified;
         let records = [];
         for (let i = 0; i < res.length; i++) {
