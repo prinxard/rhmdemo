@@ -190,25 +190,13 @@ const initialState = [
         title: 'Settings',
         items: [
           {
-            url: '/',
-            // icon: <ManageUser />,
             title: 'Manage User',
             items: [
-              // {
-              //   title: 'Dashboard',
-              //   url: '/',
-              //   items: [],
-              // },
+              { title: 'Create', url: '/register', items: [] },
               {
-                title: 'User',
-                items: [
-                  { title: 'Create', url: '/register', items: [] },
-                  {
-                    title: 'View',
-                    url: '/view/users',
-                    items: [],
-                  },
-                ],
+                title: 'View',
+                url: '/view/users',
+                items: [],
               },
             ],
           },
