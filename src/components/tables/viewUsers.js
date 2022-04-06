@@ -164,7 +164,7 @@ export default function UpdateUser({ user, groups }) {
 
   const options = rhmGroups.map(item => {
     return {
-      label: item.role,
+      label: item.role + " || " + item.department,
       value: item.id
     }
   })

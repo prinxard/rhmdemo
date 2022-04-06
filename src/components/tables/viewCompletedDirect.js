@@ -1,9 +1,7 @@
-import Widget from "../widget";
+
 import { formatNumber } from "../../functions/numbers";
 import * as Icons from '../Icons/index';
-import Widget1 from "../dashboard/widget-1";
 import dateformat from "dateformat";
-import Link from 'next/link';
 import setAuthToken from "../../functions/setAuthToken";
 import { useState } from "react";
 import Loader from "react-loader-spinner";
@@ -16,59 +14,111 @@ import jwt from "jsonwebtoken";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { FormatMoneyComponent } from "../FormInput/formInputs";
+import Search from '@material-ui/icons/Search'
+import SaveAlt from '@material-ui/icons/SaveAlt'
+import ChevronLeft from '@material-ui/icons/ChevronLeft'
+import ChevronRight from '@material-ui/icons/ChevronRight'
+import FirstPage from '@material-ui/icons/FirstPage'
+import LastPage from '@material-ui/icons/LastPage'
+import Check from '@material-ui/icons/Check'
+import Remove from '@material-ui/icons/Remove'
+import ArrowDownward from "@material-ui/icons/ArrowDownward";
+import Clear from "@material-ui/icons/Clear";
+import MaterialTable from "material-table";
 
 const fields = [
   {
-    name: "Assesment Id",
-    key: "assessment_id",
+    title: "SN",
+    field: "serialNo",
+    filtering: false,
+    width: "10%"
   },
   {
-    name: "Year",
-    key: "year",
+    title: "Assesment Id",
+    field: "assessment_id",
   },
   {
-    name: "KGTIN",
-    key: "kgtin",
+    title: "Year",
+    field: "year",
   },
   {
-    name: "Taxpayer Name",
-    key: "tp_name",
+    title: "KGTIN",
+    field: "kgtin",
   },
   {
-    name: "Tax Office",
-    key: "tax_office",
+    title: "Taxpayer Name",
+    field: "tp_name",
   },
   {
-    name: "Gross Income",
-    key: "overallGross",
-  },
-
-  {
-    name: "Total Tax Due",
-    key: "totalTaxDue",
+    title: "Tax Office",
+    field: "tax_office",
   },
   {
-    name: "Status",
-    key: "status",
+    title: "Gross Income",
+    field: "overallGross",
   },
 
   {
-    name: "Type",
-    key: "assessment_type",
+    title: "Total Tax Due",
+    field: "totalTaxDue",
+  },
+  {
+    title: "Status",
+    field: "status",
   },
 
   {
-    name: "Created Time",
-    key: "createtime",
+    title: "Type",
+    field: "assessment_type",
+  },
+
+  {
+    title: "Created Time",
+    field: "createtime",
   },
 
 ];
 
-export const ViewCompletedTable = ({ remittance }) => {
-  let items = remittance;
+export const ViewCompletedTable = ({ submittedData }) => {
+  let items = submittedData;
   return (
     <>
-      <Widget>
+      <MaterialTable title="Submitted Assessments List"
+        data={items}
+        columns={fields}
+
+        options={{
+          search: true,
+          paging: true,
+          filtering: true,
+          exportButton: {
+            csv: true,
+            pdf: false
+          },
+          exportAllData: true,
+
+        }}
+        icons={{
+          Check: Check,
+          DetailPanel: ChevronRight,
+          Export: SaveAlt,
+          Filter: () => <Icons.Filter />,
+          FirstPage: FirstPage,
+          LastPage: LastPage,
+          NextPage: ChevronRight,
+          PreviousPage: ChevronLeft,
+          Search: Search,
+          ThirdStateCheck: Remove,
+          Clear: Clear,
+          SortArrow: ArrowDownward
+        }}
+
+        onRowClick={(event, rowData) => {
+          window.open(`/view/completeddirect/${rowData.assessment_id},${rowData.kgtin}`)
+          event.stopPropagation();
+        }}
+      />
+      {/* <Widget>
         <table className="table divide-y">
           <thead>
             <tr className="">
@@ -84,24 +134,20 @@ export const ViewCompletedTable = ({ remittance }) => {
               <tr key={i} className="">
                 {fields.map((field, j) => (
                   <td key={j} className="">
-                    {/* {remittance[field.key]} */}
+                    
                     <Link href={`/view/completeddirect/${remittance.assessment_id},${remittance.kgtin}`}>
                       <a classNameNameName="hover:text-blue-500">
                         {remittance[field.key]}
                       </a>
                     </Link>
-                    {/* <Link href={`/view/boj/${remittance.assessment_id},${remittance.kgtin}`}>
-                      <a className="hover:text-blue-500">
-                        {remittance[field.key]}
-                      </a>
-                    </Link> */}
+                  
                   </td>
                 ))}
               </tr>
             ))}
           </tbody>
         </table>
-      </Widget>
+      </Widget> */}
     </>
   );
 };

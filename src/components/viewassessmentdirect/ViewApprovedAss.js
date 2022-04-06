@@ -26,6 +26,7 @@ const ViewApprovedAss = () => {
   const [year, setYear] = useState('');
   const [query, setQuery] = useState(() => "");
   useEffect(() => {
+    let num = 1
     setAuthToken();
     const fetchPost = async () => {
       try {
@@ -33,9 +34,9 @@ const ViewApprovedAss = () => {
         res = res.data.body.assessmentApproved;
         console.log(res)
         let records = [];
-        let sum = [];
         for (let i = 0; i < res.length; i++) {
           let rec = res[i];
+          rec.serialNo = num + i
           rec.taxPaidFormatted = formatNumber(rec.taxPaid)
           rec.gross_income = formatNumber(rec.gross_income)
           rec.taxPaidFormatted = formatNumber(rec.taxPaid)
@@ -58,30 +59,6 @@ const ViewApprovedAss = () => {
   }, []);
 
 
-  // Get current post
-  const indexOfLastPost = currentPage * postPerPage;
-  const indexOfFirstPost = indexOfLastPost - postPerPage;
-  const currentPosts = post.slice(indexOfFirstPost, indexOfLastPost);
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  const next = (currentPage) => setCurrentPage(() => currentPage + 1);
-  const previous = (currentPage) => setCurrentPage(() => currentPage - 1);
-
-  const searchHandler = (e) => {
-    setQuery(() => e.target.value);
-  };
-
-  let res = [];
-  const search = (rows) => {
-    let data = [];
-    data = rows.filter((rows) => rows.kgtin.toLowerCase().indexOf(query) > -1);
-    res.push(data);
-    return data;
-  };
-
-  const searchedPost = search(post).slice(indexOfFirstPost, indexOfLastPost);
-  // console.log(currentPosts);
-
   return (
     <>
       <SectionTitle title="View direct assessments" subtitle="View Approved Assessments" />
@@ -100,45 +77,8 @@ const ViewApprovedAss = () => {
           <p>Fetching data...</p>
         </div>
       )}
-      <Widget>
-        <div className="flex flex-col lg:flex-row lg:flex-wrap w-full lg:space-x-4">
-          <div className="w-full lg:w-2/12">
-            <NewFormInput
-              label="Search by kgtin"
-              required
-              onChange={searchHandler}
-            />
-          </div>
-        </div>
-
-        <div className="mt-4">
-          {query !== "" ? (
-            <>
-              <ViewApprovedTable remittance={searchedPost} />
-              <CustomPagination
-                paginate={paginate}
-                totalPosts={res[0].length}
-                postPerPage={postPerPage}
-                currentPage={currentPage}
-                next={next}
-                previous={previous}
-              />
-            </>
-          ) : (
-            <>
-              <ViewApprovedTable remittance={currentPosts} />
-              <CustomPagination
-                paginate={paginate}
-                totalPosts={post.length}
-                postPerPage={postPerPage}
-                currentPage={currentPage}
-                next={next}
-                previous={previous}
-              />
-            </>
-          )}
-        </div>
-      </Widget>
+      
+          <ViewApprovedTable ApprovedData={post} />
     </>
   );
 };

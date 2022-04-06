@@ -64,10 +64,12 @@ export default function index() {
 
     const options = rhmGroups.map(item => {
         return {
-            label: item.role,
+            label: item.role + " || " + item.department,
             value: item.id
         }
     })
+    console.log("Options", options);
+    console.log("rhmGroups", rhmGroups);
 
     setAuthToken();
     const onSubmit = (data) => {

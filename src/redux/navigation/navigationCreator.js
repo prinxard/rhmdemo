@@ -1,4 +1,4 @@
-import { Dashboard, Invoice, FileReturns, RhmDashboard, ManageTaxpayer, ManageUser, DirectAssessment, Paye, Collections, Settings } from '../../components/Icons/index';
+import { RhmDashboard, ManageTaxpayer, ManageUser, DirectAssessment, Paye, Collections, Settings } from '../../components/Icons/index';
 
 // Added non individual navigation to side menu
 
@@ -48,29 +48,29 @@ const initialState = [
         ],
       },
 
-      {
-        url: '/',
-        icon: <ManageUser />,
-        title: 'Manage User',
-        items: [
-          // {
-          //   title: 'Dashboard',
-          //   url: '/',
-          //   items: [],
-          // },
-          {
-            title: 'User',
-            items: [
-              { title: 'Create', url: '/register', items: [] },
-              {
-                title: 'View',
-                url: '/view/users',
-                items: [],
-              },
-            ],
-          },
-        ],
-      },
+      // {
+      //   url: '/',
+      //   icon: <ManageUser />,
+      //   title: 'Manage User',
+      //   items: [
+      //     {
+      //       title: 'Dashboard',
+      //       url: '/',
+      //       items: [],
+      //     },
+      //     {
+      //       title: 'User',
+      //       items: [
+      //         { title: 'Create', url: '/register', items: [] },
+      //         {
+      //           title: 'View',
+      //           url: '/view/users',
+      //           items: [],
+      //         },
+      //       ],
+      //     },
+      //   ],
+      // },
 
       {
         url: '/',
@@ -208,82 +208,82 @@ const initialState = [
         ],
       },
 
-      {
-        url: '/',
-        icon: <Settings />,
-        title: 'Settings',
-        items: [
-          {
-            title: 'Revenue Items',
-            items: [
-              { title: 'Create', url: '/', items: [] },
-              {
-                title: 'View',
-                url: '/',
-                items: [],
-              },
-              {
-                title: 'Edit',
-                url: '/',
-                items: [],
-              },
-              {
-                title: 'Delete',
-                url: '/',
-                items: [],
-              },
-            ],
-          },
-          {
-            title: 'Tax Office',
-            items: [
-              { title: 'Create', url: '/', items: [] },
-              {
-                title: 'View',
-                url: '/',
-                items: [],
-              },
-              { title: 'Edit', url: '/', items: [] },
-              { title: 'Delete', url: '/', items: [] },
+      // {
+      //   url: '/',
+      //   icon: <Settings />,
+      //   title: 'Settings',
+      //   items: [
+      //     {
+      //       title: 'Revenue Items',
+      //       items: [
+      //         { title: 'Create', url: '/', items: [] },
+      //         {
+      //           title: 'View',
+      //           url: '/',
+      //           items: [],
+      //         },
+      //         {
+      //           title: 'Edit',
+      //           url: '/',
+      //           items: [],
+      //         },
+      //         {
+      //           title: 'Delete',
+      //           url: '/',
+      //           items: [],
+      //         },
+      //       ],
+      //     },
+      //     {
+      //       title: 'Tax Office',
+      //       items: [
+      //         { title: 'Create', url: '/', items: [] },
+      //         {
+      //           title: 'View',
+      //           url: '/',
+      //           items: [],
+      //         },
+      //         { title: 'Edit', url: '/', items: [] },
+      //         { title: 'Delete', url: '/', items: [] },
 
-            ],
-          },
-          {
-            title: 'Sectors',
-            items: [
-              { title: 'Create', url: '/', items: [] },
-              { title: 'View', url: '/', items: [] },
-              {
-                title: 'Edit',
-                url: '/',
-                items: [],
-              },
-              {
-                title: 'Delete',
-                url: '/',
-                items: [],
-              },
-            ],
-          },
-          {
-            title: 'Budget Estimate',
-            items: [
-              { title: 'Create', url: '/', items: [] },
-              { title: 'View', url: '/', items: [] },
-              {
-                title: 'Edit',
-                url: '/',
-                items: [],
-              },
-              {
-                title: 'Delete',
-                url: '/',
-                items: [],
-              },
-            ],
-          },
-        ],
-      },
+      //       ],
+      //     },
+      //     {
+      //       title: 'Sectors',
+      //       items: [
+      //         { title: 'Create', url: '/', items: [] },
+      //         { title: 'View', url: '/', items: [] },
+      //         {
+      //           title: 'Edit',
+      //           url: '/',
+      //           items: [],
+      //         },
+      //         {
+      //           title: 'Delete',
+      //           url: '/',
+      //           items: [],
+      //         },
+      //       ],
+      //     },
+      //     {
+      //       title: 'Budget Estimate',
+      //       items: [
+      //         { title: 'Create', url: '/', items: [] },
+      //         { title: 'View', url: '/', items: [] },
+      //         {
+      //           title: 'Edit',
+      //           url: '/',
+      //           items: [],
+      //         },
+      //         {
+      //           title: 'Delete',
+      //           url: '/',
+      //           items: [],
+      //         },
+      //       ],
+      //     },
+      //   ],
+      // },
     ],
   },
 ];

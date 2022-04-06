@@ -48,45 +48,21 @@ const initialState = [
         ],
       },
 
-      // {
-      //   url: '/',
-      //   icon: <ManageUser />,
-      //   title: 'Manage User',
-      //   items: [
-      //     {
-      //       title: 'Dashboard',
-      //       url: '/',
-      //       items: [],
-      //     },
-      //     {
-      //       title: 'User',
-      //       items: [
-      //         { title: 'Create', url: '/register', items: [] },
-      //         {
-      //           title: 'View',
-      //           url: '/view/users',
-      //           items: [],
-      //         },
-      //       ],
-      //     },
-      //   ],
-      // },
-
       {
         url: '/',
         icon: <DirectAssessment />,
         title: 'Direct Assessment',
         items: [
-          // {
-          //   title: 'Create',
-          //   url: '/direct-asses',
-          //   items: [],
-          // },
-          // {
-          //   title: 'Draft Assessments',
-          //   url: '/view/pendingdirect',
-          //   items: [],
-          // },
+          {
+            title: 'Create',
+            url: '/direct-asses',
+            items: [],
+          },
+          {
+            title: 'Draft Assessments',
+            url: '/view/pendingdirect',
+            items: [],
+          },
           {
             title: 'Submitted Assessments',
             url: '/view/completeddirect',
@@ -208,82 +184,105 @@ const initialState = [
         ],
       },
 
-      // {
-      //   url: '/',
-      //   icon: <Settings />,
-      //   title: 'Settings',
-      //   items: [
-      //     {
-      //       title: 'Revenue Items',
-      //       items: [
-      //         { title: 'Create', url: '/', items: [] },
-      //         {
-      //           title: 'View',
-      //           url: '/',
-      //           items: [],
-      //         },
-      //         {
-      //           title: 'Edit',
-      //           url: '/',
-      //           items: [],
-      //         },
-      //         {
-      //           title: 'Delete',
-      //           url: '/',
-      //           items: [],
-      //         },
-      //       ],
-      //     },
-      //     {
-      //       title: 'Tax Office',
-      //       items: [
-      //         { title: 'Create', url: '/', items: [] },
-      //         {
-      //           title: 'View',
-      //           url: '/',
-      //           items: [],
-      //         },
-      //         { title: 'Edit', url: '/', items: [] },
-      //         { title: 'Delete', url: '/', items: [] },
+      {
+        url: '/',
+        icon: <Settings />,
+        title: 'Settings',
+        items: [
+          {
+            url: '/',
+            // icon: <ManageUser />,
+            title: 'Manage User',
+            items: [
+              // {
+              //   title: 'Dashboard',
+              //   url: '/',
+              //   items: [],
+              // },
+              {
+                title: 'User',
+                items: [
+                  { title: 'Create', url: '/register', items: [] },
+                  {
+                    title: 'View',
+                    url: '/view/users',
+                    items: [],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            title: 'Revenue Items',
+            items: [
+              { title: 'Create', url: '/', items: [] },
+              {
+                title: 'View',
+                url: '/',
+                items: [],
+              },
+              {
+                title: 'Edit',
+                url: '/',
+                items: [],
+              },
+              {
+                title: 'Delete',
+                url: '/',
+                items: [],
+              },
+            ],
+          },
+          {
+            title: 'Tax Office',
+            items: [
+              { title: 'Create', url: '/', items: [] },
+              {
+                title: 'View',
+                url: '/',
+                items: [],
+              },
+              { title: 'Edit', url: '/', items: [] },
+              { title: 'Delete', url: '/', items: [] },
 
-      //       ],
-      //     },
-      //     {
-      //       title: 'Sectors',
-      //       items: [
-      //         { title: 'Create', url: '/', items: [] },
-      //         { title: 'View', url: '/', items: [] },
-      //         {
-      //           title: 'Edit',
-      //           url: '/',
-      //           items: [],
-      //         },
-      //         {
-      //           title: 'Delete',
-      //           url: '/',
-      //           items: [],
-      //         },
-      //       ],
-      //     },
-      //     {
-      //       title: 'Budget Estimate',
-      //       items: [
-      //         { title: 'Create', url: '/', items: [] },
-      //         { title: 'View', url: '/', items: [] },
-      //         {
-      //           title: 'Edit',
-      //           url: '/',
-      //           items: [],
-      //         },
-      //         {
-      //           title: 'Delete',
-      //           url: '/',
-      //           items: [],
-      //         },
-      //       ],
-      //     },
-      //   ],
-      // },
+            ],
+          },
+          {
+            title: 'Sectors',
+            items: [
+              { title: 'Create', url: '/', items: [] },
+              { title: 'View', url: '/', items: [] },
+              {
+                title: 'Edit',
+                url: '/',
+                items: [],
+              },
+              {
+                title: 'Delete',
+                url: '/',
+                items: [],
+              },
+            ],
+          },
+          {
+            title: 'Budget Estimate',
+            items: [
+              { title: 'Create', url: '/', items: [] },
+              { title: 'View', url: '/', items: [] },
+              {
+                title: 'Edit',
+                url: '/',
+                items: [],
+              },
+              {
+                title: 'Delete',
+                url: '/',
+                items: [],
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
 ];
