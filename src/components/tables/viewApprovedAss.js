@@ -53,6 +53,12 @@ const fields = [
   {
     title: "Balance",
     field: "balance",
+      render: rowData => {
+      return (
+        rowData.balance < "0" ? <p style={{ color: "#FF0000", fontWeight: "bold" }}>{rowData.balance}</p> :
+        <p>{rowData.balance}</p>
+      )
+    }
   },
   {
     title: "Tax Office",
