@@ -1,9 +1,6 @@
-import Widget from "../widget";
 import { formatNumber } from "../../functions/numbers";
 import * as Icons from '../Icons/index';
-import Widget1 from "../dashboard/widget-1";
 import dateformat from "dateformat";
-import Link from 'next/link';
 import { KgirsLogo, KogiGov, Signature } from "../Images/Images";
 import React from "react";
 import Search from '@material-ui/icons/Search'
