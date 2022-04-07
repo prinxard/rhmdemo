@@ -165,6 +165,12 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
   const router = useRouter();
   let assessment_id = routerAssId
 
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors }, } = useForm()
+
 
   const [residentialAddress, setResidentialAddress] = useState(
     {
@@ -450,6 +456,34 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
       setIsFetching(false)
     }
   }
+
+  let submitEmploymentInsert = (data) => {
+    setIsFetching(true)
+    console.log(data);
+    axios.post(`${url.BASE_URL}forma/employed`, data)
+      .then(function (response) {
+        setIsFetching(false)
+        toast.success("Saved Successfully!");
+        // handle success
+        console.log(response);
+      })
+      .catch(function (error) {
+        toast.error("error, Please try again!");
+        setIsFetching(false)
+        // handle error
+        console.log(error);
+      })
+    // try {
+    //   let res = axios.post(`${url.BASE_URL}forma/employed`, data);
+    //   setIsFetching(false)
+    //   toast.success("Saved Successfully!");
+    // } catch (error) {
+    //   toast.error("error, Please try again!");
+    //   console.log(error);
+    //   setIsFetching(false)
+    // }
+  }
+
 
   const [lifeInsData, setLifeInsData] = useState(
     {
@@ -2579,31 +2613,34 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
 
 
       <div className={`flex justify-center border mb-3 p-6 rounded-lg bg-white w-full ${toggleel}`}>
-        <form onSubmit={submitDataEmployment}>
+        <div >
           {employment == null || employment == "" ?
-            <div>
+            <form onSubmit={handleSubmit(submitEmploymentInsert)}>
               <div>
+                <div className="hidden">
+                  <input ref={register()} defaultValue={assessment_id} required type="text" name="assessment_id" className="form-control w-full rounded" />
+                </div>
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label>Employer Name:</label>
-                  <input required type="text" name="emp_name" className="form-control w-full rounded" />
+                  <input ref={register()} required type="text" name="emp_name" className="form-control w-full rounded" />
                 </div>
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label>Employer Address:</label>
-                  <input required type="text" name="emp_addr" className="form-control w-full rounded" />
+                  <input ref={register()} required type="text" name="emp_addr" className="form-control w-full rounded" />
                 </div>
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label>Your start date:</label>
-                  <input type="date" name="start_date" className="form-control w-full rounded"
+                  <input ref={register()} required type="date" name="start_date" className="form-control w-full rounded"
                   />
                 </div>
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label>Gross pay:</label>
-                  <input required placeholder="₦" type="text" name="gross_pay" className="form-control w-full rounded"
+                  <input ref={register()} required placeholder="₦" type="text" name="gross_pay" className="form-control w-full rounded"
                   />
                 </div>
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   <label>Tax deducted:</label>
-                  <input placeholder="₦" type="text" name="tax_deducted" className="form-control w-full rounded"
+                  <input ref={register()} placeholder="₦" type="text" name="tax_deducted" className="form-control w-full rounded"
                   />
                 </div>
                 <div className="mb-6 grid grid-cols-3 gap-4">
@@ -2620,7 +2657,6 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                 <button
                   style={{ backgroundColor: "#84abeb" }}
                   className="btn w-64 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  disabled
                 >
                   Save
                 </button>
@@ -2633,9 +2669,9 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                   </a>
                 </button>
               </div>
-            </div>
+            </form>
             :
-            <div>
+            <form onSubmit={submitDataEmployment}>
               {employment.map((ind, i) => (
                 <div>
                   <div className="mb-6 grid grid-cols-3 gap-4">
@@ -2688,9 +2724,9 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                   </a>
                 </button>
               </div>
-            </div>
+            </form>
           }
-        </form>
+        </div>
       </div>
 
       <div>

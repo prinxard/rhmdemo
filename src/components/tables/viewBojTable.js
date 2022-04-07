@@ -589,12 +589,12 @@ export const ViewSingleBojTable = ({ additionalAsse, payerprop, assId, payerArr,
             </tbody>
           </table>
         </div>
-        {/* <div className="mt-4 flex justify-around">
+        <div className="mt-4 flex justify-around">
           <div>
             <p>Captured by : {assobj.staffName} </p>
             <p>Date of capture : {createdTime} </p>
           </div>
-          <div className="flex">
+          {/* <div className="flex">
             <div className="flex flex-col p-2">
               <p className="font-bold">Balance</p>
               <p className="font-bold text-center">{formatNumber(taxcal.payDiff)}</p>
@@ -607,8 +607,8 @@ export const ViewSingleBojTable = ({ additionalAsse, payerprop, assId, payerArr,
               <p className="font-bold">Tax Paid</p>
               <p className="font-bold text-center">{formatNumber(taxcal.taxPaid)}</p>
             </div>
-          </div>
-        </div> */}
+          </div> */}
+        </div>
 
         <div className="flex m-10 justify-center">
           <button
