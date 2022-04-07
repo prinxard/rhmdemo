@@ -19,6 +19,8 @@ export default function index() {
     const [isFetching, setIsFetching] = useState(false)
     const [lga, setLga] = useState([])
     const [indvRecord, setindividualRec] = useState([])
+    const [userBVN, setUserBvn] = useState('')
+
 
     const {
         register,
@@ -26,7 +28,14 @@ export default function index() {
         control,
         formState: { errors }, } = useForm()
 
-    // console.log(decoded);
+    let IndividualBVN
+
+    indvRecord.forEach((ind, i) => {
+        IndividualBVN = ind.bvn
+    })
+
+    console.log(IndividualBVN);
+    // setUserBvn(IndividualBVN)
 
     const router = useRouter();
     useEffect(() => {
@@ -56,7 +65,7 @@ export default function index() {
 
     const onSubmit = (data) => {
         setIsFetching(true)
-        if (data.bvn === "") {
+        if (data.bvn === IndividualBVN) {
             delete data.bvn
             axios.put(`${url.BASE_URL}taxpayer/update-individual`, data)
                 .then(function (response) {
