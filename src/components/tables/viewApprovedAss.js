@@ -118,35 +118,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
           event.stopPropagation();
         }}
       />
-      {/* <Widget>
-        <table className="table divide-y">
-          <thead>
-            <tr className="">
-              {fields.map((field, i) => (
-                <th key={i} className="">
-                  {field.name}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="divide-y">
-            {items.map((remittance, i) => (
-              <tr key={i} className="">
-                {fields.map((field, j) => (
-                  <td key={j} className="">
-                    {remittance[field.key]}
-                    <Link href={`/view/approvedasses/${remittance.assessment_id},${remittance.kgtin}`}>
-                      <a className="hover:text-blue-500">
-                        {remittance[field.key]}
-                      </a>
-                    </Link>
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </Widget> */}
+      
     </>
   );
 };
