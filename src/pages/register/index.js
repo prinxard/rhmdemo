@@ -129,7 +129,7 @@ export default function index() {
                         <div className="form-group">
                             <p>Password</p>
                             <input name="password" type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
-                                ref={register({ required: "Password is required", minLength: { value: 8, message: "password must be at least 8 charachers in length" }, maxLength: { value: 12, message: "password must not be more than 12 charachers in length" } })}
+                                ref={register({ required: "Password is required", minLength: { value: 8, message: "password must be at least 8 characters in length" }, maxLength: { value: 12, message: "password must not be more than 12 charachers in length" } })}
                             />
                             {errors.password && <p className="text-red-600">{errors.password.message}</p>}
                         </div>
