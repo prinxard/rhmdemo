@@ -196,10 +196,10 @@ let previousTaxFigure = previousTaxFigureInit.replace(/,/g, '')
   // console.log("payer", payerDetails);
 
 
-  console.log("selfemplFigure", selfemplFigure);
-  console.log("emplFigure", emplFigure);
-  console.log("otherIncome", otherIncomeFigure);
-  console.log("previousTax", previousTaxFigure);
+  // console.log("selfemplFigure", selfemplFigure);
+  // console.log("emplFigure", emplFigure);
+  // console.log("otherIncome", otherIncomeFigure);
+  // console.log("previousTax", previousTaxFigure);
 
 
   const TotalIncome = Number(emplFigure) + Number(selfemplFigure) + Number(otherIncomeFigure)
@@ -273,7 +273,7 @@ let previousTaxFigure = previousTaxFigureInit.replace(/,/g, '')
 
   //calculate tax
   if (consolidatedIncome <= 360000.0) {
-    tax = consolidatedIncome * 0;
+    tax = consolidatedIncome * 0.01;
 
     //console.log(tax+' 1');
   } else if (consolidatedIncome > 360000 && chargeableIncome < 300000) {
