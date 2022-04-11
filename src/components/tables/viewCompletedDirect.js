@@ -416,6 +416,15 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
             </div>
           }
 
+          <div className="mt-2">
+            {assobj.assessment_type === null || assobj.assessment_type === "" || assobj.assessment_type === undefined ? "" :
+              <div>
+                <p className="font-bold">COMMENT</p>
+                <p className="font-bold">{assobj.boj_comment}</p>
+              </div>
+            }
+          </div>
+
         </div>
         {userGroup.some(r => Approval.includes(r)) ?
 

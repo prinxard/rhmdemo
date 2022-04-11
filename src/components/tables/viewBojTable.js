@@ -291,6 +291,19 @@ export const ViewSingleBojTable = ({ additionalAsse, payerprop, assId, payerArr,
         </div>
       )}
 
+      <div>
+
+        <div className="mt-2">
+          {assobj.assessment_type === null || assobj.assessment_type === "" || assobj.assessment_type === undefined ? "" :
+            <div>
+              <p className="font-bold">COMMENT</p>
+              <p className="font-bold">{assobj.boj_comment}</p>
+            </div>
+          }
+        </div>
+
+      </div>
+
       <div className="ml-10">
         {userGroup.some(r => Approval.includes(r)) ?
 

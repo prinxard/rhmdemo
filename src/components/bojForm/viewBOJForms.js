@@ -273,7 +273,7 @@ let previousTaxFigure = previousTaxFigureInit.replace(/,/g, '')
 
   //calculate tax
   if (consolidatedIncome <= 360000.0) {
-    tax = consolidatedIncome * 0;
+    tax = consolidatedIncome * 0.01;
 
     //console.log(tax+' 1');
   } else if (consolidatedIncome > 360000 && chargeableIncome < 300000) {
