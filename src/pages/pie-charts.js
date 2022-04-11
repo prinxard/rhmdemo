@@ -1,67 +1,112 @@
-import SectionTitle from '../components/section-title'
-import Doughnut from '../components/charts/doughnut'
-import Pie from '../components/charts/pie'
-import Circle from '../components/circle'
-import {Donut1, Donut2, Donut3} from '../components/recharts/donut'
-import Widget from '../components/widget'
 
+import React, { useCallback, useState } from "react";
+import { PieChart, Pie, Cell } from "recharts";
 
-const Index = () => (
-  <>
-    <SectionTitle title="Charts" subtitle="Pie and doughnut charts" />
-    <Widget
-      title="Doughnut chart"
-      description={
-        <span>
-          Use the <code>&lt;Doughnut /&gt;</code> component for doughnut charts
-        </span>
-      }>
-      <Doughnut height={250} />
-    </Widget>
-    <Widget
-      title="Pie chart"
-      description={
-        <span>
-          Use the <code>&lt;Pie /&gt;</code> component for pie charts
-        </span>
-      }>
-      <Pie height={250} />
-    </Widget>
-    <Widget
-      title="Pie chart"
-      description={
-        <span>
-          Use the <code>&lt;Pie /&gt;</code> component for pie charts
-        </span>
-      }>
-      <Donut1 />
-      <div className="w-full">
-        <Donut3 />
-      </div>
-      <div className="w-full">
-        <Donut2 />
-      </div>
-    </Widget>
-    <Widget
-      title="Circular progress bars"
-      description={
-        <span>
-          Use the <code>&lt;Circle /&gt;</code> component for circular progress
-          bars
-        </span>
-      }>
-      <div className="flex flex-row flex-wrap w-full">
-        <div className="p-2">
-          <Circle progress={35} size="sm" color="indigo" />
-        </div>
-        <div className="p-2">
-          <Circle progress={35} color="indigo" />
-        </div>
-        <div className="p-2">
-          <Circle progress={35} color="indigo" size="lg" />
-        </div>
-      </div>
-    </Widget>
-  </>
-)
-export default Index
+const data = [
+  { name: "Group A", value: 400 },
+  { name: "Group B", value: 300 },
+  { name: "Group C", value: 300 },
+  // { name: "Group D", value: 200 }
+];
+const data2 = [
+  { name: "Group A", value: 400 },
+  { name: "Group B", value: 300 },
+  { name: "Group C", value: 300 },
+  // { name: "Group D", value: 200 }
+];
+
+const data3 = [
+  { name: "Group A", value: 400 },
+  { name: "Group B", value: 300 },
+  { name: "Group C", value: 300 },
+  // { name: "Group D", value: 200 }
+];
+
+const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+
+const RADIAN = Math.PI / 180;
+const renderCustomizedLabel = ({
+  cx,
+  cy,
+  midAngle,
+  innerRadius,
+  outerRadius,
+  percent,
+  index
+}, any) => {
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+  return (
+    <text
+      x={x}
+      y={y}
+      fill="white"
+      textAnchor={x > cx ? "start" : "end"}
+      dominantBaseline="central"
+    >
+      {`${(percent * 100).toFixed(0)}%`}
+    </text>
+  );
+};
+export const App = () => {
+  return (
+    <PieChart width={400} height={400}>
+      <Pie
+        data={data}
+        cx={200}
+        cy={200}
+        labelLine={false}
+        label={renderCustomizedLabel}
+        outerRadius={80}
+        fill="#8884d8"
+        dataKey="value"
+      >
+        {data.map((entry, index) => (
+          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+        ))}
+      </Pie>
+    </PieChart>
+  );
+}
+export const App2 = () => {
+  return (
+    <PieChart width={400} height={400}>
+      <Pie
+        data={data2}
+        cx={200}
+        cy={200}
+        labelLine={false}
+        label={renderCustomizedLabel}
+        outerRadius={80}
+        fill="#8884d8"
+        dataKey="value"
+      >
+        {data.map((entry, index) => (
+          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+        ))}
+      </Pie>
+    </PieChart>
+  );
+}
+export const App3 = () => {
+  return (
+    <PieChart width={400} height={400}>
+      <Pie
+        data={data}
+        cx={200}
+        cy={200}
+        labelLine={false}
+        label={renderCustomizedLabel}
+        outerRadius={80}
+        fill="#8884d8"
+        dataKey="value"
+      >
+        {data.map((entry, index) => (
+          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+        ))}
+      </Pie>
+    </PieChart>
+  );
+}
