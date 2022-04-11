@@ -55,8 +55,8 @@ export const App = () => {
     <PieChart width={400} height={400}>
       <Pie
         data={data}
-        cx={200}
-        cy={200}
+        cx={100}
+        cy={100}
         labelLine={false}
         label={renderCustomizedLabel}
         outerRadius={80}
@@ -75,8 +75,8 @@ export const App2 = () => {
     <PieChart width={400} height={400}>
       <Pie
         data={data2}
-        cx={200}
-        cy={200}
+        cx={100}
+        cy={100}
         labelLine={false}
         label={renderCustomizedLabel}
         outerRadius={80}
@@ -95,8 +95,8 @@ export const App3 = () => {
     <PieChart width={400} height={400}>
       <Pie
         data={data}
-        cx={200}
-        cy={200}
+        cx={100}
+        cy={100}
         labelLine={false}
         label={renderCustomizedLabel}
         outerRadius={80}

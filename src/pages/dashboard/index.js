@@ -22,6 +22,7 @@ import {
   Cell
 } from "recharts";
 import { App, App2, App3 } from '../pie-charts';
+import Widget from '../../components/widget';
 
 const Index = () => {
   // const { data, isLoading, error } = UseFetcher(
@@ -31,150 +32,314 @@ const Index = () => {
   const data = [
     {
       name: "Lokoja",
-      uv: 4000,
-      pv: 2400,
+      submitted: 4000,
+      approved: 2400,
       amt: 2400
     },
     {
       name: "Okene",
-      uv: 3000,
-      pv: 1398,
+      submitted: 3000,
+      approved: 1398,
       amt: 2210
     },
     {
       name: "Head office",
-      uv: 2000,
-      pv: 9800,
+      submitted: 2000,
+      approved: 9800,
       amt: 2290
     },
     {
       name: "Isannlu",
-      uv: 2780,
-      pv: 3908,
+      submitted: 2780,
+      approved: 3908,
       amt: 2000
     },
     {
       name: "Kabba",
-      uv: 1890,
-      pv: 4800,
+      submitted: 1890,
+      approved: 4800,
       amt: 2181
     },
     {
       name: "Koto",
-      uv: 2390,
-      pv: 3800,
+      submitted: 2390,
+      approved: 3800,
       amt: 2500
     },
     {
       name: "Idah",
-      uv: 3490,
-      pv: 4300,
+      submitted: 3490,
+      approved: 4300,
       amt: 2100
     },
     {
       name: "Ankpa",
-      uv: 3490,
-      pv: 4300,
+      submitted: 3490,
+      approved: 4300,
       amt: 2100
     },
     {
       name: "Ajaokuta",
-      uv: 3490,
-      pv: 4300,
+      submitted: 3490,
+      approved: 4300,
       amt: 2100
     },
     {
       name: "Ayingba",
-      uv: 3490,
-      pv: 4300,
+      submitted: 3490,
+      approved: 4300,
+      amt: 2100
+    }
+  ];
+  const data2 = [
+    {
+      name: "Lokoja",
+      submitted: 4000,
+      approved: 2400,
+      amt: 2400
+    },
+    {
+      name: "Okene",
+      submitted: 3000,
+      approved: 1398,
+      amt: 2210
+    },
+    {
+      name: "Head office",
+      submitted: 2000,
+      approved: 9800,
+      amt: 2290
+    },
+    {
+      name: "Isannlu",
+      submitted: 2780,
+      approved: 3908,
+      amt: 2000
+    },
+    {
+      name: "Kabba",
+      submitted: 1890,
+      approved: 4800,
+      amt: 2181
+    },
+    {
+      name: "Koto",
+      submitted: 2390,
+      approved: 3800,
+      amt: 2500
+    },
+    {
+      name: "Idah",
+      submitted: 3490,
+      approved: 4300,
+      amt: 2100
+    },
+    {
+      name: "Ankpa",
+      submitted: 3490,
+      approved: 4300,
+      amt: 2100
+    },
+    {
+      name: "Ajaokuta",
+      submitted: 3490,
+      approved: 4300,
+      amt: 2100
+    },
+    {
+      name: "Ayingba",
+      submitted: 3490,
+      approved: 4300,
+      amt: 2100
+    }
+  ];
+
+  const data3 = [
+    {
+      name: "Lokoja",
+      assessed: 4000,
+      collected: 2400,
+      outstanding: 1400,
+      unassessed: 2400,
+      amt: 2400
+    },
+    {
+      name: "Okene",
+      assessed: 3000,
+      collected: 1398,
+      outstanding: 2998,
+      unassessed: 1398,
+      amt: 2210
+    },
+    {
+      name: "Head office",
+      assessed: 2000,
+      collected: 9800,
+      outstanding: 9900,
+      unassessed: 9800,
+      amt: 2290
+    },
+    {
+      name: "Isannlu",
+      ass: 2780,
+      assessed: 3908,
+      collected: 3908,
+      outstanding: 3908,
+      unassessed: 3908,
+      amt: 2000
+    },
+    {
+      name: "Kabba",
+      assessed: 1890,
+      collected: 4800,
+      outstanding: 4800,
+      unassessed: 4800,
+      amt: 2181
+    },
+    {
+      name: "Koto",
+      assessed: 2390,
+      collected: 3800,
+      outstanding: 4800,
+      unassessed: 3800,
+      amt: 2500
+    },
+    {
+      name: "Idah",
+      assessed: 3490,
+      collected: 4300,
+      outstanding: 5300,
+      unassessed: 4300,
+      amt: 2100
+    },
+    {
+      name: "Ankpa",
+      assessed: 3490,
+      collected: 4300,
+      outstanding: 2300,
+      unassessed: 4300,
+      amt: 2100
+    },
+    {
+      name: "Ajaokuta",
+      assessed: 3490,
+      collected: 4300,
+      outstanding: 5300,
+      unassessed: 4300,
+      amt: 2100
+    },
+    {
+      name: "Ayingba",
+      assessed: 3490,
+      collected: 4300,
+      outstanding: 6300,
+      unassessed: 4300,
       amt: 2100
     }
   ];
 
   return (
     <>
-      <div className="flex">
-        <div>
-          <BarChart
-            width={800}
-            height={300}
-            data={data}
-            margin={{
-              top: 20,
-              right: 30,
-              left: 20,
-              bottom: 5
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="pv" stackId="a" fill="#8884d8" />
-            <Bar dataKey="uv" stackId="a" fill="#82ca9d" />
-          </BarChart>
-        <div className="flex justify-center">
-          <App />
+      <Widget>
+        <SectionTitle subtitle="Assessment Count" />
+        <div className="flex">
+          <div>
+            <BarChart
+              width={800}
+              height={400}
+              data={data}
+              margin={{
+                top: 20,
+                right: 30,
+                left: 20,
+                bottom: 5
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="submitted" stackId="a" fill="#8884d8" />
+              <Bar dataKey="approved" stackId="a" fill="#82ca9d" />
+            </BarChart>
+            <div className="flex justify-end mt-10">
+              <div>
+                <p className="font-bold">Cummulative Assessment</p>
+                <App />
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </Widget>
+
+    <Widget>
+        <SectionTitle subtitle="Amount Assessed" />
+        <div className="flex">
+          <div>
+            <BarChart
+              width={800}
+              height={400}
+              data={data2}
+              margin={{
+                top: 20,
+                right: 30,
+                left: 20,
+                bottom: 5
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="submitted" stackId="a" fill="#8884d8" />
+              <Bar dataKey="approved" stackId="a" fill="#82ca9d" />
+            </BarChart>
+            <div className="flex justify-end mt-10">
+              <div>
+                <p className="font-bold">Cummulative Assessment</p>
+                <App2 />
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </Widget>
+
+      <Widget>
+        <SectionTitle subtitle="Collection Performance" />
+        <div className="flex">
+          <div>
+            <BarChart
+              width={800}
+              height={400}
+              data={data3}
+              margin={{
+                top: 20,
+                right: 30,
+                left: 20,
+                bottom: 5
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="assessed" stackId="a" fill="#8884d8" />
+              <Bar dataKey="collected" stackId="a" fill="#82ca9d" />
+              <Bar dataKey="oustanding" stackId="a" fill="C900BF" />
+              <Bar dataKey="unassessed" stackId="a" fill="#12cc1d" />
+            </BarChart>
+            <div className="flex justify-end mt-10">
+              <App3 />
+            </div>
+          </div>
         </div>
 
-        </div>
-      </div>
-      <div className="flex">
-        <div>
-          <BarChart
-            width={700}
-            height={300}
-            data={data}
-            margin={{
-              top: 20,
-              right: 30,
-              left: 20,
-              bottom: 5
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="pv" stackId="a" fill="#8884d8" />
-            <Bar dataKey="uv" stackId="a" fill="#82ca9d" />
-          </BarChart>
-
-        </div>
-        <div className="self-center">
-          <App2 />
-        </div>
-      </div>
-
-      <div className="flex">
-        <div>
-          <BarChart
-            width={700}
-            height={300}
-            data={data}
-            margin={{
-              top: 20,
-              right: 30,
-              left: 20,
-              bottom: 5
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="pv" stackId="a" fill="#8884d8" />
-            <Bar dataKey="uv" stackId="a" fill="#82ca9d" />
-          </BarChart>
-
-        </div>
-        <div className="self-center">
-          <App3 />
-        </div>
-      </div>
+      </Widget>
       {/* {isLoading && <Spinner />}
       {data?.length > 0 && (
         <>
