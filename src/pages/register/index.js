@@ -40,6 +40,8 @@ export default function index() {
     const decoded = jwt.decode(auth);
     const creator = decoded.user
 
+    console.log("Tax Station", taxStation);
+
     useEffect(() => {
 
         setAuthToken();
