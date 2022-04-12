@@ -245,29 +245,26 @@ const Index = () => {
         <SectionTitle subtitle="Assessment Count" />
         <div className="flex">
           <div>
-            <ResponsiveContainer>
-              <BarChart
-                width={800}
-                height={400}
-                data={data}
-                margin={{
-                  top: 20,
-                  right: 30,
-                  left: 20,
-                  bottom: 5
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="submitted" stackId="a" fill="#8884d8" />
-                <Bar dataKey="approved" stackId="a" fill="#82ca9d" />
-              </BarChart>
-              <App />
-            </ResponsiveContainer>
 
+            <BarChart
+              width={800}
+              height={400}
+              data={data}
+              margin={{
+                top: 20,
+                right: 30,
+                left: 20,
+                bottom: 5
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="submitted" stackId="a" fill="#8884d8" />
+              <Bar dataKey="approved" stackId="a" fill="#82ca9d" />
+            </BarChart>
             <div className="flex justify-end mt-10">
               <div>
                 <p className="font-bold">Cummulative Assessment</p>
@@ -302,12 +299,12 @@ const Index = () => {
               <Bar dataKey="submitted" stackId="a" fill="#8884d8" />
               <Bar dataKey="approved" stackId="a" fill="#82ca9d" />
             </BarChart>
-            <div className="flex justify-end mt-10">
+            {/* <div className="flex justify-end mt-10">
               <div>
                 <p className="font-bold">Cummulative Assessment</p>
                 <App2 />
               </div>
-            </div>
+            </div> */}
 
           </div>
         </div>
@@ -339,7 +336,10 @@ const Index = () => {
               <Bar dataKey="unassessed" stackId="a" fill="#12cc1d" />
             </BarChart>
             <div className="flex justify-end mt-10">
-              <App3 />
+              <div>
+                <p className="font-bold">Cummulative performance</p>
+                <App3 />
+              </div>
             </div>
           </div>
         </div>
