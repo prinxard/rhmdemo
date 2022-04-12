@@ -19,7 +19,8 @@ import {
   Legend,
   PieChart,
   Pie,
-  Cell
+  Cell,
+  ResponsiveContainer
 } from "recharts";
 import { App, App2, App3 } from '../pie-charts';
 import Widget from '../../components/widget';
@@ -244,25 +245,29 @@ const Index = () => {
         <SectionTitle subtitle="Assessment Count" />
         <div className="flex">
           <div>
-            <BarChart
-              width={800}
-              height={400}
-              data={data}
-              margin={{
-                top: 20,
-                right: 30,
-                left: 20,
-                bottom: 5
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="submitted" stackId="a" fill="#8884d8" />
-              <Bar dataKey="approved" stackId="a" fill="#82ca9d" />
-            </BarChart>
+            <ResponsiveContainer>
+              <BarChart
+                width={800}
+                height={400}
+                data={data}
+                margin={{
+                  top: 20,
+                  right: 30,
+                  left: 20,
+                  bottom: 5
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="submitted" stackId="a" fill="#8884d8" />
+                <Bar dataKey="approved" stackId="a" fill="#82ca9d" />
+              </BarChart>
+              <App />
+            </ResponsiveContainer>
+
             <div className="flex justify-end mt-10">
               <div>
                 <p className="font-bold">Cummulative Assessment</p>
@@ -274,7 +279,7 @@ const Index = () => {
         </div>
       </Widget>
 
-    <Widget>
+      <Widget>
         <SectionTitle subtitle="Amount Assessed" />
         <div className="flex">
           <div>
