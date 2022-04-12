@@ -103,24 +103,6 @@ export const StartAssessment = () => {
       .then(function (response) {
         setIsFetching(false)
 
-        // try {
-        //   const res = axios.post(`${url.BASE_URL}forma/new-assessment`, createAssesment);
-        //   let assessment_id = res.data.body.assessment_id
-        //   console.log("RES", res);
-        //   setIsFetching(false)
-        //   console.log("TypeWatch1", typeWatch);
-        //   if (typeWatch === "Assessment") {
-        //     console.log("TypeWatch2", typeWatch);
-        //     router.push(`/direct-asses/${assessment_id},${kgtinWatch}`)
-        //   } else {
-        //     router.push(`/view/boj/${assessment_id},${kgtinWatch}`)
-        //   }
-        // }
-        // catch (err) {
-        //   setIsFetching(false)
-        //   console.log(err);
-        // }
-
         axios.post(`${url.BASE_URL}forma/new-assessment`, createAssesment)
           .then(function (response) {
             let assessment_id = response.data.body.assessment_id
@@ -131,8 +113,7 @@ export const StartAssessment = () => {
               router.push(`/view/boj/${assessment_id},${kgtinWatch}`)
             }
           })
-        // setModal(true)
-        // setValidateMssg(response.data.body);
+        
       })
       .catch(function (error) {
         setIsFetching(false)
@@ -144,26 +125,6 @@ export const StartAssessment = () => {
           toast.error("Failed!");
         }
       })
-
-    // let createAsses = {
-    //   year: `${year}`,
-    //   kgtin: `${KGTIN}`,
-    // }
-    // setIsFetching2(true)
-    // try {
-    //   const res = await axios.post(`${url.BASE_URL}forma/validate-assessment`, createAsses);
-    //   let messageToDisplay = res.data.body
-    //   setValidateMssg(messageToDisplay)
-    //   setIsFetching2(false)
-    //   setModal(true)
-    // }
-    // catch (err) {
-    //   let messageToDisplay = res.data.body.message
-    //   setIsFetching2(false)
-    //   setValidateMssg(messageToDisplay)
-    //   setModal(true)
-    //   console.log(err);
-    // }
   };
 
 
@@ -190,24 +151,6 @@ export const StartAssessment = () => {
       Setinvalidkgtinmessage("Invalid KGTIN");
     }
   };
-
-  // setAuthToken();
-  // const ValidateAss = (data) => {
-  //   setIsFetching(true)
-  //   axios.post(`${url.BASE_URL}forma/validate-assessment`, data)
-  //     .then(function (response) {
-  //       setIsFetching(false)
-  //       setValidateMssg(response.data.body);
-  //     })
-  //     .catch(function (error) {
-  //       setIsFetching(false)
-  //       if (error.response) {
-  //         setValidateMssg(() => error.response.data.message);
-  //       } else {
-  //         toast.error("Failed!");
-  //       }
-  //     })
-  // };
 
   return (
     <>
@@ -2314,7 +2257,9 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                         <option value="Architect">Architect</option>
                         <option value="Artist And Song-Writer">Artist And Song-Writer</option>
                         <option value="Baby Wear">Baby Wear</option>
+                        <option value="Boutique">Boutique</option>
                         <option value="Building Material">Building Material Dealer</option>
+                        <option value="Cosmetics">Cosmetics</option>
                         <option value="Curtain & Interior Decoration">Curtain & Interior Decoration</option>
                         <option value="Cyber Cafe Operator">Cyber Cafe Operator</option>
                         <option value="Dealers In Mattress/Foams">Dealers In Mattress/Foams</option>
@@ -2332,6 +2277,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
                         <option value="Films & Cinemas Center">Films & Cinemas Center</option>
                         <option value="Fish Seller">Fish Seller</option>
                         <option value="Fowl Seller">Fowl Seller</option>
+                        <option value="Foam"> foam/Matras</option>
                         <option value="Fruit Seller">Fruit Seller</option>
                         <option value="Furnishing Materials Seller">Furnishing Materials Seller</option>
                         <option value="Furniture / Furnishing Materials Seller">Furniture / Furnishing Materials Seller</option>

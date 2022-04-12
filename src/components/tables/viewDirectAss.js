@@ -109,10 +109,10 @@ export const ViewPendingTable = ({ draftData }) => {
 
           {
             rowData.assessment_type == "BOJ" ?
-           
+
               window.open(`/view/boj/${rowData.assessment_id},${rowData.kgtin}`)
               :
-           
+
               window.open(`/view/pendingdirect/${rowData.assessment_id},${rowData.kgtin}`)
 
           }
@@ -2759,6 +2759,9 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                         <option value="Architect">Architect</option>
                         <option value="Artist And Song-Writer">Artist And Song-Writer</option>
                         <option value="Baby Wear">Baby Wear</option>
+                        <option value="Boutique">Boutique</option>
+                        <option value="Building Material">Building Material Dealer</option>
+                        <option value="Cosmetics">Cosmetics</option>
                         <option value="Curtain & Interior Decoration">Curtain & Interior Decoration</option>
                         <option value="Cyber Cafe Operator">Cyber Cafe Operator</option>
                         <option value="Dealers In Mattress/Foams">Dealers In Mattress/Foams</option>
@@ -2776,6 +2779,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                         <option value="Films & Cinemas Center">Films & Cinemas Center</option>
                         <option value="Fish Seller">Fish Seller</option>
                         <option value="Fowl Seller">Fowl Seller</option>
+                        <option value="Foam"> foam/Matras</option>
                         <option value="Fruit Seller">Fruit Seller</option>
                         <option value="Furnishing Materials Seller">Furnishing Materials Seller</option>
                         <option value="Furniture / Furnishing Materials Seller">Furniture / Furnishing Materials Seller</option>
