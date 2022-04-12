@@ -2,7 +2,7 @@ import { formatNumber } from "../../functions/numbers";
 import * as Icons from '../Icons/index';
 import dateformat from "dateformat";
 import { KgirsLogo, KogiGov, Signature } from "../Images/Images";
-import React from "react";
+import React, { useState } from "react";
 import Search from '@material-ui/icons/Search'
 import SaveAlt from '@material-ui/icons/SaveAlt'
 import ChevronLeft from '@material-ui/icons/ChevronLeft'
@@ -14,6 +14,12 @@ import Remove from '@material-ui/icons/Remove'
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Clear from "@material-ui/icons/Clear";
 import MaterialTable from "material-table";
+import { Delete, WarningRounded } from "@material-ui/icons";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Loader from "react-loader-spinner";
+import url from '../../config/url';
+import axios from "axios";
 
 const fields = [
   {
@@ -53,10 +59,10 @@ const fields = [
   {
     title: "Balance",
     field: "balance",
-      render: rowData => {
+    render: rowData => {
       return (
         rowData.balance < "0" ? <p style={{ color: "#FF0000", fontWeight: "bold" }}>{rowData.balance}</p> :
-        <p>{rowData.balance}</p>
+          <p>{rowData.balance}</p>
       )
     }
   },
@@ -81,16 +87,112 @@ const fields = [
 
 export const ViewApprovedTable = ({ ApprovedData }) => {
   let items = ApprovedData;
+  const [modal, setModal] = useState(false);
+  const [assessId, setAssessId] = useState('');
+  const [isFetching, setIsFetching] = useState(() => false);
 
+  const toggleModal = (e) => {
+    // e.preventDefault()
+    setModal(!modal);
+  };
+
+  const DeleteAssessment = (data) => {
+    data.preventDefault()
+    setIsFetching(true)
+    let deleteOBJ = {
+      assessment_id: assessId
+    }
+    axios.delete(`${url.BASE_URL}forma/del-assessment`, deleteOBJ)
+      .then(function (response) {
+        // handle success
+        // window.location.reload();
+        setIsFetching(false)
+        toast.success("Operation Successful!");
+
+        router.push("/view/completeddirect")
+      })
+      .catch(function (error) {
+        // handle error
+        setIsFetching(false)
+        toast.error("Failed! please try again");
+      })
+
+    console.log(data);
+  };
+  console.log("modal", modal);
+  console.log("AssessmentId", assessId);
   return (
     <>
+      <ToastContainer />
+      {modal && (
+        <div className="modal">
+          {/* <div onClick={toggleModal} className="overlay"></div> */}
+          <div className="modal-content" width="300">
+            <form onSubmit={DeleteAssessment}>
+              <div className="flex justify-center">
+                <WarningRounded
+                  size={15}
+                  className="text-yellow-400"
+                />
+              </div>
+              <p>Are you sure you want to delete?</p>
+              {/* <textarea required className="form-control w-full rounded" minlength="10" maxlength="50" onChange={(e) => setComment(e.target.value)}></textarea> */}
+              <div className="mt-2 flex justify-between">
+                <button onClick={toggleModal}
+                  className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                >
+                  Cancel
+                </button>
+                <div>
+
+                </div>
+                <button
+                  className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  Continue
+                </button>
+
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {isFetching && (
+        <div className="flex justify-start item mb-2">
+          <Loader
+            visible={isFetching}
+            type="BallTriangle"
+            color="#00FA9A"
+            height={19}
+            width={19}
+            timeout={0}
+            className="ml-2"
+          />
+          <p className="font-bold">Processing...</p>
+        </div>
+      )}
       <MaterialTable title="Approved Assessments List"
         data={items}
         columns={fields}
+        actions={[
+          {
+            icon: Delete,
+            tooltip: 'Delete Assessment',
+            onClick: (event, rowData) => {
+              event.preventDefault()
+              setAssessId(rowData.assessment_id)
+              setModal(true)
+            }
+          }
+        ]}
+
         options={{
           search: true,
           paging: true,
           filtering: true,
+          actionsColumnIndex: -1,
           exportButton: {
             csv: true,
             pdf: false
@@ -103,6 +205,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
           DetailPanel: ChevronRight,
           Export: SaveAlt,
           Filter: () => <Icons.Filter />,
+          Delete: () => Delete,
           FirstPage: FirstPage,
           LastPage: LastPage,
           NextPage: ChevronRight,
@@ -118,7 +221,57 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
           event.stopPropagation();
         }}
       />
+
+
+      <style
+        jsx>{
+          `
+        body.active-modal {
+          overflow-y: hidden;
+      }
       
+      // .btn-modal {
+      //     padding: 10px 20px;
+      //     display: block;
+      //     margin: 100px auto 0;
+      //     font-size: 18px;
+      // }
+      
+      .modal, .overlay {
+          width: 100vw;
+          height: 100vh;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          position: fixed;
+      }
+      
+      .overlay {
+          background: rgba(49,49,49,0.8);
+      }
+      .modal-content {
+          position: absolute;
+          top: 20%;
+          left: 60%;
+          transform: translate(-50%, -50%);
+          line-height: 1.4;
+          background: #f1f1f1;
+          padding: 14px 28px;
+          border-radius: 3px;
+          max-width: 400px;
+          min-width: 300px;
+      }
+      
+      .close-modal {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          padding: 5px 7px;
+      }
+        `
+        }
+      </style>
     </>
   );
 };
