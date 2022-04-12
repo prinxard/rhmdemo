@@ -100,10 +100,6 @@ export const StartBOJ = () => {
   }
 
 
-// let selfemplFigureInit = watch("self_employment", `${APISelfEmployed}`)
-// let emplFigureiInit = watch("employment", `${APIEmployed}`);
-// let otherIncomeFigureInit = watch("other_income", `${APIOtherIncome}`)
-// let previousTaxFigureInit = watch("previous_tax", `${APIPreviousTax}`)
 
 let selfemplFigureInit = watch("self_employment", `${APISelfEmployed}`)
 let emplFigureInit = watch("employment", `${APIEmployed}`);
@@ -193,14 +189,6 @@ let previousTaxFigure = previousTaxFigureInit.replace(/,/g, '')
     }
   }, [router]);
 
-  // console.log("payer", payerDetails);
-
-
-  // console.log("selfemplFigure", selfemplFigure);
-  // console.log("emplFigure", emplFigure);
-  // console.log("otherIncome", otherIncomeFigure);
-  // console.log("previousTax", previousTaxFigure);
-
 
   const TotalIncome = Number(emplFigure) + Number(selfemplFigure) + Number(otherIncomeFigure)
   console.log("TotCal", TotalIncome);
@@ -214,10 +202,6 @@ let previousTaxFigure = previousTaxFigureInit.replace(/,/g, '')
       alert("Please fill out either employment or self employment amount")
     }
     else {
-      // data.self_employment = String(fixedValues.amount)
-      // data.employment = String(fixedValues2.amount)
-      // data.other_income = String(fixedValues3.amount)
-      // data.previous_tax = String(fixedValues4.amount)
       let BOJObject = {
         assessment_id: routerAssId,
         employed: emplFigure,
@@ -260,7 +244,7 @@ let previousTaxFigure = previousTaxFigureInit.replace(/,/g, '')
   // console.log(gross_inc, ' gross')
 
 
-  if (consolidatedIncome < 360000.0) {
+  if (consolidatedIncome < 300000.0) {
     consolidatedRelief = 0;
     //console.log(gross_inc);
   } else {
@@ -272,11 +256,11 @@ let previousTaxFigure = previousTaxFigureInit.replace(/,/g, '')
   chargeableIncome = consolidatedIncome - totalDeduction;
 
   //calculate tax
-  if (consolidatedIncome <= 360000.0) {
+  if (consolidatedIncome <= 300000.0) {
     tax = consolidatedIncome * 0.01;
 
     //console.log(tax+' 1');
-  } else if (consolidatedIncome > 360000 && chargeableIncome < 300000) {
+  } else if (consolidatedIncome > 300000 && chargeableIncome < 300000) {
     tax = (chargeableIncome * 0.07);
     let taxS = (consolidatedIncome * 0.01);
     if (tax > taxS) {
@@ -331,14 +315,7 @@ let previousTaxFigure = previousTaxFigureInit.replace(/,/g, '')
 
   let JsonTax = String(tax_paid)
 
-
   console.log("T", tax_paid);
-  // console.log("Obj", bojData);
-  // console.log("JSONTAX", JsonTax);
-  // console.log("APITAX", APITax);
-
-  // console.log("Taxpaid", tax_paid);
-
 
 
 

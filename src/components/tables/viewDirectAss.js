@@ -109,18 +109,10 @@ export const ViewPendingTable = ({ draftData }) => {
 
           {
             rowData.assessment_type == "BOJ" ?
-              // <Link href={`/view/boj/${rowData.assessment_id},${rowData.kgtin}`}>
-              //   <a className="hover:text-blue-500">
-
-              //   </a>
-              // </Link>
+           
               window.open(`/view/boj/${rowData.assessment_id},${rowData.kgtin}`)
               :
-              // <Link href={`/view/pendingdirect/${rowData.assessment_id},${rowData.kgtin}`}>
-              //   <a className="hover:text-blue-500">
-
-              //   </a>
-              // </Link>
+           
               window.open(`/view/pendingdirect/${rowData.assessment_id},${rowData.kgtin}`)
 
           }

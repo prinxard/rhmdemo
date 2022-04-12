@@ -21,6 +21,8 @@ import Loader from "react-loader-spinner";
 import url from '../../config/url';
 import axios from "axios";
 import setAuthToken from "../../functions/setAuthToken";
+import { shallowEqual, useSelector } from "react-redux";
+import jwt from "jsonwebtoken";
 
 const fields = [
   {
@@ -92,6 +94,23 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
   const [assessId, setAssessId] = useState('');
   const [isFetching, setIsFetching] = useState(() => false);
 
+
+  const { config, palettes, auth } = useSelector(
+    (state) => ({
+      config: state.config,
+      palettes: state.palettes,
+      auth: state.authentication.auth,
+    }),
+    shallowEqual
+  );
+
+
+
+  const DeleteRange = [1, 12]
+  const decoded = jwt.decode(auth);
+  const userGroup = decoded.groups
+  console.log("UserGroup", userGroup);
+
   const toggleModal = (e) => {
     // e.preventDefault()
     setModal(!modal);
@@ -105,7 +124,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
       assessment_id: assessId
     }
     try {
-     await axios.delete(`${url.BASE_URL}forma/del-assessment`, { data: deleteOBJ } )
+      await axios.delete(`${url.BASE_URL}forma/del-assessment`, { data: deleteOBJ })
       setIsFetching(false)
       toast.success("Deleted Successfully!");
       window.location.reload()
@@ -116,8 +135,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
 
 
   };
-  console.log("modal", modal);
-  console.log("AssessmentId", assessId);
+ 
   return (
     <>
       <ToastContainer />
@@ -173,15 +191,51 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
       <MaterialTable title="Approved Assessments List"
         data={items}
         columns={fields}
+
+
+
         actions={[
-          {
-            icon: Delete,
-            tooltip: 'Delete Assessment',
-            onClick: (event, rowData) => {
-              event.preventDefault()
-              setAssessId(rowData.assessment_id)
-              setModal(true)
+
+          (delData) => {
+            if (userGroup.some(r => DeleteRange.includes(r))) {
+              return {
+            
+                icon: Delete,
+                tooltip: 'Delete Assessment',
+                onClick: (event, rowData) => {
+                  event.preventDefault()
+                  setAssessId(rowData.assessment_id)
+                  setModal(true)
+                }
+  
+                // icon: "bug_report",
+                // tooltip: "Report bug",
+                // disabled: rowData.status === "active",
+                // hidden: rowData.status === "active",
+                // onClick: (event, rowData) =>
+                //   alert("This client status is " + rowData.status)
+              };
+            } else {
+              return {
+            
+                icon: Delete,
+                tooltip: 'Delete Assessment',
+                hidden: true,
+                onClick: (event, rowData) => {
+                  event.preventDefault()
+                  setAssessId(rowData.assessment_id)
+                  setModal(true)
+                }
+  
+                // icon: "bug_report",
+                // tooltip: "Report bug",
+                // disabled: rowData.status === "active",
+                // hidden: rowData.status === "active",
+                // onClick: (event, rowData) =>
+                //   alert("This client status is " + rowData.status)
+              };
             }
+           
           }
         ]}
 
