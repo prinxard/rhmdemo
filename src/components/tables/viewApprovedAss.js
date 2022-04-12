@@ -20,6 +20,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Loader from "react-loader-spinner";
 import url from '../../config/url';
 import axios from "axios";
+import setAuthToken from "../../functions/setAuthToken";
 
 const fields = [
   {
@@ -96,28 +97,24 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
     setModal(!modal);
   };
 
-  const DeleteAssessment = (data) => {
+  setAuthToken();
+  const DeleteAssessment = async (data) => {
     data.preventDefault()
     setIsFetching(true)
     let deleteOBJ = {
       assessment_id: assessId
     }
-    axios.delete(`${url.BASE_URL}forma/del-assessment`, deleteOBJ)
-      .then(function (response) {
-        // handle success
-        // window.location.reload();
-        setIsFetching(false)
-        toast.success("Operation Successful!");
+    try {
+     await axios.delete(`${url.BASE_URL}forma/del-assessment`, { data: deleteOBJ } )
+      setIsFetching(false)
+      toast.success("Deleted Successfully!");
+      window.location.reload()
+    } catch (error) {
+      toast.error("Failed Try again!");
+      setIsFetching(false)
+    }
 
-        router.push("/view/completeddirect")
-      })
-      .catch(function (error) {
-        // handle error
-        setIsFetching(false)
-        toast.error("Failed! please try again");
-      })
 
-    console.log(data);
   };
   console.log("modal", modal);
   console.log("AssessmentId", assessId);
