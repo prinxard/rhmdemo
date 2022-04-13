@@ -2760,6 +2760,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                         <option value="Artist And Song-Writer">Artist And Song-Writer</option>
                         <option value="Baby Wear">Baby Wear</option>
                         <option value="Boutique">Boutique</option>
+                        <option value="Beverages">Beverages</option>
                         <option value="Building Material">Building Material Dealer</option>
                         <option value="Cosmetics">Cosmetics</option>
                         <option value="Curtain & Interior Decoration">Curtain & Interior Decoration</option>

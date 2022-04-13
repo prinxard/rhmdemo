@@ -253,7 +253,7 @@ export const ViewSingleBojTable = ({ additionalAsse, payerprop, assId, payerArr,
             <p>Are you sure you want to decline?</p>
             <p>Please state reason why</p>
             <form onSubmit={DeclineAss}>
-              <textarea required className="form-control w-full rounded" minlength="10" maxlength="50" onChange={(e) => setComment(e.target.value)}></textarea>
+              <textarea required className="form-control w-full rounded" minlength="10" maxlength="150" onChange={(e) => setComment(e.target.value)}></textarea>
               <div className="mt-2 flex justify-between">
                 <button onClick={toggleModal}
                   className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
