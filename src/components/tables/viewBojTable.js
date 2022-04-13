@@ -95,7 +95,7 @@ export const ViewBOJTable = ({ bojdata }) => {
   let items = bojdata;
   return (
     <>
-      <MaterialTable title="Verified BOJ List"
+      <MaterialTable title="Verified BOJ Assessments"
         data={items}
         columns={fields}
 
