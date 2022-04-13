@@ -11,7 +11,7 @@ import Link from 'next/link';
 import Widget from '../../components/widget';
 import { IconTabs } from "../../components/tabs"
 import { RechartsBar1 } from '../../components/recharts/bar-1';
-import { AssesmentCount } from './headoffice';
+import { AssesmentCount, CountPie } from './headoffice';
 
 
 const Index = () => {
@@ -45,7 +45,7 @@ const Index = () => {
       ),
       content: (
         <>
-          <p>Test2</p>
+          <CountPie />
         </>
       ),
     },
