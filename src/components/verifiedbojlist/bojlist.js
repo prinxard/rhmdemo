@@ -54,7 +54,7 @@ const BOJList = () => {
 
   return (
     <>
-      <SectionTitle title="Verified Assessments" subtitle="View Verified Assessments" />
+      <SectionTitle subtitle="View Verified BOJs" />
 
       {isFetching && (
         <div className="flex justify-center item mb-2">
