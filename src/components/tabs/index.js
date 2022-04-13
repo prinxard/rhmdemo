@@ -97,12 +97,12 @@ export const IconTabs = ({ tabs, data }) => {
   const [openTab, setOpenTab] = useState(0);
   return (
     <div className="flex flex-wrap flex-col w-full tabs">
-      <div className="flex lg:flex-wrap flex-row lg:space-x-2">
+      <div className="flex lg:flex-wrap flex-row lg:space-x-2 justify-evenly">
         {tabs.map((tab) => (
           <div key={uuidv4()} className="flex-none">
             <button
               onClick={() => {
-                setOpenTab(tab.index);
+                setOpenTab(tab.index); 
               }}
               className={`tab flex flex-row items-center justify-around ${
                 openTab === tab.index ? 'tab-active' : ''
