@@ -333,7 +333,7 @@ export const StartAssessment = () => {
 };
 
 
-export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
+export const StartSingleIndividualAssessment = ({kgtinVal, payerprop, routerAssId }) => {
   let assessment_id = routerAssId
   let indvData = payerprop
 
@@ -605,6 +605,8 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
     let lga = x.lga
     return lga
   })
+
+  
 
   residentialAddress.lga = String(lgaVal)
 
@@ -1560,7 +1562,7 @@ export const StartSingleIndividualAssessment = ({ payerprop, routerAssId }) => {
       </div> */}
       <div className="block p-6 rounded-lg bg-white w-full">
         <div className="flex">
-          <h6 className="p-2">Taxpayer Information</h6>
+        <h6 className="p-2">Taxpayer Information <small className="text-blue-600"><Link href={`/update-individual/${kgtinVal}`}>Edit</Link></small></h6>
           {/* <a href="" className="text-blue-600 self-center">Edit</a> */}
         </div>
         <p className="mb-3 font-bold"></p>
