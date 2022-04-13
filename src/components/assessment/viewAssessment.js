@@ -2259,6 +2259,7 @@ export const StartSingleIndividualAssessment = ({kgtinVal, payerprop, routerAssI
                         <option value="Architect">Architect</option>
                         <option value="Artist And Song-Writer">Artist And Song-Writer</option>
                         <option value="Baby Wear">Baby Wear</option>
+                        <option value="Beverages">Beverages</option>
                         <option value="Boutique">Boutique</option>
                         <option value="Building Material">Building Material Dealer</option>
                         <option value="Cosmetics">Cosmetics</option>
