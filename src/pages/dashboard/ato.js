@@ -12,6 +12,8 @@ import {
   Legend
 } from "recharts";
 import { formatNumber } from "accounting";
+import Widget1 from "../../components/dashboard/widget-1";
+import { PendingRemittance, RevenueItems, TaxReceipt, TotalRemittance } from "../../components/Icons";
 
 
 
@@ -218,49 +220,49 @@ const Trend = [
   {
     name: "Jan",
     approved: 20000,
-    paid: 500,
+    paid: 18000,
     unassessed: 4400,
   },
   {
     name: "Feb",
     approved: 25000,
-    paid: 4000,
+    paid: 16000,
     unassessed: 2400,
   },
   {
     name: "March",
     approved: 28000,
-    paid: 4060,
+    paid: 17060,
     unassessed: 24400,
   },
   {
     name: "April",
     approved: 34000,
-    paid: 460,
+    paid: 19460,
     unassessed: 2400,
   },
   {
     name: "May",
     approved: 32000,
-    paid: 4200,
+    paid: 14200,
     unassessed: 1400,
   },
   {
     name: "June",
     approved: 38000,
-    paid: 6000,
+    paid: 16000,
     unassessed: 2600,
   },
   {
     name: "July",
     approved: 35000,
-    paid: 4600,
+    paid: 19600,
     unassessed: 2440,
   },
   {
     name: "August",
     approved: 40050,
-    paid: 500,
+    paid: 18500,
     unassessed: 22400,
   },
   {
@@ -291,16 +293,16 @@ const Trend = [
 
 const dataAssesedAmount = [
   { name: "Assessed ", value: 4000 },
-  { name: "Collected ", value: 3040 },
-  { name: "Unassessed ", value: 3040 },
+  { name: "Amount collected ", value: 3040 },
+  { name: "Unassessed collectiion", value: 3040 },
   { name: "Outstanding ", value: 3040 },
 ];
 
 
 const dataATOCount = [
-  { name: "Total ", value: 1000 },
-  { name: "Pending ", value: 300 },
-  { name: "Approved ", value: 300 },
+  { name: "Total assessment", value: 1000 },
+  { name: "Pending assessment", value: 300 },
+  { name: "Approved assessment", value: 300 },
 ];
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
@@ -316,16 +318,14 @@ const renderCustomizedLabel = ({
 
 }) => {
 
-  // const RADIAN = Math.PI / 180;
+
   // eslint-disable-next-line
   const radius = 25 + innerRadius + (outerRadius - innerRadius);
   // eslint-disable-next-line
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
   // eslint-disable-next-line
   const y = cy + radius * Math.sin(-midAngle * RADIAN);
-  // const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-  // const x = cx + radius * Math.cos(-midAngle * RADIAN);
-  // const y = cy + radius * Math.sin(-midAngle * RADIAN);
+ 
   return (
     <text
       x={x}
@@ -336,7 +336,7 @@ const renderCustomizedLabel = ({
     >
       {`${dataAssesedAmount[index].name}`}
 
-      {`${(percent * 100).toFixed(0)}%`}
+      {/* {`${(percent * 100).toFixed(0)}%`} */}
     </text>
   );
 };
@@ -351,16 +351,13 @@ const renderCustomizedLabel2 = ({
 
 }) => {
 
-  // const RADIAN = Math.PI / 180;
   // eslint-disable-next-line
   const radius = 25 + innerRadius + (outerRadius - innerRadius);
   // eslint-disable-next-line
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
   // eslint-disable-next-line
   const y = cy + radius * Math.sin(-midAngle * RADIAN);
-  // const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-  // const x = cx + radius * Math.cos(-midAngle * RADIAN);
-  // const y = cy + radius * Math.sin(-midAngle * RADIAN);
+ 
   return (
     <text
       x={x}
@@ -371,7 +368,7 @@ const renderCustomizedLabel2 = ({
     >
       {`${dataATOCount[index].name}`}
 
-      {`${(percent * 100).toFixed(0)}%`}
+      {/* {`${(percent * 100).toFixed(0)}%`} */}
     </text>
   );
 };
@@ -381,10 +378,10 @@ const renderCustomizedLabel2 = ({
 
 export const AmountAssessed = () => {
   return (
-    <PieChart width={400} height={300}>
+    <PieChart width={450} height={300}>
       <Pie
         data={dataAssesedAmount}
-        cx={200}
+        cx={222}
         cy={150}
         label={renderCustomizedLabel}
         outerRadius={100}
@@ -401,10 +398,10 @@ export const AmountAssessed = () => {
 
 export const AtoCount = () => {
   return (
-    <PieChart width={400} height={300}>
+    <PieChart width={500} height={300}>
       <Pie
         data={dataATOCount}
-        cx={200}
+        cx={"36%"}
         cy={150}
         label={renderCustomizedLabel2}
         outerRadius={100}
@@ -456,6 +453,45 @@ export const Lines = () => {
 export const ATOPie = () => {
   return (
     <>
+      <div className="flex my-10 flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
+
+        <div className="w-full lg:w-1/4">
+          <Widget1
+            color="green"
+            title="Approved Assessments"
+            description={formatNumber(4000000)}
+            right={<TotalRemittance />}
+          />
+        </div>
+
+        <div className="w-full lg:w-1/4">
+          <Widget1
+            color="red"
+            title="Submitted Assessments"
+            description={formatNumber(300000)}
+            right={<PendingRemittance />}
+          />
+        </div>
+
+        <div className="w-full lg:w-1/4">
+          <Widget1
+            color="blue"
+            title="Amount Collected"
+            description={formatNumber(500000)}
+            right={<RevenueItems />}
+          />
+        </div>
+
+        <div className="w-full lg:w-1/4">
+          <Widget1
+            color="yellow"
+            title="Outstanding Amount"
+            description={formatNumber(600000)}
+            right={<TaxReceipt />}
+          />
+        </div>
+      </div>
+
       <div className="flex mt-10 flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
         <div className="w-full lg:w-1/2">
           <Section
@@ -499,7 +535,7 @@ export const ATOPie = () => {
             <div className="flex justify-center">
               <div>
                 <p className="text-sm my-3 font-bold text-center">Recent Assessments</p>
-                <table className="table divide-y mb-4">
+                <table className="table striped divide-y mb-4">
                   <thead>
                     <tr>
                       <th>
@@ -575,7 +611,7 @@ export const ATOPie = () => {
                       <td className="">
                         <p>{formatNumber(60000)}</p>
                       </td>
-                 
+
 
                     </tr>
 
@@ -603,7 +639,7 @@ export const ATOPie = () => {
                       <td className="">
                         <p>{formatNumber(60000)}</p>
                       </td>
-                 
+
 
                     </tr>
 
@@ -630,7 +666,7 @@ export const ATOPie = () => {
                       </td>
                       <td className="">
                         <p>{formatNumber(60000)}</p>
-                      </td>               
+                      </td>
                     </tr>
 
                   </tbody>
@@ -651,7 +687,7 @@ export const ATOPie = () => {
             <div className="flex justify-center">
               <div>
                 <p className="text-sm my-3 font-bold text-center">Top Assessments</p>
-                <table className="table divide-y mb-4">
+                <table className="table striped divide-y mb-4">
                   <thead>
                     <tr>
                       <th>
@@ -727,7 +763,7 @@ export const ATOPie = () => {
                       <td className="">
                         <p>{formatNumber(60000)}</p>
                       </td>
-                 
+
 
                     </tr>
 
@@ -755,7 +791,7 @@ export const ATOPie = () => {
                       <td className="">
                         <p>{formatNumber(60000)}</p>
                       </td>
-                 
+
 
                     </tr>
 
@@ -782,7 +818,7 @@ export const ATOPie = () => {
                       </td>
                       <td className="">
                         <p>{formatNumber(60000)}</p>
-                      </td>               
+                      </td>
                     </tr>
 
                   </tbody>
