@@ -28,7 +28,7 @@ import {
   ResponsiveContainer
 } from "recharts";
 import { App, App2, App3 } from '../pie-charts';
-import Widget from '../../components/widget';
+import { ATOPie } from './ato';
 
 const Index = () => {
   // const { data, isLoading, error } = UseFetcher(
@@ -61,7 +61,7 @@ const Index = () => {
       ),
       content: (
         <>
-          <CountPie />
+          <ATOPie />
         </>
       ),
     },

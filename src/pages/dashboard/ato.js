@@ -3,16 +3,17 @@ import React from "react";
 import Section from "../../components/dashboard/section";
 import { PieChart, Pie, Cell } from "recharts";
 import {
-  BarChart,
-  Bar,
+  LineChart,
+  Line,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
-  ReferenceLine
+  Legend
 } from "recharts";
 import { formatNumber } from "accounting";
+
+
 
 const dataCount = [
   {
@@ -213,18 +214,94 @@ const colPerform = [
   }
 ];
 
-const dataCummCount = [
-  { name: "Submitted", value: 4000 },
-  { name: "Approved", value: 3040 },
+const Trend = [
+  {
+    name: "Jan",
+    approved: 20000,
+    paid: 500,
+    unassessed: 4400,
+  },
+  {
+    name: "Feb",
+    approved: 25000,
+    paid: 4000,
+    unassessed: 2400,
+  },
+  {
+    name: "March",
+    approved: 28000,
+    paid: 4060,
+    unassessed: 24400,
+  },
+  {
+    name: "April",
+    approved: 34000,
+    paid: 460,
+    unassessed: 2400,
+  },
+  {
+    name: "May",
+    approved: 32000,
+    paid: 4200,
+    unassessed: 1400,
+  },
+  {
+    name: "June",
+    approved: 38000,
+    paid: 6000,
+    unassessed: 2600,
+  },
+  {
+    name: "July",
+    approved: 35000,
+    paid: 4600,
+    unassessed: 2440,
+  },
+  {
+    name: "August",
+    approved: 40050,
+    paid: 500,
+    unassessed: 22400,
+  },
+  {
+    name: "Sep",
+    approved: 42200,
+    paid: 400,
+    unassessed: 2200,
+  },
+  {
+    name: "Oct",
+    approved: 44400,
+    paid: 40100,
+    unassessed: 2300,
+  },
+  {
+    name: "Nov",
+    approved: 38000,
+    paid: 41000,
+    unassessed: 400,
+  },
+  {
+    name: "Dec",
+    approved: 50000,
+    paid: 4000,
+    unassessed: 2400,
+  }
 ];
 
-const dataCummPerf = [
-  { name: "Approved amount", value: 400 },
-  { name: "Assessed amount", value: 300 },
-  { name: "Outstanding", value: 300 },
-  { name: "Unassessed", value: 300 }
+const dataAssesedAmount = [
+  { name: "Assessed ", value: 4000 },
+  { name: "Collected ", value: 3040 },
+  { name: "Unassessed ", value: 3040 },
+  { name: "Outstanding ", value: 3040 },
 ];
 
+
+const dataATOCount = [
+  { name: "Total ", value: 1000 },
+  { name: "Pending ", value: 300 },
+  { name: "Approved ", value: 300 },
+];
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 const RADIAN = Math.PI / 180;
@@ -239,14 +316,16 @@ const renderCustomizedLabel = ({
 
 }) => {
 
-
+  // const RADIAN = Math.PI / 180;
   // eslint-disable-next-line
   const radius = 25 + innerRadius + (outerRadius - innerRadius);
   // eslint-disable-next-line
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
   // eslint-disable-next-line
   const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
+  // const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+  // const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  // const y = cy + radius * Math.sin(-midAngle * RADIAN);
   return (
     <text
       x={x}
@@ -255,9 +334,9 @@ const renderCustomizedLabel = ({
       textAnchor={x > cx ? "start" : "end"}
       dominantBaseline="central"
     >
-      {`${dataCummCount[index].name}`}
+      {`${dataAssesedAmount[index].name}`}
 
-      {/* {`${(percent * 100).toFixed(0)}%`} */}
+      {`${(percent * 100).toFixed(0)}%`}
     </text>
   );
 };
@@ -272,14 +351,16 @@ const renderCustomizedLabel2 = ({
 
 }) => {
 
-
+  // const RADIAN = Math.PI / 180;
   // eslint-disable-next-line
   const radius = 25 + innerRadius + (outerRadius - innerRadius);
   // eslint-disable-next-line
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
   // eslint-disable-next-line
   const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
+  // const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+  // const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  // const y = cy + radius * Math.sin(-midAngle * RADIAN);
   return (
     <text
       x={x}
@@ -288,28 +369,29 @@ const renderCustomizedLabel2 = ({
       textAnchor={x > cx ? "start" : "end"}
       dominantBaseline="central"
     >
-      {`${dataCummPerf[index].name}`}
+      {`${dataATOCount[index].name}`}
 
-      {/* {`${(percent * 100).toFixed(0)}%`} */}
+      {`${(percent * 100).toFixed(0)}%`}
     </text>
   );
 };
 
 
-export const CountPie = () => {
+
+
+export const AmountAssessed = () => {
   return (
     <PieChart width={400} height={300}>
       <Pie
-        data={dataCummCount}
+        data={dataAssesedAmount}
         cx={200}
         cy={150}
-        // labelLine={false}
         label={renderCustomizedLabel}
         outerRadius={100}
         fill="#8884d8"
         dataKey="value"
       >
-        {dataCummCount.map((entry, index) => (
+        {dataAssesedAmount.map((entry, index) => (
           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
         ))}
       </Pie>
@@ -317,11 +399,11 @@ export const CountPie = () => {
   );
 }
 
-export const PerfPie = () => {
+export const AtoCount = () => {
   return (
     <PieChart width={400} height={300}>
       <Pie
-        data={dataCummPerf}
+        data={dataATOCount}
         cx={200}
         cy={150}
         label={renderCustomizedLabel2}
@@ -329,7 +411,7 @@ export const PerfPie = () => {
         fill="#8884d8"
         dataKey="value"
       >
-        {dataCummCount.map((entry, index) => (
+        {dataATOCount.map((entry, index) => (
           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
         ))}
       </Pie>
@@ -337,168 +419,106 @@ export const PerfPie = () => {
   );
 }
 
-export const AssesmentCount = () => {
+export const Lines = () => {
+  return (
+    <LineChart
+      width={800}
+      height={300}
+      data={Trend}
+      margin={{
+        top: 5,
+        right: 30,
+        left: 20,
+        bottom: 5
+      }}
+    >
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="name" />
+      <YAxis />
+      <Tooltip />
+      <Legend />
+      {/* <Line
+        type="monotone"
+        dataKey="approved"
+        dataKey="pv"
+        dataKey="pv"
+        stroke="#8884d8"
+        activeDot={{ r: 8 }}
+      /> */}
+      <Line type="monotone" dataKey="approved" stroke="#82ca9d" />
+      <Line type="monotone" dataKey="paid" stroke="#fcc287" />
+      <Line type="monotone" dataKey="unassessed" stroke="#fe0037" />
+      {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
+    </LineChart>
+  );
+}
+
+export const ATOPie = () => {
   return (
     <>
-      <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
-        <div className="w-full lg:w-3/3">
-          <Section
-            description={<span>Assessment count</span>}
-          >
-            <div className="flex flex-row w-full">
-              <BarChart
-                width={800}
-                height={300}
-                data={dataCount}
-                stackOffset="sign"
-                margin={{
-                  top: 5,
-                  right: 30,
-                  left: 20,
-                  bottom: 5
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <ReferenceLine y={0} stroke="#000" />
-                <Bar dataKey="pv" fill="#8884d8" stackId="stack" />
-                <Bar dataKey="uv" fill="#82ca9d" stackId="stack" />
-              </BarChart>
-            </div>
-          </Section>
-        </div>
-
-      </div>
-
-      <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
-        <div className="w-full lg:w-3/3">
-          <Section
-            description={<span>Amount Assessed</span>}
-          >
-            <div className="flex flex-row w-full">
-              <BarChart
-                width={800}
-                height={300}
-                data={amountAssessed}
-                stackOffset="sign"
-                margin={{
-                  top: 5,
-                  right: 30,
-                  left: 20,
-                  bottom: 5
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <ReferenceLine y={0} stroke="#000" />
-                <Bar dataKey="pv" fill="#8884d8" stackId="stack" />
-                <Bar dataKey="uv" fill="#82ca9d" stackId="stack" />
-              </BarChart>
-            </div>
-          </Section>
-        </div>
-      </div>
-
-      <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
-        <div className="w-full lg:w-3/3">
-          <Section
-            description={<span>Collection Performance</span>}
-          >
-            <div className="flex flex-row w-full">
-              <BarChart
-                width={800}
-                height={300}
-                data={colPerform}
-                stackOffset="sign"
-                margin={{
-                  top: 5,
-                  right: 30,
-                  left: 20,
-                  bottom: 5
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <ReferenceLine y={0} stroke="#000" />
-                <Bar dataKey="assessed" fill="#8884d8" stackId="stack" />
-                <Bar dataKey="collected" fill="#82ca9d" stackId="stack" />
-                <Bar dataKey="outstanding" fill="#87c9fb" stackId="stack" />
-                <Bar dataKey="unassessed" fill="#ff99c0" stackId="stack" />
-              </BarChart>
-            </div>
-          </Section>
-        </div>
-      </div>
-
-      <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
+      <div className="flex mt-10 flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
         <div className="w-full lg:w-1/2">
           <Section
-            // title="Conversions"
-            description={<span>Cummulative Assessment</span>}
+            description={<span>Assessment Count</span>}
           >
             <div className="flex flex-row w-full">
-              <CountPie />
+              <AtoCount />
 
             </div>
           </Section>
         </div>
         <div className="w-full lg:w-1/2">
           <Section
-            // title="Sessions"
-            description={<span>Cummulative Performance</span>}
+            description={<span>Assessed Amount</span>}
           >
             <div className="flex flex-row w-full">
-              <PerfPie />
+              <AmountAssessed />
             </div>
           </Section>
         </div>
+      </div>
+
+      <div className="flex mt-10 flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
+        <div className="w-full lg:w-2/2">
+          <Section
+            description={<span>Performance Trend</span>}
+          >
+            <div className="flex flex-row w-full">
+              <Lines />
+            </div>
+          </Section>
+        </div>
+
       </div>
 
       <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
         <div className="w-full lg:w-2/2">
           <Section
-          // title="Conversions"
-          // description={<span>Cummulative Assessment</span>}
           >
 
             <div className="flex justify-center">
               <div>
-                <p className="text-sm my-3 font-bold text-center">Summary</p>
+                <p className="text-sm my-3 font-bold text-center">Recent Assessments</p>
                 <table className="table divide-y mb-4">
                   <thead>
                     <tr>
                       <th>
-                        Tax Office
+                        Taxpayer Name
                       </th>
                       <th className="">
-                        Submitted Count
+                        KGTIN
                       </th>
                       <th className="">
-                        Approved Count
+                        Assessed Amount
                       </th>
                       <th className="">
-                        Submitted Amount
+                        Amount Paid
                       </th>
                       <th className="">
-                        Approved Amount
+                        Balance
                       </th>
                       <th className="">
-                        Paid Amount
-                      </th>
-                      <th className="">
-                        Unpaid Amount
-                      </th>
-                      <th className="">
-                        Unassesed Collections
+                        Created time
                       </th>
                     </tr>
                   </thead>
@@ -507,7 +527,7 @@ export const AssesmentCount = () => {
 
                     <tr>
                       <td className="">
-                        Isanlu
+                        Nomics Ibrahim
                       </td>
 
                       <td className="">
@@ -529,18 +549,39 @@ export const AssesmentCount = () => {
                       <td className="">
                         <p>{formatNumber(60000)}</p>
                       </td>
+                    </tr>
+
+                    <tr>
                       <td className="">
-                        <p>{formatNumber(70000)}</p>
+                        Halima  Jordan
+                      </td>
+
+                      <td className="">
+                        <p className=""> {formatNumber(20000)} </p>
+                      </td>
+
+
+                      <td className="">
+
+                        <p className="">{formatNumber(30000)}</p>
+
                       </td>
                       <td className="">
-                        <p>{formatNumber(80000)}</p>
+                        <p>{formatNumber(40000)}</p>
                       </td>
+                      <td className="">
+                        <p>{formatNumber(50000)}</p>
+                      </td>
+                      <td className="">
+                        <p>{formatNumber(60000)}</p>
+                      </td>
+                 
 
                     </tr>
 
                     <tr>
                       <td className="">
-                        Head Office
+                        Elnino Dwayne
                       </td>
 
                       <td className="">
@@ -562,18 +603,83 @@ export const AssesmentCount = () => {
                       <td className="">
                         <p>{formatNumber(60000)}</p>
                       </td>
-                      <td className="">
-                        <p>{formatNumber(70000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(80000)}</p>
-                      </td>
+                 
 
                     </tr>
 
                     <tr>
                       <td className="">
-                        Okene
+                        Spike Obi
+                      </td>
+
+                      <td className="">
+                        <p className=""> {formatNumber(20000)} </p>
+                      </td>
+
+
+                      <td className="">
+
+                        <p className="">{formatNumber(30000)}</p>
+
+                      </td>
+                      <td className="">
+                        <p>{formatNumber(40000)}</p>
+                      </td>
+                      <td className="">
+                        <p>{formatNumber(50000)}</p>
+                      </td>
+                      <td className="">
+                        <p>{formatNumber(60000)}</p>
+                      </td>               
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </Section>
+        </div>
+
+      </div>
+
+      <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
+        <div className="w-full lg:w-2/2">
+          <Section
+          >
+
+            <div className="flex justify-center">
+              <div>
+                <p className="text-sm my-3 font-bold text-center">Top Assessments</p>
+                <table className="table divide-y mb-4">
+                  <thead>
+                    <tr>
+                      <th>
+                        Taxpayer Name
+                      </th>
+                      <th className="">
+                        KGTIN
+                      </th>
+                      <th className="">
+                        Assessed Amount
+                      </th>
+                      <th className="">
+                        Amount Paid
+                      </th>
+                      <th className="">
+                        Balance
+                      </th>
+                      <th className="">
+                        Created time
+                      </th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+
+                    <tr>
+                      <td className="">
+                        Nomics Ibrahim
                       </td>
 
                       <td className="">
@@ -595,18 +701,39 @@ export const AssesmentCount = () => {
                       <td className="">
                         <p>{formatNumber(60000)}</p>
                       </td>
+                    </tr>
+
+                    <tr>
                       <td className="">
-                        <p>{formatNumber(70000)}</p>
+                        Halima  Jordan
+                      </td>
+
+                      <td className="">
+                        <p className=""> {formatNumber(20000)} </p>
+                      </td>
+
+
+                      <td className="">
+
+                        <p className="">{formatNumber(30000)}</p>
+
                       </td>
                       <td className="">
-                        <p>{formatNumber(80000)}</p>
+                        <p>{formatNumber(40000)}</p>
                       </td>
+                      <td className="">
+                        <p>{formatNumber(50000)}</p>
+                      </td>
+                      <td className="">
+                        <p>{formatNumber(60000)}</p>
+                      </td>
+                 
 
                     </tr>
 
                     <tr>
                       <td className="">
-                        Kabba
+                        Elnino Dwayne
                       </td>
 
                       <td className="">
@@ -628,18 +755,13 @@ export const AssesmentCount = () => {
                       <td className="">
                         <p>{formatNumber(60000)}</p>
                       </td>
-                      <td className="">
-                        <p>{formatNumber(70000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(80000)}</p>
-                      </td>
+                 
 
                     </tr>
 
                     <tr>
                       <td className="">
-                        Idah
+                        Spike Obi
                       </td>
 
                       <td className="">
@@ -660,179 +782,7 @@ export const AssesmentCount = () => {
                       </td>
                       <td className="">
                         <p>{formatNumber(60000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(70000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(80000)}</p>
-                      </td>
-
-                    </tr>
-
-                    <tr>
-                      <td className="">
-                        Koto
-                      </td>
-
-                      <td className="">
-                        <p className=""> {formatNumber(20000)} </p>
-                      </td>
-
-
-                      <td className="">
-
-                        <p className="">{formatNumber(30000)}</p>
-
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(40000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(50000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(60000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(70000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(80000)}</p>
-                      </td>
-
-                    </tr>
-
-                    <tr>
-                      <td className="">
-                        Ankpa
-                      </td>
-
-                      <td className="">
-                        <p className=""> {formatNumber(20000)} </p>
-                      </td>
-
-
-                      <td className="">
-
-                        <p className="">{formatNumber(30000)}</p>
-
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(40000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(50000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(60000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(70000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(80000)}</p>
-                      </td>
-
-                    </tr>
-
-                    <tr>
-                      <td className="">
-                        Lokoja
-                      </td>
-
-                      <td className="">
-                        <p className=""> {formatNumber(20000)} </p>
-                      </td>
-
-
-                      <td className="">
-
-                        <p className="">{formatNumber(30000)}</p>
-
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(40000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(50000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(60000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(70000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(80000)}</p>
-                      </td>
-
-                    </tr>
-
-                    <tr>
-                      <td className="">
-                        Lokoja
-                      </td>
-
-                      <td className="">
-                        <p className=""> {formatNumber(20000)} </p>
-                      </td>
-
-
-                      <td className="">
-
-                        <p className="">{formatNumber(30000)}</p>
-
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(40000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(50000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(60000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(70000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(80000)}</p>
-                      </td>
-
-                    </tr>
-
-                    <tr>
-                      <td className="">
-                        Lokoja
-                      </td>
-
-                      <td className="">
-                        <p className=""> {formatNumber(20000)} </p>
-                      </td>
-
-
-                      <td className="">
-
-                        <p className="">{formatNumber(30000)}</p>
-
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(40000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(50000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(60000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(70000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(80000)}</p>
-                      </td>
-
+                      </td>               
                     </tr>
 
                   </tbody>
