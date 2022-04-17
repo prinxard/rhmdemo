@@ -1,6 +1,6 @@
 
 import React from "react";
-import Section from "../../components/dashboard/section";
+import Section from "../dashboard/section";
 import { PieChart, Pie, Cell } from "recharts";
 import {
   BarChart,
@@ -13,8 +13,8 @@ import {
   ReferenceLine
 } from "recharts";
 import { formatNumber } from "accounting";
-import Widget1 from "../../components/dashboard/widget-1";
-import { PendingRemittance, RevenueItems, TaxReceipt, TotalRemittance } from "../../components/Icons";
+import Widget1 from "../dashboard/widget-1";
+import { PendingRemittance, RevenueItems, TaxReceipt, TotalRemittance } from "../Icons";
 
 const dataCount = [
   {
@@ -379,7 +379,7 @@ export const AssesmentCount = () => {
           >
             <div className="flex flex-row w-full">
               <BarChart
-                width={800}
+                width={700}
                 height={300}
                 data={dataCount}
                 stackOffset="sign"
@@ -391,7 +391,7 @@ export const AssesmentCount = () => {
                 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
+                <XAxis dataKey="name" angle={-45} textAnchor="end"/>
                 <YAxis />
                 <Tooltip />
                 <Legend />
@@ -461,7 +461,7 @@ export const AssesmentCount = () => {
                 <Tooltip />
                 <Legend />
                 <ReferenceLine y={0} stroke="#000" />
-                <Bar dataKey="assessed" fill="#247ba0" stackId="stack" />
+                <Bar dataKey="assessed" fill="#247ba0"  stackId="stack" />
                 <Bar dataKey="collected" fill="#0D41E1" stackId="stack" />
                 <Bar dataKey="outstanding" fill="#cddafd" stackId="stack" />
                 <Bar dataKey="unassessed" fill="#fe938c" stackId="stack" />
