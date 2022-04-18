@@ -10,11 +10,14 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  ReferenceLine
+  ReferenceLine,
+  ResponsiveContainer
 } from "recharts";
 import { formatNumber } from "accounting";
 import Widget1 from "../dashboard/widget-1";
 import { PendingRemittance, RevenueItems, TaxReceipt, TotalRemittance } from "../Icons";
+
+
 
 const dataCount = [
   {
@@ -377,29 +380,31 @@ export const AssesmentCount = () => {
           <Section
             description={<span>Assessment count</span>}
           >
-            <div className="flex flex-row w-full">
-              <BarChart
-                width={700}
-                height={300}
-                data={dataCount}
-                stackOffset="sign"
-                margin={{
-                  top: 5,
-                  right: 30,
-                  left: 20,
-                  bottom: 5
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" angle={-45} textAnchor="end"/>
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <ReferenceLine y={0} stroke="#000" />
-                <Bar dataKey="submitted" fill="#02321C" stackId="stack" />
-                <Bar dataKey="approved" fill="#82ca9d" stackId="stack" />
-              </BarChart>
+            <div className="flex flex-row">
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart
+
+                  data={dataCount}
+                  stackOffset="sign"
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  {/* <ReferenceLine y={0} stroke="#000" /> */}
+                  <Bar dataKey="submitted" barCategoryGap={10} fill="#02321C" stackId="stack" />
+                  <Bar dataKey="approved" barCategoryGap={10} fill="#82ca9d" stackId="stack" />
+                </BarChart>
+              </ResponsiveContainer>
             </div>
+
           </Section>
         </div>
 
@@ -411,27 +416,29 @@ export const AssesmentCount = () => {
             description={<span>Amount Assessed</span>}
           >
             <div className="flex flex-row w-full">
-              <BarChart
-                width={800}
-                height={300}
-                data={amountAssessed}
-                stackOffset="sign"
-                margin={{
-                  top: 5,
-                  right: 30,
-                  left: 20,
-                  bottom: 5
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <ReferenceLine y={0} stroke="#000" />
-                <Bar dataKey="submitted" fill="#002147" stackId="stack" />
-                <Bar dataKey="approved" fill="#a2add0" stackId="stack" />
-              </BarChart>
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart
+                  width={800}
+                  height={300}
+                  data={amountAssessed}
+                  stackOffset="sign"
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <ReferenceLine y={0} stroke="#000" />
+                  <Bar dataKey="submitted" fill="#002147" stackId="stack" />
+                  <Bar dataKey="approved" fill="#a2add0" stackId="stack" />
+                </BarChart>
+              </ResponsiveContainer>
             </div>
           </Section>
         </div>
@@ -443,29 +450,31 @@ export const AssesmentCount = () => {
             description={<span>Collection Performance</span>}
           >
             <div className="flex flex-row w-full">
-              <BarChart
-                width={800}
-                height={300}
-                data={colPerform}
-                stackOffset="sign"
-                margin={{
-                  top: 5,
-                  right: 30,
-                  left: 20,
-                  bottom: 5
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <ReferenceLine y={0} stroke="#000" />
-                <Bar dataKey="assessed" fill="#247ba0"  stackId="stack" />
-                <Bar dataKey="collected" fill="#0D41E1" stackId="stack" />
-                <Bar dataKey="outstanding" fill="#cddafd" stackId="stack" />
-                <Bar dataKey="unassessed" fill="#fe938c" stackId="stack" />
-              </BarChart>
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart
+                  width={800}
+                  height={300}
+                  data={colPerform}
+                  stackOffset="sign"
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <ReferenceLine y={0} stroke="#000" />
+                  <Bar dataKey="assessed" fill="#247ba0" stackId="stack" />
+                  <Bar dataKey="collected" fill="#0D41E1" stackId="stack" />
+                  <Bar dataKey="outstanding" fill="#cddafd" stackId="stack" />
+                  <Bar dataKey="unassessed" fill="#fe938c" stackId="stack" />
+                </BarChart>
+              </ResponsiveContainer>
             </div>
           </Section>
         </div>
@@ -496,16 +505,14 @@ export const AssesmentCount = () => {
       </div>
 
       <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
-        <div className="w-full lg:w-2/2">
+        <div className="w-full">
           <Section
-          // title="Conversions"
-          // description={<span>Cummulative Assessment</span>}
           >
 
             <div className="flex justify-center">
               <div>
                 <p className="text-sm my-3 font-bold text-center">Summary</p>
-                <table className="table striped divide-y mb-4">
+                <table className="table table-auto striped divide-y mb-4">
                   <thead>
                     <tr>
                       <th>
