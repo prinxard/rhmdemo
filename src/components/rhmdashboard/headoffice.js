@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Section from "../dashboard/section";
 import { PieChart, Pie, Cell } from "recharts";
 import {
@@ -16,71 +16,15 @@ import {
 import { formatNumber } from "accounting";
 import Widget1 from "../dashboard/widget-1";
 import { PendingRemittance, RevenueItems, TaxReceipt, TotalRemittance } from "../Icons";
+import setAuthToken from "../../functions/setAuthToken";
+import axios from "axios";
+import url from "../../config/url";
 
 
+let AjaokutaapprCount
+let AjaokutaSubCount
 
-const dataCount = [
-  {
-    name: "Lokoja",
-    submitted: 4000,
-    approved: 2400,
-    amt: 2400
-  },
-  {
-    name: "Head Office",
-    submitted: 4000,
-    approved: 2400,
-    amt: 2400
-  },
-  {
-    name: "Okene",
-    submitted: 3000,
-    approved: 1398,
-    amt: 2210
-  },
-  {
-    name: "Isanlu",
-    submitted: 2000,
-    approved: 9800,
-    amt: 2290
-  },
-  {
-    name: "Kabba",
-    submitted: 2780,
-    approved: 3908,
-    amt: 2000
-  },
-  {
-    name: "Idah",
-    submitted: 1890,
-    approved: 4800,
-    amt: 2181
-  },
-  {
-    name: "Koto",
-    submitted: 2390,
-    approved: 3800,
-    amt: 2500
-  },
-  {
-    name: "Ankpa",
-    submitted: 3490,
-    approved: 4300,
-    amt: 2100
-  },
-  {
-    name: "Ajaokuta",
-    submitted: 3490,
-    approved: 4300,
-    amt: 2100
-  },
-  {
-    name: "Ayingba",
-    submitted: 3490,
-    approved: 4300,
-    amt: 2100
-  }
-];
+
 
 const amountAssessed = [
   {
@@ -335,6 +279,119 @@ export const PerfPie = () => {
 }
 
 export const AssesmentCount = () => {
+  const [assessCount, setAssessCount] = useState([])
+  const [assessCount2, setAssessCount2] = useState([])
+  const [assessCount3, setAssessCount3] = useState([])
+  const [assessCount4, setAssessCount4] = useState([])
+  const [assessCount5, setAssessCount5] = useState([])
+  const [assessCount6, setAssessCount6] = useState([])
+  const [assessCount7, setAssessCount7] = useState([])
+  const [assessCount8, setAssessCount8] = useState([])
+  const [assessCount9, setAssessCount9] = useState([])
+  const [assessCount10, setAssessCount10] = useState([])
+
+  useEffect(() => {
+
+    setAuthToken();
+    const fetchPost = async () => {
+      try {
+        let res = await axios.get(`${url.BASE_URL}forma/dashboard`);
+        let itemsBody = res.data.body
+        let countArray = itemsBody.assessmentCount
+        // console.log(countArray);
+        setAssessCount(countArray)
+
+      } catch (e) {
+        // setIsFetching(false);
+      }
+    };
+    fetchPost();
+
+  }, []);
+
+
+  const ajaokutaApproved = assessCount.filter(data => data.tax_office === "Ajaokuta" && data.status === "Approved");
+  const ajaokutaSubmitted = assessCount.filter(data => data.tax_office === "Ajaokuta" && data.status === "Submitted");
+
+
+  console.log("AjaokutaApproved", ajaokutaApproved);
+  console.log("AjaokutaSubmitted", ajaokutaSubmitted);
+
+  ajaokutaApproved.forEach((ind, i) => {
+    AjaokutaapprCount = ind.count
+  })
+
+  ajaokutaSubmitted.forEach((ind, i) => {
+    AjaokutaSubCount = ind.count
+  })
+
+  console.log(AjaokutaSubCount, AjaokutaapprCount);
+
+
+  const dataCount = [
+    {
+      name: "Lokoja",
+      submitted: AjaokutaSubCount,
+      approved: AjaokutaapprCount,
+      amt: 2400
+    },
+    {
+      name: "Head Office",
+      submitted: 4000,
+      approved: 2400,
+      amt: 2400
+    },
+    {
+      name: "Okene",
+      submitted: 3000,
+      approved: 1398,
+      amt: 2210
+    },
+    {
+      name: "Isanlu",
+      submitted: 2000,
+      approved: 9800,
+      amt: 2290
+    },
+    {
+      name: "Kabba",
+      submitted: 2780,
+      approved: 3908,
+      amt: 2000
+    },
+    {
+      name: "Idah",
+      submitted: 1890,
+      approved: 4800,
+      amt: 2181
+    },
+    {
+      name: "Koto",
+      submitted: 2390,
+      approved: 3800,
+      amt: 2500
+    },
+    {
+      name: "Ankpa",
+      submitted: 3490,
+      approved: 4300,
+      amt: 2100
+    },
+    {
+      name: "Ajaokuta",
+      submitted: 3490,
+      approved: 4300,
+      amt: 2100
+    },
+    {
+      name: "Ayingba",
+      submitted: 3490,
+      approved: 4300,
+      amt: 2100
+    }
+  ];
+
+
   return (
     <>
       <div className="flex my-10 flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-
 import axios from "axios";
 import url from "../../config/url";
 import setAuthToken from "../../functions/setAuthToken";
@@ -40,7 +39,6 @@ export default function index() {
     const decoded = jwt.decode(auth);
     const creator = decoded.user
 
-    console.log("Tax Station", taxStation);
 
     useEffect(() => {
 
@@ -70,8 +68,6 @@ export default function index() {
             value: item.id
         }
     })
-    console.log("Options", options);
-    console.log("rhmGroups", rhmGroups);
 
     setAuthToken();
     const onSubmit = (data) => {

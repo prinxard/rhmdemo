@@ -65,7 +65,7 @@ export default function index() {
 
     const onSubmit = (data) => {
         setIsFetching(true)
-        if (data.bvn === IndividualBVN) {
+        if (data.bvn === IndividualBVN || data.bvn === "") {
             delete data.bvn
             axios.put(`${url.BASE_URL}taxpayer/update-individual`, data)
                 .then(function (response) {
