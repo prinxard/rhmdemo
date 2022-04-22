@@ -17,7 +17,6 @@ const ViewDocumentsTcc = () => {
     //     let appLet = doc.doc
     //     return cover
     // })
-
     const appletter = uploads.filter(data => data.item === "application_letter");
 
     // const docLet = applet.filter(item => item.doc !== null && item !== "")

@@ -1,4 +1,4 @@
-import { RhmDashboard, ManageTaxpayer, ManageUser, DirectAssessment, Paye, Collections, Settings } from '../../components/Icons/index';
+import { RhmDashboard, ManageTaxpayer, DirectAssessment, Paye, Collections, Settings } from '../../components/Icons/index';
 
 // Added non individual navigation to side menu
 
@@ -275,7 +275,7 @@ const initialState = [
   },
 ];
 
-export default function individualNavigation(state = initialState, action) {
+export default function navigationAdmin(state = initialState, action) {
   switch (action.type) {
     default:
       return state;

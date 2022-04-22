@@ -13,17 +13,17 @@ import {random} from '../../functions/numbers'
 
 const CustomTooltip = ({active, payload, label}) => {
   if (active) {
-    let {name, submitted, approved} = {...payload[0].payload}
+    let {name, sales, conversions} = {...payload[0].payload}
     return (
       <div className="bg-white text-gray-900 dark:bg-gray-800 dark:text-white shadow-lg rounded-lg p-2 text-xs">
         <div className="font-bold">{name}</div>
         <div>
-          <span className="font-bold">Submitted:</span>{' '}
-          <span className="font-normal">{submitted}</span>
+          <span className="font-bold">Sales:</span>{' '}
+          <span className="font-normal">{sales}</span>
         </div>
         <div>
-          <span className="font-bold">Approved:</span>{' '}
-          <span className="font-normal">{approved}</span>
+          <span className="font-bold">Conversions:</span>{' '}
+          <span className="font-normal">{conversions}</span>
         </div>
       </div>
     )
@@ -33,28 +33,28 @@ const CustomTooltip = ({active, payload, label}) => {
 
 export const RechartsBar1 = () => {
   let colors = [
-    {dataKey: 'approved', fill: getColor('bg-blue-500')},
-    {dataKey: 'submitted', fill: getColor('bg-red-500')}
+    {dataKey: 'sales', fill: getColor('bg-blue-500')},
+    {dataKey: 'conversions', fill: getColor('bg-red-500')}
   ]
   const labels = [
-    'Lokoja',
-    'Okene',
-    'Isanlu',
-    'Kabba',
-    'Idah',
-    'Koto',
-    'Ankpa',
-    'Ajaokuta',
-    'Ayingba',
-    // 'Oct',
-    // 'Nov',
-    // 'Dec'
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec'
   ]
-  const data = Array.from(Array(9).keys()).map(i => {
+  const data = Array.from(Array(12).keys()).map(i => {
     return {
       name: labels[i],
-      submitted: random(100, 200),
-      approved: random(150, 250)
+      sales: random(100, 200),
+      conversions: random(150, 250)
     }
   })
 

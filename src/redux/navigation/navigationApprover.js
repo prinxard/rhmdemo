@@ -288,7 +288,7 @@ const initialState = [
   },
 ];
 
-export default function individualNavigation(state = initialState, action) {
+export default function navigationApprover(state = initialState, action) {
   switch (action.type) {
     default:
       return state;

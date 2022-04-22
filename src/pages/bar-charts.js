@@ -6,6 +6,7 @@ import HorizontalBar from '../components/charts/horizontal-bar'
 import HorizontalBar1 from '../components/charts/horizontal-bar-1'
 import { RechartsBar1 } from '../components/recharts/bar-1'
 import Widget from '../components/widget'
+import Pie from '../components/charts/pie'
 
 const Index = () => (
   <>
@@ -22,6 +23,15 @@ const Index = () => (
           <div className="w-full mb-4">
             <RechartsBar1 height={200} />
           </div>
+          {/* <Widget
+            title="Doughnut chart"
+            description={
+              <span>
+                Use the <code>&lt;Doughnut /&gt;</code> component for doughnut charts
+              </span>
+            }>
+            <Pie height={250} />
+          </Widget> */}
           {/* <div className="w-full mb-4">
             <Bar height={200} />
           </div>
