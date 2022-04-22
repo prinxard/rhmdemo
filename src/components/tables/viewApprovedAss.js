@@ -417,6 +417,20 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                         <p key={idx}>{data.middle_name} <span> {data.first_name}</span> </p>
                       ))}
                     </tr>
+
+                    <tr>
+                      <td><strong>CITY: </strong></td>
+                      {payerAyy.map((data, idx) => (
+                        <p key={idx}> {data.city} </p>
+                      ))}
+                    </tr>
+
+                    <tr>
+                      <td><strong>HOUSE NO: </strong></td>
+                      {payerAyy.map((data, idx) => (
+                        <p key={idx}> {data.house_no} </p>
+                      ))}
+                    </tr>
                     <tr>
                       <td><strong>ADDRESS:</strong></td>
                       {payerAyy.map((data, idx) => (
