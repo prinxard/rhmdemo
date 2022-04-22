@@ -135,7 +135,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
 
 
   };
- 
+
   return (
     <>
       <ToastContainer />
@@ -199,7 +199,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
           (delData) => {
             if (userGroup.some(r => DeleteRange.includes(r))) {
               return {
-            
+
                 icon: Delete,
                 tooltip: 'Delete Assessment',
                 onClick: (event, rowData) => {
@@ -207,7 +207,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
                   setAssessId(rowData.assessment_id)
                   setModal(true)
                 }
-  
+
                 // icon: "bug_report",
                 // tooltip: "Report bug",
                 // disabled: rowData.status === "active",
@@ -217,7 +217,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
               };
             } else {
               return {
-            
+
                 icon: Delete,
                 tooltip: 'Delete Assessment',
                 hidden: true,
@@ -226,7 +226,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
                   setAssessId(rowData.assessment_id)
                   setModal(true)
                 }
-  
+
                 // icon: "bug_report",
                 // tooltip: "Report bug",
                 // disabled: rowData.status === "active",
@@ -235,7 +235,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
                 //   alert("This client status is " + rowData.status)
               };
             }
-           
+
           }
         ]}
 
@@ -348,6 +348,8 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
   let due_date = new Date(date)
   due_date.setDate(due_date.getDate() + 60);
   let paymentDue = dateformat(due_date, "dd mmm yyyy")
+  let printDate = Date.now();
+  let datePrinted = dateformat(printDate, "dd mmm yyyy")
 
   const assessment_id = assId
   const createdTime = dateformat(assobj.createtime, "dd mmm yyyy")
@@ -388,7 +390,10 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
         <table width='800' height='1200' align='center' className='print'>
           <tr>
             <td width='800' height='1200' align='center' valign='top'>
-              <h6 align="left">Personal Income Tax {assobj.year}</h6>
+              <div className="flex justify-between">
+                <h6 align="left">Personal Income Tax {assobj.year}</h6>
+                <small>printed on {datePrinted}</small>
+              </div>
               <table width='800' className='tb mb-4'>
                 <tr>
                   <td width='385'><table width='83%' height='100%' border='0'>
@@ -780,9 +785,6 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                           <td width="300" className="font-bold tb">Union Bank</td>
                           <td width="300" className="font-bold tb">Unity Bank</td>
                         </tr>
-
-
-
                       </div>
                     </div>
                   </td>
