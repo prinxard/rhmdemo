@@ -53,8 +53,8 @@ const Index = () => {
 
   return (
     <>
-      {/* <SectionTitle subtitle="Dashboard" />
-      <Widget>
+      <SectionTitle subtitle="Dashboard" />
+      {/* <Widget>
         <div className="flex justify-center">
           <div className="w-full">
             <IconTabs tabs={tabsWithIcons} />
