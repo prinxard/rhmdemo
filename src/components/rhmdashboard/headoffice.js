@@ -24,6 +24,37 @@ import url from "../../config/url";
 let AjaokutaapprCount
 let AjaokutaSubCount
 
+let lokoja1ApprCount
+
+let adaviApprCount
+
+let lokoja2ApprCount
+let lokoja2SubCount
+
+let headOfficeApprCount
+let headOfficeSubCount
+
+let okeneApprCount
+let okeneSubCount
+
+let isanluApprCount
+let isanluSubCount
+
+let kabbaApprCount
+let kabbaSubCount
+
+let idahApprCount
+// let kabbaSubCount
+
+let kotoApprCount
+let kotoSubCount
+
+let ankpaApprCount
+// let ankpaSubCount
+
+let ayingbaApprCount
+let ayingbaSubCount
+
 
 
 const amountAssessed = [
@@ -297,6 +328,7 @@ export const AssesmentCount = () => {
       try {
         let res = await axios.get(`${url.BASE_URL}forma/dashboard`);
         let itemsBody = res.data.body
+        console.log(itemsBody);
         let countArray = itemsBody.assessmentCount
         // console.log(countArray);
         setAssessCount(countArray)
@@ -313,9 +345,34 @@ export const AssesmentCount = () => {
   const ajaokutaApproved = assessCount.filter(data => data.tax_office === "Ajaokuta" && data.status === "Approved");
   const ajaokutaSubmitted = assessCount.filter(data => data.tax_office === "Ajaokuta" && data.status === "Submitted");
 
+  const lokoja2Approved = assessCount.filter(data => data.tax_office === "Lokoja 2" && data.status === "Approved");
+  const lokoja2Submitted = assessCount.filter(data => data.tax_office === "Lokoja 2" && data.status === "Submitted");
 
-  console.log("AjaokutaApproved", ajaokutaApproved);
-  console.log("AjaokutaSubmitted", ajaokutaSubmitted);
+  const headOfficeApproved = assessCount.filter(data => data.tax_office === "Head Office" && data.status === "Approved");
+  const headOfficeSubmitted = assessCount.filter(data => data.tax_office === "Head Office" && data.status === "Submitted");
+
+  const okeneApproved = assessCount.filter(data => data.tax_office === "Okene" && data.status === "Approved");
+  const okeneSubmitted = assessCount.filter(data => data.tax_office === "Okene" && data.status === "Submitted");
+
+  const isanluApproved = assessCount.filter(data => data.tax_office === "Isanlu" && data.status === "Approved");
+  const isanluSubmitted = assessCount.filter(data => data.tax_office === "Isanlu" && data.status === "Submitted");
+
+  const kabbaApproved = assessCount.filter(data => data.tax_office === "Kabba" && data.status === "Approved");
+  const kabbaSubmitted = assessCount.filter(data => data.tax_office === "Kabba" && data.status === "Submitted");
+
+  const idahApproved = assessCount.filter(data => data.tax_office === "Idah" && data.status === "Approved");
+
+  const kotoApproved = assessCount.filter(data => data.tax_office === "Kotonkarfe" && data.status === "Approved");
+  const kotoSubmitted = assessCount.filter(data => data.tax_office === "Kotonkarfe" && data.status === "Submitted");
+
+  const ankpaApproved = assessCount.filter(data => data.tax_office === "Ankpa" && data.status === "Approved");
+
+  const ayingbaApproved = assessCount.filter(data => data.tax_office === "Anyigba" && data.status === "Approved");
+  const ayingbaSubmitted = assessCount.filter(data => data.tax_office === "Anyigba" && data.status === "Submitted");
+
+  const lokoja1Approved = assessCount.filter(data => data.tax_office === "Lokoja 1" && data.status === "Approved");
+
+  const adaviApproved = assessCount.filter(data => data.tax_office === "Okehi/Adavi" && data.status === "Approved");
 
   ajaokutaApproved.forEach((ind, i) => {
     AjaokutaapprCount = ind.count
@@ -325,69 +382,151 @@ export const AssesmentCount = () => {
     AjaokutaSubCount = ind.count
   })
 
-  console.log(AjaokutaSubCount, AjaokutaapprCount);
+  lokoja2Approved.forEach((ind, i) => {
+    lokoja2ApprCount = ind.count
+  })
 
+  lokoja2Submitted.forEach((ind, i) => {
+    lokoja2SubCount = ind.count
+  })
+
+  lokoja1Approved.forEach((ind, i) => {
+    lokoja1ApprCount = ind.count
+  })
+
+  headOfficeApproved.forEach((ind, i) => {
+    headOfficeApprCount = ind.count
+  })
+
+  headOfficeSubmitted.forEach((ind, i) => {
+    headOfficeSubCount = ind.count
+  })
+
+
+  okeneApproved.forEach((ind, i) => {
+    okeneApprCount = ind.count
+  })
+
+  okeneSubmitted.forEach((ind, i) => {
+    okeneSubCount = ind.count
+  })
+
+  isanluApproved.forEach((ind, i) => {
+    isanluApprCount = ind.count
+  })
+
+  isanluSubmitted.forEach((ind, i) => {
+    isanluSubCount = ind.count
+  })
+
+  kabbaApproved.forEach((ind, i) => {
+    kabbaApprCount = ind.count
+  })
+
+  kabbaSubmitted.forEach((ind, i) => {
+    kabbaSubCount = ind.count
+  })
+
+  idahApproved.forEach((ind, i) => {
+    idahApprCount = ind.count
+  })
+
+  kotoApproved.forEach((ind, i) => {
+    kotoApprCount = ind.count
+  })
+  kotoSubmitted.forEach((ind, i) => {
+    kotoSubCount = ind.count
+  })
+
+  ankpaApproved.forEach((ind, i) => {
+    ankpaApprCount = ind.count
+  })
+
+
+  ayingbaApproved.forEach((ind, i) => {
+    ayingbaApprCount = ind.count
+  })
+
+  ayingbaSubmitted.forEach((ind, i) => {
+    ayingbaSubCount = ind.count
+  })
+
+  adaviApproved.forEach((ind, i) => {
+    adaviApprCount = ind.count
+  })
 
   const dataCount = [
     {
-      name: "Lokoja",
-      submitted: AjaokutaSubCount,
-      approved: AjaokutaapprCount,
-      amt: 2400
+      name: "Lokoja 2",
+      submitted: lokoja2SubCount,
+      approved: lokoja2ApprCount,
+      // amt: 2400
+    },
+    {
+      name: "Lokoja 1",
+      submitted: 0,
+      approved: lokoja1ApprCount,
+      // amt: 2400
+    },
+    {
+      name: "Adavi",
+      submitted: 0,
+      approved: adaviApprCount,
+      // amt: 2400
     },
     {
       name: "Head Office",
-      submitted: 4000,
-      approved: 2400,
-      amt: 2400
+      submitted: headOfficeSubCount,
+      approved: headOfficeApprCount,
+      // amt: 2400
     },
     {
       name: "Okene",
-      submitted: 3000,
-      approved: 1398,
-      amt: 2210
+      submitted: okeneSubCount,
+      approved: okeneApprCount,
+      // amt: 2210
     },
     {
       name: "Isanlu",
-      submitted: 2000,
-      approved: 9800,
-      amt: 2290
+      submitted: isanluSubCount,
+      approved: isanluApprCount,
+      // amt: 2290
     },
     {
       name: "Kabba",
-      submitted: 2780,
-      approved: 3908,
-      amt: 2000
+      submitted: kabbaSubCount,
+      approved: kabbaApprCount,
+      // amt: 2000
     },
     {
       name: "Idah",
-      submitted: 1890,
-      approved: 4800,
-      amt: 2181
+      submitted: 0,
+      approved: idahApprCount,
+      // amt: 2181
     },
     {
       name: "Koto",
-      submitted: 2390,
-      approved: 3800,
-      amt: 2500
+      submitted: kotoSubCount,
+      approved: kotoApprCount,
+      // amt: 2500
     },
     {
       name: "Ankpa",
-      submitted: 3490,
-      approved: 4300,
-      amt: 2100
+      submitted: 0,
+      approved: ankpaApprCount,
+      // amt: 2100
     },
     {
       name: "Ajaokuta",
-      submitted: 3490,
-      approved: 4300,
-      amt: 2100
+      submitted: AjaokutaSubCount,
+      approved: AjaokutaapprCount,
+      // amt: 2100
     },
     {
-      name: "Ayingba",
-      submitted: 3490,
-      approved: 4300,
-      amt: 2100
+      name: "Anyingba",
+      submitted: ayingbaSubCount,
+      approved: ayingbaApprCount,
+      // amt: 2100
     }
   ];
 
@@ -433,7 +572,7 @@ export const AssesmentCount = () => {
         </div>
       </div>
       <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
-        <div className="w-full lg:w-3/3">
+        <div className="w-full">
           <Section
             description={<span>Assessment count</span>}
           >
@@ -445,8 +584,8 @@ export const AssesmentCount = () => {
                   stackOffset="sign"
                   margin={{
                     top: 5,
-                    right: 30,
-                    left: 20,
+                    right: 10,
+                    left: 10,
                     bottom: 5
                   }}
                 >
@@ -456,8 +595,8 @@ export const AssesmentCount = () => {
                   <Tooltip />
                   <Legend />
                   {/* <ReferenceLine y={0} stroke="#000" /> */}
-                  <Bar dataKey="submitted" barCategoryGap={10} fill="#02321C" stackId="stack" />
-                  <Bar dataKey="approved" barCategoryGap={10} fill="#82ca9d" stackId="stack" />
+                  <Bar dataKey="submitted" fill="#02321C" stackId="stack" />
+                  <Bar dataKey="approved" fill="#82ca9d" stackId="stack" />
                 </BarChart>
               </ResponsiveContainer>
             </div>
