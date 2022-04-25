@@ -135,7 +135,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
 
 
   };
- 
+
   return (
     <>
       <ToastContainer />
@@ -199,7 +199,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
           (delData) => {
             if (userGroup.some(r => DeleteRange.includes(r))) {
               return {
-            
+
                 icon: Delete,
                 tooltip: 'Delete Assessment',
                 onClick: (event, rowData) => {
@@ -207,7 +207,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
                   setAssessId(rowData.assessment_id)
                   setModal(true)
                 }
-  
+
                 // icon: "bug_report",
                 // tooltip: "Report bug",
                 // disabled: rowData.status === "active",
@@ -217,7 +217,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
               };
             } else {
               return {
-            
+
                 icon: Delete,
                 tooltip: 'Delete Assessment',
                 hidden: true,
@@ -226,7 +226,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
                   setAssessId(rowData.assessment_id)
                   setModal(true)
                 }
-  
+
                 // icon: "bug_report",
                 // tooltip: "Report bug",
                 // disabled: rowData.status === "active",
@@ -235,7 +235,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
                 //   alert("This client status is " + rowData.status)
               };
             }
-           
+
           }
         ]}
 
@@ -429,7 +429,12 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                     <tr>
                       <td><strong>TAX STATION </strong></td>
                       {payerAyy.map((data, idx) => (
-                        <p key={idx}>{data.tax_office}</p>
+                        <div key={idx}>
+                          {data.tax_office === "Okehi/Adavi" ?
+                            <p>Adavi/Okehi</p> :
+                            <p>{data.tax_office}</p>
+                          }
+                        </div>
                       ))}
                     </tr>
                     <tr>

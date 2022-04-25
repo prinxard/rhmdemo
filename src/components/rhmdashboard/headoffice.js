@@ -373,6 +373,11 @@ export const AssesmentCount = () => {
   const lokoja1Approved = assessCount.filter(data => data.tax_office === "Lokoja 1" && data.status === "Approved");
 
   const adaviApproved = assessCount.filter(data => data.tax_office === "Okehi/Adavi" && data.status === "Approved");
+  // const adaviSubmitted = assessCount.filter(data => data.tax_office === "Okehi/Adavi" && data.status === "Submitted");
+
+  // console.log("adaviApproved ", adaviApproved);
+  // console.log("adaviSubmitted ", adaviSubmitted);
+
 
   ajaokutaApproved.forEach((ind, i) => {
     AjaokutaapprCount = ind.count
