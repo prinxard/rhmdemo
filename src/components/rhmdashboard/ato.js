@@ -1,7 +1,7 @@
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Section from "../../components/dashboard/section";
-import { PieChart, Pie, Cell } from "recharts";
+import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import {
   LineChart,
   Line,
@@ -14,207 +14,14 @@ import {
 import { formatNumber } from "accounting";
 import Widget1 from "../../components/dashboard/widget-1";
 import { PendingRemittance, RevenueItems, TaxReceipt, TotalRemittance } from "../../components/Icons";
+import setAuthToken from "../../functions/setAuthToken";
+import axios from "axios";
+import url from "../../config/url";
 
+let atoApprCount
+let atoDraftCount
+let atoTotalCount
 
-
-const dataCount = [
-  {
-    name: "Lokoja",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400
-  },
-  {
-    name: "Head Office",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400
-  },
-  {
-    name: "Okene",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210
-  },
-  {
-    name: "Isanlu",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290
-  },
-  {
-    name: "Kabba",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000
-  },
-  {
-    name: "Idah",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181
-  },
-  {
-    name: "Koto",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500
-  },
-  {
-    name: "Ankpa",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100
-  },
-  {
-    name: "Ajaokuta",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100
-  },
-  {
-    name: "Ayingba",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100
-  }
-];
-
-const amountAssessed = [
-  {
-    name: "Lokoja",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400
-  },
-  {
-    name: "Head Office",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400
-  },
-  {
-    name: "Okene",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210
-  },
-  {
-    name: "Isanlu",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290
-  },
-  {
-    name: "Kabba",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000
-  },
-  {
-    name: "Idah",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181
-  },
-  {
-    name: "Koto",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500
-  },
-  {
-    name: "Ankpa",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100
-  },
-  {
-    name: "Ajaokuta",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100
-  },
-  {
-    name: "Ayingba",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100
-  }
-];
-
-const colPerform = [
-  {
-    name: "Lokoja",
-    assessed: 3000,
-    collected: 4000,
-    outstanding: 2400,
-    unassessed: 2400
-  },
-  {
-    name: "Head Office",
-    assessed: 3000,
-    collected: 4000,
-    outstanding: 2400,
-    unassessed: 2400
-  },
-  {
-    name: "Okene",
-    assessed: 3000,
-    collected: 4000,
-    outstanding: 2400,
-    unassessed: 2400
-  },
-  {
-    name: "Isanlu",
-    assessed: 3000,
-    collected: 4000,
-    outstanding: 2400,
-    unassessed: 2400
-  },
-  {
-    name: "Kabba",
-    assessed: 3000,
-    collected: 4000,
-    outstanding: 2400,
-    unassessed: 2400
-  },
-  {
-    name: "Idah",
-    assessed: 3000,
-    collected: 4000,
-    outstanding: 2400,
-    unassessed: 2400
-  },
-  {
-    name: "Koto",
-    assessed: 3000,
-    collected: 4000,
-    outstanding: 2400,
-    unassessed: 2400
-  },
-  {
-    name: "Ankpa",
-    assessed: 3000,
-    collected: 4000,
-    outstanding: 2400,
-    unassessed: 2400
-  },
-  {
-    name: "Ajaokuta",
-    assessed: 3000,
-    collected: 4000,
-    outstanding: 2400,
-    unassessed: 2400
-  },
-  {
-    name: "Ayingba",
-    assessed: 3000,
-    collected: 4000,
-    outstanding: 2400,
-    unassessed: 2400
-  }
-];
 
 const Trend = [
   {
@@ -291,128 +98,236 @@ const Trend = [
   }
 ];
 
-const dataAssesedAmount = [
-  { name: "Assessed ", value: 4000 },
-  { name: "Amount collected ", value: 3040 },
-  { name: "Unassessed collectiion", value: 3040 },
-  { name: "Outstanding ", value: 3040 },
-];
 
 
-const dataATOCount = [
-  { name: "Total assessment", value: 1000 },
-  { name: "Pending assessment", value: 300 },
-  { name: "Approved assessment", value: 300 },
-];
+
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 const RADIAN = Math.PI / 180;
-const renderCustomizedLabel = ({
-  cx,
-  cy,
-  midAngle,
-  innerRadius,
-  outerRadius,
-  percent,
-  index
-
-}) => {
-
-
-  // eslint-disable-next-line
-  const radius = 25 + innerRadius + (outerRadius - innerRadius);
-  // eslint-disable-next-line
-  const x = cx + radius * Math.cos(-midAngle * RADIAN);
-  // eslint-disable-next-line
-  const y = cy + radius * Math.sin(-midAngle * RADIAN);
- 
-  return (
-    <text
-      x={x}
-      y={y}
-      fill="blue"
-      textAnchor={x > cx ? "start" : "end"}
-      dominantBaseline="central"
-    >
-      {`${dataAssesedAmount[index].name}`}
-
-      {/* {`${(percent * 100).toFixed(0)}%`} */}
-    </text>
-  );
-};
-const renderCustomizedLabel2 = ({
-  cx,
-  cy,
-  midAngle,
-  innerRadius,
-  outerRadius,
-  percent,
-  index
-
-}) => {
-
-  // eslint-disable-next-line
-  const radius = 25 + innerRadius + (outerRadius - innerRadius);
-  // eslint-disable-next-line
-  const x = cx + radius * Math.cos(-midAngle * RADIAN);
-  // eslint-disable-next-line
-  const y = cy + radius * Math.sin(-midAngle * RADIAN);
- 
-  return (
-    <text
-      x={x}
-      y={y}
-      fill="blue"
-      textAnchor={x > cx ? "start" : "end"}
-      dominantBaseline="central"
-    >
-      {`${dataATOCount[index].name}`}
-
-      {/* {`${(percent * 100).toFixed(0)}%`} */}
-    </text>
-  );
-};
-
-
 
 
 export const AmountAssessed = () => {
-  return (
-    <PieChart width={450} height={300}>
-      <Pie
-        data={dataAssesedAmount}
-        cx={222}
-        cy={150}
-        label={renderCustomizedLabel}
-        outerRadius={100}
-        fill="#8884d8"
-        dataKey="value"
+
+  const [assessAmount, setAssessAmount] = useState([])
+
+  let amountAssessed
+  let amountCollected
+  let unassessedCollection
+  let outstandingAmount
+
+  useEffect(() => {
+
+    setAuthToken();
+    const fetchPost = async () => {
+      try {
+        let res = await axios.get(`${url.BASE_URL}forma/dashboard`);
+        let itemsBody = res.data.body
+        console.log(itemsBody);
+        let amountArray = itemsBody.atoCollectionPerfomance
+        setAssessAmount(amountArray)
+        console.log("collectPerf", amountArray);
+
+      } catch (e) {
+        // setIsFetching(false);
+      }
+    };
+    fetchPost();
+
+  }, []);
+
+  assessAmount.forEach((ind, i) => {
+    amountAssessed = Number(ind.assessedAmount)
+  })
+
+  assessAmount.forEach((ind, i) => {
+    amountCollected = Number(ind.amountCollected)
+  })
+
+  assessAmount.forEach((ind, i) => {
+    unassessedCollection = Number(ind.unassessedAmountCollected)
+  })
+
+  console.log("amountAssessed", amountAssessed);
+  console.log("amountCollected", amountCollected);
+  console.log("unassessedCollection", unassessedCollection);
+  
+  outstandingAmount = (Number(amountAssessed) - Number(amountCollected))
+  
+  console.log("outstandingAmount", outstandingAmount);
+
+  const dataAssesedAmount = [
+    { name: "Amount Assessed ", value: amountAssessed },
+    { name: "Amount collected ", value: amountCollected },
+    { name: "Unassessed collectiion", value: unassessedCollection },
+    { name: "Outstanding Amount", value: outstandingAmount },
+  ];
+
+  const renderCustomizedLabel = ({
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    percent,
+    index
+
+  }) => {
+
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    return (
+      <text
+        x={x}
+        y={y}
+        fill="blue"
+        textAnchor={x > cx ? "start" : "end"}
+        dominantBaseline="central"
       >
-        {dataAssesedAmount.map((entry, index) => (
-          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-        ))}
-      </Pie>
-    </PieChart>
+        {/* {`${dataAssesedAmount[index].name}`} */}
+
+        {/* {`${(percent * 100).toFixed(0)}%`} */}
+      </text>
+    );
+  };
+
+  return (
+    <div style={{ width: '100%', height: 300 }}>
+      <ResponsiveContainer>
+        <PieChart width={500} height={300}>
+          <Legend verticalAlign="top" align="center" />
+          <Pie
+            data={dataAssesedAmount}
+            // cx={222}
+            // cy={150}
+            labelLine={false}
+            label={renderCustomizedLabel}
+            outerRadius={80}
+            fill="#8884d8"
+            dataKey="value"
+          >
+            {dataAssesedAmount.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
+        </PieChart>
+      </ResponsiveContainer>
+    </div>
   );
 }
 
 export const AtoCount = () => {
-  return (
-    <PieChart width={500} height={300}>
-      <Pie
-        data={dataATOCount}
-        cx={"36%"}
-        cy={150}
-        label={renderCustomizedLabel2}
-        outerRadius={100}
-        fill="#8884d8"
-        dataKey="value"
+
+  const [assessCount, setAssessCount] = useState([])
+
+  useEffect(() => {
+
+    setAuthToken();
+    const fetchPost = async () => {
+      try {
+        let res = await axios.get(`${url.BASE_URL}forma/dashboard`);
+        let itemsBody = res.data.body
+        console.log(itemsBody);
+        let countArray = itemsBody.atoAssessmentCount
+        setAssessCount(countArray)
+        console.log("countArray", countArray);
+
+      } catch (e) {
+        // setIsFetching(false);
+      }
+    };
+    fetchPost();
+
+  }, []);
+
+  const atoApproved = assessCount.filter(data => data.status === "Approved");
+  const atoDraft = assessCount.filter(data => data.status === "Draft");
+  const atoTotal = assessCount.filter(data => data.status === "Total");
+  console.log("atoApproved", atoApproved);
+
+  atoApproved.forEach((ind, i) => {
+    atoApprCount = Number(ind.count)
+  })
+
+  atoDraft.forEach((ind, i) => {
+    atoDraftCount = Number(ind.count)
+  })
+
+  atoTotal.forEach((ind, i) => {
+    atoTotalCount = Number(ind.count)
+  })
+
+  if (atoTotalCount === null || atoTotalCount === undefined || atoTotalCount === "") {
+    atoTotalCount = 0
+  } else {
+    atoTotalCount = atoTotalCount
+  }
+
+  if (atoDraftCount === null || atoDraftCount === undefined || atoDraftCount === "") {
+    atoDraftCount = 0
+  } else {
+    atoDraftCount = atoDraftCount
+  }
+
+  console.log(atoTotalCount, atoDraftCount, atoApprCount);
+
+
+  const dataATOCount = [
+    // { name: "Total assessment", value: 5 },
+    { name: "Pending assessment", value: atoDraftCount },
+    { name: "Approved assessment", value: atoApprCount },
+  ];
+
+  const renderCustomizedLabel2 = ({
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    percent,
+    index
+
+  }) => {
+
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    return (
+      <text
+        x={x}
+        y={y}
+        fill="blue"
+        textAnchor={x > cx ? "start" : "end"}
+        dominantBaseline="central"
       >
-        {dataATOCount.map((entry, index) => (
-          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-        ))}
-      </Pie>
-    </PieChart>
+      </text>
+    );
+  };
+
+  return (
+    <div style={{ width: '100%', height: 300 }}>
+      <ResponsiveContainer>
+        <PieChart width={500} height={300}>
+          <Legend verticalAlign="top" align="center" />
+          <Pie
+            data={dataATOCount}
+            // cx="50%"
+            // cy="50%"
+            label={renderCustomizedLabel2}
+            outerRadius={80}
+            fill="#8884d8"
+            labelLine={false}
+            dataKey="value"
+          >
+            {dataATOCount.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
+        </PieChart>
+      </ResponsiveContainer>
+    </div>
   );
 }
 
@@ -445,16 +360,15 @@ export const Lines = () => {
       <Line type="monotone" dataKey="approved" stroke="#82ca9d" />
       <Line type="monotone" dataKey="paid" stroke="#fcc287" />
       <Line type="monotone" dataKey="unassessed" stroke="#fe0037" />
-      {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
     </LineChart>
   );
 }
 
 export const ATOPie = () => {
+
   return (
     <>
       <div className="flex my-10 flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
-
         <div className="w-full lg:w-1/4">
           <Widget1
             color="green"

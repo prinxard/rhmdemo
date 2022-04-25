@@ -448,7 +448,12 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                     <tr>
                       <td><strong>TAX STATION </strong></td>
                       {payerAyy.map((data, idx) => (
-                        <p key={idx}>{data.tax_office}</p>
+                        <div key={idx}>
+                          {data.tax_office === "Okehi/Adavi" ?
+                            <p>Adavi/Okehi</p> :
+                            <p>{data.tax_office}</p>
+                          }
+                        </div>
                       ))}
                     </tr>
                     <tr>
