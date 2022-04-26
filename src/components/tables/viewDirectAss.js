@@ -73,6 +73,7 @@ const columns = [
 export const ViewPendingTable = ({ draftData }) => {
   let data = draftData;
 
+  
   return (
     <>
       <MaterialTable title="Draft Assessment List"

@@ -17,6 +17,7 @@ import { PendingRemittance, RevenueItems, TaxReceipt, TotalRemittance } from "..
 import setAuthToken from "../../functions/setAuthToken";
 import axios from "axios";
 import url from "../../config/url";
+import dateformat from "dateformat";
 
 let atoApprCount
 let atoDraftCount
@@ -99,9 +100,6 @@ const Trend = [
 ];
 
 
-
-
-
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 const RADIAN = Math.PI / 180;
 
@@ -147,12 +145,8 @@ export const AmountAssessed = () => {
     unassessedCollection = Number(ind.unassessedAmountCollected)
   })
 
-  console.log("amountAssessed", amountAssessed);
-  console.log("amountCollected", amountCollected);
-  console.log("unassessedCollection", unassessedCollection);
-  
   outstandingAmount = (Number(amountAssessed) - Number(amountCollected))
-  
+
   console.log("outstandingAmount", outstandingAmount);
 
   const dataAssesedAmount = [
@@ -365,6 +359,103 @@ export const Lines = () => {
 }
 
 export const ATOPie = () => {
+  const [items, setPost] = useState(() => []);
+  const [sum, setSum] = useState(() => null);
+  const [isFetching, setIsFetching] = useState(() => true);
+
+
+  const fields = [
+    {
+      name: "SN",
+      key: "serialNo",
+    },
+    {
+      name: "KGTIN",
+      key: "kgtin",
+    },
+    {
+      name: "Taxpayer Name",
+      key: "tp_name",
+    },
+    {
+      name: "Assessed Amount",
+      key: "taxFormated",
+    },
+    {
+      name: "Paid Amount",
+      key: "taxPaidFormated",
+    },
+    {
+      name: "Balance",
+      key: "balance",
+    },
+    {
+      name: "Created Time",
+      key: "createtime",
+    },
+  ];
+
+  const fields2 = [
+    {
+      name: "SN",
+      key: "serialNo",
+    },
+    {
+      name: "KGTIN",
+      key: "kgtin",
+    },
+    {
+      name: "Taxpayer Name",
+      key: "tp_name",
+    },
+    {
+      name: "Assessed Amount",
+      key: "taxFormated",
+    },
+    {
+      name: "Paid Amount",
+      key: "taxPaidFormated",
+    },
+    {
+      name: "Balance",
+      key: "balance",
+    },
+    {
+      name: "Created Time",
+      key: "createtime",
+    },
+  ];
+
+  useEffect(() => {
+    let num = 1
+    setAuthToken();
+    const fetchPost = async () => {
+      try {
+        let res = await axios.get(`${url.BASE_URL}forma/dashboard`);
+        res = res.data.body.atoRecentAssessment;
+        let second = res.data.body
+        console.log(second);
+        let records = [];
+        let sum = [];
+        for (let i = 0; i < res.length; i++) {
+          let rec = res[i];
+          sum.push(rec.totalTax);
+          rec.serialNo = num + i
+          rec.balance = formatNumber(Number(rec.tax) - Number(rec.taxPaid))
+          rec.taxFormated = formatNumber(rec.tax);
+          rec.taxPaidFormated = formatNumber(rec.taxPaid);
+          rec.createtime = dateformat(rec.createtime, "dd mmm yyyy")
+          records.push(rec);
+        }
+        setPost(() => records);
+      } catch (e) {
+        console.log(error);
+      }
+    };
+    fetchPost();
+  }, []);
+
+  console.log("items", items);
 
   return (
     <>
@@ -443,151 +534,34 @@ export const ATOPie = () => {
 
       <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
         <div className="w-full lg:w-2/2">
-          <Section
-          >
-
+          <Section >
+            <p className="text-sm my-3 font-bold text-center">Recent Assessments</p>
             <div className="flex justify-center">
-              <div>
-                <p className="text-sm my-3 font-bold text-center">Recent Assessments</p>
-                <table className="table striped divide-y mb-4">
+              <div className="overflow-x-auto">
+                <table className="table divide-y striped">
                   <thead>
-                    <tr>
-                      <th>
-                        Taxpayer Name
-                      </th>
-                      <th className="">
-                        KGTIN
-                      </th>
-                      <th className="">
-                        Assessed Amount
-                      </th>
-                      <th className="">
-                        Amount Paid
-                      </th>
-                      <th className="">
-                        Balance
-                      </th>
-                      <th className="">
-                        Created time
-                      </th>
+                    <tr className="">
+                      {fields.map((field, i) => (
+                        <th key={i} className="">
+                          {field.name}
+                        </th>
+                      ))}
                     </tr>
                   </thead>
-
-                  <tbody>
-
-                    <tr>
-                      <td className="">
-                        Nomics Ibrahim
-                      </td>
-
-                      <td className="">
-                        <p className=""> {formatNumber(20000)} </p>
-                      </td>
-
-
-                      <td className="">
-
-                        <p className="">{formatNumber(30000)}</p>
-
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(40000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(50000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(60000)}</p>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td className="">
-                        Halima  Jordan
-                      </td>
-
-                      <td className="">
-                        <p className=""> {formatNumber(20000)} </p>
-                      </td>
-
-
-                      <td className="">
-
-                        <p className="">{formatNumber(30000)}</p>
-
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(40000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(50000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(60000)}</p>
-                      </td>
-
-
-                    </tr>
-
-                    <tr>
-                      <td className="">
-                        Elnino Dwayne
-                      </td>
-
-                      <td className="">
-                        <p className=""> {formatNumber(20000)} </p>
-                      </td>
-
-
-                      <td className="">
-
-                        <p className="">{formatNumber(30000)}</p>
-
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(40000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(50000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(60000)}</p>
-                      </td>
-
-
-                    </tr>
-
-                    <tr>
-                      <td className="">
-                        Spike Obi
-                      </td>
-
-                      <td className="">
-                        <p className=""> {formatNumber(20000)} </p>
-                      </td>
-
-
-                      <td className="">
-
-                        <p className="">{formatNumber(30000)}</p>
-
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(40000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(50000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(60000)}</p>
-                      </td>
-                    </tr>
-
+                  <tbody className="divide-y">
+                    {items.map((remittance, i) => (
+                      <tr key={i} className="">
+                        {fields.map((field, j) => (
+                          <td key={j} className="">
+                            {remittance[field.key]}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
             </div>
-
           </Section>
         </div>
 
@@ -597,146 +571,35 @@ export const ATOPie = () => {
         <div className="w-full lg:w-2/2">
           <Section
           >
-
             <div className="flex justify-center">
               <div>
                 <p className="text-sm my-3 font-bold text-center">Top Assessments</p>
-                <table className="table striped divide-y mb-4">
-                  <thead>
-                    <tr>
-                      <th>
-                        Taxpayer Name
-                      </th>
-                      <th className="">
-                        KGTIN
-                      </th>
-                      <th className="">
-                        Assessed Amount
-                      </th>
-                      <th className="">
-                        Amount Paid
-                      </th>
-                      <th className="">
-                        Balance
-                      </th>
-                      <th className="">
-                        Created time
-                      </th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-
-                    <tr>
-                      <td className="">
-                        Nomics Ibrahim
-                      </td>
-
-                      <td className="">
-                        <p className=""> {formatNumber(20000)} </p>
-                      </td>
-
-
-                      <td className="">
-
-                        <p className="">{formatNumber(30000)}</p>
-
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(40000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(50000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(60000)}</p>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td className="">
-                        Halima  Jordan
-                      </td>
-
-                      <td className="">
-                        <p className=""> {formatNumber(20000)} </p>
-                      </td>
-
-
-                      <td className="">
-
-                        <p className="">{formatNumber(30000)}</p>
-
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(40000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(50000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(60000)}</p>
-                      </td>
-
-
-                    </tr>
-
-                    <tr>
-                      <td className="">
-                        Elnino Dwayne
-                      </td>
-
-                      <td className="">
-                        <p className=""> {formatNumber(20000)} </p>
-                      </td>
-
-
-                      <td className="">
-
-                        <p className="">{formatNumber(30000)}</p>
-
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(40000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(50000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(60000)}</p>
-                      </td>
-
-
-                    </tr>
-
-                    <tr>
-                      <td className="">
-                        Spike Obi
-                      </td>
-
-                      <td className="">
-                        <p className=""> {formatNumber(20000)} </p>
-                      </td>
-
-
-                      <td className="">
-
-                        <p className="">{formatNumber(30000)}</p>
-
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(40000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(50000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(60000)}</p>
-                      </td>
-                    </tr>
-
-                  </tbody>
-                </table>
+                <div className="flex justify-center">
+                  <div className="overflow-x-auto">
+                    <table className="table divide-y striped">
+                      <thead>
+                        <tr className="">
+                          {fields.map((field, i) => (
+                            <th key={i} className="">
+                              {field.name}
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y">
+                        {items.map((remittance, i) => (
+                          <tr key={i} className="">
+                            {fields.map((field, j) => (
+                              <td key={j} className="">
+                                {remittance[field.key]}
+                              </td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
             </div>
 
