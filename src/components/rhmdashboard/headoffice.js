@@ -19,6 +19,7 @@ import { PendingRemittance, RevenueItems, TaxReceipt, TotalRemittance } from "..
 import setAuthToken from "../../functions/setAuthToken";
 import axios from "axios";
 import url from "../../config/url";
+import Loader from "react-loader-spinner";
 
 
 let AjaokutaapprCount
@@ -55,70 +56,87 @@ let ankpaApprCount
 let ayingbaApprCount
 let ayingbaSubCount
 
+// cummulative data
+let cummApprCount
+let cummSubCount
 
 
 const amountAssessed = [
   {
-    name: "Lokoja",
-    submitted: 4000,
-    approved: 2400,
-    amt: 2400
+    name: "Lk2",
+    submitted: 40,
+    approved: 43,
+    // amt: 2400
   },
   {
-    name: "Head Office",
-    submitted: 4000,
-    approved: 2400,
-    amt: 2400
+    name: "Lk1",
+    submitted: 0,
+    approved: 21,
+    // amt: 2400
   },
   {
-    name: "Okene",
-    submitted: 3000,
-    approved: 1398,
-    amt: 2210
+    name: "Adv",
+    submitted: 0,
+    approved: 32,
+    // amt: 2400
   },
   {
-    name: "Isanlu",
-    submitted: 2000,
-    approved: 9800,
-    amt: 2290
+    name: "HQ",
+    submitted: 34,
+    approved: 4,
+    // amt: 2400
   },
   {
-    name: "Kabba",
-    submitted: 2780,
-    approved: 3908,
-    amt: 2000
+    name: "Okn",
+    submitted: 23,
+    approved: 45,
+    // amt: 2210
   },
   {
-    name: "Idah",
-    submitted: 1890,
-    approved: 4800,
-    amt: 2181
+    name: "Isn",
+    submitted: 12,
+    approved: 4,
+    // amt: 2290
   },
   {
-    name: "Koto",
-    submitted: 2390,
-    approved: 3800,
-    amt: 2500
+    name: "Kb",
+    submitted: 45,
+    approved: 22,
+    // amt: 2000
   },
   {
-    name: "Ankpa",
-    submitted: 3490,
-    approved: 4300,
-    amt: 2100
+    name: "Idh",
+    submitted: 0,
+    approved: 3,
+    // amt: 2181
   },
   {
-    name: "Ajaokuta",
-    submitted: 3490,
-    approved: 4300,
-    amt: 2100
+    name: "Kt",
+    submitted: 43,
+    approved: 21,
+    // amt: 2500
   },
   {
-    name: "Ayingba",
-    submitted: 3490,
-    approved: 4300,
-    amt: 2100
+    name: "Ank",
+    submitted: 0,
+    approved: 32,
+    // amt: 2100
+  },
+  {
+    name: "Ajk",
+    submitted: 12,
+    approved: 43,
+    // amt: 2100
+  },
+  {
+    name: "Anyg",
+    submitted: 45,
+    approved: 21,
+    // amt: 2100
   }
 ];
+
+
 
 const colPerform = [
   {
@@ -193,10 +211,7 @@ const colPerform = [
   }
 ];
 
-const dataCummCount = [
-  { name: "Submitted", value: 4000 },
-  { name: "Approved", value: 3040 },
-];
+
 
 const dataCummPerf = [
   { name: "Approved assessment", value: 400 },
@@ -231,7 +246,7 @@ const renderCustomizedLabel = ({
       textAnchor={x > cx ? "start" : "end"}
       dominantBaseline="central"
     >
-      {`${dataCummCount[index].name}`}
+      {/* {`${dataCummCount[index].name}`} */}
 
       {/* {`${(percent * 100).toFixed(0)}%`} */}
     </text>
@@ -260,7 +275,7 @@ const renderCustomizedLabel2 = ({
       textAnchor={x > cx ? "start" : "end"}
       dominantBaseline="central"
     >
-      {`${dataCummPerf[index].name}`}
+      {/* {`${dataCummPerf[index].name}`} */}
 
       {/* {`${(percent * 100).toFixed(0)}%`} */}
     </text>
@@ -269,48 +284,98 @@ const renderCustomizedLabel2 = ({
 
 
 export const CountPie = () => {
+  const [cummulative, setCummulative] = useState([])
+  const [assessCount, setAssessCount] = useState([])
+  const [isFetching, setisFetching] = useState(false)
+
+  useEffect(() => {
+    setAuthToken();
+    const fetchPost = async () => {
+      try {
+        let res = await axios.get(`${url.BASE_URL}forma/dashboard`);
+        let itemsBody = res.data.body
+        let cummu = itemsBody.cummulativeAssessment;
+        setCummulative(cummu)
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetchPost();
+
+  }, []);
+
+  const cummApproved = cummulative.filter(data => data.status === "Approved");
+  const cummSubmitted = cummulative.filter(data => data.status === "Submitted");
+
+  cummApproved.forEach((ind, i) => {
+    cummApprCount = ind.count
+  })
+
+  cummSubmitted.forEach((ind, i) => {
+    cummSubCount = ind.count
+  })
+
+
+  const dataCummCount = [
+    { name: "Submitted", value: cummSubCount },
+    { name: "Approved", value: cummApprCount },
+  ];
+
   return (
-    <PieChart width={400} height={300}>
-      <Pie
-        data={dataCummCount}
-        cx={150}
-        cy={150}
-        // labelLine={false}
-        label={renderCustomizedLabel}
-        outerRadius={100}
-        fill="#8884d8"
-        dataKey="value"
-      >
-        {dataCummCount.map((entry, index) => (
-          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-        ))}
-      </Pie>
-    </PieChart>
+    <div style={{ width: '100%', height: 300 }}>
+      <ResponsiveContainer>
+        <PieChart width={400} height={300}>
+          <Legend verticalAlign="top" align="center" />
+          <Tooltip />
+          <Pie
+            data={dataCummCount}
+            // cx={150}
+            // cy={150}
+            labelLine={false}
+            label={renderCustomizedLabel}
+            outerRadius={80}
+            fill="#8884d8"
+            dataKey="value"
+          >
+            {dataCummCount.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
+        </PieChart>
+      </ResponsiveContainer>
+    </div>
   );
 }
 
 export const PerfPie = () => {
   return (
-    <PieChart width={600} height={300}>
-      <Pie
-        data={dataCummPerf}
-        cx={290}
-        cy={150}
-        label={renderCustomizedLabel2}
-        outerRadius={100}
-        fill="#8884d8"
-        dataKey="value"
-      >
-        {dataCummPerf.map((entry, index) => (
-          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-        ))}
-      </Pie>
-    </PieChart>
+    <div style={{ width: '100%', height: 300 }}>
+      <ResponsiveContainer>
+        <PieChart width={400} height={300}>
+          <Legend verticalAlign="top" align="center" />
+          <Tooltip />
+          <Pie
+            data={dataCummPerf}
+            label={renderCustomizedLabel2}
+            outerRadius={80}
+            fill="#8884d8"
+            dataKey="value"
+            labelLine={false}
+          >
+            {dataCummPerf.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
+        </PieChart>
+      </ResponsiveContainer>
+    </div>
   );
 }
 
 export const AssesmentCount = () => {
+  const [allTaxOverView, setAllOverview] = useState([])
   const [assessCount, setAssessCount] = useState([])
+  const [isFetching, setisFetching] = useState(false)
   const [assessCount2, setAssessCount2] = useState([])
   const [assessCount3, setAssessCount3] = useState([])
   const [assessCount4, setAssessCount4] = useState([])
@@ -322,19 +387,20 @@ export const AssesmentCount = () => {
   const [assessCount10, setAssessCount10] = useState([])
 
   useEffect(() => {
-
+    setisFetching(true)
     setAuthToken();
     const fetchPost = async () => {
       try {
         let res = await axios.get(`${url.BASE_URL}forma/dashboard`);
         let itemsBody = res.data.body
-        console.log(itemsBody);
-        let countArray = itemsBody.assessmentCount
-        // console.log(countArray);
+        let overview = itemsBody.assessmentOverview;
+        let countArray = itemsBody.assessmentCount;
         setAssessCount(countArray)
-
+        setAllOverview(overview)
+        setisFetching(false)
       } catch (e) {
-        // setIsFetching(false);
+        console.log(e);
+        setisFetching(false)
       }
     };
     fetchPost();
@@ -462,73 +528,73 @@ export const AssesmentCount = () => {
 
   const dataCount = [
     {
-      name: "Lokoja 2",
+      name: "Lk2",
       submitted: lokoja2SubCount,
       approved: lokoja2ApprCount,
       // amt: 2400
     },
     {
-      name: "Lokoja 1",
+      name: "Lk1",
       submitted: 0,
       approved: lokoja1ApprCount,
       // amt: 2400
     },
     {
-      name: "Adavi",
+      name: "Adv",
       submitted: 0,
       approved: adaviApprCount,
       // amt: 2400
     },
     {
-      name: "Head Office",
+      name: "HQ",
       submitted: headOfficeSubCount,
       approved: headOfficeApprCount,
       // amt: 2400
     },
     {
-      name: "Okene",
+      name: "Okn",
       submitted: okeneSubCount,
       approved: okeneApprCount,
       // amt: 2210
     },
     {
-      name: "Isanlu",
+      name: "Isn",
       submitted: isanluSubCount,
       approved: isanluApprCount,
       // amt: 2290
     },
     {
-      name: "Kabba",
+      name: "Kb",
       submitted: kabbaSubCount,
       approved: kabbaApprCount,
       // amt: 2000
     },
     {
-      name: "Idah",
+      name: "Idh",
       submitted: 0,
       approved: idahApprCount,
       // amt: 2181
     },
     {
-      name: "Koto",
+      name: "Kt",
       submitted: kotoSubCount,
       approved: kotoApprCount,
       // amt: 2500
     },
     {
-      name: "Ankpa",
+      name: "Ank",
       submitted: 0,
       approved: ankpaApprCount,
       // amt: 2100
     },
     {
-      name: "Ajaokuta",
+      name: "Ajk",
       submitted: AjaokutaSubCount,
       approved: AjaokutaapprCount,
       // amt: 2100
     },
     {
-      name: "Anyingba",
+      name: "Anyg",
       submitted: ayingbaSubCount,
       approved: ayingbaApprCount,
       // amt: 2100
@@ -538,53 +604,70 @@ export const AssesmentCount = () => {
 
   return (
     <>
-      <div className="flex my-10 flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
-
-        <div className="w-full lg:w-1/4">
-          <Widget1
-            color="green"
-            title="Approved Assessments"
-            description={formatNumber(4000000)}
-            right={<TotalRemittance />}
+      {isFetching && (
+        <div className="flex justify-center item mb-2">
+          <Loader
+            visible={isFetching}
+            type="BallTriangle"
+            color="#00FA9A"
+            height={19}
+            width={19}
+            timeout={0}
+            className="ml-2"
           />
+          <p className="font-bold"> Fetching...</p>
+        </div>
+      )}
+      {allTaxOverView.map((ind, i) => (
+        <div className="flex my-10 flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
+
+          <div className="w-full lg:w-1/4">
+            <Widget1
+              color="green"
+              title="Approved Assessments"
+              description={formatNumber(ind.approvedCount)}
+              right={<TotalRemittance />}
+            />
+          </div>
+
+          <div className="w-full lg:w-1/4">
+            <Widget1
+              color="red"
+              title="Submitted Assessments"
+              description={formatNumber(ind.submittedCount)}
+              right={<PendingRemittance />}
+            />
+          </div>
+
+          <div className="w-full lg:w-1/4">
+            <Widget1
+              color="blue"
+              title="Amount Collected"
+              description={formatNumber(ind.amountCollected)}
+              right={<RevenueItems />}
+            />
+          </div>
+
+          <div className="w-full lg:w-1/4">
+            <Widget1
+              color="yellow"
+              title="Outstanding Amount"
+              description={formatNumber(ind.outstandingAmount)}
+              right={<TaxReceipt />}
+            />
+          </div>
         </div>
 
-        <div className="w-full lg:w-1/4">
-          <Widget1
-            color="red"
-            title="Submitted Assessments"
-            description={formatNumber(300000)}
-            right={<PendingRemittance />}
-          />
-        </div>
+      ))}
 
-        <div className="w-full lg:w-1/4">
-          <Widget1
-            color="blue"
-            title="Amount Collected"
-            description={formatNumber(500000)}
-            right={<RevenueItems />}
-          />
-        </div>
-
-        <div className="w-full lg:w-1/4">
-          <Widget1
-            color="yellow"
-            title="Outstanding Amount"
-            description={formatNumber(600000)}
-            right={<TaxReceipt />}
-          />
-        </div>
-      </div>
       <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
-        <div className="w-full">
+        <div className="w-full lg:w-2/3">
           <Section
             description={<span>Assessment count</span>}
           >
             <div className="flex flex-row">
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart
-
                   data={dataCount}
                   stackOffset="sign"
                   margin={{
@@ -605,14 +688,22 @@ export const AssesmentCount = () => {
                 </BarChart>
               </ResponsiveContainer>
             </div>
-
+          </Section>
+        </div>
+        <div className="w-full lg:w-1/3">
+          <Section
+          description={<span>Cummulative Assessment</span>}
+          >
+            <div className="flex flex-row">
+              <CountPie />
+            </div>
           </Section>
         </div>
 
       </div>
 
       <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
-        <div className="w-full lg:w-3/3">
+        <div className="w-full lg:w-2/3">
           <Section
             description={<span>Amount Assessed</span>}
           >
@@ -640,6 +731,13 @@ export const AssesmentCount = () => {
                   <Bar dataKey="approved" fill="#a2add0" stackId="stack" />
                 </BarChart>
               </ResponsiveContainer>
+            </div>
+          </Section>
+        </div>
+        <div className="w-full lg:w-1/3">
+          <Section>
+            <div className="flex flex-row w-full">
+              <PerfPie />
             </div>
           </Section>
         </div>
@@ -681,7 +779,7 @@ export const AssesmentCount = () => {
         </div>
       </div>
 
-      <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
+      {/* <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
         <div className="w-full lg:w-1/3">
           <Section
             // title="Conversions"
@@ -703,7 +801,7 @@ export const AssesmentCount = () => {
             </div>
           </Section>
         </div>
-      </div>
+      </div> */}
 
       <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
         <div className="w-full">
