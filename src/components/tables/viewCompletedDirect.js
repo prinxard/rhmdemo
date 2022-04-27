@@ -723,7 +723,7 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
               </tr>
               <tr>
                 <td className="border-r-2 p-1 text-center">Dev. Levy</td>
-                <td className="p-1 text-right font-bold">0</td>
+                <td className="p-1 text-right font-bold">{formatNumber(assobj.dev_levy)}</td>
               </tr>
               <tr>
                 <td className="border-r-2 p-1 text-right font-bold">Total Tax due </td>
