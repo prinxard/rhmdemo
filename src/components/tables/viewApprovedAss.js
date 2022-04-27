@@ -333,6 +333,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
   const assId = props.assId
   const payerAyy = props.payerAyy
   const assobj = props.assobj
+  console.log(assobj);
   const taxcal = props.taxcal
   const childObj = props.childObj
   const resAddObj = props.resAddObj
@@ -653,7 +654,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                     </tr>
                     <tr>
                       <td className='tb'><div align='center' className='style16'>Dev. Levy </div></td>
-                      <td className='tb'> <p className="font-bold text-right"></p> </td>
+                      <td className='tb'> <p className="font-bold text-right">{formatNumber(Number(assobj.dev_levy))}</p></td>
                       {/* <td className='tb'> <p className="font-bold text-right">{formatNumber(Number(taxcal.devy_levy))}</p> </td> */}
                     </tr>
                     <tr>
