@@ -140,6 +140,7 @@ export const AmountAssessed = () => {
     amountCollected = Number(ind.amountCollected)
   })
 
+
   assessAmount.forEach((ind, i) => {
     unassessedCollection = Number(ind.unassessedAmountCollected)
   })
@@ -148,8 +149,8 @@ export const AmountAssessed = () => {
 
   const dataAssesedAmount = [
     { name: "Amount Assessed ", value: amountAssessed },
-    { name: "Amount collected ", value: amountCollected },
-    { name: "Unassessed collectiion", value: unassessedCollection },
+    { name: "Amount Collected ", value: amountCollected },
+    { name: "Unassessed Collection", value: unassessedCollection },
     { name: "Outstanding Amount", value: outstandingAmount },
   ];
 
@@ -176,9 +177,6 @@ export const AmountAssessed = () => {
         textAnchor={x > cx ? "start" : "end"}
         dominantBaseline="central"
       >
-        {/* {`${dataAssesedAmount[index].name}`} */}
-
-        {/* {`${(percent * 100).toFixed(0)}%`} */}
       </text>
     );
   };
@@ -188,7 +186,7 @@ export const AmountAssessed = () => {
       <ResponsiveContainer>
         <PieChart width={500} height={300}>
           <Legend verticalAlign="top" align="center" />
-          <Tooltip />
+          <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)}/>
           <Pie
             data={dataAssesedAmount}
             labelLine={false}
@@ -295,7 +293,7 @@ export const AtoCount = () => {
       <ResponsiveContainer>
         <PieChart width={500} height={300}>
           <Legend verticalAlign="top" align="center" />
-          <Tooltip />
+          <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)}/>
           <Pie
             data={dataATOCount}
             label={renderCustomizedLabel2}
@@ -332,7 +330,7 @@ export const Lines = () => {
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
           <YAxis />
-          <Tooltip />
+          <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)}/>
           <Legend />
           <Line type="monotone" dataKey="approvedassessment" stroke="#82ca9d" />
           <Line type="monotone" dataKey="amountpaid" stroke="#fcc287" />

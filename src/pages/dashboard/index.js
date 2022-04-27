@@ -54,13 +54,13 @@ const Index = () => {
   return (
     <>
       <SectionTitle subtitle="Dashboard" />
-      {/* <Widget>
+      <Widget>
         <div className="flex justify-center">
           <div className="w-full">
             <IconTabs tabs={tabsWithIcons} />
           </div>
         </div>
-      </Widget> */}
+      </Widget>
     </>
   );
 };
