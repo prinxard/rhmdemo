@@ -118,6 +118,7 @@ export const ViewCompletedTable = ({ submittedData }) => {
           event.stopPropagation();
         }}
       />
+      
       {/* <Widget>
         <table className="table divide-y">
           <thead>

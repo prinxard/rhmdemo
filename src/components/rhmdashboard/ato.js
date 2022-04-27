@@ -17,6 +17,8 @@ import { PendingRemittance, RevenueItems, TaxReceipt, TotalRemittance } from "..
 import setAuthToken from "../../functions/setAuthToken";
 import axios from "axios";
 import url from "../../config/url";
+import dateformat from "dateformat";
+import Loader from "react-loader-spinner";
 
 let atoApprCount
 let atoDraftCount
@@ -26,80 +28,77 @@ let atoTotalCount
 const Trend = [
   {
     name: "Jan",
-    approved: 20000,
-    paid: 18000,
-    unassessed: 4400,
+    approvedassessment: 20000,
+    amountpaid: 18000,
+    unassessedpayment: 4400,
   },
   {
     name: "Feb",
-    approved: 25000,
-    paid: 16000,
-    unassessed: 2400,
+    approvedassessment: 25000,
+    amountpaid: 16000,
+    unassessedpayment: 2400,
   },
   {
     name: "March",
-    approved: 28000,
-    paid: 17060,
-    unassessed: 24400,
+    approvedassessment: 28000,
+    amountpaid: 17060,
+    unassessedpayment: 24400,
   },
   {
     name: "April",
-    approved: 34000,
-    paid: 19460,
-    unassessed: 2400,
+    approvedassessment: 34000,
+    amountpaid: 19460,
+    unassessedpayment: 2400,
   },
   {
     name: "May",
-    approved: 32000,
-    paid: 14200,
-    unassessed: 1400,
+    approvedassessment: 32000,
+    amountpaid: 14200,
+    unassessedpayment: 1400,
   },
   {
     name: "June",
-    approved: 38000,
-    paid: 16000,
-    unassessed: 2600,
+    approvedassessment: 38000,
+    amountpaid: 16000,
+    unassessedpayment: 2600,
   },
   {
     name: "July",
-    approved: 35000,
-    paid: 19600,
-    unassessed: 2440,
+    approvedassessment: 35000,
+    amountpaid: 19600,
+    unassessedpayment: 2440,
   },
   {
     name: "August",
-    approved: 40050,
-    paid: 18500,
-    unassessed: 22400,
+    approvedassessment: 40050,
+    amountpaid: 18500,
+    unassessedpayment: 22400,
   },
   {
     name: "Sep",
-    approved: 42200,
-    paid: 400,
-    unassessed: 2200,
+    approvedassessment: 42200,
+    amountpaid: 400,
+    unassessedpayment: 2200,
   },
   {
     name: "Oct",
-    approved: 44400,
-    paid: 40100,
-    unassessed: 2300,
+    approvedassessment: 44400,
+    amountpaid: 40100,
+    unassessedpayment: 2300,
   },
   {
     name: "Nov",
-    approved: 38000,
-    paid: 41000,
-    unassessed: 400,
+    approvedassessment: 38000,
+    amountpaid: 41000,
+    unassessedpayment: 400,
   },
   {
     name: "Dec",
-    approved: 50000,
-    paid: 4000,
-    unassessed: 2400,
+    approvedassessment: 50000,
+    amountpaid: 4000,
+    unassessedpayment: 2400,
   }
 ];
-
-
-
 
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
@@ -122,10 +121,8 @@ export const AmountAssessed = () => {
       try {
         let res = await axios.get(`${url.BASE_URL}forma/dashboard`);
         let itemsBody = res.data.body
-        console.log(itemsBody);
         let amountArray = itemsBody.atoCollectionPerfomance
         setAssessAmount(amountArray)
-        console.log("collectPerf", amountArray);
 
       } catch (e) {
         // setIsFetching(false);
@@ -147,13 +144,7 @@ export const AmountAssessed = () => {
     unassessedCollection = Number(ind.unassessedAmountCollected)
   })
 
-  console.log("amountAssessed", amountAssessed);
-  console.log("amountCollected", amountCollected);
-  console.log("unassessedCollection", unassessedCollection);
-  
   outstandingAmount = (Number(amountAssessed) - Number(amountCollected))
-  
-  console.log("outstandingAmount", outstandingAmount);
 
   const dataAssesedAmount = [
     { name: "Amount Assessed ", value: amountAssessed },
@@ -197,10 +188,9 @@ export const AmountAssessed = () => {
       <ResponsiveContainer>
         <PieChart width={500} height={300}>
           <Legend verticalAlign="top" align="center" />
+          <Tooltip />
           <Pie
             data={dataAssesedAmount}
-            // cx={222}
-            // cy={150}
             labelLine={false}
             label={renderCustomizedLabel}
             outerRadius={80}
@@ -228,11 +218,8 @@ export const AtoCount = () => {
       try {
         let res = await axios.get(`${url.BASE_URL}forma/dashboard`);
         let itemsBody = res.data.body
-        console.log(itemsBody);
         let countArray = itemsBody.atoAssessmentCount
         setAssessCount(countArray)
-        console.log("countArray", countArray);
-
       } catch (e) {
         // setIsFetching(false);
       }
@@ -244,7 +231,6 @@ export const AtoCount = () => {
   const atoApproved = assessCount.filter(data => data.status === "Approved");
   const atoDraft = assessCount.filter(data => data.status === "Draft");
   const atoTotal = assessCount.filter(data => data.status === "Total");
-  console.log("atoApproved", atoApproved);
 
   atoApproved.forEach((ind, i) => {
     atoApprCount = Number(ind.count)
@@ -269,8 +255,6 @@ export const AtoCount = () => {
   } else {
     atoDraftCount = atoDraftCount
   }
-
-  console.log(atoTotalCount, atoDraftCount, atoApprCount);
 
 
   const dataATOCount = [
@@ -311,10 +295,9 @@ export const AtoCount = () => {
       <ResponsiveContainer>
         <PieChart width={500} height={300}>
           <Legend verticalAlign="top" align="center" />
+          <Tooltip />
           <Pie
             data={dataATOCount}
-            // cx="50%"
-            // cy="50%"
             label={renderCustomizedLabel2}
             outerRadius={80}
             fill="#8884d8"
@@ -333,77 +316,174 @@ export const AtoCount = () => {
 
 export const Lines = () => {
   return (
-    <LineChart
-      width={800}
-      height={300}
-      data={Trend}
-      margin={{
-        top: 5,
-        right: 30,
-        left: 20,
-        bottom: 5
-      }}
-    >
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
-      <YAxis />
-      <Tooltip />
-      <Legend />
-      {/* <Line
-        type="monotone"
-        dataKey="approved"
-        dataKey="pv"
-        dataKey="pv"
-        stroke="#8884d8"
-        activeDot={{ r: 8 }}
-      /> */}
-      <Line type="monotone" dataKey="approved" stroke="#82ca9d" />
-      <Line type="monotone" dataKey="paid" stroke="#fcc287" />
-      <Line type="monotone" dataKey="unassessed" stroke="#fe0037" />
-    </LineChart>
+    <div style={{ width: '100%', height: 300 }}>
+      <ResponsiveContainer>
+        <LineChart
+          // width={800}
+          // height={300}
+          data={Trend}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line type="monotone" dataKey="approvedassessment" stroke="#82ca9d" />
+          <Line type="monotone" dataKey="amountpaid" stroke="#fcc287" />
+          <Line type="monotone" dataKey="unassessedpayment" stroke="#fe0037" />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
   );
 }
 
 export const ATOPie = () => {
+  const [items, setPost] = useState(() => []);
+  const [topAss, setTopAss] = useState(() => []);
+  const [overViewAss, setOverView] = useState(() => []);
+  const [isFetching, setIsFetching] = useState(() => false);
+
+  const fields = [
+    {
+      name: "SN",
+      key: "serialNo",
+    },
+    {
+      name: "KGTIN",
+      key: "kgtin",
+    },
+    {
+      name: "Taxpayer Name",
+      key: "tp_name",
+    },
+    {
+      name: "Assessed Amount",
+      key: "taxFormated",
+    },
+    {
+      name: "Paid Amount",
+      key: "taxPaidFormated",
+    },
+    {
+      name: "Balance",
+      key: "balance",
+    },
+    {
+      name: "Created Time",
+      key: "createtime",
+    },
+  ];
+
+  useEffect(() => {
+    setIsFetching(true)
+    let num = 1
+    setAuthToken();
+    const fetchPost = async () => {
+      try {
+        let res = await axios.get(`${url.BASE_URL}forma/dashboard`);
+        let itemsBody = res.data.body
+        console.log(itemsBody);
+        let recent = itemsBody.atoRecentAssessment;
+        let topAssess = itemsBody.atoTopAssessment;
+        let overView = itemsBody.atoAssessmentOverview
+        setOverView(overView)
+        let records = [];
+        let recordsTop = [];
+        setIsFetching(false)
+
+        for (let i = 0; i < recent.length; i++) {
+          let rec = recent[i];
+          rec.serialNo = num + i
+          rec.balance = formatNumber(Number(rec.tax) - Number(rec.taxPaid))
+          rec.taxFormated = formatNumber(rec.tax);
+          rec.taxPaidFormated = formatNumber(rec.taxPaid);
+          rec.createtime = dateformat(rec.createtime, "dd mmm yyyy")
+          records.push(rec);
+        }
+        setPost(() => records);
+
+        for (let i = 0; i < topAssess.length; i++) {
+          let rec = topAssess[i];
+          rec.serialNo = num + i
+          rec.balance = formatNumber(Number(rec.tax) - Number(rec.taxPaid))
+          rec.taxFormated = formatNumber(rec.tax);
+          rec.taxPaidFormated = formatNumber(rec.taxPaid);
+          rec.createtime = dateformat(rec.createtime, "dd mmm yyyy")
+          recordsTop.push(rec);
+        }
+        setTopAss(() => recordsTop);
+      } catch (e) {
+        console.log(e);
+        setIsFetching(false)
+      }
+    };
+    fetchPost();
+  }, []);
 
   return (
     <>
-      <div className="flex my-10 flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
-        <div className="w-full lg:w-1/4">
-          <Widget1
-            color="green"
-            title="Approved Assessments"
-            description={formatNumber(4000000)}
-            right={<TotalRemittance />}
+      {isFetching && (
+        <div className="flex justify-center item mb-2">
+          <Loader
+            visible={isFetching}
+            type="BallTriangle"
+            color="#00FA9A"
+            height={19}
+            width={19}
+            timeout={0}
+            className="ml-2"
           />
+          <p className="font-bold"> Fetching...</p>
         </div>
+      )}
+      <div>
+        {overViewAss.map((ind, i) => (
+          <div className="flex my-10 flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
+            <div className="w-full lg:w-1/4">
+              <Widget1
+                color="green"
+                title="Approved Assessments"
+                description={formatNumber(ind.approvedCount)}
+                right={<TotalRemittance />}
+              />
+            </div>
 
-        <div className="w-full lg:w-1/4">
-          <Widget1
-            color="red"
-            title="Submitted Assessments"
-            description={formatNumber(300000)}
-            right={<PendingRemittance />}
-          />
-        </div>
+            <div className="w-full lg:w-1/4">
+              <Widget1
+                color="red"
+                title="Submitted Assessments"
+                description={formatNumber(ind.submittedCount)}
+                right={<PendingRemittance />}
+              />
+            </div>
 
-        <div className="w-full lg:w-1/4">
-          <Widget1
-            color="blue"
-            title="Amount Collected"
-            description={formatNumber(500000)}
-            right={<RevenueItems />}
-          />
-        </div>
+            <div className="w-full lg:w-1/4">
+              <Widget1
+                color="blue"
+                title="Amount Collected"
+                description={formatNumber(ind.amountCollected)}
+                right={<RevenueItems />}
+              />
+            </div>
 
-        <div className="w-full lg:w-1/4">
-          <Widget1
-            color="yellow"
-            title="Outstanding Amount"
-            description={formatNumber(600000)}
-            right={<TaxReceipt />}
-          />
-        </div>
+            <div className="w-full lg:w-1/4">
+              <Widget1
+                color="yellow"
+                title="Outstanding Amount"
+                description={formatNumber(ind.outstandingAmount)}
+                right={<TaxReceipt />}
+              />
+            </div>
+          </div>
+
+        ))}
+
       </div>
 
       <div className="flex mt-10 flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
@@ -443,151 +523,34 @@ export const ATOPie = () => {
 
       <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
         <div className="w-full lg:w-2/2">
-          <Section
-          >
-
+          <Section >
+            <p className="text-sm my-3 font-bold text-center">Recent Assessments</p>
             <div className="flex justify-center">
-              <div>
-                <p className="text-sm my-3 font-bold text-center">Recent Assessments</p>
-                <table className="table striped divide-y mb-4">
+              <div className="overflow-x-auto">
+                <table className="table table-auto divide-y striped">
                   <thead>
-                    <tr>
-                      <th>
-                        Taxpayer Name
-                      </th>
-                      <th className="">
-                        KGTIN
-                      </th>
-                      <th className="">
-                        Assessed Amount
-                      </th>
-                      <th className="">
-                        Amount Paid
-                      </th>
-                      <th className="">
-                        Balance
-                      </th>
-                      <th className="">
-                        Created time
-                      </th>
+                    <tr className="">
+                      {fields.map((field, i) => (
+                        <th key={i} className="">
+                          {field.name}
+                        </th>
+                      ))}
                     </tr>
                   </thead>
-
-                  <tbody>
-
-                    <tr>
-                      <td className="">
-                        Nomics Ibrahim
-                      </td>
-
-                      <td className="">
-                        <p className=""> {formatNumber(20000)} </p>
-                      </td>
-
-
-                      <td className="">
-
-                        <p className="">{formatNumber(30000)}</p>
-
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(40000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(50000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(60000)}</p>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td className="">
-                        Halima  Jordan
-                      </td>
-
-                      <td className="">
-                        <p className=""> {formatNumber(20000)} </p>
-                      </td>
-
-
-                      <td className="">
-
-                        <p className="">{formatNumber(30000)}</p>
-
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(40000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(50000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(60000)}</p>
-                      </td>
-
-
-                    </tr>
-
-                    <tr>
-                      <td className="">
-                        Elnino Dwayne
-                      </td>
-
-                      <td className="">
-                        <p className=""> {formatNumber(20000)} </p>
-                      </td>
-
-
-                      <td className="">
-
-                        <p className="">{formatNumber(30000)}</p>
-
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(40000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(50000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(60000)}</p>
-                      </td>
-
-
-                    </tr>
-
-                    <tr>
-                      <td className="">
-                        Spike Obi
-                      </td>
-
-                      <td className="">
-                        <p className=""> {formatNumber(20000)} </p>
-                      </td>
-
-
-                      <td className="">
-
-                        <p className="">{formatNumber(30000)}</p>
-
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(40000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(50000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(60000)}</p>
-                      </td>
-                    </tr>
-
+                  <tbody className="divide-y">
+                    {items.map((ind, i) => (
+                      <tr key={i} className="">
+                        {fields.map((field, j) => (
+                          <td key={j} className="">
+                            {ind[field.key]}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
             </div>
-
           </Section>
         </div>
 
@@ -595,156 +558,79 @@ export const ATOPie = () => {
 
       <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
         <div className="w-full lg:w-2/2">
+          <Section >
+            <p className="text-sm my-3 font-bold text-center">Top Assessments</p>
+            <div className="flex justify-center">
+              <div className="overflow-x-auto">
+                <table className="table table-auto divide-y striped">
+                  <thead>
+                    <tr className="">
+                      {fields.map((field, i) => (
+                        <th key={i} className="">
+                          {field.name}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y">
+                    {topAss.map((ind, i) => (
+                      <tr key={i} className="">
+                        {fields.map((field, j) => (
+                          <td key={j} className="">
+                            {ind[field.key]}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </Section>
+        </div>
+
+      </div>
+      {/* 
+      <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
+        <div className="w-full lg:w-2/2">
           <Section
           >
-
             <div className="flex justify-center">
               <div>
                 <p className="text-sm my-3 font-bold text-center">Top Assessments</p>
-                <table className="table striped divide-y mb-4">
-                  <thead>
-                    <tr>
-                      <th>
-                        Taxpayer Name
-                      </th>
-                      <th className="">
-                        KGTIN
-                      </th>
-                      <th className="">
-                        Assessed Amount
-                      </th>
-                      <th className="">
-                        Amount Paid
-                      </th>
-                      <th className="">
-                        Balance
-                      </th>
-                      <th className="">
-                        Created time
-                      </th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-
-                    <tr>
-                      <td className="">
-                        Nomics Ibrahim
-                      </td>
-
-                      <td className="">
-                        <p className=""> {formatNumber(20000)} </p>
-                      </td>
-
-
-                      <td className="">
-
-                        <p className="">{formatNumber(30000)}</p>
-
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(40000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(50000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(60000)}</p>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td className="">
-                        Halima  Jordan
-                      </td>
-
-                      <td className="">
-                        <p className=""> {formatNumber(20000)} </p>
-                      </td>
-
-
-                      <td className="">
-
-                        <p className="">{formatNumber(30000)}</p>
-
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(40000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(50000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(60000)}</p>
-                      </td>
-
-
-                    </tr>
-
-                    <tr>
-                      <td className="">
-                        Elnino Dwayne
-                      </td>
-
-                      <td className="">
-                        <p className=""> {formatNumber(20000)} </p>
-                      </td>
-
-
-                      <td className="">
-
-                        <p className="">{formatNumber(30000)}</p>
-
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(40000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(50000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(60000)}</p>
-                      </td>
-
-
-                    </tr>
-
-                    <tr>
-                      <td className="">
-                        Spike Obi
-                      </td>
-
-                      <td className="">
-                        <p className=""> {formatNumber(20000)} </p>
-                      </td>
-
-
-                      <td className="">
-
-                        <p className="">{formatNumber(30000)}</p>
-
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(40000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(50000)}</p>
-                      </td>
-                      <td className="">
-                        <p>{formatNumber(60000)}</p>
-                      </td>
-                    </tr>
-
-                  </tbody>
-                </table>
+                <div className="flex justify-center">
+                  <div className="overflow-x-auto">
+                    <table className="table table-auto divide-y striped">
+                      <thead>
+                        <tr className="">
+                          {fields2.map((field, i) => (
+                            <th key={i} className="">
+                              {field.name}
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y">
+                        {topAss.map((ind, i) => (
+                          <tr key={i} className="">
+                            {fields2.map((field, j) => (
+                              <td key={j} className="">
+                                {ind[field.key]}
+                              </td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
             </div>
 
           </Section>
         </div>
 
-      </div>
-
+      </div> */}
 
     </>
   );
