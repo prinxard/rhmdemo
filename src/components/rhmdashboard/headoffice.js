@@ -21,7 +21,7 @@ import url from "../../config/url";
 import Loader from "react-loader-spinner";
 import dateformat from "dateformat";
 
-
+// Assessmnt bar count variables
 let AjaokutaapprCount
 let AjaokutaSubCount
 
@@ -58,148 +58,47 @@ let ankpaSubCount
 let ayingbaApprCount
 let ayingbaSubCount
 
-// cummulative data
+// cummulative pie variables
 let cummApprCount
 let cummSubCount
 
 
-const amountAssessed = [
-  {
-    name: "Lk2",
-    submitted: 40,
-    approved: 43,
-  },
-  {
-    name: "Lk1",
-    submitted: 0,
-    approved: 21,
-  },
-  {
-    name: "Adv",
-    submitted: 0,
-    approved: 32,
-  },
-  {
-    name: "HQ",
-    submitted: 34,
-    approved: 4,
-  },
-  {
-    name: "Okn",
-    submitted: 23,
-    approved: 45,
-  },
-  {
-    name: "Isn",
-    submitted: 12,
-    approved: 4,
-  },
-  {
-    name: "Kbb",
-    submitted: 45,
-    approved: 22,
-  },
-  {
-    name: "Idh",
-    submitted: 0,
-    approved: 3,
-  },
-  {
-    name: "Kot",
-    submitted: 43,
-    approved: 21,
-  },
-  {
-    name: "Ankp",
-    submitted: 0,
-    approved: 32,
-  },
-  {
-    name: "Ajk",
-    submitted: 12,
-    approved: 43,
-  },
-  {
-    name: "Any",
-    submitted: 45,
-    approved: 21,
-  }
-];
+// Amount Assessed variables
+let AjaokutaapprAssessedAmt
+let AjaokutaSubAssessedAmt
 
+let lokoja1ApprAssessedAmt
+let lokoja1SubAssessedAmt
 
+let adaviApprAssessedAmt
+let adaviSubAssessedAmt
 
-const colPerform = [
-  {
-    name: "Lokoja",
-    assessed: 3000,
-    collected: 4000,
-    outstanding: 2400,
-    unassessed: 2400
-  },
-  {
-    name: "Head Office",
-    assessed: 3900,
-    collected: 3000,
-    outstanding: 4400,
-    unassessed: 2000
-  },
-  {
-    name: "Okene",
-    assessed: 6000,
-    collected: 4000,
-    outstanding: 2400,
-    unassessed: 2400
-  },
-  {
-    name: "Isanlu",
-    assessed: 4000,
-    collected: 2000,
-    outstanding: 3400,
-    unassessed: 4400
-  },
-  {
-    name: "Kabba",
-    assessed: 3600,
-    collected: 7000,
-    outstanding: 2400,
-    unassessed: 3400
-  },
-  {
-    name: "Idah",
-    assessed: 2000,
-    collected: 3200,
-    outstanding: 2400,
-    unassessed: 2400
-  },
-  {
-    name: "Koto",
-    assessed: 3000,
-    collected: 5000,
-    outstanding: 1400,
-    unassessed: 2400
-  },
-  {
-    name: "Ankpa",
-    assessed: 5000,
-    collected: 2100,
-    outstanding: 3400,
-    unassessed: 5400
-  },
-  {
-    name: "Ajaokuta",
-    assessed: 3000,
-    collected: 4000,
-    outstanding: 2400,
-    unassessed: 2400
-  },
-  {
-    name: "Ayingba",
-    assessed: 3000,
-    collected: 4000,
-    outstanding: 2400,
-    unassessed: 2400
-  }
-];
+let lokoja2ApprAssessedAmt
+let lokoja2SubAssessedAmt
+
+let headOfficeApprAssessedAmt
+let headOfficeSubAssessedAmt
+
+let okeneApprAssessedAmt
+let okeneSubAssessedAmt
+
+let isanluApprAssessedAmt
+let isanluSubAssessedAmt
+
+let kabbaApprAssessedAmt
+let kabbaSubAssessedAmt
+
+let idahApprAssessedAmt
+let idahSubAssessedAmt
+
+let kotoApprAssessedAmt
+let kotoSubAssessedAmt
+
+let ankpaApprAssessedAmt
+let ankpaSubAssessedAmt
+
+let ayingbaApprAssessedAmt
+let ayingbaSubAssessedAmt
 
 
 
@@ -228,9 +127,6 @@ const renderCustomizedLabel = ({
       textAnchor={x > cx ? "start" : "end"}
       dominantBaseline="central"
     >
-      {/* {`${dataCummCount[index].name}`} */}
-
-      {/* {`${(percent * 100).toFixed(0)}%`} */}
     </text>
   );
 };
@@ -257,9 +153,6 @@ const renderCustomizedLabel2 = ({
       textAnchor={x > cx ? "start" : "end"}
       dominantBaseline="central"
     >
-      {/* {`${dataCummPerf[index].name}`} */}
-
-      {/* {`${(percent * 100).toFixed(0)}%`} */}
     </text>
   );
 };
@@ -297,11 +190,11 @@ export const CountPie = () => {
     cummSubCount = ind.count
   })
 
-
   const dataCummCount = [
     { name: "Submitted", value: cummSubCount },
     { name: "Approved", value: cummApprCount },
   ];
+
 
   return (
     <div style={{ width: '100%', height: 300 }}>
@@ -365,9 +258,9 @@ export const PerfPie = () => {
 
   const dataCummPerf = [
     // { name: "Approved assessment", value: 400 },
-    { name: "Amount collected", value: amountCol },
-    { name: "Outstanding assessment", value: outstandingAss },
-    { name: "Unassessed collection", value: unassessedCol }
+    { name: "Amount Collected", value: amountCol },
+    { name: "Outstanding Assessment", value: outstandingAss },
+    { name: "Unassessed Collection", value: unassessedCol }
   ];
 
   return (
@@ -398,7 +291,7 @@ export const AssesmentCount = () => {
   const [allTaxOverView, setAllOverview] = useState([])
   const [assessCount, setAssessCount] = useState([])
   const [isFetching, setisFetching] = useState(false)
-  const [assessCount2, setAssessCount2] = useState([])
+  const [colPerformance, setColPerformance] = useState([])
 
   const [items, setPost] = useState(() => []);
 
@@ -412,7 +305,10 @@ export const AssesmentCount = () => {
         let itemsBody = res.data.body
         let overview = itemsBody.assessmentOverview;
         let countArray = itemsBody.assessmentCount;
+        let colPerfArray = itemsBody.collectionPerfomance
+        console.log("colPerfArray", colPerfArray);
         setAssessCount(countArray)
+        setColPerformance(colPerfArray)
         setAllOverview(overview)
         setisFetching(false)
       } catch (e) {
@@ -623,6 +519,462 @@ export const AssesmentCount = () => {
     }
   ];
 
+
+  // Assessed Amount 
+  const ajaokutaApprovedAssAmount = assessCount.filter(data => data.tax_office === "Ajaokuta" && data.status === "Approved");
+  const ajaokutaSubmittedAssAmount = assessCount.filter(data => data.tax_office === "Ajaokuta" && data.status === "Submitted");
+
+  const lokoja2ApprovedAssAmount = assessCount.filter(data => data.tax_office === "Lokoja 2" && data.status === "Approved");
+  const lokoja2SubmittedAssAmount = assessCount.filter(data => data.tax_office === "Lokoja 2" && data.status === "Submitted");
+
+  const headOfficeApprovedAssAmount = assessCount.filter(data => data.tax_office === "Head Office" && data.status === "Approved");
+  const headOfficeSubmittedAssAmount = assessCount.filter(data => data.tax_office === "Head Office" && data.status === "Submitted");
+
+  const okeneApprovedAssAmount = assessCount.filter(data => data.tax_office === "Okene" && data.status === "Approved");
+  const okeneSubmittedAssAmount = assessCount.filter(data => data.tax_office === "Okene" && data.status === "Submitted");
+
+  const isanluApprovedAssAmount = assessCount.filter(data => data.tax_office === "Isanlu" && data.status === "Approved");
+  const isanluSubmittedAssAmount = assessCount.filter(data => data.tax_office === "Isanlu" && data.status === "Submitted");
+
+  const kabbaApprovedAssAmount = assessCount.filter(data => data.tax_office === "Kabba" && data.status === "Approved");
+  const kabbaSubmittedAssAmount = assessCount.filter(data => data.tax_office === "Kabba" && data.status === "Submitted");
+
+  const idahApprovedAssAmount = assessCount.filter(data => data.tax_office === "Idah" && data.status === "Approved");
+  const idahSubmittedAssAmount = assessCount.filter(data => data.tax_office === "Idah" && data.status === "Submitted");
+
+  const kotoApprovedAssAmount = assessCount.filter(data => data.tax_office === "Kotonkarfe" && data.status === "Approved");
+  const kotoSubmittedAssAmount = assessCount.filter(data => data.tax_office === "Kotonkarfe" && data.status === "Submitted");
+
+  const ankpaApprovedAssAmount = assessCount.filter(data => data.tax_office === "Ankpa" && data.status === "Approved");
+  const ankpaSubmittedAssAmount = assessCount.filter(data => data.tax_office === "Ankpa" && data.status === "Submitted");
+
+  const ayingbaApprovedAssAmount = assessCount.filter(data => data.tax_office === "Anyigba" && data.status === "Approved");
+  const ayingbaSubmittedAssAmount = assessCount.filter(data => data.tax_office === "Anyigba" && data.status === "Submitted");
+
+  const lokoja1ApprovedAssAmount = assessCount.filter(data => data.tax_office === "Lokoja 1" && data.status === "Approved");
+  const lokoja1SubmittedAssAmount = assessCount.filter(data => data.tax_office === "Lokoja 1" && data.status === "Submitted");
+
+  const adaviApprovedAssAmount = assessCount.filter(data => data.tax_office === "Okehi/Adavi" && data.status === "Approved");
+  const adaviSubmittedAssAmount = assessCount.filter(data => data.tax_office === "Okehi/Adavi" && data.status === "Submitted");
+
+  ajaokutaApprovedAssAmount.forEach((ind, i) => {
+    AjaokutaapprAssessedAmt = ind.amount
+  })
+
+  ajaokutaSubmittedAssAmount.forEach((ind, i) => {
+    AjaokutaSubAssessedAmt = ind.amount
+  })
+
+  lokoja2ApprovedAssAmount.forEach((ind, i) => {
+    lokoja2ApprAssessedAmt = ind.amount
+  })
+
+  lokoja2SubmittedAssAmount.forEach((ind, i) => {
+    lokoja2SubAssessedAmt = ind.amount
+  })
+
+  lokoja1ApprovedAssAmount.forEach((ind, i) => {
+    lokoja1ApprAssessedAmt = ind.amount
+  })
+
+  lokoja1SubmittedAssAmount.forEach((ind, i) => {
+    lokoja1SubAssessedAmt = ind.amount
+  })
+
+  headOfficeApprovedAssAmount.forEach((ind, i) => {
+    headOfficeApprAssessedAmt = ind.amount
+  })
+
+  headOfficeSubmittedAssAmount.forEach((ind, i) => {
+    headOfficeSubAssessedAmt = ind.amount
+  })
+
+
+  okeneApprovedAssAmount.forEach((ind, i) => {
+    okeneApprAssessedAmt = ind.amount
+  })
+
+  okeneSubmittedAssAmount.forEach((ind, i) => {
+    okeneSubAssessedAmt = ind.amount
+  })
+
+  isanluApprovedAssAmount.forEach((ind, i) => {
+    isanluApprAssessedAmt = ind.amount
+  })
+
+  isanluSubmittedAssAmount.forEach((ind, i) => {
+    isanluSubAssessedAmt = ind.amount
+  })
+
+  kabbaApprovedAssAmount.forEach((ind, i) => {
+    kabbaApprAssessedAmt = ind.amount
+  })
+
+  kabbaSubmittedAssAmount.forEach((ind, i) => {
+    kabbaSubAssessedAmt = ind.amount
+  })
+
+  idahApprovedAssAmount.forEach((ind, i) => {
+    idahApprAssessedAmt = ind.amount
+  })
+
+  idahSubmittedAssAmount.forEach((ind, i) => {
+    idahSubAssessedAmt = ind.amount
+  })
+
+  kotoApprovedAssAmount.forEach((ind, i) => {
+    kotoApprAssessedAmt = ind.amount
+  })
+  kotoSubmittedAssAmount.forEach((ind, i) => {
+    kotoSubAssessedAmt = ind.amount
+  })
+
+  ankpaApprovedAssAmount.forEach((ind, i) => {
+    ankpaApprAssessedAmt = ind.amount
+  })
+  ankpaSubmittedAssAmount.forEach((ind, i) => {
+    ankpaSubAssessedAmt = ind.amount
+  })
+
+
+  ayingbaApprovedAssAmount.forEach((ind, i) => {
+    ayingbaApprAssessedAmt = ind.amount
+  })
+  ayingbaSubmittedAssAmount.forEach((ind, i) => {
+    ayingbaSubAssessedAmt = ind.amount
+  })
+
+  adaviApprovedAssAmount.forEach((ind, i) => {
+    adaviApprAssessedAmt = ind.amount
+  })
+  adaviSubmittedAssAmount.forEach((ind, i) => {
+    adaviSubAssessedAmt = ind.amount
+  })
+
+
+  const amountAssessed = [
+    {
+      name: "Lk2",
+      submitted: lokoja2SubAssessedAmt,
+      approved: lokoja2ApprAssessedAmt,
+    },
+    {
+      name: "Lk1",
+      submitted: lokoja1SubAssessedAmt,
+      approved: lokoja1ApprAssessedAmt,
+    },
+    {
+      name: "Adv",
+      submitted: adaviSubAssessedAmt,
+      approved: adaviApprAssessedAmt,
+    },
+    {
+      name: "HQ",
+      submitted: headOfficeSubAssessedAmt,
+      approved: headOfficeApprAssessedAmt,
+    },
+    {
+      name: "Okn",
+      submitted: okeneSubAssessedAmt,
+      approved: okeneApprAssessedAmt,
+    },
+    {
+      name: "Isn",
+      submitted: isanluSubAssessedAmt,
+      approved: isanluApprAssessedAmt,
+    },
+    {
+      name: "Kbb",
+      submitted: kabbaSubAssessedAmt,
+      approved: kabbaApprAssessedAmt,
+    },
+    {
+      name: "Idh",
+      submitted: idahSubAssessedAmt,
+      approved: idahApprAssessedAmt,
+    },
+    {
+      name: "Kot",
+      submitted: kotoSubAssessedAmt,
+      approved: kotoApprAssessedAmt,
+    },
+    {
+      name: "Ankp",
+      submitted: ankpaSubAssessedAmt,
+      approved: ankpaApprAssessedAmt,
+    },
+    {
+      name: "Ajk",
+      submitted: AjaokutaSubAssessedAmt,
+      approved: AjaokutaapprAssessedAmt,
+    },
+    {
+      name: "Any",
+      submitted: ayingbaSubAssessedAmt,
+      approved: ayingbaApprAssessedAmt,
+    }
+  ];
+
+  // collection performance
+
+  // Ajaokuta variables
+  let AjkamountCollected
+  let AjkassessedAmount
+  let AjkunassessedAmountCollected
+  let AjkOutstanding
+
+  // lokoja 1 variables
+  let lk1mountCollected
+  let lk1assessedAmount
+  let lk1unassessedAmountCollected
+  let lk1Outstanding
+
+  // lokoja 2 variables
+  let lk2mountCollected
+  let lk2assessedAmount
+  let lk2unassessedAmountCollected
+  let lk2Outstanding
+
+  // HQ variables
+  let hqmountCollected
+  let hqassessedAmount
+  let hqunassessedAmountCollected
+  let hqOutstanding
+
+  // Okene variables
+  let okenemountCollected
+  let okeneassessedAmount
+  let okeneunassessedAmountCollected
+  let okeneOutstanding
+
+  // Isanlu variables
+  let isanlumountCollected
+  let isanluassessedAmount
+  let isanluunassessedAmountCollected
+  let isanluOutstanding
+
+  // Kabba variables
+  let kabbamountCollected
+  let kabbaassessedAmount
+  let kabbaunassessedAmountCollected
+  let kabbaOutstanding
+
+  // Idah variables
+  let idahmountCollected
+  let idahassessedAmount
+  let idahunassessedAmountCollected
+  let idahOutstanding
+
+  // Adavi variables
+  let adavimountCollected
+  let adaviassessedAmount
+  let adaviunassessedAmountCollected
+  let adaviOutstanding
+  
+  // Anyigba variables
+  let anyigbamountCollected
+  let anyigbaassessedAmount
+  let anyigbaunassessedAmountCollected
+  let anyigbaOutstanding
+
+  // Koto variables
+  let kotomountCollected
+  let kotoassessedAmount
+  let kotounassessedAmountCollected
+  let kotoOutstanding
+
+  // Ankpa variables
+  let ankpamountCollected
+  let ankpaassessedAmount
+  let ankpaunassessedAmountCollected
+  let ankpaOutstanding
+
+  const ajaokutaColPerf = colPerformance.filter(data => data.tax_office === "Ajaokuta");
+  const lk1ColPerf = colPerformance.filter(data => data.tax_office === "Lokoja 1");
+  const lk2ColPerf = colPerformance.filter(data => data.tax_office === "Lokoja 2");
+  const headOffColPerf = colPerformance.filter(data => data.tax_office === "Head Office");
+  const okeneColPerf = colPerformance.filter(data => data.tax_office === "Okene");
+  const isanluColPerf = colPerformance.filter(data => data.tax_office === "Isanlu");
+  const kabbaColPerf = colPerformance.filter(data => data.tax_office === "Kabba");
+  const idahColPerf = colPerformance.filter(data => data.tax_office === "Idah");
+  const adaviColPerf = colPerformance.filter(data => data.tax_office === "Okehi/Adavi");
+  const anyigbaColPerf = colPerformance.filter(data => data.tax_office === "Anyigba");
+  const kotoColPerf = colPerformance.filter(data => data.tax_office === "Kotonkarfe");
+  const ankpaColPerf = colPerformance.filter(data => data.tax_office === "Ankpa");
+
+
+  ajaokutaColPerf.forEach((ind, i) => {
+    AjkamountCollected = ind.amountCollected
+    AjkassessedAmount = ind.assessedAmount
+    AjkunassessedAmountCollected = ind.unassessedAmountCollected
+  })
+  AjkOutstanding = Number(AjkassessedAmount) - Number(AjkamountCollected)
+
+  lk1ColPerf.forEach((ind, i) => {
+    lk1mountCollected = ind.amountCollected
+    lk1assessedAmount = ind.assessedAmount
+    lk1unassessedAmountCollected = ind.unassessedAmountCollected
+  })
+  lk1Outstanding = Number(lk1assessedAmount) - Number(lk1mountCollected)
+
+  lk2ColPerf.forEach((ind, i) => {
+    lk2mountCollected = ind.amountCollected
+    lk2assessedAmount = ind.assessedAmount
+    lk2unassessedAmountCollected = ind.unassessedAmountCollected
+  })
+  lk2Outstanding = Number(lk2assessedAmount) - Number(lk2mountCollected)
+
+  headOffColPerf.forEach((ind, i) => {
+    hqmountCollected = ind.amountCollected
+    hqassessedAmount = ind.assessedAmount
+    hqunassessedAmountCollected = ind.unassessedAmountCollected
+  })
+  hqOutstanding = Number(hqassessedAmount) - Number(hqmountCollected)
+
+  okeneColPerf.forEach((ind, i) => {
+    okenemountCollected = ind.amountCollected
+    okeneassessedAmount = ind.assessedAmount
+    okeneunassessedAmountCollected = ind.unassessedAmountCollected
+  })
+  okeneOutstanding = Number(okeneassessedAmount) - Number(okenemountCollected)
+
+  isanluColPerf.forEach((ind, i) => {
+    isanlumountCollected = ind.amountCollected
+    isanluassessedAmount = ind.assessedAmount
+    isanluunassessedAmountCollected = ind.unassessedAmountCollected
+  })
+  isanluOutstanding = Number(isanluassessedAmount) - Number(isanlumountCollected)
+
+  kabbaColPerf.forEach((ind, i) => {
+    kabbamountCollected = ind.amountCollected
+    kabbaassessedAmount = ind.assessedAmount
+    kabbaunassessedAmountCollected = ind.unassessedAmountCollected
+  })
+  kabbaOutstanding = Number(kabbaassessedAmount) - Number(kabbamountCollected)
+
+  idahColPerf.forEach((ind, i) => {
+    idahmountCollected = ind.amountCollected
+    idahassessedAmount = ind.assessedAmount
+    idahunassessedAmountCollected = ind.unassessedAmountCollected
+  })
+  idahOutstanding = Number(idahassessedAmount) - Number(idahmountCollected)
+
+  adaviColPerf.forEach((ind, i) => {
+    adavimountCollected = ind.amountCollected
+    adaviassessedAmount = ind.assessedAmount
+    adaviunassessedAmountCollected = ind.unassessedAmountCollected
+  })
+  adaviOutstanding = Number(adaviassessedAmount) - Number(adavimountCollected)
+
+  anyigbaColPerf.forEach((ind, i) => {
+    anyigbamountCollected = ind.amountCollected
+    anyigbaassessedAmount = ind.assessedAmount
+    anyigbaunassessedAmountCollected = ind.unassessedAmountCollected
+  })
+  anyigbaOutstanding = Number(anyigbaassessedAmount) - Number(anyigbamountCollected)
+
+  kotoColPerf.forEach((ind, i) => {
+    kotomountCollected = ind.amountCollected
+    kotoassessedAmount = ind.assessedAmount
+    kotounassessedAmountCollected = ind.unassessedAmountCollected
+  })
+  kotoOutstanding = Number(kotoassessedAmount) - Number(kotomountCollected)
+
+  ankpaColPerf.forEach((ind, i) => {
+    ankpamountCollected = ind.amountCollected
+    ankpaassessedAmount = ind.assessedAmount
+    ankpaunassessedAmountCollected = ind.unassessedAmountCollected
+  })
+  ankpaOutstanding = Number(ankpaassessedAmount) - Number(ankpamountCollected)
+
+
+  const colPerform = [
+    {
+      name: "Lokoja 2",
+      assessed: lk2assessedAmount,
+      collected: lk2mountCollected,
+      outstanding: lk2Outstanding,
+      unassessed: lk2unassessedAmountCollected
+    },
+    {
+      name: "Lokoja 1",
+      assessed: lk1assessedAmount,
+      collected: lk1mountCollected,
+      outstanding: lk1Outstanding,
+      unassessed: lk1unassessedAmountCollected
+    },
+    {
+      name: "Adavi",
+      assessed: adaviassessedAmount,
+      collected: adavimountCollected,
+      outstanding: adaviOutstanding,
+      unassessed: adaviunassessedAmountCollected
+    },
+    {
+      name: "Head Office",
+      assessed: hqassessedAmount,
+      collected: hqmountCollected,
+      outstanding: hqOutstanding,
+      unassessed: hqunassessedAmountCollected
+    },
+    {
+      name: "Okene",
+      assessed: okeneassessedAmount,
+      collected: okenemountCollected,
+      outstanding: okeneOutstanding,
+      unassessed: okeneunassessedAmountCollected
+    },
+    {
+      name: "Isanlu",
+      assessed: isanluassessedAmount,
+      collected: isanlumountCollected,
+      outstanding: isanluOutstanding,
+      unassessed: isanluunassessedAmountCollected
+    },
+    {
+      name: "Kabba",
+      assessed: kabbaassessedAmount,
+      collected: kabbamountCollected,
+      outstanding: kabbaOutstanding,
+      unassessed: kabbaunassessedAmountCollected
+    },
+    {
+      name: "Idah",
+      assessed: idahassessedAmount,
+      collected: idahmountCollected,
+      outstanding: idahOutstanding,
+      unassessed: idahunassessedAmountCollected
+    },
+    {
+      name: "Koto",
+      assessed: kotoassessedAmount,
+      collected: kotomountCollected,
+      outstanding: kotoOutstanding,
+      unassessed: kotounassessedAmountCollected
+    },
+    {
+      name: "Ankpa",
+      assessed: ankpaassessedAmount,
+      collected: ankpamountCollected,
+      outstanding: ankpaOutstanding,
+      unassessed: ankpaunassessedAmountCollected
+    },
+    {
+      name: "Ajaokuta",
+      assessed: AjkassessedAmount,
+      collected: AjkamountCollected,
+      outstanding: AjkOutstanding,
+      unassessed: AjkunassessedAmountCollected
+    },
+    {
+      name: "Ayingba",
+      assessed: anyigbaassessedAmount,
+      collected: anyigbamountCollected,
+      outstanding: anyigbaOutstanding,
+      unassessed: anyigbaunassessedAmountCollected
+    }
+  ];
+
   const fields = [
     {
       name: "Tax Office",
@@ -667,7 +1019,6 @@ export const AssesmentCount = () => {
         let itemsBody = res.data.body
         let HQsummary = itemsBody.summary;
         setPost(HQsummary)
-        console.log("HQsummary", HQsummary);
         let records = [];
         for (let i = 0; i < HQsummary.length; i++) {
           let rec = HQsummary[i];
@@ -772,8 +1123,8 @@ export const AssesmentCount = () => {
                   <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)} />
                   <Legend />
                   {/* <ReferenceLine y={0} stroke="#000" /> */}
-                  <Bar dataKey="submitted" fill="#02321C" stackId="stack" />
-                  <Bar dataKey="approved" fill="#82ca9d" stackId="stack" />
+                  <Bar name="Submitted" dataKey="submitted" fill="#02321C" stackId="stack" />
+                  <Bar name="Approved" dataKey="approved" fill="#82ca9d" stackId="stack" />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -799,8 +1150,6 @@ export const AssesmentCount = () => {
             <div className="flex flex-row w-full">
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart
-                  width={800}
-                  height={300}
                   data={amountAssessed}
                   stackOffset="sign"
                   margin={{
@@ -816,8 +1165,8 @@ export const AssesmentCount = () => {
                   <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)} />
                   <Legend />
                   <ReferenceLine y={0} stroke="#000" />
-                  <Bar dataKey="submitted" fill="#002147" stackId="stack" />
-                  <Bar dataKey="approved" fill="#a2add0" stackId="stack" />
+                  <Bar name="Submitted" dataKey="submitted" fill="#002147" stackId="stack" />
+                  <Bar name="Approved" dataKey="approved" fill="#a2add0" stackId="stack" />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -842,8 +1191,6 @@ export const AssesmentCount = () => {
             <div className="flex flex-row w-full">
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart
-                  width={800}
-                  height={300}
                   data={colPerform}
                   stackOffset="sign"
                   margin={{
@@ -859,10 +1206,10 @@ export const AssesmentCount = () => {
                   <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)} />
                   <Legend />
                   <ReferenceLine y={0} stroke="#000" />
-                  <Bar dataKey="assessed" fill="#247ba0" stackId="stack" />
-                  <Bar dataKey="collected" fill="#0D41E1" stackId="stack" />
-                  <Bar dataKey="outstanding" fill="#cddafd" stackId="stack" />
-                  <Bar dataKey="unassessed" fill="#fe938c" stackId="stack" />
+                  <Bar name="Amount Assessed" dataKey="assessed" fill="#247ba0" stackId="stack" />
+                  <Bar name="Amount Collected" dataKey="collected" fill="#0D41E1" stackId="stack" />
+                  <Bar name="Amount Outstanding" dataKey="outstanding" fill="#cddafd" stackId="stack" />
+                  <Bar name="Unassessed Amount Collected" dataKey="unassessed" fill="#fe938c" stackId="stack" />
                 </BarChart>
               </ResponsiveContainer>
             </div>
