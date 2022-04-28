@@ -756,7 +756,7 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
                 <td className="border-r-2 p-1 text-right font-bold">Total Tax Due for Payment</td>
                 {taxcal == null || taxcal == ""
                   ? <td className="p-1 text-right font-bold">0</td> :
-                  <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax + (Number(addAssAmount)) - - Number(assobj.dev_levy))}</td>
+                  <td className='p-1 text-right font-bold'>{formatNumber(Number(taxcal.tax) + (Number(addAssAmount)) + Number(assobj.dev_levy))}</td>
                 }
               </tr>
             </tbody>

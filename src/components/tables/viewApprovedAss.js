@@ -673,7 +673,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                     <tr>
                       <td height='30' className='tb'><div align='right' className='style16 font-bold'>Total Tax Due for Payment </div></td>
                       {/* <td className='tb'><p className="font-bold text-right">{formatNumber(taxcal.tax + Number(addAssAmount) + 500 )}</p></td> */}
-                      <td className='tb'><p className="font-bold text-right">{formatNumber((((taxcal.tax) + Number(addAssAmount)) - -Number(assobj.dev_levy)))}</p></td>
+                      <td className='tb'><p className="font-bold text-right">{formatNumber(((Number(taxcal.tax) + Number(addAssAmount)) + Number(assobj.dev_levy)))}</p></td>
                     </tr>
                   </table>
                     <br />
