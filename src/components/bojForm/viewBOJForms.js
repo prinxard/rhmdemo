@@ -130,6 +130,8 @@ let previousTaxFigure = previousTaxFigureInit.replace(/,/g, '')
   let totalDeduction;
   let consolidatedIncome
 
+  let dev_levy
+
   useEffect(() => {
     if (router && router.query) {
       let routerData = String(router.query.ref);
@@ -209,6 +211,7 @@ let previousTaxFigure = previousTaxFigureInit.replace(/,/g, '')
         tax: JsonTax,
         previous_yr_tax: previousTaxFigure,
         boj_comment: data.comment,
+        dev_levy: dev_levy,
         other_income: otherIncomeFigure
       }
       try {
@@ -317,6 +320,12 @@ let previousTaxFigure = previousTaxFigureInit.replace(/,/g, '')
 
   console.log("T", tax_paid);
 
+  if (tax_paid <= 50000) {
+    dev_levy = "500"
+  } else {
+    dev_levy = "1000"
+  }
+console.log("dev_levy", dev_levy);
 
 
 

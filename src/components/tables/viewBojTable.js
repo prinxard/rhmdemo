@@ -563,7 +563,7 @@ export const ViewSingleBojTable = ({ additionalAsse, payerprop, assId, payerArr,
               </tr>
               <tr>
                 <td className="border-r-2 p-1 text-center">Dev. Levy</td>
-                <td className="p-1 text-right font-bold">0</td>
+                <td className="p-1 text-right font-bold">{formatNumber(assobj.dev_levy)}</td>
               </tr>
               <tr>
                 <td className="border-r-2 p-1 text-right font-bold">Total Tax due </td>
@@ -596,7 +596,7 @@ export const ViewSingleBojTable = ({ additionalAsse, payerprop, assId, payerArr,
                 <td className="border-r-2 p-1 text-right font-bold">Total Tax Due for Payment</td>
                 {taxcal == null || taxcal == ""
                   ? <td className="p-1 text-right font-bold">0</td> :
-                  <td className='p-1 text-right font-bold'>{formatNumber(taxcal.tax + (Number(addAssAmount)))}</td>
+                  <td className='p-1 text-right font-bold'>{formatNumber(Number(taxcal.tax) + (Number(addAssAmount)) + Number(assobj.dev_levy))}</td>
                 }
               </tr>
             </tbody>
