@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import Section from "../../components/dashboard/section";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
@@ -19,6 +18,8 @@ import axios from "axios";
 import url from "../../config/url";
 import dateformat from "dateformat";
 import Loader from "react-loader-spinner";
+import { shallowEqual, useSelector } from "react-redux";
+import jwt from "jsonwebtoken";
 
 let atoApprCount
 let atoSubCount
@@ -26,6 +27,8 @@ let atoSubCount
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 const RADIAN = Math.PI / 180;
+
+  
 
 
 export const AmountAssessed = () => {
@@ -480,6 +483,18 @@ export const ATOPie = () => {
   const [overViewAss, setOverView] = useState(() => []);
   const [isFetching, setIsFetching] = useState(() => false);
 
+  const { config, palettes, auth } = useSelector(
+    (state) => ({
+      config: state.config,
+      palettes: state.palettes,
+      auth: state.authentication.auth,
+    }),
+    shallowEqual
+  );
+  
+    const decoded = jwt.decode(auth);
+    const taxOff = decoded.station
+
   const fields = [
     {
       name: "SN",
@@ -578,6 +593,7 @@ export const ATOPie = () => {
         </div>
       )}
       <div>
+        <p className="font-bold flex justify-center">{taxOff}</p>
         {overViewAss.map((ind, i) => (
           <div className="flex my-10 flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
             <div className="w-full lg:w-1/4">
