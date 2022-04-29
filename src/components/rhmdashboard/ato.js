@@ -21,84 +21,7 @@ import dateformat from "dateformat";
 import Loader from "react-loader-spinner";
 
 let atoApprCount
-let atoDraftCount
-let atoTotalCount
-
-
-const Trend = [
-  {
-    name: "Jan",
-    approvedassessment: 20000,
-    amountpaid: 18000,
-    unassessedpayment: 4400,
-  },
-  {
-    name: "Feb",
-    approvedassessment: 25000,
-    amountpaid: 16000,
-    unassessedpayment: 2400,
-  },
-  {
-    name: "March",
-    approvedassessment: 28000,
-    amountpaid: 17060,
-    unassessedpayment: 24400,
-  },
-  {
-    name: "April",
-    approvedassessment: 34000,
-    amountpaid: 19460,
-    unassessedpayment: 2400,
-  },
-  {
-    name: "May",
-    approvedassessment: 32000,
-    amountpaid: 14200,
-    unassessedpayment: 1400,
-  },
-  {
-    name: "June",
-    approvedassessment: 38000,
-    amountpaid: 16000,
-    unassessedpayment: 2600,
-  },
-  {
-    name: "July",
-    approvedassessment: 35000,
-    amountpaid: 19600,
-    unassessedpayment: 2440,
-  },
-  {
-    name: "August",
-    approvedassessment: 40050,
-    amountpaid: 18500,
-    unassessedpayment: 22400,
-  },
-  {
-    name: "Sep",
-    approvedassessment: 42200,
-    amountpaid: 400,
-    unassessedpayment: 2200,
-  },
-  {
-    name: "Oct",
-    approvedassessment: 44400,
-    amountpaid: 40100,
-    unassessedpayment: 2300,
-  },
-  {
-    name: "Nov",
-    approvedassessment: 38000,
-    amountpaid: 41000,
-    unassessedpayment: 400,
-  },
-  {
-    name: "Dec",
-    approvedassessment: 50000,
-    amountpaid: 4000,
-    unassessedpayment: 2400,
-  }
-];
+let atoSubCount
 
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
@@ -186,7 +109,7 @@ export const AmountAssessed = () => {
       <ResponsiveContainer>
         <PieChart width={500} height={300}>
           <Legend verticalAlign="top" align="center" />
-          <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)}/>
+          <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)} />
           <Pie
             data={dataAssesedAmount}
             labelLine={false}
@@ -227,37 +150,22 @@ export const AtoCount = () => {
   }, []);
 
   const atoApproved = assessCount.filter(data => data.status === "Approved");
-  const atoDraft = assessCount.filter(data => data.status === "Draft");
-  const atoTotal = assessCount.filter(data => data.status === "Total");
+  const atoSubmitted = assessCount.filter(data => data.status === "Submitted");
+
 
   atoApproved.forEach((ind, i) => {
     atoApprCount = Number(ind.count)
   })
 
-  atoDraft.forEach((ind, i) => {
-    atoDraftCount = Number(ind.count)
+  atoSubmitted.forEach((ind, i) => {
+    atoSubCount = Number(ind.count)
   })
 
-  atoTotal.forEach((ind, i) => {
-    atoTotalCount = Number(ind.count)
-  })
-
-  if (atoTotalCount === null || atoTotalCount === undefined || atoTotalCount === "") {
-    atoTotalCount = 0
-  } else {
-    atoTotalCount = atoTotalCount
-  }
-
-  if (atoDraftCount === null || atoDraftCount === undefined || atoDraftCount === "") {
-    atoDraftCount = 0
-  } else {
-    atoDraftCount = atoDraftCount
-  }
 
 
   const dataATOCount = [
     // { name: "Total assessment", value: 5 },
-    { name: "Pending assessment", value: atoDraftCount },
+    { name: "Submitted assessment", value: atoSubCount },
     { name: "Approved assessment", value: atoApprCount },
   ];
 
@@ -293,7 +201,7 @@ export const AtoCount = () => {
       <ResponsiveContainer>
         <PieChart width={500} height={300}>
           <Legend verticalAlign="top" align="center" />
-          <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)}/>
+          <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)} />
           <Pie
             data={dataATOCount}
             label={renderCustomizedLabel2}
@@ -313,12 +221,237 @@ export const AtoCount = () => {
 }
 
 export const Lines = () => {
+
+  const [perfTrend, setPerTrend] = useState([])
+
+  useEffect(() => {
+
+    setAuthToken();
+    const fetchPost = async () => {
+      try {
+        let res = await axios.get(`${url.BASE_URL}forma/dashboard`);
+        let itemsBody = res.data.body
+        let trendArray = itemsBody.atoPerfomanceTrend
+        setPerTrend(trendArray)
+
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetchPost();
+
+  }, []);
+
+
+  let janApprAss
+  let janAmtPaid
+  let janUnassessedPay
+
+  let febApprAss
+  let febAmtPaid
+  let febUnassessedPay
+
+  let marchApprAss
+  let marchAmtPaid
+  let marchUnassessedPay
+
+  let aprilApprAss
+  let aprilAmtPaid
+  let aprilUnassessedPay
+
+  let mayApprAss
+  let mayAmtPaid
+  let mayUnassessedPay
+
+  let juneApprAss
+  let juneAmtPaid
+  let juneUnassessedPay
+
+  let julyApprAss
+  let julyAmtPaid
+  let julyUnassessedPay
+
+  let augApprAss
+  let augAmtPaid
+  let augUnassessedPay
+
+  let septApprAss
+  let septAmtPaid
+  let septUnassessedPay
+
+  let octApprAss
+  let octAmtPaid
+  let octUnassessedPay
+
+  let novApprAss
+  let novAmtPaid
+  let novUnassessedPay
+
+  let decApprAss
+  let decAmtPaid
+  let decUnassessedPay
+
+  const janPerfTrend = perfTrend.filter(data => data.month === "Jan");
+  const febPerfTrend = perfTrend.filter(data => data.month === "Feb");
+  const marchPerfTrend = perfTrend.filter(data => data.month === "March");
+  const aprilPerfTrend = perfTrend.filter(data => data.month === "April");
+  const mayPerfTrend = perfTrend.filter(data => data.month === "May");
+  const junePerfTrend = perfTrend.filter(data => data.month === "June");
+  const julyPerfTrend = perfTrend.filter(data => data.month === "July");
+  const augPerfTrend = perfTrend.filter(data => data.month === "Aug");
+  const septPerfTrend = perfTrend.filter(data => data.month === "Sep");
+  const octPerfTrend = perfTrend.filter(data => data.month === "Oct");
+  const novPerfTrend = perfTrend.filter(data => data.month === "Nov");
+  const decPerfTrend = perfTrend.filter(data => data.month === "Dec");
+
+  janPerfTrend.forEach((ind, i) => {
+    janApprAss = ind.assessedAmount
+    janAmtPaid = ind.amountCollected
+    janUnassessedPay = ind.unassessedAmountCollected
+  })
+
+  febPerfTrend.forEach((ind, i) => {
+    febApprAss = ind.assessedAmount
+    febAmtPaid = ind.amountCollected
+    febUnassessedPay = ind.unassessedAmountCollected
+  })
+
+  marchPerfTrend.forEach((ind, i) => {
+    marchApprAss = ind.assessedAmount
+    marchAmtPaid = ind.amountCollected
+    marchUnassessedPay = ind.unassessedAmountCollected
+  })
+
+  aprilPerfTrend.forEach((ind, i) => {
+    aprilApprAss = ind.assessedAmount
+    aprilAmtPaid = ind.amountCollected
+    aprilUnassessedPay = ind.unassessedAmountCollected
+  })
+
+  mayPerfTrend.forEach((ind, i) => {
+    mayApprAss = ind.assessedAmount
+    mayAmtPaid = ind.amountCollected
+    mayUnassessedPay = ind.unassessedAmountCollected
+  })
+
+  junePerfTrend.forEach((ind, i) => {
+    juneApprAss = ind.assessedAmount
+    juneAmtPaid = ind.amountCollected
+    juneUnassessedPay = ind.unassessedAmountCollected
+  })
+
+  julyPerfTrend.forEach((ind, i) => {
+    julyApprAss = ind.assessedAmount
+    julyAmtPaid = ind.amountCollected
+    julyUnassessedPay = ind.unassessedAmountCollected
+  })
+  augPerfTrend.forEach((ind, i) => {
+    augApprAss = ind.assessedAmount
+    augAmtPaid = ind.amountCollected
+    augUnassessedPay = ind.unassessedAmountCollected
+  })
+  septPerfTrend.forEach((ind, i) => {
+    septApprAss = ind.assessedAmount
+    septAmtPaid = ind.amountCollected
+    septUnassessedPay = ind.unassessedAmountCollected
+  })
+  octPerfTrend.forEach((ind, i) => {
+    octApprAss = ind.assessedAmount
+    octAmtPaid = ind.amountCollected
+    octUnassessedPay = ind.unassessedAmountCollected
+  })
+  novPerfTrend.forEach((ind, i) => {
+    novApprAss = ind.assessedAmount
+    novAmtPaid = ind.amountCollected
+    novUnassessedPay = ind.unassessedAmountCollected
+  })
+  decPerfTrend.forEach((ind, i) => {
+    decApprAss = ind.assessedAmount
+    decAmtPaid = ind.amountCollected
+    decUnassessedPay = ind.unassessedAmountCollected
+  })
+
+
+
+  const Trend = [
+    {
+      name: "Jan",
+      approvedassessment: janApprAss,
+      amountpaid: janAmtPaid,
+      unassessedpayment: janUnassessedPay,
+    },
+    {
+      name: "Feb",
+      approvedassessment: febApprAss,
+      amountpaid: febAmtPaid,
+      unassessedpayment: febUnassessedPay,
+    },
+    {
+      name: "March",
+      approvedassessment: marchApprAss,
+      amountpaid: marchAmtPaid,
+      unassessedpayment: marchUnassessedPay,
+    },
+    {
+      name: "April",
+      approvedassessment: aprilApprAss,
+      amountpaid: aprilAmtPaid,
+      unassessedpayment: aprilUnassessedPay,
+    },
+    {
+      name: "May",
+      approvedassessment: mayApprAss,
+      amountpaid: mayAmtPaid,
+      unassessedpayment: mayUnassessedPay,
+    },
+    {
+      name: "June",
+      approvedassessment: juneApprAss,
+      amountpaid: juneAmtPaid,
+      unassessedpayment: juneUnassessedPay,
+    },
+    {
+      name: "July",
+      approvedassessment: julyApprAss,
+      amountpaid: julyAmtPaid,
+      unassessedpayment: julyUnassessedPay,
+    },
+    {
+      name: "August",
+      approvedassessment: augApprAss,
+      amountpaid: augAmtPaid,
+      unassessedpayment: augUnassessedPay,
+    },
+    {
+      name: "Sep",
+      approvedassessment: septApprAss,
+      amountpaid: septAmtPaid,
+      unassessedpayment: septUnassessedPay,
+    },
+    {
+      name: "Oct",
+      approvedassessment: octApprAss,
+      amountpaid: octAmtPaid,
+      unassessedpayment: octUnassessedPay,
+    },
+    {
+      name: "Nov",
+      approvedassessment: novApprAss,
+      amountpaid: novAmtPaid,
+      unassessedpayment: novUnassessedPay,
+    },
+    {
+      name: "Dec",
+      approvedassessment: decApprAss,
+      amountpaid: decAmtPaid,
+      unassessedpayment: decUnassessedPay,
+    }
+  ];
+
   return (
     <div style={{ width: '100%', height: 300 }}>
       <ResponsiveContainer>
         <LineChart
-          // width={800}
-          // height={300}
           data={Trend}
           margin={{
             top: 5,
@@ -330,11 +463,11 @@ export const Lines = () => {
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
           <YAxis />
-          <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)}/>
+          <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)} />
           <Legend />
-          <Line type="monotone" dataKey="approvedassessment" stroke="#82ca9d" />
-          <Line type="monotone" dataKey="amountpaid" stroke="#fcc287" />
-          <Line type="monotone" dataKey="unassessedpayment" stroke="#fe0037" />
+          <Line type="monotone" name="Approved Assessment" dataKey="approvedassessment" stroke="#82ca9d" />
+          <Line type="monotone" name="Amount Paid" dataKey="amountpaid" stroke="#fcc287" />
+          <Line type="monotone" name="Unassessed Payment" dataKey="unassessedpayment" stroke="#fe0037" />
         </LineChart>
       </ResponsiveContainer>
     </div>
