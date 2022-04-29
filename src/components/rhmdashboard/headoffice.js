@@ -967,7 +967,7 @@ export const AssesmentCount = () => {
       unassessed: AjkunassessedAmountCollected
     },
     {
-      name: "Ayingba",
+      name: "Anyingba",
       assessed: anyigbaassessedAmount,
       collected: anyigbamountCollected,
       outstanding: anyigbaOutstanding,
