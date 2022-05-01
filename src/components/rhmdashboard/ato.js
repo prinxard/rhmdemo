@@ -28,7 +28,7 @@ let atoSubCount
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 const RADIAN = Math.PI / 180;
 
-  
+
 
 
 export const AmountAssessed = () => {
@@ -482,6 +482,7 @@ export const ATOPie = () => {
   const [topAss, setTopAss] = useState(() => []);
   const [overViewAss, setOverView] = useState(() => []);
   const [isFetching, setIsFetching] = useState(() => false);
+  const [recentTotal, setRecentTotal] = useState(() => []);
 
   const { config, palettes, auth } = useSelector(
     (state) => ({
@@ -491,9 +492,9 @@ export const ATOPie = () => {
     }),
     shallowEqual
   );
-  
-    const decoded = jwt.decode(auth);
-    const taxOff = decoded.station
+
+  const decoded = jwt.decode(auth);
+  const taxOff = decoded.station
 
   const fields = [
     {
@@ -545,11 +546,26 @@ export const ATOPie = () => {
         setOverView(overView)
         let records = [];
         let recordsTop = [];
+        let sum = {};
+        let assessedAmountSum = [];
+        let paidAmountSum = []
+        let balanceSum = [];
         setIsFetching(false)
 
         for (let i = 0; i < recent.length; i++) {
           let rec = recent[i];
           rec.serialNo = num + i
+
+          rec.tax = Number(rec.tax)
+          rec.taxPaid = Number(rec.taxPaid)
+          rec.balance = (Number(rec.tax) - Number(rec.taxPaid))
+
+
+          assessedAmountSum.push(rec.tax)
+          paidAmountSum.push(rec.taxPaid)
+          balanceSum.push(rec.balance)
+          console.log("balanceSum", balanceSum);
+
           rec.balance = formatNumber(Number(rec.tax) - Number(rec.taxPaid))
           rec.taxFormated = formatNumber(rec.tax);
           rec.taxPaidFormated = formatNumber(rec.taxPaid);
@@ -557,6 +573,22 @@ export const ATOPie = () => {
           records.push(rec);
         }
         setPost(() => records);
+        setRecentTotal(() => sum);
+        const recentAssAmountSum = assessedAmountSum.reduce(
+          (preVal, curVal) => preVal + curVal,
+          0
+        );
+        const recentpaidAmountSum = paidAmountSum.reduce(
+          (preVal, curVal) => preVal + curVal,
+          0
+        );
+        const recentbalanceSum = balanceSum.reduce(
+          (preVal, curVal) => preVal + curVal,
+          0
+        );
+        sum.recentAssAmountSum = recentAssAmountSum;
+        sum.recentpaidAmountSum = recentpaidAmountSum;
+        sum.recentbalanceSum = recentbalanceSum;
 
         for (let i = 0; i < topAssess.length; i++) {
           let rec = topAssess[i];
@@ -567,7 +599,9 @@ export const ATOPie = () => {
           rec.createtime = dateformat(rec.createtime, "dd mmm yyyy")
           recordsTop.push(rec);
         }
+
         setTopAss(() => recordsTop);
+
       } catch (e) {
         console.log(e);
         setIsFetching(false)
@@ -575,7 +609,7 @@ export const ATOPie = () => {
     };
     fetchPost();
   }, []);
-
+  console.log("recentTotal", recentTotal);
   return (
     <>
       {isFetching && (
@@ -698,6 +732,17 @@ export const ATOPie = () => {
                         ))}
                       </tr>
                     ))}
+                    {items.length > 0 && (
+                      <tr className="font-semibold">
+                        <td>Total</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{formatNumber(recentTotal.recentAssAmountSum)}</td>
+                        <td>{formatNumber(recentTotal.recentpaidAmountSum)}</td>
+                        <td>{formatNumber(recentTotal.recentbalanceSum)}</td>
+                      </tr>
+                    )}
                   </tbody>
                 </table>
               </div>
