@@ -1095,13 +1095,13 @@ export const AssesmentCount = () => {
           (preVal, curVal) => preVal + curVal,
           0
         );
-        console.log("totalSubmittedAmt", totalSubmittedAmt);
-        console.log("totalPaidAmtSum", totalPaidAmtSum);
-        console.log("totalApprAmtSum", totalApprAmtSum);
-        console.log("totalapprCount", totalapprCount);
-        console.log("totalsubCountSum", totalsubCountSum);
-        console.log("totalUnassessedAmt", totalUnassessedAmt);
-        console.log("totalUnpaidAmt", totalUnpaidAmt);
+        // console.log("totalSubmittedAmt", totalSubmittedAmt);
+        // console.log("totalPaidAmtSum", totalPaidAmtSum);
+        // console.log("totalApprAmtSum", totalApprAmtSum);
+        // console.log("totalapprCount", totalapprCount);
+        // console.log("totalsubCountSum", totalsubCountSum);
+        // console.log("totalUnassessedAmt", totalUnassessedAmt);
+        // console.log("totalUnpaidAmt", totalUnpaidAmt);
 
         sum.totalSubmittedAmt = totalSubmittedAmt;
         sum.totalPaidAmtSum = totalPaidAmtSum;
