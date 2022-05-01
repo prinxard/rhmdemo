@@ -294,6 +294,7 @@ export const AssesmentCount = () => {
   const [colPerformance, setColPerformance] = useState([])
 
   const [items, setPost] = useState(() => []);
+  const [total, setTotal] = useState(() => []);
 
 
   useEffect(() => {
@@ -770,7 +771,7 @@ export const AssesmentCount = () => {
   let adaviassessedAmount
   let adaviunassessedAmountCollected
   let adaviOutstanding
-  
+
   // Anyigba variables
   let anyigbamountCollected
   let anyigbaassessedAmount
@@ -1019,10 +1020,44 @@ export const AssesmentCount = () => {
         let itemsBody = res.data.body
         let HQsummary = itemsBody.summary;
         setPost(HQsummary)
+        console.log("HQsummary", HQsummary);
         let records = [];
+        let sum = {};
+        let approvedCountSum = [];
+        let subCountSum = []
+        let submittedAmountSum = [];
+        let apprAmtSum = [];
+        let paidAmtSum = [];
+        let unassessedColSum = [];
+        let unpaidAmountCalSum = []
+
         for (let i = 0; i < HQsummary.length; i++) {
           let rec = HQsummary[i];
           rec.serialNo = num + i
+          // rec.submittedAmount = (rec.submittedAmount)
+          rec.submittedCount = Number(rec.submittedCount)
+          rec.approvedCount = Number(rec.approvedCount)
+          rec.approvedAmount = Number(rec.approvedAmount)
+          rec.assessedAmountCollected = Number(rec.assessedAmountCollected)
+          rec.unassessedAmountCollected = Number(rec.unassessedAmountCollected)
+          rec.submittedAmount = Number(rec.submittedAmount)
+          rec.unpaidAmountCal = (Number(rec.approvedAmount) - Number(rec.assessedAmountCollected))
+
+          paidAmtSum.push(rec.assessedAmountCollected);
+          apprAmtSum.push(rec.approvedAmount)
+          submittedAmountSum.push(rec.submittedAmount)
+          approvedCountSum.push(rec.approvedCount);
+          subCountSum.push(rec.submittedCount);
+          unassessedColSum.push(rec.unassessedAmountCollected);
+          unpaidAmountCalSum.push(rec.unpaidAmountCal)
+
+          // subCountSum.push(rec.submittedCount)
+          // apprAmtSum.push(rec.approvedAmount);
+          // paidAmtSum.push(rec.assessedAmountCollected);
+          // unpaidAmtSum.push(rec.totalRelief);
+          console.log("unpaidAmountCalSum Array", unpaidAmountCalSum);
+
+
           rec.submittedCount = formatNumber(rec.submittedCount)
           rec.approvedCount = formatNumber(rec.approvedCount)
           rec.submittedAmount = formatNumber(rec.submittedAmount)
@@ -1032,15 +1067,63 @@ export const AssesmentCount = () => {
           rec.unassessedAmountCollected = formatNumber(rec.unassessedAmountCollected);
           records.push(rec);
         }
-        setPost(() => records);
+        const totalapprCount = approvedCountSum.reduce(
+          (preVal, curVal) => preVal + curVal,
+          0
+        );
+        const totalsubCountSum = subCountSum.reduce(
+          (preVal, curVal) => preVal + curVal,
+          0
+        );
+        const totalApprAmtSum = apprAmtSum.reduce(
+          (preVal, curVal) => preVal + curVal,
+          0
+        );
+        const totalPaidAmtSum = paidAmtSum.reduce(
+          (preVal, curVal) => preVal + curVal,
+          0
+        );
+        const totalSubmittedAmt = submittedAmountSum.reduce(
+          (preVal, curVal) => preVal + curVal,
+          0
+        );
+        const totalUnassessedAmt = unassessedColSum.reduce(
+          (preVal, curVal) => preVal + curVal,
+          0
+        );
+        const totalUnpaidAmt = unpaidAmountCalSum.reduce(
+          (preVal, curVal) => preVal + curVal,
+          0
+        );
+        console.log("totalSubmittedAmt", totalSubmittedAmt);
+        console.log("totalPaidAmtSum", totalPaidAmtSum);
+        console.log("totalApprAmtSum", totalApprAmtSum);
+        console.log("totalapprCount", totalapprCount);
+        console.log("totalsubCountSum", totalsubCountSum);
+        console.log("totalUnassessedAmt", totalUnassessedAmt);
+        console.log("totalUnpaidAmt", totalUnpaidAmt);
 
-      } catch (e) {
+        sum.totalSubmittedAmt = totalSubmittedAmt;
+        sum.totalPaidAmtSum = totalPaidAmtSum;
+        sum.totalApprAmtSum = totalApprAmtSum;
+        sum.totalapprCount = totalapprCount;
+        sum.totalsubCountSum = totalsubCountSum;
+        sum.totalUnassessedAmt = totalUnassessedAmt;
+        sum.totalUnpaidAmt = totalUnpaidAmt;
+
+        // sum.totalSubmittedAmtSum = totalSubmittedAmtSum;
+
+        setPost(() => records);
+        setTotal(() => sum);
+      }
+      catch (e) {
         console.log(e);
       }
     };
     fetchPost();
   }, []);
 
+  console.log("total", total);
 
   return (
     <>
@@ -1244,6 +1327,20 @@ export const AssesmentCount = () => {
                         ))}
                       </tr>
                     ))}
+                    {items.length > 0 && (
+                      <tr className="font-semibold">
+                        <td>Total</td>
+                        {/* <td></td>
+                        <td></td> */}
+                        <td>{formatNumber(total.totalsubCountSum)}</td>
+                        <td>{formatNumber(total.totalapprCount)}</td>
+                        <td>{formatNumber(total.totalSubmittedAmt)}</td>
+                        <td>{formatNumber(total.totalApprAmtSum)}</td>
+                        <td>{formatNumber(total.totalPaidAmtSum)}</td>
+                        <td>{formatNumber(total.totalUnpaidAmt)}</td>
+                        <td>{formatNumber(total.totalUnassessedAmt)}</td>
+                      </tr>
+                    )}
                   </tbody>
                 </table>
               </div>
