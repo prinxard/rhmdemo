@@ -483,6 +483,7 @@ export const ATOPie = () => {
   const [overViewAss, setOverView] = useState(() => []);
   const [isFetching, setIsFetching] = useState(() => false);
   const [recentTotal, setRecentTotal] = useState(() => []);
+  const [topTotal, setTopTotal] = useState(() => []);
 
   const { config, palettes, auth } = useSelector(
     (state) => ({
@@ -544,9 +545,18 @@ export const ATOPie = () => {
         let topAssess = itemsBody.atoTopAssessment;
         let overView = itemsBody.atoAssessmentOverview
         setOverView(overView)
+
         let records = [];
         let recordsTop = [];
+
+        let topAssSum = {};
         let sum = {};
+
+
+        let topassessedAmountSum = [];
+        let toppaidAmountSum = []
+        let topbalanceSum = [];
+
         let assessedAmountSum = [];
         let paidAmountSum = []
         let balanceSum = [];
@@ -564,7 +574,7 @@ export const ATOPie = () => {
           assessedAmountSum.push(rec.tax)
           paidAmountSum.push(rec.taxPaid)
           balanceSum.push(rec.balance)
-          console.log("balanceSum", balanceSum);
+
 
           rec.balance = formatNumber(Number(rec.tax) - Number(rec.taxPaid))
           rec.taxFormated = formatNumber(rec.tax);
@@ -574,6 +584,7 @@ export const ATOPie = () => {
         }
         setPost(() => records);
         setRecentTotal(() => sum);
+
         const recentAssAmountSum = assessedAmountSum.reduce(
           (preVal, curVal) => preVal + curVal,
           0
@@ -586,21 +597,51 @@ export const ATOPie = () => {
           (preVal, curVal) => preVal + curVal,
           0
         );
+
         sum.recentAssAmountSum = recentAssAmountSum;
         sum.recentpaidAmountSum = recentpaidAmountSum;
         sum.recentbalanceSum = recentbalanceSum;
 
+
         for (let i = 0; i < topAssess.length; i++) {
           let rec = topAssess[i];
           rec.serialNo = num + i
+
+          rec.tax = Number(rec.tax)
+          rec.taxPaid = Number(rec.taxPaid)
+          rec.balance = (Number(rec.tax) - Number(rec.taxPaid))
+
+
+          topassessedAmountSum.push(rec.tax)
+          toppaidAmountSum.push(rec.taxPaid)
+          topbalanceSum.push(rec.balance)
+
+
           rec.balance = formatNumber(Number(rec.tax) - Number(rec.taxPaid))
           rec.taxFormated = formatNumber(rec.tax);
           rec.taxPaidFormated = formatNumber(rec.taxPaid);
           rec.createtime = dateformat(rec.createtime, "dd mmm yyyy")
           recordsTop.push(rec);
         }
-
         setTopAss(() => recordsTop);
+
+        const totaltopAssAmountSum = topassessedAmountSum.reduce(
+          (preVal, curVal) => preVal + curVal,
+          0
+        );
+        const totaltoppaidAmountSum = toppaidAmountSum.reduce(
+          (preVal, curVal) => preVal + curVal,
+          0
+        );
+        const totaltopbalanceSum = topbalanceSum.reduce(
+          (preVal, curVal) => preVal + curVal,
+          0
+        );
+        topAssSum.totaltopAssAmountSum = totaltopAssAmountSum;
+        topAssSum.totaltoppaidAmountSum = totaltoppaidAmountSum;
+        topAssSum.totaltopbalanceSum = totaltopbalanceSum;
+        setTopTotal(() => topAssSum);
+
 
       } catch (e) {
         console.log(e);
@@ -610,6 +651,7 @@ export const ATOPie = () => {
     fetchPost();
   }, []);
   console.log("recentTotal", recentTotal);
+  console.log("topTotal", topTotal);
   return (
     <>
       {isFetching && (
@@ -778,55 +820,24 @@ export const ATOPie = () => {
                         ))}
                       </tr>
                     ))}
+                    {topAss.length > 0 && (
+                      <tr className="font-semibold">
+                        <td>Total</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{formatNumber(topTotal.totaltopAssAmountSum)}</td>
+                        <td>{formatNumber(topTotal.totaltoppaidAmountSum)}</td>
+                        <td>{formatNumber(topTotal.totaltopbalanceSum)}</td>
+                      </tr>
+                    )}
                   </tbody>
                 </table>
               </div>
             </div>
           </Section>
         </div>
-
       </div>
-      {/* 
-      <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
-        <div className="w-full lg:w-2/2">
-          <Section
-          >
-            <div className="flex justify-center">
-              <div>
-                <p className="text-sm my-3 font-bold text-center">Top Assessments</p>
-                <div className="flex justify-center">
-                  <div className="overflow-x-auto">
-                    <table className="table table-auto divide-y striped">
-                      <thead>
-                        <tr className="">
-                          {fields2.map((field, i) => (
-                            <th key={i} className="">
-                              {field.name}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y">
-                        {topAss.map((ind, i) => (
-                          <tr key={i} className="">
-                            {fields2.map((field, j) => (
-                              <td key={j} className="">
-                                {ind[field.key]}
-                              </td>
-                            ))}
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </Section>
-        </div>
-
-      </div> */}
 
     </>
   );
