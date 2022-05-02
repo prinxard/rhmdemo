@@ -307,7 +307,6 @@ export const AssesmentCount = () => {
         let overview = itemsBody.assessmentOverview;
         let countArray = itemsBody.assessmentCount;
         let colPerfArray = itemsBody.collectionPerfomance
-        console.log("colPerfArray", colPerfArray);
         setAssessCount(countArray)
         setColPerformance(colPerfArray)
         setAllOverview(overview)
@@ -1020,7 +1019,6 @@ export const AssesmentCount = () => {
         let itemsBody = res.data.body
         let HQsummary = itemsBody.summary;
         setPost(HQsummary)
-        console.log("HQsummary", HQsummary);
         let records = [];
         let sum = {};
         let approvedCountSum = [];
@@ -1055,7 +1053,7 @@ export const AssesmentCount = () => {
           // apprAmtSum.push(rec.approvedAmount);
           // paidAmtSum.push(rec.assessedAmountCollected);
           // unpaidAmtSum.push(rec.totalRelief);
-          console.log("unpaidAmountCalSum Array", unpaidAmountCalSum);
+          // console.log("unpaidAmountCalSum Array", unpaidAmountCalSum);
 
 
           rec.submittedCount = formatNumber(rec.submittedCount)
