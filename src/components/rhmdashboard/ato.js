@@ -650,8 +650,7 @@ export const ATOPie = () => {
     };
     fetchPost();
   }, []);
-  console.log("recentTotal", recentTotal);
-  console.log("topTotal", topTotal);
+ 
   return (
     <>
       {isFetching && (
@@ -716,7 +715,7 @@ export const ATOPie = () => {
       <div className="flex mt-10 flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
         <div className="w-full lg:w-1/2">
           <Section
-            description={<span>Assessment Count</span>}
+            description={<span>ASSESSMENT COUNT</span>}
           >
             <div className="flex flex-row w-full">
               <AtoCount />
@@ -726,7 +725,7 @@ export const ATOPie = () => {
         </div>
         <div className="w-full lg:w-1/2">
           <Section
-            description={<span>Assessed Amount</span>}
+            description={<span>ASSESSED AMOUNT</span>}
           >
             <div className="flex flex-row w-full">
               <AmountAssessed />
@@ -738,7 +737,7 @@ export const ATOPie = () => {
       <div className="flex mt-10 flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
         <div className="w-full lg:w-2/2">
           <Section
-            description={<span>Performance Trend</span>}
+            description={<span>PERFORMANCE TREND</span>}
           >
             <div className="flex flex-row w-full">
               <Lines />
@@ -751,7 +750,7 @@ export const ATOPie = () => {
       <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
         <div className="w-full lg:w-2/2">
           <Section >
-            <p className="text-sm my-3 font-bold text-center">Recent Assessments</p>
+            <p className="text-sm my-3 font-bold text-center">RECENT ASSESSMENTS</p>
             <div className="flex justify-center">
               <div className="overflow-x-auto">
                 <table className="table table-auto divide-y striped">
@@ -797,7 +796,7 @@ export const ATOPie = () => {
       <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
         <div className="w-full lg:w-2/2">
           <Section >
-            <p className="text-sm my-3 font-bold text-center">Top Assessments</p>
+            <p className="text-sm my-3 font-bold text-center">TOP ASSESSMENTS</p>
             <div className="flex justify-center">
               <div className="overflow-x-auto">
                 <table className="table table-auto divide-y striped">

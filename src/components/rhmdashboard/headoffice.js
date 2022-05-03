@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Section from "../dashboard/section";
-import { PieChart, Pie, Cell } from "recharts";
+import { PieChart, Pie, Cell, LineChart, Line } from "recharts";
 import {
   BarChart,
   Bar,
@@ -158,6 +158,9 @@ const renderCustomizedLabel2 = ({
 };
 
 
+
+
+
 export const CountPie = () => {
   const [cummulative, setCummulative] = useState([])
   const [assessCount, setAssessCount] = useState([])
@@ -217,6 +220,260 @@ export const CountPie = () => {
             ))}
           </Pie>
         </PieChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
+
+export const Lines = () => {
+
+  const [perfTrend, setPerTrend] = useState([])
+
+  useEffect(() => {
+
+    setAuthToken();
+    const fetchPost = async () => {
+      try {
+        let res = await axios.get(`${url.BASE_URL}forma/dashboard`);
+        let itemsBody = res.data.body
+        let trendArray = itemsBody.perfomanceTrend
+        setPerTrend(trendArray)
+
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetchPost();
+
+  }, []);
+
+
+  let janApprAss
+  let janAmtPaid
+  let janUnassessedPay
+
+  let febApprAss
+  let febAmtPaid
+  let febUnassessedPay
+
+  let marchApprAss
+  let marchAmtPaid
+  let marchUnassessedPay
+
+  let aprilApprAss
+  let aprilAmtPaid
+  let aprilUnassessedPay
+
+  let mayApprAss
+  let mayAmtPaid
+  let mayUnassessedPay
+
+  let juneApprAss
+  let juneAmtPaid
+  let juneUnassessedPay
+
+  let julyApprAss
+  let julyAmtPaid
+  let julyUnassessedPay
+
+  let augApprAss
+  let augAmtPaid
+  let augUnassessedPay
+
+  let septApprAss
+  let septAmtPaid
+  let septUnassessedPay
+
+  let octApprAss
+  let octAmtPaid
+  let octUnassessedPay
+
+  let novApprAss
+  let novAmtPaid
+  let novUnassessedPay
+
+  let decApprAss
+  let decAmtPaid
+  let decUnassessedPay
+
+  const janPerfTrend = perfTrend.filter(data => data.month === "Jan");
+  const febPerfTrend = perfTrend.filter(data => data.month === "Feb");
+  const marchPerfTrend = perfTrend.filter(data => data.month === "March");
+  const aprilPerfTrend = perfTrend.filter(data => data.month === "April");
+  const mayPerfTrend = perfTrend.filter(data => data.month === "May");
+  const junePerfTrend = perfTrend.filter(data => data.month === "June");
+  const julyPerfTrend = perfTrend.filter(data => data.month === "July");
+  const augPerfTrend = perfTrend.filter(data => data.month === "Aug");
+  const septPerfTrend = perfTrend.filter(data => data.month === "Sep");
+  const octPerfTrend = perfTrend.filter(data => data.month === "Oct");
+  const novPerfTrend = perfTrend.filter(data => data.month === "Nov");
+  const decPerfTrend = perfTrend.filter(data => data.month === "Dec");
+
+  janPerfTrend.forEach((ind, i) => {
+    janApprAss = ind.assessedAmount
+    janAmtPaid = ind.amountCollected
+    janUnassessedPay = ind.unassessedAmountCollected
+  })
+
+  febPerfTrend.forEach((ind, i) => {
+    febApprAss = ind.assessedAmount
+    febAmtPaid = ind.amountCollected
+    febUnassessedPay = ind.unassessedAmountCollected
+  })
+
+  marchPerfTrend.forEach((ind, i) => {
+    marchApprAss = ind.assessedAmount
+    marchAmtPaid = ind.amountCollected
+    marchUnassessedPay = ind.unassessedAmountCollected
+  })
+
+  aprilPerfTrend.forEach((ind, i) => {
+    aprilApprAss = ind.assessedAmount
+    aprilAmtPaid = ind.amountCollected
+    aprilUnassessedPay = ind.unassessedAmountCollected
+  })
+
+  mayPerfTrend.forEach((ind, i) => {
+    mayApprAss = ind.assessedAmount
+    mayAmtPaid = ind.amountCollected
+    mayUnassessedPay = ind.unassessedAmountCollected
+  })
+
+  junePerfTrend.forEach((ind, i) => {
+    juneApprAss = ind.assessedAmount
+    juneAmtPaid = ind.amountCollected
+    juneUnassessedPay = ind.unassessedAmountCollected
+  })
+
+  julyPerfTrend.forEach((ind, i) => {
+    julyApprAss = ind.assessedAmount
+    julyAmtPaid = ind.amountCollected
+    julyUnassessedPay = ind.unassessedAmountCollected
+  })
+  augPerfTrend.forEach((ind, i) => {
+    augApprAss = ind.assessedAmount
+    augAmtPaid = ind.amountCollected
+    augUnassessedPay = ind.unassessedAmountCollected
+  })
+  septPerfTrend.forEach((ind, i) => {
+    septApprAss = ind.assessedAmount
+    septAmtPaid = ind.amountCollected
+    septUnassessedPay = ind.unassessedAmountCollected
+  })
+  octPerfTrend.forEach((ind, i) => {
+    octApprAss = ind.assessedAmount
+    octAmtPaid = ind.amountCollected
+    octUnassessedPay = ind.unassessedAmountCollected
+  })
+  novPerfTrend.forEach((ind, i) => {
+    novApprAss = ind.assessedAmount
+    novAmtPaid = ind.amountCollected
+    novUnassessedPay = ind.unassessedAmountCollected
+  })
+  decPerfTrend.forEach((ind, i) => {
+    decApprAss = ind.assessedAmount
+    decAmtPaid = ind.amountCollected
+    decUnassessedPay = ind.unassessedAmountCollected
+  })
+
+
+
+  const Trend = [
+    {
+      name: "Jan",
+      approvedassessment: janApprAss,
+      amountpaid: janAmtPaid,
+      unassessedpayment: janUnassessedPay,
+    },
+    {
+      name: "Feb",
+      approvedassessment: febApprAss,
+      amountpaid: febAmtPaid,
+      unassessedpayment: febUnassessedPay,
+    },
+    {
+      name: "March",
+      approvedassessment: marchApprAss,
+      amountpaid: marchAmtPaid,
+      unassessedpayment: marchUnassessedPay,
+    },
+    {
+      name: "April",
+      approvedassessment: aprilApprAss,
+      amountpaid: aprilAmtPaid,
+      unassessedpayment: aprilUnassessedPay,
+    },
+    {
+      name: "May",
+      approvedassessment: mayApprAss,
+      amountpaid: mayAmtPaid,
+      unassessedpayment: mayUnassessedPay,
+    },
+    {
+      name: "June",
+      approvedassessment: juneApprAss,
+      amountpaid: juneAmtPaid,
+      unassessedpayment: juneUnassessedPay,
+    },
+    {
+      name: "July",
+      approvedassessment: julyApprAss,
+      amountpaid: julyAmtPaid,
+      unassessedpayment: julyUnassessedPay,
+    },
+    {
+      name: "August",
+      approvedassessment: augApprAss,
+      amountpaid: augAmtPaid,
+      unassessedpayment: augUnassessedPay,
+    },
+    {
+      name: "Sep",
+      approvedassessment: septApprAss,
+      amountpaid: septAmtPaid,
+      unassessedpayment: septUnassessedPay,
+    },
+    {
+      name: "Oct",
+      approvedassessment: octApprAss,
+      amountpaid: octAmtPaid,
+      unassessedpayment: octUnassessedPay,
+    },
+    {
+      name: "Nov",
+      approvedassessment: novApprAss,
+      amountpaid: novAmtPaid,
+      unassessedpayment: novUnassessedPay,
+    },
+    {
+      name: "Dec",
+      approvedassessment: decApprAss,
+      amountpaid: decAmtPaid,
+      unassessedpayment: decUnassessedPay,
+    }
+  ];
+
+  return (
+    <div style={{ width: '100%', height: 300 }}>
+      <ResponsiveContainer>
+        <LineChart
+          data={Trend}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip formatter={(value) => new Intl.NumberFormat('en').format(value)} />
+          <Legend />
+          <Line type="monotone" name="Approved Assessment" dataKey="approvedassessment" stroke="#82ca9d" />
+          <Line type="monotone" name="Amount Paid" dataKey="amountpaid" stroke="#fcc287" />
+          <Line type="monotone" name="Unassessed Payment" dataKey="unassessedpayment" stroke="#fe0037" />
+        </LineChart>
       </ResponsiveContainer>
     </div>
   );
@@ -1184,7 +1441,7 @@ export const AssesmentCount = () => {
       <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
         <div className="w-full lg:w-2/3">
           <Section
-            description={<span>Assessment count</span>}
+            description={<span>ASSESSMENT COUNT</span>}
           >
             <div className="flex flex-row">
               <ResponsiveContainer width="100%" height={300}>
@@ -1213,7 +1470,7 @@ export const AssesmentCount = () => {
         </div>
         <div className="w-full lg:w-1/3">
           <Section
-            description={<span>Cummulative Assessment</span>}
+            description={<span>CUMMULATIVE ASSESSMENT</span>}
           >
             <div className="flex flex-row">
               <CountPie />
@@ -1226,7 +1483,7 @@ export const AssesmentCount = () => {
       <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
         <div className="w-full lg:w-2/3">
           <Section
-            description={<span>Amount Assessed</span>}
+            description={<span>AMOUNT ASSESSED</span>}
           >
             <div className="flex flex-row w-full">
               <ResponsiveContainer width="100%" height={300}>
@@ -1255,7 +1512,7 @@ export const AssesmentCount = () => {
         </div>
         <div className="w-full lg:w-1/3">
           <Section
-            description={<span>Cummulative performance</span>}
+            description={<span>CUMMULATIVE PERFORMANCE</span>}
           >
             <div className="flex flex-row w-full">
               <PerfPie />
@@ -1264,10 +1521,23 @@ export const AssesmentCount = () => {
         </div>
       </div>
 
+      <div className="flex mt-10 flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
+        <div className="w-full">
+          <Section
+            description={<span>PERFORMANCE TREND</span>}
+          >
+            <div className="flex flex-row w-full">
+              <Lines />
+            </div>
+          </Section>
+        </div>
+
+      </div>
+
       <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
         <div className="w-full lg:w-3/3">
           <Section
-            description={<span>Collection Performance</span>}
+            description={<span>COLLECTION PERFORMANCE</span>}
           >
             <div className="flex flex-row w-full">
               <ResponsiveContainer width="100%" height={300}>
@@ -1302,7 +1572,7 @@ export const AssesmentCount = () => {
       <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
         <div className="w-full lg:w-2/2">
           <Section >
-            <p className="text-sm my-3 font-bold text-center">Summary</p>
+            <p className="text-sm my-3 font-bold text-center">SUMMARY</p>
             <div className="flex justify-center">
               <div className="overflow-x-auto">
                 <table className="table table-auto divide-y striped">
