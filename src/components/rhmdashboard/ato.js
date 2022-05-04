@@ -308,70 +308,70 @@ export const Lines = () => {
   const decPerfTrend = perfTrend.filter(data => data.month === "Dec");
 
   janPerfTrend.forEach((ind, i) => {
-    janApprAss = ind.assessedAmount
-    janAmtPaid = ind.amountCollected
-    janUnassessedPay = ind.unassessedAmountCollected
+    janApprAss = Number(ind.assessedAmount)
+    janAmtPaid = Number(ind.amountCollected)
+    janUnassessedPay = Number(ind.unassessedAmountCollected)
   })
 
   febPerfTrend.forEach((ind, i) => {
-    febApprAss = ind.assessedAmount
-    febAmtPaid = ind.amountCollected
-    febUnassessedPay = ind.unassessedAmountCollected
+    febApprAss = Number(ind.assessedAmount)
+    febAmtPaid = Number(ind.amountCollected)
+    febUnassessedPay = Number(ind.unassessedAmountCollected)
   })
 
   marchPerfTrend.forEach((ind, i) => {
-    marchApprAss = ind.assessedAmount
-    marchAmtPaid = ind.amountCollected
-    marchUnassessedPay = ind.unassessedAmountCollected
+    marchApprAss = Number(ind.assessedAmount)
+    marchAmtPaid = Number(ind.amountCollected)
+    marchUnassessedPay = Number(ind.unassessedAmountCollected)
   })
 
   aprilPerfTrend.forEach((ind, i) => {
-    aprilApprAss = ind.assessedAmount
-    aprilAmtPaid = ind.amountCollected
-    aprilUnassessedPay = ind.unassessedAmountCollected
+    aprilApprAss = Number(ind.assessedAmount)
+    aprilAmtPaid = Number(ind.amountCollected)
+    aprilUnassessedPay = Number(ind.unassessedAmountCollected)
   })
 
   mayPerfTrend.forEach((ind, i) => {
-    mayApprAss = ind.assessedAmount
-    mayAmtPaid = ind.amountCollected
-    mayUnassessedPay = ind.unassessedAmountCollected
+    mayApprAss = Number(ind.assessedAmount)
+    mayAmtPaid = Number(ind.amountCollected)
+    mayUnassessedPay = Number(ind.unassessedAmountCollected)
   })
 
   junePerfTrend.forEach((ind, i) => {
-    juneApprAss = ind.assessedAmount
-    juneAmtPaid = ind.amountCollected
-    juneUnassessedPay = ind.unassessedAmountCollected
+    juneApprAss = Number(ind.assessedAmount)
+    juneAmtPaid = Number(ind.amountCollected)
+    juneUnassessedPay = Number(ind.unassessedAmountCollected)
   })
 
   julyPerfTrend.forEach((ind, i) => {
-    julyApprAss = ind.assessedAmount
-    julyAmtPaid = ind.amountCollected
-    julyUnassessedPay = ind.unassessedAmountCollected
+    julyApprAss = Number(ind.assessedAmount)
+    julyAmtPaid = Number(ind.amountCollected)
+    julyUnassessedPay = Number(ind.unassessedAmountCollected)
   })
   augPerfTrend.forEach((ind, i) => {
-    augApprAss = ind.assessedAmount
-    augAmtPaid = ind.amountCollected
-    augUnassessedPay = ind.unassessedAmountCollected
+    augApprAss = Number(ind.assessedAmount)
+    augAmtPaid = Number(ind.amountCollected)
+    augUnassessedPay = Number(ind.unassessedAmountCollected)
   })
   septPerfTrend.forEach((ind, i) => {
-    septApprAss = ind.assessedAmount
-    septAmtPaid = ind.amountCollected
-    septUnassessedPay = ind.unassessedAmountCollected
+    septApprAss = Number(ind.assessedAmount)
+    septAmtPaid = Number(ind.amountCollected)
+    septUnassessedPay = Number(ind.unassessedAmountCollected)
   })
   octPerfTrend.forEach((ind, i) => {
-    octApprAss = ind.assessedAmount
-    octAmtPaid = ind.amountCollected
-    octUnassessedPay = ind.unassessedAmountCollected
+    octApprAss = Number(ind.assessedAmount)
+    octAmtPaid = Number(ind.amountCollected)
+    octUnassessedPay = Number(ind.unassessedAmountCollected)
   })
   novPerfTrend.forEach((ind, i) => {
-    novApprAss = ind.assessedAmount
-    novAmtPaid = ind.amountCollected
-    novUnassessedPay = ind.unassessedAmountCollected
+    novApprAss = Number(ind.assessedAmount)
+    novAmtPaid = Number(ind.amountCollected)
+    novUnassessedPay = Number(ind.unassessedAmountCollected)
   })
   decPerfTrend.forEach((ind, i) => {
-    decApprAss = ind.assessedAmount
-    decAmtPaid = ind.amountCollected
-    decUnassessedPay = ind.unassessedAmountCollected
+    decApprAss = Number(ind.assessedAmount)
+    decAmtPaid = Number(ind.amountCollected)
+    decUnassessedPay = Number(ind.unassessedAmountCollected)
   })
 
 
