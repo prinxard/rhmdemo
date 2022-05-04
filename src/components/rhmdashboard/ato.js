@@ -668,7 +668,7 @@ export const ATOPie = () => {
         </div>
       )}
       <div>
-        <p className="font-bold flex justify-center">{taxOff}</p>
+        <p className="font-bold flex justify-center uppercase text-lg">{taxOff}</p>
         {overViewAss.map((ind, i) => (
           <div className="flex my-10 flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
             <div className="w-full lg:w-1/4">
