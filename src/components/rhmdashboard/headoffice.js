@@ -554,7 +554,7 @@ export const AssesmentCount = () => {
   const [items, setPost] = useState(() => []);
   const [total, setTotal] = useState(() => []);
 
-  
+
 
   useEffect(() => {
     setisFetching(true)
@@ -1291,6 +1291,8 @@ export const AssesmentCount = () => {
         for (let i = 0; i < HQsummary.length; i++) {
           let rec = HQsummary[i];
           rec.serialNo = num + i
+       
+          // console.log("station", rec.station);
           // rec.submittedAmount = (rec.submittedAmount)
           rec.submittedCount = Number(rec.submittedCount)
           rec.approvedCount = Number(rec.approvedCount)
@@ -1307,12 +1309,6 @@ export const AssesmentCount = () => {
           subCountSum.push(rec.submittedCount);
           unassessedColSum.push(rec.unassessedAmountCollected);
           unpaidAmountCalSum.push(rec.unpaidAmountCal)
-
-          // subCountSum.push(rec.submittedCount)
-          // apprAmtSum.push(rec.approvedAmount);
-          // paidAmtSum.push(rec.assessedAmountCollected);
-          // unpaidAmtSum.push(rec.totalRelief);
-          // console.log("unpaidAmountCalSum Array", unpaidAmountCalSum);
 
 
           rec.submittedCount = formatNumber(rec.submittedCount)
@@ -1352,13 +1348,7 @@ export const AssesmentCount = () => {
           (preVal, curVal) => preVal + curVal,
           0
         );
-        // console.log("totalSubmittedAmt", totalSubmittedAmt);
-        // console.log("totalPaidAmtSum", totalPaidAmtSum);
-        // console.log("totalApprAmtSum", totalApprAmtSum);
-        // console.log("totalapprCount", totalapprCount);
-        // console.log("totalsubCountSum", totalsubCountSum);
-        // console.log("totalUnassessedAmt", totalUnassessedAmt);
-        // console.log("totalUnpaidAmt", totalUnpaidAmt);
+
 
         sum.totalSubmittedAmt = totalSubmittedAmt;
         sum.totalPaidAmtSum = totalPaidAmtSum;
@@ -1368,8 +1358,8 @@ export const AssesmentCount = () => {
         sum.totalUnassessedAmt = totalUnassessedAmt;
         sum.totalUnpaidAmt = totalUnpaidAmt;
 
-        // sum.totalSubmittedAmtSum = totalSubmittedAmtSum;
-
+        records.find(v => v.station === "Okehi/Adavi").station = "Adavi/Okehi";
+        
         setPost(() => records);
         setTotal(() => sum);
       }
