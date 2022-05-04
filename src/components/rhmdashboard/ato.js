@@ -484,7 +484,7 @@ export const ATOPie = () => {
   const [isFetching, setIsFetching] = useState(() => false);
   const [recentTotal, setRecentTotal] = useState(() => []);
   const [topTotal, setTopTotal] = useState(() => []);
-
+  
   const { config, palettes, auth } = useSelector(
     (state) => ({
       config: state.config,
@@ -683,7 +683,7 @@ export const ATOPie = () => {
             <div className="w-full lg:w-1/4">
               <Widget1
                 color="red"
-                title="Submitted Assessments"
+                title="Pending Assessments"
                 description={formatNumber(ind.submittedCount)}
                 right={<PendingRemittance />}
               />

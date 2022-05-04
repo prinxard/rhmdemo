@@ -101,7 +101,8 @@ export const IconTabs = ({ tabs, data }) => {
         {tabs.map((tab) => (
           <div key={uuidv4()} className="flex-none">
             <button
-              onClick={() => {
+              onClick={(event) => { 
+                event.preventDefault()
                 setOpenTab(tab.index); 
               }}
               className={`tab flex flex-row items-center justify-around ${

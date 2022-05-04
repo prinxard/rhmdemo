@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import Section from "../dashboard/section";
 import { PieChart, Pie, Cell, LineChart, Line } from "recharts";
 import {
@@ -479,6 +479,7 @@ export const Lines = () => {
   );
 }
 
+
 export const PerfPie = () => {
 
   const [cummulativePerf, setCummulativePerf] = useState([])
@@ -553,6 +554,7 @@ export const AssesmentCount = () => {
   const [items, setPost] = useState(() => []);
   const [total, setTotal] = useState(() => []);
 
+  
 
   useEffect(() => {
     setisFetching(true)
@@ -1378,7 +1380,7 @@ export const AssesmentCount = () => {
     fetchPost();
   }, []);
 
-  console.log("total", total);
+  // console.log("total", total);
 
   return (
     <>
@@ -1411,7 +1413,7 @@ export const AssesmentCount = () => {
           <div className="w-full lg:w-1/4">
             <Widget1
               color="red"
-              title="Submitted Assessments"
+              title="Pending Assessments"
               description={formatNumber(ind.submittedCount)}
               right={<PendingRemittance />}
             />
@@ -1621,3 +1623,4 @@ export const AssesmentCount = () => {
     </>
   );
 }
+// export const MemoizedMovie = memo(AssesmentCount);

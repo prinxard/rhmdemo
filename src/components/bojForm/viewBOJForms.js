@@ -325,7 +325,7 @@ let previousTaxFigure = previousTaxFigureInit.replace(/,/g, '')
   } else {
     dev_levy = "1000"
   }
-console.log("dev_levy", dev_levy);
+// console.log("dev_levy", dev_levy);
 
 
 
