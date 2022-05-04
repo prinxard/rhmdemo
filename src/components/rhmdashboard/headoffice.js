@@ -1548,8 +1548,8 @@ export const AssesmentCount = () => {
                   stackOffset="sign"
                   margin={{
                     top: 5,
-                    right: 30,
-                    left: 20,
+                    right: 15,
+                    left: 10,
                     bottom: 5
                   }}
                 >
