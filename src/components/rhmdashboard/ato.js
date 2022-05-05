@@ -668,7 +668,14 @@ export const ATOPie = React.memo(() => {
         </div>
       )}
       <div>
-        <p className="font-bold flex justify-center uppercase text-lg">{taxOff}</p>
+
+        <div>
+          {taxOff === "Okehi/Adavi" ?
+            <p className="font-bold flex justify-center uppercase text-lg">Adavi/Okehi</p> :
+            <p className="font-bold flex justify-center uppercase text-lg">{taxOff}</p>
+          }
+        </div>
+
         {overViewAss.map((ind, i) => (
           <div className="flex my-10 flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
             <div className="w-full lg:w-1/4">

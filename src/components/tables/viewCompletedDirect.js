@@ -523,10 +523,21 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
         <table className="table-auto">
           <tbody>
             <tr>
+              
               <td className="font-bold">TAX STATION</td>
-              {payerArr.map((el, i) =>
+
+              {payerArr.map((data, idx) => (
+                        <div key={idx}>
+                          {data.tax_office === "Okehi/Adavi" ?
+                            <p>Adavi/Okehi</p> :
+                            <p>{data.tax_office}</p>
+                          }
+                        </div>
+                      ))}
+
+              {/* {payerArr.map((el, i) =>
                 <td className="pl-3" key={i}>{el.tax_office}</td>
-              )}
+              )} */}
             </tr>
             <tr>
               <td className="font-bold">KGTIN</td>
