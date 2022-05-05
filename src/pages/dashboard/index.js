@@ -16,10 +16,43 @@ import {
 } from "recharts";
 import { AssesmentCount } from '../../components/rhmdashboard/headoffice';
 import { ATOPie } from '../../components/rhmdashboard/ato';
-import { memo } from 'react';
+import { memo, useEffect, useState } from 'react';
+import UseFetcher from '../../components/fetcher/useFetcher';
+import url from "../../config/url";
+
 
 
 const Index = () => {
+
+  const[assessData, setAssessData] = useState([])
+  const[cummulativeAssess, setCummAssess] = useState([])
+  const[assessOverviewVariable, setAssessOverView] = useState([])
+  const[cumPerformanceVariable, setCumPerformance] = useState([])
+
+  const { data, isLoading, isError } = UseFetcher(
+    `${url.BASE_URL}forma/dashboard`
+  );
+
+
+  useEffect(() => {
+    if (data) {
+      const assessmentCount = data.assessmentCount
+      const assessmentOverview = data.assessmentOverview
+      const assessmentCumm = data.cummulativeAssessment
+      const cummPerf = data.cummulativePerfomance
+      setAssessData(assessmentCount)
+      setAssessOverView(assessmentOverview)
+      setCummAssess(assessmentCumm)
+      setCumPerformance(cummPerf)
+      console.log("cummPerfFunct", cummPerf);
+      
+    }
+  }, [data]);
+  
+  console.log("cumPerformanceParent", cumPerformanceVariable);
+
+  // const assessmentCountData = data
+  // console.log("assessmentCountData", assessmentCountData);
 
   const tabsWithIcons = [
     {
@@ -32,7 +65,12 @@ const Index = () => {
       content: (
         <>
           <div>
-            <AssesmentCount />
+            {/* <AssesmentCount testCountData={assessmentCountData} /> */}
+            <AssesmentCount  assessCountData={assessData} 
+            assessOverviewData={assessOverviewVariable} 
+            cummulativeAssess ={cummulativeAssess}
+            cumPerformance ={cumPerformanceVariable}
+            />
           </div>
         </>
       ),
