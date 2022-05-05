@@ -484,7 +484,7 @@ export const ATOPie = () => {
   const [isFetching, setIsFetching] = useState(() => false);
   const [recentTotal, setRecentTotal] = useState(() => []);
   const [topTotal, setTopTotal] = useState(() => []);
-  
+
   const { config, palettes, auth } = useSelector(
     (state) => ({
       config: state.config,
@@ -650,7 +650,7 @@ export const ATOPie = () => {
     };
     fetchPost();
   }, []);
- 
+
   return (
     <>
       {isFetching && (
@@ -668,7 +668,14 @@ export const ATOPie = () => {
         </div>
       )}
       <div>
-        <p className="font-bold flex justify-center uppercase text-lg">{taxOff}</p>
+
+        <div>
+          {taxOff === "Okehi/Adavi" ?
+            <p className="font-bold flex justify-center uppercase text-lg">Adavi/Okehi</p> :
+            <p className="font-bold flex justify-center uppercase text-lg">{taxOff}</p>
+          }
+        </div>
+
         {overViewAss.map((ind, i) => (
           <div className="flex my-10 flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
             <div className="w-full lg:w-1/4">
