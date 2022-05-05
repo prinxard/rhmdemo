@@ -16,6 +16,7 @@ import {
 } from "recharts";
 import { AssesmentCount } from '../../components/rhmdashboard/headoffice';
 import { ATOPie } from '../../components/rhmdashboard/ato';
+import { memo } from 'react';
 
 
 const Index = () => {

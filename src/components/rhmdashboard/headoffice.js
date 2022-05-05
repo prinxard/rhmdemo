@@ -545,7 +545,7 @@ export const PerfPie = () => {
   );
 }
 
-export const AssesmentCount = () => {
+export const AssesmentCount = React.memo(() => {
   const [allTaxOverView, setAllOverview] = useState([])
   const [assessCount, setAssessCount] = useState([])
   const [isFetching, setisFetching] = useState(false)
@@ -1539,7 +1539,7 @@ export const AssesmentCount = () => {
                   margin={{
                     top: 5,
                     right: 15,
-                    left: 10,
+                    left: 15,
                     bottom: 5
                   }}
                 >
@@ -1612,5 +1612,5 @@ export const AssesmentCount = () => {
 
     </>
   );
-}
+})
 // export const MemoizedMovie = memo(AssesmentCount);

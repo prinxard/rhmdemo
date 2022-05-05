@@ -477,14 +477,14 @@ export const Lines = () => {
   );
 }
 
-export const ATOPie = () => {
+export const ATOPie = React.memo(() => {
   const [items, setPost] = useState(() => []);
   const [topAss, setTopAss] = useState(() => []);
   const [overViewAss, setOverView] = useState(() => []);
   const [isFetching, setIsFetching] = useState(() => false);
   const [recentTotal, setRecentTotal] = useState(() => []);
   const [topTotal, setTopTotal] = useState(() => []);
-  
+
   const { config, palettes, auth } = useSelector(
     (state) => ({
       config: state.config,
@@ -650,7 +650,7 @@ export const ATOPie = () => {
     };
     fetchPost();
   }, []);
- 
+
   return (
     <>
       {isFetching && (
@@ -840,4 +840,4 @@ export const ATOPie = () => {
 
     </>
   );
-}
+})
