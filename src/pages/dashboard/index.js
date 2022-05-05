@@ -28,6 +28,9 @@ const Index = () => {
   const[cummulativeAssess, setCummAssess] = useState([])
   const[assessOverviewVariable, setAssessOverView] = useState([])
   const[cumPerformanceVariable, setCumPerformance] = useState([])
+  const[perfTrend, setPerfTrend] = useState([])
+  const[colPerformance, setColPerformance] = useState([])
+  const[summaryItems, setSummaryItems] = useState([])
 
   const { data, isLoading, isError } = UseFetcher(
     `${url.BASE_URL}forma/dashboard`
@@ -40,16 +43,21 @@ const Index = () => {
       const assessmentOverview = data.assessmentOverview
       const assessmentCumm = data.cummulativeAssessment
       const cummPerf = data.cummulativePerfomance
+      const perfTrendData = data.perfomanceTrend
+      const collectPerf = data.collectionPerfomance
+      const summaryData = data.summary
       setAssessData(assessmentCount)
       setAssessOverView(assessmentOverview)
       setCummAssess(assessmentCumm)
       setCumPerformance(cummPerf)
-      console.log("cummPerfFunct", cummPerf);
+      setPerfTrend(perfTrendData)
+      setColPerformance(collectPerf)
+      setSummaryItems(summaryData)
       
     }
   }, [data]);
   
-  console.log("cumPerformanceParent", cumPerformanceVariable);
+  console.log("summaryItems", summaryItems);
 
   // const assessmentCountData = data
   // console.log("assessmentCountData", assessmentCountData);
@@ -68,8 +76,11 @@ const Index = () => {
             {/* <AssesmentCount testCountData={assessmentCountData} /> */}
             <AssesmentCount  assessCountData={assessData} 
             assessOverviewData={assessOverviewVariable} 
-            cummulativeAssess ={cummulativeAssess}
-            cumPerformance ={cumPerformanceVariable}
+            cummulativeAssess={cummulativeAssess}
+            cumPerformance={cumPerformanceVariable}
+            perfTrend={perfTrend}
+            colPerformance={colPerformance}
+            summaryItems={summaryItems}
             />
           </div>
         </>
