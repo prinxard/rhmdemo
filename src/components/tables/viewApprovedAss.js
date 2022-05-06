@@ -326,7 +326,6 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
   const assId = props.assId
   const payerAyy = props.payerAyy
   const assobj = props.assobj
-  console.log(assobj);
   const taxcal = props.taxcal
   const childObj = props.childObj
   const resAddObj = props.resAddObj
