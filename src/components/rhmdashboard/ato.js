@@ -236,7 +236,7 @@ export const Lines = () => {
         let itemsBody = res.data.body
         let trendArray = itemsBody.atoPerfomanceTrend
         setPerTrend(trendArray)
-
+        
       } catch (e) {
         console.log(e);
       }
@@ -540,7 +540,6 @@ export const ATOPie = React.memo(() => {
       try {
         let res = await axios.get(`${url.BASE_URL}forma/dashboard`);
         let itemsBody = res.data.body
-        console.log(itemsBody);
         let recent = itemsBody.atoRecentAssessment;
         let topAssess = itemsBody.atoTopAssessment;
         let overView = itemsBody.atoAssessmentOverview

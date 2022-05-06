@@ -161,8 +161,8 @@ const renderCustomizedLabel2 = ({
 
 
 
-export const CountPie = ({cummulativeAssess}) => {
- 
+export const CountPie = ({ cummulativeAssess }) => {
+
   const cummApproved = cummulativeAssess.filter(data => data.status === "Approved");
   const cummSubmitted = cummulativeAssess.filter(data => data.status === "Submitted");
 
@@ -206,7 +206,7 @@ export const CountPie = ({cummulativeAssess}) => {
   );
 }
 
-export const Lines = ({perfTrend}) => {
+export const Lines = ({ perfTrend }) => {
 
   let janApprAss
   let janAmtPaid
@@ -440,7 +440,7 @@ export const Lines = ({perfTrend}) => {
 }
 
 
-export const PerfPie = ({cumPerformance}) => {
+export const PerfPie = ({ cumPerformance }) => {
 
 
   let amountCol
@@ -489,12 +489,12 @@ export const PerfPie = ({cumPerformance}) => {
 }
 
 export const AssesmentCount = ({
-   assessCountData, 
-  assessOverviewData, 
-  cummulativeAssess, 
-  cumPerformance, 
-  perfTrend, 
-  colPerformance, 
+  assessCountData,
+  assessOverviewData,
+  cummulativeAssess,
+  cumPerformance,
+  perfTrend,
+  colPerformance,
   summaryItems }) => {
 
 
@@ -699,606 +699,596 @@ export const AssesmentCount = ({
 
 
   //   // Assessed Amount 
-    const ajaokutaApprovedAssAmount = assessCountData.filter(data => data.tax_office === "Ajaokuta" && data.status === "Approved");
-    const ajaokutaSubmittedAssAmount = assessCountData.filter(data => data.tax_office === "Ajaokuta" && data.status === "Submitted");
+  const ajaokutaApprovedAssAmount = assessCountData.filter(data => data.tax_office === "Ajaokuta" && data.status === "Approved");
+  const ajaokutaSubmittedAssAmount = assessCountData.filter(data => data.tax_office === "Ajaokuta" && data.status === "Submitted");
 
-    const lokoja2ApprovedAssAmount = assessCountData.filter(data => data.tax_office === "Lokoja 2" && data.status === "Approved");
-    const lokoja2SubmittedAssAmount = assessCountData.filter(data => data.tax_office === "Lokoja 2" && data.status === "Submitted");
+  const lokoja2ApprovedAssAmount = assessCountData.filter(data => data.tax_office === "Lokoja 2" && data.status === "Approved");
+  const lokoja2SubmittedAssAmount = assessCountData.filter(data => data.tax_office === "Lokoja 2" && data.status === "Submitted");
 
-    const headOfficeApprovedAssAmount = assessCountData.filter(data => data.tax_office === "Head Office" && data.status === "Approved");
-    const headOfficeSubmittedAssAmount = assessCountData.filter(data => data.tax_office === "Head Office" && data.status === "Submitted");
+  const headOfficeApprovedAssAmount = assessCountData.filter(data => data.tax_office === "Head Office" && data.status === "Approved");
+  const headOfficeSubmittedAssAmount = assessCountData.filter(data => data.tax_office === "Head Office" && data.status === "Submitted");
 
-    const okeneApprovedAssAmount = assessCountData.filter(data => data.tax_office === "Okene" && data.status === "Approved");
-    const okeneSubmittedAssAmount = assessCountData.filter(data => data.tax_office === "Okene" && data.status === "Submitted");
+  const okeneApprovedAssAmount = assessCountData.filter(data => data.tax_office === "Okene" && data.status === "Approved");
+  const okeneSubmittedAssAmount = assessCountData.filter(data => data.tax_office === "Okene" && data.status === "Submitted");
 
-    const isanluApprovedAssAmount = assessCountData.filter(data => data.tax_office === "Isanlu" && data.status === "Approved");
-    const isanluSubmittedAssAmount = assessCountData.filter(data => data.tax_office === "Isanlu" && data.status === "Submitted");
+  const isanluApprovedAssAmount = assessCountData.filter(data => data.tax_office === "Isanlu" && data.status === "Approved");
+  const isanluSubmittedAssAmount = assessCountData.filter(data => data.tax_office === "Isanlu" && data.status === "Submitted");
 
-    const kabbaApprovedAssAmount = assessCountData.filter(data => data.tax_office === "Kabba" && data.status === "Approved");
-    const kabbaSubmittedAssAmount = assessCountData.filter(data => data.tax_office === "Kabba" && data.status === "Submitted");
+  const kabbaApprovedAssAmount = assessCountData.filter(data => data.tax_office === "Kabba" && data.status === "Approved");
+  const kabbaSubmittedAssAmount = assessCountData.filter(data => data.tax_office === "Kabba" && data.status === "Submitted");
 
-    const idahApprovedAssAmount = assessCountData.filter(data => data.tax_office === "Idah" && data.status === "Approved");
-    const idahSubmittedAssAmount = assessCountData.filter(data => data.tax_office === "Idah" && data.status === "Submitted");
+  const idahApprovedAssAmount = assessCountData.filter(data => data.tax_office === "Idah" && data.status === "Approved");
+  const idahSubmittedAssAmount = assessCountData.filter(data => data.tax_office === "Idah" && data.status === "Submitted");
 
-    const kotoApprovedAssAmount = assessCountData.filter(data => data.tax_office === "Kotonkarfe" && data.status === "Approved");
-    const kotoSubmittedAssAmount = assessCountData.filter(data => data.tax_office === "Kotonkarfe" && data.status === "Submitted");
+  const kotoApprovedAssAmount = assessCountData.filter(data => data.tax_office === "Kotonkarfe" && data.status === "Approved");
+  const kotoSubmittedAssAmount = assessCountData.filter(data => data.tax_office === "Kotonkarfe" && data.status === "Submitted");
 
-    const ankpaApprovedAssAmount = assessCountData.filter(data => data.tax_office === "Ankpa" && data.status === "Approved");
-    const ankpaSubmittedAssAmount = assessCountData.filter(data => data.tax_office === "Ankpa" && data.status === "Submitted");
+  const ankpaApprovedAssAmount = assessCountData.filter(data => data.tax_office === "Ankpa" && data.status === "Approved");
+  const ankpaSubmittedAssAmount = assessCountData.filter(data => data.tax_office === "Ankpa" && data.status === "Submitted");
 
-    const ayingbaApprovedAssAmount = assessCountData.filter(data => data.tax_office === "Anyigba" && data.status === "Approved");
-    const ayingbaSubmittedAssAmount = assessCountData.filter(data => data.tax_office === "Anyigba" && data.status === "Submitted");
+  const ayingbaApprovedAssAmount = assessCountData.filter(data => data.tax_office === "Anyigba" && data.status === "Approved");
+  const ayingbaSubmittedAssAmount = assessCountData.filter(data => data.tax_office === "Anyigba" && data.status === "Submitted");
 
-    const lokoja1ApprovedAssAmount = assessCountData.filter(data => data.tax_office === "Lokoja 1" && data.status === "Approved");
-    const lokoja1SubmittedAssAmount = assessCountData.filter(data => data.tax_office === "Lokoja 1" && data.status === "Submitted");
+  const lokoja1ApprovedAssAmount = assessCountData.filter(data => data.tax_office === "Lokoja 1" && data.status === "Approved");
+  const lokoja1SubmittedAssAmount = assessCountData.filter(data => data.tax_office === "Lokoja 1" && data.status === "Submitted");
 
-    const adaviApprovedAssAmount = assessCountData.filter(data => data.tax_office === "Okehi/Adavi" && data.status === "Approved");
-    const adaviSubmittedAssAmount = assessCountData.filter(data => data.tax_office === "Okehi/Adavi" && data.status === "Submitted");
+  const adaviApprovedAssAmount = assessCountData.filter(data => data.tax_office === "Okehi/Adavi" && data.status === "Approved");
+  const adaviSubmittedAssAmount = assessCountData.filter(data => data.tax_office === "Okehi/Adavi" && data.status === "Submitted");
 
-    ajaokutaApprovedAssAmount.forEach((ind, i) => {
-      AjaokutaapprAssessedAmt = ind.amount
-    })
+  ajaokutaApprovedAssAmount.forEach((ind, i) => {
+    AjaokutaapprAssessedAmt = ind.amount
+  })
 
-    ajaokutaSubmittedAssAmount.forEach((ind, i) => {
-      AjaokutaSubAssessedAmt = ind.amount
-    })
+  ajaokutaSubmittedAssAmount.forEach((ind, i) => {
+    AjaokutaSubAssessedAmt = ind.amount
+  })
 
-    lokoja2ApprovedAssAmount.forEach((ind, i) => {
-      lokoja2ApprAssessedAmt = ind.amount
-    })
+  lokoja2ApprovedAssAmount.forEach((ind, i) => {
+    lokoja2ApprAssessedAmt = ind.amount
+  })
 
-    lokoja2SubmittedAssAmount.forEach((ind, i) => {
-      lokoja2SubAssessedAmt = ind.amount
-    })
+  lokoja2SubmittedAssAmount.forEach((ind, i) => {
+    lokoja2SubAssessedAmt = ind.amount
+  })
 
-    lokoja1ApprovedAssAmount.forEach((ind, i) => {
-      lokoja1ApprAssessedAmt = ind.amount
-    })
+  lokoja1ApprovedAssAmount.forEach((ind, i) => {
+    lokoja1ApprAssessedAmt = ind.amount
+  })
 
-    lokoja1SubmittedAssAmount.forEach((ind, i) => {
-      lokoja1SubAssessedAmt = ind.amount
-    })
+  lokoja1SubmittedAssAmount.forEach((ind, i) => {
+    lokoja1SubAssessedAmt = ind.amount
+  })
 
-    headOfficeApprovedAssAmount.forEach((ind, i) => {
-      headOfficeApprAssessedAmt = ind.amount
-    })
+  headOfficeApprovedAssAmount.forEach((ind, i) => {
+    headOfficeApprAssessedAmt = ind.amount
+  })
 
-    headOfficeSubmittedAssAmount.forEach((ind, i) => {
-      headOfficeSubAssessedAmt = ind.amount
-    })
-
-
-    okeneApprovedAssAmount.forEach((ind, i) => {
-      okeneApprAssessedAmt = ind.amount
-    })
-
-    okeneSubmittedAssAmount.forEach((ind, i) => {
-      okeneSubAssessedAmt = ind.amount
-    })
-
-    isanluApprovedAssAmount.forEach((ind, i) => {
-      isanluApprAssessedAmt = ind.amount
-    })
-
-    isanluSubmittedAssAmount.forEach((ind, i) => {
-      isanluSubAssessedAmt = ind.amount
-    })
-
-    kabbaApprovedAssAmount.forEach((ind, i) => {
-      kabbaApprAssessedAmt = ind.amount
-    })
-
-    kabbaSubmittedAssAmount.forEach((ind, i) => {
-      kabbaSubAssessedAmt = ind.amount
-    })
-
-    idahApprovedAssAmount.forEach((ind, i) => {
-      idahApprAssessedAmt = ind.amount
-    })
-
-    idahSubmittedAssAmount.forEach((ind, i) => {
-      idahSubAssessedAmt = ind.amount
-    })
-
-    kotoApprovedAssAmount.forEach((ind, i) => {
-      kotoApprAssessedAmt = ind.amount
-    })
-    kotoSubmittedAssAmount.forEach((ind, i) => {
-      kotoSubAssessedAmt = ind.amount
-    })
-
-    ankpaApprovedAssAmount.forEach((ind, i) => {
-      ankpaApprAssessedAmt = ind.amount
-    })
-    ankpaSubmittedAssAmount.forEach((ind, i) => {
-      ankpaSubAssessedAmt = ind.amount
-    })
+  headOfficeSubmittedAssAmount.forEach((ind, i) => {
+    headOfficeSubAssessedAmt = ind.amount
+  })
 
 
-    ayingbaApprovedAssAmount.forEach((ind, i) => {
-      ayingbaApprAssessedAmt = ind.amount
-    })
-    ayingbaSubmittedAssAmount.forEach((ind, i) => {
-      ayingbaSubAssessedAmt = ind.amount
-    })
+  okeneApprovedAssAmount.forEach((ind, i) => {
+    okeneApprAssessedAmt = ind.amount
+  })
 
-    adaviApprovedAssAmount.forEach((ind, i) => {
-      adaviApprAssessedAmt = ind.amount
-    })
-    adaviSubmittedAssAmount.forEach((ind, i) => {
-      adaviSubAssessedAmt = ind.amount
-    })
+  okeneSubmittedAssAmount.forEach((ind, i) => {
+    okeneSubAssessedAmt = ind.amount
+  })
+
+  isanluApprovedAssAmount.forEach((ind, i) => {
+    isanluApprAssessedAmt = ind.amount
+  })
+
+  isanluSubmittedAssAmount.forEach((ind, i) => {
+    isanluSubAssessedAmt = ind.amount
+  })
+
+  kabbaApprovedAssAmount.forEach((ind, i) => {
+    kabbaApprAssessedAmt = ind.amount
+  })
+
+  kabbaSubmittedAssAmount.forEach((ind, i) => {
+    kabbaSubAssessedAmt = ind.amount
+  })
+
+  idahApprovedAssAmount.forEach((ind, i) => {
+    idahApprAssessedAmt = ind.amount
+  })
+
+  idahSubmittedAssAmount.forEach((ind, i) => {
+    idahSubAssessedAmt = ind.amount
+  })
+
+  kotoApprovedAssAmount.forEach((ind, i) => {
+    kotoApprAssessedAmt = ind.amount
+  })
+  kotoSubmittedAssAmount.forEach((ind, i) => {
+    kotoSubAssessedAmt = ind.amount
+  })
+
+  ankpaApprovedAssAmount.forEach((ind, i) => {
+    ankpaApprAssessedAmt = ind.amount
+  })
+  ankpaSubmittedAssAmount.forEach((ind, i) => {
+    ankpaSubAssessedAmt = ind.amount
+  })
 
 
-    const amountAssessed = [
-      {
-        name: "Lk2",
-        submitted: lokoja2SubAssessedAmt,
-        approved: lokoja2ApprAssessedAmt,
-      },
-      {
-        name: "Lk1",
-        submitted: lokoja1SubAssessedAmt,
-        approved: lokoja1ApprAssessedAmt,
-      },
-      {
-        name: "Adv",
-        submitted: adaviSubAssessedAmt,
-        approved: adaviApprAssessedAmt,
-      },
-      {
-        name: "HQ",
-        submitted: headOfficeSubAssessedAmt,
-        approved: headOfficeApprAssessedAmt,
-      },
-      {
-        name: "Okn",
-        submitted: okeneSubAssessedAmt,
-        approved: okeneApprAssessedAmt,
-      },
-      {
-        name: "Isn",
-        submitted: isanluSubAssessedAmt,
-        approved: isanluApprAssessedAmt,
-      },
-      {
-        name: "Kbb",
-        submitted: kabbaSubAssessedAmt,
-        approved: kabbaApprAssessedAmt,
-      },
-      {
-        name: "Idh",
-        submitted: idahSubAssessedAmt,
-        approved: idahApprAssessedAmt,
-      },
-      {
-        name: "Kot",
-        submitted: kotoSubAssessedAmt,
-        approved: kotoApprAssessedAmt,
-      },
-      {
-        name: "Ankp",
-        submitted: ankpaSubAssessedAmt,
-        approved: ankpaApprAssessedAmt,
-      },
-      {
-        name: "Ajk",
-        submitted: AjaokutaSubAssessedAmt,
-        approved: AjaokutaapprAssessedAmt,
-      },
-      {
-        name: "Any",
-        submitted: ayingbaSubAssessedAmt,
-        approved: ayingbaApprAssessedAmt,
-      }
-    ];
+  ayingbaApprovedAssAmount.forEach((ind, i) => {
+    ayingbaApprAssessedAmt = ind.amount
+  })
+  ayingbaSubmittedAssAmount.forEach((ind, i) => {
+    ayingbaSubAssessedAmt = ind.amount
+  })
+
+  adaviApprovedAssAmount.forEach((ind, i) => {
+    adaviApprAssessedAmt = ind.amount
+  })
+  adaviSubmittedAssAmount.forEach((ind, i) => {
+    adaviSubAssessedAmt = ind.amount
+  })
+
+
+  const amountAssessed = [
+    {
+      name: "Lk2",
+      submitted: lokoja2SubAssessedAmt,
+      approved: lokoja2ApprAssessedAmt,
+    },
+    {
+      name: "Lk1",
+      submitted: lokoja1SubAssessedAmt,
+      approved: lokoja1ApprAssessedAmt,
+    },
+    {
+      name: "Adv",
+      submitted: adaviSubAssessedAmt,
+      approved: adaviApprAssessedAmt,
+    },
+    {
+      name: "HQ",
+      submitted: headOfficeSubAssessedAmt,
+      approved: headOfficeApprAssessedAmt,
+    },
+    {
+      name: "Okn",
+      submitted: okeneSubAssessedAmt,
+      approved: okeneApprAssessedAmt,
+    },
+    {
+      name: "Isn",
+      submitted: isanluSubAssessedAmt,
+      approved: isanluApprAssessedAmt,
+    },
+    {
+      name: "Kbb",
+      submitted: kabbaSubAssessedAmt,
+      approved: kabbaApprAssessedAmt,
+    },
+    {
+      name: "Idh",
+      submitted: idahSubAssessedAmt,
+      approved: idahApprAssessedAmt,
+    },
+    {
+      name: "Kot",
+      submitted: kotoSubAssessedAmt,
+      approved: kotoApprAssessedAmt,
+    },
+    {
+      name: "Ankp",
+      submitted: ankpaSubAssessedAmt,
+      approved: ankpaApprAssessedAmt,
+    },
+    {
+      name: "Ajk",
+      submitted: AjaokutaSubAssessedAmt,
+      approved: AjaokutaapprAssessedAmt,
+    },
+    {
+      name: "Any",
+      submitted: ayingbaSubAssessedAmt,
+      approved: ayingbaApprAssessedAmt,
+    }
+  ];
 
   //   // collection performance
 
-    // Ajaokuta variables
-    let AjkamountCollected
-    let AjkassessedAmount
-    let AjkunassessedAmountCollected
-    let AjkOutstanding
+  // Ajaokuta variables
+  let AjkamountCollected
+  let AjkassessedAmount
+  let AjkunassessedAmountCollected
+  let AjkOutstanding
 
-    // lokoja 1 variables
-    let lk1mountCollected
-    let lk1assessedAmount
-    let lk1unassessedAmountCollected
-    let lk1Outstanding
+  // lokoja 1 variables
+  let lk1mountCollected
+  let lk1assessedAmount
+  let lk1unassessedAmountCollected
+  let lk1Outstanding
 
-    // lokoja 2 variables
-    let lk2mountCollected
-    let lk2assessedAmount
-    let lk2unassessedAmountCollected
-    let lk2Outstanding
+  // lokoja 2 variables
+  let lk2mountCollected
+  let lk2assessedAmount
+  let lk2unassessedAmountCollected
+  let lk2Outstanding
 
-    // HQ variables
-    let hqmountCollected
-    let hqassessedAmount
-    let hqunassessedAmountCollected
-    let hqOutstanding
+  // HQ variables
+  let hqmountCollected
+  let hqassessedAmount
+  let hqunassessedAmountCollected
+  let hqOutstanding
 
-    // Okene variables
-    let okenemountCollected
-    let okeneassessedAmount
-    let okeneunassessedAmountCollected
-    let okeneOutstanding
+  // Okene variables
+  let okenemountCollected
+  let okeneassessedAmount
+  let okeneunassessedAmountCollected
+  let okeneOutstanding
 
-    // Isanlu variables
-    let isanlumountCollected
-    let isanluassessedAmount
-    let isanluunassessedAmountCollected
-    let isanluOutstanding
+  // Isanlu variables
+  let isanlumountCollected
+  let isanluassessedAmount
+  let isanluunassessedAmountCollected
+  let isanluOutstanding
 
-    // Kabba variables
-    let kabbamountCollected
-    let kabbaassessedAmount
-    let kabbaunassessedAmountCollected
-    let kabbaOutstanding
+  // Kabba variables
+  let kabbamountCollected
+  let kabbaassessedAmount
+  let kabbaunassessedAmountCollected
+  let kabbaOutstanding
 
-    // Idah variables
-    let idahmountCollected
-    let idahassessedAmount
-    let idahunassessedAmountCollected
-    let idahOutstanding
+  // Idah variables
+  let idahmountCollected
+  let idahassessedAmount
+  let idahunassessedAmountCollected
+  let idahOutstanding
 
-    // Adavi variables
-    let adavimountCollected
-    let adaviassessedAmount
-    let adaviunassessedAmountCollected
-    let adaviOutstanding
+  // Adavi variables
+  let adavimountCollected
+  let adaviassessedAmount
+  let adaviunassessedAmountCollected
+  let adaviOutstanding
 
-    // Anyigba variables
-    let anyigbamountCollected
-    let anyigbaassessedAmount
-    let anyigbaunassessedAmountCollected
-    let anyigbaOutstanding
+  // Anyigba variables
+  let anyigbamountCollected
+  let anyigbaassessedAmount
+  let anyigbaunassessedAmountCollected
+  let anyigbaOutstanding
 
-    // Koto variables
-    let kotomountCollected
-    let kotoassessedAmount
-    let kotounassessedAmountCollected
-    let kotoOutstanding
+  // Koto variables
+  let kotomountCollected
+  let kotoassessedAmount
+  let kotounassessedAmountCollected
+  let kotoOutstanding
 
-    // Ankpa variables
-    let ankpamountCollected
-    let ankpaassessedAmount
-    let ankpaunassessedAmountCollected
-    let ankpaOutstanding
+  // Ankpa variables
+  let ankpamountCollected
+  let ankpaassessedAmount
+  let ankpaunassessedAmountCollected
+  let ankpaOutstanding
 
-    const ajaokutaColPerf = colPerformance.filter(data => data.tax_office === "Ajaokuta");
-    const lk1ColPerf = colPerformance.filter(data => data.tax_office === "Lokoja 1");
-    const lk2ColPerf = colPerformance.filter(data => data.tax_office === "Lokoja 2");
-    const headOffColPerf = colPerformance.filter(data => data.tax_office === "Head Office");
-    const okeneColPerf = colPerformance.filter(data => data.tax_office === "Okene");
-    const isanluColPerf = colPerformance.filter(data => data.tax_office === "Isanlu");
-    const kabbaColPerf = colPerformance.filter(data => data.tax_office === "Kabba");
-    const idahColPerf = colPerformance.filter(data => data.tax_office === "Idah");
-    const adaviColPerf = colPerformance.filter(data => data.tax_office === "Okehi/Adavi");
-    const anyigbaColPerf = colPerformance.filter(data => data.tax_office === "Anyigba");
-    const kotoColPerf = colPerformance.filter(data => data.tax_office === "Kotonkarfe");
-    const ankpaColPerf = colPerformance.filter(data => data.tax_office === "Ankpa");
-
-
-    ajaokutaColPerf.forEach((ind, i) => {
-      AjkamountCollected = ind.amountCollected
-      AjkassessedAmount = ind.assessedAmount
-      AjkunassessedAmountCollected = ind.unassessedAmountCollected
-    })
-    AjkOutstanding = Number(AjkassessedAmount) - Number(AjkamountCollected)
-
-    lk1ColPerf.forEach((ind, i) => {
-      lk1mountCollected = ind.amountCollected
-      lk1assessedAmount = ind.assessedAmount
-      lk1unassessedAmountCollected = ind.unassessedAmountCollected
-    })
-    lk1Outstanding = Number(lk1assessedAmount) - Number(lk1mountCollected)
-
-    lk2ColPerf.forEach((ind, i) => {
-      lk2mountCollected = ind.amountCollected
-      lk2assessedAmount = ind.assessedAmount
-      lk2unassessedAmountCollected = ind.unassessedAmountCollected
-    })
-    lk2Outstanding = Number(lk2assessedAmount) - Number(lk2mountCollected)
-
-    headOffColPerf.forEach((ind, i) => {
-      hqmountCollected = ind.amountCollected
-      hqassessedAmount = ind.assessedAmount
-      hqunassessedAmountCollected = ind.unassessedAmountCollected
-    })
-    hqOutstanding = Number(hqassessedAmount) - Number(hqmountCollected)
-
-    okeneColPerf.forEach((ind, i) => {
-      okenemountCollected = ind.amountCollected
-      okeneassessedAmount = ind.assessedAmount
-      okeneunassessedAmountCollected = ind.unassessedAmountCollected
-    })
-    okeneOutstanding = Number(okeneassessedAmount) - Number(okenemountCollected)
-
-    isanluColPerf.forEach((ind, i) => {
-      isanlumountCollected = ind.amountCollected
-      isanluassessedAmount = ind.assessedAmount
-      isanluunassessedAmountCollected = ind.unassessedAmountCollected
-    })
-    isanluOutstanding = Number(isanluassessedAmount) - Number(isanlumountCollected)
-
-    kabbaColPerf.forEach((ind, i) => {
-      kabbamountCollected = ind.amountCollected
-      kabbaassessedAmount = ind.assessedAmount
-      kabbaunassessedAmountCollected = ind.unassessedAmountCollected
-    })
-    kabbaOutstanding = Number(kabbaassessedAmount) - Number(kabbamountCollected)
-
-    idahColPerf.forEach((ind, i) => {
-      idahmountCollected = ind.amountCollected
-      idahassessedAmount = ind.assessedAmount
-      idahunassessedAmountCollected = ind.unassessedAmountCollected
-    })
-    idahOutstanding = Number(idahassessedAmount) - Number(idahmountCollected)
-
-    adaviColPerf.forEach((ind, i) => {
-      adavimountCollected = ind.amountCollected
-      adaviassessedAmount = ind.assessedAmount
-      adaviunassessedAmountCollected = ind.unassessedAmountCollected
-    })
-    adaviOutstanding = Number(adaviassessedAmount) - Number(adavimountCollected)
-
-    anyigbaColPerf.forEach((ind, i) => {
-      anyigbamountCollected = ind.amountCollected
-      anyigbaassessedAmount = ind.assessedAmount
-      anyigbaunassessedAmountCollected = ind.unassessedAmountCollected
-    })
-    anyigbaOutstanding = Number(anyigbaassessedAmount) - Number(anyigbamountCollected)
-
-    kotoColPerf.forEach((ind, i) => {
-      kotomountCollected = ind.amountCollected
-      kotoassessedAmount = ind.assessedAmount
-      kotounassessedAmountCollected = ind.unassessedAmountCollected
-    })
-    kotoOutstanding = Number(kotoassessedAmount) - Number(kotomountCollected)
-
-    ankpaColPerf.forEach((ind, i) => {
-      ankpamountCollected = ind.amountCollected
-      ankpaassessedAmount = ind.assessedAmount
-      ankpaunassessedAmountCollected = ind.unassessedAmountCollected
-    })
-    ankpaOutstanding = Number(ankpaassessedAmount) - Number(ankpamountCollected)
+  const ajaokutaColPerf = colPerformance.filter(data => data.tax_office === "Ajaokuta");
+  const lk1ColPerf = colPerformance.filter(data => data.tax_office === "Lokoja 1");
+  const lk2ColPerf = colPerformance.filter(data => data.tax_office === "Lokoja 2");
+  const headOffColPerf = colPerformance.filter(data => data.tax_office === "Head Office");
+  const okeneColPerf = colPerformance.filter(data => data.tax_office === "Okene");
+  const isanluColPerf = colPerformance.filter(data => data.tax_office === "Isanlu");
+  const kabbaColPerf = colPerformance.filter(data => data.tax_office === "Kabba");
+  const idahColPerf = colPerformance.filter(data => data.tax_office === "Idah");
+  const adaviColPerf = colPerformance.filter(data => data.tax_office === "Okehi/Adavi");
+  const anyigbaColPerf = colPerformance.filter(data => data.tax_office === "Anyigba");
+  const kotoColPerf = colPerformance.filter(data => data.tax_office === "Kotonkarfe");
+  const ankpaColPerf = colPerformance.filter(data => data.tax_office === "Ankpa");
 
 
-    const colPerform = [
-      {
-        name: "Lokoja 2",
-        assessed: lk2assessedAmount,
-        collected: lk2mountCollected,
-        outstanding: lk2Outstanding,
-        unassessed: lk2unassessedAmountCollected
-      },
-      {
-        name: "Lokoja 1",
-        assessed: lk1assessedAmount,
-        collected: lk1mountCollected,
-        outstanding: lk1Outstanding,
-        unassessed: lk1unassessedAmountCollected
-      },
-      {
-        name: "Adavi",
-        assessed: adaviassessedAmount,
-        collected: adavimountCollected,
-        outstanding: adaviOutstanding,
-        unassessed: adaviunassessedAmountCollected
-      },
-      {
-        name: "Head Office",
-        assessed: hqassessedAmount,
-        collected: hqmountCollected,
-        outstanding: hqOutstanding,
-        unassessed: hqunassessedAmountCollected
-      },
-      {
-        name: "Okene",
-        assessed: okeneassessedAmount,
-        collected: okenemountCollected,
-        outstanding: okeneOutstanding,
-        unassessed: okeneunassessedAmountCollected
-      },
-      {
-        name: "Isanlu",
-        assessed: isanluassessedAmount,
-        collected: isanlumountCollected,
-        outstanding: isanluOutstanding,
-        unassessed: isanluunassessedAmountCollected
-      },
-      {
-        name: "Kabba",
-        assessed: kabbaassessedAmount,
-        collected: kabbamountCollected,
-        outstanding: kabbaOutstanding,
-        unassessed: kabbaunassessedAmountCollected
-      },
-      {
-        name: "Idah",
-        assessed: idahassessedAmount,
-        collected: idahmountCollected,
-        outstanding: idahOutstanding,
-        unassessed: idahunassessedAmountCollected
-      },
-      {
-        name: "Koto",
-        assessed: kotoassessedAmount,
-        collected: kotomountCollected,
-        outstanding: kotoOutstanding,
-        unassessed: kotounassessedAmountCollected
-      },
-      {
-        name: "Ankpa",
-        assessed: ankpaassessedAmount,
-        collected: ankpamountCollected,
-        outstanding: ankpaOutstanding,
-        unassessed: ankpaunassessedAmountCollected
-      },
-      {
-        name: "Ajaokuta",
-        assessed: AjkassessedAmount,
-        collected: AjkamountCollected,
-        outstanding: AjkOutstanding,
-        unassessed: AjkunassessedAmountCollected
-      },
-      {
-        name: "Anyingba",
-        assessed: anyigbaassessedAmount,
-        collected: anyigbamountCollected,
-        outstanding: anyigbaOutstanding,
-        unassessed: anyigbaunassessedAmountCollected
+  ajaokutaColPerf.forEach((ind, i) => {
+    AjkamountCollected = ind.amountCollected
+    AjkassessedAmount = ind.assessedAmount
+    AjkunassessedAmountCollected = ind.unassessedAmountCollected
+  })
+  AjkOutstanding = Number(AjkassessedAmount) - Number(AjkamountCollected)
+
+  lk1ColPerf.forEach((ind, i) => {
+    lk1mountCollected = ind.amountCollected
+    lk1assessedAmount = ind.assessedAmount
+    lk1unassessedAmountCollected = ind.unassessedAmountCollected
+  })
+  lk1Outstanding = Number(lk1assessedAmount) - Number(lk1mountCollected)
+
+  lk2ColPerf.forEach((ind, i) => {
+    lk2mountCollected = ind.amountCollected
+    lk2assessedAmount = ind.assessedAmount
+    lk2unassessedAmountCollected = ind.unassessedAmountCollected
+  })
+  lk2Outstanding = Number(lk2assessedAmount) - Number(lk2mountCollected)
+
+  headOffColPerf.forEach((ind, i) => {
+    hqmountCollected = ind.amountCollected
+    hqassessedAmount = ind.assessedAmount
+    hqunassessedAmountCollected = ind.unassessedAmountCollected
+  })
+  hqOutstanding = Number(hqassessedAmount) - Number(hqmountCollected)
+
+  okeneColPerf.forEach((ind, i) => {
+    okenemountCollected = ind.amountCollected
+    okeneassessedAmount = ind.assessedAmount
+    okeneunassessedAmountCollected = ind.unassessedAmountCollected
+  })
+  okeneOutstanding = Number(okeneassessedAmount) - Number(okenemountCollected)
+
+  isanluColPerf.forEach((ind, i) => {
+    isanlumountCollected = ind.amountCollected
+    isanluassessedAmount = ind.assessedAmount
+    isanluunassessedAmountCollected = ind.unassessedAmountCollected
+  })
+  isanluOutstanding = Number(isanluassessedAmount) - Number(isanlumountCollected)
+
+  kabbaColPerf.forEach((ind, i) => {
+    kabbamountCollected = ind.amountCollected
+    kabbaassessedAmount = ind.assessedAmount
+    kabbaunassessedAmountCollected = ind.unassessedAmountCollected
+  })
+  kabbaOutstanding = Number(kabbaassessedAmount) - Number(kabbamountCollected)
+
+  idahColPerf.forEach((ind, i) => {
+    idahmountCollected = ind.amountCollected
+    idahassessedAmount = ind.assessedAmount
+    idahunassessedAmountCollected = ind.unassessedAmountCollected
+  })
+  idahOutstanding = Number(idahassessedAmount) - Number(idahmountCollected)
+
+  adaviColPerf.forEach((ind, i) => {
+    adavimountCollected = ind.amountCollected
+    adaviassessedAmount = ind.assessedAmount
+    adaviunassessedAmountCollected = ind.unassessedAmountCollected
+  })
+  adaviOutstanding = Number(adaviassessedAmount) - Number(adavimountCollected)
+
+  anyigbaColPerf.forEach((ind, i) => {
+    anyigbamountCollected = ind.amountCollected
+    anyigbaassessedAmount = ind.assessedAmount
+    anyigbaunassessedAmountCollected = ind.unassessedAmountCollected
+  })
+  anyigbaOutstanding = Number(anyigbaassessedAmount) - Number(anyigbamountCollected)
+
+  kotoColPerf.forEach((ind, i) => {
+    kotomountCollected = ind.amountCollected
+    kotoassessedAmount = ind.assessedAmount
+    kotounassessedAmountCollected = ind.unassessedAmountCollected
+  })
+  kotoOutstanding = Number(kotoassessedAmount) - Number(kotomountCollected)
+
+  ankpaColPerf.forEach((ind, i) => {
+    ankpamountCollected = ind.amountCollected
+    ankpaassessedAmount = ind.assessedAmount
+    ankpaunassessedAmountCollected = ind.unassessedAmountCollected
+  })
+  ankpaOutstanding = Number(ankpaassessedAmount) - Number(ankpamountCollected)
+
+
+  const colPerform = [
+    {
+      name: "Lokoja 2",
+      assessed: lk2assessedAmount,
+      collected: lk2mountCollected,
+      outstanding: lk2Outstanding,
+      unassessed: lk2unassessedAmountCollected
+    },
+    {
+      name: "Lokoja 1",
+      assessed: lk1assessedAmount,
+      collected: lk1mountCollected,
+      outstanding: lk1Outstanding,
+      unassessed: lk1unassessedAmountCollected
+    },
+    {
+      name: "Adavi",
+      assessed: adaviassessedAmount,
+      collected: adavimountCollected,
+      outstanding: adaviOutstanding,
+      unassessed: adaviunassessedAmountCollected
+    },
+    {
+      name: "Head Office",
+      assessed: hqassessedAmount,
+      collected: hqmountCollected,
+      outstanding: hqOutstanding,
+      unassessed: hqunassessedAmountCollected
+    },
+    {
+      name: "Okene",
+      assessed: okeneassessedAmount,
+      collected: okenemountCollected,
+      outstanding: okeneOutstanding,
+      unassessed: okeneunassessedAmountCollected
+    },
+    {
+      name: "Isanlu",
+      assessed: isanluassessedAmount,
+      collected: isanlumountCollected,
+      outstanding: isanluOutstanding,
+      unassessed: isanluunassessedAmountCollected
+    },
+    {
+      name: "Kabba",
+      assessed: kabbaassessedAmount,
+      collected: kabbamountCollected,
+      outstanding: kabbaOutstanding,
+      unassessed: kabbaunassessedAmountCollected
+    },
+    {
+      name: "Idah",
+      assessed: idahassessedAmount,
+      collected: idahmountCollected,
+      outstanding: idahOutstanding,
+      unassessed: idahunassessedAmountCollected
+    },
+    {
+      name: "Koto",
+      assessed: kotoassessedAmount,
+      collected: kotomountCollected,
+      outstanding: kotoOutstanding,
+      unassessed: kotounassessedAmountCollected
+    },
+    {
+      name: "Ankpa",
+      assessed: ankpaassessedAmount,
+      collected: ankpamountCollected,
+      outstanding: ankpaOutstanding,
+      unassessed: ankpaunassessedAmountCollected
+    },
+    {
+      name: "Ajaokuta",
+      assessed: AjkassessedAmount,
+      collected: AjkamountCollected,
+      outstanding: AjkOutstanding,
+      unassessed: AjkunassessedAmountCollected
+    },
+    {
+      name: "Anyingba",
+      assessed: anyigbaassessedAmount,
+      collected: anyigbamountCollected,
+      outstanding: anyigbaOutstanding,
+      unassessed: anyigbaunassessedAmountCollected
+    }
+  ];
+
+  const fields = [
+    {
+      name: "sn",
+      key: "serialNo",
+    },
+    {
+      name: "Tax Office",
+      key: "station",
+    },
+    {
+      name: "Submitted Count",
+      key: "submittedCount",
+    },
+    {
+      name: "Approved Count",
+      key: "approvedCount",
+    },
+    {
+      name: "Submitted Amount",
+      key: "submittedAmount",
+    },
+    {
+      name: "Approved Amount",
+      key: "approvedAmountFormatted",
+    },
+    {
+      name: "Paid Amount",
+      key: "paidAmountFormatted",
+    },
+    {
+      name: "Unpaid Amount",
+      key: "unpaidAmountCal",
+    },
+    {
+      name: "Unassessed Collections",
+      key: "unassessedAmountCollected",
+    },
+  ];
+
+  const [total, setTotal] = useState([])
+  const [items, setPost] = useState(() => []);
+
+
+  let num = 1
+  useEffect(() => {
+
+    if (summaryItems) {
+      let records = [];
+      let sum = {};
+      let approvedCountSum = [];
+      let subCountSum = []
+      let submittedAmountSum = [];
+      let apprAmtSum = [];
+      let paidAmtSum = [];
+      let unassessedColSum = [];
+      let unpaidAmountCalSum = []
+
+      for (let i = 0; i < summaryItems.length; i++) {
+        let rec = summaryItems[i];
+        rec.serialNo = num + i
+
+
+        rec.submittedCount = Number(rec.submittedCount)
+        rec.approvedCount = Number(rec.approvedCount)
+        rec.approvedAmount = Number(rec.approvedAmount)
+
+        rec.assessedAmountCollected = Number(rec.assessedAmountCollected)
+        rec.unassessedAmountCollected = Number(rec.unassessedAmountCollected)
+
+
+        rec.submittedAmount = Number(rec.submittedAmount)
+        rec.unpaidAmountCal = (Number(rec.approvedAmount) - Number(rec.assessedAmountCollected))
+
+        paidAmtSum.push(rec.assessedAmountCollected);
+        apprAmtSum.push(rec.approvedAmount)
+        submittedAmountSum.push(rec.submittedAmount)
+        approvedCountSum.push(rec.approvedCount);
+        subCountSum.push(rec.submittedCount);
+        unassessedColSum.push(rec.unassessedAmountCollected);
+        unpaidAmountCalSum.push(rec.unpaidAmountCal)
+
+
+        rec.submittedCount = formatNumber(rec.submittedCount)
+        rec.approvedCount = formatNumber(rec.approvedCount)
+        rec.submittedAmount = formatNumber(rec.submittedAmount)
+        rec.approvedAmountFormatted = formatNumber(rec.approvedAmount)
+        rec.paidAmountFormatted = formatNumber(rec.assessedAmountCollected)
+        rec.unpaidAmountCal = formatNumber(Number(rec.approvedAmount) - Number(rec.assessedAmountCollected))
+        rec.unassessedAmountCollected = formatNumber(rec.unassessedAmountCollected);
+        records.push(rec);
       }
-    ];
+      const totalapprCount = approvedCountSum.reduce(
+        (preVal, curVal) => preVal + curVal,
+        0
+      );
+      const totalsubCountSum = subCountSum.reduce(
+        (preVal, curVal) => preVal + curVal,
+        0
+      );
+      const totalApprAmtSum = apprAmtSum.reduce(
+        (preVal, curVal) => preVal + curVal,
+        0
+      );
+      const totalPaidAmtSum = paidAmtSum.reduce(
+        (preVal, curVal) => preVal + curVal,
+        0
+      );
+      const totalSubmittedAmt = submittedAmountSum.reduce(
+        (preVal, curVal) => preVal + curVal,
+        0
+      );
+      const totalUnassessedAmt = unassessedColSum.reduce(
+        (preVal, curVal) => preVal + curVal,
+        0
+      );
+      const totalUnpaidAmt = unpaidAmountCalSum.reduce(
+        (preVal, curVal) => preVal + curVal,
+        0
+      );
 
-    const fields = [
-      {
-        name: "sn",
-        key: "serialNo",
-      },
-      {
-        name: "Tax Office",
-        key: "station",
-      },
-      {
-        name: "Submitted Count",
-        key: "submittedCount",
-      },
-      {
-        name: "Approved Count",
-        key: "approvedCount",
-      },
-      {
-        name: "Submitted Amount",
-        key: "submittedAmount",
-      },
-      {
-        name: "Approved Amount",
-        key: "approvedAmountFormatted",
-      },
-      {
-        name: "Paid Amount",
-        key: "paidAmountFormatted",
-      },
-      {
-        name: "Unpaid Amount",
-        key: "unpaidAmountCal",
-      },
-      {
-        name: "Unassessed Collections",
-        key: "unassessedAmountCollected",
-      },
-    ];
+      sum.totalSubmittedAmt = totalSubmittedAmt;
+      sum.totalPaidAmtSum = totalPaidAmtSum;
+      sum.totalApprAmtSum = totalApprAmtSum;
+      sum.totalapprCount = totalapprCount;
+      sum.totalsubCountSum = totalsubCountSum;
+      sum.totalUnassessedAmt = totalUnassessedAmt;
+      sum.totalUnpaidAmt = totalUnpaidAmt;
 
-    const[total, setTotal] = useState([])
-    const [items, setPost] = useState(() => []);
+      // records.find(v => v.station === "Okehi/Adavi").station = "Adavi/Okehi";
 
-    useEffect(() => {
-      let num = 1
-      // setAuthToken();
-      // const fetchPost = async () => {
-        // try {
-          // let res = await axios.get(`${url.BASE_URL}forma/dashboard`);
-          // let itemsBody = res.data.body
-          // let HQsummary = itemsBody.summary;
-          // setPost(HQsummary)
-          if (summaryItems) {
-            let records = [];
-            let sum = {};
-            let approvedCountSum = [];
-            let subCountSum = []
-            let submittedAmountSum = [];
-            let apprAmtSum = [];
-            let paidAmtSum = [];
-            let unassessedColSum = [];
-            let unpaidAmountCalSum = []
-  
-            for (let i = 0; i < summaryItems.length; i++) {
-              let rec = summaryItems[i];
-              rec.serialNo = num + i
-  
-              rec.submittedCount = Number(rec.submittedCount)
-              rec.approvedCount = Number(rec.approvedCount)
-              rec.approvedAmount = Number(rec.approvedAmount)
-              rec.assessedAmountCollected = Number(rec.assessedAmountCollected)
-              rec.unassessedAmountCollected = Number(rec.unassessedAmountCollected)
-              rec.submittedAmount = Number(rec.submittedAmount)
-              rec.unpaidAmountCal = (Number(rec.approvedAmount) - Number(rec.assessedAmountCollected))
-  
-              paidAmtSum.push(rec.assessedAmountCollected);
-              apprAmtSum.push(rec.approvedAmount)
-              submittedAmountSum.push(rec.submittedAmount)
-              approvedCountSum.push(rec.approvedCount);
-              subCountSum.push(rec.submittedCount);
-              unassessedColSum.push(rec.unassessedAmountCollected);
-              unpaidAmountCalSum.push(rec.unpaidAmountCal)
-  
-  
-              rec.submittedCount = formatNumber(rec.submittedCount)
-              rec.approvedCount = formatNumber(rec.approvedCount)
-              rec.submittedAmount = formatNumber(rec.submittedAmount)
-              rec.approvedAmountFormatted = formatNumber(rec.approvedAmount)
-              rec.paidAmountFormatted = formatNumber(rec.assessedAmountCollected)
-              rec.unpaidAmountCal = formatNumber(Number(rec.approvedAmount) - Number(rec.assessedAmountCollected))
-              rec.unassessedAmountCollected = formatNumber(rec.unassessedAmountCollected);
-              records.push(rec);
-            }
-            const totalapprCount = approvedCountSum.reduce(
-              (preVal, curVal) => preVal + curVal,
-              0
-            );
-            const totalsubCountSum = subCountSum.reduce(
-              (preVal, curVal) => preVal + curVal,
-              0
-            );
-            const totalApprAmtSum = apprAmtSum.reduce(
-              (preVal, curVal) => preVal + curVal,
-              0
-            );
-            const totalPaidAmtSum = paidAmtSum.reduce(
-              (preVal, curVal) => preVal + curVal,
-              0
-            );
-            const totalSubmittedAmt = submittedAmountSum.reduce(
-              (preVal, curVal) => preVal + curVal,
-              0
-            );
-            const totalUnassessedAmt = unassessedColSum.reduce(
-              (preVal, curVal) => preVal + curVal,
-              0
-            );
-            const totalUnpaidAmt = unpaidAmountCalSum.reduce(
-              (preVal, curVal) => preVal + curVal,
-              0
-            );
-  
-  
-            sum.totalSubmittedAmt = totalSubmittedAmt;
-            sum.totalPaidAmtSum = totalPaidAmtSum;
-            sum.totalApprAmtSum = totalApprAmtSum;
-            sum.totalapprCount = totalapprCount;
-            sum.totalsubCountSum = totalsubCountSum;
-            sum.totalUnassessedAmt = totalUnassessedAmt;
-            sum.totalUnpaidAmt = totalUnpaidAmt;
-  
-            // records.find(v => v.station === "Okehi/Adavi").station = "Adavi/Okehi";
-            
-            setPost(() => records);
-            console.log("records", records);
-            setTotal(() => sum);
-            
-          }
-        // }
-        // catch (e) {
-        //   console.log(e);
-        // }
-      // };
-      // fetchPost();
-    }, []);
+      setPost(() => records);
+      setTotal(() => sum);
 
-  console.log("cumPerformance ", cumPerformance);
+    }
+  }, []);
+
 
   return (
     <>
@@ -1357,7 +1347,7 @@ export const AssesmentCount = ({
         </div>
 
       ))}
-      
+
       <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
         <div className="w-full lg:w-2/3">
           <Section
@@ -1398,7 +1388,7 @@ export const AssesmentCount = ({
         </div>
 
       </div>
-      
+
       <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
         <div className="w-full lg:w-2/3">
           <Section
@@ -1440,7 +1430,7 @@ export const AssesmentCount = ({
         </div>
       </div>
 
-      
+
       <div className="flex mt-10 flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
         <div className="w-full">
           <Section
@@ -1454,7 +1444,7 @@ export const AssesmentCount = ({
 
       </div>
 
-      
+
       <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
         <div className="w-full lg:w-3/3">
           <Section

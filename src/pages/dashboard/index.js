@@ -36,6 +36,7 @@ const Index = () => {
     `${url.BASE_URL}forma/dashboard`
   );
 
+  console.log("data", data);
 
   useEffect(() => {
     if (data) {
@@ -57,10 +58,7 @@ const Index = () => {
     }
   }, [data]);
   
-  console.log("summaryItems", summaryItems);
-
-  // const assessmentCountData = data
-  // console.log("assessmentCountData", assessmentCountData);
+console.log("summaryItemsOrigin", summaryItems );
 
   const tabsWithIcons = [
     {
