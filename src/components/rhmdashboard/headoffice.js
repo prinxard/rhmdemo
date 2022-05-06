@@ -1196,97 +1196,105 @@ export const AssesmentCount = ({
   const [items, setPost] = useState(() => []);
 
 
-  let num = 1
   useEffect(() => {
+    let num = 1
+    setAuthToken();
+    const fetchPost = async () => {
+      try {
+        let res = await axios.get(`${url.BASE_URL}forma/dashboard`);
+        let itemsBody = res.data.body
+        let HQsummary = itemsBody.summary;
+        setPost(HQsummary)
+        let records = [];
+        let sum = {};
+        let approvedCountSum = [];
+        let subCountSum = []
+        let submittedAmountSum = [];
+        let apprAmtSum = [];
+        let paidAmtSum = [];
+        let unassessedColSum = [];
+        let unpaidAmountCalSum = []
 
-    if (summaryItems) {
-      let records = [];
-      let sum = {};
-      let approvedCountSum = [];
-      let subCountSum = []
-      let submittedAmountSum = [];
-      let apprAmtSum = [];
-      let paidAmtSum = [];
-      let unassessedColSum = [];
-      let unpaidAmountCalSum = []
+        for (let i = 0; i < HQsummary.length; i++) {
+          let rec = HQsummary[i];
+          rec.serialNo = num + i
+       
+          // console.log("station", rec.station);
+          // rec.submittedAmount = (rec.submittedAmount)
+          rec.submittedCount = Number(rec.submittedCount)
+          rec.approvedCount = Number(rec.approvedCount)
+          rec.approvedAmount = Number(rec.approvedAmount)
+          rec.assessedAmountCollected = Number(rec.assessedAmountCollected)
+          rec.unassessedAmountCollected = Number(rec.unassessedAmountCollected)
+          rec.submittedAmount = Number(rec.submittedAmount)
+          rec.unpaidAmountCal = (Number(rec.approvedAmount) - Number(rec.assessedAmountCollected))
 
-      for (let i = 0; i < summaryItems.length; i++) {
-        let rec = summaryItems[i];
-        rec.serialNo = num + i
-
-
-        rec.submittedCount = Number(rec.submittedCount)
-        rec.approvedCount = Number(rec.approvedCount)
-        rec.approvedAmount = Number(rec.approvedAmount)
-
-        rec.assessedAmountCollected = Number(rec.assessedAmountCollected)
-        rec.unassessedAmountCollected = Number(rec.unassessedAmountCollected)
-
-
-        rec.submittedAmount = Number(rec.submittedAmount)
-        rec.unpaidAmountCal = (Number(rec.approvedAmount) - Number(rec.assessedAmountCollected))
-
-        paidAmtSum.push(rec.assessedAmountCollected);
-        apprAmtSum.push(rec.approvedAmount)
-        submittedAmountSum.push(rec.submittedAmount)
-        approvedCountSum.push(rec.approvedCount);
-        subCountSum.push(rec.submittedCount);
-        unassessedColSum.push(rec.unassessedAmountCollected);
-        unpaidAmountCalSum.push(rec.unpaidAmountCal)
+          paidAmtSum.push(rec.assessedAmountCollected);
+          apprAmtSum.push(rec.approvedAmount)
+          submittedAmountSum.push(rec.submittedAmount)
+          approvedCountSum.push(rec.approvedCount);
+          subCountSum.push(rec.submittedCount);
+          unassessedColSum.push(rec.unassessedAmountCollected);
+          unpaidAmountCalSum.push(rec.unpaidAmountCal)
 
 
-        rec.submittedCount = formatNumber(rec.submittedCount)
-        rec.approvedCount = formatNumber(rec.approvedCount)
-        rec.submittedAmount = formatNumber(rec.submittedAmount)
-        rec.approvedAmountFormatted = formatNumber(rec.approvedAmount)
-        rec.paidAmountFormatted = formatNumber(rec.assessedAmountCollected)
-        rec.unpaidAmountCal = formatNumber(Number(rec.approvedAmount) - Number(rec.assessedAmountCollected))
-        rec.unassessedAmountCollected = formatNumber(rec.unassessedAmountCollected);
-        records.push(rec);
+          rec.submittedCount = formatNumber(rec.submittedCount)
+          rec.approvedCount = formatNumber(rec.approvedCount)
+          rec.submittedAmount = formatNumber(rec.submittedAmount)
+          rec.approvedAmountFormatted = formatNumber(rec.approvedAmount)
+          rec.paidAmountFormatted = formatNumber(rec.assessedAmountCollected)
+          rec.unpaidAmountCal = formatNumber(Number(rec.approvedAmount) - Number(rec.assessedAmountCollected))
+          rec.unassessedAmountCollected = formatNumber(rec.unassessedAmountCollected);
+          records.push(rec);
+        }
+        const totalapprCount = approvedCountSum.reduce(
+          (preVal, curVal) => preVal + curVal,
+          0
+        );
+        const totalsubCountSum = subCountSum.reduce(
+          (preVal, curVal) => preVal + curVal,
+          0
+        );
+        const totalApprAmtSum = apprAmtSum.reduce(
+          (preVal, curVal) => preVal + curVal,
+          0
+        );
+        const totalPaidAmtSum = paidAmtSum.reduce(
+          (preVal, curVal) => preVal + curVal,
+          0
+        );
+        const totalSubmittedAmt = submittedAmountSum.reduce(
+          (preVal, curVal) => preVal + curVal,
+          0
+        );
+        const totalUnassessedAmt = unassessedColSum.reduce(
+          (preVal, curVal) => preVal + curVal,
+          0
+        );
+        const totalUnpaidAmt = unpaidAmountCalSum.reduce(
+          (preVal, curVal) => preVal + curVal,
+          0
+        );
+
+
+        sum.totalSubmittedAmt = totalSubmittedAmt;
+        sum.totalPaidAmtSum = totalPaidAmtSum;
+        sum.totalApprAmtSum = totalApprAmtSum;
+        sum.totalapprCount = totalapprCount;
+        sum.totalsubCountSum = totalsubCountSum;
+        sum.totalUnassessedAmt = totalUnassessedAmt;
+        sum.totalUnpaidAmt = totalUnpaidAmt;
+
+        records.find(v => v.station === "Okehi/Adavi").station = "Adavi/Okehi";
+        
+        setPost(() => records);
+        setTotal(() => sum);
       }
-      const totalapprCount = approvedCountSum.reduce(
-        (preVal, curVal) => preVal + curVal,
-        0
-      );
-      const totalsubCountSum = subCountSum.reduce(
-        (preVal, curVal) => preVal + curVal,
-        0
-      );
-      const totalApprAmtSum = apprAmtSum.reduce(
-        (preVal, curVal) => preVal + curVal,
-        0
-      );
-      const totalPaidAmtSum = paidAmtSum.reduce(
-        (preVal, curVal) => preVal + curVal,
-        0
-      );
-      const totalSubmittedAmt = submittedAmountSum.reduce(
-        (preVal, curVal) => preVal + curVal,
-        0
-      );
-      const totalUnassessedAmt = unassessedColSum.reduce(
-        (preVal, curVal) => preVal + curVal,
-        0
-      );
-      const totalUnpaidAmt = unpaidAmountCalSum.reduce(
-        (preVal, curVal) => preVal + curVal,
-        0
-      );
-
-      sum.totalSubmittedAmt = totalSubmittedAmt;
-      sum.totalPaidAmtSum = totalPaidAmtSum;
-      sum.totalApprAmtSum = totalApprAmtSum;
-      sum.totalapprCount = totalapprCount;
-      sum.totalsubCountSum = totalsubCountSum;
-      sum.totalUnassessedAmt = totalUnassessedAmt;
-      sum.totalUnpaidAmt = totalUnpaidAmt;
-
-      // records.find(v => v.station === "Okehi/Adavi").station = "Adavi/Okehi";
-
-      setPost(() => records);
-      setTotal(() => sum);
-
-    }
+      catch (e) {
+        console.log(e);
+      }
+    };
+    fetchPost();
   }, []);
 
 
