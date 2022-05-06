@@ -82,6 +82,22 @@ const fields = [
     field: "assessment_type",
   },
   {
+    title: "Print Status",
+    field: "printstatus",
+    // render: rowData => {
+    //   return (
+    //     rowData.printstatus === "Yes" ? <p style={{ backgroundColor: "#156448", fontWeight: "bold" }}>{rowData.printstatus}</p> :
+    //       <p>{rowData.printstatus}</p>
+    //   )
+    // }rowStyle:{backgroundColor: this.state.selected ? '#fff' : this.state.c}
+    // render: rowData => {
+    //   return (
+    //     rowData.printstatus === "Yes" ? <p style={{ backgroundColor: "#156448", fontWeight: "bold", color: "#fff", textAlign: "center" }}>{rowData.printstatus}</p> :
+    //       <p>{rowData.printstatus}</p>
+    //   )
+    // }
+  },
+  {
     title: "Created Time",
     field: "createtime",
   },
