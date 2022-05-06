@@ -87,7 +87,6 @@ const ViewSingleApproved = () => {
       assessment_id: globalAssId,
       status: "Printed",
     }
-    alert("Hello")
     try {
       let res = await axios.put(`${url.BASE_URL}forma/set-status`, statusObj);
       // setIsFetching3(false)
