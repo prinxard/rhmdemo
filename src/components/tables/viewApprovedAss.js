@@ -237,6 +237,16 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
           paging: true,
           filtering: true,
           actionsColumnIndex: -1,
+          rowStyle: (rowData) => {
+            if (rowData.printstatus === "Yes") {
+              return {
+                color: "#5f9f45"
+                // backgroundColor: "#156448",
+              }
+            } else {
+              return {};
+            }
+          },
           exportButton: {
             csv: true,
             pdf: false
