@@ -36,7 +36,7 @@ const Index = () => {
     `${url.BASE_URL}forma/dashboard`
   );
 
-  console.log("data", data);
+  console.log("isLoading", isLoading);
 
   useEffect(() => {
     if (data) {
@@ -58,7 +58,7 @@ const Index = () => {
     }
   }, [data]);
   
-console.log("summaryItemsOrigin", summaryItems );
+
 
   const tabsWithIcons = [
     {
@@ -79,6 +79,7 @@ console.log("summaryItemsOrigin", summaryItems );
             perfTrend={perfTrend}
             colPerformance={colPerformance}
             summaryItems={summaryItems}
+            isLoading={isLoading}
             />
           </div>
         </>

@@ -495,7 +495,8 @@ export const AssesmentCount = ({
   cumPerformance,
   perfTrend,
   colPerformance,
-  summaryItems }) => {
+  summaryItems, isLoading
+}) => {
 
 
 
@@ -1199,14 +1200,6 @@ export const AssesmentCount = ({
   useEffect(() => {
     let num = 1
     if (summaryItems) {
-      // setAuthToken();
-      // const fetchPost = async () => {
-      // try {
-      // let res = await axios.get(`${url.BASE_URL}forma/dashboard`);
-      // let itemsBody = res.data.body
-      // let HQsummary = summaryItems;
-      // setPost(HQsummary)
-      // console.log("items", items);
       let records = [];
       let sum = {};
       let approvedCountSum = [];
@@ -1216,13 +1209,11 @@ export const AssesmentCount = ({
       let paidAmtSum = [];
       let unassessedColSum = [];
       let unpaidAmountCalSum = []
-  
+
       for (let i = 0; i < summaryItems.length; i++) {
         let rec = summaryItems[i];
-        // console.log("rec", rec);
         rec.serialNo = num + i
-  
-        // rec.submittedAmount = Number(rec.submittedAmount)
+
         rec.submittedAmountf = Number(rec.submittedAmount)
         rec.unassessedAmountCollectedf = Number(rec.unassessedAmountCollected)
         rec.submittedCount = Number(rec.submittedCount)
@@ -1230,7 +1221,7 @@ export const AssesmentCount = ({
         rec.approvedAmount = Number(rec.approvedAmount)
         rec.assessedAmountCollected = Number(rec.assessedAmountCollected)
         rec.unpaidAmountCal = (Number(rec.approvedAmount) - Number(rec.assessedAmountCollected))
-  
+
         paidAmtSum.push(rec.assessedAmountCollected);
         apprAmtSum.push(rec.approvedAmount)
         submittedAmountSum.push(rec.submittedAmountf)
@@ -1238,9 +1229,9 @@ export const AssesmentCount = ({
         subCountSum.push(rec.submittedCount);
         unassessedColSum.push(rec.unassessedAmountCollectedf);
         unpaidAmountCalSum.push(rec.unpaidAmountCal)
-  
-  
-        
+
+
+
         rec.approvedCount = formatNumber(rec.approvedCount)
         rec.submittedAmountf = formatNumber(rec.submittedAmount)
         rec.approvedAmountFormatted = formatNumber(rec.approvedAmount)
@@ -1277,8 +1268,8 @@ export const AssesmentCount = ({
         (preVal, curVal) => preVal + curVal,
         0
       );
-  
-  
+
+
       sum.totalSubmittedAmt = totalSubmittedAmt;
       sum.totalPaidAmtSum = totalPaidAmtSum;
       sum.totalApprAmtSum = totalApprAmtSum;
@@ -1286,28 +1277,24 @@ export const AssesmentCount = ({
       sum.totalsubCountSum = totalsubCountSum;
       sum.totalUnassessedAmt = totalUnassessedAmt;
       sum.totalUnpaidAmt = totalUnpaidAmt;
-  
-      // records.find(v => v.station === "Okehi/Adavi").station = "Adavi/Okehi";
-  
+
+      if (records.find(v => v.station === "Okehi/Adavi")) {
+        records.find(v => v.station === "Okehi/Adavi").station = "Adavi/Okehi";
+      }
+
       setPost(() => records);
       setTotal(() => sum);
-      // }
-      // catch (e) {
-      //   console.log(e);
-      // }
-      // };
-      // fetchPost();
-      
+
     }
   }, []);
 
 
   return (
     <>
-      {/* {isFetching && (
+      {isLoading && (
         <div className="flex justify-center item mb-2">
           <Loader
-            visible={isFetching}
+            visible={isLoading}
             type="BallTriangle"
             color="#00FA9A"
             height={19}
@@ -1317,7 +1304,7 @@ export const AssesmentCount = ({
           />
           <p className="font-bold"> Fetching...</p>
         </div>
-      )} */}
+      )}
       {assessOverviewData.map((ind, i) => (
         <div className="flex my-10 flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
 
