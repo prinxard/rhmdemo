@@ -82,6 +82,22 @@ const fields = [
     field: "assessment_type",
   },
   {
+    title: "Print Status",
+    field: "printstatus",
+    // render: rowData => {
+    //   return (
+    //     rowData.printstatus === "Yes" ? <p style={{ backgroundColor: "#156448", fontWeight: "bold" }}>{rowData.printstatus}</p> :
+    //       <p>{rowData.printstatus}</p>
+    //   )
+    // }rowStyle:{backgroundColor: this.state.selected ? '#fff' : this.state.c}
+    // render: rowData => {
+    //   return (
+    //     rowData.printstatus === "Yes" ? <p style={{ backgroundColor: "#156448", fontWeight: "bold", color: "#fff", textAlign: "center" }}>{rowData.printstatus}</p> :
+    //       <p>{rowData.printstatus}</p>
+    //   )
+    // }
+  },
+  {
     title: "Created Time",
     field: "createtime",
   },
@@ -237,6 +253,16 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
           paging: true,
           filtering: true,
           actionsColumnIndex: -1,
+          rowStyle: (rowData) => {
+            if (rowData.printstatus === "Yes") {
+              return {
+                color: "#5f9f45"
+                // backgroundColor: "#156448",
+              }
+            } else {
+              return {};
+            }
+          },
           exportButton: {
             csv: true,
             pdf: false
@@ -326,7 +352,6 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
   const assId = props.assId
   const payerAyy = props.payerAyy
   const assobj = props.assobj
-  console.log(assobj);
   const taxcal = props.taxcal
   const childObj = props.childObj
   const resAddObj = props.resAddObj
@@ -767,7 +792,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                         </tr>
                         <tr width="300">
                           <td width="300" className="font-bold tb">Net Tax Payable</td>
-                          <td width="300" className="font-bold tb">{formatNumber(taxcal.tax + (Number(addAssAmount))- -Number(assobj.dev_levy) )}</td>
+                          <td width="300" className="font-bold tb">{formatNumber(taxcal.tax + (Number(addAssAmount)) - -Number(assobj.dev_levy))}</td>
                         </tr>
                         <tr width="300">
                           <td width="300" className="font-bold tb">Payment due date</td>

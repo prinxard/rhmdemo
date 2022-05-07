@@ -80,13 +80,32 @@ const ViewSingleApproved = () => {
     }
   }, [router]);
 
+
+  let ChangePrint = async (e) => {
+    e.preventDefault()
+    // setIsFetching3(true)
+    let statusObj = {
+      assessment_id: globalAssId,
+      status: "Printed",
+    }
+    alert("Hello")
+    try {
+      let res = await axios.put(`${url.BASE_URL}forma/set-status`, statusObj);
+      // setIsFetching3(false)
+      console.log("successful!");
+      // router.push('/view/listverifiedboj')
+    } catch (error) {
+      // toast.error("Failed!");
+      console.log(error);
+      // setIsFetching3(false)
+    }
+  }
+
   return (
-
     <>
-
       <div className="flex justify-end">
         <SectionTitle title="Print Approved Assessment" />
-        <div>
+        <div onClick={ChangePrint}>
           <ReactToPrint
             // pageStyle='@page { size: auto; margin: 0mm; } @media print { body { -webkit-print-color-adjust: exact; padding: 40px !important; } }'
             pageStyle="@page { size: 7.5in 13in  }"
