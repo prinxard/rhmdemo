@@ -1199,14 +1199,6 @@ export const AssesmentCount = ({
   useEffect(() => {
     let num = 1
     if (summaryItems) {
-      // setAuthToken();
-      // const fetchPost = async () => {
-      // try {
-      // let res = await axios.get(`${url.BASE_URL}forma/dashboard`);
-      // let itemsBody = res.data.body
-      // let HQsummary = summaryItems;
-      // setPost(HQsummary)
-      // console.log("items", items);
       let records = [];
       let sum = {};
       let approvedCountSum = [];
@@ -1219,10 +1211,8 @@ export const AssesmentCount = ({
   
       for (let i = 0; i < summaryItems.length; i++) {
         let rec = summaryItems[i];
-        // console.log("rec", rec);
         rec.serialNo = num + i
   
-        // rec.submittedAmount = Number(rec.submittedAmount)
         rec.submittedAmountf = Number(rec.submittedAmount)
         rec.unassessedAmountCollectedf = Number(rec.unassessedAmountCollected)
         rec.submittedCount = Number(rec.submittedCount)
@@ -1287,16 +1277,9 @@ export const AssesmentCount = ({
       sum.totalUnassessedAmt = totalUnassessedAmt;
       sum.totalUnpaidAmt = totalUnpaidAmt;
   
-      // records.find(v => v.station === "Okehi/Adavi").station = "Adavi/Okehi";
   
       setPost(() => records);
       setTotal(() => sum);
-      // }
-      // catch (e) {
-      //   console.log(e);
-      // }
-      // };
-      // fetchPost();
       
     }
   }, []);
