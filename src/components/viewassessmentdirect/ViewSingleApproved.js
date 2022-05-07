@@ -100,9 +100,7 @@ const ViewSingleApproved = () => {
   }
 
   return (
-
     <>
-
       <div className="flex justify-end">
         <SectionTitle title="Print Approved Assessment" />
         <div onClick={ChangePrint}>

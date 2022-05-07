@@ -269,6 +269,18 @@ const initialState = [
               },
             ],
           },
+          {
+            title: 'Business Type',
+            items: [
+              { title: 'Create', url: '/', items: [] },
+              { title: 'View', url: '/', items: [] },
+              {
+                title: 'Edit',
+                url: '/',
+                items: [],
+              },
+            ],
+          },
         ],
       },
     ],

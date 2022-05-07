@@ -352,7 +352,6 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
   const assId = props.assId
   const payerAyy = props.payerAyy
   const assobj = props.assobj
-  console.log(assobj);
   const taxcal = props.taxcal
   const childObj = props.childObj
   const resAddObj = props.resAddObj
@@ -793,7 +792,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                         </tr>
                         <tr width="300">
                           <td width="300" className="font-bold tb">Net Tax Payable</td>
-                          <td width="300" className="font-bold tb">{formatNumber(taxcal.tax + (Number(addAssAmount))- -Number(assobj.dev_levy) )}</td>
+                          <td width="300" className="font-bold tb">{formatNumber(taxcal.tax + (Number(addAssAmount)) - -Number(assobj.dev_levy))}</td>
                         </tr>
                         <tr width="300">
                           <td width="300" className="font-bold tb">Payment due date</td>
