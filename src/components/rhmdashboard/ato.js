@@ -31,43 +31,24 @@ const RADIAN = Math.PI / 180;
 
 
 
-export const AmountAssessed = () => {
-
-  const [assessAmount, setAssessAmount] = useState([])
+export const AmountAssessed = ({ atoAssessedAmt }) => {
 
   let amountAssessed
   let amountCollected
   let unassessedCollection
   let outstandingAmount
 
-  useEffect(() => {
 
-    setAuthToken();
-    const fetchPost = async () => {
-      try {
-        let res = await axios.get(`${url.BASE_URL}forma/dashboard`);
-        let itemsBody = res.data.body
-        let amountArray = itemsBody.atoCollectionPerfomance
-        setAssessAmount(amountArray)
-
-      } catch (e) {
-        // setIsFetching(false);
-      }
-    };
-    fetchPost();
-
-  }, []);
-
-  assessAmount.forEach((ind, i) => {
+  atoAssessedAmt.forEach((ind, i) => {
     amountAssessed = Number(ind.assessedAmount)
   })
 
-  assessAmount.forEach((ind, i) => {
+  atoAssessedAmt.forEach((ind, i) => {
     amountCollected = Number(ind.amountCollected)
   })
 
 
-  assessAmount.forEach((ind, i) => {
+  atoAssessedAmt.forEach((ind, i) => {
     unassessedCollection = Number(ind.unassessedAmountCollected)
   })
 
@@ -131,29 +112,11 @@ export const AmountAssessed = () => {
   );
 }
 
-export const AtoCount = () => {
+export const AtoCount = ({ atoAssCount }) => {
 
-  const [assessCount, setAssessCount] = useState([])
 
-  useEffect(() => {
-
-    setAuthToken();
-    const fetchPost = async () => {
-      try {
-        let res = await axios.get(`${url.BASE_URL}forma/dashboard`);
-        let itemsBody = res.data.body
-        let countArray = itemsBody.atoAssessmentCount
-        setAssessCount(countArray)
-      } catch (e) {
-        // setIsFetching(false);
-      }
-    };
-    fetchPost();
-
-  }, []);
-
-  const atoApproved = assessCount.filter(data => data.status === "Approved");
-  const atoSubmitted = assessCount.filter(data => data.status === "Submitted");
+  const atoApproved = atoAssCount.filter(data => data.status === "Approved");
+  const atoSubmitted = atoAssCount.filter(data => data.status === "Submitted");
 
 
   atoApproved.forEach((ind, i) => {
@@ -167,7 +130,6 @@ export const AtoCount = () => {
 
 
   const dataATOCount = [
-    // { name: "Total assessment", value: 5 },
     { name: "Submitted assessment", value: atoSubCount },
     { name: "Approved assessment", value: atoApprCount },
   ];
@@ -223,28 +185,7 @@ export const AtoCount = () => {
   );
 }
 
-export const Lines = () => {
-
-  const [perfTrend, setPerTrend] = useState([])
-
-  useEffect(() => {
-
-    setAuthToken();
-    const fetchPost = async () => {
-      try {
-        let res = await axios.get(`${url.BASE_URL}forma/dashboard`);
-        let itemsBody = res.data.body
-        let trendArray = itemsBody.atoPerfomanceTrend
-        setPerTrend(trendArray)
-        
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    fetchPost();
-
-  }, []);
-
+export const Lines = ({ atoTrend }) => {
 
   let janApprAss
   let janAmtPaid
@@ -294,18 +235,18 @@ export const Lines = () => {
   let decAmtPaid
   let decUnassessedPay
 
-  const janPerfTrend = perfTrend.filter(data => data.month === "Jan");
-  const febPerfTrend = perfTrend.filter(data => data.month === "Feb");
-  const marchPerfTrend = perfTrend.filter(data => data.month === "March");
-  const aprilPerfTrend = perfTrend.filter(data => data.month === "April");
-  const mayPerfTrend = perfTrend.filter(data => data.month === "May");
-  const junePerfTrend = perfTrend.filter(data => data.month === "June");
-  const julyPerfTrend = perfTrend.filter(data => data.month === "July");
-  const augPerfTrend = perfTrend.filter(data => data.month === "Aug");
-  const septPerfTrend = perfTrend.filter(data => data.month === "Sep");
-  const octPerfTrend = perfTrend.filter(data => data.month === "Oct");
-  const novPerfTrend = perfTrend.filter(data => data.month === "Nov");
-  const decPerfTrend = perfTrend.filter(data => data.month === "Dec");
+  const janPerfTrend = atoTrend.filter(data => data.month === "Jan");
+  const febPerfTrend = atoTrend.filter(data => data.month === "Feb");
+  const marchPerfTrend = atoTrend.filter(data => data.month === "March");
+  const aprilPerfTrend = atoTrend.filter(data => data.month === "April");
+  const mayPerfTrend = atoTrend.filter(data => data.month === "May");
+  const junePerfTrend = atoTrend.filter(data => data.month === "June");
+  const julyPerfTrend = atoTrend.filter(data => data.month === "July");
+  const augPerfTrend = atoTrend.filter(data => data.month === "Aug");
+  const septPerfTrend = atoTrend.filter(data => data.month === "Sep");
+  const octPerfTrend = atoTrend.filter(data => data.month === "Oct");
+  const novPerfTrend = atoTrend.filter(data => data.month === "Nov");
+  const decPerfTrend = atoTrend.filter(data => data.month === "Dec");
 
   janPerfTrend.forEach((ind, i) => {
     janApprAss = Number(ind.assessedAmount)
@@ -477,10 +418,9 @@ export const Lines = () => {
   );
 }
 
-export const ATOPie = React.memo(() => {
+export const ATOPie = ({ atoAssessedAmt, atoAssCount, atoTrend, atoOverview, recentAssess, topAssess }) => {
   const [items, setPost] = useState(() => []);
   const [topAss, setTopAss] = useState(() => []);
-  const [overViewAss, setOverView] = useState(() => []);
   const [isFetching, setIsFetching] = useState(() => false);
   const [recentTotal, setRecentTotal] = useState(() => []);
   const [topTotal, setTopTotal] = useState(() => []);
@@ -533,139 +473,113 @@ export const ATOPie = React.memo(() => {
   ];
 
   useEffect(() => {
-    setIsFetching(true)
     let num = 1
-    setAuthToken();
-    const fetchPost = async () => {
-      try {
-        let res = await axios.get(`${url.BASE_URL}forma/dashboard`);
-        let itemsBody = res.data.body
-        let recent = itemsBody.atoRecentAssessment;
-        let topAssess = itemsBody.atoTopAssessment;
-        let overView = itemsBody.atoAssessmentOverview
-        setOverView(overView)
-
-        let records = [];
-        let recordsTop = [];
-
-        let topAssSum = {};
-        let sum = {};
 
 
-        let topassessedAmountSum = [];
-        let toppaidAmountSum = []
-        let topbalanceSum = [];
+    if (recentAssess || topAssess) {
+     
+      let records = [];
+      let recordsTop = [];
 
-        let assessedAmountSum = [];
-        let paidAmountSum = []
-        let balanceSum = [];
-        setIsFetching(false)
-
-        for (let i = 0; i < recent.length; i++) {
-          let rec = recent[i];
-          rec.serialNo = num + i
-
-          rec.tax = Number(rec.tax)
-          rec.taxPaid = Number(rec.taxPaid)
-          rec.balance = (Number(rec.tax) - Number(rec.taxPaid))
+      let topAssSum = {};
+      let sum = {};
 
 
-          assessedAmountSum.push(rec.tax)
-          paidAmountSum.push(rec.taxPaid)
-          balanceSum.push(rec.balance)
+      let topassessedAmountSum = [];
+      let toppaidAmountSum = []
+      let topbalanceSum = [];
+
+      let assessedAmountSum = [];
+      let paidAmountSum = []
+      let balanceSum = [];
 
 
-          rec.balance = formatNumber(Number(rec.tax) - Number(rec.taxPaid))
-          rec.taxFormated = formatNumber(rec.tax);
-          rec.taxPaidFormated = formatNumber(rec.taxPaid);
-          rec.createtime = dateformat(rec.createtime, "dd mmm yyyy")
-          records.push(rec);
-        }
-        setPost(() => records);
-        setRecentTotal(() => sum);
+      for (let i = 0; i < recentAssess.length; i++) {
+        let rec = recentAssess[i];
+        rec.serialNo = num + i
 
-        const recentAssAmountSum = assessedAmountSum.reduce(
-          (preVal, curVal) => preVal + curVal,
-          0
-        );
-        const recentpaidAmountSum = paidAmountSum.reduce(
-          (preVal, curVal) => preVal + curVal,
-          0
-        );
-        const recentbalanceSum = balanceSum.reduce(
-          (preVal, curVal) => preVal + curVal,
-          0
-        );
-
-        sum.recentAssAmountSum = recentAssAmountSum;
-        sum.recentpaidAmountSum = recentpaidAmountSum;
-        sum.recentbalanceSum = recentbalanceSum;
+        rec.tax = Number(rec.tax)
+        rec.taxPaid = Number(rec.taxPaid)
+        rec.balance = (Number(rec.tax) - Number(rec.taxPaid))
 
 
-        for (let i = 0; i < topAssess.length; i++) {
-          let rec = topAssess[i];
-          rec.serialNo = num + i
-
-          rec.tax = Number(rec.tax)
-          rec.taxPaid = Number(rec.taxPaid)
-          rec.balance = (Number(rec.tax) - Number(rec.taxPaid))
+        assessedAmountSum.push(rec.tax)
+        paidAmountSum.push(rec.taxPaid)
+        balanceSum.push(rec.balance)
 
 
-          topassessedAmountSum.push(rec.tax)
-          toppaidAmountSum.push(rec.taxPaid)
-          topbalanceSum.push(rec.balance)
-
-
-          rec.balance = formatNumber(Number(rec.tax) - Number(rec.taxPaid))
-          rec.taxFormated = formatNumber(rec.tax);
-          rec.taxPaidFormated = formatNumber(rec.taxPaid);
-          rec.createtime = dateformat(rec.createtime, "dd mmm yyyy")
-          recordsTop.push(rec);
-        }
-        setTopAss(() => recordsTop);
-
-        const totaltopAssAmountSum = topassessedAmountSum.reduce(
-          (preVal, curVal) => preVal + curVal,
-          0
-        );
-        const totaltoppaidAmountSum = toppaidAmountSum.reduce(
-          (preVal, curVal) => preVal + curVal,
-          0
-        );
-        const totaltopbalanceSum = topbalanceSum.reduce(
-          (preVal, curVal) => preVal + curVal,
-          0
-        );
-        topAssSum.totaltopAssAmountSum = totaltopAssAmountSum;
-        topAssSum.totaltoppaidAmountSum = totaltoppaidAmountSum;
-        topAssSum.totaltopbalanceSum = totaltopbalanceSum;
-        setTopTotal(() => topAssSum);
-
-
-      } catch (e) {
-        console.log(e);
-        setIsFetching(false)
+        rec.balance = formatNumber(Number(rec.tax) - Number(rec.taxPaid))
+        rec.taxFormated = formatNumber(rec.tax);
+        rec.taxPaidFormated = formatNumber(rec.taxPaid);
+        rec.createtime = dateformat(rec.createtime, "dd mmm yyyy")
+        records.push(rec);
       }
-    };
-    fetchPost();
+      setPost(() => records);
+      setRecentTotal(() => sum);
+
+      const recentAssAmountSum = assessedAmountSum.reduce(
+        (preVal, curVal) => preVal + curVal,
+        0
+      );
+      const recentpaidAmountSum = paidAmountSum.reduce(
+        (preVal, curVal) => preVal + curVal,
+        0
+      );
+      const recentbalanceSum = balanceSum.reduce(
+        (preVal, curVal) => preVal + curVal,
+        0
+      );
+
+      sum.recentAssAmountSum = recentAssAmountSum;
+      sum.recentpaidAmountSum = recentpaidAmountSum;
+      sum.recentbalanceSum = recentbalanceSum;
+
+
+      for (let i = 0; i < topAssess.length; i++) {
+        let rec = topAssess[i];
+        rec.serialNo = num + i
+
+        rec.tax = Number(rec.tax)
+        rec.taxPaid = Number(rec.taxPaid)
+        rec.balance = (Number(rec.tax) - Number(rec.taxPaid))
+
+
+        topassessedAmountSum.push(rec.tax)
+        toppaidAmountSum.push(rec.taxPaid)
+        topbalanceSum.push(rec.balance)
+
+
+        rec.balance = formatNumber(Number(rec.tax) - Number(rec.taxPaid))
+        rec.taxFormated = formatNumber(rec.tax);
+        rec.taxPaidFormated = formatNumber(rec.taxPaid);
+        rec.createtime = dateformat(rec.createtime, "dd mmm yyyy")
+        recordsTop.push(rec);
+      }
+      setTopAss(() => recordsTop);
+
+      const totaltopAssAmountSum = topassessedAmountSum.reduce(
+        (preVal, curVal) => preVal + curVal,
+        0
+      );
+      const totaltoppaidAmountSum = toppaidAmountSum.reduce(
+        (preVal, curVal) => preVal + curVal,
+        0
+      );
+      const totaltopbalanceSum = topbalanceSum.reduce(
+        (preVal, curVal) => preVal + curVal,
+        0
+      );
+      topAssSum.totaltopAssAmountSum = totaltopAssAmountSum;
+      topAssSum.totaltoppaidAmountSum = totaltoppaidAmountSum;
+      topAssSum.totaltopbalanceSum = totaltopbalanceSum;
+      setTopTotal(() => topAssSum);
+
+    }
+
   }, []);
 
   return (
     <>
-      {isFetching && (
-        <div className="flex justify-center item mb-2">
-          <Loader
-            visible={isFetching}
-            type="BallTriangle"
-            color="#00FA9A"
-            height={19}
-            width={19}
-            timeout={0}
-            className="ml-2"
-          />
-          <p className="font-bold"> Fetching...</p>
-        </div>
-      )}
       <div>
 
         <div>
@@ -675,7 +589,7 @@ export const ATOPie = React.memo(() => {
           }
         </div>
 
-        {overViewAss.map((ind, i) => (
+        {atoOverview.map((ind, i) => (
           <div className="flex my-10 flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
             <div className="w-full lg:w-1/4">
               <Widget1
@@ -724,7 +638,7 @@ export const ATOPie = React.memo(() => {
             description={<span>ASSESSMENT COUNT</span>}
           >
             <div className="flex flex-row w-full">
-              <AtoCount />
+              <AtoCount atoAssCount={atoAssCount} />
 
             </div>
           </Section>
@@ -734,7 +648,7 @@ export const ATOPie = React.memo(() => {
             description={<span>ASSESSED AMOUNT</span>}
           >
             <div className="flex flex-row w-full">
-              <AmountAssessed />
+              <AmountAssessed atoAssessedAmt={atoAssessedAmt} />
             </div>
           </Section>
         </div>
@@ -746,7 +660,7 @@ export const ATOPie = React.memo(() => {
             description={<span>PERFORMANCE TREND</span>}
           >
             <div className="flex flex-row w-full">
-              <Lines />
+              <Lines atoTrend={atoTrend} />
             </div>
           </Section>
         </div>
@@ -846,4 +760,4 @@ export const ATOPie = React.memo(() => {
 
     </>
   );
-})
+}

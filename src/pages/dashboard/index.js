@@ -24,19 +24,24 @@ import url from "../../config/url";
 
 const Index = () => {
 
-  const[assessData, setAssessData] = useState([])
-  const[cummulativeAssess, setCummAssess] = useState([])
-  const[assessOverviewVariable, setAssessOverView] = useState([])
-  const[cumPerformanceVariable, setCumPerformance] = useState([])
-  const[perfTrend, setPerfTrend] = useState([])
-  const[colPerformance, setColPerformance] = useState([])
-  const[summaryItems, setSummaryItems] = useState([])
+  const [assessData, setAssessData] = useState([])
+  const [cummulativeAssess, setCummAssess] = useState([])
+  const [assessOverviewVariable, setAssessOverView] = useState([])
+  const [cumPerformanceVariable, setCumPerformance] = useState([])
+  const [perfTrend, setPerfTrend] = useState([])
+  const [colPerformance, setColPerformance] = useState([])
+  const [summaryItems, setSummaryItems] = useState([])
+  const [atoAssessedAmt, setatoAssessAmount] = useState([])
+  const [atoAssCount, setAtoAssCunt] = useState([])
+  const [atoTrend, setAtoTrend] = useState([])
+  const [atoOverview, setAtoOverview] = useState([])
+  const [recentAssess, setRecentAssess] = useState([])
+  const [topAssess, setTopAssess] = useState([])
 
   const { data, isLoading, isError } = UseFetcher(
     `${url.BASE_URL}forma/dashboard`
   );
-
-  console.log("isLoading", isLoading);
+  console.log("data", data);
 
   useEffect(() => {
     if (data) {
@@ -47,6 +52,12 @@ const Index = () => {
       const perfTrendData = data.perfomanceTrend
       const collectPerf = data.collectionPerfomance
       const summaryData = data.summary
+      const atoAssdAmount = data.atoCollectionPerfomance
+      const atoCount = data.atoAssessmentCount
+      const atoPerfTrend = data.atoPerfomanceTrend
+      const atoView = data.atoAssessmentOverview
+      const atoRecent = data.atoRecentAssessment
+      const atoTopAssessment = data.atoTopAssessment
       setAssessData(assessmentCount)
       setAssessOverView(assessmentOverview)
       setCummAssess(assessmentCumm)
@@ -54,11 +65,17 @@ const Index = () => {
       setPerfTrend(perfTrendData)
       setColPerformance(collectPerf)
       setSummaryItems(summaryData)
-      
+      setatoAssessAmount(atoAssdAmount)
+      setAtoAssCunt(atoCount)
+      setAtoTrend(atoPerfTrend)
+      setAtoOverview(atoView)
+      setRecentAssess(atoRecent)
+      setTopAssess(atoTopAssessment)
+
     }
   }, [data]);
-  
 
+  console.log("atoAssessedAmt", atoAssessedAmt);
 
   const tabsWithIcons = [
     {
@@ -71,15 +88,14 @@ const Index = () => {
       content: (
         <>
           <div>
-            {/* <AssesmentCount testCountData={assessmentCountData} /> */}
-            <AssesmentCount  assessCountData={assessData} 
-            assessOverviewData={assessOverviewVariable} 
-            cummulativeAssess={cummulativeAssess}
-            cumPerformance={cumPerformanceVariable}
-            perfTrend={perfTrend}
-            colPerformance={colPerformance}
-            summaryItems={summaryItems}
-            isLoading={isLoading}
+            <AssesmentCount assessCountData={assessData}
+              assessOverviewData={assessOverviewVariable}
+              cummulativeAssess={cummulativeAssess}
+              cumPerformance={cumPerformanceVariable}
+              perfTrend={perfTrend}
+              colPerformance={colPerformance}
+              summaryItems={summaryItems}
+              isLoading={isLoading}
             />
           </div>
         </>
@@ -94,7 +110,14 @@ const Index = () => {
       ),
       content: (
         <>
-          <ATOPie />
+          <ATOPie
+            atoAssessedAmt={atoAssessedAmt}
+            atoAssCount={atoAssCount}
+            atoTrend={atoTrend}
+            atoOverview={atoOverview}
+            recentAssess={recentAssess}
+            topAssess={topAssess}
+          />
         </>
       ),
     },
