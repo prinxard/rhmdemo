@@ -130,7 +130,7 @@ export const AtoCount = ({ atoAssCount }) => {
 
 
   const dataATOCount = [
-    { name: "Submitted assessment", value: atoSubCount },
+    { name: "Pending assessment", value: atoSubCount },
     { name: "Approved assessment", value: atoApprCount },
   ];
 
