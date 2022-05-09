@@ -40,13 +40,18 @@ const fields = [
     field: "revenueItem",
   },
   {
+    title: "Bank",
+    field: "bank",
+  },
+  {
+    title: "Channel",
+    field: "channel_id",
+  },
+  {
     title: "Amount",
     field: "amount",
   },
-  // {
-  //   title: "Assessment ID",
-  //   field: "assessment_id",
-  // },
+
   {
     title: "Address",
     field: "taxpayerAddress",
@@ -63,6 +68,7 @@ const fields = [
 
 export const ViewCollectionsTable = ({ remittance }) => {
   let items = remittance;
+
   return (
     <>
       <MaterialTable title="Collections List"

@@ -31,6 +31,7 @@ const Index = () => {
   const [perfTrend, setPerfTrend] = useState([])
   const [colPerformance, setColPerformance] = useState([])
   const [summaryItems, setSummaryItems] = useState([])
+  const [exceptions, setExceptions] = useState([])
   const [atoAssessedAmt, setatoAssessAmount] = useState([])
   const [atoAssCount, setAtoAssCunt] = useState([])
   const [atoTrend, setAtoTrend] = useState([])
@@ -58,6 +59,7 @@ const Index = () => {
       const atoView = data.atoAssessmentOverview
       const atoRecent = data.atoRecentAssessment
       const atoTopAssessment = data.atoTopAssessment
+      const excptions = data.exception
       setAssessData(assessmentCount)
       setAssessOverView(assessmentOverview)
       setCummAssess(assessmentCumm)
@@ -65,6 +67,7 @@ const Index = () => {
       setPerfTrend(perfTrendData)
       setColPerformance(collectPerf)
       setSummaryItems(summaryData)
+      setExceptions(excptions)
       setatoAssessAmount(atoAssdAmount)
       setAtoAssCunt(atoCount)
       setAtoTrend(atoPerfTrend)
@@ -75,7 +78,7 @@ const Index = () => {
     }
   }, [data]);
 
-  console.log("atoAssessedAmt", atoAssessedAmt);
+  console.log("exceptions", exceptions);
 
   const tabsWithIcons = [
     {
@@ -95,6 +98,7 @@ const Index = () => {
               perfTrend={perfTrend}
               colPerformance={colPerformance}
               summaryItems={summaryItems}
+              exceptions={exceptions}
               isLoading={isLoading}
             />
           </div>

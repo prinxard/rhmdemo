@@ -591,25 +591,25 @@ export const ATOPie = ({ atoAssessedAmt, atoAssCount, atoTrend, atoOverview, rec
 
         {atoOverview.map((ind, i) => (
           <div className="flex my-10 flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
-            <div className="w-full lg:w-1/4">
+            <div className="w-full lg:w-1/5">
               <Widget1
                 color="green"
-                title="Approved Assessments"
+                title="No. Approved Assessments"
                 description={formatNumber(ind.approvedCount)}
                 right={<TotalRemittance />}
               />
             </div>
 
-            <div className="w-full lg:w-1/4">
+            <div className="w-full lg:w-1/5">
               <Widget1
                 color="red"
-                title="Pending Assessments"
-                description={formatNumber(ind.submittedCount)}
+                title="Total Approved Amount"
+                description={formatNumber(ind.amountAssessed)}
                 right={<PendingRemittance />}
               />
             </div>
 
-            <div className="w-full lg:w-1/4">
+            <div className="w-full lg:w-1/5">
               <Widget1
                 color="blue"
                 title="Amount Collected"
@@ -618,7 +618,16 @@ export const ATOPie = ({ atoAssessedAmt, atoAssCount, atoTrend, atoOverview, rec
               />
             </div>
 
-            <div className="w-full lg:w-1/4">
+            <div className="w-full lg:w-1/5">
+              <Widget1
+                color="blue"
+                title="Unassessed Amount Collected"
+                description={formatNumber(ind.unassessedAmountCollected)}
+                right={<RevenueItems />}
+              />
+            </div>
+
+            <div className="w-full lg:w-1/5">
               <Widget1
                 color="yellow"
                 title="Outstanding Amount"

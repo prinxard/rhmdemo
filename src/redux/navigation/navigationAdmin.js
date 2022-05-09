@@ -272,8 +272,8 @@ const initialState = [
           {
             title: 'Business Type',
             items: [
-              { title: 'Create', url: '/', items: [] },
-              { title: 'View', url: '/', items: [] },
+              { title: 'Create', url: '/settings/business-type/create', items: [] },
+              { title: 'View', url: '/settings/view-business-type', items: [] },
               {
                 title: 'Edit',
                 url: '/',

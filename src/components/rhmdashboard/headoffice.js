@@ -495,7 +495,9 @@ export const AssesmentCount = ({
   cumPerformance,
   perfTrend,
   colPerformance,
-  summaryItems, isLoading
+  summaryItems,
+  exceptions,
+  isLoading
 }) => {
 
 
@@ -1193,8 +1195,25 @@ export const AssesmentCount = ({
     },
   ];
 
+  const fields2 = [
+    {
+      name: "sn",
+      key: "serialNo",
+    },
+    {
+      name: "Collection Count",
+      key: "collectionCount",
+    },
+    {
+      name: "Collection Amount",
+      key: "collectionAmount",
+    },
+  ];
+
   const [total, setTotal] = useState([])
   const [items, setPost] = useState(() => []);
+  const [except, setExcept] = useState(() => []);
+
 
 
   useEffect(() => {
@@ -1286,6 +1305,22 @@ export const AssesmentCount = ({
       setTotal(() => sum);
 
     }
+
+
+    let recordsTop = [];
+
+    for (let i = 0; i < exceptions.length; i++) {
+
+
+      let rec = exceptions[i];
+      rec.serialNo = num + i
+
+      rec.collectionCount = formatNumber(rec.collectionCount);
+      rec.collectionAmount = formatNumber(rec.collectionAmount);
+      recordsTop.push(rec);
+    }
+    setExcept(() => recordsTop);
+    
   }, []);
 
 
@@ -1308,34 +1343,42 @@ export const AssesmentCount = ({
       {assessOverviewData.map((ind, i) => (
         <div className="flex my-10 flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
 
-          <div className="w-full lg:w-1/4">
+          <div className="w-full lg:w-1/5">
             <Widget1
               color="green"
-              title="Approved Assessments"
+              title="No. Approved Assessments"
               description={formatNumber(ind.approvedCount)}
               right={<TotalRemittance />}
             />
           </div>
 
-          <div className="w-full lg:w-1/4">
+          <div className="w-full lg:w-1/5">
             <Widget1
               color="red"
-              title="Pending Assessments"
-              description={formatNumber(ind.submittedCount)}
+              title="Total Approved Amount"
+              description={formatNumber(ind.amountAssessed)}
               right={<PendingRemittance />}
             />
           </div>
 
-          <div className="w-full lg:w-1/4">
+          <div className="w-full lg:w-1/5">
             <Widget1
               color="blue"
-              title="Amount Collected"
+              title="Assessed Amount Collected"
               description={formatNumber(ind.amountCollected)}
               right={<RevenueItems />}
             />
           </div>
 
-          <div className="w-full lg:w-1/4">
+          <div className="w-full lg:w-1/5">
+            <Widget1
+              color="yellow"
+              title="Unassessed Amount Collected"
+              description={formatNumber(ind.unassessedAmountCollected)}
+              right={<TaxReceipt />}
+            />
+          </div>
+          <div className="w-full lg:w-1/5">
             <Widget1
               color="yellow"
               title="Outstanding Amount"
@@ -1479,6 +1522,7 @@ export const AssesmentCount = ({
       </div>
 
 
+
       <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
         <div className="w-full lg:w-2/2">
           <Section >
@@ -1518,6 +1562,40 @@ export const AssesmentCount = ({
                         <td>{formatNumber(total.totalUnassessedAmt)}</td>
                       </tr>
                     )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </Section>
+        </div>
+      </div>
+
+      <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
+        <div className="w-full lg:w-2/2">
+          <Section >
+            <p className="text-sm my-3 font-bold text-center">Collection Exceptions</p>
+            <div className="flex justify-center">
+              <div className="overflow-x-auto">
+                <table className="table table-auto divide-y striped">
+                  <thead>
+                    <tr className="">
+                      {fields2.map((field, i) => (
+                        <th key={i} className="">
+                          {field.name}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y">
+                    {exceptions.map((ind, i) => (
+                      <tr key={i} className="">
+                        {fields2.map((field, j) => (
+                          <td key={j} className="font-bold">
+                            {ind[field.key]}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
