@@ -612,7 +612,7 @@ export const ATOPie = ({ atoAssessedAmt, atoAssCount, atoTrend, atoOverview, rec
             <div className="w-full lg:w-1/5">
               <Widget1
                 color="blue"
-                title="Amount Collected"
+                title="Assessed Amount Collected"
                 description={formatNumber(ind.amountCollected)}
                 right={<RevenueItems />}
               />
