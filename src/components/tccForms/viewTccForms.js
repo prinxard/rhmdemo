@@ -41,10 +41,12 @@ export const StartTcc = () => {
     formState: { errors },
   } = useForm()
 
-  const watchAllFields = watch();
   const watchYear1 = watch("year1", new Date());
   const watchYear2 = watch("year2", new Date());
   const watchYear3 = watch("year3", new Date());
+  console.log("watchYear1", watchYear1);
+  console.log("watchYear2", watchYear2);
+  console.log("watchYear3", watchYear3);
 
   const userKGTN = payerDetails.map(function (det) {
     let kgtin = det.KGTIN
@@ -84,14 +86,12 @@ export const StartTcc = () => {
       year: `${(watchYear1).getFullYear()}`,
       kgtin: `${KGTIN}`
     }
-    console.log(kgtinYear);
     const fetchPostYear1 = async () => {
       setIsFetching2(true)
       try {
         let res = await axios.post(`${url.BASE_URL}forma/view-tax-income`, kgtinYear);
         res = res.data.body
         let assessment = res.assessment
-        console.log(assessment);
         setAssessmentData(assessment)
         setIsFetching2(false)
 
@@ -124,14 +124,13 @@ export const StartTcc = () => {
     fetchPostYear1();
 
   }, [watchYear1.getFullYear()]);
- console.log("tccerror", tccErrors);
 
   useEffect(() => {
     const kgtinYear = {
       year: `${(watchYear2).getFullYear()}`,
       kgtin: `${KGTIN}`
     }
-    console.log(kgtinYear);
+ 
     const fetchPostYear2 = async () => {
       setIsFetching2(true)
       try {
@@ -197,7 +196,7 @@ export const StartTcc = () => {
         .then(function (response) {
           // handle success
           toast.success("Created Successfully!");
-          console.log(response.data.body[0].id);
+          // console.log(response.data.body[0].id);
           router.push(`tcc/${response.data.body[0].id}`)
         })
         .catch(function (error) {
@@ -220,14 +219,14 @@ export const StartTcc = () => {
   var month = d.getMonth();
   var day = d.getDate();
   var c = new Date(year + 1, month, day);
-  console.log(c);
+
 
   var e = new Date();
   var year2 = e.getFullYear();
   var month2 = e.getMonth();
   var day2 = e.getDate();
   var f = new Date(year + 2, month, day);
-  console.log(f);
+ 
 
   return (
     <>
@@ -699,7 +698,7 @@ export const UploadTccForms = ({ tccId }) => {
 
   const onChange = e => {
     const file = e.target.files[0]
-    console.log(file);
+
     if (file) {
       if (!file) {
         setFile(null);

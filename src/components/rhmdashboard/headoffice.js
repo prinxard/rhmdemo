@@ -1573,7 +1573,7 @@ export const AssesmentCount = ({
       <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
         <div className="w-full lg:w-2/2">
           <Section >
-            <p className="text-sm my-3 font-bold text-center">Collection Exceptions</p>
+            <p className="text-sm my-3 font-bold text-center">COLLECTIONS WITHOUT TAX STATIONS</p>
             <div className="flex justify-center">
               <div className="overflow-x-auto">
                 <table className="table table-auto divide-y striped">
