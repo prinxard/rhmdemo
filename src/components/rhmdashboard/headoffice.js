@@ -1201,11 +1201,11 @@ export const AssesmentCount = ({
       key: "serialNo",
     },
     {
-      name: "Collection Count",
+      name: "Count",
       key: "collectionCount",
     },
     {
-      name: "Collection Amount",
+      name: "Amount",
       key: "collectionAmount",
     },
   ];
@@ -1381,7 +1381,7 @@ export const AssesmentCount = ({
           <div className="w-full lg:w-1/5">
             <Widget1
               color="yellow"
-              title="Outstanding Amount"
+              title="Outstanding Assessed Amount"
               description={formatNumber(ind.outstandingAmount)}
               right={<TaxReceipt />}
             />

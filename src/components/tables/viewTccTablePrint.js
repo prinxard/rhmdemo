@@ -119,6 +119,7 @@ export const ViewSingleTccPrintTable = ({ tccID, payerDetails, assessmentData, a
     return ind.year
   })
   const firstYear = String(year1)
+  console.log("firstYear", firstYear);
 
   const year2 = assessmentData2.map((ind, i) => {
     return ind.year
@@ -180,7 +181,7 @@ export const ViewSingleTccPrintTable = ({ tccID, payerDetails, assessmentData, a
               <div>
                 <p>This is to Verify that <span className="font-bold">{ind.taxpayer_name}</span></p>
                 <div>
-                  <p>fully paid his/her Personal Income Tax for the past years, that is: <span>{`${secondYear == "" ? firstYear : firstYear`,`} ${thirdYear == "" ? secondYear : secondYear`,`} ${thirdYear}`}</span></p>
+                  <p>fully paid his/her Personal Income Tax for the past years, that is: <span>{`${firstYear}, ${secondYear}, ${thirdYear}`}</span></p>
                   {/* {secondYear === "" && secondYear === "" ?
 
                 <p>fully paid his/her Personal Income Tax for the past years, that is: <span>{`${firstYear} ${secondYear} ${thirdYear}`}</span></p>
@@ -351,7 +352,7 @@ export const ViewSingleTccPrintTable = ({ tccID, payerDetails, assessmentData, a
               <div>
                 <p>This is to Verify that <span className="font-bold">{ind.taxpayer_name}</span></p>
                 <div>
-                  <p>fully paid his/her Personal Income Tax for the past years, that is: <span>{`${secondYear == "" ? firstYear : firstYear`,`} ${thirdYear == "" ? secondYear : secondYear`,`} ${thirdYear}`}</span></p>
+                  {/* <p>fully paid his/her Personal Income Tax for the past years, that is: <span>{`${secondYear == "" ? firstYear : firstYear`,`} ${thirdYear == "" ? secondYear : secondYear`,`} ${thirdYear}`}</span></p> */}
                   {/* {secondYear === "" && secondYear === "" ?
 
                 <p>fully paid his/her Personal Income Tax for the past years, that is: <span>{`${firstYear} ${secondYear} ${thirdYear}`}</span></p>

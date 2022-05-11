@@ -30,6 +30,9 @@ export const StartTcc = () => {
   const [assessmentData, setAssessmentData] = useState([]);
   const [assessmentData2, setAssessmentData2] = useState([]);
   const [assessmentData3, setAssessmentData3] = useState([]);
+  const [year1Error, setYear1Error] = useState([]);
+  const [year2Error, setYear2Error] = useState([]);
+  const [year3Error, setYear3Error] = useState([]);
   const [tccErrors, settccErrors] = useState(() => []);
   const router = useRouter();
 
@@ -41,12 +44,22 @@ export const StartTcc = () => {
     formState: { errors },
   } = useForm()
 
-  const watchYear1 = watch("year1", new Date());
-  const watchYear2 = watch("year2", new Date());
+  var d = new Date();
+  var year = d.getFullYear();
+  var month = d.getMonth();
+  var day = d.getDate();
+  var c = new Date(year + 1, month, day);
+
+
+  var e = new Date();
+  var year2 = e.getFullYear();
+  var month2 = e.getMonth();
+  var day2 = e.getDate();
+  var f = new Date(year + 2, month, day);
+
+  const watchYear1 = watch("year1", c);
+  const watchYear2 = watch("year2", f);
   const watchYear3 = watch("year3", new Date());
-  console.log("watchYear1", watchYear1);
-  console.log("watchYear2", watchYear2);
-  console.log("watchYear3", watchYear3);
 
   const userKGTN = payerDetails.map(function (det) {
     let kgtin = det.KGTIN
@@ -88,38 +101,46 @@ export const StartTcc = () => {
     }
     const fetchPostYear1 = async () => {
       setIsFetching2(true)
-      try {
-        let res = await axios.post(`${url.BASE_URL}forma/view-tax-income`, kgtinYear);
-        res = res.data.body
-        let assessment = res.assessment
-        setAssessmentData(assessment)
-        setIsFetching2(false)
+      // try {
+      //   let res = await axios.post(`${url.BASE_URL}forma/view-tax-income`, kgtinYear);
+      //   res = res.data.body
+      //   let assessment = res.assessment
+      //   setAssessmentData(assessment)
+      //   setIsFetching2(false)
+      // }
+      // catch (e) {
+      //   // if (e.response) {
+      //   //   settccErrors(() => e.response.data.message);
+      //   //   toast.error(tccErrors)
+      //   //   setIsFetching2(false)
+      //   // } else {
+      //   //   setIsFetching2(false)
+      //   //   setAssessmentData([])
+      //   //   toast.error("Failed to Create TCC!");
+      //   // }
+      //   setIsFetching2(false)
+      //   setAssessmentData([])
+      //   console.log(e);
+      // }
 
-      } catch (e) {
-        setIsFetching2(false)
-        setAssessmentData([])
-        console.log(e);
-      }
-      // let res = axios.post(`${url.BASE_URL}forma/view-tax-income`, kgtinYear)
-      //   .then(function (response) {
-      //     // handle success
-      //     settccErrors(null)
-      //     let assessment = res.assessment
-      //     setAssessmentData(assessment)
-      //     setIsFetching2(false)
-      //   })
-      //   .catch(function (error) {
-      //     // handle error
-      //     if (error.response) {
-      //       settccErrors(() => error.response.data.message);
-      //       toast.error(tccErrors)
-      //       setIsFetching2(false)
-      //     } else {
-      //     setIsFetching2(false)
-      //       // setUploadedFile(false);
-      //       toast.error("Failed to Create!");
-      //     }
-      //   })
+      let res = axios.post(`${url.BASE_URL}forma/view-tax-income`, kgtinYear)
+        .then(function (response) {
+          console.log("response", response);
+          setAssessmentData(response.data.body.assessment)
+          setIsFetching2(false)
+        })
+        .catch(function (error) {
+          // handle error
+          setIsFetching2(false)
+          setAssessmentData([])
+          if (error.response) {
+            settccErrors(() => error.response.data.message);
+            toast.error(tccErrors)
+            console.log("tccErrors", tccErrors);
+          } else {
+            toast.error("Failed to Create!");
+          }
+        })
     };
     fetchPostYear1();
 
@@ -130,20 +151,26 @@ export const StartTcc = () => {
       year: `${(watchYear2).getFullYear()}`,
       kgtin: `${KGTIN}`
     }
- 
+
     const fetchPostYear2 = async () => {
       setIsFetching2(true)
       try {
         let res = await axios.post(`${url.BASE_URL}forma/view-tax-income`, kgtinYear);
         res = res.data.body
+        setIsFetching2(false)
         let assessment = res.assessment
         setAssessmentData2(assessment)
-        setIsFetching2(false)
 
       } catch (e) {
         setAssessmentData2([])
         setIsFetching2(false)
-        console.log(e);
+        if (e.response) {
+          settccErrors(() => e.response.data.message);
+          toast.error(tccErrors)
+          console.log("tccErrors", tccErrors);
+        } else {
+          toast.error("Failed to Create!");
+        }
       }
     };
     fetchPostYear2();
@@ -167,9 +194,15 @@ export const StartTcc = () => {
         setIsFetching2(false)
 
       } catch (e) {
-        setAssessmentData3([])
         setIsFetching2(false)
-        console.log(e);
+        setAssessmentData3([])
+        if (e.response) {
+          settccErrors(() => e.response.data.message);
+          toast.error(tccErrors)
+          console.log("tccErrors", tccErrors);
+        } else {
+          toast.error("Failed to Create!");
+        }
       }
     };
     fetchPostYear3();
@@ -194,18 +227,20 @@ export const StartTcc = () => {
     } else {
       axios.post(`${url.BASE_URL}forma/tcc`, createTCC)
         .then(function (response) {
-          // handle success
           toast.success("Created Successfully!");
-          // console.log(response.data.body[0].id);
           router.push(`tcc/${response.data.body[0].id}`)
         })
         .catch(function (error) {
           // handle error
+          setIsFetching2(false)
+
           if (error.response) {
             settccErrors(() => error.response.data.message);
             toast.error(tccErrors)
+            setIsFetching2(false)
+
           } else {
-            setUploadedFile(false);
+            setIsFetching2(false)
             toast.error("Failed to Create!");
           }
         })
@@ -226,10 +261,11 @@ export const StartTcc = () => {
   var month2 = e.getMonth();
   var day2 = e.getDate();
   var f = new Date(year + 2, month, day);
- 
+
 
   return (
     <>
+      <ToastContainer />
       {isFetching && (
         <div className="flex justify-center item mb-2">
           <Loader
@@ -363,7 +399,7 @@ export const StartTcc = () => {
               <Controller
                 name="year1"
                 control={control}
-                defaultValue={new Date()}
+                // defaultValue={new Date()}
                 render={({ onChange, value }) => {
                   return (
                     <DatePicker
@@ -373,100 +409,73 @@ export const StartTcc = () => {
                       showYearPicker
                       dateFormat="yyyy"
                       yearItemNumber={8}
+                      placeholderText="Select Year"
+
                     />
                   );
                 }}
               />
             </div>
 
-            <div className="mb-6 grid grid-cols-2 gap-3">
-              <label>Tax Payable </label>
-              {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input readOnly className="form-control w-full rounded" type="text" defaultValue={0} />
-                :
+            <div>
+              {assessmentData.map((ind, i) => (
                 <div>
 
-                  {assessmentData.map((ele, i) => (
-                    <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.tax)} ref={register()} type="text"
-                    />
-                  ))}
+                  <div className="mb-6 grid grid-cols-2 gap-3">
+                    <label>Assessment ID</label>
+                    <div>
+                      <input readOnly name="assmt_1" ref={register({ required: "First year Assessment is required " })} className="form-control w-full rounded" key={i} defaultValue={(ind.assessment_id)} type="text"
+                      />
+                      {errors.assmt_1 && <p className="text-red-600">{errors.assmt_1.message}</p>}
+                    </div>
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-2 gap-3">
+                    <label>Tax Payable </label>
+                    <div>
+                      <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ind.tax)} ref={register()} type="text"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-2 gap-3">
+                    <label>Income from employment</label>
+                    <div>
+                      <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ind.employed)} ref={register()} type="text"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-2 gap-3">
+                    <label>Income from Trade/Professional</label>
+                    <div>
+                      <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ind.self_employed)} ref={register()} type="text"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mb-6 grid grid-cols-2 gap-3">
+                    <label>Other Income</label>
+                    <div>
+                      <input readOnly name="other_income" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ind.other_income)} ref={register()} type="text"
+                      />
+                    </div>
+                  </div>
 
                 </div>
-              }
-
+              ))}
             </div>
 
-            <div className="mb-6 grid grid-cols-2 gap-3">
-              <label>Income from employment</label>
-              {assessmentData == null ||  assessmentData == "" || assessmentData == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
-                :
-                <div>
-
-                  {assessmentData.map((ele, i) => (
-                    <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.employed)} ref={register()} type="text"
-                    />
-                  ))}
-
-                </div>
-              }
-            </div>
-
-            <div className="mb-6 grid grid-cols-2 gap-3">
-              <label>Income from Trade/Professional</label>
-              {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
-                :
-                <div>
-
-                  {assessmentData.map((ele, i) => (
-                    <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.self_employed)} ref={register()} type="text"
-                    />
-                  ))}
-
-                </div>
-              }
-            </div>
-
-            <div className="mb-6 grid grid-cols-2 gap-3">
-              <label>Other Income</label>
-              {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
-                :
-                <div>
-
-                  {assessmentData.map((ele, i) => (
-                    <input readOnly name="other_income" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.other_income)} ref={register()} type="text"
-                    />
-                  ))}
-
-                </div>
-              }
-            </div>
-
-            <div className="mb-6 grid grid-cols-2 gap-3">
-              <label>Assessment ID</label>
-              {assessmentData == null || assessmentData == "" || assessmentData == undefined ?
-                <div>
-                  <input className="form-control w-full rounded" ref={register({ required: "First year Assessment is required " })} name="assmt_1" readOnly type="text" placeholder="Assessment ID" />
-                  {errors.assmt_1 && <p className="text-red-600">{errors.assmt_1.message}</p>}
-                </div>
-                :
-                <div>
-                  {assessmentData.map((ele, i) => (
-                    <input readOnly name="assmt_1" ref={register({ required: "First year Assessment is required " })} className="form-control w-full rounded" key={i} defaultValue={(ele.assessment_id)} type="text"
-                    />
-                  ))}
-                  {errors.assmt_1 && <p className="text-red-600">{errors.assmt_1.message}</p>}
-                </div>
-              }
-            </div>
           </div>
 
-          <div className="p-3 grid justify-items-stretch">
+          <div className="p-3 ">
             <h6 className="text-center mb-6">Year 2</h6>
             <div className="mb-6 justify-self-center">
 
               <Controller
                 name="year2"
                 control={control}
-                defaultValue={c}
+                // defaultValue={c}
                 render={({ onChange, value }) => {
                   return (
                     <DatePicker
@@ -476,95 +485,82 @@ export const StartTcc = () => {
                       showYearPicker
                       dateFormat="yyyy"
                       yearItemNumber={8}
+                      placeholderText="Select Year"
+
 
                     />
                   );
                 }}
               />
             </div>
-            <div className="mb-6 justify-self-center">
 
-              {assessmentData2 == null || assessmentData2 == "" || assessmentData2 == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
-                :
+            <div>
+              {assessmentData2.map((ind, i) => (
+
                 <div>
+                  <div className="mb-6 justify-self-center">
 
-                  {assessmentData2.map((ele, i) => (
-                    <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.tax)} ref={register()} type="text"
-                    />
-                  ))}
-                </div>
-              }
-            </div>
+                    <div>
 
-            <div className="mb-6 justify-self-center">
+                      <input readOnly name="assmt_2" ref={register()} className="form-control w-full rounded" key={i} defaultValue={(ind.assessment_id)} type="text"
+                      />
 
-              {assessmentData2 == null || assessmentData2 == "" || assessmentData2 == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
-                :
-                <div>
+                    </div>
+                  </div>
 
-                  {assessmentData2.map((ele, i) => (
-                    <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.employed)} ref={register()} type="text"
-                    />
-                  ))}
-                </div>
-              }
-            </div>
+                  <div className="mb-6 justify-self-center">
+
+                    <div>
+
+                      <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ind.tax)} ref={register()} type="text"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mb-6 justify-self-center">
+
+                    <div>
+
+                      <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ind.employed)} ref={register()} type="text"
+                      />
+                    </div>
+                  </div>
 
 
-            <div className="mb-6 justify-self-center">
+                  <div className="mb-6 justify-self-center">
 
-              {assessmentData2 == null || assessmentData2 == "" || assessmentData2 == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
-                :
-                <div>
+                    <div>
 
-                  {assessmentData2.map((ele, i) => (
-                    <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.self_employed)} ref={register()} type="text"
-                    />
-                  ))}
-                </div>
-              }
-            </div>
+                      <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ind.self_employed)} ref={register()} type="text"
+                      />
+                    </div>
+                  </div>
 
-            <div className="mb-6 justify-self-center">
+                  <div className="mb-6 justify-self-center">
 
-              {assessmentData2 == null || assessmentData2 == "" || assessmentData2 == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
-                :
-                <div>
+                    <div>
 
-                  {assessmentData2.map((ele, i) => (
-                    <input readOnly name="other_income" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.other_income)} ref={register()} type="text"
-                    />
-                  ))}
+                      <input readOnly name="other_income" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ind.other_income)} ref={register()} type="text"
+                      />
 
-                </div>
-              }
-            </div>
-
-            <div className="mb-6 justify-self-center">
-
-              {assessmentData2 == null || assessmentData2 == "" || assessmentData2 == undefined ? <input className="form-control w-full rounded" readOnly name="assmt_2" ref={register()} type="text" placeholder="Assessment ID" />
-                :
-                <div>
-
-                  {assessmentData2.map((ele, i) => (
-                    <input readOnly name="assmt_2" ref={register()} className="form-control w-full rounded" key={i} defaultValue={(ele.assessment_id)} type="text"
-                    />
-                  ))}
+                    </div>
+                  </div>
 
                 </div>
-              }
+              ))}
             </div>
+
 
           </div>
 
-          <div className="p-3 grid justify-items-stretch">
+          <div className="p-3">
             <h6 className="text-center mb-6">Year 3</h6>
             <div className="mb-6 justify-self-center">
 
               <Controller
                 name="year3"
                 control={control}
-                defaultValue={f}
+                // defaultValue="YYYY"
                 render={({ onChange, value }) => {
                   return (
                     <DatePicker
@@ -574,85 +570,69 @@ export const StartTcc = () => {
                       showYearPicker
                       dateFormat="yyyy"
                       yearItemNumber={8}
-                      placeholderText="Enter Year"
+                      placeholderText="Select Year"
                     />
                   );
                 }}
               />
             </div>
+            <div>
 
-            <div className="mb-6 justify-self-center">
-
-              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
-                :
+              {assessmentData3.map((ind, i) => (
                 <div>
 
-                  {assessmentData3.map((ele, i) => (
-                    <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.tax)} ref={register()} type="text"
-                    />
-                  ))}
+                  <div className="mb-6 justify-self-center">
 
+                    <div>
+
+                      <input readOnly name="assmt_3" ref={register()} className="form-control w-full rounded" key={i} defaultValue={(ind.assessment_id)} type="text"
+                      />
+
+                    </div>
+                  </div>
+
+                  <div className="mb-6 justify-self-center">
+
+                    <div>
+
+                      <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ind.tax)} ref={register()} type="text"
+                      />
+
+                    </div>
+                  </div>
+
+                  <div className="mb-6 justify-self-center">
+
+                    <div>
+
+                      <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ind.employed)} ref={register()} type="text"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mb-6 justify-self-center">
+
+                    <div>
+
+                      <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ind.self_employed)} ref={register()} type="text"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mb-6 justify-self-center">
+
+                    <div>
+
+                      <input readOnly name="other_income" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ind.other_income)} ref={register()} type="text"
+                      />
+
+                    </div>
+                  </div>
                 </div>
-              }
-            </div>
-
-            <div className="mb-6 justify-self-center">
-
-              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
-                :
-                <div>
-
-                  {assessmentData3.map((ele, i) => (
-                    <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.employed)} ref={register()} type="text"
-                    />
-                  ))}
-                </div>
-              }
-            </div>
-
-            <div className="mb-6 justify-self-center">
-
-              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
-                :
-                <div>
-
-                  {assessmentData3.map((ele, i) => (
-                    <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.self_employed)} ref={register()} type="text"
-                    />
-                  ))}
-                </div>
-              }
-            </div>
-            <div className="mb-6 justify-self-center">
-
-              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
-                :
-                <div>
-
-                  {assessmentData3.map((ele, i) => (
-                    <input readOnly name="other_income" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.other_income)} ref={register()} type="text"
-                    />
-                  ))}
-
-                </div>
-              }
-            </div>
-
-            <div className="mb-6 justify-self-center">
-
-              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" readOnly name="assmt_3" ref={register()} type="text" placeholder="Assessment ID" />
-                :
-                <div>
-
-                  {assessmentData3.map((ele, i) => (
-                    <input readOnly name="assmt_3" ref={register()} className="form-control w-full rounded" key={i} defaultValue={(ele.assessment_id)} type="text"
-                    />
-                  ))}
-
-                </div>
-              }
+              ))}
             </div>
           </div>
+
         </div>
         <div className="flex justify-center mt-5">
           <button
