@@ -211,6 +211,7 @@ export const StartTcc = () => {
 
   setAuthToken();
   const onSubmitform = data => {
+    console.log("data", data);
     setIsFetching2(true)
     let createTCC = {
       file_ref: data.file_ref,
