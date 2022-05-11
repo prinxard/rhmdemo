@@ -30,6 +30,9 @@ export const StartTcc = () => {
   const [assessmentData, setAssessmentData] = useState([]);
   const [assessmentData2, setAssessmentData2] = useState([]);
   const [assessmentData3, setAssessmentData3] = useState([]);
+  const [year1Err, setYear1Err] = useState([]);
+  const [year2Err, setYear2Err] = useState([]);
+  const [year3Err, setYear3Err] = useState([]);
   const [tccErrors, settccErrors] = useState(() => []);
   const router = useRouter();
 
@@ -41,10 +44,23 @@ export const StartTcc = () => {
     formState: { errors },
   } = useForm()
 
+  var d = new Date();
+  var year = d.getFullYear();
+  var month = d.getMonth();
+  var day = d.getDate();
+  var c = new Date(year + 1, month, day);
+
+
+  var e = new Date();
+  var year2 = e.getFullYear();
+  var month2 = e.getMonth();
+  var day2 = e.getDate();
+  var f = new Date(year + 2, month, day);
+
   const watchAllFields = watch();
   const watchYear1 = watch("year1", new Date());
-  const watchYear2 = watch("year2", new Date());
-  const watchYear3 = watch("year3", new Date());
+  const watchYear2 = watch("year2", c);
+  const watchYear3 = watch("year3", f);
 
   const userKGTN = payerDetails.map(function (det) {
     let kgtin = det.KGTIN
@@ -98,7 +114,14 @@ export const StartTcc = () => {
       } catch (e) {
         setIsFetching2(false)
         setAssessmentData([])
-        console.log(e);
+        if (e.response) {
+          setYear1Err(() => e.response.data.message);
+          toast.error(year1Err)
+          setIsFetching2(false)
+        } else {
+          setIsFetching2(false)
+          toast.error("Failed to Create!");
+        }
       }
       // let res = axios.post(`${url.BASE_URL}forma/view-tax-income`, kgtinYear)
       //   .then(function (response) {
@@ -124,7 +147,7 @@ export const StartTcc = () => {
     fetchPostYear1();
 
   }, [watchYear1.getFullYear()]);
- console.log("tccerror", tccErrors);
+  console.log("tccerror", tccErrors);
 
   useEffect(() => {
     const kgtinYear = {
@@ -144,7 +167,14 @@ export const StartTcc = () => {
       } catch (e) {
         setAssessmentData2([])
         setIsFetching2(false)
-        console.log(e);
+        if (e.response) {
+          setYear2Err(() => e.response.data.message);
+          toast.error(year2Err)
+          setIsFetching2(false)
+        } else {
+          setIsFetching2(false)
+          toast.error("Failed to Create!");
+        }
       }
     };
     fetchPostYear2();
@@ -170,7 +200,14 @@ export const StartTcc = () => {
       } catch (e) {
         setAssessmentData3([])
         setIsFetching2(false)
-        console.log(e);
+        if (e.response) {
+          setYear3Err(() => e.response.data.message);
+          toast.error(year3Err)
+          setIsFetching2(false)
+        } else {
+          setIsFetching2(false)
+          toast.error("Failed to Create!");
+        }
       }
     };
     fetchPostYear3();
@@ -180,6 +217,14 @@ export const StartTcc = () => {
   setAuthToken();
   const onSubmitform = data => {
     setIsFetching2(true)
+    if (data.assmt_2 === '') {
+      data.assmt_2 = null
+    }
+    if (data.assmt_3 === '') {
+      data.assmt_3 = null
+    }
+    console.log(data);
+
     let createTCC = {
       file_ref: data.file_ref,
       prc_fee: data.prc_fee,
@@ -215,22 +260,10 @@ export const StartTcc = () => {
 
   };
 
-  var d = new Date();
-  var year = d.getFullYear();
-  var month = d.getMonth();
-  var day = d.getDate();
-  var c = new Date(year + 1, month, day);
-  console.log(c);
-
-  var e = new Date();
-  var year2 = e.getFullYear();
-  var month2 = e.getMonth();
-  var day2 = e.getDate();
-  var f = new Date(year + 2, month, day);
-  console.log(f);
 
   return (
     <>
+      <ToastContainer />
       {isFetching && (
         <div className="flex justify-center item mb-2">
           <Loader
@@ -364,7 +397,7 @@ export const StartTcc = () => {
               <Controller
                 name="year1"
                 control={control}
-                defaultValue={new Date()}
+                // defaultValue={new Date()}
                 render={({ onChange, value }) => {
                   return (
                     <DatePicker
@@ -374,10 +407,29 @@ export const StartTcc = () => {
                       showYearPicker
                       dateFormat="yyyy"
                       yearItemNumber={8}
+                      placeholderText="Select Year"
                     />
                   );
                 }}
               />
+            </div>
+
+            <div className="mb-6 grid grid-cols-2 gap-3">
+              <label>Assessment ID</label>
+              {assessmentData == null || assessmentData == "" || assessmentData == undefined ?
+                <div>
+                  <input className="form-control w-full rounded" ref={register({ required: "First year Assessment is required " })} name="assmt_1" readOnly type="text"  />
+                  {errors.assmt_1 && <p className="text-red-600">{errors.assmt_1.message}</p>}
+                </div>
+                :
+                <div>
+                  {assessmentData.map((ele, i) => (
+                    <input readOnly name="assmt_1" ref={register({ required: "First year Assessment is required " })} className="form-control w-full rounded" key={i} defaultValue={(ele.assessment_id)} type="text"
+                    />
+                  ))}
+                  {errors.assmt_1 && <small className="text-red-600">{errors.assmt_1.message}</small>}
+                </div>
+              }
             </div>
 
             <div className="mb-6 grid grid-cols-2 gap-3">
@@ -398,7 +450,7 @@ export const StartTcc = () => {
 
             <div className="mb-6 grid grid-cols-2 gap-3">
               <label>Income from employment</label>
-              {assessmentData == null ||  assessmentData == "" || assessmentData == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
+              {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
                 :
                 <div>
 
@@ -440,24 +492,6 @@ export const StartTcc = () => {
                 </div>
               }
             </div>
-
-            <div className="mb-6 grid grid-cols-2 gap-3">
-              <label>Assessment ID</label>
-              {assessmentData == null || assessmentData == "" || assessmentData == undefined ?
-                <div>
-                  <input className="form-control w-full rounded" ref={register({ required: "First year Assessment is required " })} name="assmt_1" readOnly type="text" placeholder="Assessment ID" />
-                  {errors.assmt_1 && <p className="text-red-600">{errors.assmt_1.message}</p>}
-                </div>
-                :
-                <div>
-                  {assessmentData.map((ele, i) => (
-                    <input readOnly name="assmt_1" ref={register({ required: "First year Assessment is required " })} className="form-control w-full rounded" key={i} defaultValue={(ele.assessment_id)} type="text"
-                    />
-                  ))}
-                  {errors.assmt_1 && <p className="text-red-600">{errors.assmt_1.message}</p>}
-                </div>
-              }
-            </div>
           </div>
 
           <div className="p-3 grid justify-items-stretch">
@@ -467,7 +501,7 @@ export const StartTcc = () => {
               <Controller
                 name="year2"
                 control={control}
-                defaultValue={c}
+                // defaultValue={c}
                 render={({ onChange, value }) => {
                   return (
                     <DatePicker
@@ -477,12 +511,30 @@ export const StartTcc = () => {
                       showYearPicker
                       dateFormat="yyyy"
                       yearItemNumber={8}
+                      placeholderText="Select Year"
+
 
                     />
                   );
                 }}
               />
             </div>
+
+            <div className="mb-6 justify-self-center">
+
+              {assessmentData2 == null || assessmentData2 == "" || assessmentData2 == undefined ? <input className="form-control w-full rounded" readOnly name="assmt_2" ref={register()} type="text"  />
+                :
+                <div>
+
+                  {assessmentData2.map((ele, i) => (
+                    <input readOnly name="assmt_2" ref={register()} className="form-control w-full rounded" key={i} defaultValue={(ele.assessment_id)} type="text"
+                    />
+                  ))}
+
+                </div>
+              }
+            </div>
+
             <div className="mb-6 justify-self-center">
 
               {assessmentData2 == null || assessmentData2 == "" || assessmentData2 == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
@@ -534,21 +586,6 @@ export const StartTcc = () => {
 
                   {assessmentData2.map((ele, i) => (
                     <input readOnly name="other_income" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.other_income)} ref={register()} type="text"
-                    />
-                  ))}
-
-                </div>
-              }
-            </div>
-
-            <div className="mb-6 justify-self-center">
-
-              {assessmentData2 == null || assessmentData2 == "" || assessmentData2 == undefined ? <input className="form-control w-full rounded" readOnly name="assmt_2" ref={register()} type="text" placeholder="Assessment ID" />
-                :
-                <div>
-
-                  {assessmentData2.map((ele, i) => (
-                    <input readOnly name="assmt_2" ref={register()} className="form-control w-full rounded" key={i} defaultValue={(ele.assessment_id)} type="text"
                     />
                   ))}
 
@@ -565,7 +602,7 @@ export const StartTcc = () => {
               <Controller
                 name="year3"
                 control={control}
-                defaultValue={f}
+                // defaultValue={f}
                 render={({ onChange, value }) => {
                   return (
                     <DatePicker
@@ -575,11 +612,27 @@ export const StartTcc = () => {
                       showYearPicker
                       dateFormat="yyyy"
                       yearItemNumber={8}
-                      placeholderText="Enter Year"
+                      placeholderText="Select Year"
+
                     />
                   );
                 }}
               />
+            </div>
+
+            <div className="mb-6 justify-self-center">
+
+              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" readOnly name="assmt_3" ref={register()} type="text"  />
+                :
+                <div>
+
+                  {assessmentData3.map((ele, i) => (
+                    <input readOnly name="assmt_3" ref={register()} className="form-control w-full rounded" key={i} defaultValue={(ele.assessment_id)} type="text"
+                    />
+                  ))}
+
+                </div>
+              }
             </div>
 
             <div className="mb-6 justify-self-center">
@@ -639,20 +692,6 @@ export const StartTcc = () => {
               }
             </div>
 
-            <div className="mb-6 justify-self-center">
-
-              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" readOnly name="assmt_3" ref={register()} type="text" placeholder="Assessment ID" />
-                :
-                <div>
-
-                  {assessmentData3.map((ele, i) => (
-                    <input readOnly name="assmt_3" ref={register()} className="form-control w-full rounded" key={i} defaultValue={(ele.assessment_id)} type="text"
-                    />
-                  ))}
-
-                </div>
-              }
-            </div>
           </div>
         </div>
         <div className="flex justify-center mt-5">
@@ -1481,10 +1520,4 @@ export const UploadTccForms = ({ tccId }) => {
 
   )
 }
-
-
-
-
-
-
 

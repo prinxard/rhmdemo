@@ -1197,22 +1197,28 @@ export const AssesmentCount = ({
 
   const fields2 = [
     {
-      name: "sn",
-      key: "serialNo",
+      name: "Month",
+      key: "month",
     },
     {
-      name: "Collection Count",
+      name: "Count",
       key: "collectionCount",
     },
     {
-      name: "Collection Amount",
-      key: "collectionAmount",
+      name: "Amount",
+      key: "collectionAmountFormated",
+    },
+    {
+      name: "Revenue Item",
+      key: "revenueItem",
     },
   ];
 
   const [total, setTotal] = useState([])
   const [items, setPost] = useState(() => []);
   const [except, setExcept] = useState(() => []);
+  const [exceptTotal, setExceptTotal] = useState([])
+
 
 
 
@@ -1307,20 +1313,42 @@ export const AssesmentCount = ({
     }
 
 
-    let recordsTop = [];
+    let exceptionRecords = [];
+    let excepsum = {};
+    let ColCountSum = []
+    let ColAmountSum = []
 
     for (let i = 0; i < exceptions.length; i++) {
-
 
       let rec = exceptions[i];
       rec.serialNo = num + i
 
+      rec.collectionCount = Number(rec.collectionCount)
+      rec.collectionAmountf = Number(rec.collectionAmount)
+
+      ColCountSum.push(rec.collectionCount)
+      ColAmountSum.push(rec.collectionAmountf)
+
+
       rec.collectionCount = formatNumber(rec.collectionCount);
-      rec.collectionAmount = formatNumber(rec.collectionAmount);
-      recordsTop.push(rec);
+      rec.collectionAmountFormated = formatNumber(rec.collectionAmount);
+      exceptionRecords.push(rec);
     }
-    setExcept(() => recordsTop);
-    
+    const totalexcepCountSum = ColCountSum.reduce(
+      (preVal, curVal) => preVal + curVal,
+      0
+    );
+    const totalexcepAmountSum = ColAmountSum.reduce(
+      (preVal, curVal) => preVal + curVal,
+      0
+    );
+
+    excepsum.totalexcepCountSum = totalexcepCountSum;
+    excepsum.totalexcepAmountSum = totalexcepAmountSum;
+
+    setExcept(() => exceptionRecords);
+    setExceptTotal(() => excepsum);
+
   }, []);
 
 
@@ -1381,7 +1409,7 @@ export const AssesmentCount = ({
           <div className="w-full lg:w-1/5">
             <Widget1
               color="yellow"
-              title="Outstanding Amount"
+              title="Outstanding Assessed Amount"
               description={formatNumber(ind.outstandingAmount)}
               right={<TaxReceipt />}
             />
@@ -1573,7 +1601,7 @@ export const AssesmentCount = ({
       <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
         <div className="w-full lg:w-2/2">
           <Section >
-            <p className="text-sm my-3 font-bold text-center">Collection Exceptions</p>
+            <p className="text-sm my-3 font-bold text-center">COLLECTIONS WITHOUT TAX STATIONS</p>
             <div className="flex justify-center">
               <div className="overflow-x-auto">
                 <table className="table table-auto divide-y striped">
@@ -1590,12 +1618,20 @@ export const AssesmentCount = ({
                     {exceptions.map((ind, i) => (
                       <tr key={i} className="">
                         {fields2.map((field, j) => (
-                          <td key={j} className="font-bold">
+                          <td key={j}>
                             {ind[field.key]}
                           </td>
                         ))}
                       </tr>
                     ))}
+                    {exceptions.length > 0 && (
+                      <tr className="font-semibold">
+                        <td>Total</td>
+                        <td>{formatNumber(exceptTotal.totalexcepCountSum)}</td>
+                        <td>{formatNumber(exceptTotal.totalexcepAmountSum)}</td>
+                        <td></td>
+                      </tr>
+                    )}
                   </tbody>
                 </table>
               </div>

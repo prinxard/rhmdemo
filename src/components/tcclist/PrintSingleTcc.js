@@ -17,8 +17,8 @@ const PrintSingleTcc = () => {
   const [query, setQuery] = useState(() => "");
   const [tccdata, setTccData] = useState(() => []);
   const [assess1, setAssess1] = useState(() => []);
-  const [assess2, setAssess2] = useState(() => []);
-  const [assess3, setAssess3] = useState(() => []);
+  const [assess3, setAssess3] = useState([]);
+  const [assess2, setAssess2] = useState([]);
   const [tccID, setTccID] = useState(() => []);
   const router = useRouter();
   useEffect(() => {
@@ -53,6 +53,8 @@ const PrintSingleTcc = () => {
     }
   }, [router]);
 
+  console.log("assess2", assess2);
+  console.log("assess3", assess3);
 
   return (
     <>
