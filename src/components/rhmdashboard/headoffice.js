@@ -14,7 +14,7 @@ import {
 } from "recharts";
 import { formatNumber } from "accounting";
 import Widget1 from "../dashboard/widget-1";
-import { PendingRemittance, RevenueItems, TaxReceipt, TotalRemittance } from "../Icons";
+import { PendingRemittance, RevenueItems, TaxReceipt, TotalRemittance, Unassessed } from "../Icons";
 import setAuthToken from "../../functions/setAuthToken";
 import axios from "axios";
 import url from "../../config/url";
@@ -1403,7 +1403,7 @@ export const AssesmentCount = ({
               color="yellow"
               title="Unassessed Amount Collected"
               description={formatNumber(ind.unassessedAmountCollected)}
-              right={<TaxReceipt />}
+              right={<Unassessed />}
             />
           </div>
           <div className="w-full lg:w-1/5">
