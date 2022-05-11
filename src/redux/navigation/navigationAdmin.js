@@ -78,6 +78,27 @@ const initialState = [
             url: '/view/approvedasses',
             items: [],
           },
+          {
+            url: '/',
+            title: 'Tax Clearance (TCC)',
+            items: [
+              {
+                url: '/tcc',
+                title: 'Create',
+                items: [],
+              },
+              {
+                url: '/view/listtcc',
+                title: 'View',
+                items: [],
+              },
+              {
+                url: '/view/listprinttcc',
+                title: 'Print',
+                items: [],
+              },
+            ],
+          },
         ],
       },
 
@@ -100,27 +121,6 @@ const initialState = [
             url: '/',
             title: 'Remittance Schedules',
             items: [],
-          },
-          {
-            url: '/',
-            title: 'Tax Clearance (TCC)',
-            items: [
-              {
-                url: '/tcc',
-                title: 'Create',
-                items: [],
-              },
-              {
-                url: '/view/listtcc',
-                title: 'View',
-                items: [],
-              },
-              {
-                url: '/view/listprinttcc',
-                title: 'Print',
-                items: [],
-              },
-            ],
           },
           {
             url: '/',

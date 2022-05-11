@@ -115,27 +115,44 @@ export const ViewTccPrintTable = ({ tccdata }) => {
 
 export const ViewSingleTccPrintTable = ({ tccID, payerDetails, assessmentData, assessmentData2, assessmentData3 }) => {
   const componentRef = useRef();
+  let year2
+  let year3
+
   const year1 = assessmentData.map((ind, i) => {
     return ind.year
   })
   const firstYear = String(year1)
-  console.log("firstYear", firstYear);
 
-  const year2 = assessmentData2.map((ind, i) => {
-    return ind.year
-  })
+  if (assessmentData2 === "" || assessmentData2 === undefined) {
+    year2 = ""
+  } else {
+
+    year2 = assessmentData2.map((ind, i) => {
+      return ind.year
+    })
+
+  }
+
   const secondYear = String(year2)
 
-  const year3 = assessmentData3.map((ind, i) => {
-    return ind.year
-  })
-  const thirdYear = String(year3)
+  if (assessmentData3 === "" || assessmentData3 === undefined) {
+    year3 = ""
+  } else {
 
+    year3 = assessmentData3.map((ind, i) => {
+      return ind.year
+    })
+  }
+  const thirdYear = String(year3)
 
   let date = new Date()
   let due_date = new Date(date)
   due_date.setDate(due_date.getDate() + 365);
   let expiry = dateformat(due_date, "dd mmm yyyy")
+
+  let Issdate = new Date()
+  let Issdue_date = new Date(Issdate)
+  let dateIssue = dateformat(Issdue_date, "dd mmm yyyy")
 
 
 
@@ -164,7 +181,7 @@ export const ViewSingleTccPrintTable = ({ tccID, payerDetails, assessmentData, a
                 <div>
                   <div className="flex">
                     <p>Issue Date:</p>
-                    <p className="pl-2">Date</p>
+                    <p className="pl-2">{dateIssue}</p>
                   </div>
                   <div className="flex">
                     <p>TIN/KGTIN:</p>
@@ -181,7 +198,10 @@ export const ViewSingleTccPrintTable = ({ tccID, payerDetails, assessmentData, a
               <div>
                 <p>This is to Verify that <span className="font-bold">{ind.taxpayer_name}</span></p>
                 <div>
-                  <p>fully paid his/her Personal Income Tax for the past years, that is: <span>{`${firstYear}, ${secondYear}, ${thirdYear}`}</span></p>
+                {/* <p>fully paid his/her Personal Income Tax for the past years, that is: <span>{`${secondYear === "" || secondYear === undefined ? firstYear : firstYear`,`} ${thirdYear === "" || thirdYear === undefined ? secondYear : secondYear`,`} ${thirdYear}`}</span></p> */}
+                <p>fully paid his/her Personal Income Tax for the past years, that is: <span>{`${firstYear} ${secondYear} ${thirdYear}`}</span></p>
+
+
                   {/* {secondYear === "" && secondYear === "" ?
 
                 <p>fully paid his/her Personal Income Tax for the past years, that is: <span>{`${firstYear} ${secondYear} ${thirdYear}`}</span></p>
@@ -227,7 +247,7 @@ export const ViewSingleTccPrintTable = ({ tccID, payerDetails, assessmentData, a
                   </thead>
 
                   <tbody>
-                    {assessmentData === "" ? "" :
+                    {assessmentData === "" || assessmentData === undefined ? "" :
                       <tr>
                         <td className="">
                           {assessmentData.map((ind, i) => (
@@ -251,7 +271,7 @@ export const ViewSingleTccPrintTable = ({ tccID, payerDetails, assessmentData, a
                         </td>
                       </tr>
                     }
-                    {assessmentData2 == "" ? "" :
+                    {assessmentData2 === "" || assessmentData2 === undefined ? "" :
                       <tr>
                         <td className="">
                           {assessmentData2.map((ind, i) => (
@@ -277,7 +297,7 @@ export const ViewSingleTccPrintTable = ({ tccID, payerDetails, assessmentData, a
                       </tr>
 
                     }
-                    {assessmentData3 == "" ? "" :
+                    {assessmentData3 === "" || assessmentData3 === undefined ? "" :
                       <tr>
                         <td className="">
                           {assessmentData3.map((ind, i) => (
@@ -335,7 +355,7 @@ export const ViewSingleTccPrintTable = ({ tccID, payerDetails, assessmentData, a
                 <div>
                   <div className="flex">
                     <p>Issue Date:</p>
-                    <p className="pl-2">Date</p>
+                    <p className="pl-2">{dateIssue}</p>
                   </div>
                   <div className="flex">
                     <p>TIN/KGTIN:</p>
@@ -353,6 +373,9 @@ export const ViewSingleTccPrintTable = ({ tccID, payerDetails, assessmentData, a
                 <p>This is to Verify that <span className="font-bold">{ind.taxpayer_name}</span></p>
                 <div>
                   {/* <p>fully paid his/her Personal Income Tax for the past years, that is: <span>{`${secondYear == "" ? firstYear : firstYear`,`} ${thirdYear == "" ? secondYear : secondYear`,`} ${thirdYear}`}</span></p> */}
+                  <p>fully paid his/her Personal Income Tax for the past years, that is: <span>{`${firstYear} ${secondYear} ${thirdYear}`}</span></p>
+
+
                   {/* {secondYear === "" && secondYear === "" ?
 
                 <p>fully paid his/her Personal Income Tax for the past years, that is: <span>{`${firstYear} ${secondYear} ${thirdYear}`}</span></p>
@@ -398,7 +421,7 @@ export const ViewSingleTccPrintTable = ({ tccID, payerDetails, assessmentData, a
                   </thead>
 
                   <tbody>
-                    {assessmentData === "" ? "" :
+                    {assessmentData === "" || assessmentData === undefined ? "" :
                       <tr>
                         <td className="">
                           {assessmentData.map((ind, i) => (
@@ -422,7 +445,7 @@ export const ViewSingleTccPrintTable = ({ tccID, payerDetails, assessmentData, a
                         </td>
                       </tr>
                     }
-                    {assessmentData2 == "" ? "" :
+                    {assessmentData2 === "" || assessmentData2 === undefined ? "" :
                       <tr>
                         <td className="">
                           {assessmentData2.map((ind, i) => (
@@ -448,7 +471,7 @@ export const ViewSingleTccPrintTable = ({ tccID, payerDetails, assessmentData, a
                       </tr>
 
                     }
-                    {assessmentData3 == "" ? "" :
+                    {assessmentData3 === "" || assessmentData3 === undefined ? "" :
                       <tr>
                         <td className="">
                           {assessmentData3.map((ind, i) => (

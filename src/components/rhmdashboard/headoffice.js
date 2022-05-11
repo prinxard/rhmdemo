@@ -1197,8 +1197,8 @@ export const AssesmentCount = ({
 
   const fields2 = [
     {
-      name: "sn",
-      key: "serialNo",
+      name: "Month",
+      key: "month",
     },
     {
       name: "Count",
@@ -1206,13 +1206,19 @@ export const AssesmentCount = ({
     },
     {
       name: "Amount",
-      key: "collectionAmount",
+      key: "collectionAmountFormated",
+    },
+    {
+      name: "Revenue Item",
+      key: "revenueItem",
     },
   ];
 
   const [total, setTotal] = useState([])
   const [items, setPost] = useState(() => []);
   const [except, setExcept] = useState(() => []);
+  const [exceptTotal, setExceptTotal] = useState([])
+
 
 
 
@@ -1307,20 +1313,42 @@ export const AssesmentCount = ({
     }
 
 
-    let recordsTop = [];
+    let exceptionRecords = [];
+    let excepsum = {};
+    let ColCountSum = []
+    let ColAmountSum = []
 
     for (let i = 0; i < exceptions.length; i++) {
-
 
       let rec = exceptions[i];
       rec.serialNo = num + i
 
+      rec.collectionCount = Number(rec.collectionCount)
+      rec.collectionAmountf = Number(rec.collectionAmount)
+
+      ColCountSum.push(rec.collectionCount)
+      ColAmountSum.push(rec.collectionAmountf)
+
+
       rec.collectionCount = formatNumber(rec.collectionCount);
-      rec.collectionAmount = formatNumber(rec.collectionAmount);
-      recordsTop.push(rec);
+      rec.collectionAmountFormated = formatNumber(rec.collectionAmount);
+      exceptionRecords.push(rec);
     }
-    setExcept(() => recordsTop);
-    
+    const totalexcepCountSum = ColCountSum.reduce(
+      (preVal, curVal) => preVal + curVal,
+      0
+    );
+    const totalexcepAmountSum = ColAmountSum.reduce(
+      (preVal, curVal) => preVal + curVal,
+      0
+    );
+
+    excepsum.totalexcepCountSum = totalexcepCountSum;
+    excepsum.totalexcepAmountSum = totalexcepAmountSum;
+
+    setExcept(() => exceptionRecords);
+    setExceptTotal(() => excepsum);
+
   }, []);
 
 
@@ -1590,12 +1618,20 @@ export const AssesmentCount = ({
                     {exceptions.map((ind, i) => (
                       <tr key={i} className="">
                         {fields2.map((field, j) => (
-                          <td key={j} className="font-bold">
+                          <td key={j}>
                             {ind[field.key]}
                           </td>
                         ))}
                       </tr>
                     ))}
+                    {exceptions.length > 0 && (
+                      <tr className="font-semibold">
+                        <td>Total</td>
+                        <td>{formatNumber(exceptTotal.totalexcepCountSum)}</td>
+                        <td>{formatNumber(exceptTotal.totalexcepAmountSum)}</td>
+                        <td></td>
+                      </tr>
+                    )}
                   </tbody>
                 </table>
               </div>
