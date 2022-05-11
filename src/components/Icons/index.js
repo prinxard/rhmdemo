@@ -115,7 +115,7 @@ export const TotalRemittance = () => {
   return (
     <Image
       layout="fixed"
-      src="/images/icons/total_rem.png"
+      src="/images/icons/approved.png"
       alt=""
       width={35}
       height={35}
@@ -127,7 +127,7 @@ export const PendingRemittance = () => {
   return (
     <Image
       layout="fixed"
-      src="/images/icons/pending_rem.png"
+      src="/images/icons/totalapproved.png"
       alt=""
       width={35}
       height={35}
@@ -140,7 +140,7 @@ export const RevenueItems = () => {
   return (
     <Image
       layout="fixed"
-      src="/images/icons/rev_items_blu.png"
+      src="/images/icons/collected.png"
       alt=""
       width={35}
       height={35}
@@ -152,7 +152,19 @@ export const TaxReceipt = () => {
   return (
     <Image
       layout="fixed"
-      src="/images/icons/receipt.png"
+      src="/images/icons/outstanding.png"
+      alt=""
+      width={35}
+      height={35}
+    />
+  );
+};
+
+export const Unassessed = () => {
+  return (
+    <Image
+      layout="fixed"
+      src="/images/icons/unassed.png"
       alt=""
       width={35}
       height={35}
