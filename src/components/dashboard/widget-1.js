@@ -1,7 +1,7 @@
 const Widget1 = ({ title, description, color, right = null }) => {
   return (
     <div
-      className={`widget w-full p-4 rounded-lg bg-white border-2 border-${color}-400 dark:bg-gray-900 dark:border-gray-800`}
+      className={`widget w-full p-4 rounded-lg bg-white border-b-2 border-${color}-400 dark:bg-gray-900 dark:border-gray-800`}
     >
       <div className="flex flex-row items-center justify-between">
         <div className="flex flex-col">
