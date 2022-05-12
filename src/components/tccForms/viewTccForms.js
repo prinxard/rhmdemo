@@ -251,7 +251,6 @@ export const StartTcc = () => {
             settccErrors(() => error.response.data.message);
             toast.error(tccErrors)
           } else {
-            setUploadedFile(false);
             toast.error("Failed to Create!");
           }
         })

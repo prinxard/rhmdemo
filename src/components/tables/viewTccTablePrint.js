@@ -145,6 +145,10 @@ export const ViewSingleTccPrintTable = ({ tccID, payerDetails, assessmentData, a
   }
   const thirdYear = String(year3)
 
+  console.log("firstYear", firstYear);
+  console.log("year2", secondYear);
+  console.log("year3", thirdYear);
+
   let date = new Date()
   let due_date = new Date(date)
   due_date.setDate(due_date.getDate() + 365);
@@ -198,8 +202,11 @@ export const ViewSingleTccPrintTable = ({ tccID, payerDetails, assessmentData, a
               <div>
                 <p>This is to Verify that <span className="font-bold">{ind.taxpayer_name}</span></p>
                 <div>
-                {/* <p>fully paid his/her Personal Income Tax for the past years, that is: <span>{`${secondYear === "" || secondYear === undefined ? firstYear : firstYear`,`} ${thirdYear === "" || thirdYear === undefined ? secondYear : secondYear`,`} ${thirdYear}`}</span></p> */}
-                <p>fully paid his/her Personal Income Tax for the past years, that is: <span>{`${firstYear} ${secondYear} ${thirdYear}`}</span></p>
+                  {/* <p>fully paid his/her Personal Income Tax for the past years, that is: <span>{`${secondYear === "" || secondYear === undefined ? firstYear : firstYear`,`} ${thirdYear === "" || thirdYear === undefined ? secondYear : secondYear`,`} ${thirdYear}`}</span></p> */}
+                  <p>fully paid his/her Personal Income Tax for the past years, that is: <span>
+                    {`${secondYear !== "" ? `${firstYear},` : firstYear} ${thirdYear !== "" ? `${secondYear},` : secondYear} ${thirdYear}`}
+                  </span>
+                  </p>
 
 
                   {/* {secondYear === "" && secondYear === "" ?
@@ -373,7 +380,10 @@ export const ViewSingleTccPrintTable = ({ tccID, payerDetails, assessmentData, a
                 <p>This is to Verify that <span className="font-bold">{ind.taxpayer_name}</span></p>
                 <div>
                   {/* <p>fully paid his/her Personal Income Tax for the past years, that is: <span>{`${secondYear == "" ? firstYear : firstYear`,`} ${thirdYear == "" ? secondYear : secondYear`,`} ${thirdYear}`}</span></p> */}
-                  <p>fully paid his/her Personal Income Tax for the past years, that is: <span>{`${firstYear} ${secondYear} ${thirdYear}`}</span></p>
+                  <p>fully paid his/her Personal Income Tax for the past years, that is: <span>
+                    {`${secondYear !== "" ? `${firstYear},` : firstYear} ${thirdYear !== "" ? `${secondYear},` : secondYear} ${thirdYear}`}
+                  </span>
+                  </p>
 
 
                   {/* {secondYear === "" && secondYear === "" ?
