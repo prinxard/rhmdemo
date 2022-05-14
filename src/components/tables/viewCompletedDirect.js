@@ -114,7 +114,7 @@ export const ViewCompletedTable = ({ submittedData }) => {
         }}
 
         onRowClick={(event, rowData) => {
-          window.open(`/view/completeddirect/${rowData.assessment_id},${rowData.kgtin}`)
+          window.open(`/view/completeddirect/${rowData.assessment_id},${rowData.kgtin}`, "_self")
           event.stopPropagation();
         }}
       />
