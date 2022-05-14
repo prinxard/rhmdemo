@@ -53,8 +53,7 @@ const PrintSingleTcc = () => {
     }
   }, [router]);
 
-  console.log("assess2", assess2);
-  console.log("assess3", assess3);
+ 
 
   return (
     <>

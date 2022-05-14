@@ -118,37 +118,6 @@ export const ViewCompletedTable = ({ submittedData }) => {
           event.stopPropagation();
         }}
       />
-      
-      {/* <Widget>
-        <table className="table divide-y">
-          <thead>
-            <tr className="">
-              {fields.map((field, i) => (
-                <th key={i} className="">
-                  {field.name}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="divide-y">
-            {items.map((remittance, i) => (
-              <tr key={i} className="">
-                {fields.map((field, j) => (
-                  <td key={j} className="">
-                    
-                    <Link href={`/view/completeddirect/${remittance.assessment_id},${remittance.kgtin}`}>
-                      <a classNameNameName="hover:text-blue-500">
-                        {remittance[field.key]}
-                      </a>
-                    </Link>
-                  
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </Widget> */}
     </>
   );
 };
@@ -523,17 +492,17 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
         <table className="table-auto">
           <tbody>
             <tr>
-              
+
               <td className="font-bold">TAX STATION</td>
 
               {payerArr.map((data, idx) => (
-                        <div key={idx}>
-                          {data.tax_office === "Okehi/Adavi" ?
-                            <p>Adavi/Okehi</p> :
-                            <p>{data.tax_office}</p>
-                          }
-                        </div>
-                      ))}
+                <div key={idx}>
+                  {data.tax_office === "Okehi/Adavi" ?
+                    <p>Adavi/Okehi</p> :
+                    <p>{data.tax_office}</p>
+                  }
+                </div>
+              ))}
 
               {/* {payerArr.map((el, i) =>
                 <td className="pl-3" key={i}>{el.tax_office}</td>

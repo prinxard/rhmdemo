@@ -77,7 +77,7 @@ const ListBusinessTypes = () => {
                 </div>
             )}
 
-            <ViewBusinessTypeTable BusinessTypeData={post} />
+            <ViewBusinessTypeTable BusinessTypeData={post} setPost={setPost}/>
         </>
     );
 };

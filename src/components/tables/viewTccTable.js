@@ -108,7 +108,7 @@ export const ViewTccTable = ({ tccdata }) => {
         }}
 
         onRowClick={(event, rowData) => {
-          window.open(`/view/listtcc/${rowData.id}`)
+          window.open(`/view/listtcc/${rowData.id}`, "_self")
           event.stopPropagation();
         }}
       />

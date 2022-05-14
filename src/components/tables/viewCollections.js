@@ -102,7 +102,7 @@ export const ViewCollectionsTable = ({ remittance }) => {
         }}
 
         onRowClick={(event, rowData) => {
-          window.open(`collections/${rowData.idpymt}`)
+          window.open(`collections/${rowData.idpymt}`, "_self")
           event.stopPropagation();
         }}
       />
