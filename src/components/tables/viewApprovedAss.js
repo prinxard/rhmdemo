@@ -287,7 +287,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
         }}
 
         onRowClick={(event, rowData) => {
-          window.open(`/view/approvedasses/${rowData.assessment_id},${rowData.kgtin}`)
+          window.open(`/view/approvedasses/${rowData.assessment_id},${rowData.kgtin}`, "_self")
           event.stopPropagation();
         }}
       />

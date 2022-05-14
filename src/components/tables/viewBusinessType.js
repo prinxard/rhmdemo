@@ -44,87 +44,15 @@ export const ViewBusinessTypeTable = ({ BusinessTypeData }) => {
     let items = BusinessTypeData;
     const [modal, setModal] = useState(false);
     const [assessId, setAssessId] = useState('');
+    const [test, setPost] = useState('');
     const [isFetching, setIsFetching] = useState(() => false);
 
 
-    const { config, palettes, auth } = useSelector(
-        (state) => ({
-            config: state.config,
-            palettes: state.palettes,
-            auth: state.authentication.auth,
-        }),
-        shallowEqual
-    );
 
-
-
-    const DeleteRange = [1, 12]
-    const decoded = jwt.decode(auth);
-    const userGroup = decoded.groups
-    console.log("UserGroup", userGroup);
-
-    const toggleModal = (e) => {
-        // e.preventDefault()
-        setModal(!modal);
-    };
-
-    setAuthToken();
-    const DeleteAssessment = async (data) => {
-        data.preventDefault()
-        setIsFetching(true)
-        let deleteOBJ = {
-            assessment_id: assessId
-        }
-        try {
-            await axios.delete(`${url.BASE_URL}forma/del-assessment`, { data: deleteOBJ })
-            setIsFetching(false)
-            toast.success("Deleted Successfully!");
-            window.location.reload()
-        } catch (error) {
-            toast.error("Failed Try again!");
-            setIsFetching(false)
-        }
-
-
-    };
 
     return (
         <>
             <ToastContainer />
-            {modal && (
-                <div className="modal">
-                    {/* <div onClick={toggleModal} className="overlay"></div> */}
-                    <div className="modal-content" width="300">
-                        <form onSubmit={DeleteAssessment}>
-                            <div className="flex justify-center">
-                                <WarningRounded
-                                    size={15}
-                                    className="text-yellow-400"
-                                />
-                            </div>
-                            <p>Are you sure you want to delete?</p>
-                            {/* <textarea required className="form-control w-full rounded" minlength="10" maxlength="50" onChange={(e) => setComment(e.target.value)}></textarea> */}
-                            <div className="mt-2 flex justify-between">
-                                <button onClick={toggleModal}
-                                    className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                                >
-                                    Cancel
-                                </button>
-                                <div>
-
-                                </div>
-                                <button
-                                    className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                                    type="submit"
-                                >
-                                    Continue
-                                </button>
-
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            )}
 
             {isFetching && (
                 <div className="flex justify-start item mb-2">
@@ -140,6 +68,7 @@ export const ViewBusinessTypeTable = ({ BusinessTypeData }) => {
                     <p className="font-bold">Processing...</p>
                 </div>
             )}
+
             <MaterialTable title="View Business Types"
                 data={items}
                 columns={fields}
@@ -148,49 +77,21 @@ export const ViewBusinessTypeTable = ({ BusinessTypeData }) => {
                     cellStyle: {},
                     onCellEditApproved: (newValue, oldValue, rowData, columnDef) => {
                         return new Promise((resolve, reject) => {
-                            console.log('newValue: ' + newValue);
-                            setTimeout(resolve, 4000);
+                            const clonedData = [...data]
+                            clonedData[rowData.tableData.id][columnDef.field] = newValue
+                            setPost(clonedData)
+                            console.log("clonedData", test);
+                            setTimeout(resolve, 1000);
+                            // console.log('newValue: ' + newValue);
+                            // setTimeout(resolve, 4000);
                         });
                     }
                 }}
-
-                actions={[
-                    (delData) => {
-                        if (userGroup.some(r => DeleteRange.includes(r))) {
-                            return {
-
-                                icon: Edit,
-                                tooltip: 'Edit Business Type',
-                                onClick: (event, rowData) => {
-                                    event.preventDefault()
-                                    setAssessId(rowData.assessment_id)
-                                    setModal(true)
-                                }
-                            };
-                        }
-                        else {
-                            return {
-
-                                icon: Edit,
-                                tooltip: 'Edit Business Type',
-                                hidden: true,
-                                onClick: (event, rowData) => {
-                                    event.preventDefault()
-                                    setAssessId(rowData.assessment_id)
-                                    setModal(true)
-                                }
-
-                            };
-                        }
-
-                    }
-                ]}
 
                 options={{
                     search: true,
                     paging: true,
                     filtering: true,
-                    // actionsColumnIndex: -1,
                     rowStyle: (rowData) => {
                         if (rowData.printstatus === "Yes") {
                             return {
@@ -222,63 +123,7 @@ export const ViewBusinessTypeTable = ({ BusinessTypeData }) => {
                     Clear: Clear,
                     SortArrow: ArrowDownward
                 }}
-
-            // onRowClick={(event, rowData) => {
-            //     window.open(`/view/approvedasses/${rowData.assessment_id},${rowData.kgtin}`)
-            //     event.stopPropagation();
-            // }}
             />
-
-
-            <style
-                jsx>{
-                    `
-        body.active-modal {
-          overflow-y: hidden;
-      }
-      
-      // .btn-modal {
-      //     padding: 10px 20px;
-      //     display: block;
-      //     margin: 100px auto 0;
-      //     font-size: 18px;
-      // }
-      
-      .modal, .overlay {
-          width: 100vw;
-          height: 100vh;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          position: fixed;
-      }
-      
-      .overlay {
-          background: rgba(49,49,49,0.8);
-      }
-      .modal-content {
-          position: absolute;
-          top: 20%;
-          left: 60%;
-          transform: translate(-50%, -50%);
-          line-height: 1.4;
-          background: #f1f1f1;
-          padding: 14px 28px;
-          border-radius: 3px;
-          max-width: 400px;
-          min-width: 300px;
-      }
-      
-      .close-modal {
-          position: absolute;
-          top: 10px;
-          right: 10px;
-          padding: 5px 7px;
-      }
-        `
-                }
-            </style>
         </>
     );
 };

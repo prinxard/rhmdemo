@@ -79,7 +79,7 @@ export const ViewIndividualTable = ({ individualData }) => {
         }}
 
         onRowClick={(event, rowData) => {
-          window.open(`/view/individual/${rowData.KGTIN}`)
+          window.open(`/view/individual/${rowData.KGTIN}`, "_self")
           event.stopPropagation();
         }}
       />

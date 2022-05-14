@@ -79,6 +79,7 @@ const ViewSingleApproved = () => {
       fetchPost();
     }
   }, [router]);
+  
 
   let ChangePrint = async (e) => {
     e.preventDefault()

@@ -111,10 +111,10 @@ export const ViewPendingTable = ({ draftData }) => {
           {
             rowData.assessment_type == "BOJ" ?
 
-              window.open(`/view/boj/${rowData.assessment_id},${rowData.kgtin}`)
+              window.open(`/view/boj/${rowData.assessment_id},${rowData.kgtin}`, "_self")
               :
 
-              window.open(`/view/pendingdirect/${rowData.assessment_id},${rowData.kgtin}`)
+              window.open(`/view/pendingdirect/${rowData.assessment_id},${rowData.kgtin}`, "_self")
 
           }
 

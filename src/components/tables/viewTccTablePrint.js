@@ -105,7 +105,7 @@ export const ViewTccPrintTable = ({ tccdata }) => {
         }}
 
         onRowClick={(event, rowData) => {
-          window.open(`/view/listprinttcc/${rowData.id}`)
+          window.open(`/view/listprinttcc/${rowData.id}`, "_self")
           event.stopPropagation();
         }}
       />
@@ -159,6 +159,25 @@ export const ViewSingleTccPrintTable = ({ tccID, payerDetails, assessmentData, a
   let dateIssue = dateformat(Issdue_date, "dd mmm yyyy")
 
 
+  let ChangePrint = async (e) => {
+    e.preventDefault()
+    // setIsFetching3(true)
+    let statusObj = {
+      assessment_id: globalAssId,
+      status: "Printed",
+    }
+    try {
+      let res = await axios.put(`${url.BASE_URL}forma/set-status`, statusObj);
+      // setIsFetching3(false)
+      console.log("successful!");
+      // router.push('/view/listverifiedboj')
+    } catch (error) {
+      // toast.error("Failed!");
+      console.log(error);
+      // setIsFetching3(false)
+    }
+  }
+
 
   return (
     <>
@@ -167,7 +186,7 @@ export const ViewSingleTccPrintTable = ({ tccID, payerDetails, assessmentData, a
           // pageStyle='@page { size: auto; margin: 0mm; } @media print { body { -webkit-print-color-adjust: exact; padding: 40px !important; } }'
           pageStyle="@page { size: 7.5in 13in  }"
           trigger={() => <button className="btn w-32 bg-green-600 btn-default text-white
-        btn-outlined bg-transparent rounded-md"
+          btn-outlined bg-transparent rounded-md"
             type="submit"
           >
             Print

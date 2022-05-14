@@ -126,7 +126,7 @@ export const ViewBOJTable = ({ bojdata }) => {
         }}
 
         onRowClick={(event, rowData) => {
-          window.open(`/view/listverifiedboj/${rowData.assessment_id},${rowData.kgtin}`)
+          window.open(`/view/listverifiedboj/${rowData.assessment_id},${rowData.kgtin}`, "_self")
           event.stopPropagation();
         }}
       />
