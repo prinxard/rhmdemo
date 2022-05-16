@@ -44,6 +44,18 @@ const fields = [
     field: "tp_id",
   },
   {
+    title: "Year 1 tax",
+    field: "amount1",
+  },
+  {
+    title: "Year 2 tax",
+    field: "amount2",
+  },
+  {
+    title: "Year 3 tax",
+    field: "amount3",
+  },
+  {
     title: "Name",
     field: "taxpayer_name",
   },
@@ -65,7 +77,7 @@ const fields = [
     //         <p style={{ color: "#B0B700", fontWeight: "bold" }}>{rowData.status}</p>
     //   )
     // }
-  }
+  },
 ];
 
 
@@ -82,6 +94,16 @@ export const ViewTccPrintTable = ({ tccdata }) => {
           search: true,
           paging: true,
           filtering: true,
+          rowStyle: (rowData) => {
+            if (rowData.status === "Printed") {
+              return {
+                color: "#5f9f45"
+                // backgroundColor: "#156448",
+              }
+            } else {
+              return {};
+            }
+          },
           exportButton: {
             csv: true,
             pdf: false
@@ -145,9 +167,7 @@ export const ViewSingleTccPrintTable = ({ tccID, payerDetails, assessmentData, a
   }
   const thirdYear = String(year3)
 
-  console.log("firstYear", firstYear);
-  console.log("year2", secondYear);
-  console.log("year3", thirdYear);
+
 
   let date = new Date()
   let due_date = new Date(date)
@@ -159,22 +179,17 @@ export const ViewSingleTccPrintTable = ({ tccID, payerDetails, assessmentData, a
   let dateIssue = dateformat(Issdue_date, "dd mmm yyyy")
 
 
-  let ChangePrint = async (e) => {
+  setAuthToken();
+  let ChangePrint = (e) => {
     e.preventDefault()
-    // setIsFetching3(true)
     let statusObj = {
-      assessment_id: globalAssId,
-      status: "Printed",
+      id: tccID,
+      status: "Printed"
     }
     try {
-      let res = await axios.put(`${url.BASE_URL}forma/set-status`, statusObj);
-      // setIsFetching3(false)
-      console.log("successful!");
-      // router.push('/view/listverifiedboj')
+      let res = axios.post(`${url.BASE_URL}forma/tcc-status`, statusObj);
     } catch (error) {
-      // toast.error("Failed!");
       console.log(error);
-      // setIsFetching3(false)
     }
   }
 
@@ -182,17 +197,20 @@ export const ViewSingleTccPrintTable = ({ tccID, payerDetails, assessmentData, a
   return (
     <>
       <div className="m-3 flex justify-end">
-        <ReactToPrint
-          // pageStyle='@page { size: auto; margin: 0mm; } @media print { body { -webkit-print-color-adjust: exact; padding: 40px !important; } }'
-          pageStyle="@page { size: 7.5in 13in  }"
-          trigger={() => <button className="btn w-32 bg-green-600 btn-default text-white
-          btn-outlined bg-transparent rounded-md"
-            type="submit"
-          >
-            Print
-          </button>}
-          content={() => componentRef.current}
-        />
+        <div onClick={ChangePrint}>
+          <ReactToPrint
+            // pageStyle='@page { size: auto; margin: 0mm; } @media print { body { -webkit-print-color-adjust: exact; padding: 40px !important; } }'
+            pageStyle="@page { size: 7.5in 13in  }"
+            trigger={() => <button className="btn w-32 bg-green-600 btn-default text-white
+            btn-outlined bg-transparent rounded-md"
+              type="submit"
+            >
+              Print
+            </button>}
+            content={() => componentRef.current}
+          />
+        </div>
+
       </div>
       <Widget >
         <div ref={componentRef}>
