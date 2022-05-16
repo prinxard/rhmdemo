@@ -274,11 +274,11 @@ const initialState = [
             items: [
               { title: 'Create', url: '/settings/business-type/create', items: [] },
               { title: 'View', url: '/settings/view-business-type', items: [] },
-              {
-                title: 'Edit',
-                url: '/',
-                items: [],
-              },
+              // {
+              //   title: 'Edit',
+              //   url: '/',
+              //   items: [],
+              // },
             ],
           },
         ],
