@@ -31,6 +31,9 @@ const TccPrintList = () => {
         console.log(res);
         for (let i = 0; i < res.length; i++) {
           let rec = res[i];
+          rec.amount1 = formatNumber(rec.amount1)
+          rec.amount2 = formatNumber(rec.amount2)
+          rec.amount3 = formatNumber(rec.amount3)
           rec.serialNo = num + i
           rec.prc_fee = formatNumber(rec.prc_fee)
           rec.crt_time = dateformat(rec.crt_time, "dd mmm yyyy")
