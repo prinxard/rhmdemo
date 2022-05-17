@@ -52,7 +52,14 @@ export const AmountAssessed = ({ atoAssessedAmt }) => {
     unassessedCollection = Number(ind.unassessedAmountCollected)
   })
 
+
+
+
   outstandingAmount = (Number(amountAssessed) - Number(amountCollected))
+
+  console.log("amountAssessed", Number(amountAssessed));
+  console.log("amountCollected", Number(amountCollected));
+  console.log("outstandingAmount", Number(outstandingAmount));
 
   const dataAssesedAmount = [
     { name: "Amount Assessed ", value: amountAssessed },
@@ -434,6 +441,15 @@ export const ATOPie = ({ atoAssessedAmt, atoAssCount, atoTrend, atoOverview, rec
     shallowEqual
   );
 
+  let OutstandingPaymt
+
+  atoOverview.forEach((data, i) => {
+    OutstandingPaymt = Number(data.amountAssessed) - Number(data.amountCollected)
+    return OutstandingPaymt
+  })
+
+  
+
   const decoded = jwt.decode(auth);
   const taxOff = decoded.station
 
@@ -477,7 +493,7 @@ export const ATOPie = ({ atoAssessedAmt, atoAssCount, atoTrend, atoOverview, rec
 
 
     if (recentAssess || topAssess) {
-     
+
       let records = [];
       let recordsTop = [];
 
@@ -631,10 +647,11 @@ export const ATOPie = ({ atoAssessedAmt, atoAssCount, atoTrend, atoOverview, rec
               <Widget1
                 color="yellow"
                 title="Outstanding Assessed Amount"
-                description={formatNumber(ind.outstandingAmount)}
+                description={formatNumber(OutstandingPaymt)}
                 right={<TaxReceipt />}
               />
             </div>
+
           </div>
 
         ))}

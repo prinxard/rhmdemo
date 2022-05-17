@@ -330,6 +330,7 @@ export const StartAssessment = () => {
 export const StartSingleIndividualAssessment = ({kgtinVal, payerprop, routerAssId }) => {
   let assessment_id = routerAssId
   let indvData = payerprop
+  console.log("indvData", indvData);
 
   const [toggleel, setToggle] = useState('hidden')
   const [togglee2, setToggle2] = useState('hidden')
