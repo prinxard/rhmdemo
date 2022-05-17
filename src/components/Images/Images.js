@@ -47,6 +47,19 @@ export const KogiGov = () => {
   );
 };
 
+export const TccbgImage = () => {
+  return (
+    <Image
+      // layout="fill"
+      layout="fixed"
+      src="/images/tcccertificate.jpeg"
+      alt="login"
+      width={685}
+      height={360}
+    />
+  );
+};
+
 export const LoginImage = () => {
   return (
     <Image
