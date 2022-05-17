@@ -27,6 +27,8 @@ import Loader from "react-loader-spinner";
 import url from '../../config/url';
 import axios from "axios";
 import ReactToPrint from "react-to-print";
+import { TccbgImage } from "../Images/Images";
+
 
 const fields = [
   {
@@ -135,10 +137,24 @@ export const ViewTccPrintTable = ({ tccdata }) => {
   );
 };
 
-export const ViewSingleTccPrintTable = ({ tccID, payerDetails, assessmentData, assessmentData2, assessmentData3 }) => {
+export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, assessmentData, assessmentData2, assessmentData3 }) => {
+
   const componentRef = useRef();
   let year2
   let year3
+
+  let basdocurl = 'https://annualuploads.bespoque.dev/rhm/uploads/da/tcc/'
+  let picUpload
+  let signature
+
+  tccUploads.forEach((ind, i) => {
+    picUpload = ind.passport
+  })
+
+  tccUploads.forEach((ind, i) => {
+    signature = ind.sign
+  })
+
 
   const year1 = assessmentData.map((ind, i) => {
     return ind.year
@@ -212,363 +228,207 @@ export const ViewSingleTccPrintTable = ({ tccID, payerDetails, assessmentData, a
         </div>
 
       </div>
-      <Widget >
+
+      <section className="cert-content">
         <div ref={componentRef}>
-
-          <div className="p-16">
-            <h4 className="flex justify-end text-red-600">ORIGINAL</h4>
-            <div className="flex justify-end">
-              {payerDetails.map((ind, i) => (
-                <div>
-                  <div className="flex">
-                    <p>Issue Date:</p>
-                    <p className="pl-2">{dateIssue}</p>
-                  </div>
-                  <div className="flex">
-                    <p>TIN/KGTIN:</p>
-                    <p className="pl-2">{ind.tp_id}</p>
-                  </div>
-                  <div className="flex">
-                    <p>File Ref:</p>
-                    <p className="pl-2">{ind.file_ref}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            {payerDetails.map((ind, i) => (
-              <div>
-                <p>This is to Verify that <span className="font-bold">{ind.taxpayer_name}</span></p>
-                <div>
-                  {/* <p>fully paid his/her Personal Income Tax for the past years, that is: <span>{`${secondYear === "" || secondYear === undefined ? firstYear : firstYear`,`} ${thirdYear === "" || thirdYear === undefined ? secondYear : secondYear`,`} ${thirdYear}`}</span></p> */}
-                  <p>fully paid his/her Personal Income Tax for the past years, that is: <span>
-                    {`${secondYear !== "" ? `${firstYear},` : firstYear} ${thirdYear !== "" ? `${secondYear},` : secondYear} ${thirdYear}`}
-                  </span>
-                  </p>
-
-
-                  {/* {secondYear === "" && secondYear === "" ?
-
-                <p>fully paid his/her Personal Income Tax for the past years, that is: <span>{`${firstYear} ${secondYear} ${thirdYear}`}</span></p>
-                : ""
-              }
-
-              {secondYear !== "" && secondYear === "" ?
-
-                <p>fully paid his/her Personal Income Tax for the past years, that is: <span>{`${firstYear}, ${secondYear} ${thirdYear}`}</span></p>
-                : ""
-              }
-
-              {secondYear === "" && secondYear !== "" ?
-
-                <p>fully paid his/her Personal Income Tax for the past years, that is: <span>{`${firstYear}, ${secondYear} ${thirdYear}`}</span></p>
-                : ""
-              } */}
-                </div>
-              </div>
-            ))}
-            <div className="my-4">
-              <p>Details of his/her assessments are as follows:</p>
-            </div>
-
-            <div className="flex justify-center">
-              <div>
-                <table className="table divide-y mb-4">
-                  <thead>
-                    <tr>
-                      <th>
-                        Tax Year
-                      </th>
-                      <th className="">
-                        Assessed Income
-                      </th>
-                      <th className="">
-                        Tax Paid
-                      </th>
-                      <th className="">
-                        Assessment Type
-                      </th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    {assessmentData === "" || assessmentData === undefined ? "" :
-                      <tr>
-                        <td className="">
-                          {assessmentData.map((ind, i) => (
-                            <p className="font-bold">{ind.year}</p>
-
-                          ))}
-                        </td>
-                        {assessmentData.map((ind, i) => (
-                          <td className="">
-                            <p className="font-bold"> {formatNumber(Number(ind.employed) + Number(ind.self_employed) + Number(ind.other_income))} </p>
-                          </td>
-                        ))}
-
-                        <td className="">
-                          {assessmentData.map((ind, i) => (
-                            <p className="font-bold">{formatNumber(ind.tax)}</p>
-                          ))}
-                        </td>
-                        <td className="">
-                          <p>Direct Assessment</p>
-                        </td>
-                      </tr>
-                    }
-                    {assessmentData2 === "" || assessmentData2 === undefined ? "" :
-                      <tr>
-                        <td className="">
-                          {assessmentData2.map((ind, i) => (
-                            <p className="font-bold">{ind.year}</p>
-
-                          ))}
-                        </td>
-                        {assessmentData2.map((ind, i) => (
-                          <td className="">
-                            <p className="font-bold"> {formatNumber(Number(ind.employed) + Number(ind.self_employed) + Number(ind.other_income))} </p>
-                          </td>
-                        ))}
-
-                        <td className="">
-                          {assessmentData2.map((ind, i) => (
-                            <p className="font-bold">{formatNumber(ind.tax)}</p>
-                          ))}
-                        </td>
-                        <td className="">
-                          <p>Direct Assessment</p>
-                        </td>
-
-                      </tr>
-
-                    }
-                    {assessmentData3 === "" || assessmentData3 === undefined ? "" :
-                      <tr>
-                        <td className="">
-                          {assessmentData3.map((ind, i) => (
-                            <p className="font-bold">{ind.year}</p>
-
-                          ))}
-                        </td>
-                        {assessmentData3.map((ind, i) => (
-                          <td className="">
-                            <p className="font-bold"> {formatNumber(Number(ind.employed) + Number(ind.self_employed) + Number(ind.other_income))} </p>
-                          </td>
-                        ))}
-
-                        <td className="">
-                          {assessmentData3.map((ind, i) => (
-                            <p className="font-bold">{formatNumber(ind.tax)}</p>
-                          ))}
-                        </td>
-                        <td className="">
-                          <p>Direct Assessment</p>
-                        </td>
-
-                      </tr>
-
-                    }
-
-                  </tbody>
-                </table>
-              </div>
-            </div>
+          <div className="flex justify-around">
             <div>
-              <p>His/her known source(s) of income are: <span>Employment, Trade/Professional</span> </p>
-              <p>This certificate expires on: <span>{expiry}</span> </p>
-            </div>
-
-            <div className="flex justify-between">
+              <h4 className="flex justify-end text-red-600">ORIGINAL</h4>
+              <div className="flex justify-end">
+                {payerDetails.map((ind, i) => (
+                  <div>
+                    <div className="flex">
+                      <p>Issue Date:</p>
+                      <p className="pl-2">{dateIssue}</p>
+                    </div>
+                    <div className="flex">
+                      <p>TIN/KGTIN:</p>
+                      <p className="pl-2">{ind.tp_id}</p>
+                    </div>
+                    <div className="flex">
+                      <p>File Ref:</p>
+                      <p className="pl-2">{ind.file_ref}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
               {payerDetails.map((ind, i) => (
-                <p className="mt-4">Tax Office {ind.tax_office}</p>
+                <div>
+                  <div>
+                    <div className="h-16 w-16 mb-3">
+                      <img
+                        src={`${basdocurl}${picUpload}`}
+                        alt=""
+                        layout="fill"
+                        objectFit="cover" // change to suit your needs
+                        className="rounded"
+                      />
+                    </div>
+                    <div className="h-16 w-16 mb-3">
+                      <img
+                        src={`${basdocurl}${signature}`}
+                        alt=""
+                        layout="fill"
+                        objectFit="cover" // change to suit your needs
+                        className="rounded"
+                      />
+                    </div>
+                  </div>
+                  <p>This is to Verify that <span className="font-bold">{ind.taxpayer_name}</span></p>
+                  <div>
+                    <p>fully paid his/her Personal Income Tax for the past years, that is: <span>
+                      {`${secondYear !== "" ? `${firstYear},` : firstYear} ${thirdYear !== "" ? `${secondYear},` : secondYear} ${thirdYear}`}
+                    </span>
+                    </p>
+                  </div>
+                </div>
               ))}
-              <div className="flex justify-between mt-4">
-                <div className="flex flex-col">
-                  <hr />
-                  <p className="font-bold text-center">Sule Salihu Enehe</p>
-                  <p className="font-bold text-center">Ag. Executive Chairman</p>
+              <div className="my-4">
+                <p>Details of his/her assessments are as follows:</p>
+              </div>
+
+              <div className="flex justify-center">
+                <div>
+                  <table className="table divide-y mb-4">
+                    <thead>
+                      <tr>
+                        <th>
+                          Tax Year
+                        </th>
+                        <th className="">
+                          Assessed Income
+                        </th>
+                        <th className="">
+                          Tax Paid
+                        </th>
+                        <th className="">
+                          Assessment Type
+                        </th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      {assessmentData === "" || assessmentData === undefined ? "" :
+                        <tr>
+                          <td className="">
+                            {assessmentData.map((ind, i) => (
+                              <p className="font-bold">{ind.year}</p>
+
+                            ))}
+                          </td>
+                          {assessmentData.map((ind, i) => (
+                            <td className="">
+                              <p className="font-bold"> {formatNumber(Number(ind.employed) + Number(ind.self_employed) + Number(ind.other_income))} </p>
+                            </td>
+                          ))}
+
+                          <td className="">
+                            {assessmentData.map((ind, i) => (
+                              <p className="font-bold">{formatNumber(ind.tax)}</p>
+                            ))}
+                          </td>
+                          <td className="">
+                            <p>Direct Assessment</p>
+                          </td>
+                        </tr>
+                      }
+                      {assessmentData2 === "" || assessmentData2 === undefined ? "" :
+                        <tr>
+                          <td className="">
+                            {assessmentData2.map((ind, i) => (
+                              <p className="font-bold">{ind.year}</p>
+
+                            ))}
+                          </td>
+                          {assessmentData2.map((ind, i) => (
+                            <td className="">
+                              <p className="font-bold"> {formatNumber(Number(ind.employed) + Number(ind.self_employed) + Number(ind.other_income))} </p>
+                            </td>
+                          ))}
+
+                          <td className="">
+                            {assessmentData2.map((ind, i) => (
+                              <p className="font-bold">{formatNumber(ind.tax)}</p>
+                            ))}
+                          </td>
+                          <td className="">
+                            <p>Direct Assessment</p>
+                          </td>
+
+                        </tr>
+
+                      }
+                      {assessmentData3 === "" || assessmentData3 === undefined ? "" :
+                        <tr>
+                          <td className="">
+                            {assessmentData3.map((ind, i) => (
+                              <p className="font-bold">{ind.year}</p>
+
+                            ))}
+                          </td>
+                          {assessmentData3.map((ind, i) => (
+                            <td className="">
+                              <p className="font-bold"> {formatNumber(Number(ind.employed) + Number(ind.self_employed) + Number(ind.other_income))} </p>
+                            </td>
+                          ))}
+
+                          <td className="">
+                            {assessmentData3.map((ind, i) => (
+                              <p className="font-bold">{formatNumber(ind.tax)}</p>
+                            ))}
+                          </td>
+                          <td className="">
+                            <p>Direct Assessment</p>
+                          </td>
+
+                        </tr>
+
+                      }
+
+                    </tbody>
+                  </table>
                 </div>
               </div>
+              <div>
+                <p>His/her known source(s) of income are: <span>Employment, Trade/Professional</span> </p>
+                <p>This certificate expires on: <span>{expiry}</span> </p>
+              </div>
+
+              <div className="flex justify-between">
+                {payerDetails.map((ind, i) => (
+                  <p className="mt-4">Tax Office {ind.tax_office}</p>
+                ))}
+                <div className="flex justify-between mt-4">
+                  <div className="flex flex-col">
+                    <hr />
+                    <p className="font-bold text-center">Sule Salihu Enehe</p>
+                    <p className="font-bold text-center">Ag. Executive Chairman</p>
+                  </div>
+                </div>
+              </div>
+
             </div>
 
           </div>
 
-          <div className="p-16">
-            <h4 className="flex justify-end">DUPLICATE</h4>
-            <div className="flex justify-end">
-              {payerDetails.map((ind, i) => (
-                <div>
-                  <div className="flex">
-                    <p>Issue Date:</p>
-                    <p className="pl-2">{dateIssue}</p>
-                  </div>
-                  <div className="flex">
-                    <p>TIN/KGTIN:</p>
-                    <p className="pl-2">{ind.tp_id}</p>
-                  </div>
-                  <div className="flex">
-                    <p>File Ref:</p>
-                    <p className="pl-2">{ind.file_ref}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            {payerDetails.map((ind, i) => (
-              <div>
-                <p>This is to Verify that <span className="font-bold">{ind.taxpayer_name}</span></p>
-                <div>
-                  {/* <p>fully paid his/her Personal Income Tax for the past years, that is: <span>{`${secondYear == "" ? firstYear : firstYear`,`} ${thirdYear == "" ? secondYear : secondYear`,`} ${thirdYear}`}</span></p> */}
-                  <p>fully paid his/her Personal Income Tax for the past years, that is: <span>
-                    {`${secondYear !== "" ? `${firstYear},` : firstYear} ${thirdYear !== "" ? `${secondYear},` : secondYear} ${thirdYear}`}
-                  </span>
-                  </p>
 
-
-                  {/* {secondYear === "" && secondYear === "" ?
-
-                <p>fully paid his/her Personal Income Tax for the past years, that is: <span>{`${firstYear} ${secondYear} ${thirdYear}`}</span></p>
-                : ""
-              }
-
-              {secondYear !== "" && secondYear === "" ?
-
-                <p>fully paid his/her Personal Income Tax for the past years, that is: <span>{`${firstYear}, ${secondYear} ${thirdYear}`}</span></p>
-                : ""
-              }
-
-              {secondYear === "" && secondYear !== "" ?
-
-                <p>fully paid his/her Personal Income Tax for the past years, that is: <span>{`${firstYear}, ${secondYear} ${thirdYear}`}</span></p>
-                : ""
-              } */}
-                </div>
-              </div>
-            ))}
-            <div className="my-4">
-              <p>Details of his/her assessments are as follows:</p>
-            </div>
-
-            <div className="flex justify-center">
-              <div>
-                <table className="table divide-y mb-4">
-                  <thead>
-                    <tr>
-                      <th>
-                        Tax Year
-                      </th>
-                      <th className="">
-                        Assessed Income
-                      </th>
-                      <th className="">
-                        Tax Paid
-                      </th>
-                      <th className="">
-                        Assessment Type
-                      </th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    {assessmentData === "" || assessmentData === undefined ? "" :
-                      <tr>
-                        <td className="">
-                          {assessmentData.map((ind, i) => (
-                            <p className="font-bold">{ind.year}</p>
-
-                          ))}
-                        </td>
-                        {assessmentData.map((ind, i) => (
-                          <td className="">
-                            <p className="font-bold"> {formatNumber(Number(ind.employed) + Number(ind.self_employed) + Number(ind.other_income))} </p>
-                          </td>
-                        ))}
-
-                        <td className="">
-                          {assessmentData.map((ind, i) => (
-                            <p className="font-bold">{formatNumber(ind.tax)}</p>
-                          ))}
-                        </td>
-                        <td className="">
-                          <p>Direct Assessment</p>
-                        </td>
-                      </tr>
-                    }
-                    {assessmentData2 === "" || assessmentData2 === undefined ? "" :
-                      <tr>
-                        <td className="">
-                          {assessmentData2.map((ind, i) => (
-                            <p className="font-bold">{ind.year}</p>
-
-                          ))}
-                        </td>
-                        {assessmentData2.map((ind, i) => (
-                          <td className="">
-                            <p className="font-bold"> {formatNumber(Number(ind.employed) + Number(ind.self_employed) + Number(ind.other_income))} </p>
-                          </td>
-                        ))}
-
-                        <td className="">
-                          {assessmentData2.map((ind, i) => (
-                            <p className="font-bold">{formatNumber(ind.tax)}</p>
-                          ))}
-                        </td>
-                        <td className="">
-                          <p>Direct Assessment</p>
-                        </td>
-
-                      </tr>
-
-                    }
-                    {assessmentData3 === "" || assessmentData3 === undefined ? "" :
-                      <tr>
-                        <td className="">
-                          {assessmentData3.map((ind, i) => (
-                            <p className="font-bold">{ind.year}</p>
-
-                          ))}
-                        </td>
-                        {assessmentData3.map((ind, i) => (
-                          <td className="">
-                            <p className="font-bold"> {formatNumber(Number(ind.employed) + Number(ind.self_employed) + Number(ind.other_income))} </p>
-                          </td>
-                        ))}
-
-                        <td className="">
-                          {assessmentData3.map((ind, i) => (
-                            <p className="font-bold">{formatNumber(ind.tax)}</p>
-                          ))}
-                        </td>
-                        <td className="">
-                          <p>Direct Assessment</p>
-                        </td>
-
-                      </tr>
-
-                    }
-
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div>
-              <p>His/her known source(s) of income are: <span>Employment, Trade/Professional</span> </p>
-              <p>This certificate expires on: <span>{expiry}</span> </p>
-            </div>
-
-            <div className="flex justify-between">
-              {payerDetails.map((ind, i) => (
-                <p className="mt-4">Tax Office {ind.tax_office}</p>
-              ))}
-              <div className="flex justify-between mt-4">
-                <div className="flex flex-col">
-                  <hr />
-                  <p className="font-bold text-center">Sule Salihu Enehe</p>
-                  <p className="font-bold text-center">Ag. Executive Chairman</p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-      </Widget>
+        <style
+          jsx>{
+            `
+        .cert-content {
+        height: 100vh;
+        position: relative;
+        background-size: cover;
+        // background-color: blue
+    background-image: url("/images/tcccertificate.jpg");
+      }
+      
+        `
+          }
+        </style>
+      </section>
+
     </>
   );
 };
