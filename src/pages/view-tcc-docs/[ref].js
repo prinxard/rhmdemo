@@ -65,7 +65,6 @@ const ViewDocumentsTcc = () => {
                     let res = await axios.post(`${url.BASE_URL}forma/view-tcc`, userId);
                     let tccData = res.data.body.tccUploads
                     setUploads(tccData)
-                    console.log(tccData);
                     setIsFetching(false)
                 } catch (err) {
                     setIsFetching(false)

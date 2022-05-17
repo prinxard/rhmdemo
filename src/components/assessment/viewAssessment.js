@@ -39,22 +39,16 @@ export const StartAssessment = () => {
     setModal(!modal);
   };
 
-  const userKGTN = payerDetails.map(function (det) {
-    let kgtin = det.KGTIN
-    return kgtin
-  })
+  const userKGTN = payerDetails.KGTIN
 
-  const TaxOffice = payerDetails.map(function (det) {
-    let taxOf = det.tax_office
-    return taxOf
-  })
+  const TaxOffice = payerDetails.tax_office
 
   let kgtinWatch = watch("kgtin")
   let typeWatch = watch("type")
   let yearWatch = watch("year")
 
-  const KGTIN = userKGTN[0]
-  const station = TaxOffice[0]
+  const KGTIN = userKGTN
+  const station = TaxOffice
   console.log(station);
 
   setAuthToken();
@@ -135,7 +129,7 @@ export const StartAssessment = () => {
     }
     setIsFetching(true)
     try {
-      let res = await axios.post(`${url.BASE_URL}taxpayer/view-individual`, kgtin);
+      let res = await axios.post(`${url.BASE_URL}taxpayer/view-taxpayers`, kgtin);
       setIsFetching(false)
       let userpayer = res.data.body
       setpayerDetails(userpayer)
@@ -229,9 +223,9 @@ export const StartAssessment = () => {
                 <p>Enter Taxpayer KGTIN</p>
                 <input ref={register()} type="text" name="kgtin" placeholder="Enter KGTIN" />
                 <div className="">
-                  {payerDetails.map((ind, i) => (
-                    <small className={`${validmsg}`} key={i}>{ind.surname} {ind.first_name}</small>
-                  ))}
+              
+                    <small className={`${validmsg}`}>{payerDetails.tp_name}</small>
+                
                 </div>
 
                 <div className="">

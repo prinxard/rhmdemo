@@ -48,17 +48,27 @@ export const StartTcc = () => {
   var year = d.getFullYear();
   var month = d.getMonth();
   var day = d.getDate();
-  var c = new Date(year + 1, month, day);
+  var c = new Date(year - 20, month, day);
 
 
   var e = new Date();
   var year2 = e.getFullYear();
   var month2 = e.getMonth();
   var day2 = e.getDate();
-  var f = new Date(year + 2, month, day);
+  var f = new Date(year - 21, month, day);
+  
+  var g = new Date();
+  var year2 = g.getFullYear();
+  var month2 = g.getMonth();
+  var day2 = g.getDate();
+  var j = new Date(year - 22, month, day);
+
+  console.log(c.getFullYear);
+  console.log(f.getFullYear);
+  console.log(j.getFullYear);
 
   const watchAllFields = watch();
-  const watchYear1 = watch("year1", new Date());
+  const watchYear1 = watch("year1", e);
   const watchYear2 = watch("year2", c);
   const watchYear3 = watch("year3", f);
 
