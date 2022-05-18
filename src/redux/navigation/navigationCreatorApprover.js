@@ -126,34 +126,34 @@ const initialState = [
         ],
       },
 
-      {
-        url: '/',
-        icon: <Paye />,
-        title: 'PAYE',
-        items: [
-          {
-            url: '/',
-            title: 'Dashboard',
-            items: [],
-          },
-          {
-            url: '/',
-            title: 'Annual Returns',
-            items: [],
-          },
-          {
-            url: '/',
-            title: 'Remittance Schedules',
-            items: [],
-          },
+      // {
+      //   url: '/',
+      //   icon: <Paye />,
+      //   title: 'PAYE',
+      //   items: [
+      //     {
+      //       url: '/',
+      //       title: 'Dashboard',
+      //       items: [],
+      //     },
+      //     {
+      //       url: '/',
+      //       title: 'Annual Returns',
+      //       items: [],
+      //     },
+      //     {
+      //       url: '/',
+      //       title: 'Remittance Schedules',
+      //       items: [],
+      //     },
 
-          {
-            url: '/',
-            title: 'Reports',
-            items: [],
-          },
-        ],
-      },
+      //     {
+      //       url: '/',
+      //       title: 'Reports',
+      //       items: [],
+      //     },
+      //   ],
+      // },
 
       {
         url: '/',
