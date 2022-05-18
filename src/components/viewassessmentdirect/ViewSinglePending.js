@@ -59,7 +59,7 @@ const ViewSinglePending = () => {
           let res = await axios.post(
             `${url.BASE_URL}forma/view-assessment`, sendData);
           let userAssData = res.data.body
-          let payerDat = res.data.body.taxpayer;
+          let payerDat = res.data.body.taxpayerAll;
           let resAddress = userAssData.residentialAddr
           let pensionD = userAssData.pensionDed
           let employ = userAssData.employed

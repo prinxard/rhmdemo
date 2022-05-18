@@ -101,15 +101,15 @@ export const StartBOJ = () => {
 
 
 
-let selfemplFigureInit = watch("self_employment", `${APISelfEmployed}`)
-let emplFigureInit = watch("employment", `${APIEmployed}`);
-let otherIncomeFigureInit = watch("other_income", `${APIOtherIncome}`)
-let previousTaxFigureInit = watch("previous_tax", `${APIPreviousTax}`)
+  let selfemplFigureInit = watch("self_employment", `${APISelfEmployed}`)
+  let emplFigureInit = watch("employment", `${APIEmployed}`);
+  let otherIncomeFigureInit = watch("other_income", `${APIOtherIncome}`)
+  let previousTaxFigureInit = watch("previous_tax", `${APIPreviousTax}`)
 
-let selfemplFigure = selfemplFigureInit.replace(/,/g, '')
-let emplFigure = emplFigureInit.replace(/,/g, '')
-let otherIncomeFigure = otherIncomeFigureInit.replace(/,/g, '')
-let previousTaxFigure = previousTaxFigureInit.replace(/,/g, '')
+  let selfemplFigure = selfemplFigureInit.replace(/,/g, '')
+  let emplFigure = emplFigureInit.replace(/,/g, '')
+  let otherIncomeFigure = otherIncomeFigureInit.replace(/,/g, '')
+  let previousTaxFigure = previousTaxFigureInit.replace(/,/g, '')
 
 
 
@@ -146,10 +146,10 @@ let previousTaxFigure = previousTaxFigureInit.replace(/,/g, '')
       const fetchPost = async () => {
         setIsFetching(true)
         try {
-          let res = await axios.post(`${url.BASE_URL}taxpayer/view-individual`, kgtinPost);
+          let res = await axios.post(`${url.BASE_URL}taxpayer/view-taxpayers`, kgtinPost);
           let IndData = res.data.body
           setpayerDetails(IndData)
-          // console.log(IndData);
+          console.log("IndData", IndData);
           setIsFetching(false);
         } catch (err) {
           console.log(err);
@@ -179,8 +179,6 @@ let previousTaxFigure = previousTaxFigureInit.replace(/,/g, '')
           let IndData = res.data.body.assessment
           setBojData(IndData)
           console.log(IndData);
-          // setpayerDetails(IndData)
-          // console.log(IndData);
           setIsFetching(false);
         } catch (err) {
           console.log(err);
@@ -236,6 +234,7 @@ let previousTaxFigure = previousTaxFigureInit.replace(/,/g, '')
     setEmployed(emplFigure)
     setSelfEmployed(selfemplFigure)
   }
+
 
 
   consolidatedIncome = (Number(selfEmployedF) + Number(employedF) + Number(otherIncomeF));
@@ -325,7 +324,7 @@ let previousTaxFigure = previousTaxFigureInit.replace(/,/g, '')
   } else {
     dev_levy = "1000"
   }
-// console.log("dev_levy", dev_levy);
+  // console.log("dev_levy", dev_levy);
 
 
 
@@ -358,7 +357,6 @@ let previousTaxFigure = previousTaxFigureInit.replace(/,/g, '')
           </div>
         )}
 
-        {payerDetails.map((ind, i) => (
 
           <div className="border mb-3 block p-8 rounded-lg bg-white w-full">
             <div className="flex">
@@ -369,63 +367,53 @@ let previousTaxFigure = previousTaxFigureInit.replace(/,/g, '')
             <form>
               <div className="grid grid-cols-3 gap-4">
                 <div className="">
-                  <p>Surname</p>
-                  <input readOnly defaultValue={ind.surname} type="text" className="form-control w-full rounded font-light text-gray-500"
-                  />
+                  <p>Name</p>
+                  <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                    value={payerDetails.tp_name} disabled />
                 </div>
 
                 <div className="form-group mb-6">
-                  <p>First Name</p>
-                  <input readOnly defaultValue={ind.first_name} type="text" className="form-control w-full rounded font-light text-gray-500"
-                  />
-                </div>
+                  <p>KGTIN</p>
 
-                <div className="form-group mb-6">
-                  <p>Middle Name</p>
-                  <input readOnly defaultValue={ind.middle_name} type="text" className="form-control w-full rounded font-light text-gray-500"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-3 gap-4">
-                <div className="form-group mb-6">
-                  <p>Title</p>
-
-                  <input readOnly defaultValue={ind.indv_title} type="text" className="form-control w-full rounded font-light text-gray-500"
-                  />
-
-                </div>
-
-                <div className="form-group mb-6">
-                  <p>Date of Birth</p>
-
-                  <input readOnly defaultValue={ind.birth_date} type="text" className="form-control w-full rounded font-light text-gray-500"
-                  />
-
-                </div>
-                <div className="form-group mb-6">
-                  <p>Phone number</p>
-                  <input readOnly defaultValue={ind.phone_number} type="text" className="form-control w-full rounded font-light text-gray-500"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-3 gap-4">
-                <div className="form-group mb-6">
-                  <p>Tax Office</p>
-                  <input readOnly defaultValue={ind.tax_office} type="text" className="form-control w-full rounded font-light text-gray-500"
-                  />
+                  <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                    value={payerDetails.KGTIN} disabled />
                 </div>
 
                 <div className="form-group mb-6">
                   <p>Email</p>
-                  <input readOnly defaultValue={ind.email} type="text" className="form-control w-full rounded font-light text-gray-500"
-                  />
+                  <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                    value={payerDetails.email} disabled />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-3 gap-4">
+                <div className="form-group mb-6">
+                  <p>Phone</p>
+                  <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                    value={payerDetails.phone_number} disabled />
+                </div>
+
+                <div className="form-group mb-6">
+                  <p>Tax Office</p>
+                  <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                    value={payerDetails.tax_office} disabled />
+                </div>
+                <div className="form-group mb-6">
+                  <p>Taxpayer Type</p>
+                  <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                    value={payerDetails.tp_type} disabled />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="form-group mb-6">
+                  <p>Address</p>
+                  <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                    value={payerDetails.address} disabled />
                 </div>
               </div>
             </form>
           </div>
-        ))}
 
         {bojData.map((ind, i) => (
           <form onSubmit={handleSubmit(UpdateBOJ)}>

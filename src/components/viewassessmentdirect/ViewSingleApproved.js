@@ -46,7 +46,7 @@ const ViewSingleApproved = () => {
         try {
           let res = await axios.post(`${url.BASE_URL}forma/view-assessment`, sendData);
           let IndData = res.data.body
-          let arrda = res.data.body.taxpayer
+          let arrda = res.data.body.taxpayerAll
           let makeObjdata = IndData.assessment[0]
           let taxCalData = IndData.taxCal
           let chidDa = IndData.children
@@ -79,6 +79,8 @@ const ViewSingleApproved = () => {
       fetchPost();
     }
   }, [router]);
+
+  console.log("makeArray", makeArray);
   
 
   let ChangePrint = async (e) => {

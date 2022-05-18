@@ -107,7 +107,7 @@ export const StartAssessment = () => {
               router.push(`/view/boj/${assessment_id},${kgtinWatch}`)
             }
           })
-        
+
       })
       .catch(function (error) {
         setIsFetching(false)
@@ -223,9 +223,9 @@ export const StartAssessment = () => {
                 <p>Enter Taxpayer KGTIN</p>
                 <input ref={register()} type="text" name="kgtin" placeholder="Enter KGTIN" />
                 <div className="">
-              
-                    <small className={`${validmsg}`}>{payerDetails.tp_name}</small>
-                
+
+                  <small className={`${validmsg}`}>{payerDetails.tp_name}</small>
+
                 </div>
 
                 <div className="">
@@ -327,7 +327,7 @@ export const StartAssessment = () => {
 };
 
 
-export const StartSingleIndividualAssessment = ({kgtinVal, payerprop, routerAssId }) => {
+export const StartSingleIndividualAssessment = ({ kgtinVal, payerprop, routerAssId }) => {
   let assessment_id = routerAssId
   let indvData = payerprop
   console.log("indvData", indvData);
@@ -581,29 +581,29 @@ export const StartSingleIndividualAssessment = ({kgtinVal, payerprop, routerAssI
   )
 
 
-  let res_no = indvData.map(function (x) {
-    let houseNumb = x.house_no
-    return houseNumb
-  })
+  // let res_no = indvData.map(function (x) {
+  //   let houseNumb = x.house_no
+  //   return houseNumb
+  // })
 
-  residentialAddress.house_no = String(res_no)
+  // residentialAddress.house_no = String(res_no)
 
-  let streetVal = indvData.map(function (x) {
-    let street = x.street
-    return street
-  })
+  // let streetVal = indvData.map(function (x) {
+  //   let street = x.street
+  //   return street
+  // })
 
-  residentialAddress.street = String(streetVal)
+  // residentialAddress.street = String(streetVal)
 
 
-  let lgaVal = indvData.map(function (x) {
-    let lga = x.lga
-    return lga
-  })
+  // let lgaVal = indvData.map(function (x) {
+  //   let lga = x.lga
+  //   return lga
+  // })
 
-  
 
-  residentialAddress.lga = String(lgaVal)
+
+  // residentialAddress.lga = String(lgaVal)
 
   const [selfEmployed, setSelfEmployed] = useState(
     {
@@ -834,7 +834,6 @@ export const StartSingleIndividualAssessment = ({kgtinVal, payerprop, routerAssI
     formData.append('gross_pay', grossPay);
     formData.append('tax_deducted', taxDeduct);
     formData.append('pay_slip', paySLip);
-    // console.log("Payslip", paySLip);
     try {
       let res = await axios.post(`${url.BASE_URL}forma/employed`, formData, {
         headers: {
@@ -1544,91 +1543,61 @@ export const StartSingleIndividualAssessment = ({kgtinVal, payerprop, routerAssI
   return (
     <>
       <ToastContainer />
-      {/* <div className="flex justify-start">
-        <div className="mr-2">
-          <SectionTitle title="Applicable during the year ended 31st December" />
-        </div>
-        <SelectAnnual
-          // label="Select Year"
-          // required
-          // ref={register()}
-          name="year"
-        />
-      </div> */}
       <div className="block p-6 rounded-lg bg-white w-full">
         <div className="flex">
-        <h6 className="p-2">Taxpayer Information <small className="text-blue-600"><Link href={`/update-individual/${kgtinVal}`}>Edit</Link></small></h6>
-          {/* <a href="" className="text-blue-600 self-center">Edit</a> */}
+          <h6 className="p-2">Taxpayer Information <small className="text-blue-600"><Link href={`/update-individual/${kgtinVal}`}>Edit</Link></small></h6>
         </div>
         <p className="mb-3 font-bold"></p>
         <form>
           <div className="grid grid-cols-3 gap-4">
             <div className="">
-              <p>Surname</p>
-              {indvData.map((ind, i) => (
-                <input key={i} type="text" className="form-control w-full rounded font-light text-gray-500"
-                  value={ind.surname} disabled />
-              ))}
+              <p>Name</p>
+
+              <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                value={indvData.tp_name} disabled />
+
             </div>
 
             <div className="form-group mb-6">
-              <p>First Name</p>
-              {indvData.map((ind, i) => (
-                <input key={i} type="text" className="form-control w-full rounded font-light text-gray-500"
-                  value={ind.first_name} disabled />
-              ))}
-            </div>
+              <p>KGTIN</p>
 
-            <div className="form-group mb-6">
-              <p>Middle Name</p>
-              {indvData.map((ind, i) => (
-                <input key={i} type="text" className="form-control w-full rounded font-light text-gray-500"
-                  value={ind.middle_name} disabled />
-              ))}
-            </div>
-          </div>
+              <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                value={indvData.KGTIN} disabled />
 
-          <div className="grid grid-cols-3 gap-4">
-            <div className="form-group mb-6">
-              <p>Title</p>
-              {indvData.map((ind, i) => (
-                <input key={i} type="text" className="form-control w-full rounded font-light text-gray-500"
-                  value={ind.indv_title} disabled />
-              ))}
-            </div>
-
-            <div className="form-group mb-6">
-              <p>Date of Birth</p>
-              {indvData.map((ind, i) => (
-                <input key={i} type="text" className="form-control w-full rounded font-light text-gray-500"
-                  value={ind.birth_date} disabled />
-              ))}
-            </div>
-            <div className="form-group mb-6">
-              <p>Phone number</p>
-              {indvData.map((ind, i) => (
-                <input key={i} type="text" className="form-control w-full rounded font-light text-gray-500"
-                  value={ind.phone_number} disabled />
-              ))}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-3 gap-4">
-            <div className="form-group mb-6">
-              <p>Tax Office</p>
-              {indvData.map((ind, i) => (
-                <input key={i} type="text" className="form-control w-full rounded font-light text-gray-500"
-                  value={ind.tax_office} disabled />
-              ))}
             </div>
 
             <div className="form-group mb-6">
               <p>Email</p>
-              {indvData.map((ind, i) => (
-                <input key={i} type="text" className="form-control w-full rounded font-light text-gray-500"
-                  value={ind.email} disabled />
-              ))}
+              <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                value={indvData.email} disabled />
+            </div>
+          </div>
 
+          <div className="grid grid-cols-3 gap-4">
+            <div className="form-group mb-6">
+              <p>Phone</p>
+              <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                value={indvData.phone_number} disabled />
+            </div>
+
+            <div className="form-group mb-6">
+              <p>Tax Office</p>
+              <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                value={indvData.tax_office} disabled />
+            </div>
+            <div className="form-group mb-6">
+              <p>Taxpayer Type</p>
+              <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                value={indvData.tp_type} disabled />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+
+            <div className="form-group mb-6">
+              <p>Address</p>
+              <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                value={indvData.address} disabled />
             </div>
           </div>
         </form>
@@ -1657,18 +1626,18 @@ export const StartSingleIndividualAssessment = ({kgtinVal, payerprop, routerAssI
             <div className="mb-6">
               <p>House No</p>
               <input onChange={handleResidentialChange} type="text" className="form-control w-full rounded font-light text-gray-500"
-                name="house_no" value={residentialAddress.house_no} disabled />
+                name="house_no" value={residentialAddress.house_no} />
             </div>
 
             <div className="form-group mb-6">
               <p>Street</p>
               <input onChange={handleResidentialChange} type="text" className="form-control w-full rounded font-light text-gray-500"
-                name="street" value={residentialAddress.street} disabled />
+                name="street" value={residentialAddress.street}  />
             </div>
             <div className="form-group mb-6">
               <p>LGA</p>
               <input onChange={handleResidentialChange} type="text" className="form-control w-full rounded font-light text-gray-500"
-                name="lga" value={residentialAddress.lga} disabled />
+                name="lga" value={residentialAddress.lga}  />
             </div>
           </div>
 

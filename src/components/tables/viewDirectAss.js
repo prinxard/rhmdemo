@@ -73,7 +73,7 @@ const columns = [
 export const ViewPendingTable = ({ draftData }) => {
   let data = draftData;
 
-  
+
   return (
     <>
       <MaterialTable title="Draft Assessment List"
@@ -171,27 +171,28 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
       residence_owner: "", annual_rent: "", owner_name: "", owner_phone: ""
     }
   )
-  let res_no = indvData.map(function (x) {
-    let houseNumb = x.house_no
-    return houseNumb
-  })
 
-  residentialAddress.house_no = String(res_no)
+  // let res_no = indvData.map(function (x) {
+  //   let houseNumb = x.house_no
+  //   return houseNumb
+  // })
 
-  let streetVal = indvData.map(function (x) {
-    let street = x.street
-    return street
-  })
+  // residentialAddress.house_no = String(res_no)
 
-  residentialAddress.street = String(streetVal)
+  // let streetVal = indvData.map(function (x) {
+  //   let street = x.street
+  //   return street
+  // })
+
+  // residentialAddress.street = String(streetVal)
 
 
-  let lgaVal = indvData.map(function (x) {
-    let lga = x.lga
-    return lga
-  })
+  // let lgaVal = indvData.map(function (x) {
+  //   let lga = x.lga
+  //   return lga
+  // })
 
-  residentialAddress.lga = String(lgaVal)
+  // residentialAddress.lga = String(lgaVal)
 
 
   function handleResidentialChange(evt) {
@@ -202,6 +203,8 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
     });
     console.log(residentialAddress);
   }
+
+
 
   setAuthToken();
   let submitDataResAddr = async (e) => {
@@ -1744,77 +1747,62 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
           </div>
         </div>
         <p className="mb-3 font-bold"></p>
-        <form>
-          <div className="grid grid-cols-3 gap-4">
-            <div className="">
-              <p>Surname</p>
-              {indvData.map((ind, i) => (
-                <input key={i} type="text" className="form-control w-full rounded font-light text-gray-500"
-                  value={ind.surname} disabled />
-              ))}
+        {indvData.map((data, i) => (
+          <form>
+            <div className="grid grid-cols-3 gap-4">
+              <div className="">
+                <p>Name</p>
+
+                <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                  value={data.tp_name} disabled />
+
+              </div>
+
+              <div className="form-group mb-6">
+                <p>KGTIN</p>
+
+                <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                  value={data.KGTIN} disabled />
+
+              </div>
+
+              <div className="form-group mb-6">
+                <p>Email</p>
+                <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                  value={data.email} disabled />
+              </div>
             </div>
 
-            <div className="form-group mb-6">
-              <p>First Name</p>
-              {indvData.map((ind, i) => (
-                <input key={i} type="text" className="form-control w-full rounded font-light text-gray-500"
-                  value={ind.first_name} disabled />
-              ))}
+            <div className="grid grid-cols-3 gap-4">
+              <div className="form-group mb-6">
+                <p>Phone</p>
+                <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                  value={data.phone_number} disabled />
+              </div>
+
+              <div className="form-group mb-6">
+                <p>Tax Office</p>
+                <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                  value={data.tax_office} disabled />
+              </div>
+              <div className="form-group mb-6">
+                <p>Taxpayer Type</p>
+                <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                  value={data.tp_type} disabled />
+              </div>
             </div>
 
-            <div className="form-group mb-6">
-              <p>Middle Name</p>
-              {indvData.map((ind, i) => (
-                <input key={i} type="text" className="form-control w-full rounded font-light text-gray-500"
-                  value={ind.middle_name} disabled />
-              ))}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="form-group mb-6">
+                <p>Address</p>
+                <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                  value={data.address} disabled />
+              </div>
             </div>
-          </div>
+          </form>
 
-          <div className="grid grid-cols-3 gap-4">
-            <div className="form-group mb-6">
-              <p>Title</p>
-              {indvData.map((ind, i) => (
-                <input key={i} type="text" className="form-control w-full rounded font-light text-gray-500"
-                  value={ind.indv_title} disabled />
-              ))}
-            </div>
+        ))}
 
-            <div className="form-group mb-6">
-              <p>Date of Birth</p>
-              {indvData.map((ind, i) => (
-                <input key={i} type="text" className="form-control w-full rounded font-light text-gray-500"
-                  value={ind.birth_date} disabled />
-              ))}
-            </div>
-            <div className="form-group mb-6">
-              <p>Phone number</p>
-              {indvData.map((ind, i) => (
-                <input key={i} type="text" className="form-control w-full rounded font-light text-gray-500"
-                  value={ind.phone_number} disabled />
-              ))}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-3 gap-4">
-            <div className="form-group mb-6">
-              <p>Tax Office</p>
-              {indvData.map((ind, i) => (
-                <input key={i} type="text" className="form-control w-full rounded font-light text-gray-500"
-                  value={ind.tax_office} disabled />
-              ))}
-            </div>
-
-            <div className="form-group mb-6">
-              <p>Email</p>
-              {indvData.map((ind, i) => (
-                <input key={i} type="text" className="form-control w-full rounded font-light text-gray-500"
-                  value={ind.email} disabled />
-              ))}
-
-            </div>
-          </div>
-        </form>
       </div>
 
       <div className="block p-6 rounded-lg bg-white w-full">
@@ -1829,18 +1817,18 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
                 <div className="mb-6">
                   <p>House No</p>
                   <input onChange={handleResidentialChange} type="text" className="form-control w-full rounded font-light text-gray-500"
-                    name="house_no" value={residentialAddress.house_no} disabled />
+                    name="house_no" value={residentialAddress.house_no} />
                 </div>
 
                 <div className="form-group mb-6">
                   <p>Street</p>
                   <input onChange={handleResidentialChange} type="text" className="form-control w-full rounded font-light text-gray-500"
-                    name="street" value={residentialAddress.street} disabled />
+                    name="street" value={residentialAddress.street} />
                 </div>
                 <div className="form-group mb-6">
                   <p>LGA</p>
                   <input onChange={handleResidentialChange} type="text" className="form-control w-full rounded font-light text-gray-500"
-                    name="lga" value={residentialAddress.lga} disabled />
+                    name="lga" value={residentialAddress.lga} />
                 </div>
               </div>
 
