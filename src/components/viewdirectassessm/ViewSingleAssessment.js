@@ -30,7 +30,7 @@ const ViewSingleDirectAssessment = () => {
       setAuthToken();
       const fetchPost = async () => {
         try {
-          let res = await axios.post(`${url.BASE_URL}taxpayer/view-taxpayers`, kgtinPost);
+          let res = await axios.post(`${url.BASE_URL}taxpayer/view-individual`, kgtinPost);
             let IndData = res.data.body
             setpayerprop(IndData)
             setIsFetching(false);
