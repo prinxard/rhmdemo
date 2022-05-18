@@ -57,9 +57,6 @@ export const AmountAssessed = ({ atoAssessedAmt }) => {
 
   outstandingAmount = (Number(amountAssessed) - Number(amountCollected))
 
-  console.log("amountAssessed", Number(amountAssessed));
-  console.log("amountCollected", Number(amountCollected));
-  console.log("outstandingAmount", Number(outstandingAmount));
 
   const dataAssesedAmount = [
     { name: "Amount Assessed ", value: amountAssessed },
