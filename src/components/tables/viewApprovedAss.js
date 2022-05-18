@@ -413,88 +413,60 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                 <h6 align="left">Personal Income Tax {assobj.year}</h6>
                 <small>printed on {datePrinted}</small>
               </div>
-              <table width='800' className='tb mb-4'>
-                <tr>
-                  <td width='385'><table width='83%' height='100%' border='0'>
-                    <tr>
-                      <td width='139'><strong>TITLE:</strong></td>
-                      <tr className="">
+              {payerAyy.map((data, idx) => (
+                <table width='800' className='tb mb-4'>
+                  <tr>
+                    <td width='385'><table width='83%' height='100%' border='0'>
+                      <tr>
+                        <td width='139'><strong>NAME:</strong></td>
+                        <tr className="">
+                          <p key={idx}>{data.tp_name}</p>
+                        </tr>
+                      </tr>
+
+                      <tr>
+                        <td><strong>PHONE: </strong></td>
+                        <p key={idx}> {data.phone_number} </p>
+                      </tr>
+
+                      <tr>
+                        <td><strong>ADDRESS:</strong></td>
+                        <div>
+                          <p>{data.address}</p>
+                        </div>
+                      </tr>
+                    </table></td>
+                    <td width='403'><table width='85%' height='100%' border='0' align='right'>
+
+                      <tr>
+                        <td><strong>TAX STATION </strong></td>
                         {payerAyy.map((data, idx) => (
-                          <p key={idx}>{data.indv_title}</p>
+                          <div key={idx}>
+                            {data.tax_office === "Okehi/Adavi" ?
+                              <p>Adavi/Okehi</p> :
+                              <p>{data.tax_office}</p>
+                            }
+                          </div>
                         ))}
                       </tr>
-                    </tr>
-                    <tr>
-                      <td><strong>SURNAME:</strong></td>
-                      {payerAyy.map((data, idx) => (
-                        <p key={idx}>{data.surname}</p>
-                      ))}
-                    </tr>
-                    <tr>
-                      <td><strong>OTHER NAME: </strong></td>
-                      {payerAyy.map((data, idx) => (
-                        <p key={idx}>{data.middle_name} <span> {data.first_name}</span> </p>
-                      ))}
-                    </tr>
-
-                    <tr>
-                      <td><strong>CITY: </strong></td>
-                      {payerAyy.map((data, idx) => (
-                        <p key={idx}> {data.city} </p>
-                      ))}
-                    </tr>
-
-                    <tr>
-                      <td><strong>HOUSE NO: </strong></td>
-                      {payerAyy.map((data, idx) => (
-                        <p key={idx}> {data.house_no} </p>
-                      ))}
-                    </tr>
-                    <tr>
-                      <td><strong>ADDRESS:</strong></td>
-                      {payerAyy.map((data, idx) => (
-                        <div>
-                          {data.city == null || data.city == "" ? data.street :
-                            <p>{`${data.street}, ${data.city}`}</p>
-                          }
-                        </div>
-                        // <p key={idx}>, ${data.city}`}</p>
-                      ))}
-                    </tr>
-                  </table></td>
-                  <td width='403'><table width='85%' height='100%' border='0' align='right'>
-
-                    <tr>
-                      <td><strong>TAX STATION </strong></td>
-                      {payerAyy.map((data, idx) => (
-                        <div key={idx}>
-                          {data.tax_office === "Okehi/Adavi" ?
-                            <p>Adavi/Okehi</p> :
-                            <p>{data.tax_office}</p>
-                          }
-                        </div>
-                      ))}
-                    </tr>
-                    <tr>
-                      <td><strong>KGTIN</strong></td>
-                      {payerAyy.map((data, idx) => (
+                      <tr>
+                        <td><strong>KGTIN</strong></td>
                         <p key={idx}>{data.KGTIN}</p>
-                      ))}
-                    </tr>
-                    <tr>
-                      <td><strong>PHONE</strong></td>
-                      {payerAyy.map((data, idx) => (
-                        <p key={idx}>{data.phone_number}</p>
-                      ))}
-                    </tr>
-                    <tr>
-                      <td><strong>ASSESSMENT NO </strong></td>
-                      {assessment_id}
-                    </tr>
-                  </table>
-                  </td>
-                </tr>
-              </table>
+                      </tr>
+                        <tr>
+                          <td><strong>ASSESSMENT NO </strong></td>
+                          {assessment_id}
+                        </tr>
+                      <tr>
+                        <td><strong>TYPE</strong></td>
+                        <p key={idx}>{data.tp_type}</p>
+                      </tr>
+                    </table>
+                    </td>
+                  </tr>
+                </table>
+
+              ))}
 
               <table width='800'>
                 <tr>

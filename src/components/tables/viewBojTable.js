@@ -330,64 +330,61 @@ export const ViewSingleBojTable = ({ additionalAsse, payerprop, assId, payerArr,
       </div>
 
       <div className="flex justify-around border">
+        {payerArr.map((el, i) => (
 
-        <table className="table-auto">
-          <tbody className="">
-            <tr>
-              <td className="font-bold">TITLE</td>
-              {payerArr.map((el, i) =>
-                <td className="pl-3" key={i}>{el.indv_title}</td>
-              )}
-            </tr>
-            <tr>
-              <td className="font-bold">SURNAME</td>
-              {payerArr.map((el, i) =>
-                <td className="pl-3" key={i}>{el.surname}</td>
-              )}
-            </tr>
-            <tr>
-              <td className="font-bold">OTHERNAME</td>
-              {payerArr.map((el, i) =>
-                <td className="pl-3" key={i}>{el.middle_name} <span>{el.first_name}</span></td>
-              )}
-            </tr>
-            <tr>
-              <td className="font-bold">ADDRESS</td>
-              {payerArr.map((el, i) =>
-                <td className="pl-3" key={i}>{el.street}</td>
-              )}
-            </tr>
-          </tbody>
-        </table>
+          <table className="table-auto">
+            <tbody className="">
+              <tr>
+                <td className="font-bold">NAME</td>
+                <td className="pl-3" key={i}>{el.tp_name}</td>
+              </tr>
+              <tr>
+                <td className="font-bold">PHONE NUMBER</td>
+                <td className="pl-3" key={i}>{el.phone_number}</td>
+              </tr>
+              <tr>
+                <td className="font-bold">ADDRESS</td>
+                <td className="pl-3" key={i}>{el.address}</td>
+              </tr>
+              <tr>
+                <td className="font-bold">TYPE</td>
+                <td className="pl-3" key={i}>{el.tp_type}</td>
+              </tr>
+            </tbody>
+          </table>
 
-        <table className="table-auto">
-          <tbody>
-            <tr>
-              <td className="font-bold">TAX STATION</td>
-              {payerArr.map((el, i) =>
-                <td className="pl-3" key={i}>{el.tax_office}</td>
-              )}
-            </tr>
-            <tr>
-              <td className="font-bold">KGTIN</td>
-              {payerArr.map((el, i) =>
-                <td className="pl-3" key={i}>{el.KGTIN}</td>
-              )}
-            </tr>
-            <tr>
-              <td className="font-bold">ASSESSMENT No</td>
-              {payerArr.map((el, i) =>
-                <td className="pl-3" key={i}>{assessment_id}</td>
-              )}
-            </tr>
-            <tr>
-              <td className="font-bold">DATE ASSESSED</td>
-              {payerArr.map((el, i) =>
-                <td className="pl-3" key={i}>{createdTime}</td>
-              )}
-            </tr>
-          </tbody>
-        </table>
+        ))}
+
+        {payerArr.map((data, idx) => (
+          <table className="table-auto">
+            <tbody>
+              <tr>
+                <td className="font-bold">TAX STATION</td>
+                {payerArr.map((data, idx) => (
+                  <div key={idx}>
+                    {data.tax_office === "Okehi/Adavi" ?
+                      <p>Adavi/Okehi</p> :
+                      <p>{data.tax_office}</p>
+                    }
+                  </div>
+                ))}
+              </tr>
+              <tr>
+                <td className="font-bold">KGTIN</td>
+                <td className="pl-3" >{data.KGTIN}</td>
+              </tr>
+              <tr>
+                <td className="font-bold">ASSESSMENT No</td>
+                  <td className="pl-3">{assessment_id}</td>
+              </tr>
+              <tr>
+                <td className="font-bold">DATE ASSESSED</td>
+                  <td className="pl-3">{createdTime}</td>
+              </tr>
+            </tbody>
+          </table>
+
+        ))}
       </div>
 
       <div className="">

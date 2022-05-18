@@ -50,7 +50,7 @@ const SingleVerifiedBOJ = () => {
         try {
           let res = await axios.post(`${url.BASE_URL}forma/view-assessment`, sendData);
           let IndData = res.data.body
-          let arrda = IndData.taxpayer
+          let arrda = IndData.taxpayerAll
           let makeObjdata = IndData.assessment[0]
           let taxCalDa = IndData.taxCal
           let chidDa = IndData.children
