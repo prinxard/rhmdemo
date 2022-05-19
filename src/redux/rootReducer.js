@@ -14,6 +14,7 @@ import navigationApprover from './navigation/navigationApprover';
 import navigationCreator from './navigation/navigationCreator';
 import navigationCreatorApprover from './navigation/navigationCreatorApprover';
 import navigationAdmin from './navigation/navigationAdmin';
+import navigationReport from './navigation/navigationReport';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   navigationCreator,
   navigationCreatorApprover,
   navigationAdmin,
+  navigationReport,
   individualNavigation,
   colors,
   config,
