@@ -10,6 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { shallowEqual, useSelector } from 'react-redux';
 import jwt from "jsonwebtoken";
+import Select from 'react-select'
 
 export default function index() {
     const [taxStation, setTaxStation] = useState([])
@@ -71,22 +72,23 @@ export default function index() {
 
     setAuthToken();
     const onSubmit = (data) => {
-        setIsFetching(true)
-        axios.post(`${url.BASE_URL}user/signup`, data)
-            .then(function (response) {
-                setIsFetching(false)
-                toast.success("Created Successfully!");
-                router.push("/dashboard")
-            })
-            .catch(function (error) {
-                setIsFetching(false)
-                if (error.response) {
-                    setUploadErrors(() => error.response.data.message);
-                    toast.error(uploadErrors)
-                } else {
-                    toast.error("Failed to create user!");
-                }
-            })
+        console.log(data);
+        // setIsFetching(true)
+        // axios.post(`${url.BASE_URL}user/signup`, data)
+        //     .then(function (response) {
+        //         setIsFetching(false)
+        //         toast.success("Created Successfully!");
+        //         router.push("/dashboard")
+        //     })
+        //     .catch(function (error) {
+        //         setIsFetching(false)
+        //         if (error.response) {
+        //             setUploadErrors(() => error.response.data.message);
+        //             toast.error(uploadErrors)
+        //         } else {
+        //             toast.error("Failed to create user!");
+        //         }
+        //     })
     };
 
 
@@ -165,6 +167,14 @@ export default function index() {
                                         onChange={val => onChange(val.map(c => c.value).toString())}
                                         labelledBy="Select group"
                                     />
+                                    // <Select
+                                    //     inputRef={ref}
+                                    //     classNamePrefix="addl-class"
+                                    //     options={options}
+                                    //     value={options.filter(c => value.includes(c.value))}
+                                    //     onChange={val => onChange(val.map(c => c.value).toString())}
+                                    //     isMulti
+                                    // />
                                 )}
                             />
                             {errors.userGroup && <p className="text-red-600">{errors.userGroup.message}</p>}
