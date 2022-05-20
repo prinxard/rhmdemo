@@ -47,6 +47,10 @@ const fields = [
     field: "tp_id",
   },
   {
+    title: "Name",
+    field: "taxpayer_name",
+  },
+  {
     title: "Year 1 tax",
     field: "amount1",
   },
@@ -57,10 +61,6 @@ const fields = [
   {
     title: "Year 3 tax",
     field: "amount3",
-  },
-  {
-    title: "Name",
-    field: "taxpayer_name",
   },
   {
     title: "Station",
@@ -283,7 +283,7 @@ export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, asses
                           className="rounded h-16 w-16"
                         />
                       </div>
-                      <div className="self-center">
+                      <div className="self-center ml-2">
                         <img
                           src={`${basdocurl}${signature}`}
                           alt=""
