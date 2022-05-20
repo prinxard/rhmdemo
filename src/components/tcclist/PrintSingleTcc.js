@@ -39,7 +39,7 @@ const PrintSingleTcc = () => {
           let firstass = fetctTcc.assessment1
           let secondass = fetctTcc.assessment2
           let thirdass = fetctTcc.assessment3
-          let uploads = fetctTcc.tccUploads
+          let uploads = fetctTcc.tccUploadPass
           setTccUploads(uploads)
           setTccData(tccdat)
           setAssess1(firstass)

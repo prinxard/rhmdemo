@@ -27,7 +27,7 @@ import Loader from "react-loader-spinner";
 import url from '../../config/url';
 import axios from "axios";
 import ReactToPrint from "react-to-print";
-import { TccbgImage } from "../Images/Images";
+import { KgirsLogo, KogiGov, TccbgImage } from "../Images/Images";
 
 
 const fields = [
@@ -229,11 +229,11 @@ export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, asses
 
       </div>
 
-      <section className="cert-content">
+      <section>
         <div ref={componentRef}>
           <div className="flex justify-around">
             <div>
-              <h4 className="flex justify-end text-red-600">ORIGINAL</h4>
+              {/* <h4 className="flex justify-end text-red-600">ORIGINAL</h4>
               <div className="flex justify-end">
                 {payerDetails.map((ind, i) => (
                   <div>
@@ -251,30 +251,51 @@ export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, asses
                     </div>
                   </div>
                 ))}
+              </div> */}
+
+              <div className="flex justify-end">
+                <small>1232333ND23444GH</small>
               </div>
+              <div className="flex">
+                <KgirsLogo />
+                <p className="self-center w-48 font-bold">KOGI STATE INTERNAL REVENUE SERVICE</p>
+
+              </div>
+
+              <div className="flex justify-end">
+                <p className="border font-bold p-2 text-center w-64">KGIRS/PAYE/TCC/202202/81</p>
+              </div>
+
               {payerDetails.map((ind, i) => (
                 <div>
-                  <div>
-                    <div className="h-16 w-16 mb-3">
-                      <img
-                        src={`${basdocurl}${picUpload}`}
-                        alt=""
-                        layout="fill"
-                        objectFit="cover" // change to suit your needs
-                        className="rounded"
-                      />
+                  <div className="flex my-3 justify-between">
+                    <div className="flex">
+                      <div className="h-16 w-16">
+                        <img
+                          src={`${basdocurl}${picUpload}`}
+                          alt=""
+                          layout="fill"
+                          objectFit="cover" // change to suit your needs
+                          className="rounded"
+                        />
+                      </div>
+                      <div className="h-16 w-16 self-end">
+                        <img
+                          src={`${basdocurl}${signature}`}
+                          alt=""
+                          layout="fill"
+                          objectFit="cover" // change to suit your needs
+                          className="rounded"
+                        />
+                      </div>
                     </div>
-                    <div className="h-16 w-16 mb-3">
-                      <img
-                        src={`${basdocurl}${signature}`}
-                        alt=""
-                        layout="fill"
-                        objectFit="cover" // change to suit your needs
-                        className="rounded"
-                      />
+                    <div className="flex">
+                      <KogiGov />
+                      <p className="border-r-2 border-black h-8 self-center"></p>
+                      <KogiGov />
                     </div>
                   </div>
-                  <p>This is to Verify that <span className="font-bold">{ind.taxpayer_name}</span></p>
+                  <p> <span className="font-bold">1.</span> This is to Verify that <span className="font-bold">{ind.taxpayer_name}</span></p>
                   <div>
                     <p>fully paid his/her Personal Income Tax for the past years, that is: <span>
                       {`${secondYear !== "" ? `${firstYear},` : firstYear} ${thirdYear !== "" ? `${secondYear},` : secondYear} ${thirdYear}`}
@@ -284,14 +305,35 @@ export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, asses
                 </div>
               ))}
               <div className="my-4">
-                <p>Details of his/her assessments are as follows:</p>
+                <p><span className="font-bold">2.</span> Details of his/her assessments are as follows:</p>
               </div>
-
-              <div className="flex justify-center">
+              <div className="flex justify-center mb-5">
+              {payerDetails.map((ind, i) => (
                 <div>
-                  <table className="table divide-y mb-4">
-                    <thead>
-                      <tr>
+                  <div>
+                    <p className="leading-none">TCCID </p>
+                    <small className="font-bold">{ind.file_ref}</small>
+                  </div>
+                  <div className="mt-1">
+                    <p className="leading-none">TAX ID </p>
+                    <small className="font-bold">{ind.tp_id}</small>
+                  </div>
+                  <div className="mt-1">
+                    <p className="leading-none">DATE OF ISSUE </p>
+                    <small className="font-bold">{dateIssue}</small>
+                  </div>
+                  <div className="mt-1">
+                    <p className="leading-none">Tax OFFICE</p>
+                    <small className="font-bold">{ind.tax_office}</small>
+                  </div>
+                </div>
+                ))}
+
+                <div className="w-10"></div>
+                <div>
+                  <table className="table divide-y mb-4 striped">
+                    <thead >
+                      <tr style={{ backgroundColor: "#d3fbc6" }}>
                         <th>
                           Tax Year
                         </th>
@@ -307,7 +349,7 @@ export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, asses
                       </tr>
                     </thead>
 
-                    <tbody>
+                    <tbody >
                       {assessmentData === "" || assessmentData === undefined ? "" :
                         <tr>
                           <td className="">
@@ -390,8 +432,8 @@ export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, asses
                 </div>
               </div>
               <div>
-                <p>His/her known source(s) of income are: <span>Employment, Trade/Professional</span> </p>
-                <p>This certificate expires on: <span>{expiry}</span> </p>
+                <p className="mb-2"><span className="font-bold">3.</span> His/her known source(s) of income are: <span>Employment, Trade/Professional</span> </p>
+                <p><span className="font-bold">4.</span> This certificate expires on: <span>{expiry}</span> </p>
               </div>
 
               <div className="flex justify-between">
@@ -413,20 +455,7 @@ export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, asses
 
 
         </div>
-        <style
-          jsx>{
-            `
-        .cert-content {
-        height: 100vh;
-        position: relative;
-        background-size: cover;
-        // background-color: blue
-    background-image: url("/images/tcccertificate.jpg");
-      }
-      
-        `
-          }
-        </style>
+
       </section>
 
     </>

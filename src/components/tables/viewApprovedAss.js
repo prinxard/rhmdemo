@@ -397,6 +397,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
   return (
     <>
       <div className="mt-4" ref={ref}>
+        
         <div align="center">
           <div className="flex justify-evenly">
             <p align="left"> <KgirsLogo /></p>
