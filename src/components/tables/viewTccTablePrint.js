@@ -274,24 +274,20 @@ export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, asses
 
               {payerDetails.map((ind, i) => (
                 <div>
-                  <div className="flex my-3 justify-between">
+                  <div className="flex justify-between my-3">
                     <div className="flex">
-                      <div className="h-16 w-16">
+                      <div>
                         <img
                           src={`${basdocurl}${picUpload}`}
                           alt=""
-                          layout="fill"
-                          objectFit="cover" // change to suit your needs
-                          className="rounded"
+                          className="rounded h-16 w-16"
                         />
                       </div>
-                      <div className="h-16 w-16 self-end">
+                      <div className="self-center">
                         <img
                           src={`${basdocurl}${signature}`}
                           alt=""
-                          layout="fill"
-                          objectFit="cover" // change to suit your needs
-                          className="rounded"
+                          className="rounded h-10 w-24"
                         />
                       </div>
                     </div>
