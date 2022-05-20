@@ -28,6 +28,7 @@ import url from '../../config/url';
 import axios from "axios";
 import ReactToPrint from "react-to-print";
 import { KgirsLogo, KogiGov, TccbgImage } from "../Images/Images";
+import QRCode from "react-qr-code";
 
 
 const fields = [
@@ -146,6 +147,7 @@ export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, asses
   let basdocurl = 'https://annualuploads.bespoque.dev/rhm/uploads/da/tcc/'
   let picUpload
   let signature
+  let fileRef
 
   tccUploads.forEach((ind, i) => {
     picUpload = ind.passport
@@ -153,6 +155,10 @@ export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, asses
 
   tccUploads.forEach((ind, i) => {
     signature = ind.sign
+  })
+
+  payerDetails.forEach((ind, i) => {
+    fileRef = ind.file_ref
   })
 
 
@@ -216,7 +222,7 @@ export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, asses
         <div onClick={ChangePrint}>
           <ReactToPrint
             // pageStyle='@page { size: auto; margin: 0mm; } @media print { body { -webkit-print-color-adjust: exact; padding: 40px !important; } }'
-            pageStyle="@page { size: 7.5in 13in  }"
+            // pageStyle="@page { size: 7.5in 13in  }"
             trigger={() => <button className="btn w-32 bg-green-600 btn-default text-white
             btn-outlined bg-transparent rounded-md"
               type="submit"
@@ -308,25 +314,25 @@ export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, asses
                 <p><span className="font-bold">2.</span> Details of his/her assessments are as follows:</p>
               </div>
               <div className="flex justify-center mb-5">
-              {payerDetails.map((ind, i) => (
-                <div>
+                {payerDetails.map((ind, i) => (
                   <div>
-                    <p className="leading-none">TCCID </p>
-                    <small className="font-bold">{ind.file_ref}</small>
+                    <div>
+                      <small className="leading-none block">TCCID </small>
+                      <small className="font-bold">{ind.file_ref}</small>
+                    </div>
+                    <div className="mt-1">
+                      <small className="leading-none block">TAX ID </small>
+                      <small className="font-bold">{ind.tp_id}</small>
+                    </div>
+                    <div className="mt-1">
+                      <small className="leading-none block">DATE OF ISSUE </small>
+                      <small className="font-bold">{dateIssue}</small>
+                    </div>
+                    <div className="mt-1">
+                      <small className="leading-none block">Tax OFFICE</small>
+                      <small className="font-bold">{ind.tax_office}</small>
+                    </div>
                   </div>
-                  <div className="mt-1">
-                    <p className="leading-none">TAX ID </p>
-                    <small className="font-bold">{ind.tp_id}</small>
-                  </div>
-                  <div className="mt-1">
-                    <p className="leading-none">DATE OF ISSUE </p>
-                    <small className="font-bold">{dateIssue}</small>
-                  </div>
-                  <div className="mt-1">
-                    <p className="leading-none">Tax OFFICE</p>
-                    <small className="font-bold">{ind.tax_office}</small>
-                  </div>
-                </div>
                 ))}
 
                 <div className="w-10"></div>
@@ -436,10 +442,13 @@ export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, asses
                 <p><span className="font-bold">4.</span> This certificate expires on: <span>{expiry}</span> </p>
               </div>
 
-              <div className="flex justify-between">
-                {payerDetails.map((ind, i) => (
-                  <p className="mt-4">Tax Office {ind.tax_office}</p>
-                ))}
+              <div className="flex justify-between mt-2">
+                <div>
+                  <QRCode
+                    value={`https://irs.kg.gov.ng/verify/fetch_tcc_test.php?ref=${fileRef}`}
+                    size={120}
+                  />
+                </div>
                 <div className="flex justify-between mt-4">
                   <div className="flex flex-col">
                     <hr />
