@@ -69,26 +69,26 @@ export default function index() {
             value: item.id
         }
     })
-
+  
     setAuthToken();
     const onSubmit = (data) => {
-        console.log(data);
-        // setIsFetching(true)
-        // axios.post(`${url.BASE_URL}user/signup`, data)
-        //     .then(function (response) {
-        //         setIsFetching(false)
-        //         toast.success("Created Successfully!");
-        //         router.push("/dashboard")
-        //     })
-        //     .catch(function (error) {
-        //         setIsFetching(false)
-        //         if (error.response) {
-        //             setUploadErrors(() => error.response.data.message);
-        //             toast.error(uploadErrors)
-        //         } else {
-        //             toast.error("Failed to create user!");
-        //         }
-        //     })
+        data.userGroup = data.userGroup.toString()
+        setIsFetching(true)
+        axios.post(`${url.BASE_URL}user/signup`, data)
+            .then(function (response) {
+                setIsFetching(false)
+                toast.success("Created Successfully!");
+                router.push("/dashboard")
+            })
+            .catch(function (error) {
+                setIsFetching(false)
+                if (error.response) {
+                    setUploadErrors(() => error.response.data.message);
+                    toast.error(uploadErrors)
+                } else {
+                    toast.error("Failed to create user!");
+                }
+            })
     };
 
 
@@ -155,16 +155,16 @@ export default function index() {
                             <Controller
 
                                 control={control}
-                                defaultValue={options.map(c => c.value).toString()}
+                                defaultValue={options.map(c => c.value)}
                                 name="userGroup"
                                 rules={{ required: "please select user group" }}
                                 render={({ onChange, value, ref }) => (
+                                    // render={({ field: { onChange, value, ref } }) => (
                                     <MultiSelect
-
                                         inputRef={ref}
                                         options={options}
                                         value={((options.filter(c => value.includes(c.value))))}
-                                        onChange={val => onChange(val.map(c => c.value).toString())}
+                                        onChange={val => onChange(val.map(c => c.value))}
                                         labelledBy="Select group"
                                     />
                                     // <Select
@@ -175,7 +175,17 @@ export default function index() {
                                     //     onChange={val => onChange(val.map(c => c.value).toString())}
                                     //     isMulti
                                     // />
+                                    // <Select
+                                    //     inputRef={ref}
+                                    //     value={options.filter(c => value.includes(c.value))}
+                                    //     // onChange={(val) => onChange(val.value)}
+                                    //     onChange={val => onChange(val.map(c => c.value).toString())}
+                                    //     options={options}
+                                    //     isMulti
+
+                                    // />
                                 )}
+
                             />
                             {errors.userGroup && <p className="text-red-600">{errors.userGroup.message}</p>}
                         </div>
