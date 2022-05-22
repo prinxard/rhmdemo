@@ -73,13 +73,6 @@ const fields = [
   {
     title: "Status",
     field: "status",
-    // render: rowData => {
-    //   return (
-    //     rowData.status == "Draft" ? <p style={{ color: "#E87722", fontWeight: "bold" }}>{rowData.status}</p> :
-    //       rowData.status == "SUCCESS" ? <p style={{ color: "#008240", fontWeight: "bold" }}>{rowData.status}</p> :
-    //         <p style={{ color: "#B0B700", fontWeight: "bold" }}>{rowData.status}</p>
-    //   )
-    // }
   },
 ];
 
@@ -87,6 +80,20 @@ const fields = [
 
 export const ViewTccPrintTable = ({ tccdata }) => {
   let items = tccdata;
+
+  const { config, palettes, auth } = useSelector(
+    (state) => ({
+      config: state.config,
+      palettes: state.palettes,
+      auth: state.authentication.auth,
+    }),
+    shallowEqual
+  );
+
+  const reportRange = [39]
+  const decoded = jwt.decode(auth);
+  const userGroup = decoded.groups
+
   return (
     <>
       <MaterialTable title="Tcc List"
@@ -130,8 +137,16 @@ export const ViewTccPrintTable = ({ tccdata }) => {
         }}
 
         onRowClick={(event, rowData) => {
-          window.open(`/view/listprinttcc/${rowData.id}`, "_self")
-          event.stopPropagation();
+
+          if (userGroup.some(r => reportRange.includes(r))) {
+            ''
+
+          }
+
+          else {
+            window.open(`/view/listprinttcc/${rowData.id}`, "_self")
+            event.stopPropagation();
+          }
         }}
       />
     </>

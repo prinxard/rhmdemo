@@ -24,6 +24,7 @@ import setAuthToken from "../../functions/setAuthToken";
 import { shallowEqual, useSelector } from "react-redux";
 import jwt from "jsonwebtoken";
 
+
 const fields = [
   {
     title: "SN",
@@ -123,9 +124,9 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
 
 
   const DeleteRange = [1, 12]
+  const reportRange = [39]
   const decoded = jwt.decode(auth);
   const userGroup = decoded.groups
-  console.log("UserGroup", userGroup);
 
   const toggleModal = (e) => {
     // e.preventDefault()
@@ -235,13 +236,6 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
                   setAssessId(rowData.assessment_id)
                   setModal(true)
                 }
-
-                // icon: "bug_report",
-                // tooltip: "Report bug",
-                // disabled: rowData.status === "active",
-                // hidden: rowData.status === "active",
-                // onClick: (event, rowData) =>
-                //   alert("This client status is " + rowData.status)
               };
             }
 
@@ -287,8 +281,15 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
         }}
 
         onRowClick={(event, rowData) => {
-          window.open(`/view/approvedasses/${rowData.assessment_id},${rowData.kgtin}`, "_self")
-          event.stopPropagation();
+
+          if (userGroup.some(r => reportRange.includes(r))) {
+            ''
+
+          } else {
+
+            window.open(`/view/approvedasses/${rowData.assessment_id},${rowData.kgtin}`, "_self")
+            event.stopPropagation();
+          }
         }}
       />
 
@@ -397,7 +398,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
   return (
     <>
       <div className="mt-4" ref={ref}>
-        
+
         <div align="center">
           <div className="flex justify-evenly">
             <p align="left"> <KgirsLogo /></p>
@@ -454,10 +455,10 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                         <td><strong>KGTIN</strong></td>
                         <p key={idx}>{data.KGTIN}</p>
                       </tr>
-                        <tr>
-                          <td><strong>ASSESSMENT NO </strong></td>
-                          {assessment_id}
-                        </tr>
+                      <tr>
+                        <td><strong>ASSESSMENT NO </strong></td>
+                        {assessment_id}
+                      </tr>
                       <tr>
                         <td><strong>TYPE</strong></td>
                         <p key={idx}>{data.tp_type}</p>

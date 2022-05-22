@@ -19,6 +19,9 @@ import FilterList from '@material-ui/icons/FilterList'
 import Remove from '@material-ui/icons/Remove'
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Clear from "@material-ui/icons/Clear";
+import { shallowEqual, useSelector } from "react-redux";
+import jwt from "jsonwebtoken";
+
 
 const fields = [
   {
@@ -69,6 +72,19 @@ const fields = [
 export const ViewCollectionsTable = ({ remittance }) => {
   let items = remittance;
 
+  const { config, palettes, auth } = useSelector(
+    (state) => ({
+      config: state.config,
+      palettes: state.palettes,
+      auth: state.authentication.auth,
+    }),
+    shallowEqual
+  );
+
+  const reportRange = [39]
+  const decoded = jwt.decode(auth);
+  const userGroup = decoded.groups
+
   return (
     <>
       <MaterialTable title="Collections List"
@@ -82,7 +98,7 @@ export const ViewCollectionsTable = ({ remittance }) => {
           exportButton: {
             csv: true,
             pdf: false
-          },  
+          },
           exportAllData: true,
 
         }}
@@ -102,8 +118,15 @@ export const ViewCollectionsTable = ({ remittance }) => {
         }}
 
         onRowClick={(event, rowData) => {
-          window.open(`collections/${rowData.idpymt}`, "_self")
-          event.stopPropagation();
+
+          if (userGroup.some(r => reportRange.includes(r))) {
+            ''
+
+          }
+          else {
+            window.open(`collections/${rowData.idpymt}`, "_self")
+            event.stopPropagation();
+          }
         }}
       />
     </>

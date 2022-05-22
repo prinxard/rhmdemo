@@ -93,6 +93,23 @@ const fields = [
 
 export const ViewBOJTable = ({ bojdata }) => {
   let items = bojdata;
+
+  const { config, palettes, auth } = useSelector(
+    (state) => ({
+      config: state.config,
+      palettes: state.palettes,
+      auth: state.authentication.auth,
+    }),
+    shallowEqual
+  );
+
+
+
+  const Approval = [12, 1]
+  const reportRange = [39]
+  const decoded = jwt.decode(auth);
+  const userGroup = decoded.groups
+
   return (
     <>
       <MaterialTable title="Verified BOJ Assessments"
@@ -126,8 +143,14 @@ export const ViewBOJTable = ({ bojdata }) => {
         }}
 
         onRowClick={(event, rowData) => {
-          window.open(`/view/listverifiedboj/${rowData.assessment_id},${rowData.kgtin}`, "_self")
-          event.stopPropagation();
+
+          if (userGroup.some(r => reportRange.includes(r))) {
+            ''
+
+          } else {
+            window.open(`/view/listverifiedboj/${rowData.assessment_id},${rowData.kgtin}`, "_self")
+            event.stopPropagation();
+          }
         }}
       />
     </>
@@ -375,11 +398,11 @@ export const ViewSingleBojTable = ({ additionalAsse, payerprop, assId, payerArr,
               </tr>
               <tr>
                 <td className="font-bold">ASSESSMENT No</td>
-                  <td className="pl-3">{assessment_id}</td>
+                <td className="pl-3">{assessment_id}</td>
               </tr>
               <tr>
                 <td className="font-bold">DATE ASSESSED</td>
-                  <td className="pl-3">{createdTime}</td>
+                <td className="pl-3">{createdTime}</td>
               </tr>
             </tbody>
           </table>

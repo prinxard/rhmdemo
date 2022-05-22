@@ -27,6 +27,8 @@ import Check from '@material-ui/icons/Check'
 import Remove from '@material-ui/icons/Remove'
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Clear from "@material-ui/icons/Clear";
+import { shallowEqual, useSelector } from "react-redux";
+import jwt from "jsonwebtoken";
 
 const columns = [
   {
@@ -73,6 +75,18 @@ const columns = [
 export const ViewPendingTable = ({ draftData }) => {
   let data = draftData;
 
+  const { config, palettes, auth } = useSelector(
+    (state) => ({
+      config: state.config,
+      palettes: state.palettes,
+      auth: state.authentication.auth,
+    }),
+    shallowEqual
+  );
+
+  const reportRange = [39]
+  const decoded = jwt.decode(auth);
+  const userGroup = decoded.groups
 
   return (
     <>
@@ -108,8 +122,13 @@ export const ViewPendingTable = ({ draftData }) => {
 
         onRowClick={(event, rowData) => {
 
-          {
-            rowData.assessment_type == "BOJ" ?
+          if (userGroup.some(r => reportRange.includes(r))) {
+           ''
+            
+          }
+
+          else{
+            rowData.assessment_type === "BOJ" ?
 
               window.open(`/view/boj/${rowData.assessment_id},${rowData.kgtin}`, "_self")
               :

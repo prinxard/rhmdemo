@@ -81,6 +81,20 @@ const fields = [
 
 export const ViewCompletedTable = ({ submittedData }) => {
   let items = submittedData;
+
+  const { config, palettes, auth } = useSelector(
+    (state) => ({
+      config: state.config,
+      palettes: state.palettes,
+      auth: state.authentication.auth,
+    }),
+    shallowEqual
+  );
+
+  const reportRange = [39]
+  const decoded = jwt.decode(auth);
+  const userGroup = decoded.groups
+
   return (
     <>
       <MaterialTable title="Submitted Assessments List"
@@ -114,8 +128,12 @@ export const ViewCompletedTable = ({ submittedData }) => {
         }}
 
         onRowClick={(event, rowData) => {
-          window.open(`/view/completeddirect/${rowData.assessment_id},${rowData.kgtin}`, "_self")
-          event.stopPropagation();
+          if (userGroup.some(r => reportRange.includes(r))) {
+            ''
+          } else {
+            window.open(`/view/completeddirect/${rowData.assessment_id},${rowData.kgtin}`, "_self")
+            event.stopPropagation();
+          }
         }}
       />
     </>
@@ -465,19 +483,19 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
             <tbody className="">
               <tr>
                 <td className="font-bold">NAME</td>
-                  <td className="pl-3" key={i}>{el.tp_name}</td>
+                <td className="pl-3" key={i}>{el.tp_name}</td>
               </tr>
               <tr>
                 <td className="font-bold">PHONE NUMBER</td>
-                  <td className="pl-3" key={i}>{el.phone_number}</td>
+                <td className="pl-3" key={i}>{el.phone_number}</td>
               </tr>
               <tr>
                 <td className="font-bold">ADDRESS</td>
-                  <td className="pl-3" key={i}>{el.address}</td>
+                <td className="pl-3" key={i}>{el.address}</td>
               </tr>
               <tr>
                 <td className="font-bold">TYPE</td>
-                  <td className="pl-3" key={i}>{el.tp_type}</td>
+                <td className="pl-3" key={i}>{el.tp_type}</td>
               </tr>
             </tbody>
           </table>
@@ -504,11 +522,11 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
               </tr>
               <tr>
                 <td className="font-bold">ASSESSMENT No</td>
-                  <td className="pl-3">{assessment_id}</td>
+                <td className="pl-3">{assessment_id}</td>
               </tr>
               <tr>
                 <td className="font-bold">DATE ASSESSED</td>
-                  <td className="pl-3">{createdTime}</td>
+                <td className="pl-3">{createdTime}</td>
               </tr>
             </tbody>
           </table>
@@ -716,7 +734,6 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
               <tr>
                 <td className="border-r-2 p-1 text-right font-bold">Set off Additional Assessment</td>
                 <td className="p-1 text-right font-bold">0</td>
-                {/* <td className="p-1 text-right font-bold">{formatNumber(addAssAmount)}</td> */}
               </tr>
               <tr>
                 <td className="border-r-2 p-1 text-right font-bold">Total Tax Due for Payment</td>
@@ -733,20 +750,6 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
             <p>Captured by : {assobj.staffName} </p>
             <p>Date of capture : {createdTime} </p>
           </div>
-          {/* <div className="flex">
-            <div className="flex flex-col p-2">
-              <p className="font-bold">Balance</p>
-              <p className="font-bold text-center">{formatNumber(taxcal.payDiff)}</p>
-            </div>
-            <div className="flex flex-col p-2">
-              <p className="font-bold">Payment Status</p>
-              <p className="font-bold text-center">{taxcal.paymentStatus}</p>
-            </div>
-            <div className="flex flex-col p-2">
-              <p className="font-bold">Tax Paid</p>
-              <p className="font-bold text-center">{formatNumber(taxcal.taxPaid)}</p>
-            </div>
-          </div> */}
         </div>
 
         <div className="flex m-10 justify-center">
