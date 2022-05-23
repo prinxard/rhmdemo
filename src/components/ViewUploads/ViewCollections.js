@@ -45,7 +45,7 @@ const ViewCollections = () => {
 
 
 
- 
+
 
   return (
     <>
@@ -66,10 +66,7 @@ const ViewCollections = () => {
         </div>
       )}
       <Widget>
-          
-              <ViewCollectionsTable remittance={datatos} />
-    
-            
+        <ViewCollectionsTable remittance={datatos} />
       </Widget>
     </>
   );

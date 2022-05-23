@@ -128,7 +128,7 @@ export const StartTcc = () => {
           setIsFetching2(false)
         } else {
           setIsFetching2(false)
-          toast.error("Failed to Create!");
+          toast.error("Failed!");
         }
       }
     };
@@ -161,7 +161,7 @@ export const StartTcc = () => {
           setIsFetching2(false)
         } else {
           setIsFetching2(false)
-          toast.error("Failed to Create!");
+          toast.error("Failed!");
         }
       }
     };
@@ -194,7 +194,7 @@ export const StartTcc = () => {
           setIsFetching2(false)
         } else {
           setIsFetching2(false)
-          toast.error("Failed to Create!");
+          toast.error("Failed!");
         }
       }
     };
@@ -232,9 +232,11 @@ export const StartTcc = () => {
           toast.success("Created Successfully!");
           console.log(response.data.body[0].id);
           router.push(`tcc/${response.data.body[0].id}`)
+          setIsFetching2(false)
         })
         .catch(function (error) {
           // handle error
+          setIsFetching2(false)
           if (error.response) {
             settccErrors(() => error.response.data.message);
             toast.error(tccErrors)

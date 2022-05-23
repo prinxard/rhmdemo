@@ -335,15 +335,24 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
       <Widget>
         <div>
           <div className="mb-6 flex justify-between">
-
-            <form className=" mr-3">
+            <div className="flex mr-3">
               <button
-                className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                className="btn bg-green-600 mr-2 btn-default text-white btn-outlined bg-transparent rounded-md"
                 type="submit"
               >
                 <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
               </button>
-            </form>
+
+                <button
+                  className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  <Link href={`/tcc/${tccID}`}> Upload Docs</Link>
+                </button>
+             
+            </div>
+
+
 
             {userGroup.some(r => admin.includes(r)) ?
               <div className="flex">

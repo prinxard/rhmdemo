@@ -163,6 +163,7 @@ export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, asses
   let picUpload
   let signature
   let fileRef
+  let printPrintTime
 
   tccUploads.forEach((ind, i) => {
     picUpload = ind.passport
@@ -174,6 +175,10 @@ export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, asses
 
   payerDetails.forEach((ind, i) => {
     fileRef = ind.ref
+  })
+
+  payerDetails.forEach((ind, i) => {
+    printPrintTime = ind.aprvPrint_time
   })
 
 
@@ -206,7 +211,7 @@ export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, asses
 
 
 
-  let date = new Date()
+  let date = printPrintTime
   let due_date = new Date(date)
   due_date.setDate(due_date.getDate() + 365);
   let expiry = dateformat(due_date, "dd mmm yyyy")
