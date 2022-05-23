@@ -277,15 +277,15 @@ export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, asses
               {/* <div className="flex justify-end">
                 <small>1232333ND23444GH</small>
               </div> */}
-              <div className="flex">
+              <div className="flex mb-8">
                 <KgirsLogo />
                 <p className="self-center w-48 font-bold">KOGI STATE INTERNAL REVENUE SERVICE</p>
 
               </div>
 
-              <div className="flex justify-end">
+              {/* <div className="flex justify-end">
                 <p className="border font-bold p-2 text-center w-64">KGIRS/PAYE/TCC/202202/81</p>
-              </div>
+              </div> */}
 
               {payerDetails.map((ind, i) => (
                 <div>
@@ -328,17 +328,20 @@ export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, asses
                 {payerDetails.map((ind, i) => (
                   <div>
                     <div>
-                      <small className="leading-none block">TCCID </small>
-                      <small className="font-bold">{ind.file_ref}</small>
+                      <small className="leading-none block">TCC ID </small>
+                      <small className="font-bold">{ind.ref}</small>
                     </div>
+
                     <div className="mt-1">
                       <small className="leading-none block">TAX ID </small>
                       <small className="font-bold">{ind.tp_id}</small>
                     </div>
+
                     <div className="mt-1">
                       <small className="leading-none block">DATE OF ISSUE </small>
                       <small className="font-bold">{dateIssue}</small>
                     </div>
+                    
                     <div className="mt-1">
                       <small className="leading-none block">Tax OFFICE</small>
                       <small className="font-bold">{ind.tax_office}</small>
