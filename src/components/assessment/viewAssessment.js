@@ -128,6 +128,7 @@ export const StartAssessment = () => {
       KGTIN: kgtinWatch
     }
     setIsFetching(true)
+    
     try {
       let res = await axios.post(`${url.BASE_URL}taxpayer/view-taxpayers`, kgtin);
       setIsFetching(false)

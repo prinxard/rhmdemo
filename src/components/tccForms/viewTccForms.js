@@ -56,7 +56,7 @@ export const StartTcc = () => {
   var month2 = e.getMonth();
   var day2 = e.getDate();
   var f = new Date(year - 21, month, day);
-  
+
   var g = new Date();
   var year2 = g.getFullYear();
   var month2 = g.getMonth();
@@ -72,12 +72,9 @@ export const StartTcc = () => {
   const watchYear2 = watch("year2", c);
   const watchYear3 = watch("year3", f);
 
-  const userKGTN = payerDetails.map(function (det) {
-    let kgtin = det.KGTIN
-    return kgtin
-  })
 
-  const KGTIN = userKGTN[0]
+  const KGTIN = payerDetails.KGTIN
+
 
   setAuthToken();
   const verifiyKGTIN = async () => {
@@ -87,7 +84,7 @@ export const StartTcc = () => {
     }
     setIsFetching(true)
     try {
-      let res = await axios.post(`${url.BASE_URL}taxpayer/view-individual`, kgtin);
+      let res = await axios.post(`${url.BASE_URL}taxpayer/view-taxpayers`, kgtin);
       setIsFetching(false)
       let userpayer = res.data.body
       setpayerDetails(userpayer)
@@ -96,6 +93,7 @@ export const StartTcc = () => {
       setvalidmsg('')
       setinvalidmsg('hidden')
     } catch (err) {
+      setpayerDetails([])
       setIsFetching(false)
       setDisabled(true)
       setinvalidmsg('')
@@ -133,26 +131,6 @@ export const StartTcc = () => {
           toast.error("Failed to Create!");
         }
       }
-      // let res = axios.post(`${url.BASE_URL}forma/view-tax-income`, kgtinYear)
-      //   .then(function (response) {
-      //     // handle success
-      //     settccErrors(null)
-      //     let assessment = res.assessment
-      //     setAssessmentData(assessment)
-      //     setIsFetching2(false)
-      //   })
-      //   .catch(function (error) {
-      //     // handle error
-      //     if (error.response) {
-      //       settccErrors(() => error.response.data.message);
-      //       toast.error(tccErrors)
-      //       setIsFetching2(false)
-      //     } else {
-      //     setIsFetching2(false)
-      //       // setUploadedFile(false);
-      //       toast.error("Failed to Create!");
-      //     }
-      //   })
     };
     fetchPostYear1();
 
@@ -294,9 +272,7 @@ export const StartTcc = () => {
             <label className="block" htmlFor="kgtin">Enter Taxpayer KGTIN</label>
             <input onChange={event => setKgtEentered(event.target.value)} type="text" placeholder="Enter KGTIN" />
             <div className="">
-              {payerDetails.map((ind, i) => (
-                <small className={`${validmsg}`} key={i}>{ind.surname} {ind.first_name}</small>
-              ))}
+              <small className={`${validmsg}`}>{payerDetails.tp_name}</small>
             </div>
 
             <div className="">
@@ -323,31 +299,27 @@ export const StartTcc = () => {
 
             <div className="mb-6 grid grid-cols-3 gap-2">
               <label>Taxpayer:</label>
-              {payerDetails == null || payerDetails == "" || payerDetails == undefined ? <input ref={register()} readOnly name="taxpayername" className="form-control w-full rounded" type="text" placeholder="Taxpayer name" />
+              {payerDetails === [] || payerDetails === "" || payerDetails === undefined ? <input ref={register()} readOnly name="taxpayername" className="form-control w-full rounded" type="text" placeholder="Taxpayer name" />
                 :
                 <div>
 
-                  {payerDetails.map((ind, i) => (
-                    <input ref={register()} name="taxpayername" readOnly type="text" defaultValue={`${ind.surname} ${ind.first_name}`} className="form-control w-full rounded"
+                    <input ref={register()} name="taxpayername" readOnly type="text" defaultValue={payerDetails.tp_name} className="form-control w-full rounded"
                     />
-                  ))}
                 </div>
               }
             </div>
 
             <div className="mb-6 grid grid-cols-3 gap-2">
               <label>KGTIN:</label>
-              {payerDetails == null || payerDetails == "" || payerDetails == undefined ?
+              {payerDetails === [] || payerDetails === "" || payerDetails === undefined ?
                 <div>
                   <input ref={register({ required: "KGTIN is required" })} readOnly name="tp_id" type="text" className="form-control w-full rounded" placeholder="KGTIN" />
                   {errors.tp_id && <p className="text-red-600">{errors.tp_id.message}</p>}
                 </div>
                 :
                 <div>
-                  {payerDetails.map((ind, i) => (
-                    <input ref={register()} name="tp_id" readOnly type="text" defaultValue={ind.KGTIN} className="form-control w-full rounded"
+                    <input ref={register()} name="tp_id" readOnly type="text" defaultValue={payerDetails.KGTIN} className="form-control w-full rounded"
                     />
-                  ))}
                 </div>
               }
             </div>
@@ -367,10 +339,8 @@ export const StartTcc = () => {
                 :
                 <div>
 
-                  {payerDetails.map((ind, i) => (
-                    <input ref={register()} name="tax_office" readOnly type="text" defaultValue={ind.tax_office} className="form-control w-full rounded"
+                    <input ref={register()} name="tax_office" readOnly type="text" defaultValue={payerDetails.tax_office} className="form-control w-full rounded"
                     />
-                  ))}
                 </div>
               }
 
@@ -427,7 +397,7 @@ export const StartTcc = () => {
               <label>Assessment ID</label>
               {assessmentData == null || assessmentData == "" || assessmentData == undefined ?
                 <div>
-                  <input className="form-control w-full rounded" ref={register({ required: "First year Assessment is required " })} name="assmt_1" readOnly type="text"  />
+                  <input className="form-control w-full rounded" ref={register({ required: "First year Assessment is required " })} name="assmt_1" readOnly type="text" />
                   {errors.assmt_1 && <p className="text-red-600">{errors.assmt_1.message}</p>}
                 </div>
                 :
@@ -446,7 +416,6 @@ export const StartTcc = () => {
               {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input readOnly className="form-control w-full rounded" type="text" defaultValue={0} />
                 :
                 <div>
-
                   {assessmentData.map((ele, i) => (
                     <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.tax)} ref={register()} type="text"
                     />
@@ -454,7 +423,6 @@ export const StartTcc = () => {
 
                 </div>
               }
-
             </div>
 
             <div className="mb-6 grid grid-cols-2 gap-3">
@@ -531,7 +499,7 @@ export const StartTcc = () => {
 
             <div className="mb-6 justify-self-center">
 
-              {assessmentData2 == null || assessmentData2 == "" || assessmentData2 == undefined ? <input className="form-control w-full rounded" readOnly name="assmt_2" ref={register()} type="text"  />
+              {assessmentData2 == null || assessmentData2 == "" || assessmentData2 == undefined ? <input className="form-control w-full rounded" readOnly name="assmt_2" ref={register()} type="text" />
                 :
                 <div>
 
@@ -631,7 +599,7 @@ export const StartTcc = () => {
 
             <div className="mb-6 justify-self-center">
 
-              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" readOnly name="assmt_3" ref={register()} type="text"  />
+              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" readOnly name="assmt_3" ref={register()} type="text" />
                 :
                 <div>
 
