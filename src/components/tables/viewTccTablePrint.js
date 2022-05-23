@@ -27,7 +27,7 @@ import Loader from "react-loader-spinner";
 import url from '../../config/url';
 import axios from "axios";
 import ReactToPrint from "react-to-print";
-import { KgirsLogo, KogiGov, TccbgImage } from "../Images/Images";
+import { CoatOfArms, KgirsLogo, KogiGov, TccbgImage } from "../Images/Images";
 import QRCode from "react-qr-code";
 
 
@@ -173,7 +173,7 @@ export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, asses
   })
 
   payerDetails.forEach((ind, i) => {
-    fileRef = ind.file_ref
+    fileRef = ind.ref
   })
 
 
@@ -274,9 +274,9 @@ export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, asses
                 ))}
               </div> */}
 
-              <div className="flex justify-end">
+              {/* <div className="flex justify-end">
                 <small>1232333ND23444GH</small>
-              </div>
+              </div> */}
               <div className="flex">
                 <KgirsLogo />
                 <p className="self-center w-48 font-bold">KOGI STATE INTERNAL REVENUE SERVICE</p>
@@ -298,7 +298,7 @@ export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, asses
                           className="rounded h-16 w-16"
                         />
                       </div>
-                      <div className="self-center ml-2">
+                      <div className="self-end ml-2">
                         <img
                           src={`${basdocurl}${signature}`}
                           alt=""
@@ -307,8 +307,8 @@ export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, asses
                       </div>
                     </div>
                     <div className="flex">
-                      <KogiGov />
-                      <p className="border-r-2 border-black h-8 self-center"></p>
+                      <CoatOfArms />
+                      <p className="border-r-2 ml-2 border-black h-8 self-center"></p>
                       <KogiGov />
                     </div>
                   </div>

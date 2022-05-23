@@ -46,6 +46,17 @@ export const KogiGov = () => {
     />
   );
 };
+export const CoatOfArms = () => {
+  return (
+    <Image
+      layout="fixed"
+      src="/images/icons/coat of arms.png"
+      alt="login"
+      width={85}
+      height={60}
+    />
+  );
+};
 
 export const TccbgImage = () => {
   return (
