@@ -30,7 +30,7 @@ const ViewApprovedAss = () => {
     setAuthToken();
     const fetchPost = async () => {
       try {
-        let res = await axios.get(`${url.BASE_URL}forma/list-assessment?assmt=Approved` );
+        let res = await axios.get(`${url.BASE_URL}forma/list-assessment?assmt=Approved`);
         res = res.data.body.assessmentApproved;
         console.log(res)
         let records = [];

@@ -123,7 +123,7 @@ const initialState = [
             items: [],
           },
           {
-            url: '/',
+            url: '/reports',
             title: 'Reports',
             items: [],
           },
