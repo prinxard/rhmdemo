@@ -181,6 +181,12 @@ export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, asses
     printPrintTime = ind.aprvPrint_time
   })
 
+  if (printPrintTime === undefined) {
+    printPrintTime = new Date()
+  } else {
+    printPrintTime = printPrintTime
+  }
+
 
   const year1 = assessmentData.map((ind, i) => {
     return ind.year
@@ -211,15 +217,16 @@ export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, asses
 
 
 
-  // let date = printPrintTime
-  // let due_date = new Date(date)
-  // due_date.setDate(due_date.getDate() + 365);
-  // let expiry = dateformat(due_date, "dd mmm yyyy")
+  let date = printPrintTime
+  let due_date = new Date(date) 
+  due_date.setDate(due_date.getDate() + 365);
+  let expiry = dateformat(due_date, "dd mmm yyyy")
 
   let Issdate = new Date()
   let Issdue_date = new Date(Issdate)
   let dateIssue = dateformat(Issdue_date, "dd mmm yyyy")
 
+  console.log("printPrintTime", printPrintTime);
 
   setAuthToken();
   let ChangePrint = (e) => {
@@ -291,6 +298,9 @@ export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, asses
               {/* <div className="flex justify-end">
                 <p className="border font-bold p-2 text-center w-64">KGIRS/PAYE/TCC/202202/81</p>
               </div> */}
+              <div className="flex justify-end">
+                <p className="border font-bold p-2 text-center w-64">{`REF - ${fileRef}`}</p>
+              </div>
 
               {payerDetails.map((ind, i) => (
                 <div>
@@ -346,7 +356,7 @@ export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, asses
                       <small className="leading-none block">DATE OF ISSUE </small>
                       <small className="font-bold">{dateIssue}</small>
                     </div>
-                    
+
                     <div className="mt-1">
                       <small className="leading-none block">Tax OFFICE</small>
                       <small className="font-bold">{ind.tax_office}</small>
@@ -459,7 +469,7 @@ export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, asses
               <div>
                 <p className="mb-2"><span className="font-bold">3.</span> His/her known source(s) of income are: <span>Employment, Trade/Professional</span> </p>
                 {/* <p><span className="font-bold">4.</span> This certificate expires on: <span>{expiry}</span> </p> */}
-                <p><span className="font-bold">4.</span> This certificate expires on: <span>{dateIssue}</span> </p>
+                <p><span className="font-bold">4.</span> This certificate expires on: <span>{expiry}</span> </p>
               </div>
 
               <div className="flex justify-between mt-2">
