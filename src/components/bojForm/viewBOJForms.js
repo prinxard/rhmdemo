@@ -45,6 +45,7 @@ export const StartBOJ = () => {
   } = useForm()
 
 
+
   let APIEmployed
   let APISelfEmployed
   let APIOtherIncome
@@ -195,8 +196,8 @@ export const StartBOJ = () => {
 
   setAuthToken();
   let UpdateBOJ = async (data) => {
-    console.log(data);
-    console.log(JsonTax);
+    // console.log(data);
+    // console.log(JsonTax);
     setIsFetching(true)
     if (!data.self_employment && !data.employment) {
       alert("Please fill out either employment or self employment amount")
