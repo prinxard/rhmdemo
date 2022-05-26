@@ -63,8 +63,8 @@ const initialState = [
         title: 'Collections',
         items: [
           {
-            url: '/reports',
             title: 'View',
+            url: '/reports',
             items: [],
           },
         ],

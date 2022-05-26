@@ -122,11 +122,11 @@ const initialState = [
             title: 'Remittance Schedules',
             items: [],
           },
-          {
-            url: '/reports',
-            title: 'Reports',
-            items: [],
-          },
+          // {
+          //   url: '/reports',
+          //   title: 'Reports',
+          //   items: [],
+          // },
         ],
       },
 
@@ -141,8 +141,8 @@ const initialState = [
           //   items: [],
           // },
           {
-            url: '/reports',
             title: 'View',
+            url: '/reports',
             items: [],
           },
           // {
