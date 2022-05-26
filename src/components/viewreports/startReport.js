@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import setAuthToken from '../../functions/setAuthToken';
 import { StartTcc } from '../tccForms/viewTccForms';
 import { StartReportView } from '../tables/reports';
+import { ViewTccPrintTable } from '../tables/viewTccTablePrint';
 
 const StartReport = () => {
   useEffect(() => {
@@ -23,12 +24,13 @@ const StartReport = () => {
 
   return (
     <>
-      <SectionTitle title="Generate Report" />
+      <SectionTitle title="Collections" />
 
       <Widget>
         <>
         
           <StartReportView />
+          {/* <ViewTccPrintTable /> */}
 
         </>
       </Widget>

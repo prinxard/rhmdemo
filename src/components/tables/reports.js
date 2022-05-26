@@ -22,13 +22,23 @@ import Clear from "@material-ui/icons/Clear";
 import { shallowEqual, useSelector } from "react-redux";
 import jwt from "jsonwebtoken";
 import setAuthToken from "../../functions/setAuthToken";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Loader from "react-loader-spinner";
 import url from '../../config/url';
 import axios from "axios";
 import ReactToPrint from "react-to-print";
 import { CoatOfArms, KgirsLogo, KogiGov, TccbgImage } from "../Images/Images";
 import QRCode from "react-qr-code";
+import { addDays, subDays } from 'date-fns';
+import { Calendar } from 'react-date-range';
+import { DateRangePicker } from 'react-date-range';
+import 'react-date-range/dist/styles.css'; // main style file
+import 'react-date-range/dist/theme/default.css'; // theme css file
+import { Controller, useForm } from "react-hook-form";
+import { FormatMoneyComponentBOJ } from "../FormInput/formInputs";
+import { useRouter } from "next/router";
+import Reportstable from "../../pages/reports/reportstable";
+
 
 
 const fields = [
@@ -78,7 +88,7 @@ const fields = [
 
 
 
-export const ViewTccPrintTable = ({ tccdata }) => {
+export const ViewTccPrintTable = () => {
   let items = tccdata;
 
   const { config, palettes, auth } = useSelector(
@@ -153,73 +163,187 @@ export const ViewTccPrintTable = ({ tccdata }) => {
   );
 };
 
-export const StartReportView = () => {
 
+export const StartReportView = () => {
+  const [fixedValues, SetFixValuesStart] = useState({ amount: 0 });
+  const [fixedValuesend, SetFixValuesEnd] = useState({ amount: 0 });
+  const [revenueItem, setRevenueItem] = useState([]);
+  const [station, setStation] = useState([]);
+  const [FilteredData, setFilteredData] = useState([]);
+  const [isFetching, setIsFetching] = useState(false);
+  const [tableState, setTableState] = useState("hidden");
+
+
+  const router = useRouter();
+
+  const [state, setState] = useState([
+    {
+      startDate: subDays(new Date(), 30),
+      endDate: (new Date() ),
+      key: 'selection'
+    }
+  ]);
+
+  let startDate = dateformat(state[0].startDate, "yyyy-mm-dd")
+  let endDate = dateformat(state[0].endDate, "yyyy-mm-dd")
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    control,
+    formState: { errors },
+  } = useForm()
+
+
+  let startFigure = watch("amountStart", "0").replace(/,/g, '')
+  let endFigure = watch("amountEnd", "0").replace(/,/g, '');
+
+  useEffect(() => {
+
+    setAuthToken();
+    const fetchPost = async () => {
+      try {
+        let res = await axios.get(`${url.BASE_URL}user/items`);
+        let itemsBody = res.data.body
+        let revItems = itemsBody.revItem
+        let office = itemsBody.taxOffice
+        setStation(office)
+        setRevenueItem(revItems)
+
+      } catch (e) {
+        // setIsFetching(false);
+        console.log(e);
+      }
+    };
+    fetchPost();
+
+  }, []);
+
+
+  const AdvancedSearch = (data) => {
+    setIsFetching(true)
+    data.trandateStart = startDate
+    data.trandateEnd = endDate
+    data.amountStart = startFigure
+    data.amountEnd = endFigure
+    // data.rev_sub = ""
+    // data.station = ""
+    //  delete data.rev_sub
+    //  delete data.station
+    // console.log("data", data);
+    axios.post(`${url.BASE_URL}collection/view-collection-report`, data)
+      .then(function (response) {
+        let search = response.data.body;
+
+        setFilteredData(search)
+        console.log("FilteredData", FilteredData);
+        setIsFetching(false)
+        setTableState('')
+        // toast.success("Created Successfully!");
+
+        console.log("Successful Test!");
+        // router.push("/reports/reportstable")
+        // router.push({
+        //   pathname: "/reports/reportstable/",
+        //   data: station,
+        // });
+        // router.push(
+        //   { pathname: "/reports/reportstable/", query: { name: station } },
+        //   "/reports/reportstable/"
+        // );
+      })
+      .catch(function (error) {
+        setTableState('')
+
+        // setIsFetching(false)
+        // if (error.response) {
+        //   setUploadErrors(() => error.response.data.message);
+        //   toast.error(uploadErrors)
+        // } else {
+        //   toast.error("Failed to create user!");
+        // }
+        setIsFetching(false)
+
+      })
+  }
 
   return (
     <>
       <div className="border mb-3 block p-6 rounded-lg bg-white w-full">
-        <form>
-          <div className="grid grid-cols-3 gap-4 place-items-center">
+        <form onSubmit={handleSubmit(AdvancedSearch)}>
+          <div className="grid grid-cols-4 gap-4 place-items-center">
             <div className="form-group mb-6">
               <label className="" htmlFor="kgtin"> Taxpayer ID</label>
-              <input type="text" className="form-control w-full rounded font-light text-gray-500" />
+              <input type="text" ref={register()} name="t_payer" className="form-control w-full rounded font-light text-gray-500" />
             </div>
 
             <div className="form-group mb-6">
               <label className="" htmlFor="kgtin"> Assessment ID</label>
-              <input type="text" className="form-control w-full rounded font-light text-gray-500"
+              <input type="text" ref={register()} name="assessment_id" className="form-control w-full rounded font-light text-gray-500"
               />
             </div>
 
             <div className="form-group mb-6">
               <label className="" htmlFor="kgtin"> Reference ID</label>
-              <input type="text" className="form-control w-full rounded font-light text-gray-500"
+              <input type="text" ref={register()} name="ref" className="form-control w-full rounded font-light text-gray-500"
               />
             </div>
 
-          </div>
-          <div className="flex justify-center">
-
-            <div className="grid grid-cols-4 gap-4 place-items-center">
-              <div className="self-center justify-self-center font-bold mb-6">
-                <p>Amount</p>
-              </div>
-
-              <div className="form-group mb-6">
-                <p className="text-center">Start Amount</p>
-                <input type="text" className="form-control w-full rounded font-light text-gray-500"
-                />
-              </div>
-
-              <div className="form-group mb-6">
-                <p className="text-center">End Amount</p>
-                <input type="text" className="form-control w-full rounded font-light text-gray-500"
-                />
-              </div>
+            <div className="form-group mb-6">
+              <label className="" htmlFor="kgtin"> Tax Station</label>
+              <select ref={register()} name="station" className="form-control w-full rounded font-light text-gray-500">
+                {station.map((office) => <option key={office.idstation} value={office.station_code}>{office.name}</option>)}
+              </select>
             </div>
 
+          </div>
+
+          <div className="flex justify-center mb-7">
+            <div>
+              <p className="font-bold text-center mb-5">Date Range</p>
+              <DateRangePicker
+                onChange={item => setState([item.selection])}
+                showSelectionPreview={true}
+                moveRangeOnFirstSelection={false}
+                months={1}
+                ranges={state}
+                direction="horizontal"
+
+              />
+            </div>
           </div>
 
           <div className="flex justify-center">
             <div className="grid grid-cols-4 gap-4 place-items-center">
               <div className="justify-self-center font-bold mb-6">
-                <p>Date</p>
+                <p>Amount</p>
               </div>
 
               <div className="form-group mb-6">
-                <p className="text-center">Start Date</p>
-                <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                <p className="text-center">Start Amount</p>
+                <FormatMoneyComponentBOJ
+                  ref={register()}
+                  name="amountStart"
+                  control={control}
+                  defaultValue={""}
+                  onValueChange={(v) => SetFixValuesStart({ amount: v })}
                 />
+                {/* <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                /> */}
               </div>
 
               <div className="form-group mb-6">
-                <p className="text-center">End Date</p>
-                <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                <p className="text-center">End Amount</p>
+                <FormatMoneyComponentBOJ
+                  ref={register()}
+                  name="amountEnd"
+                  control={control}
+                  defaultValue={""}
+                  onValueChange={(v) => SetFixValuesEnd({ amount: v })}
                 />
               </div>
             </div>
-
           </div>
 
           <div className="flex justify-center">
@@ -230,12 +354,15 @@ export const StartReportView = () => {
 
               <div className="form-group ">
                 <p className="text-center">Select Revenue Item</p>
-                <input type="text" className="form-control w-full rounded font-light text-gray-500"
-                />
+                <select ref={register()} name="rev_sub" className="form-control w-full rounded font-light text-gray-500">
+                  {revenueItem.map((item) => <option key={item.rev_code} value={item.rev_code}>{item.item}</option>)}
+                </select>
+                {/* <input type="text" ref={register()} className="form-control w-full rounded font-light text-gray-500"
+                /> */}
               </div>
               <div className="form-group ">
                 <p className="text-center">Payment Channel</p>
-                <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                <input type="text" ref={register()} name="channel_id" className="form-control w-full rounded font-light text-gray-500"
                 />
               </div>
             </div>
@@ -261,6 +388,40 @@ export const StartReportView = () => {
 
       </div>
 
+      {/* <div className="hidden"> */}
+      {/* {isFetching && (
+        <div className="flex justify-center item mb-2">
+          <Loader
+            visible={isFetching}
+            type="BallTriangle"
+            color="#00FA9A"
+            height={19}
+            width={19}
+            timeout={0}
+            className="ml-2"
+          />
+          <p className="font-bold">Processing...</p>
+        </div>
+      )} */}
+      {isFetching ? (
+        <div className="flex justify-center item mb-2">
+          <Loader
+            visible={isFetching}
+            type="BallTriangle"
+            color="#00FA9A"
+            height={19}
+            width={19}
+            timeout={0}
+            className="ml-2"
+          />
+          <p className="font-bold">Processing...</p>
+        </div>
+      ) :
+        <div className={`${tableState}`}>
+          <Reportstable FilteredData={FilteredData} />
+        </div>
+      }
+      {/* </div> */}
 
 
     </>

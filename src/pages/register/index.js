@@ -143,7 +143,7 @@ export default function index() {
 
                         <div className="form-group ">
                             <p>Tax Station</p>
-                            <select ref={register()} name="station" class="form-control mb-4 SlectBox w-full rounded font-light text-gray-500" id="taxStation">
+                            <select ref={register()} name="station" className="form-control mb-4 SlectBox w-full rounded font-light text-gray-500" id="taxStation">
                                 {taxStation.map((office) => <option key={office.idstation} value={office.station_code}>{office.name}</option>)}
                             </select>
                         </div>
