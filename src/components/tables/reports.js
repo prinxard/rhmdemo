@@ -360,7 +360,7 @@ export const StartReportView = () => {
                 {/* <input type="text" ref={register()} className="form-control w-full rounded font-light text-gray-500"
                 /> */}
               </div>
-              <div className="form-group ">
+              <div className="form-group hidden">
                 <p className="text-center">Payment Channel</p>
                 <input type="text" ref={register()} name="channel_id" className="form-control w-full rounded font-light text-gray-500"
                 />
