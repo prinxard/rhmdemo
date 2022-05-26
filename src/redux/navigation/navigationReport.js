@@ -63,7 +63,7 @@ const initialState = [
         title: 'Collections',
         items: [
           {
-            url: '/view/collections',
+            url: '/reports',
             title: 'View',
             items: [],
           },

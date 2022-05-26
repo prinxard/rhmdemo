@@ -141,7 +141,7 @@ const initialState = [
           //   items: [],
           // },
           {
-            url: '/view/collections',
+            url: '/reports',
             title: 'View',
             items: [],
           },
