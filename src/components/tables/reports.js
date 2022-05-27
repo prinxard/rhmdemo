@@ -40,130 +40,6 @@ import { useRouter } from "next/router";
 import Reportstable from "../../pages/reports/reportstable";
 
 
-
-const fields = [
-  {
-    title: "SN",
-    field: "serialNo",
-    filtering: false,
-    width: "10%"
-  },
-  {
-    title: "File Ref",
-    field: "file_ref",
-  },
-  {
-    title: "KGTIN",
-    field: "tp_id",
-  },
-  {
-    title: "Name",
-    field: "taxpayer_name",
-  },
-  {
-    title: "Year 1 tax",
-    field: "amount1",
-  },
-  {
-    title: "Year 2 tax",
-    field: "amount2",
-  },
-  {
-    title: "Year 3 tax",
-    field: "amount3",
-  },
-  {
-    title: "Station",
-    field: "tax_office",
-  },
-  {
-    title: "Create Time",
-    field: "crt_time",
-  },
-  {
-    title: "Status",
-    field: "status",
-  },
-];
-
-
-
-export const ViewTccPrintTable = () => {
-  let items = tccdata;
-
-  const { config, palettes, auth } = useSelector(
-    (state) => ({
-      config: state.config,
-      palettes: state.palettes,
-      auth: state.authentication.auth,
-    }),
-    shallowEqual
-  );
-
-  const reportRange = [39]
-  const decoded = jwt.decode(auth);
-  const userGroup = decoded.groups
-
-  return (
-    <>
-      <MaterialTable title="Tcc List"
-        data={items}
-        columns={fields}
-
-        options={{
-          search: true,
-          paging: true,
-          filtering: true,
-          rowStyle: (rowData) => {
-            if (rowData.status === "Printed") {
-              return {
-                color: "#5f9f45"
-                // backgroundColor: "#156448",
-              }
-            } else {
-              return {};
-            }
-          },
-          exportButton: {
-            csv: true,
-            pdf: false
-          },
-          exportAllData: true,
-
-        }}
-        icons={{
-          Check: Check,
-          DetailPanel: ChevronRight,
-          Export: SaveAlt,
-          Filter: () => <Icons.Filter />,
-          FirstPage: FirstPage,
-          LastPage: LastPage,
-          NextPage: ChevronRight,
-          PreviousPage: ChevronLeft,
-          Search: Search,
-          ThirdStateCheck: Remove,
-          Clear: Clear,
-          SortArrow: ArrowDownward
-        }}
-
-        onRowClick={(event, rowData) => {
-
-          if (userGroup.some(r => reportRange.includes(r))) {
-            ''
-
-          }
-          else {
-            window.open(`collections/${rowData.idpymt}`, "_self")
-            event.stopPropagation();
-          }
-        }}
-        
-      />
-    </>
-  );
-};
-
-
 export const StartReportView = () => {
   const [fixedValues, SetFixValuesStart] = useState({ amount: 0 });
   const [fixedValuesend, SetFixValuesEnd] = useState({ amount: 0 });
@@ -240,11 +116,7 @@ export const StartReportView = () => {
     data.trandateEnd = endDate
     data.amountStart = startFigure
     data.amountEnd = endFigure
-    // data.rev_sub = ""
-    // data.station = ""
-    //  delete data.rev_sub
-    //  delete data.station
-    // console.log("data", data);
+
     axios.post(`${url.BASE_URL}collection/view-collection-report`, data)
       .then(function (response) {
         let search = response.data.body;
@@ -253,29 +125,9 @@ export const StartReportView = () => {
         console.log("FilteredData", FilteredData);
         setIsFetching(false)
         setTableState('')
-        // toast.success("Created Successfully!");
-
-        console.log("Successful Test!");
-        // router.push("/reports/reportstable")
-        // router.push({
-        //   pathname: "/reports/reportstable/",
-        //   data: station,
-        // });
-        // router.push(
-        //   { pathname: "/reports/reportstable/", query: { name: station } },
-        //   "/reports/reportstable/"
-        // );
       })
       .catch(function (error) {
         setTableState('')
-
-        // setIsFetching(false)
-        // if (error.response) {
-        //   setUploadErrors(() => error.response.data.message);
-        //   toast.error(uploadErrors)
-        // } else {
-        //   toast.error("Failed to create user!");
-        // }
         setIsFetching(false)
 
       })
@@ -342,8 +194,6 @@ export const StartReportView = () => {
                   defaultValue={""}
                   onValueChange={(v) => SetFixValuesStart({ amount: v })}
                 />
-                {/* <input type="text" className="form-control w-full rounded font-light text-gray-500"
-                /> */}
               </div>
 
               <div className="form-group mb-6">
@@ -364,14 +214,11 @@ export const StartReportView = () => {
               <div className="justify-self-center mb-6 font-bold">
                 <p>Revenue Item</p>
               </div>
-
               <div className="form-group ">
                 <p className="text-center">Select Revenue Item</p>
                 <select ref={register()} name="rev_sub" className="form-control w-full rounded font-light text-gray-500">
                   {revenueItem.map((item) => <option key={item.rev_code} value={item.rev_code}>{item.item}</option>)}
                 </select>
-                {/* <input type="text" ref={register()} className="form-control w-full rounded font-light text-gray-500"
-                /> */}
               </div>
               <div className="form-group hidden">
                 <p className="text-center">Payment Channel</p>
@@ -379,7 +226,6 @@ export const StartReportView = () => {
                 />
               </div>
             </div>
-
           </div>
 
           <div className="flex justify-end my-4">
@@ -394,28 +240,8 @@ export const StartReportView = () => {
             </div>
           </div>
         </form>
-
-
-
-
-
       </div>
 
-      {/* <div className="hidden"> */}
-      {/* {isFetching && (
-        <div className="flex justify-center item mb-2">
-          <Loader
-            visible={isFetching}
-            type="BallTriangle"
-            color="#00FA9A"
-            height={19}
-            width={19}
-            timeout={0}
-            className="ml-2"
-          />
-          <p className="font-bold">Processing...</p>
-        </div>
-      )} */}
       {isFetching ? (
         <div className="flex justify-center item mb-2">
           <Loader
@@ -434,9 +260,6 @@ export const StartReportView = () => {
           <Reportstable FilteredData={FilteredData} />
         </div>
       }
-      {/* </div> */}
-
-
     </>
   );
 };
