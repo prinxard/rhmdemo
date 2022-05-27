@@ -152,12 +152,12 @@ export const ViewTccPrintTable = () => {
             ''
 
           }
-
           else {
-            window.open(`/view/listprinttcc/${rowData.id}`, "_self")
+            window.open(`collections/${rowData.idpymt}`, "_self")
             event.stopPropagation();
           }
         }}
+        
       />
     </>
   );
@@ -179,10 +179,23 @@ export const StartReportView = () => {
   const [state, setState] = useState([
     {
       startDate: subDays(new Date(), 30),
-      endDate: (new Date() ),
+      endDate: (new Date()),
       key: 'selection'
     }
   ]);
+
+  const { config, palettes, auth } = useSelector(
+    (state) => ({
+      config: state.config,
+      palettes: state.palettes,
+      auth: state.authentication.auth,
+    }),
+    shallowEqual
+  );
+
+  const reportRange = [39]
+  const decoded = jwt.decode(auth);
+  const userGroup = decoded.groups
 
   let startDate = dateformat(state[0].startDate, "yyyy-mm-dd")
   let endDate = dateformat(state[0].endDate, "yyyy-mm-dd")

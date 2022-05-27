@@ -15,6 +15,9 @@ import Clear from "@material-ui/icons/Clear";
 import * as Icons from '../../components/Icons/index';
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { shallowEqual, useSelector } from "react-redux";
+import jwt from "jsonwebtoken";
+
 
 const fields = [
     // {
@@ -124,6 +127,19 @@ export default function Reportstable({ FilteredData }) {
 
     let items = FilteredData
 
+    const { config, palettes, auth } = useSelector(
+        (state) => ({
+            config: state.config,
+            palettes: state.palettes,
+            auth: state.authentication.auth,
+        }),
+        shallowEqual
+    );
+
+    const reportRange = [39]
+    const decoded = jwt.decode(auth);
+    const userGroup = decoded.groups
+
     useEffect(() => {
 
     }, [router.query]);
@@ -172,18 +188,17 @@ export default function Reportstable({ FilteredData }) {
                     SortArrow: ArrowDownward
                 }}
 
-            // onRowClick={(event, rowData) => {
+                onRowClick={(event, rowData) => {
 
-            //     if (userGroup.some(r => reportRange.includes(r))) {
-            //         ''
+                    if (userGroup.some(r => reportRange.includes(r))) {
+                        ''
 
-            //     }
-
-            //     else {
-            //         window.open(`/view/listprinttcc/${rowData.id}`, "_self")
-            //         event.stopPropagation();
-            //     }
-            // }}
+                    }
+                    else {
+                        window.open(`view/collections/${rowData.idpymt}`, "_self")
+                        event.stopPropagation();
+                    }
+                }}
             />
 
         </>
