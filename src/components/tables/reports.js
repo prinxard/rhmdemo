@@ -54,8 +54,9 @@ export const StartReportView = () => {
 
   const [state, setState] = useState([
     {
-      startDate: subDays(new Date(), 30),
-      endDate: (new Date()),
+      startDate: null,
+      // endDate: null,
+      endDate: new Date(""),
       key: 'selection'
     }
   ]);
@@ -73,8 +74,25 @@ export const StartReportView = () => {
   const decoded = jwt.decode(auth);
   const userGroup = decoded.groups
 
-  let startDate = dateformat(state[0].startDate, "yyyy-mm-dd")
-  let endDate = dateformat(state[0].endDate, "yyyy-mm-dd")
+  let startDate
+  let endDate
+
+  if (state[0].startDate === null) {
+
+    startDate = ""
+
+  } else {
+    startDate = dateformat(state[0].startDate, "yyyy-mm-dd")
+  }
+
+  // * using == to compare endDate value
+  if (state[0].endDate === null || state[0].endDate === "" || state[0].endDate === undefined || state[0].endDate == "Invalid Date") {
+
+    endDate = ""
+
+  } else {
+    endDate = dateformat(state[0].endDate, "yyyy-mm-dd")
+  }
 
   const {
     register,
@@ -158,6 +176,7 @@ export const StartReportView = () => {
             <div className="form-group mb-6">
               <label className="" htmlFor="kgtin"> Tax Station</label>
               <select ref={register()} name="station" className="form-control w-full rounded font-light text-gray-500">
+                <option value="">Select</option>
                 {station.map((office) => <option key={office.idstation} value={office.station_code}>{office.name}</option>)}
               </select>
             </div>

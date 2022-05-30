@@ -45,9 +45,6 @@ export const StartIndividualReportView = () => {
     shallowEqual
   );
 
-  let testdate =  new Date("")
-
-  console.log("testdate", testdate);
 
   const reportRange = [39]
   const decoded = jwt.decode(auth);
@@ -73,9 +70,6 @@ export const StartIndividualReportView = () => {
     endDate = dateformat(state[0].endDate, "yyyy-mm-dd")
   }
 
-
-  console.log("state", state);
-
   const {
     register,
     handleSubmit,
@@ -83,6 +77,7 @@ export const StartIndividualReportView = () => {
     control,
     formState: { errors },
   } = useForm()
+
 
 
   let startFigure = watch("amountStart", "0").replace(/,/g, '')
