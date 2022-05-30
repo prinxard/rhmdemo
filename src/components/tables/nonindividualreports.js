@@ -14,8 +14,9 @@ import { useRouter } from "next/router";
 import Reportstable from "../../pages/reports/reportstable";
 import IndividualReportstable from "../../pages/reports-individual/individualreportstable";
 import { useForm } from "react-hook-form";
+import NonIndividualReportstable from "../../pages/reports-non-individual/nonindividualreportstable";
 
-export const StartIndividualReportView = () => {
+export const StartNonIndividualReportView = () => {
   const [fixedValues, SetFixValuesStart] = useState({ amount: 0 });
   const [fixedValuesend, SetFixValuesEnd] = useState({ amount: 0 });
   const [revenueItem, setRevenueItem] = useState([]);
@@ -79,7 +80,6 @@ export const StartIndividualReportView = () => {
   } = useForm()
 
 
-
   useEffect(() => {
 
     setAuthToken();
@@ -105,7 +105,7 @@ export const StartIndividualReportView = () => {
     data.createdStart = startDate
     data.createdEnd = endDate
 
-    axios.post(`${url.BASE_URL}taxpayer/list-individual`, data)
+    axios.post(`${url.BASE_URL}taxpayer/list-non-individual`, data)
       .then(function (response) {
         let search = response.data.body;
         setFilteredData(search)
@@ -134,8 +134,8 @@ export const StartIndividualReportView = () => {
             </div>
 
             <div className="form-group mb-6">
-              <label> First Name</label>
-              <input type="text" ref={register()} name="first_name" className="form-control w-full rounded font-light text-gray-500"
+              <label> Company Name</label>
+              <input type="text" ref={register()} name="coy_name" className="form-control w-full rounded font-light text-gray-500"
               />
             </div>
 
@@ -146,24 +146,14 @@ export const StartIndividualReportView = () => {
               </select>
             </div>
 
-          </div>
-
-
-          <div className="grid grid-cols-4 gap-4 place-content-center">
-            <div className="form-group mb-6">
-              <label> Surname </label>
-              <input type="text" ref={register()} name="surname" className="form-control w-full rounded font-light text-gray-500"
-              />
-            </div>
-
             <div className="form-group mb-6">
               <label> Phone </label>
               <input type="text" ref={register()} name="phone" className="form-control w-full rounded font-light text-gray-500"
               />
             </div>
+
           </div>
-
-
+        
           <div className="flex justify-center mb-7">
             <div>
               <p className="font-bold text-center mb-5">Created Date Range</p>
@@ -208,7 +198,7 @@ export const StartIndividualReportView = () => {
         </div>
       ) :
         <div className={`${tableState}`}>
-          <IndividualReportstable FilteredData={FilteredData} />
+          <NonIndividualReportstable FilteredData={FilteredData} />
         </div>
       }
     </>

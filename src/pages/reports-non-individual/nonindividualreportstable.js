@@ -31,12 +31,12 @@ const fields = [
         field: "KGTIN",
     },
     {
-        title: "First Name",
-        field: "first_name",
+        title: "Company Name",
+        field: "coy_name",
     },
     {
-        title: "Last Name",
-        field: "surname",
+        title: "Type of Org",
+        field: "type_of_organisation",
     },
     {
         title: "Tax office",
@@ -44,7 +44,7 @@ const fields = [
     },
     {
         title: "Phone",
-        field: "phone_number",
+        field: "phone_no",
     },
     {
         title: "Create Time",
@@ -56,7 +56,7 @@ const fields = [
 
 
 
-export default function IndividualReportstable({ FilteredData }) {
+export default function NonIndividualReportstable({ FilteredData }) {
     const router = useRouter();
 
     let items = FilteredData
@@ -77,7 +77,7 @@ export default function IndividualReportstable({ FilteredData }) {
 
     return (
         <>
-            <MaterialTable title="Individual Taxpayer Data"
+            <MaterialTable title="Non-Individual Taxpayer Data"
                 data={items}
                 columns={fields}
 
