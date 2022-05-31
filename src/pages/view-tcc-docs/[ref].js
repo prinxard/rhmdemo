@@ -11,7 +11,7 @@ const ViewDocumentsTcc = () => {
     const [isFetching, setIsFetching] = useState(() => true);
     const [uploads, setUploads] = useState([])
 
-    const uploadBase = 'https://annualuploads.bespoque.dev/rhm/uploads/da/tcc/'
+    const uploadBase = 'https://annualuploads.bespoque.dev/rhm-live/uploads/da/tcc/'
 
     // const applicationLetter = uploads.map(function (doc) {
     //     let appLet = doc.doc
