@@ -75,6 +75,8 @@ export default function Reportstable({ FilteredData }) {
 
     let items = FilteredData
 
+    console.log("items", items);
+
     const { config, palettes, auth } = useSelector(
         (state) => ({
             config: state.config,
@@ -135,17 +137,17 @@ export default function Reportstable({ FilteredData }) {
                     SortArrow: ArrowDownward
                 }}
 
-                onRowClick={(event, rowData) => {
+                // onRowClick={(event, rowData) => {
 
-                    if (userGroup.some(r => reportRange.includes(r))) {
-                        ''
+                //     if (userGroup.some(r => reportRange.includes(r))) {
+                //         ''
 
-                    }
-                    else {
-                        window.open(`view/collections/${rowData.idpymt}`, "_self")
-                        event.stopPropagation();
-                    }
-                }}
+                //     }
+                //     else {
+                //         window.open(`view/collections/${rowData.idpymt}`, "_self")
+                //         event.stopPropagation();
+                //     }
+                // }}
             />
 
         </>
