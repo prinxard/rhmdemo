@@ -38,22 +38,22 @@ const initialState = [
             url: '/view/approvedasses',
             items: [],
           },
-          {
-            url: '/',
-            title: 'Tax Clearance (TCC)',
-            items: [
-              {
-                url: '/view/listtcc',
-                title: 'View',
-                items: [],
-              },
-              {
-                url: '/view/listprinttcc',
-                title: 'Print',
-                items: [],
-              },
-            ],
-          },
+          // {
+          //   url: '/',
+          //   title: 'Tax Clearance (TCC)',
+          //   items: [
+          //     {
+          //       url: '/view/listtcc',
+          //       title: 'View',
+          //       items: [],
+          //     },
+          //     {
+          //       url: '/view/listprinttcc',
+          //       title: 'Print',
+          //       items: [],
+          //     },
+          //   ],
+          // },
         ],
       },
 
