@@ -17,8 +17,11 @@ const PrintSingleTcc = () => {
   const [query, setQuery] = useState(() => "");
   const [tccdata, setTccData] = useState(() => []);
   const [assess1, setAssess1] = useState(() => []);
-  const [assess3, setAssess3] = useState([]);
   const [assess2, setAssess2] = useState([]);
+  const [assess3, setAssess3] = useState([]);
+  const [addAss1, setAddAss1] = useState([]);
+  const [addAss2, setAddAss2] = useState([]);
+  const [addAss3, setAddAss3] = useState([]);
   const [tccID, setTccID] = useState(() => []);
   const [tccUploads, setTccUploads] = useState(() => []);
   const router = useRouter();
@@ -40,11 +43,17 @@ const PrintSingleTcc = () => {
           let secondass = fetctTcc.assessment2
           let thirdass = fetctTcc.assessment3
           let uploads = fetctTcc.tccUploadPass
+          let addassess1 = fetctTcc.addAssessment1
+          let addassess2 = fetctTcc.addAssessment2
+          let addassess3 = fetctTcc.addAssessment3
           setTccUploads(uploads)
           setTccData(tccdat)
           setAssess1(firstass)
           setAssess2(secondass)
           setAssess3(thirdass)
+          setAddAss1(addassess1)
+          setAddAss2(addassess2)
+          setAddAss3(addassess3)
 
           setIsFetching(false);
         } catch (e) {
@@ -78,7 +87,7 @@ const PrintSingleTcc = () => {
               <p>Fetching data...</p>
             </div>
           ) :
-            <ViewSingleTccPrintTable tccUploads={tccUploads} tccID={tccID} payerDetails={tccdata} assessmentData={assess1} assessmentData2={assess2} assessmentData3={assess3}/>
+            <ViewSingleTccPrintTable addAss1={addAss1} addAss2={addAss2} addAss3={addAss3} tccUploads={tccUploads} tccID={tccID} payerDetails={tccdata} assessmentData={assess1} assessmentData2={assess2} assessmentData3={assess3}/>
           }
         </>
       </Widget>

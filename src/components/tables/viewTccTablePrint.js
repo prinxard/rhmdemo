@@ -153,7 +153,17 @@ export const ViewTccPrintTable = ({ tccdata }) => {
   );
 };
 
-export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, assessmentData, assessmentData2, assessmentData3 }) => {
+export const ViewSingleTccPrintTable = ({ 
+  tccUploads, 
+  tccID, 
+  payerDetails, 
+  assessmentData, 
+  assessmentData2, 
+  assessmentData3,
+  addAss1,
+  addAss2,
+  addAss3
+ }) => {
 
   const componentRef = useRef();
   let year2
@@ -164,6 +174,20 @@ export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, asses
   let signature
   let fileRef
   let printPrintTime
+
+  let addAssessmentVal1
+  let addAssessmentVal2
+  let addAssessmentVal3
+
+  addAss1.forEach((ind, i) => {
+    addAssessmentVal1 = Number(ind.amount)
+  })
+  addAss2.forEach((ind, i) => {
+    addAssessmentVal2 = Number(ind.amount)
+  })
+  addAss3.forEach((ind, i) => {
+    addAssessmentVal3 = Number(ind.amount)
+  })
 
   tccUploads.forEach((ind, i) => {
     picUpload = ind.passport
@@ -401,7 +425,7 @@ export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, asses
 
                           <td className="">
                             {assessmentData.map((ind, i) => (
-                              <p className="font-bold">{formatNumber(ind.tax)}</p>
+                              <p className="font-bold">{formatNumber(Number(ind.tax) + addAssessmentVal1)}</p>
                             ))}
                           </td>
                           <td className="">
@@ -425,7 +449,7 @@ export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, asses
 
                           <td className="">
                             {assessmentData2.map((ind, i) => (
-                              <p className="font-bold">{formatNumber(ind.tax)}</p>
+                              <p className="font-bold">{formatNumber(Number(ind.tax) + addAssessmentVal2)}</p>
                             ))}
                           </td>
                           <td className="">
@@ -451,7 +475,7 @@ export const ViewSingleTccPrintTable = ({ tccUploads, tccID, payerDetails, asses
 
                           <td className="">
                             {assessmentData3.map((ind, i) => (
-                              <p className="font-bold">{formatNumber(ind.tax)}</p>
+                              <p className="font-bold">{formatNumber(Number(ind.tax) + addAssessmentVal3)}</p>
                             ))}
                           </td>
                           <td className="">
