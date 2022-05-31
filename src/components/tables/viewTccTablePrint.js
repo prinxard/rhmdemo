@@ -169,7 +169,7 @@ export const ViewSingleTccPrintTable = ({
   let year2
   let year3
 
-  let basdocurl = 'https://annualuploads.bespoque.dev/rhm-live/uploads/da/tcc/'
+  let basdocurl = 'https://annualuploads.bespoque.dev/rhm/uploads/da/tcc/'
   let picUpload
   let signature
   let fileRef
