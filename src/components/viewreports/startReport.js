@@ -28,10 +28,7 @@ const StartReport = () => {
 
       <Widget>
         <>
-        
           <StartReportView />
-          {/* <ViewTccPrintTable /> */}
-
         </>
       </Widget>
     </>

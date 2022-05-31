@@ -176,7 +176,7 @@ export const StartReportView = () => {
             <div className="form-group mb-6">
               <label className="" htmlFor="kgtin"> Tax Station</label>
               <select ref={register()} name="station" className="form-control w-full rounded font-light text-gray-500">
-                <option value="">Select</option>
+                <option value="">All</option>
                 {station.map((office) => <option key={office.idstation} value={office.station_code}>{office.name}</option>)}
               </select>
             </div>
@@ -236,6 +236,7 @@ export const StartReportView = () => {
               <div className="form-group ">
                 <p className="text-center">Select Revenue Item</p>
                 <select ref={register()} name="rev_sub" className="form-control w-full rounded font-light text-gray-500">
+                  <option value="">All</option>
                   {revenueItem.map((item) => <option key={item.rev_code} value={item.rev_code}>{item.item}</option>)}
                 </select>
               </div>

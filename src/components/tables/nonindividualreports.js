@@ -141,7 +141,8 @@ export const StartNonIndividualReportView = () => {
 
             <div className="form-group mb-6">
               <label className="" htmlFor="kgtin"> Tax Station</label>
-              <select ref={register()} name="station" className="form-control w-full rounded font-light text-gray-500">
+              <select ref={register()} name="tax_office" className="form-control w-full rounded font-light text-gray-500">
+                <option value="">All</option>
                 {station.map((office) => <option key={office.idstation} value={office.station_code}>{office.name}</option>)}
               </select>
             </div>

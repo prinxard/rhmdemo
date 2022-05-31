@@ -17,15 +17,10 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import jwt from "jsonwebtoken";
+import { formatNumber } from "accounting";
 
 
 const fields = [
-    // {
-    //     title: "SN",
-    //     field: "serialNo",
-    //     filtering: false,
-    //     width: "10%"
-    // },
     {
         title: "Name",
         field: "taxpayerName",
@@ -47,7 +42,7 @@ const fields = [
         field: "revenueItem",
     },
     {
-        title: "File ref",
+        title: "Ref",
         field: "ref",
     },
     {
@@ -61,54 +56,7 @@ const fields = [
     {
         title: "Amount",
         field: "amount",
-    },
-
-    {
-        title: "Station",
-        field: "station",
-    },
-    {
-        title: "Transaction Date",
-        field: "tran_date",
-    },
-];
-
-const data = [
-    // {
-    //     title: "SN",
-    //     field: "serialNo",
-    //     filtering: false,
-    //     width: "10%"
-    // },
-    {
-        tran_date: "Taxpayer ID",
-    },
-    {
-        tran_date: "Name",
-    },
-    {
-        mda: "MDA",
-        field: "mda",
-    },
-    {
-        amount: "Revenue Item",
-        field: "revenueItem",
-    },
-    {
-        title: "File ref",
-        field: "ref",
-    },
-    {
-        title: "Bank",
-        field: "bank",
-    },
-    {
-        title: "Channel",
-        field: "channel_id",
-    },
-    {
-        title: "Amount",
-        field: "amount",
+        render: (expense) => formatNumber(expense.amount)
     },
 
     {
@@ -144,7 +92,6 @@ export default function Reportstable({ FilteredData }) {
 
     }, [router.query]);
 
-    console.log("datainchild", FilteredData);
 
     return (
         <>

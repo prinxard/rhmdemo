@@ -75,28 +75,12 @@ const fields = [
     field: "tax_office",
   },
   {
-    title: "Status",
-    field: "status",
-  },
-  {
     title: "Type",
     field: "assessment_type",
   },
   {
     title: "Print Status",
     field: "printstatus",
-    // render: rowData => {
-    //   return (
-    //     rowData.printstatus === "Yes" ? <p style={{ backgroundColor: "#156448", fontWeight: "bold" }}>{rowData.printstatus}</p> :
-    //       <p>{rowData.printstatus}</p>
-    //   )
-    // }rowStyle:{backgroundColor: this.state.selected ? '#fff' : this.state.c}
-    // render: rowData => {
-    //   return (
-    //     rowData.printstatus === "Yes" ? <p style={{ backgroundColor: "#156448", fontWeight: "bold", color: "#fff", textAlign: "center" }}>{rowData.printstatus}</p> :
-    //       <p>{rowData.printstatus}</p>
-    //   )
-    // }
   },
   {
     title: "Created Time",
@@ -149,8 +133,6 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
       toast.error("Failed Try again!");
       setIsFetching(false)
     }
-
-
   };
 
   return (
@@ -208,11 +190,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
       <MaterialTable title="Approved Assessments List"
         data={items}
         columns={fields}
-
-
-
         actions={[
-
           (delData) => {
             if (userGroup.some(r => DeleteRange.includes(r))) {
               return {
