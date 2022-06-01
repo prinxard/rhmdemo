@@ -154,7 +154,7 @@ export const StartReportView = () => {
   return (
     <>
       <div className="border mb-3 block p-6 rounded-lg bg-white w-full">
-        <form onSubmit={handleSubmit(AdvancedSearch)}>
+        <form onSubmit={handleSubmit(AdvancedSearch)} className="mb-3">
 
           <div className="flex">
             <div className="border mr-2 block p-6 rounded-lg bg-white w-full">
@@ -242,32 +242,35 @@ export const StartReportView = () => {
                   </div>
                 </div>
               </div>
+              
             </div>
 
           </div>
 
 
         </form>
+
+        {isFetching ? (
+          <div className="flex justify-center item mb-2">
+            <Loader
+              visible={isFetching}
+              type="BallTriangle"
+              color="#00FA9A"
+              height={19}
+              width={19}
+              timeout={0}
+              className="ml-2"
+            />
+            <p className="font-bold">Processing...</p>
+          </div>
+        ) :
+          <div className={`${tableState}`}>
+            <Reportstable FilteredData={FilteredData} />
+          </div>
+        }
       </div>
 
-      {isFetching ? (
-        <div className="flex justify-center item mb-2">
-          <Loader
-            visible={isFetching}
-            type="BallTriangle"
-            color="#00FA9A"
-            height={19}
-            width={19}
-            timeout={0}
-            className="ml-2"
-          />
-          <p className="font-bold">Processing...</p>
-        </div>
-      ) :
-        <div className={`${tableState}`}>
-          <Reportstable FilteredData={FilteredData} />
-        </div>
-      }
+
     </>
   );
 };
