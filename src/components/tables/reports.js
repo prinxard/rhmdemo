@@ -35,7 +35,7 @@ import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { Controller, useForm } from "react-hook-form";
-import { FormatMoneyComponentBOJ } from "../FormInput/formInputs";
+import { FormatMoneyComponentBOJ, FormatMoneyComponentReport } from "../FormInput/formInputs";
 import { useRouter } from "next/router";
 import Reportstable from "../../pages/reports/reportstable";
 
@@ -155,58 +155,48 @@ export const StartReportView = () => {
     <>
       <div className="border mb-3 block p-6 rounded-lg bg-white w-full">
         <form onSubmit={handleSubmit(AdvancedSearch)}>
-          <div className="grid grid-cols-4 gap-4 place-items-center">
-            <div className="form-group mb-6">
-              <label className="" htmlFor="kgtin"> Taxpayer ID</label>
-              <input type="text" ref={register()} name="t_payer" className="form-control w-full rounded font-light text-gray-500" />
-            </div>
 
-            <div className="form-group mb-6">
-              <label className="" htmlFor="kgtin"> Assessment ID</label>
-              <input type="text" ref={register()} name="assessment_id" className="form-control w-full rounded font-light text-gray-500"
-              />
-            </div>
-
-            <div className="form-group mb-6">
-              <label className="" htmlFor="kgtin"> Reference ID</label>
-              <input type="text" ref={register()} name="ref" className="form-control w-full rounded font-light text-gray-500"
-              />
-            </div>
-
-            <div className="form-group mb-6">
-              <label className="" htmlFor="kgtin"> Tax Station</label>
-              <select ref={register()} name="station" className="form-control w-full rounded font-light text-gray-500">
-                <option value="">All</option>
-                {station.map((office) => <option key={office.idstation} value={office.station_code}>{office.name}</option>)}
-              </select>
-            </div>
-
-          </div>
-
-          <div className="flex justify-center mb-7">
-            <div>
-              <p className="font-bold text-center mb-5">Date Range</p>
-              <DateRangePicker
-                onChange={item => setState([item.selection])}
-                showSelectionPreview={true}
-                moveRangeOnFirstSelection={false}
-                months={1}
-                ranges={state}
-                direction="horizontal"
-
-              />
-            </div>
-          </div>
-
-          <div className="flex justify-center">
-            <div className="grid grid-cols-4 gap-4 place-items-center">
-              <div className="justify-self-center font-bold mb-6">
-                <p>Amount</p>
+          <div className="flex">
+            <div className="border mr-2 block p-6 rounded-lg bg-white w-full">
+              <p className="font-bold text-center my-2">Search by IDs</p>
+              <div className="mb-6">
+                <label className="" htmlFor="kgtin"> Taxpayer ID</label>
+                <input type="text" ref={register()} name="t_payer" className="form-control w-full rounded font-light text-gray-500" />
+              </div>
+              <div className="mb-6">
+                <label className="" htmlFor="kgtin"> Assessment ID</label>
+                <input type="text" ref={register()} name="assessment_id" className="form-control w-full rounded font-light text-gray-500"
+                />
+              </div>
+              <div className="mb-6">
+                <label className="" htmlFor="kgtin"> Reference ID</label>
+                <input type="text" ref={register()} name="ref" className="form-control w-full rounded font-light text-gray-500"
+                />
               </div>
 
-              <div className="form-group mb-6">
-                <p className="text-center">Start Amount</p>
-                <FormatMoneyComponentBOJ
+              <div className="">
+                <hr />
+              </div>
+
+              <p className="font-bold text-center my-2">Search by others</p>
+
+              <div className="mb-6">
+                <label> Tax Station</label>
+                <select ref={register()} name="station" className="form-control w-full rounded font-light text-gray-500">
+                  <option value="">All</option>
+                  {station.map((office) => <option key={office.idstation} value={office.station_code}>{office.name}</option>)}
+                </select>
+              </div>
+              <div className="mb-6">
+                <label>Select Revenue Item</label>
+                <select ref={register()} name="rev_sub" className="form-control w-full rounded font-light text-gray-500">
+                  <option value="">All</option>
+                  {revenueItem.map((item) => <option key={item.serial} value={item.rev_code}>{item.item}</option>)}
+                </select>
+              </div>
+              <div className="mb-6">
+                <label>Start Amount</label>
+                <FormatMoneyComponentReport
                   ref={register()}
                   name="amountStart"
                   control={control}
@@ -214,10 +204,9 @@ export const StartReportView = () => {
                   onValueChange={(v) => SetFixValuesStart({ amount: v })}
                 />
               </div>
-
-              <div className="form-group mb-6">
-                <p className="text-center">End Amount</p>
-                <FormatMoneyComponentBOJ
+              <div className="mb-6">
+                <label>End Amount</label>
+                <FormatMoneyComponentReport
                   ref={register()}
                   name="amountEnd"
                   control={control}
@@ -225,40 +214,39 @@ export const StartReportView = () => {
                   onValueChange={(v) => SetFixValuesEnd({ amount: v })}
                 />
               </div>
-            </div>
-          </div>
-
-          <div className="flex justify-center">
-            <div className="grid grid-cols-4 gap-4 place-items-center">
-              <div className="justify-self-center mb-6 font-bold">
-                <p>Revenue Item</p>
-              </div>
-              <div className="form-group ">
-                <p className="text-center">Select Revenue Item</p>
-                <select ref={register()} name="rev_sub" className="form-control w-full rounded font-light text-gray-500">
-                  <option value="">All</option>
-                  {revenueItem.map((item) => <option key={item.rev_code} value={item.rev_code}>{item.item}</option>)}
-                </select>
-              </div>
               <div className="form-group hidden">
                 <p className="text-center">Payment Channel</p>
                 <input type="text" ref={register()} name="channel_id" className="form-control w-full rounded font-light text-gray-500"
                 />
               </div>
             </div>
-          </div>
 
-          <div className="flex justify-end my-4">
-            <div className="grid grid-cols-2 gap-4 justify-self-center">
-              <div className="form-group">
-                <button className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                >
-                  Search
-                </button>
+            <div className="border block p-6 rounded-lg bg-white w-full">
+              <p className="font-bold text-center mb-5">Select Date Range</p>
+              <DateRangePicker
+                onChange={item => setState([item.selection])}
+                showSelectionPreview={true}
+                moveRangeOnFirstSelection={false}
+                months={1}
+                ranges={state}
+                direction="horizontal"
+              />
+              <div className="flex justify-end my-4">
+                <div className="grid grid-cols-2 gap-4 justify-self-center">
+                  <div className="form-group">
+                    <button className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                      type="submit"
+                    >
+                      Search
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
+
           </div>
+
+
         </form>
       </div>
 
