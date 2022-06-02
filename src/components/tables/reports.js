@@ -153,22 +153,22 @@ export const StartReportView = () => {
 
   return (
     <>
-      <div className="border mb-3 block p-6 rounded-lg bg-white w-full">
+      <div className="">
         <form onSubmit={handleSubmit(AdvancedSearch)} className="mb-3">
 
           <div className="flex">
             <div className="border mr-2 block p-6 rounded-lg bg-white w-full">
-              <p className="font-bold text-center my-2">Search by IDs</p>
-              <div className="mb-6">
+              <div className="mb-2">
+                <p className="font-bold text-center my-2">Search by IDs</p>
                 <label className="" htmlFor="kgtin"> Taxpayer ID</label>
                 <input type="text" ref={register()} name="t_payer" className="form-control w-full rounded font-light text-gray-500" />
               </div>
-              <div className="mb-6">
+              <div className="mb-2">
                 <label className="" htmlFor="kgtin"> Assessment ID</label>
                 <input type="text" ref={register()} name="assessment_id" className="form-control w-full rounded font-light text-gray-500"
                 />
               </div>
-              <div className="mb-6">
+              <div className="mb-2">
                 <label className="" htmlFor="kgtin"> Reference ID</label>
                 <input type="text" ref={register()} name="ref" className="form-control w-full rounded font-light text-gray-500"
                 />
@@ -178,46 +178,48 @@ export const StartReportView = () => {
                 <hr />
               </div>
 
-              <p className="font-bold text-center my-2">Search by others</p>
+              <p className="font-bold text-center my-4">Search by others</p>
+              <div className="grid grid-cols-2 gap-3">
 
-              <div className="mb-6">
-                <label> Tax Station</label>
-                <select ref={register()} name="station" className="form-control w-full rounded font-light text-gray-500">
-                  <option value="">All</option>
-                  {station.map((office) => <option key={office.idstation} value={office.station_code}>{office.name}</option>)}
-                </select>
-              </div>
-              <div className="mb-6">
-                <label>Select Revenue Item</label>
-                <select ref={register()} name="rev_sub" className="form-control w-full rounded font-light text-gray-500">
-                  <option value="">All</option>
-                  {revenueItem.map((item) => <option key={item.serial} value={item.rev_code}>{item.item}</option>)}
-                </select>
-              </div>
-              <div className="mb-6">
-                <label>Start Amount</label>
-                <FormatMoneyComponentReport
-                  ref={register()}
-                  name="amountStart"
-                  control={control}
-                  defaultValue={""}
-                  onValueChange={(v) => SetFixValuesStart({ amount: v })}
-                />
-              </div>
-              <div className="mb-6">
-                <label>End Amount</label>
-                <FormatMoneyComponentReport
-                  ref={register()}
-                  name="amountEnd"
-                  control={control}
-                  defaultValue={""}
-                  onValueChange={(v) => SetFixValuesEnd({ amount: v })}
-                />
-              </div>
-              <div className="form-group hidden">
-                <p className="text-center">Payment Channel</p>
-                <input type="text" ref={register()} name="channel_id" className="form-control w-full rounded font-light text-gray-500"
-                />
+                <div className="">
+                  <label> Tax Station</label>
+                  <select ref={register()} name="station" className="form-control w-full rounded font-light text-gray-500">
+                    <option value="">All</option>
+                    {station.map((office) => <option key={office.idstation} value={office.station_code}>{office.name}</option>)}
+                  </select>
+                </div>
+                <div className="">
+                  <label>Select Revenue Item</label>
+                  <select ref={register()} name="rev_sub" className="form-control w-full rounded font-light text-gray-500">
+                    <option value="">All</option>
+                    {revenueItem.map((item) => <option key={item.serial} value={item.rev_code}>{item.item}</option>)}
+                  </select>
+                </div>
+                <div className="">
+                  <label>Start Amount</label>
+                  <FormatMoneyComponentReport
+                    ref={register()}
+                    name="amountStart"
+                    control={control}
+                    defaultValue={""}
+                    onValueChange={(v) => SetFixValuesStart({ amount: v })}
+                  />
+                </div>
+                <div className="">
+                  <label>End Amount</label>
+                  <FormatMoneyComponentReport
+                    ref={register()}
+                    name="amountEnd"
+                    control={control}
+                    defaultValue={""}
+                    onValueChange={(v) => SetFixValuesEnd({ amount: v })}
+                  />
+                </div>
+                <div className="form-group hidden">
+                  <p className="text-center">Payment Channel</p>
+                  <input type="text" ref={register()} name="channel_id" className="form-control w-full rounded font-light text-gray-500"
+                  />
+                </div>
               </div>
             </div>
 
@@ -231,7 +233,7 @@ export const StartReportView = () => {
                 ranges={state}
                 direction="horizontal"
               />
-              <div className="flex justify-end my-4">
+              <div className="flex my-4">
                 <div className="grid grid-cols-2 gap-4 justify-self-center">
                   <div className="form-group">
                     <button className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
@@ -242,7 +244,7 @@ export const StartReportView = () => {
                   </div>
                 </div>
               </div>
-              
+
             </div>
 
           </div>

@@ -201,7 +201,7 @@ export const StartAssessmentReportView = () => {
               </div>
 
               <p className="font-bold text-center my-4">Search by others</p>
-              <div class="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-3">
                 <div className="">
                  
                   <Controller
