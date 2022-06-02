@@ -99,6 +99,17 @@ const initialState = [
               },
             ],
           },
+          {
+            url: '/',
+            title: 'Assessment Report',
+            items: [
+              {
+                title: 'view',
+                url: '/assessment-report',
+                items: [],
+              },
+            ],
+          },
         ],
       },
 
@@ -184,19 +195,6 @@ const initialState = [
         ],
       },
       
-      {
-        url: '/',
-        icon: <Collections />,
-        title: 'Assessment Report',
-        items: [
-          {
-            title: 'View',
-            url: '/assessment-report',
-            items: [],
-          },
-        ],
-      },
-
       {
         url: '/',
         icon: <Settings />,

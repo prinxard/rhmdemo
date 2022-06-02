@@ -67,7 +67,7 @@ export const StartTcc = () => {
   console.log(f.getFullYear);
   console.log(j.getFullYear);
 
-  const watchAllFields = watch();
+  // const watchAllFields = watch();
   const watchYear1 = watch("year1", e);
   const watchYear2 = watch("year2", c);
   const watchYear3 = watch("year3", f);

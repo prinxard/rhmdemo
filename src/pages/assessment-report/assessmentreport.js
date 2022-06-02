@@ -14,7 +14,7 @@ import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Clear from "@material-ui/icons/Clear";
 import * as Icons from '../../components/Icons/index';
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import jwt from "jsonwebtoken";
 import { formatNumber } from "accounting";
@@ -22,60 +22,74 @@ import { formatNumber } from "accounting";
 
 const fields = [
     {
-        title: "Name",
-        field: "taxpayerName",
+      title: "SN",
+      field: "serialNo",
+      filtering: false,
+      width: "10%"
     },
     {
-        title: "Taxpayer ID",
-        field: "t_payer",
+      title: "Assesment Id",
+      field: "assessment_id",
     },
     {
-        title: "Assessment ID",
-        field: "assessment_id",
+      title: "Year",
+      field: "year",
     },
     {
-        title: "MDA",
-        field: "mda",
+      title: "KGTIN",
+      field: "kgtin",
     },
     {
-        title: "Revenue Item",
-        field: "revenueItem",
+      title: "Taxpayer Name",
+      field: "tp_name",
     },
     {
-        title: "Ref",
-        field: "ref",
+      title: "Gross Income",
+      field: "overallGross",
     },
     {
-        title: "Bank",
-        field: "bank",
+      title: "Total Tax Due",
+      field: "totalTaxFormated",
     },
     {
-        title: "Channel",
-        field: "channel_id",
+      title: "Amount Paid",
+      field: "taxPaidFormatted",
     },
     {
-        title: "Amount",
-        field: "amount",
-        render: (expense) => formatNumber(expense.amount)
+      title: "Balance",
+      field: "balance",
+      render: rowData => {
+        return (
+          rowData.balance < "0" ? <p style={{ color: "#FF0000", fontWeight: "bold" }}>{rowData.balance}</p> :
+            <p>{rowData.balance}</p>
+        )
+      }
     },
-
     {
-        title: "Station",
-        field: "station",
+      title: "Tax Office",
+      field: "tax_office",
     },
     {
-        title: "Transaction Date",
-        field: "tran_date",
+      title: "Type",
+      field: "assessment_type",
     },
-];
+    {
+      title: "Print Status",
+      field: "printstatus",
+    },
+    {
+      title: "Created Time",
+      field: "createtime",
+    },
+  
+  ];
 
 
 export default function AssessmentReportstable({ FilteredData }) {
+ 
     const router = useRouter();
 
     let items = FilteredData
-
-    console.log("items", items);
 
     const { config, palettes, auth } = useSelector(
         (state) => ({
@@ -137,17 +151,17 @@ export default function AssessmentReportstable({ FilteredData }) {
                     SortArrow: ArrowDownward
                 }}
 
-                // onRowClick={(event, rowData) => {
+            // onRowClick={(event, rowData) => {
 
-                //     if (userGroup.some(r => reportRange.includes(r))) {
-                //         ''
+            //     if (userGroup.some(r => reportRange.includes(r))) {
+            //         ''
 
-                //     }
-                //     else {
-                //         window.open(`view/collections/${rowData.idpymt}`, "_self")
-                //         event.stopPropagation();
-                //     }
-                // }}
+            //     }
+            //     else {
+            //         window.open(`view/collections/${rowData.idpymt}`, "_self")
+            //         event.stopPropagation();
+            //     }
+            // }}
             />
 
         </>

@@ -172,7 +172,8 @@ export const FormatMoneyComponentReport = ({
   onValueChange,
   name,
   defaultValue,
-  required
+  required,
+  placeholder
 }) => (
   <Controller
     as={
@@ -193,6 +194,7 @@ export const FormatMoneyComponentReport = ({
     defaultValue={defaultValue}
     control={control}
     required={required}
+    placeholder={placeholder}
   />
 );
 

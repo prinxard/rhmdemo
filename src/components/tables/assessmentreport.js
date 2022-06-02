@@ -39,12 +39,15 @@ import { FormatMoneyComponentBOJ, FormatMoneyComponentReport } from "../FormInpu
 import { useRouter } from "next/router";
 import Reportstable from "../../pages/reports/reportstable";
 import AssessmentReportstable from "../../pages/assessment-report/assessmentreport";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 export const StartAssessmentReportView = () => {
   const [fixedValues, SetFixValuesStart] = useState({ amount: 0 });
   const [fixedValuesend, SetFixValuesEnd] = useState({ amount: 0 });
   const [revenueItem, setRevenueItem] = useState([]);
+  const [post, setPost] = useState(() => []);
   const [station, setStation] = useState([]);
   const [FilteredData, setFilteredData] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
@@ -103,9 +106,12 @@ export const StartAssessmentReportView = () => {
     formState: { errors },
   } = useForm()
 
+  var yearvar = new Date();
 
   let startFigure = watch("amountStart", "0").replace(/,/g, '')
   let endFigure = watch("amountEnd", "0").replace(/,/g, '');
+
+  const watchYear = watch("year", yearvar);
 
   useEffect(() => {
 
@@ -129,42 +135,62 @@ export const StartAssessmentReportView = () => {
   }, []);
 
 
-  const AdvancedSearch = (data) => {
+  const AdvancedSearch = async (data) => {
     setIsFetching(true)
     data.createdStart = startDate
     data.createdEnd = endDate
     data.taxPaidStart = startFigure
     data.taxPaidEnd = endFigure
+    data.year = watchYear.getFullYear()
 
-    axios.post(`${url.BASE_URL}forma/list-assessment-report`, data)
-      .then(function (response) {
-        let search = response.data.body.assessmentApproved;
-        setFilteredData(search)
-        console.log("FilteredData", FilteredData);
-        setIsFetching(false)
-        setTableState('')
-      })
-      .catch(function (error) {
-        setTableState('')
-        setIsFetching(false)
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/list-assessment-report`, data);
+      res = res.data.body.assessmentApproved;
+      console.log("res", res);
+      setTableState('')
+      let records = [];
+      let num = 1
+      for (let i = 0; i < res.length; i++) {
+        let rec = res[i];
+        rec.serialNo = num + i
+        rec.taxPaidFormatted = formatNumber(rec.taxPaid)
+        rec.gross_income = formatNumber(rec.gross_income)
+        rec.taxPaidFormatted = formatNumber(rec.taxPaid)
+        // rec.tax = formatNumber(rec.tax)
+        rec.totalTaxFormated = formatNumber((Number(rec.add_assmt) + Number(rec.tax)))
+        rec.totalTaxDue = (Number(rec.add_assmt) + Number(rec.tax))
+        rec.balance = formatNumber(Number(rec.taxPaid) - Number(rec.totalTaxDue))
+        rec.overallGross = formatNumber(Number(rec.employed) + Number(rec.self_employed) + Number(rec.other_income))
+        rec.createtime = dateformat(rec.createtime, "dd mmm yyyy")
+        records.push(rec);
 
-      })
+      }
+      setIsFetching(false);
+      setPost(() => records);
+
+    } catch (error) {
+      setIsFetching(false);
+      setTableState('')
+      console.log(e.error);
+    }
+
   }
+
 
   return (
     <>
-      <div className="border mb-3 block p-6 rounded-lg bg-white w-full">
+      <div>
         <form onSubmit={handleSubmit(AdvancedSearch)} className="mb-3">
 
           <div className="flex">
             <div className="border mr-2 block p-6 rounded-lg bg-white w-full">
               <p className="font-bold text-center my-2">Search by IDs</p>
-              <div className="mb-6">
+              <div className="">
                 <label> Taxpayer ID</label>
                 <input type="text" ref={register()} name="kgtin" className="form-control w-full rounded font-light text-gray-500" />
               </div>
 
-              <div className="mb-6">
+              <div className="">
                 <label> Assessment ID</label>
                 <input type="text" ref={register()} name="assessment_id" className="form-control w-full rounded font-light text-gray-500"
                 />
@@ -174,59 +200,86 @@ export const StartAssessmentReportView = () => {
                 <hr />
               </div>
 
-              <p className="font-bold text-center my-2">Search by others</p>
+              <p className="font-bold text-center my-4">Search by others</p>
+              <div class="grid grid-cols-2 gap-3">
+                <div className="">
+                 
+                  <Controller
+                    name="year"
+                    control={control}
+                    
+                    render={({ onChange, value }) => {
+                      return (
+                        <DatePicker
+                          className="form-control w-full rounded"
+                          onChange={onChange}
+                          selected={value}
+                          showYearPicker
+                          dateFormat="yyyy"
+                          yearItemNumber={8}
+                          placeholderText="Year"
 
-              <div className="mb-6">
-                <label> Tax Station</label>
-                <select ref={register()} name="tax_office" className="form-control w-full rounded font-light text-gray-500">
-                  <option value="">All</option>
-                  {station.map((office) => <option key={office.idstation} value={office.station_code}>{office.name}</option>)}
-                </select>
-              </div>
-              <div className="mb-6">
-                <label>Assessment Type</label>
-                <select ref={register()} name="assessment_type" className="form-control w-full rounded font-light text-gray-500">
-                  <option value="">All</option>
-                  <option value="BOJ">BOJ</option>
-                  <option value="Assessment">Assessment</option>
-                </select>
-              </div>
-              <div className="mb-6">
-                <label>Print status</label>
-                <select ref={register()} name="printed" className="form-control w-full rounded font-light text-gray-500">
-                  <option value="">All</option>
-                  <option value="Yes">Yes</option>
-                  <option value="No">No</option>
-                </select>
-              </div>
-              <div className="mb-6">
-                <label>Payment Status</label>
-                <select ref={register()} name="tax" className="form-control w-full rounded font-light text-gray-500">
-                  <option value="">All</option>
-                  <option value="Not Paid">Not Paid</option>
-                  <option value="Paid">Paid</option>
-                </select>
-              </div>
-              <p className="font-bold text-center">Tax Paid</p>
-              <div className="mb-6">
-                <label>Start Amount</label>
-                <FormatMoneyComponentReport
-                  ref={register()}
-                  name="taxPaidStart"
-                  control={control}
-                  defaultValue={""}
-                  onValueChange={(v) => SetFixValuesStart({ amount: v })}
-                />
-              </div>
-              <div className="mb-6">
-                <label>End Amount</label>
-                <FormatMoneyComponentReport
-                  ref={register()}
-                  name="taxPaidEnd"
-                  control={control}
-                  defaultValue={""}
-                  onValueChange={(v) => SetFixValuesEnd({ amount: v })}
-                />
+                        />
+                      );
+                    }}
+                  />
+                </div>
+                <div className="">
+                  <select ref={register()} name="tax_office" className="form-control w-full rounded font-light text-gray-500">
+                    <option value="">Station</option>
+                    {station.map((office) => <option key={office.idstation} value={office.station_code}>{office.name}</option>)}
+                  </select>
+                </div>
+                <div className="">
+
+                  <select ref={register()} name="assessment_type" className="form-control w-full rounded font-light text-gray-500">
+                    <option value="">Type</option>
+                    <option value="BOJ">BOJ</option>
+                    <option value="Assessment">Assessment</option>
+                  </select>
+
+                </div>
+
+                <div className="">
+                  <select ref={register()} name="printed" className="form-control w-full rounded font-light text-gray-500">
+                    <option value="">Printed</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+
+                <div className="">
+                  <small>Start Amount</small>
+                  <FormatMoneyComponentReport
+                    ref={register()}
+                    name="taxPaidStart"
+                    control={control}
+                    defaultValue={""}
+                    onValueChange={(v) => SetFixValuesStart({ amount: v })}
+                    placeholder="₦"
+                  />
+                </div>
+                <div className="">
+                  <small>End Amount</small>
+                  <FormatMoneyComponentReport
+                    ref={register()}
+                    name="taxPaidEnd"
+                    control={control}
+                    defaultValue={""}
+                    onValueChange={(v) => SetFixValuesEnd({ amount: v })}
+                    placeholder="₦"
+                  />
+                </div>
+
+                <div className="">
+                  {/* <label>Payment Status</label> */}
+                  <select ref={register()} name="tax" className="form-control w-full rounded font-light text-gray-500">
+                    <option value="">Payment</option>
+                    <option value="Not Paid">Not Paid</option>
+                    <option value="Part Paid">Part Paid</option>
+                    <option value="Fully Paid">Fully Paid</option>
+                  </select>
+                </div>
               </div>
             </div>
 
@@ -275,7 +328,7 @@ export const StartAssessmentReportView = () => {
           </div>
         ) :
           <div className={`${tableState}`}>
-            <AssessmentReportstable FilteredData={FilteredData} />
+            <AssessmentReportstable FilteredData={post} />
           </div>
         }
 
