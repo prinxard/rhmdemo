@@ -27,11 +27,11 @@ const StartAssessmentReport = () => {
     <>
       <SectionTitle title="Assessment report" />
 
-      <Widget>
+     
         <>
           <StartAssessmentReportView />
         </>
-      </Widget>
+      
     </>
   );
 }
