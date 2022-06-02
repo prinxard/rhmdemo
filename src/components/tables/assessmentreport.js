@@ -185,7 +185,7 @@ export const StartAssessmentReportView = () => {
           <div className="flex">
             <div className="border mr-2 block p-6 rounded-lg bg-white w-full">
               <p className="font-bold text-center my-2">Search by IDs</p>
-              <div className="">
+              <div className="mb-2">
                 <label> Taxpayer ID</label>
                 <input type="text" ref={register()} name="kgtin" className="form-control w-full rounded font-light text-gray-500" />
               </div>
@@ -293,7 +293,7 @@ export const StartAssessmentReportView = () => {
                 ranges={state}
                 direction="horizontal"
               />
-              <div className="flex justify-end my-4">
+              <div className="flex my-4">
                 <div className="grid grid-cols-2 gap-4 justify-self-center">
                   <div className="form-group">
                     <button className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
