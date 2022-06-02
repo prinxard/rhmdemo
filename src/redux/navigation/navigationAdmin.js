@@ -183,6 +183,19 @@ const initialState = [
           // },
         ],
       },
+      
+      {
+        url: '/',
+        icon: <Collections />,
+        title: 'Assessment Report',
+        items: [
+          {
+            title: 'View',
+            url: '/assessment-report',
+            items: [],
+          },
+        ],
+      },
 
       {
         url: '/',
@@ -221,6 +234,7 @@ const initialState = [
               },
             ],
           },
+
           {
             title: 'Tax Office',
             items: [

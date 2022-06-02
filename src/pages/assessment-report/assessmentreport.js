@@ -70,7 +70,7 @@ const fields = [
 ];
 
 
-export default function Reportstable({ FilteredData }) {
+export default function AssessmentReportstable({ FilteredData }) {
     const router = useRouter();
 
     let items = FilteredData
@@ -105,6 +105,16 @@ export default function Reportstable({ FilteredData }) {
                     search: true,
                     paging: true,
                     filtering: true,
+                    // rowStyle: (rowData) => {
+                    //     if (rowData.status === "Printed") {
+                    //         return {
+                    //             color: "#5f9f45",
+                    //             backgroundColor: "#156448",
+                    //         }
+                    //     } else {
+                    //         return {};
+                    //     }
+                    // },
                     exportButton: {
                         csv: true,
                         pdf: false
@@ -126,6 +136,18 @@ export default function Reportstable({ FilteredData }) {
                     Clear: Clear,
                     SortArrow: ArrowDownward
                 }}
+
+                // onRowClick={(event, rowData) => {
+
+                //     if (userGroup.some(r => reportRange.includes(r))) {
+                //         ''
+
+                //     }
+                //     else {
+                //         window.open(`view/collections/${rowData.idpymt}`, "_self")
+                //         event.stopPropagation();
+                //     }
+                // }}
             />
 
         </>
