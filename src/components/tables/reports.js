@@ -203,7 +203,6 @@ export const StartReportView = () => {
               <p className="text-center mt-3">Amount</p>
               <div className="flex gap-3">
                 <div className="">
-                  {/* <small>Start Amount</small> */}
                   <FormatMoneyComponentReport
                     ref={register()}
                     name="amountStart"
@@ -214,7 +213,6 @@ export const StartReportView = () => {
                   />
                 </div>
                 <div className="">
-                  {/* <small>End Amount</small> */}
                   <FormatMoneyComponentReport
                     ref={register()}
                     name="amountEnd"
