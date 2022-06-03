@@ -272,11 +272,11 @@ export const StartTcc = () => {
         <div className="mb-2 grid grid-cols-4 gap-2">
           <label className="self-center">Enter Taxpayer KGTIN</label>
 
-          <div className="">
+          <div className="place-self-start">
             <input onChange={event => setKgtEentered(event.target.value)} type="text" placeholder="Enter KGTIN" />
           </div>
 
-          <div className="self-center">
+          <div className="self-center place-self-center">
             <a
               onClick={verifiyKGTIN}
               style={{ backgroundColor: "#84abeb" }}
