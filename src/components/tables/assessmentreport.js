@@ -242,7 +242,7 @@ export const StartAssessmentReportView = () => {
 
                 <div className="">
                   <select ref={register()} name="printed" className="form-control w-full rounded font-light text-gray-500">
-                    <option value="">Printed</option>
+                    <option value="">print status</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                   </select>

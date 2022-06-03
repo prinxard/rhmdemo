@@ -104,8 +104,13 @@ const initialState = [
             title: 'Report',
             items: [
               {
-                title: 'view',
+                title: 'Assessment',
                 url: '/assessment-report',
+                items: [],
+              },
+              {
+                title: 'Unassessed Collections',
+                url: '/',
                 items: [],
               },
             ],

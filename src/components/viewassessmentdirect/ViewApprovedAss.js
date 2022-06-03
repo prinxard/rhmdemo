@@ -32,19 +32,16 @@ const ViewApprovedAss = () => {
       try {
         let res = await axios.get(`${url.BASE_URL}forma/list-assessment?assmt=Approved`);
         res = res.data.body.assessmentApproved;
-
-       
         let records = [];
         for (let i = 0; i < res.length; i++) {
           let rec = res[i];
           rec.serialNo = num + i
-          
           rec.gross_income = formatNumber(rec.gross_income)
           rec.taxPaidFormatted = formatNumber(rec.taxPaid)
           // rec.tax = formatNumber(rec.tax)
           rec.totalTaxFormated = formatNumber((Number(rec.add_assmt) + Number(rec.tax)))
           rec.totalTaxDue = (Number(rec.add_assmt) + Number(rec.tax))
-         
+
           rec.overallGross = formatNumber(Number(rec.employed) + Number(rec.self_employed) + Number(rec.other_income))
           rec.createtime = dateformat(rec.createtime, "dd mmm yyyy")
           records.push(rec);
@@ -78,8 +75,8 @@ const ViewApprovedAss = () => {
           <p>Fetching data...</p>
         </div>
       )}
-      
-          <ViewApprovedTable ApprovedData={post} />
+
+      <ViewApprovedTable ApprovedData={post} />
     </>
   );
 };
