@@ -173,21 +173,23 @@ export const StartIndividualReportView = () => {
                 ranges={state}
                 direction="horizontal"
               />
-            </div>
 
-          </div>
-
-          <div className="flex justify-end my-4">
-            <div className="grid grid-cols-2 gap-4 justify-self-center">
-              <div className="form-group">
-                <button className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                >
-                  Search
-                </button>
+              <div className="flex justify my-4">
+                <div className="grid grid-cols-2 gap-4 justify-self-center">
+                  <div className="form-group">
+                    <button className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                      type="submit"
+                    >
+                      Search
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
+
           </div>
+
+
         </form>
       </div>
 

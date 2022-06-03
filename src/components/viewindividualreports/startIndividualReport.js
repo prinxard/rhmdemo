@@ -25,7 +25,7 @@ const StartindividualReport = () => {
 
   return (
     <>
-      <SectionTitle title="Individual" />
+      <SectionTitle title="Individual Taxpayers" />
 
 
       <>
