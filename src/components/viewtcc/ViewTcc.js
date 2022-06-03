@@ -22,7 +22,7 @@ const ViewTcc = () => {
 
   return (
     <>
-      <SectionTitle title="Start TCC" />
+      <SectionTitle title="Create TCC" />
 
       <Widget>
         <>
