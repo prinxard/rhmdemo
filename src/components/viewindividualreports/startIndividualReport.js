@@ -27,11 +27,11 @@ const StartindividualReport = () => {
     <>
       <SectionTitle title="Individual" />
 
-      <Widget>
-        <>
-          <StartIndividualReportView />
-        </>
-      </Widget>
+
+      <>
+        <StartIndividualReportView />
+      </>
+
     </>
   );
 }

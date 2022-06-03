@@ -182,21 +182,21 @@ export const StartReportView = () => {
               <div className="grid grid-cols-2 gap-3">
 
                 <div className="">
-                  <label> Tax Station</label>
+                  <small> Tax Station</small>
                   <select ref={register()} name="station" className="form-control w-full rounded font-light text-gray-500">
                     <option value="">All</option>
                     {station.map((office) => <option key={office.idstation} value={office.station_code}>{office.name}</option>)}
                   </select>
                 </div>
                 <div className="">
-                  <label>Select Revenue Item</label>
+                  <small>Select Revenue Item</small>
                   <select ref={register()} name="rev_sub" className="form-control w-full rounded font-light text-gray-500">
                     <option value="">All</option>
                     {revenueItem.map((item) => <option key={item.serial} value={item.rev_code}>{item.item}</option>)}
                   </select>
                 </div>
                 <div className="">
-                  <label>Start Amount</label>
+                  <small>Start Amount</small>
                   <FormatMoneyComponentReport
                     ref={register()}
                     name="amountStart"
@@ -206,7 +206,7 @@ export const StartReportView = () => {
                   />
                 </div>
                 <div className="">
-                  <label>End Amount</label>
+                  <small>End Amount</small>
                   <FormatMoneyComponentReport
                     ref={register()}
                     name="amountEnd"
@@ -224,7 +224,7 @@ export const StartReportView = () => {
             </div>
 
             <div className="border block p-6 rounded-lg bg-white w-full">
-              <p className="font-bold text-center mb-5">Select Date Range</p>
+              <p className="font-bold text-center mb-5">Assessment Period (start - end)</p>
               <DateRangePicker
                 onChange={item => setState([item.selection])}
                 showSelectionPreview={true}
