@@ -101,7 +101,7 @@ const initialState = [
           },
           {
             url: '/',
-            title: 'Assessment Report',
+            title: 'Report',
             items: [
               {
                 title: 'view',

@@ -203,11 +203,11 @@ export const StartAssessmentReportView = () => {
               <p className="font-bold text-center my-4">Search by others</p>
               <div className="grid grid-cols-2 gap-3">
                 <div className="">
-                 
+
                   <Controller
                     name="year"
                     control={control}
-                    
+
                     render={({ onChange, value }) => {
                       return (
                         <DatePicker
@@ -247,39 +247,38 @@ export const StartAssessmentReportView = () => {
                     <option value="No">No</option>
                   </select>
                 </div>
-
+              </div>
+              <p className="text-center my-2">Amount</p>
+              <div className="flex gap-3">
                 <div className="">
-                  <small>Start Amount</small>
                   <FormatMoneyComponentReport
                     ref={register()}
                     name="taxPaidStart"
                     control={control}
                     defaultValue={""}
                     onValueChange={(v) => SetFixValuesStart({ amount: v })}
-                    placeholder="₦"
+                    placeholder="₦ start amount"
                   />
                 </div>
                 <div className="">
-                  <small>End Amount</small>
                   <FormatMoneyComponentReport
                     ref={register()}
                     name="taxPaidEnd"
                     control={control}
                     defaultValue={""}
                     onValueChange={(v) => SetFixValuesEnd({ amount: v })}
-                    placeholder="₦"
+                    placeholder="₦ start amount"
                   />
                 </div>
 
-                <div className="">
-                  {/* <label>Payment Status</label> */}
-                  <select ref={register()} name="tax" className="form-control w-full rounded font-light text-gray-500">
-                    <option value="">Payment</option>
-                    <option value="Not Paid">Not Paid</option>
-                    <option value="Part Paid">Part Paid</option>
-                    <option value="Fully Paid">Fully Paid</option>
-                  </select>
-                </div>
+              </div>
+              <div className="mt-2">
+                <select ref={register()} name="tax" className="form-control w-full rounded font-light text-gray-500">
+                  <option value="">Payment Status</option>
+                  <option value="Not Paid">Not Paid</option>
+                  <option value="Part Paid">Part Paid</option>
+                  <option value="Fully Paid">Fully Paid</option>
+                </select>
               </div>
             </div>
 

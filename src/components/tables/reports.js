@@ -182,44 +182,49 @@ export const StartReportView = () => {
               <div className="grid grid-cols-2 gap-3">
 
                 <div className="">
-                  <small> Tax Station</small>
                   <select ref={register()} name="station" className="form-control w-full rounded font-light text-gray-500">
-                    <option value="">All</option>
+                    <option value="">Station</option>
                     {station.map((office) => <option key={office.idstation} value={office.station_code}>{office.name}</option>)}
                   </select>
                 </div>
                 <div className="">
-                  <small>Select Revenue Item</small>
                   <select ref={register()} name="rev_sub" className="form-control w-full rounded font-light text-gray-500">
-                    <option value="">All</option>
+                    <option value="">Revenue Item</option>
                     {revenueItem.map((item) => <option key={item.serial} value={item.rev_code}>{item.item}</option>)}
                   </select>
                 </div>
+
+                <div className="form-group hidden">
+                  <p className="text-center">Payment Channel</p>
+                  <input type="text" ref={register()} name="channel_id" className="form-control w-full rounded font-light text-gray-500"
+                  />
+                </div>
+              </div>
+              <p className="text-center mt-3">Amount</p>
+              <div className="flex gap-3">
                 <div className="">
-                  <small>Start Amount</small>
+                  {/* <small>Start Amount</small> */}
                   <FormatMoneyComponentReport
                     ref={register()}
                     name="amountStart"
                     control={control}
                     defaultValue={""}
                     onValueChange={(v) => SetFixValuesStart({ amount: v })}
+                    placeholder="₦ start amount"
                   />
                 </div>
                 <div className="">
-                  <small>End Amount</small>
+                  {/* <small>End Amount</small> */}
                   <FormatMoneyComponentReport
                     ref={register()}
                     name="amountEnd"
                     control={control}
                     defaultValue={""}
                     onValueChange={(v) => SetFixValuesEnd({ amount: v })}
+                    placeholder="₦ end amount"
                   />
                 </div>
-                <div className="form-group hidden">
-                  <p className="text-center">Payment Channel</p>
-                  <input type="text" ref={register()} name="channel_id" className="form-control w-full rounded font-light text-gray-500"
-                  />
-                </div>
+
               </div>
             </div>
 
