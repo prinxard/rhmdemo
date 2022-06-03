@@ -62,7 +62,7 @@ export const StartNonIndividualReportView = () => {
     startDate = dateformat(state[0].startDate, "yyyy-mm-dd")
   }
 
-// * using == to compare endDate value
+  // * using == to compare endDate value
   if (state[0].endDate === null || state[0].endDate === "" || state[0].endDate === undefined || state[0].endDate == "Invalid Date") {
 
     endDate = ""
@@ -124,63 +124,61 @@ export const StartNonIndividualReportView = () => {
     <>
       <div className="border mb-3 block p-6 rounded-lg bg-white w-full">
         <form onSubmit={handleSubmit(AdvancedSearch)}>
+          <div className="flex">
 
+            <div className="border mb-3 block p-6 rounded-lg bg-white w-full">
+              <div className="grid grid-cols-2 gap-2">
+                <div className="form-group mb-6">
+                  <input type="text" ref={register()} name="kgtin" placeholder="taxpayer ID" className="form-control w-full rounded font-light text-gray-500" />
+                </div>
 
-          <div className="grid grid-cols-4 gap-4 place-content-center">
+                <div className="form-group mb-6">
+                  <input type="text" ref={register()} name="coy_name" placeholder="company name" className="form-control w-full rounded font-light text-gray-500"
+                  />
+                </div>
 
-            <div className="form-group mb-6">
-              <label htmlFor="kgtin"> Taxpayer ID</label>
-              <input type="text" ref={register()} name="kgtin" className="form-control w-full rounded font-light text-gray-500" />
+                <div className="form-group mb-6">
+                  <select ref={register()} name="tax_office" className="form-control w-full rounded font-light text-gray-500">
+                    <option value="">station</option>
+                    {station.map((office) => <option key={office.idstation} value={office.station_code}>{office.name}</option>)}
+                  </select>
+                </div>
+
+                <div className="form-group mb-6">
+                  <input type="text" ref={register()} placeholder="phone" name="phone" className="form-control w-full rounded font-light text-gray-500"
+                  />
+                </div>
+              </div>
             </div>
 
-            <div className="form-group mb-6">
-              <label> Company Name</label>
-              <input type="text" ref={register()} name="coy_name" className="form-control w-full rounded font-light text-gray-500"
-              />
-            </div>
+            <div className="border mb-3 block p-6 rounded-lg bg-white w-full ml-2">
+              <div>
+                <p className="font-bold text-center mb-5">Created Date Range</p>
+                <DateRangePicker
+                  onChange={item => setState([item.selection])}
+                  showSelectionPreview={true}
+                  moveRangeOnFirstSelection={false}
+                  months={1}
+                  ranges={state}
+                  direction="horizontal"
 
-            <div className="form-group mb-6">
-              <label className="" htmlFor="kgtin"> Tax Station</label>
-              <select ref={register()} name="tax_office" className="form-control w-full rounded font-light text-gray-500">
-                <option value="">All</option>
-                {station.map((office) => <option key={office.idstation} value={office.station_code}>{office.name}</option>)}
-              </select>
-            </div>
-
-            <div className="form-group mb-6">
-              <label> Phone </label>
-              <input type="text" ref={register()} name="phone" className="form-control w-full rounded font-light text-gray-500"
-              />
-            </div>
-
-          </div>
-        
-          <div className="flex justify-center mb-7">
-            <div>
-              <p className="font-bold text-center mb-5">Created Date Range</p>
-              <DateRangePicker
-                onChange={item => setState([item.selection])}
-                showSelectionPreview={true}
-                moveRangeOnFirstSelection={false}
-                months={1}
-                ranges={state}
-                direction="horizontal"
-
-              />
-            </div>
-          </div>
-
-          <div className="flex justify-end my-4">
-            <div className="grid grid-cols-2 gap-4 justify-self-center">
-              <div className="form-group">
-                <button className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                >
-                  Search
-                </button>
+                />
+                <div className="flex my-4">
+                  <div className="grid grid-cols-2 gap-4 justify-self-center">
+                    <div className="form-group">
+                      <button className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                      >
+                        Search
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+
+
         </form>
       </div>
 

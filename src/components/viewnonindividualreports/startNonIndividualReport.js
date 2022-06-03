@@ -28,11 +28,11 @@ const StartNonindividualReport = () => {
     <>
       <SectionTitle title="Non-Individual" />
 
-      <Widget>
+      
         <>
           <StartNonIndividualReportView />
         </>
-      </Widget>
+      
     </>
   );
 }
