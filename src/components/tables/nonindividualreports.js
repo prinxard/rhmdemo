@@ -122,29 +122,29 @@ export const StartNonIndividualReportView = () => {
 
   return (
     <>
-      <div className="border mb-3 block p-6 rounded-lg bg-white w-full">
+      <div>
         <form onSubmit={handleSubmit(AdvancedSearch)}>
           <div className="flex">
 
             <div className="border mb-3 block p-6 rounded-lg bg-white w-full">
               <div className="grid grid-cols-2 gap-2">
-                <div className="form-group mb-6">
+                <div className="form-group ">
                   <input type="text" ref={register()} name="kgtin" placeholder="taxpayer ID" className="form-control w-full rounded font-light text-gray-500" />
                 </div>
 
-                <div className="form-group mb-6">
+                <div className="form-group ">
                   <input type="text" ref={register()} name="coy_name" placeholder="company name" className="form-control w-full rounded font-light text-gray-500"
                   />
                 </div>
 
-                <div className="form-group mb-6">
+                <div className="form-group ">
                   <select ref={register()} name="tax_office" className="form-control w-full rounded font-light text-gray-500">
                     <option value="">station</option>
                     {station.map((office) => <option key={office.idstation} value={office.station_code}>{office.name}</option>)}
                   </select>
                 </div>
 
-                <div className="form-group mb-6">
+                <div className="form-group ">
                   <input type="text" ref={register()} placeholder="phone" name="phone" className="form-control w-full rounded font-light text-gray-500"
                   />
                 </div>
@@ -153,7 +153,7 @@ export const StartNonIndividualReportView = () => {
 
             <div className="border mb-3 block p-6 rounded-lg bg-white w-full ml-2">
               <div>
-                <p className="font-bold text-center mb-5">Created Date Range</p>
+                <p className="font-bold text-center mb-5">Created Date Range (Start - End)</p>
                 <DateRangePicker
                   onChange={item => setState([item.selection])}
                   showSelectionPreview={true}

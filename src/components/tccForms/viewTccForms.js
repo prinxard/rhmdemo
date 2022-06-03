@@ -269,19 +269,14 @@ export const StartTcc = () => {
       )}
 
       <div className="border mb-3 block p-6 rounded-lg bg-white w-full">
-        <div className="flex justify-around">
-          <div>
-            <label className="block" htmlFor="kgtin">Enter Taxpayer KGTIN</label>
-            <input onChange={event => setKgtEentered(event.target.value)} type="text" placeholder="Enter KGTIN" />
-            <div className="">
-              <small className={`${validmsg}`}>{payerDetails.tp_name}</small>
-            </div>
+        <div className="mb-2 grid grid-cols-4 gap-2">
+          <label className="self-center">Enter Taxpayer KGTIN</label>
 
-            <div className="">
-              <small className={`text-red-600 ${invalidmsg}`}>{invalidkgtinmessage}</small>
-            </div>
+          <div className="">
+            <input onChange={event => setKgtEentered(event.target.value)} type="text" placeholder="Enter KGTIN" />
           </div>
-          <div className="self-center ml-2">
+
+          <div className="self-center">
             <a
               onClick={verifiyKGTIN}
               style={{ backgroundColor: "#84abeb" }}
@@ -292,11 +287,16 @@ export const StartTcc = () => {
           </div>
         </div>
 
+        <div className="grid grid-cols-4 gap-2">
+          <div></div>
+          <small className={`${validmsg}`}>{payerDetails.tp_name}</small>
+          <small className={`text-red-600 ${invalidmsg}`}>{invalidkgtinmessage}</small>
+        </div>
+
       </div>
       <form onSubmit={handleSubmit(onSubmitform)}>
 
         <div className="flex border mb-3 block p-3 rounded-lg bg-white w-full">
-
           <div className="">
 
             <div className="mb-6 grid grid-cols-3 gap-2">
@@ -305,8 +305,8 @@ export const StartTcc = () => {
                 :
                 <div>
 
-                    <input ref={register()} name="taxpayername" readOnly type="text" defaultValue={payerDetails.tp_name} className="form-control w-full rounded"
-                    />
+                  <input ref={register()} name="taxpayername" readOnly type="text" defaultValue={payerDetails.tp_name} className="form-control w-full rounded"
+                  />
                 </div>
               }
             </div>
@@ -320,8 +320,8 @@ export const StartTcc = () => {
                 </div>
                 :
                 <div>
-                    <input ref={register()} name="tp_id" readOnly type="text" defaultValue={payerDetails.KGTIN} className="form-control w-full rounded"
-                    />
+                  <input ref={register()} name="tp_id" readOnly type="text" defaultValue={payerDetails.KGTIN} className="form-control w-full rounded"
+                  />
                 </div>
               }
             </div>
@@ -341,8 +341,8 @@ export const StartTcc = () => {
                 :
                 <div>
 
-                    <input ref={register()} name="tax_office" readOnly type="text" defaultValue={payerDetails.tax_office} className="form-control w-full rounded"
-                    />
+                  <input ref={register()} name="tax_office" readOnly type="text" defaultValue={payerDetails.tax_office} className="form-control w-full rounded"
+                  />
                 </div>
               }
 

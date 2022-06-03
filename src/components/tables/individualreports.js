@@ -128,34 +128,29 @@ export const StartIndividualReportView = () => {
             <div className="border p-6 rounded-lg bg-white w-full">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label htmlFor="kgtin"> Taxpayer ID</label>
-                  <input type="text" ref={register()} name="kgtin" className="form-control w-full rounded font-light text-gray-500" />
+                  <input type="text" placeholder="Taxpayer ID" ref={register()} name="kgtin" className="form-control w-full rounded font-light text-gray-500" />
                 </div>
 
                 <div>
-                  <label> First Name</label>
-                  <input type="text" ref={register()} name="first_name" className="form-control w-full rounded font-light text-gray-500"
+                  <input type="text" ref={register()} placeholder="First Name" name="first_name" className="form-control w-full rounded font-light text-gray-500"
                   />
                 </div>
 
                 <div>
-                  <label className="" htmlFor="kgtin">Tax Station</label>
-                  <select ref={register()} name="tax_office" className="form-control w-full rounded font-light text-gray-500">
+                  <select ref={register()} placeholder="Station" name="tax_office" className="form-control w-full rounded font-light text-gray-500">
                     <option value="">All</option>
                     {station.map((office) => <option key={office.idstation} value={office.station_code}>{office.name}</option>)}
                   </select>
                 </div>
 
 
-                <div>
-                  <label> Surname </label>
-                  <input type="text" ref={register()} name="surname" className="form-control w-full rounded font-light text-gray-500"
+                <div>       
+                  <input type="text" ref={register()} placeholder="Surname" name="surname" className="form-control w-full rounded font-light text-gray-500"
                   />
                 </div>
 
                 <div>
-                  <label> Phone </label>
-                  <input type="text" ref={register()} name="phone" className="form-control w-full rounded font-light text-gray-500"
+                  <input type="text" ref={register()} placeholder="Phone" name="phone" className="form-control w-full rounded font-light text-gray-500"
                   />
                 </div>
 
@@ -164,7 +159,7 @@ export const StartIndividualReportView = () => {
             </div>
 
             <div className="border p-6 ml-2 rounded-lg bg-white w-full">
-              <p className="font-bold text-center mb-5">Created Date Range</p>
+              <p className="font-bold text-center mb-5">Created Date Range (Start - End)</p>
               <DateRangePicker
                 onChange={item => setState([item.selection])}
                 showSelectionPreview={true}
