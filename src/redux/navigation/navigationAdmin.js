@@ -110,7 +110,7 @@ const initialState = [
               },
               {
                 title: 'Unassessed Collections',
-                url: '/',
+                url: '/unassessed-report',
                 items: [],
               },
             ],

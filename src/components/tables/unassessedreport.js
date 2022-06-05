@@ -41,9 +41,10 @@ import Reportstable from "../../pages/reports/reportstable";
 import AssessmentReportstable from "../../pages/assessment-report/assessmentreport";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import UnassessedReportstable from "../../pages/unassessed-report/unassessedreport";
 
 
-export const StartAssessmentReportView = () => {
+export const StartUnassessedReportView = () => {
   const [fixedValues, SetFixValuesStart] = useState({ amount: 0 });
   const [fixedValuesend, SetFixValuesEnd] = useState({ amount: 0 });
   const [revenueItem, setRevenueItem] = useState([]);
@@ -144,7 +145,7 @@ export const StartAssessmentReportView = () => {
     data.year = watchYear.getFullYear()
 
     try {
-      let res = await axios.post(`${url.BASE_URL}forma/list-assessment-report`, data);
+      let res = await axios.post(`${url.BASE_URL}forma/unassessed-amount`, data);
       res = res.data.body.assessmentApproved;
       console.log("res", res);
       setTableState('')
@@ -327,7 +328,7 @@ export const StartAssessmentReportView = () => {
           </div>
         ) :
           <div className={`${tableState}`}>
-            <AssessmentReportstable FilteredData={post} />
+            <UnassessedReportstable FilteredData={post} />
           </div>
         }
 
