@@ -267,7 +267,7 @@ export const StartAssessmentReportView = () => {
                     control={control}
                     defaultValue={""}
                     onValueChange={(v) => SetFixValuesEnd({ amount: v })}
-                    placeholder="₦ start amount"
+                    placeholder="₦ end amount"
                   />
                 </div>
 
