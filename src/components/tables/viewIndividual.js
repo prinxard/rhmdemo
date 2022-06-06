@@ -47,6 +47,7 @@ const columns = [
 export const ViewIndividualTable = ({ individualData }) => {
   let data = individualData;
   return (
+    
     <>
       <MaterialTable title="Individual Taxpayers List"
         columns={columns}

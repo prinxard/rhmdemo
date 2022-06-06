@@ -47,11 +47,11 @@ const initialState = [
                 url: '/assessment-report',
                 items: [],
               },
-              // {
-              //   title: 'Unassessed Collections',
-              //   url: '/unassessed-report',
-              //   items: [],
-              // },
+              {
+                title: 'Unassessed Collections',
+                url: '/unassessed-report',
+                items: [],
+              },
             ],
           },
           // {
