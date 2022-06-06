@@ -114,8 +114,8 @@ export const StartAssessmentReportView = () => {
 
 
 
-  let startFigure = watch("amountStart", "0").replace(/,/g, '')
-  let endFigure = watch("amountEnd", "0").replace(/,/g, '');
+  let startFigure = watch("amountStart", "").replace(/,/g, '')
+  let endFigure = watch("amountEnd", "").replace(/,/g, '');
 
   const watchYear = watch("year", "");
 
