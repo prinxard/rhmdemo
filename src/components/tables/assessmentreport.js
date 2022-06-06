@@ -106,12 +106,18 @@ export const StartAssessmentReportView = () => {
     formState: { errors },
   } = useForm()
 
-  var yearvar = new Date();
+  var d = new Date();
+  var year = d.getFullYear();
+  var month = d.getMonth();
+  var day = d.getDate();
+  var yearvar = new Date(year - 1, month, day);
+
+
 
   let startFigure = watch("amountStart", "0").replace(/,/g, '')
   let endFigure = watch("amountEnd", "0").replace(/,/g, '');
 
-  const watchYear = watch("year", yearvar);
+  const watchYear = watch("year", "");
 
   useEffect(() => {
 
@@ -141,7 +147,11 @@ export const StartAssessmentReportView = () => {
     data.createdEnd = endDate
     data.taxPaidStart = startFigure
     data.taxPaidEnd = endFigure
-    data.year = watchYear.getFullYear()
+    if (watchYear === "") {
+      data.year = ""
+    } else {
+      data.year = watchYear.getFullYear()
+    }
 
     try {
       let res = await axios.post(`${url.BASE_URL}forma/list-assessment-report`, data);
@@ -302,8 +312,6 @@ export const StartAssessmentReportView = () => {
                 </div>
 
               </div>
-
-
 
             </div>
 
