@@ -226,6 +226,7 @@ export const StartReportView = () => {
 
               </div>
             </div>
+            
 
             <div className="w-full lg:w-2/3">
               <div className="overflow-x-auto max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
