@@ -102,6 +102,22 @@ const initialState = [
             url: '/view/approvedasses',
             items: [],
           },
+          {
+            url: '/',
+            title: 'Report',
+            items: [
+              {
+                title: 'Assessment',
+                url: '/assessment-report',
+                items: [],
+              },
+              // {
+              //   title: 'Unassessed Collections',
+              //   url: '/unassessed-report',
+              //   items: [],
+              // },
+            ],
+          },
           // {
           //   url: '/',
           //   title: 'Tax Clearance (TCC)',
@@ -146,7 +162,7 @@ const initialState = [
       //       title: 'Remittance Schedules',
       //       items: [],
       //     },
-          
+
       //     {
       //       url: '/',
       //       title: 'Reports',
