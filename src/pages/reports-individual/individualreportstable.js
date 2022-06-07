@@ -17,6 +17,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import jwt from "jsonwebtoken";
+import Link from "next/link";
 
 
 const fields = [
@@ -117,17 +118,25 @@ export default function IndividualReportstable({ FilteredData }) {
                     SortArrow: ArrowDownward
                 }}
 
-                // onRowClick={(event, rowData) => {
+                onRowClick={(event, rowData) => {
 
-                //     if (userGroup.some(r => reportRange.includes(r))) {
-                //         ''
+                    if (userGroup.some(r => reportRange.includes(r))) {
+                        ''
 
-                //     }
-                //     else {
-                //         window.open(`view/collections/${rowData.idpymt}`, "_self")
-                //         event.stopPropagation();
-                //     }
-                // }}
+                    }
+                    else {
+                      
+                            // <Link
+                            //     to={{
+                            //         pathname: "view/collections",
+                            //         state: { fromDashboard: true }
+                            //     }}
+                            // />
+                        
+                        window.open(`/payer-profile/${rowData.KGTIN}`, "_self")
+                        event.stopPropagation();
+                    }
+                }}
             />
 
         </>

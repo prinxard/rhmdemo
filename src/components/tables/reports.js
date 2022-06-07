@@ -159,6 +159,7 @@ export const StartReportView = () => {
 
           <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
             <div className="w-full lg:w-1/3 max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
+              
               <div className="mb-2">
                 <p className="font-bold text-center my-2">Search by IDs</p>
                 <label className="" htmlFor="kgtin"> Taxpayer ID</label>

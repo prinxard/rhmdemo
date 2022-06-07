@@ -109,7 +109,7 @@ export const StartIndividualReportView = () => {
       .then(function (response) {
         let search = response.data.body;
         setFilteredData(search)
-        console.log("FilteredData", FilteredData);
+        console.log("search", search);
         setIsFetching(false)
         setTableState('')
       })
@@ -138,13 +138,12 @@ export const StartIndividualReportView = () => {
 
                 <div>
                   <select ref={register()} placeholder="Station" name="tax_office" className="form-control w-full rounded font-light text-gray-500">
-                    <option value="">All</option>
+                    <option value="">Station</option>
                     {station.map((office) => <option key={office.idstation} value={office.station_code}>{office.name}</option>)}
                   </select>
                 </div>
 
-
-                <div>       
+                <div>
                   <input type="text" ref={register()} placeholder="Surname" name="surname" className="form-control w-full rounded font-light text-gray-500"
                   />
                 </div>
