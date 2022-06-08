@@ -102,7 +102,7 @@ export default function Reportstable({ FilteredData }) {
                 columns={fields}
 
                 options={{
-                    search: true,
+                    search: false,
                     paging: true,
                     filtering: true,
                     exportButton: {

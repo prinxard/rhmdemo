@@ -116,7 +116,7 @@ export default function AssessmentReportstable({ FilteredData }) {
                 columns={fields}
 
                 options={{
-                    search: true,
+                    search: false,
                     paging: true,
                     filtering: true,
                     // rowStyle: (rowData) => {

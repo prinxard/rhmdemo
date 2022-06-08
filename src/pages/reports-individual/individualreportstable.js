@@ -84,8 +84,8 @@ export default function IndividualReportstable({ FilteredData }) {
 
                 options={{
                     search: true,
-                    paging: true,
                     filtering: true,
+                    paging: true,
                     // rowStyle: (rowData) => {
                     //     if (rowData.status === "Printed") {
                     //         return {
