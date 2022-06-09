@@ -26,16 +26,18 @@ export default function SinglePayerProfile() {
   const [assessmentInfo, setAssessmentInfo] = useState([]);
   const [TccInfo, setTccInfo] = useState([]);
   const [collectionInfo, setCollectionInfo] = useState([]);
+  const router = useRouter();
+
 
   const fieldAssessment = [
-    {
-      title: "Taxpayer Name",
-      field: "tp_name",
-    },
-    {
-      title: "KGTIN",
-      field: "kgtin",
-    },
+    // {
+    //   title: "Taxpayer Name",
+    //   field: "tp_name",
+    // },
+    // {
+    //   title: "KGTIN",
+    //   field: "kgtin",
+    // },
     {
       title: "Assesment Id",
       field: "assessment_id",
@@ -63,21 +65,22 @@ export default function SinglePayerProfile() {
     //   title: "Type",
     //   field: "assessment_type",
     // },
-    // {
-    //   title: "Created Time",
-    //   field: "createtime",
-    // },
+    {
+      title: "Created Time",
+      field: "createtime",
+      type: "date"
+    },
   ];
 
   const collectionsTable = [
-    {
-      title: "Name",
-      field: "taxpayerName",
-    },
-    {
-      title: "Taxpayer ID",
-      field: "t_payer",
-    },
+    // {
+    //   title: "Name",
+    //   field: "taxpayerName",
+    // },
+    // {
+    //   title: "Taxpayer ID",
+    //   field: "t_payer",
+    // },
     {
       title: "Assessment ID",
       field: "assessment_id",
@@ -108,13 +111,14 @@ export default function SinglePayerProfile() {
       render: (expense) => formatNumber(expense.amount)
     },
 
-    {
-      title: "Station",
-      field: "station",
-    },
+    // {
+    //   title: "Station",
+    //   field: "station",
+    // },
     {
       title: "Transaction Date",
       field: "tran_date",
+      type: "date"
     },
   ];
 
@@ -127,10 +131,10 @@ export default function SinglePayerProfile() {
       title: "KGTIN",
       field: "tp_id",
     },
-    {
-      title: "Taxpayer Name",
-      field: "taxpayer_name",
-    },
+    // {
+    //   title: "Taxpayer Name",
+    //   field: "taxpayer_name",
+    // },
     {
       title: "Status",
       field: "status",
@@ -143,8 +147,9 @@ export default function SinglePayerProfile() {
   ];
 
   let additionalAss
-  const router = useRouter();
   useEffect(() => {
+
+    setIsFetching(true);
     if (router && router.query) {
       let indvkgtin = router.query.ref;
       let kgtin = {
@@ -157,6 +162,7 @@ export default function SinglePayerProfile() {
             `${url.BASE_URL}taxpayer/taxpayer-profile`, kgtin
           );
           res = res.data.body;
+          console.log("res", res);
           let overView = res.overview
           let profile = res.taxpayer
           let assessmentData = res.assessmentDa
@@ -183,224 +189,241 @@ export default function SinglePayerProfile() {
   return (
     <>
       <SectionTitle title="Taxpayer Profile Detail" />
-      {overview.map((ind, i) => (
-        <div className="flex items-center">
-          <div className="max-w-7xl w-full mx-auto py-6 sm:px-6 lg:px-8">
-            <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
-              <div className="w-full lg:w-1/4">
-                <div className="widget w-full p-4 rounded-lg bg-white border border-gray-100 dark:bg-gray-900 dark:border-gray-800">
-                  <div className="flex flex-row items-center justify-between">
-                    <div className="flex flex-col">
-                      <div className="text-xs uppercase font-light text-gray-500">
-                        Total Assessed Amount
-                      </div>
-                      <div className="text-xl font-bold">
-                        {formatNumber(Number(ind.assessmentAmount) + additionalAss)}
+      {isFetching ? (
+        <div className="flex justify-center item mb-2">
+          <Loader
+            visible={isFetching}
+            type="BallTriangle"
+            color="#00FA9A"
+            height={19}
+            width={19}
+            timeout={0}
+            className="ml-2"
+          />
+          <p>Fetching data...</p>
+        </div>
+      ) :
+        <div>
+          {overview.map((ind, i) => (
+            <div className="flex items-center">
+              <div className="max-w-7xl w-full mx-auto py-6 sm:px-6 lg:px-8">
+                <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
+                  <div className="w-full lg:w-1/4">
+                    <div className="widget w-full p-4 rounded-lg bg-white border border-gray-100 dark:bg-gray-900 dark:border-gray-800">
+                      <div className="flex flex-row items-center justify-between">
+                        <div className="flex flex-col">
+                          <div className="text-xs uppercase font-light text-gray-500">
+                            Total Assessed Amount
+                          </div>
+                          <div className="text-xl font-bold">
+                            {formatNumber(Number(ind.assessmentAmount) + additionalAss)}
+                          </div>
+                        </div>
+                        <svg className="stroke-current text-gray-500" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2">
+                          </path>
+                          <circle cx="9" cy="7" r="4">
+                          </circle>
+                          <path d="M23 21v-2a4 4 0 0 0-3-3.87">
+                          </path>
+                          <path d="M16 3.13a4 4 0 0 1 0 7.75">
+                          </path>
+                        </svg>
                       </div>
                     </div>
-                    <svg className="stroke-current text-gray-500" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2">
-                      </path>
-                      <circle cx="9" cy="7" r="4">
-                      </circle>
-                      <path d="M23 21v-2a4 4 0 0 0-3-3.87">
-                      </path>
-                      <path d="M16 3.13a4 4 0 0 1 0 7.75">
-                      </path>
-                    </svg>
                   </div>
-                </div>
-              </div>
-              <div className="w-full lg:w-1/4">
-                <div className="widget w-full p-4 rounded-lg bg-white border border-gray-100 dark:bg-gray-900 dark:border-gray-800">
-                  <div className="flex flex-row items-center justify-between">
-                    <div className="flex flex-col">
-                      <div className="text-xs uppercase font-light text-gray-500">
-                        No. of Assessment
-                      </div>
-                      <div className="text-xl font-bold">
-                        {formatNumber(ind.assessmentCount)}
+                  <div className="w-full lg:w-1/4">
+                    <div className="widget w-full p-4 rounded-lg bg-white border border-gray-100 dark:bg-gray-900 dark:border-gray-800">
+                      <div className="flex flex-row items-center justify-between">
+                        <div className="flex flex-col">
+                          <div className="text-xs uppercase font-light text-gray-500">
+                            No. of Assessment
+                          </div>
+                          <div className="text-xl font-bold">
+                            {formatNumber(ind.assessmentCount)}
+                          </div>
+                        </div>
+                        <svg className="stroke-current text-gray-500" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12">
+                          </polyline>
+                        </svg>
                       </div>
                     </div>
-                    <svg className="stroke-current text-gray-500" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12">
-                      </polyline>
-                    </svg>
                   </div>
-                </div>
-              </div>
-              <div className="w-full lg:w-1/4">
-                <div className="widget w-full p-4 rounded-lg bg-white border border-gray-100 dark:bg-gray-900 dark:border-gray-800">
-                  <div className="flex flex-row items-center justify-between">
-                    <div className="flex flex-col">
-                      <div className="text-xs uppercase font-light text-gray-500">
-                        Total Amount Paid
-                      </div>
-                      <div className="text-xl font-bold">
-                        {formatNumber(ind.amountPaid)}
+                  <div className="w-full lg:w-1/4">
+                    <div className="widget w-full p-4 rounded-lg bg-white border border-gray-100 dark:bg-gray-900 dark:border-gray-800">
+                      <div className="flex flex-row items-center justify-between">
+                        <div className="flex flex-col">
+                          <div className="text-xs uppercase font-light text-gray-500">
+                            Total Amount Paid
+                          </div>
+                          <div className="text-xl font-bold">
+                            {formatNumber(ind.amountPaid)}
+                          </div>
+                        </div>
+                        <svg className="stroke-current text-gray-500" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6">
+                          </path>
+                          <polyline points="15 3 21 3 21 9">
+                          </polyline>
+                          <line x1="10" x2="21" y1="14" y2="3">
+                          </line>
+                        </svg>
                       </div>
                     </div>
-                    <svg className="stroke-current text-gray-500" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6">
-                      </path>
-                      <polyline points="15 3 21 3 21 9">
-                      </polyline>
-                      <line x1="10" x2="21" y1="14" y2="3">
-                      </line>
-                    </svg>
                   </div>
-                </div>
-              </div>
-              <div className="w-full lg:w-1/4">
-                <div className="widget w-full p-4 rounded-lg bg-white border border-gray-100 dark:bg-gray-900 dark:border-gray-800">
-                  <div className="flex flex-row items-center justify-between">
-                    <div className="flex flex-col">
-                      <div className="text-xs uppercase font-light text-gray-500">
-                        Total No. Approved TCC
-                      </div>
-                      <div className="text-xl font-bold">
-                        {formatNumber(ind.daTcc)}
+                  <div className="w-full lg:w-1/4">
+                    <div className="widget w-full p-4 rounded-lg bg-white border border-gray-100 dark:bg-gray-900 dark:border-gray-800">
+                      <div className="flex flex-row items-center justify-between">
+                        <div className="flex flex-col">
+                          <div className="text-xs uppercase font-light text-gray-500">
+                            Total No. Approved TCC
+                          </div>
+                          <div className="text-xl font-bold">
+                            {formatNumber(ind.daTcc)}
+                          </div>
+                        </div>
+                        <svg className="stroke-current text-gray-500" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="12" cy="12" r="10">
+                          </circle>
+                          <polyline points="12 6 12 12 16 14">
+                          </polyline>
+                        </svg>
                       </div>
                     </div>
-                    <svg className="stroke-current text-gray-500" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="12" cy="12" r="10">
-                      </circle>
-                      <polyline points="12 6 12 12 16 14">
-                      </polyline>
-                    </svg>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      ))}
+          ))}
 
-      <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
+          <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
 
-        <div className="lg:w-1/3 max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
-          <div>
-            <div className="flex justify-center">
-              <img src="" alt="" sizes="" className="rounded-full w-20 h-20 ring-2 ring-gray-300 dark:ring-gray-500" />
-            </div>
-            <div>
-              <div className="mt-4">
-                <div className="text-center">
-                  <p className="text-lg text-blue-400">{payerProfile.tp_name}</p>
-                  <p className="text-base">{payerProfile.address}</p>
-                  <p className="text-base">{payerProfile.phone_number}</p>
+            <div className="lg:w-1/3 max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
+              <div>
+                <div className="flex justify-center">
+                  <img src="" alt="" sizes="" className="rounded-full w-20 h-20 ring-2 ring-gray-300 dark:ring-gray-500" />
                 </div>
-                <section className='mb-2'>
-                  <p>TIN/KGTIN</p>
-                  <p className="font-bold">{payerProfile.KGTIN}</p>
-                </section>
-                <section className='mb-2'>
-                  <p>NAME</p>
-                  <p className="font-bold">{payerProfile.tp_name}</p>
-                </section>
-                <section className='mb-2'>
-                  <p>EMAIL</p>
-                  <p className="font-bold">{payerProfile.email}</p>
-                </section>
-                <section className='mb-2'>
-                  <p>AREA TAX OFFICE</p>
-                  <p className="font-bold">{payerProfile.tax_office}</p>
-                </section>
-                <section className='mb-2'>
-                  <p>TYPE</p>
-                  <p className="font-bold">{payerProfile.tp_type}</p>
-                </section>
+                <div>
+                  <div className="mt-4">
+                    <div className="text-center">
+                      <p className="text-lg text-blue-400">{payerProfile.tp_name}</p>
+                      <p className="text-base">{payerProfile.address}</p>
+                      <p className="text-base">{payerProfile.phone_number}</p>
+                    </div>
+                    <section className='mb-2'>
+                      <p>TIN/KGTIN</p>
+                      <p className="font-bold">{payerProfile.KGTIN}</p>
+                    </section>
+                    <section className='mb-2'>
+                      <p>NAME</p>
+                      <p className="font-bold">{payerProfile.tp_name}</p>
+                    </section>
+                    <section className='mb-2'>
+                      <p>EMAIL</p>
+                      <p className="font-bold">{payerProfile.email}</p>
+                    </section>
+                    <section className='mb-2'>
+                      <p>AREA TAX OFFICE</p>
+                      <p className="font-bold">{payerProfile.tax_office}</p>
+                    </section>
+                    <section className='mb-2'>
+                      <p>TYPE</p>
+                      <p className="font-bold">{payerProfile.tp_type}</p>
+                    </section>
+                  </div>
+                </div>
+
               </div>
             </div>
 
+            <div className="lg:w-2/3">
+              <div>
+                <MaterialTable title="Assessments"
+                  data={assessmentInfo}
+                  columns={fieldAssessment}
+
+                  options={{
+                    search: false,
+                    filtering: false,
+                    paging: false,
+                  }}
+                  icons={{
+                    Check: Check,
+                    DetailPanel: ChevronRight,
+                    Export: SaveAlt,
+                    Filter: () => <Icons.Filter />,
+                    FirstPage: FirstPage,
+                    LastPage: LastPage,
+                    NextPage: ChevronRight,
+                    PreviousPage: ChevronLeft,
+                    Search: Search,
+                    ThirdStateCheck: Remove,
+                    Clear: Clear,
+                    SortArrow: ArrowDownward
+
+                  }}
+                />
+              </div>
+              <div className="my-3">
+                <MaterialTable title="Collections"
+                  data={collectionInfo}
+                  columns={collectionsTable}
+
+                  options={{
+                    search: false,
+                    filtering: false,
+                    paging: false,
+                  }}
+                  icons={{
+                    Check: Check,
+                    DetailPanel: ChevronRight,
+                    Export: SaveAlt,
+                    Filter: () => <Icons.Filter />,
+                    FirstPage: FirstPage,
+                    LastPage: LastPage,
+                    NextPage: ChevronRight,
+                    PreviousPage: ChevronLeft,
+                    Search: Search,
+                    ThirdStateCheck: Remove,
+                    Clear: Clear,
+                    SortArrow: ArrowDownward
+
+                  }}
+                />
+              </div>
+              <div>
+                <MaterialTable title="TCC"
+                  data={TccInfo}
+                  columns={TccFields}
+
+                  options={{
+                    search: false,
+                    filtering: false,
+                    paging: false,
+                  }}
+                  icons={{
+                    Check: Check,
+                    DetailPanel: ChevronRight,
+                    Export: SaveAlt,
+                    Filter: () => <Icons.Filter />,
+                    FirstPage: FirstPage,
+                    LastPage: LastPage,
+                    NextPage: ChevronRight,
+                    PreviousPage: ChevronLeft,
+                    Search: Search,
+                    ThirdStateCheck: Remove,
+                    Clear: Clear,
+                    SortArrow: ArrowDownward
+
+                  }}
+                />
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="lg:w-2/3">
-          <div>
-            <MaterialTable title="Assessments"
-              data={assessmentInfo}
-              columns={fieldAssessment}
-
-              options={{
-                search: false,
-                filtering: false,
-                paging: false,
-              }}
-              icons={{
-                Check: Check,
-                DetailPanel: ChevronRight,
-                Export: SaveAlt,
-                Filter: () => <Icons.Filter />,
-                FirstPage: FirstPage,
-                LastPage: LastPage,
-                NextPage: ChevronRight,
-                PreviousPage: ChevronLeft,
-                Search: Search,
-                ThirdStateCheck: Remove,
-                Clear: Clear,
-                SortArrow: ArrowDownward
-
-              }}
-            />
-          </div>
-          <div className="my-3">
-            <MaterialTable title="Collections"
-              data={collectionInfo}
-              columns={collectionsTable}
-
-              options={{
-                search: false,
-                filtering: false,
-                paging: false,
-              }}
-              icons={{
-                Check: Check,
-                DetailPanel: ChevronRight,
-                Export: SaveAlt,
-                Filter: () => <Icons.Filter />,
-                FirstPage: FirstPage,
-                LastPage: LastPage,
-                NextPage: ChevronRight,
-                PreviousPage: ChevronLeft,
-                Search: Search,
-                ThirdStateCheck: Remove,
-                Clear: Clear,
-                SortArrow: ArrowDownward
-
-              }}
-            />
-          </div>
-          <div>
-            <MaterialTable title="TCC"
-              data={TccInfo}
-              columns={TccFields}
-
-              options={{
-                search: false,
-                filtering: false,
-                paging: false,
-              }}
-              icons={{
-                Check: Check,
-                DetailPanel: ChevronRight,
-                Export: SaveAlt,
-                Filter: () => <Icons.Filter />,
-                FirstPage: FirstPage,
-                LastPage: LastPage,
-                NextPage: ChevronRight,
-                PreviousPage: ChevronLeft,
-                Search: Search,
-                ThirdStateCheck: Remove,
-                Clear: Clear,
-                SortArrow: ArrowDownward
-
-              }}
-            />
-          </div>
-
-        </div>
-      </div>
+      }
     </>
   )
 }
