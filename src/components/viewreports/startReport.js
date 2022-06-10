@@ -26,11 +26,11 @@ const StartReport = () => {
     <>
       <SectionTitle title="Collections" />
 
-      <Widget>
+     
         <>
           <StartReportView />
         </>
-      </Widget>
+     
     </>
   );
 }

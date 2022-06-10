@@ -29,7 +29,7 @@ const initialState = [
               { title: 'Create', url: '/taxpayer', items: [] },
               {
                 title: 'View',
-                url: '/view/individual',
+                url: '/reports-individual',
                 items: [],
               },
             ],
@@ -40,7 +40,7 @@ const initialState = [
               { title: 'Create', url: '/taxpayer/non-individual', items: [] },
               {
                 title: 'View',
-                url: '/view/nonindividual',
+                url: '/reports-non-individual',
                 items: [],
               },
             ],
@@ -102,6 +102,22 @@ const initialState = [
             url: '/view/approvedasses',
             items: [],
           },
+          {
+            url: '/',
+            title: 'Report',
+            items: [
+              {
+                title: 'Assessment',
+                url: '/assessment-report',
+                items: [],
+              },
+              {
+                title: 'Unassessed Collections',
+                url: '/unassessed-report',
+                items: [],
+              },
+            ],
+          },
           // {
           //   url: '/',
           //   title: 'Tax Clearance (TCC)',
@@ -146,7 +162,7 @@ const initialState = [
       //       title: 'Remittance Schedules',
       //       items: [],
       //     },
-          
+
       //     {
       //       url: '/',
       //       title: 'Reports',

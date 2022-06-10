@@ -167,6 +167,37 @@ export const FormatMoneyComponentBOJ = ({
   />
 );
 
+export const FormatMoneyComponentReport = ({
+  control,
+  onValueChange,
+  name,
+  defaultValue,
+  required,
+  placeholder
+}) => (
+  <Controller
+    as={
+      <NumberFormat
+        className="w-full rounded form-control"
+        
+        // customInput={TextField}
+        thousandSeparator={true}
+        // prefix={"₦ "}
+        onValueChange={(v) => {
+          onValueChange((v.value));
+          // console.log(v.value);
+        }}
+      />
+    }
+    name={name}
+    variant="outlined"
+    defaultValue={defaultValue}
+    control={control}
+    required={required}
+    placeholder={placeholder}
+  />
+);
+
 export const NewFormInput = React.forwardRef((props, ref) => {
   return (
     <>

@@ -499,7 +499,7 @@ export const ViewSingleTccPrintTable = ({
               <div className="flex justify-between mt-2">
                 <div>
                   <QRCode
-                    value={`https://irs.kg.gov.ng/verify/fetch_tcc_test.php?ref=${fileRef}`}
+                    value={`https://irs.kg.gov.ng/verify/fetch_tcc.php?ref=${fileRef}`}
                     size={120}
                   />
                 </div>

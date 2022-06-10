@@ -4,8 +4,11 @@ import { StartAssessment } from '../assessment/viewAssessment';
 import { useEffect } from 'react';
 import setAuthToken from '../../functions/setAuthToken';
 import { StartTcc } from '../tccForms/viewTccForms';
+import { StartReportView } from '../tables/reports';
+import { ViewTccPrintTable } from '../tables/viewTccTablePrint';
+import { StartAssessmentReportView } from '../tables/assessmentreport';
 
-const ViewTcc = () => {
+const StartAssessmentReport = () => {
   useEffect(() => {
     setAuthToken();
     const fetchPost = async () => {
@@ -22,14 +25,14 @@ const ViewTcc = () => {
 
   return (
     <>
-      <SectionTitle title="Create TCC" />
+      <SectionTitle title="Assessment report" />
 
-      <Widget>
+     
         <>
-          <StartTcc />
+          <StartAssessmentReportView />
         </>
-      </Widget>
+      
     </>
   );
 }
-export default ViewTcc
+export default StartAssessmentReport

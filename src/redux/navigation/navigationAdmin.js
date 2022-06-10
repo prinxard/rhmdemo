@@ -99,6 +99,22 @@ const initialState = [
               },
             ],
           },
+          {
+            url: '/',
+            title: 'Report',
+            items: [
+              {
+                title: 'Assessment',
+                url: '/assessment-report',
+                items: [],
+              },
+              {
+                title: 'Unassessed Collections',
+                url: '/unassessed-report',
+                items: [],
+              },
+            ],
+          },
         ],
       },
 
@@ -183,7 +199,7 @@ const initialState = [
           // },
         ],
       },
-
+      
       {
         url: '/',
         icon: <Settings />,
@@ -221,6 +237,7 @@ const initialState = [
               },
             ],
           },
+
           {
             title: 'Tax Office',
             items: [

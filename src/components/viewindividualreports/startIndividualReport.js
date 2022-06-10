@@ -25,13 +25,13 @@ const StartindividualReport = () => {
 
   return (
     <>
-      <SectionTitle title="Individual" />
+      <SectionTitle title="Individual Taxpayers" />
 
-      <Widget>
-        <>
-          <StartIndividualReportView />
-        </>
-      </Widget>
+
+      <>
+        <StartIndividualReportView />
+      </>
+
     </>
   );
 }

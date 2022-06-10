@@ -38,12 +38,16 @@ import { Controller, useForm } from "react-hook-form";
 import { FormatMoneyComponentBOJ, FormatMoneyComponentReport } from "../FormInput/formInputs";
 import { useRouter } from "next/router";
 import Reportstable from "../../pages/reports/reportstable";
+import AssessmentReportstable from "../../pages/assessment-report/assessmentreport";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 
-export const StartReportView = () => {
+export const StartAssessmentReportView = () => {
   const [fixedValues, SetFixValuesStart] = useState({ amount: 0 });
   const [fixedValuesend, SetFixValuesEnd] = useState({ amount: 0 });
   const [revenueItem, setRevenueItem] = useState([]);
+  const [post, setPost] = useState(() => []);
   const [station, setStation] = useState([]);
   const [FilteredData, setFilteredData] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
@@ -102,10 +106,18 @@ export const StartReportView = () => {
     formState: { errors },
   } = useForm()
 
+  var d = new Date();
+  var year = d.getFullYear();
+  var month = d.getMonth();
+  var day = d.getDate();
+  var yearvar = new Date(year - 1, month, day);
 
-  let startFigure = watch("amountStart", "0").replace(/,/g, '')
-  let endFigure = watch("amountEnd", "0").replace(/,/g, '');
 
+
+  let startFigure = watch("amountStart", "").replace(/,/g, '')
+  let endFigure = watch("amountEnd", "").replace(/,/g, '');
+
+  const watchYear = watch("year", "");
 
   useEffect(() => {
 
@@ -129,50 +141,68 @@ export const StartReportView = () => {
   }, []);
 
 
-  const AdvancedSearch = (data) => {
+  const AdvancedSearch = async (data) => {
     setIsFetching(true)
-    data.trandateStart = startDate
-    data.trandateEnd = endDate
-    data.amountStart = startFigure
-    data.amountEnd = endFigure
+    data.createdStart = startDate
+    data.createdEnd = endDate
+    data.taxPaidStart = startFigure
+    data.taxPaidEnd = endFigure
+    if (watchYear === "") {
+      data.year = ""
+    } else {
+      data.year = watchYear.getFullYear()
+    }
 
-    axios.post(`${url.BASE_URL}collection/view-collection-report`, data)
-      .then(function (response) {
-        let search = response.data.body;
+    try {
+      let res = await axios.post(`${url.BASE_URL}forma/list-assessment-report`, data);
+      res = res.data.body.assessmentApproved;
+      console.log("res", res);
+      setTableState('')
+      let records = [];
+      let num = 1
+      for (let i = 0; i < res.length; i++) {
+        let rec = res[i];
+        rec.serialNo = num + i
+        rec.taxPaidFormatted = formatNumber(rec.taxPaid)
+        rec.gross_income = formatNumber(rec.gross_income)
+        rec.taxPaidFormatted = formatNumber(rec.taxPaid)
+        // rec.tax = formatNumber(rec.tax)
+        rec.totalTaxFormated = formatNumber((Number(rec.add_assmt) + Number(rec.tax)))
+        rec.totalTaxDue = (Number(rec.add_assmt) + Number(rec.tax))
+        rec.balance = formatNumber(Number(rec.taxPaid) - Number(rec.totalTaxDue))
+        rec.overallGross = formatNumber(Number(rec.employed) + Number(rec.self_employed) + Number(rec.other_income))
+        rec.createtime = dateformat(rec.createtime, "dd mmm yyyy")
+        records.push(rec);
 
-        setFilteredData(search)
-        console.log("FilteredData", FilteredData);
-        setIsFetching(false)
-        setTableState('')
-      })
-      .catch(function (error) {
-        setTableState('')
-        setIsFetching(false)
+      }
+      setIsFetching(false);
+      setPost(() => records);
 
-      })
+    } catch (error) {
+      setIsFetching(false);
+      setTableState('')
+      console.log(error);
+    }
+
   }
+
 
   return (
     <>
-      <div className="">
+      <div>
         <form onSubmit={handleSubmit(AdvancedSearch)} className="mb-3">
 
           <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
             <div className="w-full lg:w-1/3 max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
-              
+              <p className="font-bold text-center my-2">Search by IDs</p>
               <div className="mb-2">
-                <p className="font-bold text-center my-2">Search by IDs</p>
-                <label className="" htmlFor="kgtin"> Taxpayer ID</label>
-                <input type="text" ref={register()} name="t_payer" className="form-control w-full rounded font-light text-gray-500" />
+                <label> Taxpayer ID</label>
+                <input type="text" ref={register()} name="kgtin" className="form-control w-full rounded font-light text-gray-500" />
               </div>
-              <div className="mb-2">
-                <label className="" htmlFor="kgtin"> Assessment ID</label>
+
+              <div className="">
+                <label> Assessment ID</label>
                 <input type="text" ref={register()} name="assessment_id" className="form-control w-full rounded font-light text-gray-500"
-                />
-              </div>
-              <div className="mb-2">
-                <label className="" htmlFor="kgtin"> Reference ID</label>
-                <input type="text" ref={register()} name="ref" className="form-control w-full rounded font-light text-gray-500"
                 />
               </div>
 
@@ -182,32 +212,58 @@ export const StartReportView = () => {
 
               <p className="font-bold text-center my-4">Search by others</p>
               <div className="grid grid-cols-2 gap-3">
-
                 <div className="">
-                  <select ref={register()} name="station" className="form-control w-full rounded font-light text-gray-500">
+
+                  <Controller
+                    name="year"
+                    control={control}
+
+                    render={({ onChange, value }) => {
+                      return (
+                        <DatePicker
+                          className="form-control w-full rounded"
+                          onChange={onChange}
+                          selected={value}
+                          showYearPicker
+                          dateFormat="yyyy"
+                          yearItemNumber={8}
+                          placeholderText="Year"
+
+                        />
+                      );
+                    }}
+                  />
+                </div>
+                <div className="">
+                  <select ref={register()} name="tax_office" className="form-control w-full rounded font-light text-gray-500">
                     <option value="">Station</option>
                     {station.map((office) => <option key={office.idstation} value={office.station_code}>{office.name}</option>)}
                   </select>
                 </div>
                 <div className="">
-                  <select ref={register()} name="rev_sub" className="form-control w-full rounded font-light text-gray-500">
-                    <option value="">Revenue Item</option>
-                    {revenueItem.map((item) => <option key={item.serial} value={item.rev_code}>{item.item}</option>)}
+
+                  <select ref={register()} name="assessment_type" className="form-control w-full rounded font-light text-gray-500">
+                    <option value="">Type</option>
+                    <option value="BOJ">BOJ</option>
+                    <option value="Assessment">Assessment</option>
                   </select>
+
                 </div>
 
-                <div className="form-group hidden">
-                  <p className="text-center">Payment Channel</p>
-                  <input type="text" ref={register()} name="channel_id" className="form-control w-full rounded font-light text-gray-500"
-                  />
+                <div className="">
+                  <select ref={register()} name="printed" className="form-control w-full rounded font-light text-gray-500">
+                    <option value="">print status</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
                 </div>
               </div>
-              <p className="text-center mt-3">Amount</p>
+              <p className="text-center my-2">Amount</p>
               <div className="flex gap-3">
                 <div className="">
                   <FormatMoneyComponentReport
                     ref={register()}
-                    name="amountStart"
+                    name="taxPaidStart"
                     control={control}
                     defaultValue={""}
                     onValueChange={(v) => SetFixValuesStart({ amount: v })}
@@ -217,7 +273,7 @@ export const StartReportView = () => {
                 <div className="">
                   <FormatMoneyComponentReport
                     ref={register()}
-                    name="amountEnd"
+                    name="taxPaidEnd"
                     control={control}
                     defaultValue={""}
                     onValueChange={(v) => SetFixValuesEnd({ amount: v })}
@@ -226,19 +282,26 @@ export const StartReportView = () => {
                 </div>
 
               </div>
+              <div className="mt-2">
+                <select ref={register()} name="tax" className="form-control w-full rounded font-light text-gray-500">
+                  <option value="">Payment Status</option>
+                  <option value="Not Paid">Not Paid</option>
+                  <option value="Part Paid">Part Paid</option>
+                  <option value="Fully Paid">Fully Paid</option>
+                </select>
+              </div>
             </div>
-            
 
             <div className="w-full lg:w-2/3">
               <div className="overflow-x-auto max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
-                <p className="font-bold text-center mb-5">Assessment Period (start - end)</p>
+                <p className="font-bold text-center mb-5">Created Date Range (start - end)</p>
                 <DateRangePicker
                   onChange={item => setState([item.selection])}
                   showSelectionPreview={true}
                   moveRangeOnFirstSelection={false}
                   months={1}
                   ranges={state}
-                  direction="vertical"
+                  direction="horizontal"
                 />
                 <div className="my-4">
                   <button className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
@@ -247,10 +310,12 @@ export const StartReportView = () => {
                     Search
                   </button>
                 </div>
-              </div>
-            </div>
-          </div>
 
+              </div>
+
+            </div>
+
+          </div>
 
         </form>
 
@@ -269,9 +334,10 @@ export const StartReportView = () => {
           </div>
         ) :
           <div className={`${tableState}`}>
-            <Reportstable FilteredData={FilteredData} />
+            <AssessmentReportstable FilteredData={post} />
           </div>
         }
+
       </div>
 
 
