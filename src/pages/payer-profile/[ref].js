@@ -207,8 +207,8 @@ export default function SinglePayerProfile() {
           {overview.map((ind, i) => (
             <div className="flex items-center">
               <div className="max-w-7xl w-full mx-auto py-6 sm:px-6 lg:px-8">
-                <div className="flex justify-center flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
-                  <div className="w-full lg:w-1/4">
+                <div className="flex  flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
+                  <div className="w-full lg:w-2/4">
                     <div className="widget w-full p-4 rounded-lg bg-white border border-gray-100 dark:bg-gray-900 dark:border-gray-800">
                       <div className="flex flex-row items-center justify-between">
                         <div className="flex flex-col">
@@ -250,7 +250,7 @@ export default function SinglePayerProfile() {
                       </div>
                     </div>
                   </div> */}
-                  <div className="w-full lg:w-1/4">
+                  <div className="w-full lg:w-2/4">
                     <div className="widget w-full p-4 rounded-lg bg-white border border-gray-100 dark:bg-gray-900 dark:border-gray-800">
                       <div className="flex flex-row items-center justify-between">
                         <div className="flex flex-col">
