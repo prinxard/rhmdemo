@@ -14,7 +14,6 @@ import ChevronRight from '@material-ui/icons/ChevronRight'
 import FirstPage from '@material-ui/icons/FirstPage'
 import LastPage from '@material-ui/icons/LastPage'
 import Check from '@material-ui/icons/Check'
-import FilterList from '@material-ui/icons/FilterList'
 import Remove from '@material-ui/icons/Remove'
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Clear from "@material-ui/icons/Clear";
@@ -28,16 +27,7 @@ export default function SinglePayerProfile() {
   const [collectionInfo, setCollectionInfo] = useState([]);
   const router = useRouter();
 
-
   const fieldAssessment = [
-    // {
-    //   title: "Taxpayer Name",
-    //   field: "tp_name",
-    // },
-    // {
-    //   title: "KGTIN",
-    //   field: "kgtin",
-    // },
     {
       title: "Assesment Id",
       field: "assessment_id",
@@ -57,14 +47,6 @@ export default function SinglePayerProfile() {
       field: "taxPaid",
       render: (taxPaid) => formatNumber(taxPaid.taxPaid)
     },
-    // {
-    //   title: "Total Tax Due",
-    //   field: "totalTaxDue",
-    // },
-    // {
-    //   title: "Type",
-    //   field: "assessment_type",
-    // },
     {
       title: "Created Time",
       field: "createtime",
@@ -73,14 +55,6 @@ export default function SinglePayerProfile() {
   ];
 
   const collectionsTable = [
-    // {
-    //   title: "Name",
-    //   field: "taxpayerName",
-    // },
-    // {
-    //   title: "Taxpayer ID",
-    //   field: "t_payer",
-    // },
     {
       title: "Assessment ID",
       field: "assessment_id",
@@ -110,11 +84,6 @@ export default function SinglePayerProfile() {
       field: "amount",
       render: (expense) => formatNumber(expense.amount)
     },
-
-    // {
-    //   title: "Station",
-    //   field: "station",
-    // },
     {
       title: "Transaction Date",
       field: "tran_date",
@@ -131,10 +100,6 @@ export default function SinglePayerProfile() {
       title: "KGTIN",
       field: "tp_id",
     },
-    // {
-    //   title: "Taxpayer Name",
-    //   field: "taxpayer_name",
-    // },
     {
       title: "Status",
       field: "status",
@@ -388,7 +353,6 @@ export default function SinglePayerProfile() {
                     ThirdStateCheck: Remove,
                     Clear: Clear,
                     SortArrow: ArrowDownward
-
                   }}
                 />
               </div>

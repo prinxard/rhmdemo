@@ -161,6 +161,11 @@ const initialState = [
             url: '/reports',
             items: [],
           },
+          {
+            title: 'DA Receipt',
+            url: '/da-receipt',
+            items: [],
+          },
           // {
           //   url: '/',
           //   title: 'Reconcilliations',
