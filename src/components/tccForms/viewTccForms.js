@@ -64,7 +64,7 @@ export const StartTcc = () => {
   var j = new Date(year - 22, month, day);
 
 
- 
+
   const watchYear1 = watch("year1", e);
   const watchYear2 = watch("year2", c);
   const watchYear3 = watch("year3", f);
@@ -265,7 +265,7 @@ export const StartTcc = () => {
         </div>
       )}
 
-      <div className="border mb-3 block p-6 rounded-lg bg-white w-full">
+      <div className="border mb-3 p-6 rounded-lg bg-white w-full">
         <div className="mb-2 grid grid-cols-4 gap-2">
           <label className="self-center">Enter Taxpayer KGTIN</label>
 
@@ -273,7 +273,7 @@ export const StartTcc = () => {
             <input onChange={event => setKgtEentered(event.target.value)} type="text" placeholder="Enter KGTIN" />
           </div>
 
-          <div className="self-center place-self-center">
+          <div className="self-center block">
             <a
               onClick={verifiyKGTIN}
               style={{ backgroundColor: "#84abeb" }}

@@ -342,6 +342,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
   })
   const kgtinString = String(kgtinVal)
 
+ 
   let date = new Date()
   let due_date = new Date(date)
   due_date.setDate(due_date.getDate() + 60);

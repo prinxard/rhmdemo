@@ -1,25 +1,16 @@
 import SectionTitle from "../section-title";
 import Widget from "../widget";
-import { NewFormInput } from "../FormInput/formInputs";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { CustomPagination } from "../pagination/customPagination";
 import url from "../../config/url";
 import setAuthToken from "../../functions/setAuthToken";
-import { formatNumber } from "../../functions/numbers";
-import { DeleteButton } from "../CustomButton/CustomButton";
 import Loader from "react-loader-spinner";
-import { ViewIndividualSingleTable } from "../tables/viewIndividual";
 import { ViewSingleTccTable } from "../tables/viewTccTable";
 
 
 const SingleTcc = () => {
-  const [total, setTotal] = useState(() => []);
   const [isFetching, setIsFetching] = useState(() => true);
-  const [currentPage, setCurrentPage] = useState(() => 1);
-  const [postPerPage, setPostPerPage] = useState(10);
-  const [query, setQuery] = useState(() => "");
   const [tccdata, setTccData] = useState(() => []);
   const [assess1, setAssess1] = useState(() => []);
   const [assess2, setAssess2] = useState(() => []);
@@ -31,7 +22,7 @@ const SingleTcc = () => {
       let tCCId = router.query.ref;
       setTccID(tCCId)
       let id = {
-        id: `${tCCId}`
+        id: tCCId
       }
       setAuthToken();
       const fetchPost = async () => {
@@ -47,9 +38,9 @@ const SingleTcc = () => {
           setAssess1(firstass)
           setAssess2(secondass)
           setAssess3(thirdass)
-
           setIsFetching(false);
         } catch (e) {
+          console.log(e);
           setIsFetching(false);
         }
       };
@@ -79,7 +70,13 @@ const SingleTcc = () => {
               <p>Fetching data...</p>
             </div>
           ) :
-            <ViewSingleTccTable tccID={tccID} payerDetails={tccdata} assessmentData={assess1} assessmentData2={assess2} assessmentData3={assess3}/>
+            <ViewSingleTccTable
+              tccID={tccID}
+              payerDetails={tccdata}
+              assessmentData={assess1}
+              assessmentData2={assess2}
+              assessmentData3={assess3}
+            />
           }
         </>
       </Widget>

@@ -446,7 +446,7 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
                         className="btn mr-3 bg-blue-600 btn-default text-white btn-outlined bg-transparent rounded-md"
                         type="submit"
                       >
-                        Aprove Print
+                        Sign
                       </button>
                     </form> :
                     <form onSubmit={PrintAuthorized} className="mr-3">
@@ -454,7 +454,7 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
                         className="btn mr-3 bg-blue-600 btn-default text-white btn-outlined bg-transparent rounded-md"
                         type="submit"
                       >
-                        Aprove Print
+                        Sign
                       </button>
                     </form>
                   }
