@@ -197,7 +197,7 @@ export default function SinglePayerProfile() {
                       </div>
                     </div>
                   </div>
-                  {/* <div className="w-full lg:w-1/4">
+                  <div className="w-full lg:w-1/4">
                     <div className="widget w-full p-4 rounded-lg bg-white border border-gray-100 dark:bg-gray-900 dark:border-gray-800">
                       <div className="flex flex-row items-center justify-between">
                         <div className="flex flex-col">
@@ -214,7 +214,7 @@ export default function SinglePayerProfile() {
                         </svg>
                       </div>
                     </div>
-                  </div> */}
+                    </div>
                   <div className="w-full lg:w-2/4">
                     <div className="widget w-full p-4 rounded-lg bg-white border border-gray-100 dark:bg-gray-900 dark:border-gray-800">
                       <div className="flex flex-row items-center justify-between">
@@ -237,7 +237,7 @@ export default function SinglePayerProfile() {
                       </div>
                     </div>
                   </div>
-                  {/* <div className="w-full lg:w-1/4">
+                  <div className="w-full lg:w-1/4">
                     <div className="widget w-full p-4 rounded-lg bg-white border border-gray-100 dark:bg-gray-900 dark:border-gray-800">
                       <div className="flex flex-row items-center justify-between">
                         <div className="flex flex-col">
@@ -256,7 +256,7 @@ export default function SinglePayerProfile() {
                         </svg>
                       </div>
                     </div>
-                  </div> */}
+                  </div>
                 </div>
               </div>
             </div>
