@@ -24,7 +24,7 @@ const LeftSidebar = () => {
   let approverRange = [1, 2, 3, 12]
   let creatorRange = [1, 4, 13, 15]
   let adminRange = [1]
-  let reportRange = [39, 1]
+  let reportRange = [39, 1, 9]
 
   let StaffType;
   if (authentication) {
