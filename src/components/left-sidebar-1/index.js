@@ -21,15 +21,14 @@ const LeftSidebar = () => {
       shallowEqual
     );
 
-  let approverRange = [1, 2, 3, 12]
+  let approverRange = [1, 2, 3, 12, 21]
   let creatorRange = [1, 4, 13, 15]
   let adminRange = [1]
-  let reportRange = [39, 1, 9]
+  let reportRange = [39, 1, 9, 20]
 
   let StaffType;
   if (authentication) {
     StaffType = jwt.decode(authentication)?.groups;
-    // console.log(StaffType);
   }
 
   if (StaffType.some(r => approverRange.includes(r)) && StaffType.some(r => creatorRange.includes(r)) && StaffType.some(r => adminRange.includes(r))) {
