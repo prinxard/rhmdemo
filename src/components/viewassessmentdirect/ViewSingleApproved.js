@@ -46,6 +46,7 @@ const ViewSingleApproved = () => {
         try {
           let res = await axios.post(`${url.BASE_URL}forma/view-assessment`, sendData);
           let IndData = res.data.body
+          console.log("Whole data", IndData);
           let arrda = res.data.body.taxpayerAll
           let makeObjdata = IndData.assessment[0]
           let taxCalData = IndData.taxCal
