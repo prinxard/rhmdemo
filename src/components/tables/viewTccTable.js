@@ -158,9 +158,13 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
   // console.log(statusTCC);
 
   const admin = [1]
-  const Approval = [2, 3, 12, 1]
+  const chairman = [1, 9]
+  const Approval = [12, 1]
+  const verify = [2, 3, 1]
+  const Audit = [21, 1]
   const decoded = jwt.decode(auth);
   const userGroup = decoded.groups
+  // console.log("usergroup", userGroup);
 
   const declinePopup = (e) => {
     // e.preventDefault()
@@ -343,13 +347,13 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
                 <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
               </button>
 
-                <button
-                  className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                >
-                  <Link href={`/tcc/${tccID}`}> Upload Docs</Link>
-                </button>
-             
+              <button
+                className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                type="submit"
+              >
+                <Link href={`/tcc/${tccID}`}> Upload Docs</Link>
+              </button>
+
             </div>
 
 
@@ -505,6 +509,81 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
                         </div>
                       }
                     </div>
+                  </div> : ""
+                }
+                {userGroup.some(r => verify.includes(r)) ?
+                  <div className="flex">
+                    <div>
+                      {statusTCC === "Verified" ?
+                        <form className="mr-3 hidden">
+                          <button
+                            className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
+                            type="submit"
+                          >
+                            Verify
+                          </button>
+                        </form> :
+                        <form onSubmit={VerifyTcc} className=" mr-3">
+                          <button
+                            className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
+                            type="submit"
+                          >
+                            Verify
+                          </button>
+                        </form>
+                      }
+                    </div>
+                  </div> : ""
+                }
+
+                {userGroup.some(r => chairman.includes(r)) ?
+                  <div className="flex">
+                    <div>
+                      {statusTCC === "Print Authorized" ?
+                        <form className="mr-3 hidden">
+                          <button
+                            className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                            type="submit"
+                          >
+                            Sign
+                          </button>
+                        </form> :
+                        <form onSubmit={PrintAuthorized} className=" mr-3">
+                          <button
+                            className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                            type="submit"
+                          >
+                            Sign
+                          </button>
+                        </form>
+                      }
+                    </div>
+
+                  </div> : ""
+                }
+                {userGroup.some(r => Audit.includes(r)) ?
+                  <div className="flex">
+                    <div>
+                      {statusTCC === "Audit Checked" ?
+                        <form className="mr-3 hidden">
+                          <button
+                            className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
+                            type="submit"
+                          >
+                            Audit Check
+                          </button>
+                        </form> :
+                        <form onSubmit={AuditChecked} className=" mr-3">
+                          <button
+                            className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
+                            type="submit"
+                          >
+                            Audit Check
+                          </button>
+                        </form>
+                      }
+                    </div>
+
                   </div> : ""
                 }
               </div>
