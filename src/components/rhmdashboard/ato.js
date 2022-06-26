@@ -12,7 +12,7 @@ import {
 } from "recharts";
 import { formatNumber } from "accounting";
 import Widget1 from "../../components/dashboard/widget-1";
-import { PendingRemittance, RevenueItems, TaxReceipt, TotalRemittance } from "../../components/Icons";
+import { PendingRemittance, RevenueItems, TaxReceipt, TotalRemittance, Unassessed } from "../../components/Icons";
 import setAuthToken from "../../functions/setAuthToken";
 import axios from "axios";
 import url from "../../config/url";
@@ -606,7 +606,7 @@ export const ATOPie = ({ atoAssessedAmt, atoAssCount, atoTrend, atoOverview, rec
           <div className="flex my-10 flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
             <div className="w-full lg:w-1/5">
               <Widget1
-                color="green"
+                color="blue"
                 title="No. Approved Assessments"
                 description={formatNumber(ind.approvedCount)}
                 right={<TotalRemittance />}
@@ -615,7 +615,7 @@ export const ATOPie = ({ atoAssessedAmt, atoAssCount, atoTrend, atoOverview, rec
 
             <div className="w-full lg:w-1/5">
               <Widget1
-                color="red"
+                color="purple"
                 title="Total Approved Amount"
                 description={formatNumber(ind.amountAssessed)}
                 right={<PendingRemittance />}
@@ -624,7 +624,7 @@ export const ATOPie = ({ atoAssessedAmt, atoAssCount, atoTrend, atoOverview, rec
 
             <div className="w-full lg:w-1/5">
               <Widget1
-                color="blue"
+                color="green"
                 title="Assessed Amount Collected"
                 description={formatNumber(ind.amountCollected)}
                 right={<RevenueItems />}
@@ -633,16 +633,16 @@ export const ATOPie = ({ atoAssessedAmt, atoAssCount, atoTrend, atoOverview, rec
 
             <div className="w-full lg:w-1/5">
               <Widget1
-                color="blue"
+                color="red"
                 title="Unassessed Amount Collected"
                 description={formatNumber(ind.unassessedAmountCollected)}
-                right={<RevenueItems />}
+                right={<Unassessed />}
               />
             </div>
 
             <div className="w-full lg:w-1/5">
               <Widget1
-                color="yellow"
+                color="red"
                 title="Outstanding Assessed Amount"
                 description={formatNumber(OutstandingPaymt)}
                 right={<TaxReceipt />}

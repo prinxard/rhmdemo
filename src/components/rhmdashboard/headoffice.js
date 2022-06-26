@@ -1373,7 +1373,7 @@ export const AssesmentCount = ({
 
           <div className="w-full lg:w-1/5">
             <Widget1
-              color="green"
+              color="blue"
               title="No. Approved Assessments"
               description={formatNumber(ind.approvedCount)}
               right={<TotalRemittance />}
@@ -1382,7 +1382,7 @@ export const AssesmentCount = ({
 
           <div className="w-full lg:w-1/5">
             <Widget1
-              color="red"
+              color="purple"
               title="Total Approved Amount"
               description={formatNumber(ind.amountAssessed)}
               right={<PendingRemittance />}
@@ -1391,7 +1391,7 @@ export const AssesmentCount = ({
 
           <div className="w-full lg:w-1/5">
             <Widget1
-              color="blue"
+              color="green"
               title="Assessed Amount Collected"
               description={formatNumber(ind.amountCollected)}
               right={<RevenueItems />}
@@ -1400,7 +1400,7 @@ export const AssesmentCount = ({
 
           <div className="w-full lg:w-1/5">
             <Widget1
-              color="yellow"
+              color="red"
               title="Unassessed Amount Collected"
               description={formatNumber(ind.unassessedAmountCollected)}
               right={<Unassessed />}
@@ -1408,7 +1408,7 @@ export const AssesmentCount = ({
           </div>
           <div className="w-full lg:w-1/5">
             <Widget1
-              color="yellow"
+              color="red"
               title="Outstanding Assessed Amount"
               description={formatNumber(ind.outstandingAmount)}
               right={<TaxReceipt />}

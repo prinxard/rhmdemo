@@ -1,4 +1,5 @@
 import MaterialTable from "material-table";
+// import MaterialTable from '@material-table/core';
 import Search from '@material-ui/icons/Search'
 import ViewColumn from '@material-ui/icons/ViewColumn'
 import SaveAlt from '@material-ui/icons/SaveAlt'
@@ -113,7 +114,6 @@ export default function AssessmentReportstable({ FilteredData }) {
       <MaterialTable title="Report Data"
         data={items}
         columns={fields}
-
         options={{
           search: false,
           paging: true,

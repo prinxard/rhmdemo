@@ -22,6 +22,7 @@ export default function SinglePayerProfile() {
   const [isFetching, setIsFetching] = useState(() => true);
   const [overview, setOverview] = useState([]);
   const [payerProfile, setPayerProfile] = useState([]);
+  const [userInfo, setUserInfo] = useState([]);
   const [assessmentInfo, setAssessmentInfo] = useState([]);
   const [TccInfo, setTccInfo] = useState([]);
   const [collectionInfo, setCollectionInfo] = useState([]);
@@ -30,14 +31,18 @@ export default function SinglePayerProfile() {
   const fieldAssessment = [
     {
       title: "Assesment Id",
-      field: "assessment_id",
+      field: "assmt_id",
     },
     {
       title: "Year",
-      field: "year",
+      field: "assmt_year",
     },
     {
-      title: "Gross Income",
+      title: "Revenue Item",
+      field: "revenue_item",
+    },
+    {
+      title: "Assessed Amount",
       field: "gross_income",
       render: (gross_income) => formatNumber(gross_income.gross_income)
 
@@ -49,7 +54,7 @@ export default function SinglePayerProfile() {
     },
     {
       title: "Created Time",
-      field: "createtime",
+      field: "assmt_date",
       type: "date"
     },
   ];
@@ -130,10 +135,12 @@ export default function SinglePayerProfile() {
           console.log("res", res);
           let overView = res.overview
           let profile = res.taxpayer
+          let userData = res.tpIndividual[0]
           let assessmentData = res.assessmentDa
           let tcc = res.daTcc
           let collection = res.collection
           setOverview(overView)
+          setUserInfo(userData)
           setPayerProfile(profile)
           setAssessmentInfo(assessmentData)
           setTccInfo(tcc)
@@ -178,10 +185,10 @@ export default function SinglePayerProfile() {
                       <div className="flex flex-row items-center justify-between">
                         <div className="flex flex-col">
                           <div className="text-xs uppercase font-light text-gray-500">
-                             Amount Oustanding
+                            Amount Oustanding
                           </div>
                           <div className="text-xl font-bold">
-                            {formatNumber(Number(ind.assessmentAmount) - Number((ind.amountPaid)))}
+                            {formatNumber(((Number(ind.assessmentAmount) + Number(additionalAss)) - Number(ind.amountPaid)))}
                           </div>
                         </div>
                         <svg className="stroke-current text-gray-500" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -300,17 +307,42 @@ export default function SinglePayerProfile() {
                       <p className="text-base">{payerProfile.address}</p>
                       <p className="text-base">{payerProfile.phone_number}</p>
                     </div>
+                    <p className="font-bold text-center my-2"><em>Personal details</em> </p>
                     <section className='mb-2'>
                       <p>TIN/KGTIN</p>
                       <p className="font-bold">{payerProfile.KGTIN}</p>
+                    </section>
+                    <section className='mb-2'>
+                      <p>TITLE</p>
+                      <p className="font-bold">{userInfo.indv_title}</p>
                     </section>
                     <section className='mb-2'>
                       <p>NAME</p>
                       <p className="font-bold">{payerProfile.tp_name}</p>
                     </section>
                     <section className='mb-2'>
+                      <p>GENDER</p>
+                      <p className="font-bold">{userInfo.gender}</p>
+                    </section>
+                    <section className='mb-2'>
+                      <p>MARITAL STATUS</p>
+                      <p className="font-bold">{userInfo.marital_status}</p>
+                    </section>
+                    <section className='mb-2'>
+                      <p>DATE OF BIRTH</p>
+                      <p className="font-bold">{userInfo.birth_date}</p>
+                    </section>
+                    <section className='mb-2'>
                       <p>EMAIL</p>
                       <p className="font-bold">{payerProfile.email}</p>
+                    </section>
+                    <section className='mb-2'>
+                      <p>PHONE NUMBER</p>
+                      <p className="font-bold">{userInfo.phone_number}</p>
+                    </section>
+                    <section className='mb-2'>
+                      <p>OCCUPATION</p>
+                      <p className="font-bold">{userInfo.occupation}</p>
                     </section>
                     <section className='mb-2'>
                       <p>AREA TAX OFFICE</p>
@@ -320,7 +352,28 @@ export default function SinglePayerProfile() {
                       <p>TYPE</p>
                       <p className="font-bold">{payerProfile.tp_type}</p>
                     </section>
+                    <section className='mb-2'>
+                      <p>CREATION DATE</p>
+                      <p className="font-bold">{userInfo.enter_date}</p>
+                    </section>
+                    <section className='mb-2'>
+                      <p>LGA</p>
+                      <p className="font-bold">{userInfo.lga}</p>
+                    </section>
                   </div>
+                  <p className="font-bold text-center"><em>Address</em> </p>
+                  <section className='mb-2'>
+                    <p>House No</p>
+                    <p className="font-bold">{userInfo.house_no}</p>
+                  </section>
+                  <section className='mb-2'>
+                    <p>Street</p>
+                    <p className="font-bold">{userInfo.street}</p>
+                  </section>
+                  <section className='mb-2'>
+                    <p>House No</p>
+                    <p className="font-bold">{userInfo.city}</p>
+                  </section>
                 </div>
 
               </div>

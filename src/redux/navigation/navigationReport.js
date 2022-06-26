@@ -54,22 +54,22 @@ const initialState = [
               },
             ],
           },
-          {
-            url: '/',
-            title: 'Tax Clearance (TCC)',
-            items: [
-              {
-                url: '/view/listtcc',
-                title: 'View',
-                items: [],
-              },
+          // {
+          //   url: '/',
+          //   title: 'Tax Clearance (TCC)',
+          //   items: [
           //     {
-          //       url: '/view/listprinttcc',
-          //       title: 'Print',
+          //       url: '/view/listtcc',
+          //       title: 'View',
           //       items: [],
           //     },
-            ],
-          },
+          //     //     {
+          //     //       url: '/view/listprinttcc',
+          //     //       title: 'Print',
+          //     //       items: [],
+          //     //     },
+          //   ],
+          // },
         ],
       },
 
