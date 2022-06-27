@@ -303,7 +303,7 @@ export default function SinglePayerProfile() {
             <div className="lg:w-1/3 max-w-md  bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
               <div>
                 <div className="flex justify-center">
-                  <img src="" alt="" sizes="" className="rounded-full w-20 h-20 ring-2 ring-gray-300 dark:ring-gray-500" />
+                  <img src="/images/avater.png" alt="" sizes="" className="rounded-full w-20 h-20 ring-2 ring-gray-300 dark:ring-gray-500" />
                 </div>
                 <div>
                   <div className="mt-4">
@@ -319,69 +319,129 @@ export default function SinglePayerProfile() {
                     </section>
                     <section className='mb-2'>
                       <p>REGISTERED NAME</p>
-                      <p className="font-bold">{userInfo.regist_name}</p>
+                      {
+                        userInfo.regist_name === null || userInfo.regist_name === "" ?
+                          <p className="font-bold">-</p> :
+                          <p className="font-bold">{userInfo.regist_name}</p>
+                      }
                     </section>
                     <section className='mb-2'>
                       <p>ENTERPRISE REG NO</p>
-                      <p className="font-bold">{userInfo.enterprise_reg_no}</p>
+                      {
+                        userInfo.enterprise_reg_no === null || userInfo.enterprise_reg_no === "" ?
+                          <p className="font-bold">-</p> :
+                          <p className="font-bold">{userInfo.enterprise_reg_no}</p>
+                      }
+                    </section>
+                    <section className='mb-2'>
+                      <p>RC NO</p>
+                      {
+                        userInfo.rcno === null || userInfo.rcno === "" ?
+                          <p className="font-bold">-</p> :
+                          <p className="font-bold">{userInfo.rcno}</p>
+                      }
                     </section>
                     <section className='mb-2'>
                       <p>TYPE OF ORGANIZATION</p>
-                      <p className="font-bold">{userInfo.type_of_organisation}</p>
+                      {
+                        userInfo.type_of_organisation === null || userInfo.type_of_organisation === "" ?
+                          <p className="font-bold">-</p> :
+                          <p className="font-bold">{userInfo.type_of_organisation}</p>
+                      }
                     </section>
                     <section className='mb-2'>
                       <p>SECTOR</p>
-                      <p className="font-bold">{userInfo.sector}</p>
+                      {
+                        userInfo.sector === null || userInfo.sector === "" ?
+                          <p className="font-bold">-</p> :
+                          <p className="font-bold">{userInfo.sector}</p>
+                      }
                     </section>
                     <section className='mb-2'>
                       <p>DATE OF INCORPERATION</p>
-                      <p className="font-bold">{userInfo.date_of_incorporation}</p>
+                      {
+                        userInfo.date_of_incorporation === null || userInfo.date_of_incorporation === "" ?
+                          <p className="font-bold">-</p> :
+                          <p className="font-bold">{userInfo.date_of_incorporation}</p>
+                      }
                     </section>
                     <section className='mb-2'>
                       <p>DATE OF COMMENCEMENT</p>
-                      <p className="font-bold">{userInfo.date_of_commencement}</p>
+                      {
+                        userInfo.date_of_commencement === null || userInfo.date_of_commencement === "" ?
+                          <p className="font-bold">-</p> :
+                          <p className="font-bold">{userInfo.date_of_commencement}</p>
+                      }
                     </section>
                     <section className='mb-2'>
                       <p>LINE OF BUSINESS</p>
-                      <p className="font-bold">{userInfo.line_of_business}</p>
+                      {
+                        userInfo.line_of_business === null || userInfo.line_of_business === "" ?
+                          <p className="font-bold">-</p> :
+                          <p className="font-bold">{userInfo.line_of_business}</p>
+                      }
                     </section>
                     <section className='mb-2'>
                       <p>EMAIL</p>
-                      <p className="font-bold">{payerProfile.e_mail}</p>
+                      {
+                        userInfo.e_mail === null || userInfo.e_mail === "" ?
+                          <p className="font-bold">-</p> :
+                          <p className="font-bold">{userInfo.e_mail}</p>
+                      }
                     </section>
                     <section className='mb-2'>
                       <p>PHONE NUMBER</p>
-                      <p className="font-bold">{userInfo.phone_no}</p>
+                      {
+                        userInfo.phone_no === null || userInfo.phone_no === "" ?
+                          <p className="font-bold">-</p> :
+                          <p className="font-bold">{userInfo.phone_no}</p>
+                      }
                     </section>
+
                     <section className='mb-2'>
                       <p>AREA TAX OFFICE</p>
                       <p className="font-bold">{payerProfile.tax_office}</p>
                     </section>
+
                     <section className='mb-2'>
                       <p>TYPE</p>
                       <p className="font-bold">{payerProfile.tp_type}</p>
                     </section>
-                    <section className='mb-2'>
-                      <p>CREATION DATE</p>
-                      <p className="font-bold">{userInfo.enter_date}</p>
-                    </section>
-                    <section className='mb-2'>
-                      <p>LGA</p>
-                      <p className="font-bold">{userInfo.lga}</p>
-                    </section>
+
                   </div>
                   <p className="font-bold text-center"><em>Address</em> </p>
+
                   <section className='mb-2'>
                     <p>House No</p>
-                    <p className="font-bold">{userInfo.house_no}</p>
+                    {
+                      userInfo.house_no === null || userInfo.house_no === "" ?
+                        <p className="font-bold">-</p> :
+                        <p className="font-bold">{userInfo.house_no}</p>
+                    }
                   </section>
                   <section className='mb-2'>
                     <p>STREET</p>
-                    <p className="font-bold">{userInfo.street}</p>
+                    {
+                      userInfo.street === null || userInfo.street === "" ?
+                        <p className="font-bold">-</p> :
+                        <p className="font-bold">{userInfo.street}</p>
+                    }
                   </section>
                   <section className='mb-2'>
                     <p>CITY</p>
-                    <p className="font-bold">{userInfo.city}</p>
+                    {
+                      userInfo.city === null || userInfo.city === "" ?
+                        <p className="font-bold">-</p> :
+                        <p className="font-bold">{userInfo.city}</p>
+                    }
+                  </section>
+                  <section className='mb-2'>
+                    <p>LGA</p>
+                    {
+                      userInfo.lga === null || userInfo.lga === "" ?
+                        <p className="font-bold">-</p> :
+                        <p className="font-bold">{userInfo.lga}</p>
+                    }
                   </section>
                 </div>
 

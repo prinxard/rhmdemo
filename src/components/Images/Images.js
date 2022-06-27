@@ -58,6 +58,19 @@ export const CoatOfArms = () => {
   );
 };
 
+export const AvaterPlaceholder = () => {
+  return (
+    <Image
+      // layout="fill"
+      layout="fixed"
+      src="/images/avater.png"
+      alt="login"
+      width={685}
+      height={360}
+    />
+  );
+};
+
 export const TccbgImage = () => {
   return (
     <Image

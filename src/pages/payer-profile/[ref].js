@@ -303,7 +303,7 @@ export default function SinglePayerProfile() {
             <div className="lg:w-1/3 max-w-md  bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
               <div>
                 <div className="flex justify-center">
-                  <img src="" alt="" sizes="" className="rounded-full w-20 h-20 ring-2 ring-gray-300 dark:ring-gray-500" />
+                  <img src="/images/avater.png" alt="" sizes="" className="rounded-full w-20 h-20 ring-2 ring-gray-300 dark:ring-gray-500" />
                 </div>
                 <div>
                   <div className="mt-4">
