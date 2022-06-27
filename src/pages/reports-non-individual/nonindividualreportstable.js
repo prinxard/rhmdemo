@@ -117,17 +117,17 @@ export default function NonIndividualReportstable({ FilteredData }) {
                     SortArrow: ArrowDownward
                 }}
 
-            // onRowClick={(event, rowData) => {
+                onRowClick={(event, rowData) => {
 
-            //     if (userGroup.some(r => reportRange.includes(r))) {
-            //         ''
+                    if (userGroup.some(r => reportRange.includes(r))) {
+                        ''
 
-            //     }
-            //     else {
-            //         window.open(`view/collections/${rowData.idpymt}`, "_self")
-            //         event.stopPropagation();
-            //     }
-            // }}
+                    }
+                    else {
+                        window.open(`/non-individual-profile/${rowData.KGTIN}`, "_self")
+                        event.stopPropagation();
+                    }
+                }}
             />
 
         </>
