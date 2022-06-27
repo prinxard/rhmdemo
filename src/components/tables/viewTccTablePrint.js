@@ -175,13 +175,14 @@ export const ViewSingleTccPrintTable = ({
   let fileRef
   let printPrintTime
 
-  let addAssessmentVal1
-  let addAssessmentVal2
-  let addAssessmentVal3
+  let addAssessmentVal1 = 0
+  let addAssessmentVal2 = 0
+  let addAssessmentVal3 = 0
 
   addAss1.forEach((ind, i) => {
     addAssessmentVal1 = Number(ind.amount)
   })
+
   addAss2.forEach((ind, i) => {
     addAssessmentVal2 = Number(ind.amount)
   })
@@ -425,7 +426,7 @@ export const ViewSingleTccPrintTable = ({
 
                           <td className="">
                             {assessmentData.map((ind, i) => (
-                              <p className="font-bold">{formatNumber(Number(ind.tax) + addAssessmentVal1)}</p>
+                              <p className="font-bold">{formatNumber(Number(ind.tax) + Number(addAssessmentVal1))}</p>
                             ))}
                           </td>
                           <td className="">
@@ -449,7 +450,7 @@ export const ViewSingleTccPrintTable = ({
 
                           <td className="">
                             {assessmentData2.map((ind, i) => (
-                              <p className="font-bold">{formatNumber(Number(ind.tax) + addAssessmentVal2)}</p>
+                              <p className="font-bold">{formatNumber(Number(ind.tax) + Number(addAssessmentVal2) )}</p>
                             ))}
                           </td>
                           <td className="">
@@ -475,7 +476,7 @@ export const ViewSingleTccPrintTable = ({
 
                           <td className="">
                             {assessmentData3.map((ind, i) => (
-                              <p className="font-bold">{formatNumber(Number(ind.tax) + addAssessmentVal3)}</p>
+                              <p className="font-bold">{formatNumber(Number(ind.tax) + Number(addAssessmentVal3) )}</p>
                             ))}
                           </td>
                           <td className="">
