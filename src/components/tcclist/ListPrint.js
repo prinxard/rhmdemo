@@ -41,6 +41,7 @@ const TccPrintList = () => {
         }
         setIsFetching(false);
         setTccData(() => records);
+        
       } catch (e) {
         setIsFetching(false);
       }
