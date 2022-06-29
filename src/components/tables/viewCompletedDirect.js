@@ -148,7 +148,7 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
   const [modal, setModal] = useState(false);
   const [assessmentModal, setAssessmentModalModal] = useState(false);
   const [comment, setComment] = useState(false);
-
+console.log("assobj", assobj);
   const [fixedValues, fixValues] = useState({ amount: 0 });
   const [submittedResult, updateResult] = useState({ amount: 0 });
   const {
@@ -405,6 +405,7 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
           }
 
           <div className="mt-2">
+            {/* shows only BOJ comment */}
             {assobj.assessment_type === null || assobj.assessment_type === "" || assobj.assessment_type === undefined ? "" :
               <div>
                 <p className="font-bold">COMMENT</p>
