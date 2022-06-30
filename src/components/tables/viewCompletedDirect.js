@@ -704,7 +704,7 @@ console.log("assobj", assobj);
               </tr>
               <tr>
                 <td className="border-r-2 p-1 text-center">Total</td>
-                <td className="p-1 text-right font-bold">0</td>
+                <td className="p-1 text-right font-bold">{formatNumber(taxcal.tax)}</td>
               </tr>
               <tr>
                 <td className="border-r-2 p-1 text-center">Dev. Levy</td>
@@ -714,7 +714,7 @@ console.log("assobj", assobj);
                 <td className="border-r-2 p-1 text-right font-bold">Total Tax due </td>
                 {taxcal == null || taxcal == ""
                   ? <td className="p-1 text-right font-bold">0</td> :
-                  <td className='p-1 text-right font-bold'>{formatNumber(assobj.tax)}</td>
+                  <td className='p-1 text-right font-bold'>{formatNumber(Number(taxcal.tax) + Number(assobj.dev_levy))}</td>
                 }
               </tr>
               <tr>
@@ -740,7 +740,7 @@ console.log("assobj", assobj);
                 <td className="border-r-2 p-1 text-right font-bold">Total Tax Due for Payment</td>
                 {taxcal == null || taxcal == ""
                   ? <td className="p-1 text-right font-bold">0</td> :
-                  <td className='p-1 text-right font-bold'>{formatNumber(Number(assobj.tax) + (Number(addAssAmount)) + Number(assobj.dev_levy))}</td>
+                  <td className='p-1 text-right font-bold'>{formatNumber(Number(taxcal.tax) + (Number(addAssAmount)) + Number(assobj.dev_levy))}</td>
                 }
               </tr>
             </tbody>
