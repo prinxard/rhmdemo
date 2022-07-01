@@ -166,7 +166,6 @@ export const StartAssessmentReportView = () => {
         rec.taxPaidFormatted = formatNumber(rec.taxPaid)
         rec.gross_income = formatNumber(rec.gross_income)
         rec.taxPaidFormatted = formatNumber(rec.taxPaid)
-        // rec.tax = formatNumber(rec.tax)
         rec.totalTaxFormated = formatNumber((Number(rec.add_assmt) + Number(rec.tax) ))
         rec.totalTaxDue = (Number(rec.add_assmt) + Number(rec.tax) )
         rec.balance = formatNumber(Number(rec.taxPaid) - Number(rec.totalTaxDue) )
