@@ -1,5 +1,7 @@
 import MaterialTable from "material-table";
 import Search from '@material-ui/icons/Search'
+import * as Icons from '../../components/Icons/index';
+import { Delete, Edit, MoreHoriz } from "@material-ui/icons";
 import ViewColumn from '@material-ui/icons/ViewColumn'
 import SaveAlt from '@material-ui/icons/SaveAlt'
 import ChevronLeft from '@material-ui/icons/ChevronLeft'
@@ -12,12 +14,9 @@ import FilterList from '@material-ui/icons/FilterList'
 import Remove from '@material-ui/icons/Remove'
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Clear from "@material-ui/icons/Clear";
-import * as Icons from '../../components/Icons/index';
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import jwt from "jsonwebtoken";
-import Link from "next/link";
 
 
 const fields = [
@@ -81,21 +80,24 @@ export default function IndividualReportstable({ FilteredData }) {
             <MaterialTable title="Individual Taxpayer Data"
                 data={items}
                 columns={fields}
+                actions={[
 
+                    {
+                        icon: MoreHoriz,
+                        tooltip: 'View Profile',
+                        onClick: (event, rowData) => router.push(`/payer-profile/${rowData.KGTIN}`)
+                    },
+                    {
+                        icon: Edit,
+                        tooltip: 'Edit Payer',
+                        onClick: (event, rowData) => router.push(`/update-individual/${rowData.KGTIN}`)
+                    }
+                ]}
                 options={{
                     search: true,
                     filtering: true,
                     paging: true,
-                    // rowStyle: (rowData) => {
-                    //     if (rowData.status === "Printed") {
-                    //         return {
-                    //             color: "#5f9f45",
-                    //             backgroundColor: "#156448",
-                    //         }
-                    //     } else {
-                    //         return {};
-                    //     }
-                    // },
+                    actionsColumnIndex: -1,
                     exportButton: {
                         csv: true,
                         pdf: false
@@ -116,26 +118,6 @@ export default function IndividualReportstable({ FilteredData }) {
                     ThirdStateCheck: Remove,
                     Clear: Clear,
                     SortArrow: ArrowDownward
-                }}
-
-                onRowClick={(event, rowData) => {
-
-                    if (userGroup.some(r => reportRange.includes(r))) {
-                        ''
-
-                    }
-                    else {
-                      
-                            // <Link
-                            //     to={{
-                            //         pathname: "view/collections",
-                            //         state: { fromDashboard: true }
-                            //     }}
-                            // />
-                        
-                        window.open(`/payer-profile/${rowData.KGTIN}`, "_self")
-                        event.stopPropagation();
-                    }
                 }}
             />
 
