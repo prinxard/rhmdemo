@@ -62,6 +62,7 @@ const fields = [
     render: rowData => {
       return (
         rowData.balance < "0" ? <p style={{ color: "#FF0000", fontWeight: "bold" }}>{rowData.balance}</p> :
+        rowData.balance > "0" ? <p style={{ color: "#8fce00", fontWeight: "bold" }}>{`+${rowData.balance}`}</p> :
           <p>{rowData.balance}</p>
       )
     }

@@ -621,7 +621,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                     </tr>
                     <tr>
                       <td className='tb'><div align='center' className='style16'>Total </div></td>
-                      <td className='tb'><p className="font-bold text-right"> {formatNumber(Number(assobj.tax))}</p> </td>
+                      <td className='tb'><p className="font-bold text-right"> {formatNumber(Number(taxcal.tax))}</p> </td>
                     </tr>
                     <tr>
                       <td className='tb'><div align='center' className='style16'>Dev. Levy </div></td>
@@ -650,7 +650,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                     </tr>
                     <tr>
                       <td height='30' className='tb'><div align='right' className='style16 font-bold'>Total Tax Due for Payment </div></td>
-                      <td className='tb'><p className="font-bold text-right">{formatNumber(((Number(assobj.tax) + Number(addAssAmount)) + Number(assobj.dev_levy)))}</p></td>
+                      <td className='tb'><p className="font-bold text-right">{formatNumber(((Number(taxcal.tax) + Number(addAssAmount)) + Number(assobj.dev_levy)))}</p></td>
                     </tr>
                   </table>
                     <br />
@@ -744,7 +744,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                         </tr>
                         <tr width="300">
                           <td width="300" className="font-bold tb">Net Tax Payable</td>
-                          <td width="300" className="font-bold tb">{formatNumber(((Number(assobj.tax) + Number(addAssAmount)) + Number(assobj.dev_levy)))}</td>
+                          <td width="300" className="font-bold tb">{formatNumber(((Number(taxcal.tax) + Number(addAssAmount)) + Number(assobj.dev_levy)))}</td>
                         </tr>
                         <tr width="300">
                           <td width="300" className="font-bold tb">Payment due date</td>

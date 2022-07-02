@@ -25,7 +25,7 @@ const ViewCollectionsSingle = () => {
     if (router && router.query) {
       let paymentID = router.query.ref;
       let paymentPayload = {
-        "idpymt": `${paymentID}`
+        "idpymt": paymentID
       }
       console.log(paymentID);
       setAuthToken();
@@ -40,7 +40,6 @@ const ViewCollectionsSingle = () => {
             records.push(rec);
           }
           setCollections(records)
-          console.log(res);
           setIsFetching(false);
         } catch (e) {
           setIsFetching(false);

@@ -73,20 +73,20 @@ export const ViewBusinessTypeTable = ({ BusinessTypeData }) => {
                 data={items}
                 columns={fields}
 
-                cellEditable={{
-                    cellStyle: {},
-                    onCellEditApproved: (newValue, oldValue, rowData, columnDef) => {
-                        return new Promise((resolve, reject) => {
-                            const clonedData = [...data]
-                            clonedData[rowData.tableData.id][columnDef.field] = newValue
-                            setPost(clonedData)
-                            console.log("clonedData", test);
-                            setTimeout(resolve, 1000);
-                            // console.log('newValue: ' + newValue);
-                            // setTimeout(resolve, 4000);
-                        });
-                    }
-                }}
+                // cellEditable={{
+                //     cellStyle: {},
+                //     onCellEditApproved: (newValue, oldValue, rowData, columnDef) => {
+                //         return new Promise((resolve, reject) => {
+                //             const clonedData = [...data]
+                //             clonedData[rowData.tableData.id][columnDef.field] = newValue
+                //             setPost(clonedData)
+                //             console.log("clonedData", test);
+                //             setTimeout(resolve, 1000);
+                //             // console.log('newValue: ' + newValue);
+                //             // setTimeout(resolve, 4000);
+                //         });
+                //     }
+                // }}
 
                 options={{
                     search: true,

@@ -112,6 +112,7 @@ export default function Reportstable({ FilteredData }) {
                     exportAllData: true,
 
                 }}
+
                 icons={{
                     Check: Check,
                     DetailPanel: ChevronRight,
@@ -126,6 +127,13 @@ export default function Reportstable({ FilteredData }) {
                     Clear: Clear,
                     SortArrow: ArrowDownward
                 }}
+
+                // onRowClick={(event, rowData) => {
+
+                //     window.open(`da-receipt/${rowData.idpymt}`, "_self")
+                //     event.stopPropagation();
+
+                // }}
             />
 
         </>

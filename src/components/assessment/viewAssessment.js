@@ -6,7 +6,7 @@ import dateformat from "dateformat";
 import Link from 'next/link';
 import { SelectAnnual } from "../forms/selects";
 import SectionTitle from "../section-title";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiTriangle } from "react-icons/fi";
 import { useForm } from "react-hook-form";
 import url from '../../config/url';
@@ -114,7 +114,7 @@ export const StartAssessment = () => {
         setModal(true)
         if (error.response) {
           setValidateMssg((error.response.data.message).replaceAll("Error", "Warning"));
-          console.log((error.response.data.message).replaceAll("Error", "Warning"));
+          // console.log((error.response.data.message).replaceAll("Error", "Warning"));
         } else {
           toast.error("Failed!");
         }
@@ -128,7 +128,7 @@ export const StartAssessment = () => {
       KGTIN: kgtinWatch
     }
     setIsFetching(true)
-    
+
     try {
       let res = await axios.post(`${url.BASE_URL}taxpayer/view-taxpayers`, kgtin);
       setIsFetching(false)
@@ -381,6 +381,7 @@ export const StartSingleIndividualAssessment = ({ kgtinVal, payerprop, routerAss
   const [isFetching21, setIsFetching21] = useState(() => false);
   const [isFetching22, setIsFetching22] = useState(() => false);
   const [isFetching23, setIsFetching23] = useState(() => false);
+  const [busTypes, setBusTypes] = useState([]);
   const router = useRouter();
 
   const [formValues, setFormValues] = useState([{ assessment_id: `${assessment_id}`, source: "", gross_amount: "", comments: "" }])
@@ -393,6 +394,22 @@ export const StartSingleIndividualAssessment = ({ kgtinVal, payerprop, routerAss
 
   const [fixedValues, fixValues] = useState({ amount: 0 });
   const { control, handleSubmit } = useForm({ amount: 0 });
+
+  useEffect(() => {
+    setAuthToken();
+    const fetchPost = async () => {
+      try {
+        let res = await axios.get(`${url.BASE_URL}forma/business-type`);
+        res = res.data.body;
+        setBusTypes(res)
+        console.log("res", res)
+
+      } catch (e) {
+        console.log(e.response);
+      }
+    };
+    fetchPost();
+  }, []);
 
   let handleSubmit1 = (event) => {
     event.preventDefault();
@@ -696,7 +713,6 @@ export const StartSingleIndividualAssessment = ({ kgtinVal, payerprop, routerAss
   }
 
 
-
   function handleResidentialChange(evt) {
     const value = evt.target.value;
     setResidentialAddress({
@@ -713,6 +729,7 @@ export const StartSingleIndividualAssessment = ({ kgtinVal, payerprop, routerAss
       [evt.target.name]: value
     });
   }
+
 
   function handleExpenseChange(evt) {
     const value = evt.target.value;
@@ -1633,12 +1650,12 @@ export const StartSingleIndividualAssessment = ({ kgtinVal, payerprop, routerAss
             <div className="form-group mb-6">
               <p>Street</p>
               <input onChange={handleResidentialChange} type="text" className="form-control w-full rounded font-light text-gray-500"
-                name="street" value={residentialAddress.street}  />
+                name="street" value={residentialAddress.street} />
             </div>
             <div className="form-group mb-6">
               <p>LGA</p>
               <input onChange={handleResidentialChange} type="text" className="form-control w-full rounded font-light text-gray-500"
-                name="lga" value={residentialAddress.lga}  />
+                name="lga" value={residentialAddress.lga} />
             </div>
           </div>
 
@@ -2215,145 +2232,8 @@ export const StartSingleIndividualAssessment = ({ kgtinVal, payerprop, routerAss
                     <div className="mb-6 grid grid-cols-3 gap-4">
                       <label htmlFor="typeofbusiness">Type of business:</label>
                       <select onChange={handleSelfEmployedChange} className="form-select" name="business_type" value={selfEmployed.business_type} >
-                        <option value="select">Select Business </option>
-                        <option value="Agro Allied Products">Agro Allied Products</option>
-                        <option value="Aircondition Repairer">Aircondition Repairer</option>
-                        <option value="Aluminum Doors & Windows">Aluminum Doors & Windows</option>
-                        <option value="Animal Feed Maker">Animal Feed Maker</option>
-                        <option value="Architechtural Design">Architechtural Design</option>
-                        <option value="Architect">Architect</option>
-                        <option value="Artist And Song-Writer">Artist And Song-Writer</option>
-                        <option value="Baby Wear">Baby Wear</option>
-                        <option value="Beverages">Beverages</option>
-                        <option value="Boutique">Boutique</option>
-                        <option value="Building Material">Building Material Dealer</option>
-                        <option value="Cosmetics">Cosmetics</option>
-                        <option value="Curtain & Interior Decoration">Curtain & Interior Decoration</option>
-                        <option value="Cyber Cafe Operator">Cyber Cafe Operator</option>
-                        <option value="Dealers In Mattress/Foams">Dealers In Mattress/Foams</option>
-                        <option value="Djs Entertainment">Djs Entertainment</option>
-                        <option value="Doors Seller">Doors Seller</option>
-                        <option value="Drama Group">Drama Group</option>
-                        <option value="Electrical Parts & Fitting">Electrical Parts & Fitting</option>
-                        <option value="Electrician">Electrician</option>
-                        <option value="Electronics Dealer">Electronics Dealer</option>
-                        <option value="Engine Oil/ Kerosene Seller">Engine Oil/ Kerosene Seller</option>
-                        <option value="Estate Managers/ Agent">Estate Managers/ Agent</option>
-                        <option value="Event Centre">Event Centre</option>
-                        <option value="Event Planner">Event Planner</option>
-                        <option value="Fashion Designer">Fashion Designer</option>
-                        <option value="Films & Cinemas Center">Films & Cinemas Center</option>
-                        <option value="Fish Seller">Fish Seller</option>
-                        <option value="Fowl Seller">Fowl Seller</option>
-                        <option value="Foam"> foam/Matras</option>
-                        <option value="Fruit Seller">Fruit Seller</option>
-                        <option value="Furnishing Materials Seller">Furnishing Materials Seller</option>
-                        <option value="Furniture / Furnishing Materials Seller">Furniture / Furnishing Materials Seller</option>
-                        <option value="Furniture Maker">Furniture Maker</option>
-                        <option value="Gas Refilling Seller">Gas Refilling Seller</option>
-                        <option value="Generator Mechanic">Generator Mechanic</option>
-                        <option value="Gift Shop">Gift Shop</option>
-                        <option value="Graphic Arts & Design">Graphic Arts & Design</option>
-                        <option value="Grinding Mill">Grinding Mill</option>
-                        <option value="Guest House">Guest House</option>
-                        <option value="Hairdressers And Barber">Hairdressers And Barber</option>
-                        <option value="Higher Institutions Private">Higher Institutions Private</option>
-                        <option value="Horticulture / Florist">Horticulture / Florist</option>
-                        <option value="Hotel Proprietor">Hotel Proprietor</option>
-                        <option value="Ict/ Computer Accessories">Ict/ Computer Accessories</option>
-                        <option value="Interior Decorator">Interior Decorator</option>
-                        <option value="Iron Bender">Iron Bender</option>
-                        <option value="Jewelry Seller">Jewelry Seller</option>
-                        <option value="Kerorine Retail Seller">Kerorine Retail Seller</option>
-                        <option value="Kiddies Shop And Botique">Kiddies Shop And Botique</option>
-                        <option value="Laundry (Dry Cleaner)">Laundry (Dry Cleaner)</option>
-                        <option value="Law Firm">Law Firm</option>
-                        <option value="Leather Carpets (Linoleum)">Leather Carpets (Linoleum)</option>
-                        <option value="Liquor|Beer Palour">Liquor|Beer Palour</option>
-                        <option value="Mai Shai (Tea Maker)">Mai Shai (Tea Maker)</option>
-                        <option value="Mason">Mason</option>
-                        <option value="Maternity Home">Maternity Home</option>
-                        <option value="Maternity Private Proprietor">Maternity Private Proprietor</option>
-                        <option value="Meat Seller">Meat Seller</option>
-                        <option value="Medical Laboratory">Medical Laboratory</option>
-                        <option value="Mini Supermarket|Supermarket">Mini Supermarket|Supermarket</option>
-                        <option value="Mobile Phone Dealer">Mobile Phone Dealer</option>
-                        <option value="Mobile Phone Repairer">Mobile Phone Repairer</option>
-                        <option value="Mobile Phone Seller">Mobile Phone Seller</option>
-                        <option value="Money Lender">Money Lender</option>
-                        <option value="Motor Cycle Dealer">Motor Cycle Dealer</option>
-                        <option value="Motor Cycle Mechanic">Motor Cycle Mechanic</option>
-                        <option value="Motor Cycle Spare Part Dealer">Motor Cycle Spare Part Dealer</option>
-                        <option value="Motor Dealer/Seller">Motor Dealer/Seller</option>
-                        <option value="Motor Spare Part Dealer">Motor Spare Part Dealer</option>
-                        <option value="Motor Vehicle Mechanic">Motor Vehicle Mechanic</option>
-                        <option value="Musician">Musician</option>
-                        <option value="Newspaper/Magazine Vendor">Newspaper/Magazine Vendor</option>
-                        <option value="Optician">Optician</option>
-                        <option value="Other Businesses And Trade">Other Businesses And Trade</option>
-                        <option value="Painter And Decorator">Painter And Decorator</option>
-                        <option value="Paints Dealer">Paints Dealer</option>
-                        <option value="Palm Oil Miller">Palm Oil Miller</option>
-                        <option value="Panel Beaters & Sprayer">Panel Beaters & Sprayer</option>
-                        <option value="Patent/Propriety Medicine Vendor">Patent/Propriety Medicine Vendor</option>
-                        <option value="Petrol Filling Station">Petrol Filling Station</option>
-                        <option value="Pharmaceutical Shop">Pharmaceutical Shop</option>
-                        <option value="Phone Accessories"> Phone Accessories</option>
-                        <option value="Photo Color Laboratorie">Photo Color Laboratorie</option>
-                        <option value="Photographers / Photo Developer">Photographers / Photo Developer</option>
-                        <option value="Photographic Materials Shop">Photographic Materials Shop</option>
-                        <option value="Plastic Dealer">Plastic Dealer</option>
-                        <option value="Plastic/Rubber Seller">Plastic/Rubber Seller</option>
-                        <option value="Plumber">Plumber</option>
-                        <option value="Plumbing Material With Water Tanks & Access">Plumbing Material With Water Tanks & Access</option>
-                        <option value="Plumbing Materials Only">Plumbing Materials Only</option>
-                        <option value="Pool Agent">Pool Agent</option>
-                        <option value="Pool Promoter">Pool Promoter</option>
-                        <option value="Pos Operator (Mobile Money)">Pos Operator (Mobile Money)</option>
-                        <option value="Potter">Potter</option>
-                        <option value="Poultry Farmer">Poultry Farmer</option>
-                        <option value="Poultry Feed">Poultry Feed</option>
-                        <option value="Printer">Printer</option>
-                        <option value="Private Medical Practioner">Private Medical Practioner</option>
-                        <option value="Private N/P School">Private N/P School</option>
-                        <option value="Private Secondary School">Private Secondary School</option>
-                        <option value="Produce Buyer">Produce Buyer</option>
-                        <option value="Provision Store">Provision Store</option>
-                        <option value="Pure/Bottle Water Producer">Pure/Bottle Water Producer</option>
-                        <option value="Pure/Bottle Water Seller">Pure/Bottle Water Seller</option>
-                        <option value="Raw Food Seller">Raw Food Seller</option>
-                        <option value="Recharge Card Dealer">Recharge Card Dealer</option>
-                        <option value="Rental">Rental</option>
-                        <option value="Restaurant">Restaurant</option>
-                        <option value="Restaurant (Buka)">Restaurant (Buka)</option>
-                        <option value="Re-Wire & Battery Charger opt">Re-Wire & Battery Charger opt</option>
-                        <option value="Road Side Petty Trader">Road Side Petty Trader</option>
-                        <option value="Rugs & Carpet">Rugs & Carpet</option>
-                        <option value="Sack Bags Seller">Sack Bags Seller</option>
-                        <option value="Saw Mill">Saw Mill</option>
-                        <option value="School Proprietor">School Proprietor</option>
-                        <option value="Shoe Maker">Shoe Maker</option>
-                        <option value="Shoe Seller">Shoe Seller</option>
-                        <option value="Shops/Stall">Shops/Stall</option>
-                        <option value="Solar Panel">Solar Panel</option>
-                        <option value="Stylist">Stylist</option>
-                        <option value="Super Market">Super Market</option>
-                        <option value="Tailors/Fashion Designer">Tailors/Fashion Designer</option>
-                        <option value="Thrift Collector">Thrift Collector</option>
-                        <option value="Tiler">Tiler</option>
-                        <option value="Timber Wood Seller">Timber Wood Seller</option>
-                        <option value="Tomatoes Seller">Tomatoes Seller</option>
-                        <option value="Tuber Dealer">Tuber Dealer</option>
-                        <option value="Tyre Dealer">Tyre Dealer</option>
-                        <option value="Video Club">Video Club</option>
-                        <option value="Viewing Centre">Viewing Centre</option>
-                        <option value="Vulcanizer">Vulcanizer</option>
-                        <option value="Weaver">Weaver</option>
-                        <option value="Welder">Welder</option>
-                        <option value="Wheel Barrow Quiosk">Wheel Barrow Quiosk</option>
-                        <option value="Wine And Beer License Operator">Wine And Beer License Operator</option>
-                        <option value="Yam Seller">Yam Seller</option>
-                        <option value="Yoghurt Seller">Yoghurt Seller</option>
+                        <option value="">select...</option>
+                        {busTypes.map((item) => <option key={item.id} value={item.business_type}>{item.business_type}</option>)}
                       </select>
                     </div>
 

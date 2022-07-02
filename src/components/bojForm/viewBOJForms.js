@@ -192,8 +192,7 @@ export const StartBOJ = () => {
 
 
   const TotalIncome = Number(emplFigure) + Number(selfemplFigure) + Number(otherIncomeFigure)
-  console.log("TotCal", TotalIncome);
-
+ 
   setAuthToken();
   let UpdateBOJ = async (data) => {
     // console.log(data);
@@ -359,62 +358,62 @@ export const StartBOJ = () => {
         )}
 
 
-          <div className="border mb-3 block p-8 rounded-lg bg-white w-full">
-            <div className="flex">
-              <h6 className="p-2">Taxpayer Information</h6>
-              {/* <a href="" className="text-blue-600 self-center">Edit</a> */}
-            </div>
-            <p className="mb-3 font-bold"></p>
-            <form>
-              <div className="grid grid-cols-3 gap-4">
-                <div className="">
-                  <p>Name</p>
-                  <input type="text" className="form-control w-full rounded font-light text-gray-500"
-                    value={payerDetails.tp_name} disabled />
-                </div>
-
-                <div className="form-group mb-6">
-                  <p>KGTIN</p>
-
-                  <input type="text" className="form-control w-full rounded font-light text-gray-500"
-                    value={payerDetails.KGTIN} disabled />
-                </div>
-
-                <div className="form-group mb-6">
-                  <p>Email</p>
-                  <input type="text" className="form-control w-full rounded font-light text-gray-500"
-                    value={payerDetails.email} disabled />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-3 gap-4">
-                <div className="form-group mb-6">
-                  <p>Phone</p>
-                  <input type="text" className="form-control w-full rounded font-light text-gray-500"
-                    value={payerDetails.phone_number} disabled />
-                </div>
-
-                <div className="form-group mb-6">
-                  <p>Tax Office</p>
-                  <input type="text" className="form-control w-full rounded font-light text-gray-500"
-                    value={payerDetails.tax_office} disabled />
-                </div>
-                <div className="form-group mb-6">
-                  <p>Taxpayer Type</p>
-                  <input type="text" className="form-control w-full rounded font-light text-gray-500"
-                    value={payerDetails.tp_type} disabled />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div className="form-group mb-6">
-                  <p>Address</p>
-                  <input type="text" className="form-control w-full rounded font-light text-gray-500"
-                    value={payerDetails.address} disabled />
-                </div>
-              </div>
-            </form>
+        <div className="border mb-3 block p-8 rounded-lg bg-white w-full">
+          <div className="flex">
+            <h6 className="p-2">Taxpayer Information</h6>
+            {/* <a href="" className="text-blue-600 self-center">Edit</a> */}
           </div>
+          <p className="mb-3 font-bold"></p>
+          <form>
+            <div className="grid grid-cols-3 gap-4">
+              <div className="">
+                <p>Name</p>
+                <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                  value={payerDetails.tp_name} disabled />
+              </div>
+
+              <div className="form-group mb-6">
+                <p>KGTIN</p>
+
+                <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                  value={payerDetails.KGTIN} disabled />
+              </div>
+
+              <div className="form-group mb-6">
+                <p>Email</p>
+                <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                  value={payerDetails.email} disabled />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-4">
+              <div className="form-group mb-6">
+                <p>Phone</p>
+                <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                  value={payerDetails.phone_number} disabled />
+              </div>
+
+              <div className="form-group mb-6">
+                <p>Tax Office</p>
+                <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                  value={payerDetails.tax_office} disabled />
+              </div>
+              <div className="form-group mb-6">
+                <p>Taxpayer Type</p>
+                <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                  value={payerDetails.tp_type} disabled />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="form-group mb-6">
+                <p>Address</p>
+                <input type="text" className="form-control w-full rounded font-light text-gray-500"
+                  value={payerDetails.address} disabled />
+              </div>
+            </div>
+          </form>
+        </div>
 
         {bojData.map((ind, i) => (
           <form onSubmit={handleSubmit(UpdateBOJ)}>
@@ -477,7 +476,7 @@ export const StartBOJ = () => {
                 </div>
 
                 <div className="mb-6 grid grid-cols-3 gap-2">
-                  <label className="self-center font-bold">Tax to be paid:</label>
+                  <label className="self-center font-bold">Tax:</label>
                   <div>
                     <div className="flex justify-evenly">
                       {/* <button type="button" onClick={CalTax} style={{ backgroundColor: "#84abeb" }} className="btn w-32 text-white btn-outlined bg-transparent rounded-md">Show tax</button> */}
@@ -485,8 +484,28 @@ export const StartBOJ = () => {
                       <p className="font-bold">{formatNumber(JsonTax)}</p>
                     </div>
                   </div>
-
                 </div>
+                <div className="mb-6 grid grid-cols-3 gap-2">
+                  <label className="self-center font-bold">Development levy:</label>
+                  <div>
+                    <div className="flex justify-evenly">
+                      {/* <button type="button" onClick={CalTax} style={{ backgroundColor: "#84abeb" }} className="btn w-32 text-white btn-outlined bg-transparent rounded-md">Show tax</button> */}
+                      {/* <input readOnly defaultValue={formatNumber(tax_paid)} ref={register()} type="text" name="tax" className="w-32" id="" /> */}
+                      <p className="font-bold">{formatNumber(dev_levy)}</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="mb-6 grid grid-cols-3 gap-2">
+                  <label className="self-center font-bold">Total tax due for payment:</label>
+                  <div>
+                    <div className="flex justify-evenly">
+                      {/* <button type="button" onClick={CalTax} style={{ backgroundColor: "#84abeb" }} className="btn w-32 text-white btn-outlined bg-transparent rounded-md">Show tax</button> */}
+                      {/* <input readOnly defaultValue={formatNumber(tax_paid)} ref={register()} type="text" name="tax" className="w-32" id="" /> */}
+                      <p className="font-bold">{formatNumber(Number(JsonTax) + Number(dev_levy))}</p>
+                    </div>
+                  </div>
+                </div>
+
                 <div className="mb-6 grid grid-cols-3 gap-2">
                   <label>Reason for BOJ: <span className="text-red-600">*</span></label>
                   <div>

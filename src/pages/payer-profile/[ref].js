@@ -303,7 +303,7 @@ export default function SinglePayerProfile() {
             <div className="lg:w-1/3 max-w-md  bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
               <div>
                 <div className="flex justify-center">
-                  <img src="" alt="" sizes="" className="rounded-full w-20 h-20 ring-2 ring-gray-300 dark:ring-gray-500" />
+                  <img src="/images/avater.png" alt="" sizes="" className="rounded-full w-20 h-20 ring-2 ring-gray-300 dark:ring-gray-500" />
                 </div>
                 <div>
                   <div className="mt-4">
@@ -319,36 +319,69 @@ export default function SinglePayerProfile() {
                     </section>
                     <section className='mb-2'>
                       <p>TITLE</p>
-                      <p className="font-bold">{userInfo.indv_title}</p>
+                      {
+                        userInfo.indv_title === null || userInfo.indv_title === "" ?
+                          <p className="font-bold">-</p> :
+                          <p className="font-bold">{userInfo.indv_title}</p>
+                      }
                     </section>
                     <section className='mb-2'>
                       <p>NAME</p>
-                      <p className="font-bold">{payerProfile.tp_name}</p>
+                      {
+                        payerProfile.tp_name === null || payerProfile.tp_name === "" ?
+                          <p className="font-bold">-</p> :
+                          <p className="font-bold">{payerProfile.tp_name}</p>
+                      }
                     </section>
                     <section className='mb-2'>
                       <p>GENDER</p>
-                      <p className="font-bold">{userInfo.gender}</p>
+                      {
+                        userInfo.gender === null || userInfo.gender === "" ?
+                          <p className="font-bold">-</p> :
+                          <p className="font-bold">{userInfo.gender}</p>
+                      }
                     </section>
                     <section className='mb-2'>
                       <p>MARITAL STATUS</p>
-                      <p className="font-bold">{userInfo.marital_status}</p>
+                      {
+                        userInfo.marital_status === null || userInfo.marital_status === "" ?
+                          <p className="font-bold">-</p> :
+                          <p className="font-bold">{userInfo.marital_status}</p>
+                      }
                     </section>
                     <section className='mb-2'>
                       <p>DATE OF BIRTH</p>
-                      <p className="font-bold">{userInfo.birth_date}</p>
+                      {
+                        userInfo.birth_date === null || userInfo.birth_date === "" ?
+                          <p className="font-bold">-</p> :
+                          <p className="font-bold">{userInfo.birth_date}</p>
+                      }
                     </section>
                     <section className='mb-2'>
                       <p>EMAIL</p>
-                      <p className="font-bold">{payerProfile.email}</p>
+                      {
+                        userInfo.email === null || userInfo.email === "" ?
+                          <p className="font-bold">-</p> :
+                          <p className="font-bold">{userInfo.email}</p>
+                      }
                     </section>
                     <section className='mb-2'>
                       <p>PHONE NUMBER</p>
-                      <p className="font-bold">{userInfo.phone_number}</p>
+                      {
+                        userInfo.phone_number === null || userInfo.phone_number === "" ?
+                          <p className="font-bold">-</p> :
+                          <p className="font-bold">{userInfo.phone_number}</p>
+                      }
                     </section>
                     <section className='mb-2'>
                       <p>OCCUPATION</p>
-                      <p className="font-bold">{userInfo.occupation}</p>
+                      {
+                        userInfo.occupation === null || userInfo.occupation === "" ?
+                          <p className="font-bold">-</p> :
+                          <p className="font-bold">{userInfo.occupation}</p>
+                      }
                     </section>
+
                     <section className='mb-2'>
                       <p>AREA TAX OFFICE</p>
                       <p className="font-bold">{payerProfile.tax_office}</p>
@@ -363,21 +396,38 @@ export default function SinglePayerProfile() {
                     </section>
                     <section className='mb-2'>
                       <p>LGA</p>
-                      <p className="font-bold">{userInfo.lga}</p>
+                      {
+                        userInfo.lga === null || userInfo.lga === "" ?
+                          <p className="font-bold">-</p> :
+                          <p className="font-bold">{userInfo.lga}</p>
+                      }
                     </section>
                   </div>
                   <p className="font-bold text-center"><em>Address</em> </p>
                   <section className='mb-2'>
                     <p>House No</p>
-                    <p className="font-bold">{userInfo.house_no}</p>
+                    {
+                      userInfo.house_no === null || userInfo.house_no === "" ?
+                        <p className="font-bold">-</p> :
+                        <p className="font-bold">{userInfo.house_no}</p>
+                    }
                   </section>
                   <section className='mb-2'>
                     <p>STREET</p>
-                    <p className="font-bold">{userInfo.street}</p>
+                    {
+                      userInfo.street === null || userInfo.street === "" ?
+                        <p className="font-bold">-</p> :
+                        <p className="font-bold">{userInfo.street}</p>
+                    }
                   </section>
+
                   <section className='mb-2'>
                     <p>CITY</p>
-                    <p className="font-bold">{userInfo.city}</p>
+                    {
+                      userInfo.city === null || userInfo.city === "" ?
+                        <p className="font-bold">-</p> :
+                        <p className="font-bold">{userInfo.city}</p>
+                    }
                   </section>
                 </div>
 

@@ -148,7 +148,7 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
   const [modal, setModal] = useState(false);
   const [assessmentModal, setAssessmentModalModal] = useState(false);
   const [comment, setComment] = useState(false);
-
+console.log("assobj", assobj);
   const [fixedValues, fixValues] = useState({ amount: 0 });
   const [submittedResult, updateResult] = useState({ amount: 0 });
   const {
@@ -405,6 +405,7 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
           }
 
           <div className="mt-2">
+            {/* shows only BOJ comment */}
             {assobj.assessment_type === null || assobj.assessment_type === "" || assobj.assessment_type === undefined ? "" :
               <div>
                 <p className="font-bold">COMMENT</p>
@@ -703,7 +704,7 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
               </tr>
               <tr>
                 <td className="border-r-2 p-1 text-center">Total</td>
-                <td className="p-1 text-right font-bold">0</td>
+                <td className="p-1 text-right font-bold">{formatNumber(taxcal.tax)}</td>
               </tr>
               <tr>
                 <td className="border-r-2 p-1 text-center">Dev. Levy</td>
@@ -713,7 +714,7 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
                 <td className="border-r-2 p-1 text-right font-bold">Total Tax due </td>
                 {taxcal == null || taxcal == ""
                   ? <td className="p-1 text-right font-bold">0</td> :
-                  <td className='p-1 text-right font-bold'>{formatNumber(assobj.tax)}</td>
+                  <td className='p-1 text-right font-bold'>{formatNumber(Number(taxcal.tax) + Number(assobj.dev_levy))}</td>
                 }
               </tr>
               <tr>
@@ -739,7 +740,7 @@ export const ViewSingleCompletedTable = ({ additionalAsse, payerprop, assId, pay
                 <td className="border-r-2 p-1 text-right font-bold">Total Tax Due for Payment</td>
                 {taxcal == null || taxcal == ""
                   ? <td className="p-1 text-right font-bold">0</td> :
-                  <td className='p-1 text-right font-bold'>{formatNumber(Number(assobj.tax) + (Number(addAssAmount)) + Number(assobj.dev_levy))}</td>
+                  <td className='p-1 text-right font-bold'>{formatNumber(Number(taxcal.tax) + (Number(addAssAmount)) + Number(assobj.dev_levy))}</td>
                 }
               </tr>
             </tbody>

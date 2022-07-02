@@ -63,11 +63,11 @@ const initialState = [
                 title: 'View',
                 items: [],
               },
-              //     {
-              //       url: '/view/listprinttcc',
-              //       title: 'Print',
-              //       items: [],
-              //     },
+              {
+                url: '/view/listprinttcc',
+                title: 'Print',
+                items: [],
+              },
             ],
           },
         ],
