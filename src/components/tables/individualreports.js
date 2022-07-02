@@ -124,7 +124,7 @@ export const StartIndividualReportView = () => {
     <>
       <div>
         <form onSubmit={handleSubmit(AdvancedSearch)}>
-          <div className="flex">
+          <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
             <div className="border p-6 rounded-lg bg-white w-full">
               <div className="grid grid-cols-2 gap-3">
                 <div>
