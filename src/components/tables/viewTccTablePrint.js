@@ -153,18 +153,18 @@ export const ViewTccPrintTable = ({ tccdata }) => {
   );
 };
 
-export const ViewSingleTccPrintTable = ({ 
-  tccUploads, 
-  tccID, 
-  payerDetails, 
-  assessmentData, 
-  assessmentData2, 
+export const ViewSingleTccPrintTable = ({
+  tccUploads,
+  tccID,
+  payerDetails,
+  assessmentData,
+  assessmentData2,
   assessmentData3,
   addAss1,
   addAss2,
   addAss3
- }) => {
-  
+}) => {
+
 
   const componentRef = useRef();
   let year2
@@ -244,7 +244,7 @@ export const ViewSingleTccPrintTable = ({
 
 
   let date = printPrintTime
-  let due_date = new Date(date) 
+  let due_date = new Date(date)
   due_date.setDate(due_date.getDate() + 365);
   let expiry = dateformat(due_date, "dd mmm yyyy")
 
@@ -396,6 +396,9 @@ export const ViewSingleTccPrintTable = ({
                     <thead >
                       <tr style={{ backgroundColor: "#d3fbc6" }}>
                         <th>
+                          Assessment ID
+                        </th>
+                        <th>
                           Tax Year
                         </th>
                         <th className="">
@@ -413,6 +416,12 @@ export const ViewSingleTccPrintTable = ({
                     <tbody >
                       {assessmentData === "" || assessmentData === undefined ? "" :
                         <tr>
+                          <td className="">
+                            {payerDetails.map((ind, i) => (
+                              <p className="font-bold">{ind.assmt_1}</p>
+
+                            ))}
+                          </td>
                           <td className="">
                             {assessmentData.map((ind, i) => (
                               <p className="font-bold">{ind.year}</p>
@@ -438,6 +447,12 @@ export const ViewSingleTccPrintTable = ({
                       {assessmentData2 === "" || assessmentData2 === undefined ? "" :
                         <tr>
                           <td className="">
+                            {payerDetails.map((ind, i) => (
+                              <p className="font-bold">{ind.assmt_2}</p>
+
+                            ))}
+                          </td>
+                          <td className="">
                             {assessmentData2.map((ind, i) => (
                               <p className="font-bold">{ind.year}</p>
 
@@ -451,7 +466,7 @@ export const ViewSingleTccPrintTable = ({
 
                           <td className="">
                             {assessmentData2.map((ind, i) => (
-                              <p className="font-bold">{formatNumber(Number(ind.tax) + Number(addAssessmentVal2) )}</p>
+                              <p className="font-bold">{formatNumber(Number(ind.tax) + Number(addAssessmentVal2))}</p>
                             ))}
                           </td>
                           <td className="">
@@ -463,6 +478,12 @@ export const ViewSingleTccPrintTable = ({
                       }
                       {assessmentData3 === "" || assessmentData3 === undefined ? "" :
                         <tr>
+                          <td className="">
+                            {payerDetails.map((ind, i) => (
+                              <p className="font-bold">{ind.assmt_3}</p>
+
+                            ))}
+                          </td>
                           <td className="">
                             {assessmentData3.map((ind, i) => (
                               <p className="font-bold">{ind.year}</p>
@@ -477,7 +498,7 @@ export const ViewSingleTccPrintTable = ({
 
                           <td className="">
                             {assessmentData3.map((ind, i) => (
-                              <p className="font-bold">{formatNumber(Number(ind.tax) + Number(addAssessmentVal3) )}</p>
+                              <p className="font-bold">{formatNumber(Number(ind.tax) + Number(addAssessmentVal3))}</p>
                             ))}
                           </td>
                           <td className="">

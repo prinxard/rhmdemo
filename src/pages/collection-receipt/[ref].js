@@ -88,10 +88,10 @@ export default function index() {
                                 <p className="font-bold col-span-2">{el.taxpayerAddress}</p>
                             </div>
                             <div className="flex mt-10">
-                                <div className='w-16 border-b-2'>
+                                <div className='w-16 border-b-2 border-black'>
                                 </div>
                                 <p className='align-self-center'>Details</p>
-                                <div className="border-b-2 w-3/4">
+                                <div className="border-b-2 w-3/4 border-black">
                                 </div>
                             </div>
                         </div>
@@ -136,7 +136,7 @@ export default function index() {
                             <p>TAX STATION:</p>
                             <p className="font-bold"> {el.station} </p>
                         </div>
-                        <div className="border-b-2 mt-3 w-4/4">
+                        <div className="border-b-2 mt-3 w-4/4 border-black">
                         </div>
                     </div>
 
