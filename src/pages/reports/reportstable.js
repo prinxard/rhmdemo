@@ -128,12 +128,12 @@ export default function Reportstable({ FilteredData }) {
                     SortArrow: ArrowDownward
                 }}
 
-                // onRowClick={(event, rowData) => {
+                onRowClick={(event, rowData) => {
 
-                //     window.open(`da-receipt/${rowData.idpymt}`, "_self")
-                //     event.stopPropagation();
+                    window.open(`collection-receipt/${rowData.idpymt}`, "_self")
+                    event.stopPropagation();
 
-                // }}
+                }}
             />
 
         </>

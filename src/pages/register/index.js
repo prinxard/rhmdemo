@@ -69,26 +69,31 @@ export default function index() {
             value: item.id
         }
     })
-  
+
     setAuthToken();
     const onSubmit = (data) => {
         data.userGroup = data.userGroup.toString()
-        setIsFetching(true)
-        axios.post(`${url.BASE_URL}user/signup`, data)
-            .then(function (response) {
-                setIsFetching(false)
-                toast.success("Created Successfully!");
-                router.push("/dashboard")
-            })
-            .catch(function (error) {
-                setIsFetching(false)
-                if (error.response) {
-                    setUploadErrors(() => error.response.data.message);
-                    toast.error(uploadErrors)
-                } else {
-                    toast.error("Failed to create user!");
-                }
-            })
+        if (data.userGroup === "") {
+            alert("please select usergroup")
+        } else {
+            setIsFetching(true)
+            axios.post(`${url.BASE_URL}user/signup`, data)
+                .then(function (response) {
+                    setIsFetching(false)
+                    toast.success("Created Successfully!");
+                    router.push("/dashboard")
+                })
+                .catch(function (error) {
+                    setIsFetching(false)
+                    if (error.response) {
+                        setUploadErrors(() => error.response.data.message);
+                        toast.error(uploadErrors)
+                    } else {
+                        toast.error("Failed to create user!");
+                    }
+                })
+
+        }
     };
 
 
@@ -157,7 +162,7 @@ export default function index() {
                                 control={control}
                                 defaultValue={options.map(c => c.value)}
                                 name="userGroup"
-                                rules={{ required: "please select user group" }}
+                                rules={{ required: true }}
                                 render={({ onChange, value, ref }) => (
                                     // render={({ field: { onChange, value, ref } }) => (
                                     <MultiSelect
@@ -198,10 +203,10 @@ export default function index() {
                         </div>
                         <div className="form-group ">
                             <p>Phone Number</p>
-                            <input name="phone" ref={register()} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                            <input name="phone" ref={register({ required: "Phone is required" })} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
                             />
+                            {errors.phone && <p className="text-red-600">{errors.phone.message}</p>}
                         </div>
-
                         <div className="form-group ">
                             <p>Active</p>
 

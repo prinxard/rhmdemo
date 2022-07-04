@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useForm } from 'react-hook-form';
 import Loader from 'react-loader-spinner';
+import { useRouter } from 'next/router';
 
 
 export default function index() {
@@ -17,6 +18,8 @@ export default function index() {
     const [state, setState] = useState([])
     const [isFetching, setIsFetching] = useState(false)
     const [lga, setLga] = useState([])
+    const [createError, setCreateError] = useState("")
+    const router = useRouter();
     const {
         register,
         handleSubmit,
@@ -58,11 +61,17 @@ export default function index() {
             .then(function (response) {
                 setIsFetching(false)
                 toast.success("Created Successfully!");
+                router.push('/reports-individual')
             })
             .catch(function (error) {
-                console.log(error);
                 setIsFetching(false)
-                toast.error("Failed to create Taxpayer!");
+                if (error.response) {
+                    setCreateError(() => error.response.data.message);
+                    toast.error(createError)
+                } else {
+                    toast.error("Failed to create Taxpayer!");
+                }
+                
             })
     };
 

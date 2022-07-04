@@ -125,7 +125,8 @@ export const StartIndividualReportView = () => {
       <div>
         <form onSubmit={handleSubmit(AdvancedSearch)}>
           <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
-            <div className="border p-6 rounded-lg bg-white w-full">
+            <div className="w-full lg:w-1/3 max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
+
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <input type="text" placeholder="Taxpayer ID" ref={register()} name="kgtin" className="form-control w-full rounded font-light text-gray-500" />
@@ -135,7 +136,6 @@ export const StartIndividualReportView = () => {
                   <input type="text" ref={register()} placeholder="First Name" name="first_name" className="form-control w-full rounded font-light text-gray-500"
                   />
                 </div>
-
                 <div>
                   <select ref={register()} placeholder="Station" name="tax_office" className="form-control w-full rounded font-light text-gray-500">
                     <option value="">Station</option>
@@ -157,25 +157,27 @@ export const StartIndividualReportView = () => {
 
             </div>
 
-            <div className="border p-6 ml-2 rounded-lg bg-white w-full">
-              <p className="font-bold text-center mb-5">Created Date Range (Start - End)</p>
-              <DateRangePicker
-                onChange={item => setState([item.selection])}
-                showSelectionPreview={true}
-                moveRangeOnFirstSelection={false}
-                months={1}
-                ranges={state}
-                direction="horizontal"
-              />
+            <div className="w-full lg:w-2/3">
+              <div className="overflow-x-auto max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
+                <p className="font-bold text-center mb-5">Created Date Range (Start - End)</p>
+                <DateRangePicker
+                  onChange={item => setState([item.selection])}
+                  showSelectionPreview={true}
+                  moveRangeOnFirstSelection={false}
+                  months={1}
+                  ranges={state}
+                  direction="horizontal"
+                />
 
-              <div className="flex justify my-4">
-                <div className="grid grid-cols-2 gap-4 justify-self-center">
-                  <div className="form-group">
-                    <button className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                      type="submit"
-                    >
-                      Search
-                    </button>
+                <div className="flex justify my-4">
+                  <div className="grid grid-cols-2 gap-4 justify-self-center">
+                    <div className="form-group">
+                      <button className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                      >
+                        Search
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -29,6 +29,7 @@ const fields = [
     {
         title: "KGTIN",
         field: "KGTIN",
+
     },
     {
         title: "First Name",
@@ -95,21 +96,22 @@ export default function IndividualReportstable({ FilteredData }) {
                 ]}
                 options={{
                     search: true,
-                    filtering: true,
                     paging: true,
+                    filtering: true,
                     actionsColumnIndex: -1,
                     exportButton: {
                         csv: true,
                         pdf: false
                     },
                     exportAllData: true,
-
                 }}
                 icons={{
                     Check: Check,
                     DetailPanel: ChevronRight,
                     Export: SaveAlt,
                     Filter: () => <Icons.Filter />,
+                    Edit: Edit,
+                    MoreHoriz: MoreHoriz,
                     FirstPage: FirstPage,
                     LastPage: LastPage,
                     NextPage: ChevronRight,

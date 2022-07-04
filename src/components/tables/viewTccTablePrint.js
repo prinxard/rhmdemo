@@ -164,6 +164,7 @@ export const ViewSingleTccPrintTable = ({
   addAss2,
   addAss3
  }) => {
+  
 
   const componentRef = useRef();
   let year2
