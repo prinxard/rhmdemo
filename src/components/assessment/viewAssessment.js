@@ -217,59 +217,77 @@ export const StartAssessment = () => {
       <p className="flex justify-center font-bold">Start Assessment</p>
       <Widget>
         <div >
-          <form onSubmit={handleSubmit(validateAssessment)} className="flex justify-around">
+          <form onSubmit={handleSubmit(validateAssessment)}>
+            <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
 
-            <div className="flex">
-              <div>
-                <p>Enter Taxpayer KGTIN</p>
-                <input ref={register()} type="text" name="kgtin" placeholder="Enter KGTIN" />
+              <div className="w-full lg:w-2/5">
                 <div className="">
-
+                  {/* <p>Enter Taxpayer KGTIN</p> */}
+                  <input ref={register()} type="text" name="kgtin" placeholder="Enter KGTIN" />
+                </div>
+                {/* <div>
                   <small className={`${validmsg}`}>{payerDetails.tp_name}</small>
-
-                </div>
-
-                <div className="">
                   <small className={`text-red-600 ${invalidmsg}`}>{invalidkgtinmessage}</small>
-                </div>
+                </div> */}
               </div>
-              <div className="self-center ml-2">
+
+              <div className="w-full lg:w-2/5 py-2 self-center">
                 <a
                   onClick={verifiyKGTIN}
                   style={{ backgroundColor: "#84abeb" }}
                   className="btn btn-default text-white btn-outlined bg-transparent rounded-md"
                 >
-                  Verify KGTIN
+                  Verify
                 </a>
               </div>
-            </div>
 
-            <div className="self-center">
-              <SelectAnnual
-                label="Select Year"
-                required
-                ref={register()}
-                name="year"
-              />
-            </div>
+              {/* <div className="w-full lg:w-3/5 ">
+                <div className="self-center">
+                  <SelectAnnual
+                    label="Select Year"
+                    required
+                    ref={register()}
+                    name="year"
+                  />
+                </div>
+              </div> */}
 
+              <div className="w-full lg:w-4/5">
+                <div>
+                  {/* <p>Select Year</p> */}
+                  <select ref={register()} name="year" id="">
+                    <option value="">Select Year</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="w-full lg:w-4/5 ">
+                {/* <p>Select Type</p> */}
+                <select ref={register()} name="type" id="">
+                  <option value="">Select type</option>
+                  <option value="Assessment">Assessment</option>
+                  <option value="BOJ">BOJ Assessment</option>
+                </select>
+              </div>
+
+              <div className="w-full lg:w-5/5 self-center">
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                  disabled={disabled}
+                >
+                  Start Assessment
+                </button>
+              </div>
+            </div>
             <div>
-              <p>Select Type</p>
-              <select ref={register()} name="type" id="">
-                <option value="Assessment">Assessment</option>
-                <option value="BOJ">BOJ Assessment</option>
-              </select>
-            </div>
-
-            <div className="self-center">
-              <button
-                style={{ backgroundColor: "#84abeb" }}
-                className="btn btn-default text-white btn-outlined bg-transparent rounded-md"
-                type="submit"
-                disabled={disabled}
-              >
-                Start Assessment
-              </button>
+              <small className={`${validmsg}`}>{payerDetails.tp_name}</small>
+              <small className={`text-red-600 ${invalidmsg}`}>{invalidkgtinmessage}</small>
             </div>
           </form>
         </div>

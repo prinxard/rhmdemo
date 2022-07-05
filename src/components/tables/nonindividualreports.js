@@ -124,9 +124,9 @@ export const StartNonIndividualReportView = () => {
     <>
       <div>
         <form onSubmit={handleSubmit(AdvancedSearch)}>
-          <div className="flex">
+          <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
+            <div className="w-full lg:w-1/3 max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
 
-            <div className="border mb-3 block p-6 rounded-lg bg-white w-full">
               <div className="grid grid-cols-2 gap-2">
                 <div className="form-group ">
                   <input type="text" ref={register()} name="kgtin" placeholder="taxpayer ID" className="form-control w-full rounded font-light text-gray-500" />
@@ -151,8 +151,8 @@ export const StartNonIndividualReportView = () => {
               </div>
             </div>
 
-            <div className="border mb-3 block p-6 rounded-lg bg-white w-full ml-2">
-              <div>
+            <div className="w-full lg:w-2/3">
+              <div className="overflow-x-auto max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
                 <p className="font-bold text-center mb-5">Created Date Range (Start - End)</p>
                 <DateRangePicker
                   onChange={item => setState([item.selection])}
@@ -174,6 +174,7 @@ export const StartNonIndividualReportView = () => {
                     </div>
                   </div>
                 </div>
+
               </div>
             </div>
           </div>

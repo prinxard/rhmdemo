@@ -1,6 +1,7 @@
 import MaterialTable from "material-table";
 import Search from '@material-ui/icons/Search'
 import ViewColumn from '@material-ui/icons/ViewColumn'
+import { Delete, Edit, MoreHoriz } from "@material-ui/icons";
 import SaveAlt from '@material-ui/icons/SaveAlt'
 import ChevronLeft from '@material-ui/icons/ChevronLeft'
 import ChevronRight from '@material-ui/icons/ChevronRight'
@@ -84,17 +85,8 @@ export default function NonIndividualReportstable({ FilteredData }) {
                 options={{
                     search: true,
                     paging: true,
+                    actionsColumnIndex: -1,
                     filtering: true,
-                    // rowStyle: (rowData) => {
-                    //     if (rowData.status === "Printed") {
-                    //         return {
-                    //             color: "#5f9f45",
-                    //             backgroundColor: "#156448",
-                    //         }
-                    //     } else {
-                    //         return {};
-                    //     }
-                    // },
                     exportButton: {
                         csv: true,
                         pdf: false
@@ -102,6 +94,20 @@ export default function NonIndividualReportstable({ FilteredData }) {
                     exportAllData: true,
 
                 }}
+                actions={[
+
+                    {
+                        icon: MoreHoriz,
+                        tooltip: 'View Profile',
+                        onClick: (event, rowData) => router.push(`/non-individual-profile/${rowData.KGTIN}`)
+                    },
+                    {
+                        icon: Edit,
+                        tooltip: 'Edit Payer',
+                        onClick: (event, rowData) => router.push(`/update-individual/${rowData.KGTIN}`),
+                        hidden: true
+                    }
+                ]}
                 icons={{
                     Check: Check,
                     DetailPanel: ChevronRight,
@@ -117,17 +123,7 @@ export default function NonIndividualReportstable({ FilteredData }) {
                     SortArrow: ArrowDownward
                 }}
 
-                onRowClick={(event, rowData) => {
 
-                    if (userGroup.some(r => reportRange.includes(r))) {
-                        ''
-
-                    }
-                    else {
-                        window.open(`/non-individual-profile/${rowData.KGTIN}`, "_self")
-                        event.stopPropagation();
-                    }
-                }}
             />
 
         </>
