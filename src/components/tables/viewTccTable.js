@@ -338,258 +338,264 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
       )}
       <Widget>
         <div>
-          <div className="mb-6 flex justify-between">
-            <div className="flex mr-3">
-              <button
-                className="btn bg-green-600 mr-2 btn-default text-white btn-outlined bg-transparent rounded-md"
-                type="submit"
-              >
-                <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
-              </button>
+          {statusTCC === "Declined" ? <div className="">
+            <p className="font-bold">Reason for decline</p>
+            {payerDetails.map((el) => (
+              <p className="mb-3">{el.comments}</p>
+            ))}
+          </div> :
+            <div className="mb-6 flex justify-between">
+              <div className="flex mr-3">
+                <button
+                  className="btn bg-green-600 mr-2 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
+                </button>
 
-              <button
-                className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                type="submit"
-              >
-                <Link href={`/tcc/${tccID}`}> Upload Docs</Link>
-              </button>
+                <button
+                  className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  <Link href={`/tcc/${tccID}`}> Upload Docs</Link>
+                </button>
+
+              </div>
+
+
+              {userGroup.some(r => admin.includes(r)) ?
+                <div className="flex">
+                  <div>
+                    {statusTCC === "Approved" ?
+                      <form className="mr-3 hidden">
+                        <button
+                          className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                          type="submit"
+                        >
+                          Approve
+                        </button>
+                      </form> :
+                      <form onSubmit={Approve} className=" mr-3">
+                        <button
+                          className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                          type="submit"
+                        >
+                          Approve
+                        </button>
+                      </form>
+                    }
+                  </div>
+                  <div>
+                    {statusTCC === "Declined" ?
+                      <form className="mr-3 hidden">
+                        <button
+                          className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                          type="submit"
+                        >
+                          Decline
+                        </button>
+                      </form> :
+                      <div className=" mr-3">
+                        <button onClick={declinePopup}
+                          className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+
+                        >
+                          Decline
+                        </button>
+                      </div>
+                    }
+                  </div>
+
+                  <div>
+                    {statusTCC === "Verified" ?
+                      <form className="mr-3 hidden">
+                        <button
+                          className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
+                          type="submit"
+                        >
+                          Verify
+                        </button>
+                      </form> :
+                      <form onSubmit={VerifyTcc} className=" mr-3">
+                        <button
+                          className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
+                          type="submit"
+                        >
+                          Verify
+                        </button>
+                      </form>
+                    }
+                  </div>
+
+                  <div>
+                    {statusTCC === "Audit Checked" ?
+                      <form className="mr-3 hidden">
+                        <button
+                          className="btn bg-green-400  mr-3 btn-default text-white btn-outlined bg-transparent rounded-md"
+                          type="submit"
+                        >
+                          Audit Check
+                        </button>
+                      </form> :
+                      <form onSubmit={AuditChecked} className=" mr-3">
+                        <button
+                          className="btn bg-green-400  mr-3 btn-default text-white btn-outlined bg-transparent rounded-md"
+                          type="submit"
+                        >
+                          Audit Check
+                        </button>
+                      </form>
+                    }
+                  </div>
+
+                  <div>
+                    {statusTCC === "Print Authorized" ?
+                      <form className="mr-3 hidden">
+                        <button
+                          className="btn mr-3 bg-blue-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                          type="submit"
+                        >
+                          Sign
+                        </button>
+                      </form> :
+                      <form onSubmit={PrintAuthorized} className="mr-3">
+                        <button
+                          className="btn mr-3 bg-blue-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                          type="submit"
+                        >
+                          Sign
+                        </button>
+                      </form>
+                    }
+                  </div>
+
+                </div>
+                :
+                <div>
+                  {userGroup.some(r => Approval.includes(r)) ?
+                    <div className="flex">
+                      <div>
+                        {statusTCC === "Approved" ?
+                          <form className="mr-3 hidden">
+                            <button
+                              className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                              type="submit"
+                            >
+                              Approve
+                            </button>
+                          </form> :
+                          <form onSubmit={Approve} className=" mr-3">
+                            <button
+                              className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                              type="submit"
+                            >
+                              Approve
+                            </button>
+                          </form>
+                        }
+                      </div>
+                      <div>
+                        {statusTCC === "Declined" ?
+                          <form className="mr-3 hidden">
+                            <button
+                              className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                              type="submit"
+                            >
+                              Decline
+                            </button>
+                          </form> :
+                          <div className=" mr-3">
+                            <button onClick={declinePopup}
+                              className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+
+                            >
+                              Decline
+                            </button>
+                          </div>
+                        }
+                      </div>
+                    </div> : ""
+                  }
+                  {userGroup.some(r => verify.includes(r)) ?
+                    <div className="flex">
+                      <div>
+                        {statusTCC === "Verified" ?
+                          <form className="mr-3 hidden">
+                            <button
+                              className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
+                              type="submit"
+                            >
+                              Verify
+                            </button>
+                          </form> :
+                          <form onSubmit={VerifyTcc} className=" mr-3">
+                            <button
+                              className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
+                              type="submit"
+                            >
+                              Verify
+                            </button>
+                          </form>
+                        }
+                      </div>
+                    </div> : ""
+                  }
+
+                  {userGroup.some(r => chairman.includes(r)) ?
+                    <div className="flex">
+                      <div>
+                        {statusTCC === "Print Authorized" ?
+                          <form className="mr-3 hidden">
+                            <button
+                              className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                              type="submit"
+                            >
+                              Sign
+                            </button>
+                          </form> :
+                          <form onSubmit={PrintAuthorized} className=" mr-3">
+                            <button
+                              className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                              type="submit"
+                            >
+                              Sign
+                            </button>
+                          </form>
+                        }
+                      </div>
+
+                    </div> : ""
+                  }
+                  {userGroup.some(r => Audit.includes(r)) ?
+                    <div className="flex">
+                      <div>
+                        {statusTCC === "Audit Checked" ?
+                          <form className="mr-3 hidden">
+                            <button
+                              className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
+                              type="submit"
+                            >
+                              Audit Check
+                            </button>
+                          </form> :
+                          <form onSubmit={AuditChecked} className=" mr-3">
+                            <button
+                              className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
+                              type="submit"
+                            >
+                              Audit Check
+                            </button>
+                          </form>
+                        }
+                      </div>
+
+                    </div> : ""
+                  }
+                </div>
+              }
 
             </div>
-
-
-            {userGroup.some(r => admin.includes(r)) ?
-              <div className="flex">
-                <div>
-                  
-                  {statusTCC === "Approved" ?
-                    <form className="mr-3 hidden">
-                      <button
-                        className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        Approve
-                      </button>
-                    </form> :
-                    <form onSubmit={Approve} className=" mr-3">
-                      <button
-                        className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        Approve
-                      </button>
-                    </form>
-                  }
-                </div>
-                <div>
-                  {statusTCC === "Declined" ?
-                    <form className="mr-3 hidden">
-                      <button
-                        className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        Decline
-                      </button>
-                    </form> :
-                    <div className=" mr-3">
-                      <button onClick={declinePopup}
-                        className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-
-                      >
-                        Decline
-                      </button>
-                    </div>
-                  }
-                </div>
-
-                <div>
-                  {statusTCC === "Verified" ?
-                    <form className="mr-3 hidden">
-                      <button
-                        className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        Verify
-                      </button>
-                    </form> :
-                    <form onSubmit={VerifyTcc} className=" mr-3">
-                      <button
-                        className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        Verify
-                      </button>
-                    </form>
-                  }
-                </div>
-
-                <div>
-                  {statusTCC === "Audit Checked" ?
-                    <form className="mr-3 hidden">
-                      <button
-                        className="btn bg-green-400  mr-3 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        Audit Check
-                      </button>
-                    </form> :
-                    <form onSubmit={AuditChecked} className=" mr-3">
-                      <button
-                        className="btn bg-green-400  mr-3 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        Audit Check
-                      </button>
-                    </form>
-                  }
-                </div>
-
-                <div>
-                  {statusTCC === "Print Authorized" ?
-                    <form className="mr-3 hidden">
-                      <button
-                        className="btn mr-3 bg-blue-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        Sign
-                      </button>
-                    </form> :
-                    <form onSubmit={PrintAuthorized} className="mr-3">
-                      <button
-                        className="btn mr-3 bg-blue-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        Sign
-                      </button>
-                    </form>
-                  }
-                </div>
-
-              </div>
-              :
-              <div>
-                {userGroup.some(r => Approval.includes(r)) ?
-                  <div className="flex">
-                    <div>
-                      {statusTCC === "Approved" ?
-                        <form className="mr-3 hidden">
-                          <button
-                            className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                            type="submit"
-                          >
-                            Approve
-                          </button>
-                        </form> :
-                        <form onSubmit={Approve} className=" mr-3">
-                          <button
-                            className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                            type="submit"
-                          >
-                            Approve
-                          </button>
-                        </form>
-                      }
-                    </div>
-                    <div>
-                      {statusTCC === "Declined" ?
-                        <form className="mr-3 hidden">
-                          <button
-                            className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                            type="submit"
-                          >
-                            Decline
-                          </button>
-                        </form> :
-                        <div className=" mr-3">
-                          <button onClick={declinePopup}
-                            className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-
-                          >
-                            Decline
-                          </button>
-                        </div>
-                      }
-                    </div>
-                  </div> : ""
-                }
-                {userGroup.some(r => verify.includes(r)) ?
-                  <div className="flex">
-                    <div>
-                      {statusTCC === "Verified" ?
-                        <form className="mr-3 hidden">
-                          <button
-                            className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
-                            type="submit"
-                          >
-                            Verify
-                          </button>
-                        </form> :
-                        <form onSubmit={VerifyTcc} className=" mr-3">
-                          <button
-                            className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
-                            type="submit"
-                          >
-                            Verify
-                          </button>
-                        </form>
-                      }
-                    </div>
-                  </div> : ""
-                }
-
-                {userGroup.some(r => chairman.includes(r)) ?
-                  <div className="flex">
-                    <div>
-                      {statusTCC === "Print Authorized" ?
-                        <form className="mr-3 hidden">
-                          <button
-                            className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                            type="submit"
-                          >
-                            Sign
-                          </button>
-                        </form> :
-                        <form onSubmit={PrintAuthorized} className=" mr-3">
-                          <button
-                            className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                            type="submit"
-                          >
-                            Sign
-                          </button>
-                        </form>
-                      }
-                    </div>
-
-                  </div> : ""
-                }
-                {userGroup.some(r => Audit.includes(r)) ?
-                  <div className="flex">
-                    <div>
-                      {statusTCC === "Audit Checked" ?
-                        <form className="mr-3 hidden">
-                          <button
-                            className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
-                            type="submit"
-                          >
-                            Audit Check
-                          </button>
-                        </form> :
-                        <form onSubmit={AuditChecked} className=" mr-3">
-                          <button
-                            className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
-                            type="submit"
-                          >
-                            Audit Check
-                          </button>
-                        </form>
-                      }
-                    </div>
-
-                  </div> : ""
-                }
-              </div>
-            }
-          </div>
-
+          }
           <div className="flex border mb-3 block p-3 rounded-lg bg-white w-full">
 
             <div className="">

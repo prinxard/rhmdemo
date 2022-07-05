@@ -113,7 +113,7 @@ export default function index() {
                                 </div>
                             </div>
                         </div>
-                        <div className="mt-6 mr-3 self-center">
+                        <div className="mt-6 mr-6">
                             <QRCode
                                 value={`https://irs.kg.gov.ng/verify/verify_receipt.php?ref=${el.ref}`}
                                 size={120}
