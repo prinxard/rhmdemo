@@ -252,7 +252,6 @@ export const ViewSingleTccPrintTable = ({
   let Issdue_date = new Date(Issdate)
   let dateIssue = dateformat(Issdue_date, "dd mmm yyyy")
 
-  console.log("printPrintTime", printPrintTime);
 
   setAuthToken();
   let ChangePrint = (e) => {

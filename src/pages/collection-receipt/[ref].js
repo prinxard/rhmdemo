@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { CoatOfArms, KgirsLogo, KogiGov, Signature } from '../../components/Images/Images'
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -8,10 +8,13 @@ import setAuthToken from '../../functions/setAuthToken';
 import { formatNumber } from "../../functions/numbers";
 import Loader from "react-loader-spinner";
 import QRCode from 'react-qr-code';
+import ReactToPrint from "react-to-print";
+
 
 export default function index() {
     const [colData, setColData] = useState([]);
     const router = useRouter();
+    const componentRef = useRef();
     useEffect(() => {
         if (router && router.query) {
             let paymentID = router.query.ref;
@@ -55,12 +58,27 @@ export default function index() {
     // })
     // console.log("amount", amount);
     // let wordVal = NumInWords(amount)
-    console.log("colData", colData);
 
     return (
         <div className='rounded-lg p-6 bg-white border border-gray-100 dark:bg-gray-900 dark:border-gray-800'>
+            <div className="m-3 flex justify-end">
+                <div>
+                    <ReactToPrint
+                        // pageStyle='@page { size: auto; margin: 0mm; } @media print { body { -webkit-print-color-adjust: exact; padding: 40px !important; } }'
+                        pageStyle="@page { size: 7.5in 13in  }"
+                        trigger={() => <button className="btn w-32 bg-green-600 btn-default text-white
+                            btn-outlined bg-transparent rounded-md"
+                            type="submit"
+                        >
+                            Print
+                        </button>}
+                        content={() => componentRef.current}
+                    />
+                </div>
+
+            </div>
             {colData.map((el, i) => (
-                <div className="border p-6">
+                <div className="border p-6" ref={componentRef}>
                     <p>KOGI STATE GOVERNMENT</p>
                     <section className="flex justify-between">
                         <p className="font-bold">REVENUE RECEIPT</p>
@@ -88,14 +106,14 @@ export default function index() {
                                 <p className="font-bold col-span-2">{el.taxpayerAddress}</p>
                             </div>
                             <div className="flex mt-10">
-                                <div className='w-16 border-b-2 border-black'>
+                                <div className='w-16 border-b-2'>
                                 </div>
                                 <p className='align-self-center'>Details</p>
-                                <div className="border-b-2 w-3/4 border-black">
+                                <div className="border-b-2 w-3/4 ">
                                 </div>
                             </div>
                         </div>
-                        <div className="mt-6 mr-6">
+                        <div className="mt-6 mr-3">
                             <QRCode
                                 value={`https://irs.kg.gov.ng/verify/verify_receipt.php?ref=${el.ref}`}
                                 size={120}
@@ -136,7 +154,7 @@ export default function index() {
                             <p>TAX STATION:</p>
                             <p className="font-bold"> {el.station} </p>
                         </div>
-                        <div className="border-b-2 mt-3 w-4/4 border-black">
+                        <div className="border-b-2 mt-3 w-4/4 ">
                         </div>
                     </div>
 
