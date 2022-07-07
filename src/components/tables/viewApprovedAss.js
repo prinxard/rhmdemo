@@ -202,13 +202,6 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
                   setAssessId(rowData.assessment_id)
                   setModal(true)
                 },
-                icon: Refresh,
-                tooltip: 'Revise Assessment',
-                onClick: (event, rowData) => {
-                  event.preventDefault()
-                  setAssessId(rowData.assessment_id)
-                  setModal(true)
-                }
               };
             }
             else {
@@ -224,14 +217,14 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
                 }
               };
             }
-          }
-          // {
-          //   icon: 'save',
-          //   tooltip: 'Save User',
-          //   onClick: (event, rowData) => alert("You saved " + rowData.name)
-          // },
+          },
+          {
+            icon: Refresh,
+            tooltip: 'Save User',
+            onClick: (event, rowData) => alert("You saved " + rowData.name)
+          },
           // rowData => ({
-          //   icon: 'delete',
+          //   icon: Refresh,
           //   tooltip: 'Delete User',
           //   onClick: (event, rowData) => confirm("You want to delete " + rowData.name),
           //   disabled: rowData.birthYear < 2000
