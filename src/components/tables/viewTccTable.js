@@ -164,7 +164,7 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
   const Audit = [21, 1]
   const decoded = jwt.decode(auth);
   const userGroup = decoded.groups
-  // console.log("usergroup", userGroup);
+
 
   const declinePopup = (e) => {
     // e.preventDefault()
@@ -338,7 +338,198 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
       )}
       <Widget>
         <div>
-          {statusTCC === "Declined" ? <div className="">
+          {statusTCC === "Declined" ?
+            <div className="">
+              <p className="font-bold">Reason for decline</p>
+              {payerDetails.map((el) => (
+                <p className="mb-3">{el.comments}</p>
+              ))}
+            </div> :
+            <div className="mb-6">
+              <div>
+                {statusTCC === "Draft" ?
+                  <div className="flex justify-between">
+                    <div className="flex mr-3">
+                      <button
+                        className="btn bg-green-600 mr-2 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                      >
+                        <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
+                      </button>
+
+                      <button
+                        className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                      >
+                        <Link href={`/tcc/${tccID}`}> Upload Docs</Link>
+                      </button>
+
+                    </div>
+                    {userGroup.some(r => verify.includes(r)) ?
+                      <form onSubmit={VerifyTcc} className=" mr-3">
+                        <button
+                          className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
+                          type="submit"
+                        >
+                          Verify
+                        </button>
+                      </form> : ""}
+
+                  </div> : ""
+                }
+              </div>
+              <div>
+                {statusTCC === "Verified" ?
+                  <div className="flex justify-between">
+                    <div className="flex mr-3">
+                      <button
+                        className="btn bg-green-600 mr-2 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                      >
+                        <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
+                      </button>
+
+                      <button
+                        className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                      >
+                        <Link href={`/tcc/${tccID}`}> Upload Docs</Link>
+                      </button>
+
+                    </div>
+                    {userGroup.some(r => Audit.includes(r)) ?
+
+                      <form onSubmit={AuditChecked} className=" mr-3">
+                        <button
+                          className="btn bg-green-400  mr-3 btn-default text-white btn-outlined bg-transparent rounded-md"
+                          type="submit"
+                        >
+                          Audit Check
+                        </button>
+                      </form> : ""}
+                  </div> : ""
+                }
+              </div>
+              <div>
+                {statusTCC === "Audit Checked" ?
+                  <div className="flex justify-between">
+                    <div className="flex mr-3">
+                      <button
+                        className="btn bg-green-600 mr-2 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                      >
+                        <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
+                      </button>
+
+                      <button
+                        className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                      >
+                        <Link href={`/tcc/${tccID}`}> Upload Docs</Link>
+                      </button>
+
+                    </div>
+                    {userGroup.some(r => Approval.includes(r)) ?
+                      <div className="flex">
+                        <form onSubmit={Approve} className=" mr-3">
+                          <button
+                            className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                            type="submit"
+                          >
+                            Approve
+                          </button>
+                        </form>
+                        <div className=" mr-3">
+                          <button onClick={declinePopup}
+                            className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+
+                          >
+                            Decline
+                          </button>
+                        </div>
+                      </div> : ""}
+                  </div>
+                  : ""
+                }
+              </div>
+              <div>
+                {statusTCC === "Approved" ?
+                  <div className="flex justify-between">
+                    <div className="flex mr-3">
+                      <button
+                        className="btn bg-green-600 mr-2 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                      >
+                        <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
+                      </button>
+
+                      <button
+                        className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                      >
+                        <Link href={`/tcc/${tccID}`}> Upload Docs</Link>
+                      </button>
+
+                    </div>
+                    {userGroup.some(r => chairman.includes(r)) ?
+
+                      <form onSubmit={PrintAuthorized} className=" mr-3">
+                        <button
+                          className="btn bg-green-400  mr-3 btn-default text-white btn-outlined bg-transparent rounded-md"
+                          type="submit"
+                        >
+                          Sign
+                        </button>
+                      </form> : ""}
+                  </div> : ""
+                }
+              </div>
+              <div>
+                {statusTCC === "Print Authorized" ?
+                  <div className="flex justify-between">
+                    <div className="flex mr-3">
+                      <button
+                        className="btn bg-green-600 mr-2 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                      >
+                        <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
+                      </button>
+
+                      <button
+                        className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                      >
+                        <Link href={`/tcc/${tccID}`}> Upload Docs</Link>
+                      </button>
+
+                    </div>
+                  </div> : ""
+                }
+              </div>
+            </div>
+            // <div className="mb-6 flex justify-between">
+            //   <div></div>
+            //   <div className="flex">
+            //     <form onSubmit={Approve} className=" mr-3">
+            //       <button
+            //         className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+            //         type="submit"
+            //       >
+            //         Approve
+            //       </button>
+            //     </form>
+            //     <div className=" mr-3">
+            //       <button onClick={declinePopup}
+            //         className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+
+            //       >
+            //         Decline
+            //       </button>
+            //     </div>
+            //   </div>
+            // </div>
+          }
+          {/* {statusTCC === "Declined" ? <div className="">
             <p className="font-bold">Reason for decline</p>
             {payerDetails.map((el) => (
               <p className="mb-3">{el.comments}</p>
@@ -595,7 +786,7 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
               }
 
             </div>
-          }
+          } */}
           <div className="flex border mb-3 block p-3 rounded-lg bg-white w-full">
 
             <div className="">
