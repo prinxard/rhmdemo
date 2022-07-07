@@ -105,7 +105,7 @@ export default function Reportstable({ FilteredData }) {
                 renderSummaryRow={({ column, data }) =>
                     column.field === "amount"
                         ? {
-                            value: data.reduce((agg, row) => agg + ((Number(row.amount))), 0),
+                            value: formatNumber(data.reduce((agg, row) => Number(agg) + (Number(row.amount)), 0)),
                             style: { fontWeight: "bold" },
                         }
                         : undefined
@@ -114,16 +114,11 @@ export default function Reportstable({ FilteredData }) {
                     search: false,
                     paging: true,
                     filtering: true,
-                    // exportButton: {
-                    //     csv: true,
-                    //     pdf: false
-                    // },
+                    exportButton: {
+                        csv: true,
+                        pdf: false
+                    },
                     exportMenu: [
-                        // {
-                        //     label: "Export PDF",
-                        //     exportFunc: (cols, datas) =>
-                        //         ExportPdf(cols, datas, "myPdfFileName"),
-                        // },
                         {
                             label: "Export CSV",
                             exportFunc: (cols, datas) =>

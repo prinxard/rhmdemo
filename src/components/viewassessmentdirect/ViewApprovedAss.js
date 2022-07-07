@@ -32,6 +32,7 @@ const ViewApprovedAss = () => {
       try {
         let res = await axios.get(`${url.BASE_URL}forma/list-assessment?assmt=Approved`);
         res = res.data.body.assessmentApproved;
+        console.log("Res", res);
         let records = [];
         for (let i = 0; i < res.length; i++) {
           let rec = res[i];

@@ -14,7 +14,7 @@ import Remove from '@material-ui/icons/Remove'
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Clear from "@material-ui/icons/Clear";
 import MaterialTable from "material-table";
-import { Delete, WarningRounded } from "@material-ui/icons";
+import { Delete, WarningRounded, Refresh } from "@material-ui/icons";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from "react-loader-spinner";
@@ -191,7 +191,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
         data={items}
         columns={fields}
         actions={[
-          (delData) => {
+          () => {
             if (userGroup.some(r => DeleteRange.includes(r))) {
               return {
 
@@ -201,9 +201,17 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
                   event.preventDefault()
                   setAssessId(rowData.assessment_id)
                   setModal(true)
+                },
+                icon: Refresh,
+                tooltip: 'Revise Assessment',
+                onClick: (event, rowData) => {
+                  event.preventDefault()
+                  setAssessId(rowData.assessment_id)
+                  setModal(true)
                 }
               };
-            } else {
+            }
+            else {
               return {
 
                 icon: Delete,
@@ -216,8 +224,18 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
                 }
               };
             }
-
           }
+          // {
+          //   icon: 'save',
+          //   tooltip: 'Save User',
+          //   onClick: (event, rowData) => alert("You saved " + rowData.name)
+          // },
+          // rowData => ({
+          //   icon: 'delete',
+          //   tooltip: 'Delete User',
+          //   onClick: (event, rowData) => confirm("You want to delete " + rowData.name),
+          //   disabled: rowData.birthYear < 2000
+          // })
         ]}
 
         options={{

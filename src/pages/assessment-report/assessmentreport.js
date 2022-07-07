@@ -1,5 +1,5 @@
-import MaterialTable from "material-table";
-// import MaterialTable from '@material-table/core';
+// import MaterialTable from "material-table";
+import MaterialTable from '@material-table/core';
 import Search from '@material-ui/icons/Search'
 import ViewColumn from '@material-ui/icons/ViewColumn'
 import SaveAlt from '@material-ui/icons/SaveAlt'
@@ -54,7 +54,9 @@ const fields = [
   },
   {
     title: "Amount Paid",
-    field: "taxPaidFormatted",
+    field: "taxPaid",
+    render: (taxPaid) => formatNumber(taxPaid.taxPaid)
+
   },
   {
     title: "Balance",
@@ -62,8 +64,8 @@ const fields = [
     render: rowData => {
       return (
         rowData.balance < "0" ? <p style={{ color: "#FF0000", fontWeight: "bold" }}>{rowData.balance}</p> :
-        rowData.balance > "0" ? <p style={{ color: "#8fce00", fontWeight: "bold" }}>{`+${rowData.balance}`}</p> :
-          <p>{rowData.balance}</p>
+          rowData.balance > "0" ? <p style={{ color: "#8fce00", fontWeight: "bold" }}>{`+${rowData.balance}`}</p> :
+            <p>{rowData.balance}</p>
       )
     }
   },
@@ -115,6 +117,14 @@ export default function AssessmentReportstable({ FilteredData }) {
       <MaterialTable title="Report Data"
         data={items}
         columns={fields}
+        renderSummaryRow={({ column, data }) =>
+          column.field === "taxPaid"
+            ? {
+              value: formatNumber(data.reduce((agg, row) => Number(agg) + (Number(row.taxPaid)), 0)),
+              style: { fontWeight: "bold" },
+            }
+            : undefined
+        }
         options={{
           search: false,
           paging: true,
