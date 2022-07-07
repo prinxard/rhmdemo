@@ -159,7 +159,7 @@ export const StartReportView = () => {
 
           <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
             <div className="w-full lg:w-1/3 max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
-              
+
               <div className="mb-2">
                 <p className="font-bold text-center my-2">Search by IDs</p>
                 <label className="" htmlFor="kgtin"> Taxpayer ID</label>
@@ -196,11 +196,7 @@ export const StartReportView = () => {
                   </select>
                 </div>
 
-                <div className="form-group hidden">
-                  <p className="text-center">Payment Channel</p>
-                  <input type="text" ref={register()} name="channel_id" className="form-control w-full rounded font-light text-gray-500"
-                  />
-                </div>
+
               </div>
               <p className="text-center mt-3">Amount</p>
               <div className="flex gap-3">
@@ -226,8 +222,22 @@ export const StartReportView = () => {
                 </div>
 
               </div>
+              <div className="form-group mt-2">
+                <p className="text-center">Payment Channel</p>
+                <select name="channel_id" id="" ref={register()} className="form-control w-full rounded font-light text-gray-500">
+                  <option value="">Select</option>
+                  <option value="Bank">Bank</option>
+                  <option value="eTransact">eTransact</option>
+                  <option value="PayDirect">PayDirect</option>
+                  <option value="Paystack">Paystack</option>
+                  <option value="Remita">Remita</option>
+                  <option value="WebPay">WebPay</option>
+                </select>
+                {/* <input type="text" ref={register()} name="channel_id" className="form-control w-full rounded font-light text-gray-500"
+                  /> */}
+              </div>
             </div>
-            
+
 
             <div className="w-full lg:w-2/3">
               <div className="overflow-x-auto max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">

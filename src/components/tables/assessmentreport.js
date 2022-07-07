@@ -289,6 +289,7 @@ export const StartAssessmentReportView = () => {
                   <option value="Fully Paid">Fully Paid</option>
                 </select>
               </div>
+            
             </div>
 
             <div className="w-full lg:w-2/3">
