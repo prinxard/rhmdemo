@@ -23,6 +23,7 @@ import axios from "axios";
 import setAuthToken from "../../functions/setAuthToken";
 import { shallowEqual, useSelector } from "react-redux";
 import jwt from "jsonwebtoken";
+import { Router, useRouter } from "next/router";
 
 
 const fields = [
@@ -94,6 +95,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
   const [modal, setModal] = useState(false);
   const [assessId, setAssessId] = useState('');
   const [isFetching, setIsFetching] = useState(() => false);
+  const router = useRouter();
 
 
   const { config, palettes, auth } = useSelector(
@@ -194,7 +196,6 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
           () => {
             if (userGroup.some(r => DeleteRange.includes(r))) {
               return {
-
                 icon: Delete,
                 tooltip: 'Delete Assessment',
                 onClick: (event, rowData) => {
@@ -220,9 +221,9 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
           },
           {
             icon: Refresh,
-            tooltip: 'Save User',
-            onClick: (event, rowData) => alert("You saved " + rowData.name),
-            hidden: true
+            tooltip: 'Revise Assessment',
+            onClick: (event, rowData) => router.push(`/revise-assessment/${rowData.kgtin}`),
+            // hidden: true
           },
           // rowData => ({
           //   icon: Refresh,
