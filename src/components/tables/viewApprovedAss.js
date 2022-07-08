@@ -221,7 +221,8 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
           {
             icon: Refresh,
             tooltip: 'Save User',
-            onClick: (event, rowData) => alert("You saved " + rowData.name)
+            onClick: (event, rowData) => alert("You saved " + rowData.name),
+            hidden: true
           },
           // rowData => ({
           //   icon: Refresh,
