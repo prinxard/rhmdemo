@@ -268,7 +268,6 @@ export const StartAssessment = () => {
               <div className="w-full lg:w-4/5 ">
                 {/* <p>Select Type</p> */}
                 <select ref={register()} name="type" id="">
-                  <option value="">Select type</option>
                   <option value="Assessment">Assessment</option>
                   <option value="BOJ">BOJ Assessment</option>
                 </select>
