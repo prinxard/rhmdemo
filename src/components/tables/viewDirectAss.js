@@ -42,6 +42,10 @@ const columns = [
     field: "kgtin",
   },
   {
+    title: "Assesment Id",
+    field: "assessment_id",
+  },
+  {
     title: "Taxpayer Name",
     field: "tp_name",
   },

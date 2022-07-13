@@ -14,7 +14,7 @@ import Remove from '@material-ui/icons/Remove'
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Clear from "@material-ui/icons/Clear";
 import MaterialTable from "material-table";
-import { Delete, WarningRounded } from "@material-ui/icons";
+import { Delete, WarningRounded, Refresh } from "@material-ui/icons";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from "react-loader-spinner";
@@ -23,6 +23,7 @@ import axios from "axios";
 import setAuthToken from "../../functions/setAuthToken";
 import { shallowEqual, useSelector } from "react-redux";
 import jwt from "jsonwebtoken";
+import { Router, useRouter } from "next/router";
 
 
 const fields = [
@@ -94,6 +95,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
   const [modal, setModal] = useState(false);
   const [assessId, setAssessId] = useState('');
   const [isFetching, setIsFetching] = useState(() => false);
+  const router = useRouter();
 
 
   const { config, palettes, auth } = useSelector(
@@ -191,19 +193,19 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
         data={items}
         columns={fields}
         actions={[
-          (delData) => {
+          () => {
             if (userGroup.some(r => DeleteRange.includes(r))) {
               return {
-
                 icon: Delete,
                 tooltip: 'Delete Assessment',
                 onClick: (event, rowData) => {
                   event.preventDefault()
                   setAssessId(rowData.assessment_id)
                   setModal(true)
-                }
+                },
               };
-            } else {
+            }
+            else {
               return {
 
                 icon: Delete,
@@ -216,8 +218,19 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
                 }
               };
             }
-
-          }
+          },
+          {
+            icon: Refresh,
+            tooltip: 'Revise Assessment',
+            onClick: (event, rowData) => router.push(`/revise-assessment/${rowData.kgtin}`),
+            // hidden: true
+          },
+          // rowData => ({
+          //   icon: Refresh,
+          //   tooltip: 'Delete User',
+          //   onClick: (event, rowData) => confirm("You want to delete " + rowData.name),
+          //   disabled: rowData.birthYear < 2000
+          // })
         ]}
 
         options={{
