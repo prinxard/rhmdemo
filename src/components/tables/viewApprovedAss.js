@@ -223,7 +223,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
             icon: Refresh,
             tooltip: 'Revise Assessment',
             onClick: (event, rowData) => router.push(`/revise-assessment/${rowData.kgtin}`),
-            // hidden: true
+            hidden: true
           },
           // rowData => ({
           //   icon: Refresh,
