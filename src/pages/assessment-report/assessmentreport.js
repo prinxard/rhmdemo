@@ -1,5 +1,5 @@
-// import MaterialTable from "material-table";
-import MaterialTable from '@material-table/core';
+import MaterialTable from "material-table";
+// import MaterialTable from '@material-table/core';
 import Search from '@material-ui/icons/Search'
 import ViewColumn from '@material-ui/icons/ViewColumn'
 import SaveAlt from '@material-ui/icons/SaveAlt'
@@ -117,28 +117,18 @@ export default function AssessmentReportstable({ FilteredData }) {
       <MaterialTable title="Report Data"
         data={items}
         columns={fields}
-        renderSummaryRow={({ column, data }) =>
-          column.field === "taxPaid"
-            ? {
-              value: formatNumber(data.reduce((agg, row) => Number(agg) + (Number(row.taxPaid)), 0)),
-              style: { fontWeight: "bold" },
-            }
-            : undefined
-        }
+        // renderSummaryRow={({ column, data }) =>
+        //   column.field === "taxPaid"
+        //     ? {
+        //       value: formatNumber(data.reduce((agg, row) => Number(agg) + (Number(row.taxPaid)), 0)),
+        //       style: { fontWeight: "bold" },
+        //     }
+        //     : undefined
+        // }
         options={{
           search: false,
           paging: true,
           filtering: true,
-          // rowStyle: (rowData) => {
-          //     if (rowData.status === "Printed") {
-          //         return {
-          //             color: "#5f9f45",
-          //             backgroundColor: "#156448",
-          //         }
-          //     } else {
-          //         return {};
-          //     }
-          // },
           exportButton: {
             csv: true,
             pdf: false

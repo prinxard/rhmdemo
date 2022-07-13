@@ -1,5 +1,5 @@
-// import MaterialTable from "material-table";
-import MaterialTable from '@material-table/core';
+import MaterialTable from "material-table";
+// import MaterialTable from '@material-table/core';
 import ExportCsv from '@material-table/exporters/csv'
 import Search from '@material-ui/icons/Search'
 import ViewColumn from '@material-ui/icons/ViewColumn'
@@ -102,14 +102,14 @@ export default function Reportstable({ FilteredData }) {
             <MaterialTable title="Report Data"
                 data={items}
                 columns={fields}
-                renderSummaryRow={({ column, data }) =>
-                    column.field === "amount"
-                        ? {
-                            value: formatNumber(data.reduce((agg, row) => Number(agg) + (Number(row.amount)), 0)),
-                            style: { fontWeight: "bold" },
-                        }
-                        : undefined
-                }
+                // renderSummaryRow={({ column, data }) =>
+                //     column.field === "amount"
+                //         ? {
+                //             value: formatNumber(data.reduce((agg, row) => Number(agg) + (Number(row.amount)), 0)),
+                //             style: { fontWeight: "bold" },
+                //         }
+                //         : undefined
+                // }
                 options={{
                     search: false,
                     paging: true,
@@ -118,14 +118,14 @@ export default function Reportstable({ FilteredData }) {
                         csv: true,
                         pdf: false
                     },
-                    exportMenu: [
-                        {
-                            label: "Export CSV",
-                            exportFunc: (cols, datas) =>
-                                ExportCsv(cols, datas, "myCsvFileName"),
-                        },
-                    ],
                     exportAllData: true,
+                    // exportMenu: [
+                    //     {
+                    //         label: "Export CSV",
+                    //         exportFunc: (cols, datas) =>
+                    //             ExportCsv(cols, datas, "myCsvFileName"),
+                    //     },
+                    // ],
 
                 }}
 
