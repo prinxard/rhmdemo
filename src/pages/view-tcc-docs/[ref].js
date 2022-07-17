@@ -5,11 +5,14 @@ import setAuthToken from "../../functions/setAuthToken";
 import axios from "axios";
 import Loader from 'react-loader-spinner';
 import SectionTitle from '../../components/section-title';
+import Link from 'next/link';
 
 const ViewDocumentsTcc = () => {
     const router = useRouter();
     const [isFetching, setIsFetching] = useState(() => true);
     const [uploads, setUploads] = useState([])
+    const [idTcc, setIdTcc] = useState('')
+
 
     const uploadBase = 'https://annualuploads.bespoque.dev/rhm-live/uploads/da/tcc/'
 
@@ -56,6 +59,7 @@ const ViewDocumentsTcc = () => {
     useEffect(() => {
         if (router && router.query) {
             let tCCId = router.query.ref;
+            setIdTcc(tCCId)
             let userId = {
                 id: `${tCCId}`
             }
@@ -77,6 +81,12 @@ const ViewDocumentsTcc = () => {
     return (
 
         <>
+            <button className="btn bg-green-600 btn-default text-white
+            btn-outlined bg-transparent rounded-md"
+                type="submit"
+            >
+                <Link href={`/view/listtcc/${idTcc}`}>Back</Link>
+            </button>
             <SectionTitle title="View TCC Uploads" subtitle="TCC Documents " />
 
             {isFetching ? (
@@ -113,7 +123,7 @@ const ViewDocumentsTcc = () => {
 
                     </div>
                     <hr />
-                    <div className="grid justify-items-start">
+                    {/* <div className="grid justify-items-start">
 
                         <div className="font-semibold">
                             PaySlip
@@ -127,7 +137,7 @@ const ViewDocumentsTcc = () => {
                             ))}
                         </div>
 
-                    </div>
+                    </div> */}
                     <hr />
 
                     <div className="grid justify-items-start">
@@ -147,7 +157,7 @@ const ViewDocumentsTcc = () => {
                     </div>
                     <hr />
 
-                    <div className="grid justify-items-start">
+                    {/* <div className="grid justify-items-start">
 
                         <div className="font-semibold">
                             ID Card
@@ -161,7 +171,7 @@ const ViewDocumentsTcc = () => {
                             ))}
                         </div>
 
-                    </div>
+                    </div> */}
                     <hr />
                     <div className="grid justify-items-start">
 
@@ -179,7 +189,7 @@ const ViewDocumentsTcc = () => {
 
                     </div>
                     <hr />
-                    <div className="grid justify-items-start">
+                    {/* <div className="grid justify-items-start">
 
                         <div className="font-semibold">
                             Introduction Letter
@@ -193,7 +203,7 @@ const ViewDocumentsTcc = () => {
                             ))}
                         </div>
 
-                    </div>
+                    </div> */}
                     <hr />
                     <div className="grid justify-items-start">
 

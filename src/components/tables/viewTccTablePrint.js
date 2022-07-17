@@ -323,9 +323,11 @@ export const ViewSingleTccPrintTable = ({
               {/* <div className="flex justify-end">
                 <p className="border font-bold p-2 text-center w-64">KGIRS/PAYE/TCC/202202/81</p>
               </div> */}
-              <div className="flex justify-end">
-                <p className="border font-bold p-2 text-center w-64">{`REF - ${fileRef}`}</p>
-              </div>
+              {payerDetails.map((ind, i) => (
+                <div className="flex justify-end">
+                  <p className="border font-bold p-2 text-center w-64">{`File No - ${ind.file_ref}`}</p>
+                </div>
+              ))}
 
               {payerDetails.map((ind, i) => (
                 <div>

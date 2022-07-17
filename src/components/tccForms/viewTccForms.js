@@ -1161,7 +1161,7 @@ export const UploadTccForms = ({ tccId }) => {
           </form>
 
           <hr className="mb-2" />
-
+{/* 
           <form onSubmit={handleSubmit(onSubmitform2)}>
             <div className="flex justify-between mb-5">
               <p>Payslip or salary schedule</p>
@@ -1193,12 +1193,6 @@ export const UploadTccForms = ({ tccId }) => {
                   Submit
                 </button>
 
-                {/* {submitting2 ?
-                  <div className='mb-2 w-24'>
-                    <Progress percentage={uploadPercentage2} />
-                  </div>
-                  : ''} */}
-
                 {uploadedFile2 ? (
                   <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
                     <FiCheck
@@ -1209,7 +1203,7 @@ export const UploadTccForms = ({ tccId }) => {
 
               </div>
             </div>
-          </form>
+          </form> */}
 
           <hr className="mb-2" />
 
@@ -1266,7 +1260,7 @@ export const UploadTccForms = ({ tccId }) => {
 
           <hr className="mb-2" />
 
-          <form onSubmit={handleSubmit(onSubmitform4)} >
+          {/* <form onSubmit={handleSubmit(onSubmitform4)} >
             <div className="flex justify-between mb-5">
               <p>Staff ID Card </p>
               <input
@@ -1294,16 +1288,12 @@ export const UploadTccForms = ({ tccId }) => {
                   style={{ backgroundColor: "#84abeb" }}
                   className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
                   type="submit"
-                // disabled={disabled3}
+               
                 >
                   Submit
                 </button>
 
-                {/* {submitting3 ?
-                  <div className='mb-2 w-24'>
-                    <Progress percentage={uploadPercentage3} />
-                  </div>
-                  : ''} */}
+           
 
                 {uploadedFile4 ? (
                   <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
@@ -1315,7 +1305,7 @@ export const UploadTccForms = ({ tccId }) => {
 
               </div>
             </div>
-          </form>
+          </form> */}
 
           <hr className="mb-2" />
 
@@ -1352,11 +1342,7 @@ export const UploadTccForms = ({ tccId }) => {
                   Submit
                 </button>
 
-                {/* {submitting3 ?
-                  <div className='mb-2 w-24'>
-                    <Progress percentage={uploadPercentage3} />
-                  </div>
-                  : ''} */}
+             
 
                 {uploadedFile5 ? (
                   <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
@@ -1372,7 +1358,7 @@ export const UploadTccForms = ({ tccId }) => {
 
           <hr className="mb-2" />
 
-          <form onSubmit={handleSubmit(onSubmitform6)}>
+          {/* <form onSubmit={handleSubmit(onSubmitform6)}>
             <div className="flex justify-between mb-5">
               <p>Letter of Introduction </p>
               <input
@@ -1400,16 +1386,10 @@ export const UploadTccForms = ({ tccId }) => {
                   style={{ backgroundColor: "#84abeb" }}
                   className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
                   type="submit"
-                // disabled={disabled3}
                 >
                   Submit
                 </button>
 
-                {/* {submitting3 ?
-                  <div className='mb-2 w-24'>
-                    <Progress percentage={uploadPercentage3} />
-                  </div>
-                  : ''} */}
 
                 {uploadedFile6 ? (
                   <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
@@ -1421,7 +1401,7 @@ export const UploadTccForms = ({ tccId }) => {
 
               </div>
             </div>
-          </form>
+          </form> */}
 
           <hr className="mb-2" />
 

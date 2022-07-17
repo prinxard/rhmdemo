@@ -339,11 +339,19 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
       <Widget>
         <div>
           {statusTCC === "Declined" ?
-            <div className="">
-              <p className="font-bold">Reason for decline</p>
-              {payerDetails.map((el) => (
-                <p className="mb-3">{el.comments}</p>
-              ))}
+            <div className="flex justify-between">
+              <button
+                className="btn bg-green-600 mb-3 btn-default text-white btn-outlined bg-transparent rounded-md"
+                type="submit"
+              >
+                <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
+              </button>
+              <div>
+                <p className="font-bold">Reason for decline</p>
+                {payerDetails.map((el) => (
+                  <p className="mb-3">{el.comments}</p>
+                ))}
+              </div>
             </div> :
             <div className="mb-6">
               <div>
@@ -366,14 +374,26 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
 
                     </div>
                     {userGroup.some(r => verify.includes(r)) ?
-                      <form onSubmit={VerifyTcc} className=" mr-3">
-                        <button
-                          className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
-                          type="submit"
-                        >
-                          Verify
-                        </button>
-                      </form> : ""}
+                      <div className="flex">
+
+                        <form onSubmit={VerifyTcc} className=" mr-3">
+                          <button
+                            className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
+                            type="submit"
+                          >
+                            Verify
+                          </button>
+                        </form>
+                        <div className=" mr-3">
+                          <button onClick={declinePopup}
+                            className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+
+                          >
+                            Decline
+                          </button>
+                        </div>
+                      </div>
+                      : ""}
 
                   </div> : ""
                 }
@@ -398,15 +418,26 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
 
                     </div>
                     {userGroup.some(r => Audit.includes(r)) ?
+                      <div className="flex">
+                        <form onSubmit={AuditChecked} className=" mr-3">
+                          <button
+                            className="btn bg-green-400  mr-3 btn-default text-white btn-outlined bg-transparent rounded-md"
+                            type="submit"
+                          >
+                            Audit Check
+                          </button>
+                        </form>
+                        <div className=" mr-3">
+                          <button onClick={declinePopup}
+                            className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
 
-                      <form onSubmit={AuditChecked} className=" mr-3">
-                        <button
-                          className="btn bg-green-400  mr-3 btn-default text-white btn-outlined bg-transparent rounded-md"
-                          type="submit"
-                        >
-                          Audit Check
-                        </button>
-                      </form> : ""}
+                          >
+                            Decline
+                          </button>
+                        </div>
+                      </div>
+
+                      : ""}
                   </div> : ""
                 }
               </div>
@@ -472,15 +503,26 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
 
                     </div>
                     {userGroup.some(r => chairman.includes(r)) ?
+                      <div className="flex">
+                        <form onSubmit={PrintAuthorized} className=" mr-3">
+                          <button
+                            className="btn bg-green-400  mr-3 btn-default text-white btn-outlined bg-transparent rounded-md"
+                            type="submit"
+                          >
+                            Sign
+                          </button>
+                        </form>
+                        <div className=" mr-3">
+                          <button onClick={declinePopup}
+                            className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
 
-                      <form onSubmit={PrintAuthorized} className=" mr-3">
-                        <button
-                          className="btn bg-green-400  mr-3 btn-default text-white btn-outlined bg-transparent rounded-md"
-                          type="submit"
-                        >
-                          Sign
-                        </button>
-                      </form> : ""}
+                          >
+                            Decline
+                          </button>
+                        </div>
+                      </div>
+
+                      : ""}
                   </div> : ""
                 }
               </div>
@@ -776,7 +818,7 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
                   <div>
 
                     {assessmentData3.map((ele, i) => (
-                      <input readOnly className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.year)} type="text"
+                      <input readOnly className="form-control w-full rounded" key={i} defaultValue={(ele.year)} type="text"
                       />
                     ))}
                   </div>
