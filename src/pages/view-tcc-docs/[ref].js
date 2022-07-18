@@ -13,7 +13,6 @@ const ViewDocumentsTcc = () => {
     const [uploads, setUploads] = useState([])
     const [idTcc, setIdTcc] = useState('')
 
-
     const uploadBase = 'https://annualuploads.bespoque.dev/rhm-live/uploads/da/tcc/'
 
     // const applicationLetter = uploads.map(function (doc) {
