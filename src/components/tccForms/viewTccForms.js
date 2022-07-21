@@ -1161,7 +1161,7 @@ export const UploadTccForms = ({ tccId }) => {
           </form>
 
           <hr className="mb-2" />
-{/* 
+          {/* 
           <form onSubmit={handleSubmit(onSubmitform2)}>
             <div className="flex justify-between mb-5">
               <p>Payslip or salary schedule</p>
@@ -1342,7 +1342,7 @@ export const UploadTccForms = ({ tccId }) => {
                   Submit
                 </button>
 
-             
+
 
                 {uploadedFile5 ? (
                   <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">

@@ -455,6 +455,7 @@ export const StartBOJ = () => {
                     onValueChange={(v) => fixValues3({ amount: v })}
                   />
                 </div>
+                
                 <div className="mb-2 grid grid-cols-3 gap-2">
                   <p className="font-bold">Total Income:  </p>
                   <p><span className="font-bold">{formatNumber(TotalIncome)}</span></p>

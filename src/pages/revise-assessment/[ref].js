@@ -5,6 +5,10 @@ import url from '../../config/url';
 import axios from "axios";
 import Loader from 'react-loader-spinner';
 import SectionTitle from '../../components/section-title';
+import { Controller, useFieldArray, useForm } from 'react-hook-form';
+import { FormatMoneyComponentReport } from '../../components/FormInput/formInputs';
+import { formatNumber } from '../../functions/numbers';
+import { Add, AddCircleOutlineRounded, Refresh } from '@material-ui/icons';
 
 export default function Revise() {
   const [payerDetails, setpayerDetails] = useState([]);
@@ -21,6 +25,131 @@ export default function Revise() {
   const [fixedValues4, fixValues4] = useState({ amount: 0 });
   const router = useRouter();
 
+  const {
+    register,
+    handleSubmit,
+    watch,
+    control,
+    formState: { errors },
+  } = useForm()
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'books',
+  })
+
+  let selfemplFigureInit = watch("self_employment", "")
+  let emplFigureInit = watch("employment", "");
+  let otherIncomeFigureInit = watch("other_income", "")
+
+  let selfemplFigure = selfemplFigureInit.replace(/,/g, '')
+  let emplFigure = emplFigureInit.replace(/,/g, '')
+  let otherIncomeFigure = otherIncomeFigureInit.replace(/,/g, '')
+
+  //taxcal
+  let tax;
+  let tax_paid;
+
+  ///TAX CAL
+  let employedF = emplFigure;
+  let selfEmployedF = selfemplFigure;
+  let otherIncomeF = otherIncomeFigure
+
+  let consolidatedRelief;
+  let chargeableIncome;
+  let totalRelief;
+  let totalDeduction;
+  let consolidatedIncome
+
+  let dev_levy
+
+  consolidatedIncome = (Number(selfEmployedF) + Number(employedF) + Number(otherIncomeF));
+  // console.log("Consl", consolidatedIncome);
+
+  totalRelief = 0;
+  let gross_inc = consolidatedIncome - totalRelief;
+
+  // console.log(gross_inc, ' gross')
+
+
+  if (consolidatedIncome < 300000.0) {
+    consolidatedRelief = 0;
+    //console.log(gross_inc);
+  } else {
+    consolidatedRelief = 200000 + 0.2 * gross_inc;
+    // console.log("Gross INC", gross_inc);
+  }
+
+  totalDeduction = consolidatedRelief + totalRelief;
+  chargeableIncome = consolidatedIncome - totalDeduction;
+
+  //calculate tax
+  if (consolidatedIncome <= 300000.0) {
+    tax = consolidatedIncome * 0.01;
+
+    //console.log(tax+' 1');
+  } else if (consolidatedIncome > 300000 && chargeableIncome < 300000) {
+    tax = (chargeableIncome * 0.07);
+    let taxS = (consolidatedIncome * 0.01);
+    if (tax > taxS) {
+      tax = tax
+    }
+    else {
+      tax = taxS;
+    }
+    //console.log(tax+' tax2');
+  } else if (chargeableIncome > 300000 && chargeableIncome <= 600000) {
+    tax = 300000 * 0.07 + (chargeableIncome - 300000) * 0.11;
+
+    //console.log(tax+' tax3');
+  } else if (chargeableIncome > 600000 && chargeableIncome <= 1100000) {
+    tax = 300000 * 0.07 + 300000 * 0.11 + (chargeableIncome - 600000) * 0.15;
+
+    //console.log(tax + ' 4');
+  } else if (chargeableIncome > 1100000 && chargeableIncome <= 1600000) {
+    tax =
+      300000 * 0.07 +
+      300000 * 0.11 +
+      500000 * 0.15 +
+      (chargeableIncome - 1100000) * 0.19;
+
+    //console.log(tax + ' 5');
+  } else if (chargeableIncome > 1600000 && chargeableIncome <= 3200000) {
+    tax =
+      300000 * 0.07 +
+      300000 * 0.11 +
+      500000 * 0.15 +
+      500000 * 0.19 +
+      (chargeableIncome - 1600000) * 0.21;
+
+    //console.log(tax + ' 6');
+  } else if (chargeableIncome > 3200000) {
+    tax =
+      300000 * 0.07 +
+      300000 * 0.11 +
+      500000 * 0.15 +
+      500000 * 0.19 +
+      1600000 * 0.21 +
+      (chargeableIncome - 3200000) * 0.24;
+
+    //console.log(tax + ' 7');
+  }
+
+  tax = tax;
+  // console.log(tax, ' 2')
+  // tax = parseInt(tax);
+  // tax = (tax).toFixed(2);
+  tax_paid = tax;
+
+  let JsonTax = String(tax_paid)
+
+  if (tax_paid <= 50000) {
+    dev_levy = "500"
+  } else {
+    dev_levy = "1000"
+  }
+
+  let TotalIncome = Number(emplFigure) + Number(selfemplFigure) + Number(otherIncomeFigure)
 
   useEffect(() => {
     if (router && router.query) {
@@ -75,7 +204,7 @@ export default function Revise() {
           {/* <a href="" className="text-blue-600 self-center">Edit</a> */}
         </div>
         <p className="mb-3 font-bold"></p>
-        <form>
+        <div>
           <div className="grid grid-cols-3 gap-4">
             <div className="">
               <p>Name</p>
@@ -123,8 +252,188 @@ export default function Revise() {
                 value={payerDetails.address} disabled />
             </div>
           </div>
-        </form>
+        </div>
       </div>
+
+      <div className="mb-3">
+
+        <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
+          <div className="w-full lg:w-1/2 max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
+            <div className="mb-2">
+              <label className="" htmlFor="kgtin"> Assessment ID</label>
+              <input type="text" ref={register()} name="assessment_id" className="form-control w-full rounded font-light text-gray-500"
+              />
+            </div>
+            <div className="mb-2">
+              <label className="" htmlFor="kgtin"> Reason for revised assessment</label>
+              <textarea ref={register()} name="ref" className="form-control w-full rounded font-light text-gray-500"
+              > </textarea>
+            </div>
+
+            <div className="">
+              <hr />
+            </div>
+
+            <div className="my-2 grid grid-cols-2 gap-2">
+              <label className="self-center">Self Employment Income:</label>
+              <FormatMoneyComponentReport
+                ref={register()}
+                name="self_employment"
+                control={control}
+                defaultValue={""}
+                onValueChange={(v) => fixValues({ amount: v })}
+                placeholder="₦ Enter Income"
+              />
+            </div>
+            <div className="mb-2 grid grid-cols-2 gap-2">
+              <label className="self-center"> Employment Income:</label>
+              <FormatMoneyComponentReport
+                ref={register()}
+                name="employment"
+                control={control}
+                defaultValue={""}
+                onValueChange={(v) => fixValues2({ amount: v })}
+                placeholder="₦ Enter Income"
+              />
+            </div>
+
+            <div className="mb-2 grid grid-cols-2 gap-2">
+              <label className="self-center">Other Income:</label>
+              <FormatMoneyComponentReport
+                ref={register()}
+                name="other_income"
+                control={control}
+                defaultValue={""}
+                onValueChange={(v) => fixValues3({ amount: v })}
+                placeholder="₦ Enter Income"
+              />
+            </div>
+            <div className="mb-2 grid grid-cols-2 gap-2">
+              <label className="self-center font-bold">Total Income:</label>
+              <p className="font-bold">{formatNumber(TotalIncome)}</p>
+            </div>
+            <div className="mb-2 grid grid-cols-2 gap-2">
+              <label className="self-center font-bold">Tax:</label>
+              <p className="font-bold">{formatNumber(JsonTax)}</p>
+            </div>
+            <div className="mb-2 grid grid-cols-2 gap-2">
+              <label className="self-center font-bold">Dev levy:</label>
+              <p className="font-bold">{formatNumber(dev_levy)}</p>
+            </div>
+            <div className="mb-2 grid grid-cols-2 gap-2">
+              <label className="self-center font-bold">Total Tax Due for Payment:</label>
+              <p className="font-bold">{formatNumber(Number(JsonTax) + Number(dev_levy))}</p>
+            </div>
+          </div>
+
+
+          <div className="w-full lg:w-1/2">
+            <div className="overflow-x-auto max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
+              <p className="font-bold text-center mb-5">Upload Supporting Documents</p>
+
+              <form>
+                <div className="flex justify-between mb-5">
+                  <p>Application letter </p>
+                  <input
+                    type="file"
+                    className="hidden"
+                    id='customFile'
+                    name="application_letter"
+                    // ref={register()}
+                    // onChange={onChange}
+                    // onClick={(e) => (e.target.value = null)}
+                    required
+                  />
+
+                  <div className="flex justify-evenly">
+
+                    {/* <p className="self-center">{file ? file.name : ""}</p> */}
+
+                    <label
+                      htmlFor='customFile'
+                      style={{ backgroundColor: "#84abeb" }}
+                      className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                    >
+                      Select File
+                    </label>
+
+                    <button
+                      style={{ backgroundColor: "#84abeb" }}
+                      className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                      type="submit"
+                    >
+                      Submit
+                    </button>
+
+                    {/* {uploadedFile ? (
+                      <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                        <FiCheck
+                          size={15}
+                          className="stroke-current text-green-500"
+                        />
+                      </span>) : null} */}
+
+                  </div>
+                </div>
+              </form>
+              <hr />
+
+              <form onSubmit={handleSubmit((data) => console.log(data))}>
+                <ul>
+                  {/* Here we loop thru fields array and render each field as item, and we get the index as a second parameter */}
+                  {fields.map((item, index) => (
+                    // Make sure you set the key to something unqiue
+                    <li key={item.id} className="my-2">
+                      <Controller
+                        name={`books.${index}.value`}
+                        control={control}
+                        defaultValue={item.value}
+                        render={({ field }) =>
+                          <select {...field}>
+                            <option value="">Please select</option>
+                          </select>
+                          // <input {...field} />
+                        }
+                      />
+                      <label
+                        htmlFor='customFile'
+                        style={{ backgroundColor: "#84abeb" }}
+                        className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                      >
+                        Select File
+                      </label>
+                      <button
+                        style={{ backgroundColor: "#84abeb" }}
+                        className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                        type="submit"
+                      >
+                        Submit
+                      </button>
+                      <button onClick={() => remove(index)} className="btn btn-default text-dark btn-outlined bg-transparent rounded-md mx-2">Delete</button>
+                    </li>
+                  ))}
+                </ul>
+                <button type="button" className="mt-2" onClick={() => append({ value: "" })}>
+                  <span> <AddCircleOutlineRounded /></span> <span>Add Document</span>
+                </button>
+                {/* <button type="submit">Buy</button> */}
+              </form>
+
+              <div className="my-4">
+                <button className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  Done
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+
     </>
   )
 }
