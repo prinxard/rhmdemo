@@ -278,22 +278,22 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
               };
             }
           },
-          {
-            icon: Refresh,
-            tooltip: 'Revise Assessment',
-            onClick: (event, rowData) => {
-              event.preventDefault()
-              setRevisedAssFields(
-                {
-                  "kgtin": rowData.kgtin,
-                  "year": rowData.year,
-                  "da_assessment_id": rowData.assessment_id,
-                  "station": rowData.tax_office
-                }
-              )
-              setRevisedModal(true)
-            }
-          },
+          // {
+          //   icon: Refresh,
+          //   tooltip: 'Revise Assessment',
+          //   onClick: (event, rowData) => {
+          //     event.preventDefault()
+          //     setRevisedAssFields(
+          //       {
+          //         "kgtin": rowData.kgtin,
+          //         "year": rowData.year,
+          //         "da_assessment_id": rowData.assessment_id,
+          //         "station": rowData.tax_office
+          //       }
+          //     )
+          //     setRevisedModal(true)
+          //   }
+          // },
         ]}
 
         options={{
