@@ -222,6 +222,7 @@ export const StartReportView = () => {
                 </div>
 
               </div>
+              
               <div className="form-group mt-2">
                 <p className="text-center">Payment Channel</p>
                 <select name="channel_id" id="" ref={register()} className="form-control w-full rounded font-light text-gray-500">

@@ -1,5 +1,6 @@
-import MaterialTable from "material-table";
-// import MaterialTable from '@material-table/core';
+// import MaterialTable from "material-table";
+import MaterialTable from '@material-table/core';
+import { ExportCsv, ExportPdf } from "@material-table/exporters";
 import Search from '@material-ui/icons/Search'
 import ViewColumn from '@material-ui/icons/ViewColumn'
 import SaveAlt from '@material-ui/icons/SaveAlt'
@@ -129,10 +130,22 @@ export default function AssessmentReportstable({ FilteredData }) {
           search: false,
           paging: true,
           filtering: true,
-          exportButton: {
-            csv: true,
-            pdf: false
-          },
+          // exportButton: {
+          //   csv: true,
+          //   pdf: false
+          // },
+          exportMenu: [
+            {
+              label: "Export CSV",
+              exportFunc: (cols, datas) =>
+                ExportCsv(cols, datas, "myCsvFileName"),
+            },
+            // {
+            //   label: "Export PDF",
+            //   exportFunc: (cols, datas) =>
+            //     ExportPdf(cols, datas, "myPdfFileName"),
+            // }
+          ],
           exportAllData: true,
 
         }}

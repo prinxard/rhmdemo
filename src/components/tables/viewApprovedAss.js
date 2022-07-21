@@ -2,7 +2,7 @@ import { formatNumber } from "../../functions/numbers";
 import * as Icons from '../Icons/index';
 import dateformat from "dateformat";
 import { KgirsLogo, KogiGov, Signature } from "../Images/Images";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Search from '@material-ui/icons/Search'
 import SaveAlt from '@material-ui/icons/SaveAlt'
 import ChevronLeft from '@material-ui/icons/ChevronLeft'
@@ -13,7 +13,8 @@ import Check from '@material-ui/icons/Check'
 import Remove from '@material-ui/icons/Remove'
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Clear from "@material-ui/icons/Clear";
-import MaterialTable from "material-table";
+// import MaterialTable from "material-table";
+import MaterialTable from '@material-table/core';
 import { Delete, WarningRounded, Refresh } from "@material-ui/icons";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -23,7 +24,7 @@ import axios from "axios";
 import setAuthToken from "../../functions/setAuthToken";
 import { shallowEqual, useSelector } from "react-redux";
 import jwt from "jsonwebtoken";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 
 const fields = [
@@ -80,7 +81,10 @@ const fields = [
 export const ViewApprovedTable = ({ ApprovedData }) => {
   let items = ApprovedData;
   const [modal, setModal] = useState(false);
+  const [revisedmodal, setRevisedModal] = useState(false);
   const [assessId, setAssessId] = useState('');
+  const [revisedAssFields, setRevisedAssFields] = useState({});
+  const [createErrors, setCreateErrors] = useState([]);
   const [isFetching, setIsFetching] = useState(() => false);
   const router = useRouter();
 
@@ -101,9 +105,11 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
   const decoded = jwt.decode(auth);
   const userGroup = decoded.groups
 
-  const toggleModal = (e) => {
-    // e.preventDefault()
+  const toggleModal = () => {
     setModal(!modal);
+  };
+  const toggleObjectionModal = () => {
+    setRevisedModal(!revisedmodal);
   };
 
   setAuthToken();
@@ -124,6 +130,38 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
     }
   };
 
+
+
+
+  const ReviseAssessment = (e) => {
+    console.log("revisedAssFields", revisedAssFields);
+    e.preventDefault()
+    setIsFetching(true)
+
+    axios.post(`${url.BASE_URL}forma/new-objection`, revisedAssFields)
+      .then(function (response) {
+        setRevisedModal(!revisedmodal);
+        setIsFetching(false)
+        toast.success("Created successfully!");
+        router.push(`/revise-assessment/${revisedAssFields.kgtin}`)
+      })
+      .catch(function (error) {
+        setIsFetching(false)
+        if (error) {
+          setCreateErrors(error.response.data.message)
+          toast.error(createErrors)
+          setRevisedModal(!revisedmodal);
+        } else {
+          toast.error("Failed Try again!");
+
+        }
+
+      })
+
+  };
+
+
+
   return (
     <>
       <ToastContainer />
@@ -142,6 +180,40 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
               {/* <textarea required className="form-control w-full rounded" minlength="10" maxlength="50" onChange={(e) => setComment(e.target.value)}></textarea> */}
               <div className="mt-2 flex justify-between">
                 <button onClick={toggleModal}
+                  className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                >
+                  Cancel
+                </button>
+                <div>
+
+                </div>
+                <button
+                  className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  Continue
+                </button>
+
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+      {revisedmodal && (
+        <div className="modal">
+          {/* <div onClick={toggleModal} className="overlay"></div> */}
+          <div className="modal-content" width="300">
+            <form onSubmit={ReviseAssessment}>
+              <div className="flex justify-center">
+                <WarningRounded
+                  size={15}
+                  className="text-yellow-400"
+                />
+              </div>
+              <p>Are you sure you want to create a revised Assessment?</p>
+              {/* <textarea required className="form-control w-full rounded" minlength="10" maxlength="50" onChange={(e) => setComment(e.target.value)}></textarea> */}
+              <div className="mt-2 flex justify-between">
+                <button onClick={toggleObjectionModal}
                   className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
                 >
                   Cancel
@@ -209,15 +281,19 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
           {
             icon: Refresh,
             tooltip: 'Revise Assessment',
-            onClick: (event, rowData) => router.push(`/revise-assessment/${rowData.kgtin}`),
-            hidden: true
+            onClick: (event, rowData) => {
+              event.preventDefault()
+              setRevisedAssFields(
+                {
+                  "kgtin": rowData.kgtin,
+                  "year": rowData.year,
+                  "da_assessment_id": rowData.assessment_id,
+                  "station": rowData.tax_office
+                }
+              )
+              setRevisedModal(true)
+            }
           },
-          // rowData => ({
-          //   icon: Refresh,
-          //   tooltip: 'Delete User',
-          //   onClick: (event, rowData) => confirm("You want to delete " + rowData.name),
-          //   disabled: rowData.birthYear < 2000
-          // })
         ]}
 
         options={{
