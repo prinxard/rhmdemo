@@ -106,18 +106,21 @@ export const StartAssessmentReportView = () => {
     formState: { errors },
   } = useForm()
 
-  var d = new Date();
-  var year = d.getFullYear();
-  var month = d.getMonth();
-  var day = d.getDate();
-  var yearvar = new Date(year - 1, month, day);
+  // var d = new Date();
+  // var year = d.getFullYear();
+  // var month = d.getMonth();
+  // var day = d.getDate();
+  // var yearvar = new Date(year - 1, month, day);
 
 
 
-  let startFigure = watch("amountStart", "").replace(/,/g, '')
-  let endFigure = watch("amountEnd", "").replace(/,/g, '');
+  // let startFigure = watch("amountStart", "").replace(/,/g, '')
+  // let endFigure = watch("amountEnd", "").replace(/,/g, '');
 
-  const watchYear = watch("year", "");
+  // console.log("startFigure", fixedValues);
+  // console.log("endFigure", fixedValuesend);
+
+  let watchYear = watch("year", "");
 
   useEffect(() => {
 
@@ -145,8 +148,8 @@ export const StartAssessmentReportView = () => {
     setIsFetching(true)
     data.createdStart = startDate
     data.createdEnd = endDate
-    data.taxPaidStart = startFigure
-    data.taxPaidEnd = endFigure
+    data.taxPaidStart = fixedValues.amount
+    data.taxPaidEnd = fixedValuesend.amount
     if (watchYear === "") {
       data.year = ""
     } else {
