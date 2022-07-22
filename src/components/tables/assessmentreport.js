@@ -44,8 +44,8 @@ import "react-datepicker/dist/react-datepicker.css";
 
 
 export const StartAssessmentReportView = () => {
-  const [fixedValues, SetFixValuesStart] = useState({ amount: 0 });
-  const [fixedValuesend, SetFixValuesEnd] = useState({ amount: 0 });
+  const [fixedValues, SetFixValuesStart] = useState({ amount: "" });
+  const [fixedValuesend, SetFixValuesEnd] = useState({ amount: "" });
   const [revenueItem, setRevenueItem] = useState([]);
   const [post, setPost] = useState(() => []);
   const [station, setStation] = useState([]);
