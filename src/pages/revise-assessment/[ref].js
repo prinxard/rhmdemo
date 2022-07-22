@@ -154,8 +154,10 @@ export default function Revise() {
   useEffect(() => {
     if (router && router.query) {
       let routerData = String(router.query.ref);
-      let kgtin = routerData.split(',').pop()
-      let assessId = routerData.split(',').shift()
+      let kgtin = routerData.split('_').shift()
+      let assessId = routerData.split('_').pop()
+      console.log("kgtin", kgtin);
+      console.log("assessId", assessId);
       setAssessId(assessId)
       let kgtinPost = {
         "KGTIN": `${kgtin}`
@@ -259,20 +261,23 @@ export default function Revise() {
 
         <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
           <div className="w-full lg:w-1/2 max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
-            <div className="mb-2">
-              <label className="" htmlFor="kgtin"> Assessment ID</label>
-              <input type="text" ref={register()} name="assessment_id" className="form-control w-full rounded font-light text-gray-500"
-              />
-            </div>
-            <div className="mb-2">
-              <label className="" htmlFor="kgtin"> Reason for revised assessment</label>
-              <textarea ref={register()} name="ref" className="form-control w-full rounded font-light text-gray-500"
-              > </textarea>
-            </div>
+            <form action="">
+              <div className="mb-2">
+                <label className="" htmlFor="kgtin"> Assessment ID</label>
+                <input type="text" defaultValue={routerAssId} readOnly ref={register()} name="assessment_id" className="form-control w-full rounded font-light text-gray-500"
+                />
+              </div>
 
-            <div className="">
-              <hr />
-            </div>
+              <div className="mb-2">
+                <label className="" htmlFor="kgtin"> Reason for revised assessment</label>
+                <textarea ref={register()} name="grounds" className="form-control w-full rounded font-light text-gray-500"
+                > </textarea>
+              </div>
+
+              <div className="">
+                <hr />
+              </div>
+            </form>
 
             <div className="my-2 grid grid-cols-2 gap-2">
               <label className="self-center">Self Employment Income:</label>

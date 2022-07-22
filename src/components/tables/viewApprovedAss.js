@@ -143,7 +143,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
         setRevisedModal(!revisedmodal);
         setIsFetching(false)
         toast.success("Created successfully!");
-        router.push(`/revise-assessment/${revisedAssFields.kgtin}`)
+        router.push(`/revise-assessment/${revisedAssFields.kgtin}_${response.data.body.da_assessment_id}`)
       })
       .catch(function (error) {
         setIsFetching(false)
@@ -278,22 +278,22 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
               };
             }
           },
-          // {
-          //   icon: Refresh,
-          //   tooltip: 'Revise Assessment',
-          //   onClick: (event, rowData) => {
-          //     event.preventDefault()
-          //     setRevisedAssFields(
-          //       {
-          //         "kgtin": rowData.kgtin,
-          //         "year": rowData.year,
-          //         "da_assessment_id": rowData.assessment_id,
-          //         "station": rowData.tax_office
-          //       }
-          //     )
-          //     setRevisedModal(true)
-          //   }
-          // },
+          {
+            icon: Refresh,
+            tooltip: 'Revise Assessment',
+            onClick: (event, rowData) => {
+              event.preventDefault()
+              setRevisedAssFields(
+                {
+                  "kgtin": rowData.kgtin,
+                  "year": rowData.year,
+                  "da_assessment_id": rowData.assessment_id,
+                  "station": rowData.tax_office
+                }
+              )
+              setRevisedModal(true)
+            }
+          },
         ]}
 
         options={{
