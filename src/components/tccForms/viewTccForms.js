@@ -874,17 +874,19 @@ export const UploadTccForms = ({ tccId }) => {
     formData.append('item', 'application_letter');
     formData.append('tcc_id', tccId);
     formData.append('doc', file);
+    console.log("formData", formData);
     try {
       const res = await axios.post(`${url.BASE_URL}forma/tcc-uploads`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         },
       });
+      setFile(null);
       setIsFetching(false)
       setUploadedFile(true);
       toast.success("Upload Successful!")
     } catch (error) {
-      // toast.error("Failed to upload!")
+      setFile(null);
       setUploadedFile(false);
       setIsFetching(false)
       if (error.response) {
@@ -1116,7 +1118,7 @@ export const UploadTccForms = ({ tccId }) => {
         <div>
           <form onSubmit={handleSubmit(onSubmitform)}>
             <div className="flex justify-between mb-5">
-              <p>Application letter </p>
+              <p> Application letter </p>
               <input
                 type="file"
                 className="hidden"
@@ -1147,6 +1149,7 @@ export const UploadTccForms = ({ tccId }) => {
                 >
                   Submit
                 </button>
+
 
                 {uploadedFile ? (
                   <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">

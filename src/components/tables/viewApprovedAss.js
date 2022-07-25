@@ -143,7 +143,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
         setRevisedModal(!revisedmodal);
         setIsFetching(false)
         toast.success("Created successfully!");
-        router.push(`/revise-assessment/${revisedAssFields.kgtin}_${response.data.body.da_assessment_id}`)
+        router.push(`/revise-assessment/${revisedAssFields.kgtin}_${response.data.body.assessment_id}`)
       })
       .catch(function (error) {
         setIsFetching(false)

@@ -8,21 +8,26 @@ import SectionTitle from '../../components/section-title';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { FormatMoneyComponentReport } from '../../components/FormInput/formInputs';
 import { formatNumber } from '../../functions/numbers';
-import { Add, AddCircleOutlineRounded, Refresh } from '@material-ui/icons';
+import { AddCircleOutlineRounded } from '@material-ui/icons';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { FiCheck } from 'react-icons/fi';
 
 export default function Revise() {
   const [payerDetails, setpayerDetails] = useState([]);
   const [isFetching, setIsFetching] = useState(() => false);
-  const [isFetching2, setIsFetching2] = useState(() => false);
-  const [bojErrors, setErrors] = useState(() => []);
-  const [bojData, setBojData] = useState(() => []);
-  const [employed, setEmployed] = useState('');
-  const [self_employed, setSelfEmployed] = useState('');
   const [routerAssId, setAssessId] = useState('');
   const [fixedValues, fixValues] = useState({ amount: 0 });
-  const [fixedValues2, fixValues2] = useState({ amount: 0 });
-  const [fixedValues3, fixValues3] = useState({ amount: 0 });
-  const [fixedValues4, fixValues4] = useState({ amount: 0 });
+  const [appLetter, setAppLetter] = useState(null);
+  const [supportingDoc, setSupportingDoc] = useState(null);
+  const [supportingDocIn, setSupportingDocIn] = useState(null);
+  const [uploadedAppLetter, setUploadedAppLetter] = useState(false);
+  const [uploadErrors, setUploadErrors] = useState(() => []);
+  const [uploadedDocs, setUploadedDocs] = useState([]);
+  const [supportDocInput, setInput] = useState({ name: '' })
+
+  console.log("routerAssId", routerAssId);
+
   const router = useRouter();
 
   const {
@@ -33,27 +38,197 @@ export default function Revise() {
     formState: { errors },
   } = useForm()
 
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: 'books',
-  })
+  const handleChange = (e) => setInput({
+    ...supportDocInput,
+    [e.currentTarget.name]: e.currentTarget.value
+  });
 
-  let selfemplFigureInit = watch("self_employment", "")
-  let emplFigureInit = watch("employment", "");
-  let otherIncomeFigureInit = watch("other_income", "")
+  useEffect(() => {
+    if (router && router.query) {
+      let routerData = String(router.query.ref);
+      let kgtin = routerData.split('_').shift()
+      let assessId = routerData.split('_').pop()
+      setAssessId(assessId)
+      let kgtinPost = {
+        "KGTIN": `${kgtin}`
+      }
 
-  let selfemplFigure = selfemplFigureInit.replace(/,/g, '')
-  let emplFigure = emplFigureInit.replace(/,/g, '')
-  let otherIncomeFigure = otherIncomeFigureInit.replace(/,/g, '')
+      setAuthToken();
+      const fetchPost = async () => {
+        setIsFetching(true)
+        try {
+          let res = await axios.post(`${url.BASE_URL}taxpayer/view-taxpayers`, kgtinPost);
+          let IndData = res.data.body
+          setpayerDetails(IndData)
+          setIsFetching(false);
+          axios.post(`${url.BASE_URL}forma/view-objection`, { assessment_id: routerAssId })
+            .then(function (response) {
+              setUploadedDocs(response.data.body.objUpload)
+            }).catch(function (error) {
+              console.log(error);
+            })
+        } catch (err) {
+          console.log(err);
+          setIsFetching(false);
+        }
+      };
+      fetchPost();
+    }
+  }, [router, routerAssId]);
+
+  const InitiateObj = (data) => {
+    setIsFetching(true)
+    data.income = fixedValues.amount
+    data.tax = finalTax
+    axios.put(`${url.BASE_URL}forma/objection`, data)
+      .then(function (response) {
+        setIsFetching(false)
+        toast.success("Created Successfully!");
+      })
+      .catch(function (error) {
+        setIsFetching(false)
+        if (error) {
+          toast.error("Cannot update assessment");
+        } else {
+          toast.error("Failed! Try again");
+
+        }
+
+      })
+
+  }
+  const onChangeAppLetter = e => {
+    let file = e.target.files[0]
+    console.log(file);
+    if (file) {
+      if (!file) {
+        setAppLetter(null);
+        return;
+      }
+      if (file.type !== "image/jpeg" && file.type !== "application/pdf" && file.type !== "image/png") {
+        alert("file type not allowed. only pdf, png and jpeg are allowed");
+        setAppLetter(null);
+        return;
+      }
+      if (file.size > 1024 * 200) {
+        alert("file too large..file size shoulde not exceed 200kb");
+        return
+      }
+
+      else {
+        setAppLetter(file);
+      }
+    }
+  };
+
+  const onChangeSupportingDoc = e => {
+    let file = e.target.files[0]
+    console.log(file);
+    if (file) {
+      if (!file) {
+        setSupportingDoc(null);
+        return;
+      }
+      if (file.type !== "image/jpeg" && file.type !== "application/pdf" && file.type !== "image/png") {
+        alert("file type not allowed. only pdf, png and jpeg are allowed");
+        setSupportingDoc(null);
+        return;
+      }
+      if (file.size > 1024 * 200) {
+        alert("file too large..file size shoulde not exceed 200kb");
+        return
+      }
+
+      else {
+        setSupportingDoc(file);
+      }
+    }
+  };
+
+
+
+  const UploadAppLetter = async () => {
+    setIsFetching(true)
+    const formData = new FormData();
+    formData.append('assessment_id', routerAssId);
+    formData.append('doc_name', 'application_letter');
+    formData.append('file_name', appLetter);
+    try {
+      const res = await axios.post(`${url.BASE_URL}forma/objection-upload`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+      });
+      setIsFetching(false)
+      setUploadedAppLetter(true);
+      toast.success("Upload Successful!")
+      setAppLetter(null);
+    } catch (error) {
+      setAppLetter(null);
+      setUploadedAppLetter(false);
+      setIsFetching(false)
+      if (error.response) {
+        setUploadedAppLetter(false);
+        setUploadErrors(() => error.response.data.message);
+        toast.error(uploadErrors)
+      } else {
+        toast.error("Failed to upload!");
+      }
+      console.log(error);
+    }
+
+  };
+
+  const UploadSupportingDocs = async (event) => {
+    setIsFetching(true)
+    const formData = new FormData();
+    formData.append('assessment_id', routerAssId);
+    formData.append('doc_name', supportDocInput.name);
+    formData.append('file_name', supportingDoc);
+    try {
+      const res = await axios.post(`${url.BASE_URL}forma/objection-upload`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+      });
+      axios.post(`${url.BASE_URL}forma/view-objection`, { assessment_id: routerAssId })
+        .then(function (response) {
+          setUploadedDocs(response.data.body.objUpload)
+        }).catch(function (error) {
+          console.log(error);
+        })
+      setIsFetching(false)
+      setSupportingDoc(null)
+      setInput({ name: '' });
+      toast.success("Upload Successful!")
+
+    } catch (error) {
+      setInput({ name: '' });
+      setSupportingDoc(null)
+      setIsFetching(false)
+      if (error.response) {
+        setUploadErrors(() => error.response.data.message);
+        toast.error(uploadErrors)
+      } else {
+        toast.error("Failed to upload!");
+      }
+      console.log(error);
+    }
+
+  };
+
+
+
+  let incomeInput = watch("income", "")
+
+  let incomeFigure = incomeInput.replace(/,/g, '')
 
   //taxcal
   let tax;
   let tax_paid;
 
   ///TAX CAL
-  let employedF = emplFigure;
-  let selfEmployedF = selfemplFigure;
-  let otherIncomeF = otherIncomeFigure
+
 
   let consolidatedRelief;
   let chargeableIncome;
@@ -63,8 +238,7 @@ export default function Revise() {
 
   let dev_levy
 
-  consolidatedIncome = (Number(selfEmployedF) + Number(employedF) + Number(otherIncomeF));
-  // console.log("Consl", consolidatedIncome);
+  consolidatedIncome = Number(incomeFigure);
 
   totalRelief = 0;
   let gross_inc = consolidatedIncome - totalRelief;
@@ -149,40 +323,13 @@ export default function Revise() {
     dev_levy = "1000"
   }
 
-  let TotalIncome = Number(emplFigure) + Number(selfemplFigure) + Number(otherIncomeFigure)
+  let finalTax = (Number(JsonTax) + Number(dev_levy))
 
-  useEffect(() => {
-    if (router && router.query) {
-      let routerData = String(router.query.ref);
-      let kgtin = routerData.split('_').shift()
-      let assessId = routerData.split('_').pop()
-      console.log("kgtin", kgtin);
-      console.log("assessId", assessId);
-      setAssessId(assessId)
-      let kgtinPost = {
-        "KGTIN": `${kgtin}`
-      }
-
-      setAuthToken();
-      const fetchPost = async () => {
-        setIsFetching(true)
-        try {
-          let res = await axios.post(`${url.BASE_URL}taxpayer/view-taxpayers`, kgtinPost);
-          let IndData = res.data.body
-          console.log("IndData", IndData);
-          setpayerDetails(IndData)
-          setIsFetching(false);
-        } catch (err) {
-          console.log(err);
-          setIsFetching(false);
-        }
-      };
-      fetchPost();
-    }
-  }, [router]);
+  let TotalIncome = Number(incomeFigure)
 
   return (
     <>
+      <ToastContainer />
       <SectionTitle subtitle="Create Revised Assessment" />
       {isFetching && (
         <div className="flex justify-center item mb-2">
@@ -195,7 +342,7 @@ export default function Revise() {
             timeout={0}
             className="ml-2"
           />
-          <p>Fetching data...</p>
+          <p>Please wait...</p>
         </div>
       )}
 
@@ -261,10 +408,10 @@ export default function Revise() {
 
         <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
           <div className="w-full lg:w-1/2 max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
-            <form action="">
+            <form onSubmit={handleSubmit(InitiateObj)}>
+
               <div className="mb-2">
-                <label className="" htmlFor="kgtin"> Assessment ID</label>
-                <input type="text" defaultValue={routerAssId} readOnly ref={register()} name="assessment_id" className="form-control w-full rounded font-light text-gray-500"
+                <input type="text" defaultValue={routerAssId} readOnly ref={register()} name="assessment_id" className="form-control hidden w-full rounded font-light text-gray-500"
                 />
               </div>
 
@@ -277,66 +424,63 @@ export default function Revise() {
               <div className="">
                 <hr />
               </div>
+
+              <div className="my-2 grid grid-cols-2 gap-2">
+                <label className="self-center"> Income:</label>
+                <FormatMoneyComponentReport
+                  ref={register()}
+                  name="income"
+                  control={control}
+                  defaultValue={""}
+                  onValueChange={(v) => fixValues({ amount: v })}
+                  placeholder="₦ Enter Income"
+                />
+              </div>
+              <div className="mb-2 grid grid-cols-2 gap-2">
+                <label className="self-center font-bold">Total Income:</label>
+                <p className="font-bold">{formatNumber(TotalIncome)}</p>
+              </div>
+              <div className="mb-2 grid grid-cols-2 gap-2">
+                <label className="self-center font-bold">Tax:</label>
+                <p className="font-bold">{formatNumber(JsonTax)}</p>
+              </div>
+              <div className="mb-2 grid grid-cols-2 gap-2">
+                <label className="self-center font-bold">Dev levy:</label>
+                <input className="font-bold" name="dev_levy" readOnly ref={register()} defaultValue={formatNumber(dev_levy)} />
+              </div>
+              <div className="mb-2 grid grid-cols-2 gap-2">
+                <label className="self-center font-bold">Total Tax Due for Payment:</label>
+                <p className="font-bold">{formatNumber(finalTax)}</p>
+              </div>
+              <div className="flex justify-end">
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                  type="submit"
+                >
+                  Submit
+                </button>
+              </div>
             </form>
-
-            <div className="my-2 grid grid-cols-2 gap-2">
-              <label className="self-center">Self Employment Income:</label>
-              <FormatMoneyComponentReport
-                ref={register()}
-                name="self_employment"
-                control={control}
-                defaultValue={""}
-                onValueChange={(v) => fixValues({ amount: v })}
-                placeholder="₦ Enter Income"
-              />
-            </div>
-            <div className="mb-2 grid grid-cols-2 gap-2">
-              <label className="self-center"> Employment Income:</label>
-              <FormatMoneyComponentReport
-                ref={register()}
-                name="employment"
-                control={control}
-                defaultValue={""}
-                onValueChange={(v) => fixValues2({ amount: v })}
-                placeholder="₦ Enter Income"
-              />
-            </div>
-
-            <div className="mb-2 grid grid-cols-2 gap-2">
-              <label className="self-center">Other Income:</label>
-              <FormatMoneyComponentReport
-                ref={register()}
-                name="other_income"
-                control={control}
-                defaultValue={""}
-                onValueChange={(v) => fixValues3({ amount: v })}
-                placeholder="₦ Enter Income"
-              />
-            </div>
-            <div className="mb-2 grid grid-cols-2 gap-2">
-              <label className="self-center font-bold">Total Income:</label>
-              <p className="font-bold">{formatNumber(TotalIncome)}</p>
-            </div>
-            <div className="mb-2 grid grid-cols-2 gap-2">
-              <label className="self-center font-bold">Tax:</label>
-              <p className="font-bold">{formatNumber(JsonTax)}</p>
-            </div>
-            <div className="mb-2 grid grid-cols-2 gap-2">
-              <label className="self-center font-bold">Dev levy:</label>
-              <p className="font-bold">{formatNumber(dev_levy)}</p>
-            </div>
-            <div className="mb-2 grid grid-cols-2 gap-2">
-              <label className="self-center font-bold">Total Tax Due for Payment:</label>
-              <p className="font-bold">{formatNumber(Number(JsonTax) + Number(dev_levy))}</p>
-            </div>
           </div>
 
 
-          <div className="w-full lg:w-1/2">
-            <div className="overflow-x-auto max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
+          <div className="w-full lg:w-1/2 ">
+            <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
               <p className="font-bold text-center mb-5">Upload Supporting Documents</p>
+              {uploadedDocs.map((data) => (
 
-              <form>
+                <div className="flex justify-between my-3">
+                  <p className="font-bold">{data.doc_name}</p>
+                  <span className="h-5 w-5 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <FiCheck
+                      size={15}
+                      className="stroke-current text-green-500"
+                    />
+                  </span>
+                </div>
+              ))}
+              <form onSubmit={handleSubmit(UploadAppLetter)}>
                 <div className="flex justify-between mb-5">
                   <p>Application letter </p>
                   <input
@@ -344,15 +488,12 @@ export default function Revise() {
                     className="hidden"
                     id='customFile'
                     name="application_letter"
-                    // ref={register()}
-                    // onChange={onChange}
-                    // onClick={(e) => (e.target.value = null)}
+                    onChange={onChangeAppLetter}
+                    onClick={(e) => (e.target.value = null)}
                     required
                   />
 
                   <div className="flex justify-evenly">
-
-                    {/* <p className="self-center">{file ? file.name : ""}</p> */}
 
                     <label
                       htmlFor='customFile'
@@ -370,7 +511,7 @@ export default function Revise() {
                       Submit
                     </button>
 
-                    {/* {uploadedFile ? (
+                    {/* {uploadedAppLetter ? (
                       <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
                         <FiCheck
                           size={15}
@@ -380,50 +521,53 @@ export default function Revise() {
 
                   </div>
                 </div>
+                <p className="self-center">{appLetter ? appLetter.name : ""}</p>
               </form>
               <hr />
+              <p className="font-bold flex justify-center my-3">Other Documents</p>
+              <form onSubmit={handleSubmit(UploadSupportingDocs)}>
+                <div className="flex justify-between mb-5">
+                  <input type="text" name="name" minlength="10" maxlength="50" required value={supportDocInput.name} onChange={handleChange} placeholder="Enter file name" />
+                  <input
+                    type="file"
+                    className="hidden"
+                    id='customFile2'
+                    name="supporting_doc"
+                    onChange={onChangeSupportingDoc}
+                    onClick={(e) => (e.target.value = null)}
+                    required
+                  />
 
-              <form onSubmit={handleSubmit((data) => console.log(data))}>
-                <ul>
-                  {/* Here we loop thru fields array and render each field as item, and we get the index as a second parameter */}
-                  {fields.map((item, index) => (
-                    // Make sure you set the key to something unqiue
-                    <li key={item.id} className="my-2">
-                      <Controller
-                        name={`books.${index}.value`}
-                        control={control}
-                        defaultValue={item.value}
-                        render={({ field }) =>
-                          <select {...field}>
-                            <option value="">Please select</option>
-                          </select>
-                          // <input {...field} />
-                        }
-                      />
-                      <label
-                        htmlFor='customFile'
-                        style={{ backgroundColor: "#84abeb" }}
-                        className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
-                      >
-                        Select File
-                      </label>
-                      <button
-                        style={{ backgroundColor: "#84abeb" }}
-                        className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
-                        type="submit"
-                      >
-                        Submit
-                      </button>
-                      <button onClick={() => remove(index)} className="btn btn-default text-dark btn-outlined bg-transparent rounded-md mx-2">Delete</button>
-                    </li>
-                  ))}
-                </ul>
-                <button type="button" className="mt-2" onClick={() => append({ value: "" })}>
-                  <span> <AddCircleOutlineRounded /></span> <span>Add Document</span>
-                </button>
-                {/* <button type="submit">Buy</button> */}
+                  <div className="flex justify-evenly">
+
+                    <label
+                      htmlFor='customFile2'
+                      style={{ backgroundColor: "#84abeb" }}
+                      className="btn btn-default text-white btn-outlined bg-transparent rounded-md"
+                    >
+                      Select File
+                    </label>
+
+                    <button
+                      style={{ backgroundColor: "#84abeb" }}
+                      className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                      type="submit"
+                    >
+                      Submit
+                    </button>
+
+                    {/* {uploadedAppLetter ? (
+                      <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                        <FiCheck
+                          size={15}
+                          className="stroke-current text-green-500"
+                        />
+                      </span>) : null} */}
+
+                  </div>
+                </div>
+                <p className="self-center">{supportingDoc ? supportingDoc.name : ""}</p>
               </form>
-
               <div className="my-4">
                 <button className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
                   type="submit"
