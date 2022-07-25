@@ -114,19 +114,19 @@ export default function Reportstable({ FilteredData }) {
                     search: false,
                     paging: true,
                     filtering: true,
-                    exportButton: {
-                        csv: true,
-                        pdf: false
-                    },
-                    exportAllData: true,
+                    // exportButton: {
+                    //     csv: true,
+                    //     pdf: false
+                    // },
                     exportMenu: [
                         {
                             label: "Export CSV",
+                           
                             exportFunc: (cols, datas) =>
-                                ExportCsv(cols, datas, "myCsvFileName"),
+                                ExportCsv(fields, items, "myCsvFileName"),
+                              
                         },
                     ],
-
                 }}
 
                 icons={{
