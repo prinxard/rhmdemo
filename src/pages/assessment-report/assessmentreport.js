@@ -138,13 +138,8 @@ export default function AssessmentReportstable({ FilteredData }) {
             {
               label: "Export CSV",
               exportFunc: (cols, datas) =>
-                ExportCsv(cols, datas, "myCsvFileName"),
+                ExportCsv(fields, items, "myCsvFileName"),
             },
-            // {
-            //   label: "Export PDF",
-            //   exportFunc: (cols, datas) =>
-            //     ExportPdf(cols, datas, "myPdfFileName"),
-            // }
           ],
           exportAllData: true,
 
