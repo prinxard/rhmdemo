@@ -75,9 +75,14 @@ const initialState = [
           },
           {
             title: 'Approved Assessments',
-            url: '/view/approvedasses',
+            url: '/approved-assement-report',
             items: [],
           },
+          // {
+          //   title: 'Approved Assessments',
+          //   url: '/view/approvedasses',
+          //   items: [],
+          // },
           {
             url: '/',
             title: 'Tax Clearance (TCC)',
@@ -125,19 +130,35 @@ const initialState = [
         items: [
           {
             url: '/',
-            title: 'Dashboard',
-            items: [],
+            title: 'Paye Tcc',
+            items: [
+              {
+                title: 'View',
+                url: '/view/listpayetcc',
+                items: [],
+              },
+              // {
+              //   title: 'Unassessed Collections',
+              //   url: '/unassessed-report',
+              //   items: [],
+              // },
+            ],
           },
-          {
-            url: '/',
-            title: 'Annual Returns',
-            items: [],
-          },
-          {
-            url: '/',
-            title: 'Remittance Schedules',
-            items: [],
-          },
+          // {
+          //   url: '/',
+          //   title: 'Dashboard',
+          //   items: [],
+          // },
+          // {
+          //   url: '/',
+          //   title: 'Annual Returns',
+          //   items: [],
+          // },
+          // {
+          //   url: '/',
+          //   title: 'Remittance Schedules',
+          //   items: [],
+          // },
           // {
           //   url: '/reports',
           //   title: 'Reports',
