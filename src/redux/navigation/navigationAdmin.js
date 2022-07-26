@@ -73,16 +73,16 @@ const initialState = [
             url: '/view/listverifiedboj',
             items: [],
           },
-          {
-            title: 'Approved Assessments',
-            url: '/approved-assement-report',
-            items: [],
-          },
           // {
           //   title: 'Approved Assessments',
-          //   url: '/view/approvedasses',
+          //   url: '/approved-assement-report',
           //   items: [],
           // },
+          {
+            title: 'Approved Assessments',
+            url: '/view/approvedasses',
+            items: [],
+          },
           {
             url: '/',
             title: 'Tax Clearance (TCC)',
