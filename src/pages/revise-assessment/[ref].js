@@ -25,6 +25,8 @@ export default function Revise() {
   const [uploadErrors, setUploadErrors] = useState(() => []);
   const [uploadedDocs, setUploadedDocs] = useState([]);
   const [supportDocInput, setInput] = useState({ name: '' })
+  const [uploadDep, setUploadDep] = useState(false);
+
 
   const router = useRouter();
 
@@ -41,29 +43,26 @@ export default function Revise() {
     [e.currentTarget.name]: e.currentTarget.value
   });
 
+  setAuthToken();
   useEffect(() => {
     if (router && router.query) {
       let routerData = String(router.query.ref);
       console.log("routerData", routerData);
       let kgtin = routerData.split('_').shift()
       let assessId = routerData.split('_').pop()
-
+      console.log("assessId", assessId);
       setAssessId(assessId)
-      setAuthToken();
       const fetchPost = async () => {
         setIsFetching(true)
-        await axios.post(`${url.BASE_URL}taxpayer/view-taxpayers`, { KGTIN: kgtin})
+        await axios.post(`${url.BASE_URL}taxpayer/view-taxpayers`, { KGTIN: kgtin })
           .then(function (response) {
             let IndData = response.data.body
             setIsFetching(false);
             setpayerDetails(IndData)
-            console.log("routerAssId", routerAssId);
-            axios.post(`${url.BASE_URL}forma/view-objection`, { assessment_id: routerAssId })
+            axios.post(`${url.BASE_URL}forma/view-objection`, { assessment_id: assessId })
               .then(function (response) {
-                // setIsFetching(false);
                 setUploadedDocs(response.data.body.objUpload)
               }).catch(function (error) {
-                // setIsFetching(false);
                 console.log(error);
               })
           }).catch(function (error) {
@@ -75,7 +74,7 @@ export default function Revise() {
       };
       fetchPost();
     }
-  }, [router]);
+  }, [router, uploadDep]);
 
 
   const InitiateObj = (data) => {
@@ -165,6 +164,7 @@ export default function Revise() {
       setUploadedAppLetter(true);
       toast.success("Upload Successful!")
       setAppLetter(null);
+      setUploadDep(true)
     } catch (error) {
       setAppLetter(null);
       setUploadedAppLetter(false);
@@ -193,17 +193,11 @@ export default function Revise() {
           'Content-Type': 'multipart/form-data'
         },
       });
-      axios.post(`${url.BASE_URL}forma/view-objection`, { assessment_id: routerAssId })
-        .then(function (response) {
-          setUploadedDocs(response.data.body.objUpload)
-        }).catch(function (error) {
-          console.log(error);
-        })
       setIsFetching(false)
       setSupportingDoc(null)
       setInput({ name: '' });
       toast.success("Upload Successful!")
-
+      setUploadDep(true)
     } catch (error) {
       setInput({ name: '' });
       setSupportingDoc(null)
