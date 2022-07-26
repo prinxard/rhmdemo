@@ -181,6 +181,7 @@ export const ViewSinglePayeTccPrintTable = ({
 
   // const base64StringPic = btoa(String.fromCharCode((picUpload)));
   const base64StringPic = Buffer.from(picUpload).toString('base64')
+  const base64StringSig = Buffer.from(signature).toString('base64')
 
   PayeTccData.forEach((ind, i) => {
     printPrintTime = ind.aprvPrint_time
@@ -267,7 +268,7 @@ export const ViewSinglePayeTccPrintTable = ({
                       </div>
                       <div className="self-end ml-2">
                         <img
-                          // src={`data:image/png;base64,${base64StringPic}`}
+                          src={`data:image/png;base64,${base64StringSig}`}
                           alt=""
                           className="rounded h-10 w-24"
                         />
@@ -321,9 +322,7 @@ export const ViewSinglePayeTccPrintTable = ({
                     <table className="table divide-y mb-4 striped">
                       <thead >
                         <tr style={{ backgroundColor: "#d3fbc6" }}>
-                          <th>
-                            TCC REF
-                          </th>
+                        
                           <th>
                             Tax Year
                           </th>
@@ -342,9 +341,7 @@ export const ViewSinglePayeTccPrintTable = ({
                       <tbody >
                         {ind.taxYr_1 === "" || ind.taxYr_1 === null ? "" :
                           <tr>
-                            <td className="">
-                              <p className="font-bold">{ind.ref}</p>
-                            </td>
+                          
                             <td className="">
                               <p className="font-bold">{ind.assmtYr_1}</p>
                             </td>
@@ -355,15 +352,13 @@ export const ViewSinglePayeTccPrintTable = ({
                               <p className="font-bold">{formatNumber(ind.taxYr_1)}</p>
                             </td>
                             <td className="">
-                              <p>Direct Assessment</p>
+                              <p>PAYE</p>
                             </td>
                           </tr>
                         }
                         {ind.taxYr_2 === "" || ind.taxYr_2 === null ? "" :
                           <tr>
-                            <td className="">
-                              <p className="font-bold">{ind.ref}</p>
-                            </td>
+                         
                             <td className="">
                               <p className="font-bold">{ind.assmtYr_2}</p>
                             </td>
@@ -374,7 +369,7 @@ export const ViewSinglePayeTccPrintTable = ({
                               <p className="font-bold">{formatNumber(ind.taxYr_2)}</p>
                             </td>
                             <td className="">
-                              <p>Direct Assessment</p>
+                              <p>PAYE</p>
                             </td>
 
                           </tr>
@@ -382,9 +377,7 @@ export const ViewSinglePayeTccPrintTable = ({
                         }
                         {ind.taxYr_3 === "" === "" || ind.taxYr_3 === null ? "" :
                           <tr>
-                            <td className="">
-                              <p className="font-bold">{ind.ref}</p>
-                            </td>
+                          
                             <td className="">
                               <p className="font-bold">{ind.assmtYr_3}</p>
                             </td>
@@ -395,7 +388,7 @@ export const ViewSinglePayeTccPrintTable = ({
                               <p className="font-bold">{formatNumber(ind.taxYr_2)}</p>
                             </td>
                             <td className="">
-                              <p>Direct Assessment</p>
+                              <p>PAYE</p>
                             </td>
 
                           </tr>
