@@ -161,10 +161,8 @@ export const ViewSinglePayeTccPrintTable = ({
 
   const componentRef = useRef();
 
-
-  let basdocurl = 'https://annualuploads.bespoque.dev/rhm-live/uploads/da/tcc/'
-  let picUpload
-  let signature
+  let picUpload = ""
+  let signature = ""
  
   let printPrintTime
 
@@ -179,7 +177,6 @@ export const ViewSinglePayeTccPrintTable = ({
   console.log("PayeTccData", PayeTccData);
   console.log("picUpload", picUpload);
 
-  // const base64StringPic = btoa(String.fromCharCode((picUpload)));
   const base64StringPic = Buffer.from(picUpload).toString('base64')
   const base64StringSig = Buffer.from(signature).toString('base64')
 
@@ -246,15 +243,11 @@ export const ViewSinglePayeTccPrintTable = ({
                 <div className="flex mb-8">
                   <KgirsLogo />
                   <p className="self-center w-48 font-bold">KOGI STATE INTERNAL REVENUE SERVICE</p>
-
                 </div>
-
 
                 <div className="flex justify-end">
                   <p className="border font-bold p-2 text-center w-64">{`File No - ${ind.file_ref}`}</p>
                 </div>
-
-
 
                 <div>
                   <div className="flex justify-between my-3">
