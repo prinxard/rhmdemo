@@ -26,8 +26,6 @@ export default function Revise() {
   const [uploadedDocs, setUploadedDocs] = useState([]);
   const [supportDocInput, setInput] = useState({ name: '' })
 
-  console.log("routerAssId", routerAssId);
-
   const router = useRouter();
 
   const {
@@ -46,35 +44,39 @@ export default function Revise() {
   useEffect(() => {
     if (router && router.query) {
       let routerData = String(router.query.ref);
+      console.log("routerData", routerData);
       let kgtin = routerData.split('_').shift()
       let assessId = routerData.split('_').pop()
-      setAssessId(assessId)
-      let kgtinPost = {
-        "KGTIN": `${kgtin}`
-      }
 
+      setAssessId(assessId)
       setAuthToken();
       const fetchPost = async () => {
         setIsFetching(true)
-        try {
-          let res = await axios.post(`${url.BASE_URL}taxpayer/view-taxpayers`, kgtinPost);
-          let IndData = res.data.body
-          setpayerDetails(IndData)
-          setIsFetching(false);
-          axios.post(`${url.BASE_URL}forma/view-objection`, { assessment_id: routerAssId })
-            .then(function (response) {
-              setUploadedDocs(response.data.body.objUpload)
-            }).catch(function (error) {
-              console.log(error);
-            })
-        } catch (err) {
-          console.log(err);
-          setIsFetching(false);
-        }
+        await axios.post(`${url.BASE_URL}taxpayer/view-taxpayers`, { KGTIN: kgtin})
+          .then(function (response) {
+            let IndData = response.data.body
+            setIsFetching(false);
+            setpayerDetails(IndData)
+            console.log("routerAssId", routerAssId);
+            axios.post(`${url.BASE_URL}forma/view-objection`, { assessment_id: routerAssId })
+              .then(function (response) {
+                // setIsFetching(false);
+                setUploadedDocs(response.data.body.objUpload)
+              }).catch(function (error) {
+                // setIsFetching(false);
+                console.log(error);
+              })
+          }).catch(function (error) {
+            setIsFetching(false);
+            console.log(error);
+          })
+
+
       };
       fetchPost();
     }
-  }, [router, routerAssId]);
+  }, [router]);
+
 
   const InitiateObj = (data) => {
     setIsFetching(true)
@@ -326,6 +328,7 @@ export default function Revise() {
   let finalTax = (Number(JsonTax) + Number(dev_levy))
 
   let TotalIncome = Number(incomeFigure)
+  console.log("uploadedDocs", uploadedDocs);
 
   return (
     <>
