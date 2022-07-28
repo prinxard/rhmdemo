@@ -82,8 +82,8 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
   let items = ApprovedData;
   const [modal, setModal] = useState(false);
   const [revisedmodal, setRevisedModal] = useState(false);
-  const [assessId, setAssessId] = useState('');
   const [revisedAssFields, setRevisedAssFields] = useState({});
+  const [assessId, setAssessId] = useState('');
   const [createErrors, setCreateErrors] = useState([]);
   const [isFetching, setIsFetching] = useState(() => false);
   const router = useRouter();
@@ -97,7 +97,6 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
     }),
     shallowEqual
   );
-
 
 
   const DeleteRange = [1, 12]

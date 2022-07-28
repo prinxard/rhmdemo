@@ -465,8 +465,8 @@ export default function Revise() {
           <div className="w-full lg:w-1/2 ">
             <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
               <p className="font-bold text-center mb-5">Upload Supporting Documents</p>
+              {/* <div className="border mb-2 p-3"> */}
               {uploadedDocs.map((data) => (
-
                 <div className="flex justify-between my-3">
                   <p className="font-bold">{data.doc_name}</p>
                   <span className="h-5 w-5 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
@@ -477,9 +477,11 @@ export default function Revise() {
                   </span>
                 </div>
               ))}
+              {/* </div> */}
+              <hr />
               <form onSubmit={handleSubmit(UploadAppLetter)}>
-                <div className="flex justify-between mb-5">
-                  <p>Application letter </p>
+                <div className="flex justify-between mt-3 mb-5">
+                  <p className="font-bold">Application letter </p>
                   <input
                     type="file"
                     className="hidden"
@@ -507,14 +509,6 @@ export default function Revise() {
                     >
                       Submit
                     </button>
-
-                    {/* {uploadedAppLetter ? (
-                      <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                        <FiCheck
-                          size={15}
-                          className="stroke-current text-green-500"
-                        />
-                      </span>) : null} */}
 
                   </div>
                 </div>
@@ -552,14 +546,6 @@ export default function Revise() {
                     >
                       Submit
                     </button>
-
-                    {/* {uploadedAppLetter ? (
-                      <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                        <FiCheck
-                          size={15}
-                          className="stroke-current text-green-500"
-                        />
-                      </span>) : null} */}
 
                   </div>
                 </div>

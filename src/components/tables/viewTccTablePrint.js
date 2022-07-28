@@ -511,7 +511,7 @@ export const ViewSingleTccPrintTable = ({
                       }
 
                     </tbody>
-                  </table>
+                  </table>    
                 </div>
               </div>
               <div>

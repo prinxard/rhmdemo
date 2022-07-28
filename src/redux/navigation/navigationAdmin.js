@@ -73,6 +73,11 @@ const initialState = [
             url: '/view/listverifiedboj',
             items: [],
           },
+          // {
+          //   title: 'Approved Assessments',
+          //   url: '/approved-assement-report',
+          //   items: [],
+          // },
           {
             title: 'Approved Assessments',
             url: '/view/approvedasses',
@@ -125,19 +130,35 @@ const initialState = [
         items: [
           {
             url: '/',
-            title: 'Dashboard',
-            items: [],
+            title: 'TCC',
+            items: [
+              {
+                title: 'View',
+                url: '/view/listpayetcc',
+                items: [],
+              },
+              // {
+              //   title: 'Unassessed Collections',
+              //   url: '/unassessed-report',
+              //   items: [],
+              // },
+            ],
           },
-          {
-            url: '/',
-            title: 'Annual Returns',
-            items: [],
-          },
-          {
-            url: '/',
-            title: 'Remittance Schedules',
-            items: [],
-          },
+          // {
+          //   url: '/',
+          //   title: 'Dashboard',
+          //   items: [],
+          // },
+          // {
+          //   url: '/',
+          //   title: 'Annual Returns',
+          //   items: [],
+          // },
+          // {
+          //   url: '/',
+          //   title: 'Remittance Schedules',
+          //   items: [],
+          // },
           // {
           //   url: '/reports',
           //   title: 'Reports',
