@@ -6,25 +6,13 @@ import axios from "axios";
 import url from "../../config/url";
 import setAuthToken from "../../functions/setAuthToken";
 import Loader from "react-loader-spinner";
-import { ViewSingleTccPrintTable } from "../tables/viewTccTablePrint";
 import { ViewSinglePayeTccPrintTable } from "../tables/viewPayeTccTablePrint";
 
 
 const PrintSingleTccPaye = () => {
   const [PayeTccData, setPayeTccData] = useState(() => []);
-  const [isFetching, setIsFetching] = useState(() => true);
-  const [currentPage, setCurrentPage] = useState(() => 1);
-  const [postPerPage, setPostPerPage] = useState(10);
-  const [query, setQuery] = useState(() => "");
-  const [tccdata, setTccData] = useState(() => []);
-  const [assess1, setAssess1] = useState(() => []);
-  const [assess2, setAssess2] = useState([]);
-  const [assess3, setAssess3] = useState([]);
-  const [addAss1, setAddAss1] = useState([]);
-  const [addAss2, setAddAss2] = useState([]);
-  const [addAss3, setAddAss3] = useState([]);
+  const [isFetching, setIsFetching] = useState(() => true); 
   const [tccID, setTccID] = useState(() => []);
-  const [tccUploads, setTccUploads] = useState(() => []);
   const router = useRouter();
   useEffect(() => {
     if (router && router.query) {
@@ -39,24 +27,6 @@ const PrintSingleTccPaye = () => {
           let res = await axios.post(`${url.BASE_URL}paye/view-tcc`, id);
           let fetctTcc = res.data.body.tcc;
           setPayeTccData(fetctTcc)
-          console.log(fetctTcc);
-          // let tccdat = fetctTcc.tcc
-          // let firstass = fetctTcc.assessment1
-          // let secondass = fetctTcc.assessment2
-          // let thirdass = fetctTcc.assessment3
-          // let uploads = fetctTcc.tccUploadPass
-          // let addassess1 = fetctTcc.addAssessment1
-          // let addassess2 = fetctTcc.addAssessment2
-          // let addassess3 = fetctTcc.addAssessment3
-          // setTccUploads(uploads)
-          // setTccData(tccdat)
-          // setAssess1(firstass)
-          // setAssess2(secondass)
-          // setAssess3(thirdass)
-          // setAddAss1(addassess1)
-          // setAddAss2(addassess2)
-          // setAddAss3(addassess3)
-
           setIsFetching(false);
         } catch (e) {
           setIsFetching(false);
@@ -92,15 +62,6 @@ const PrintSingleTccPaye = () => {
             <ViewSinglePayeTccPrintTable
               PayeTccData={PayeTccData}
               tccID={tccID}
-              // addAss1={addAss1}
-              // addAss2={addAss2} 
-              // ddAss3={addAss3}
-              // tccUploads={tccUploads}
-              // tccID={tccID}
-              // payerDetails={tccdata}
-              // assessmentData={assess1}
-              // assessmentData2={assess2}
-              // assessmentData3={assess3}
                />
           }
         </>

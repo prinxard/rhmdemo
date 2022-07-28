@@ -142,33 +142,49 @@ const initialState = [
         ],
       },
 
-      // {
-      //   url: '/',
-      //   icon: <Paye />,
-      //   title: 'PAYE',
-      //   items: [
-      //     {
-      //       url: '/',
-      //       title: 'Dashboard',
-      //       items: [],
-      //     },
-      //     {
-      //       url: '/',
-      //       title: 'Annual Returns',
-      //       items: [],
-      //     },
-      //     {
-      //       url: '/',
-      //       title: 'Remittance Schedules',
-      //       items: [],
-      //     },
-      //     {
-      //       url: '/',
-      //       title: 'Reports',
-      //       items: [],
-      //     },
-      //   ],
-      // },
+      {
+        url: '/',
+        icon: <Paye />,
+        title: 'PAYE',
+        items: [
+          {
+            url: '/',
+            title: 'TCC',
+            items: [
+              {
+                title: 'View',
+                url: '/view/listpayetcc',
+                items: [],
+              },
+              // {
+              //   title: 'Unassessed Collections',
+              //   url: '/unassessed-report',
+              //   items: [],
+              // },
+            ],
+          },
+          // {
+          //   url: '/',
+          //   title: 'Dashboard',
+          //   items: [],
+          // },
+          // {
+          //   url: '/',
+          //   title: 'Annual Returns',
+          //   items: [],
+          // },
+          // {
+          //   url: '/',
+          //   title: 'Remittance Schedules',
+          //   items: [],
+          // },
+          // {
+          //   url: '/reports',
+          //   title: 'Reports',
+          //   items: [],
+          // },
+        ],
+      },
 
       {
         url: '/',
