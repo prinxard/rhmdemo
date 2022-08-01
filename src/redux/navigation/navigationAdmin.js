@@ -120,6 +120,22 @@ const initialState = [
               },
             ],
           },
+          {
+            url: '/',
+            title: 'Objection',
+            items: [
+              {
+                title: 'Submitted',
+                url: '/view/objection/submitted',
+                items: [],
+              },
+              {
+                title: 'Approved',
+                url: '/',
+                items: [],
+              },
+            ],
+          },
         ],
       },
 

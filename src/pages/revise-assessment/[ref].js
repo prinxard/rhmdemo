@@ -5,10 +5,9 @@ import url from '../../config/url';
 import axios from "axios";
 import Loader from 'react-loader-spinner';
 import SectionTitle from '../../components/section-title';
-import { Controller, useFieldArray, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { FormatMoneyComponentReport } from '../../components/FormInput/formInputs';
 import { formatNumber } from '../../functions/numbers';
-import { AddCircleOutlineRounded } from '@material-ui/icons';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FiCheck } from 'react-icons/fi';
@@ -17,7 +16,7 @@ export default function Revise() {
   const [payerDetails, setpayerDetails] = useState([]);
   const [isFetching, setIsFetching] = useState(() => false);
   const [routerAssId, setAssessId] = useState('');
-  const [fixedValues, fixValues] = useState({ amount: 0 });
+  const [fixedValues, fixValues] = useState({ amount: "" });
   const [appLetter, setAppLetter] = useState(null);
   const [supportingDoc, setSupportingDoc] = useState(null);
   const [supportingDocIn, setSupportingDocIn] = useState(null);
@@ -47,10 +46,9 @@ export default function Revise() {
   useEffect(() => {
     if (router && router.query) {
       let routerData = String(router.query.ref);
-      console.log("routerData", routerData);
       let kgtin = routerData.split('_').shift()
+      console.log("routerkgtin", kgtin);
       let assessId = routerData.split('_').pop()
-      console.log("assessId", assessId);
       setAssessId(assessId)
       const fetchPost = async () => {
         setIsFetching(true)
@@ -77,11 +75,11 @@ export default function Revise() {
   }, [router, uploadDep]);
 
 
-  const InitiateObj = (data) => {
+  const InitiateObj = async (data) => {
     setIsFetching(true)
     data.income = fixedValues.amount
-    data.tax = finalTax
-    axios.put(`${url.BASE_URL}forma/objection`, data)
+    data.tp_tax = finalTax
+    await axios.put(`${url.BASE_URL}forma/objection`, data)
       .then(function (response) {
         setIsFetching(false)
         toast.success("Created Successfully!");
@@ -89,7 +87,7 @@ export default function Revise() {
       .catch(function (error) {
         setIsFetching(false)
         if (error) {
-          toast.error("Cannot update assessment");
+          toast.error("Cannot Update Objection");
         } else {
           toast.error("Failed! Try again");
 
@@ -111,7 +109,7 @@ export default function Revise() {
         setAppLetter(null);
         return;
       }
-      if (file.size > 1024 * 200) {
+      if (file.size > 1024 * 100) {
         alert("file too large..file size shoulde not exceed 200kb");
         return
       }
@@ -135,7 +133,7 @@ export default function Revise() {
         setSupportingDoc(null);
         return;
       }
-      if (file.size > 1024 * 200) {
+      if (file.size > 1024 * 100) {
         alert("file too large..file size shoulde not exceed 200kb");
         return
       }
@@ -147,12 +145,11 @@ export default function Revise() {
   };
 
 
-
   const UploadAppLetter = async () => {
     setIsFetching(true)
     const formData = new FormData();
     formData.append('assessment_id', routerAssId);
-    formData.append('doc_name', 'application_letter');
+    formData.append('doc_name', 'Application letter');
     formData.append('file_name', appLetter);
     try {
       const res = await axios.post(`${url.BASE_URL}forma/objection-upload`, formData, {
@@ -163,10 +160,10 @@ export default function Revise() {
       setIsFetching(false)
       setUploadedAppLetter(true);
       toast.success("Upload Successful!")
-      setAppLetter(null);
-      setUploadDep(true)
+      // setAppLetter(null);
+      setUploadDep(!uploadDep)
     } catch (error) {
-      setAppLetter(null);
+      // setAppLetter(null);
       setUploadedAppLetter(false);
       setIsFetching(false)
       if (error.response) {
@@ -194,14 +191,14 @@ export default function Revise() {
         },
       });
       setIsFetching(false)
-      setSupportingDoc(null)
+      // setSupportingDoc(null)
       setInput({ name: '' });
       toast.success("Upload Successful!")
-      setUploadDep(true)
+      setUploadDep(!uploadDep)
     } catch (error) {
-      setInput({ name: '' });
-      setSupportingDoc(null)
       setIsFetching(false)
+      setInput({ name: '' });
+      // setSupportingDoc(null)
       if (error.response) {
         setUploadErrors(() => error.response.data.message);
         toast.error(uploadErrors)
@@ -212,6 +209,27 @@ export default function Revise() {
     }
 
   };
+
+  const SubmitObjection = (e) => {
+    e.preventDefault()
+    axios.put(`${url.BASE_URL}forma/objection`, { assessment_id: routerAssId, status: "Submitted" })
+      .then(function (response) {
+        setIsFetching(false)
+        toast.success("Submitted Successfully!");
+      })
+      .catch(function (error) {
+        setIsFetching(false)
+        if (error) {
+          toast.error("Cannot Submit Objection");
+        } else {
+          toast.error("Failed! Try again");
+
+        }
+
+      })
+
+  }
+
 
 
 
@@ -306,48 +324,26 @@ export default function Revise() {
   }
 
   tax = tax;
-  // console.log(tax, ' 2')
-  // tax = parseInt(tax);
-  // tax = (tax).toFixed(2);
+
   tax_paid = tax;
 
   let JsonTax = String(tax_paid)
 
-  if (tax_paid <= 50000) {
-    dev_levy = "500"
-  } else {
-    dev_levy = "1000"
-  }
+  dev_levy = "1000"
 
   let finalTax = (Number(JsonTax) + Number(dev_levy))
 
   let TotalIncome = Number(incomeFigure)
-  console.log("uploadedDocs", uploadedDocs);
+
 
   return (
     <>
       <ToastContainer />
       <SectionTitle subtitle="Create Revised Assessment" />
-      {isFetching && (
-        <div className="flex justify-center item mb-2">
-          <Loader
-            visible={isFetching}
-            type="BallTriangle"
-            color="#00FA9A"
-            height={19}
-            width={19}
-            timeout={0}
-            className="ml-2"
-          />
-          <p>Please wait...</p>
-        </div>
-      )}
-
 
       <div className="border mb-3 block p-8 rounded-lg bg-white w-full">
         <div className="flex">
           <h6 className="p-2">Taxpayer Information</h6>
-          {/* <a href="" className="text-blue-600 self-center">Edit</a> */}
         </div>
         <p className="mb-3 font-bold"></p>
         <div>
@@ -402,20 +398,33 @@ export default function Revise() {
       </div>
 
       <div className="mb-3">
-
+        {isFetching && (
+          <div className="flex justify-center item mb-2">
+            <Loader
+              visible={isFetching}
+              type="BallTriangle"
+              color="#00FA9A"
+              height={19}
+              width={19}
+              timeout={0}
+              className="ml-2"
+            />
+            <p>Please wait...</p>
+          </div>
+        )}
+        
         <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
           <div className="w-full lg:w-1/2 max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
             <form onSubmit={handleSubmit(InitiateObj)}>
-
               <div className="mb-2">
                 <input type="text" defaultValue={routerAssId} readOnly ref={register()} name="assessment_id" className="form-control hidden w-full rounded font-light text-gray-500"
                 />
               </div>
 
               <div className="mb-2">
-                <label className="" htmlFor="kgtin"> Reason for revised assessment</label>
-                <textarea ref={register()} name="grounds" className="form-control w-full rounded font-light text-gray-500"
-                > </textarea>
+                <label> Reason for Objection</label>
+                <textarea type="text" required name="grounds" ref={register()} className="form-control w-full rounded font-light text-gray-500"
+                />
               </div>
 
               <div className="">
@@ -431,6 +440,7 @@ export default function Revise() {
                   defaultValue={""}
                   onValueChange={(v) => fixValues({ amount: v })}
                   placeholder="₦ Enter Income"
+                  required={true}
                 />
               </div>
               <div className="mb-2 grid grid-cols-2 gap-2">
@@ -443,10 +453,10 @@ export default function Revise() {
               </div>
               <div className="mb-2 grid grid-cols-2 gap-2">
                 <label className="self-center font-bold">Dev levy:</label>
-                <input className="font-bold" name="dev_levy" readOnly ref={register()} defaultValue={formatNumber(dev_levy)} />
+                <input className="font-bold" name="dev_levy" readOnly ref={register()} defaultValue={(dev_levy)} />
               </div>
               <div className="mb-2 grid grid-cols-2 gap-2">
-                <label className="self-center font-bold">Total Tax Due for Payment:</label>
+                <label className="self-center font-bold"> Tax liability:</label>
                 <p className="font-bold">{formatNumber(finalTax)}</p>
               </div>
               <div className="flex justify-end">
@@ -464,8 +474,10 @@ export default function Revise() {
 
           <div className="w-full lg:w-1/2 ">
             <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
-              <p className="font-bold text-center mb-5">Upload Supporting Documents</p>
-              {/* <div className="border mb-2 p-3"> */}
+              <div className=" mb-5">
+                <p className="font-bold text-center">Upload Supporting Documents</p>
+                <p className="text-center"><small className="font-bold">(Accepted document formats are png, jpeg, pdf. max size 100kb)</small></p>
+              </div>
               {uploadedDocs.map((data) => (
                 <div className="flex justify-between my-3">
                   <p className="font-bold">{data.doc_name}</p>
@@ -477,7 +489,7 @@ export default function Revise() {
                   </span>
                 </div>
               ))}
-              {/* </div> */}
+
               <hr />
               <form onSubmit={handleSubmit(UploadAppLetter)}>
                 <div className="flex justify-between mt-3 mb-5">
@@ -486,7 +498,6 @@ export default function Revise() {
                     type="file"
                     className="hidden"
                     id='customFile'
-                    name="application_letter"
                     onChange={onChangeAppLetter}
                     onClick={(e) => (e.target.value = null)}
                     required
@@ -518,7 +529,7 @@ export default function Revise() {
               <p className="font-bold flex justify-center my-3">Other Documents</p>
               <form onSubmit={handleSubmit(UploadSupportingDocs)}>
                 <div className="flex justify-between mb-5">
-                  <input type="text" name="name" minlength="10" maxlength="50" required value={supportDocInput.name} onChange={handleChange} placeholder="Enter file name" />
+                  <input type="text" name="name" minlength="5" maxlength="50" required value={supportDocInput.name} onChange={handleChange} placeholder="Enter file name" />
                   <input
                     type="file"
                     className="hidden"
@@ -551,21 +562,20 @@ export default function Revise() {
                 </div>
                 <p className="self-center">{supportingDoc ? supportingDoc.name : ""}</p>
               </form>
-              <div className="my-4">
-                <button className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                >
-                  Done
-                </button>
-              </div>
+
             </div>
           </div>
         </div>
 
-
-
       </div>
 
+      <form className="my-4 flex justify-center" onSubmit={SubmitObjection}>
+        <button className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+          type="submit"
+        >
+          Submit Objection
+        </button>
+      </form>
     </>
   )
 }

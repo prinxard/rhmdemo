@@ -310,21 +310,15 @@ export const StartBOJ = () => {
   }
 
   tax = tax;
-  // console.log(tax, ' 2')
-  // tax = parseInt(tax);
-  // tax = (tax).toFixed(2);
+ 
   tax_paid = tax;
 
   let JsonTax = String(tax_paid)
 
   console.log("T", tax_paid);
 
-  if (tax_paid <= 50000) {
-    dev_levy = "500"
-  } else {
-    dev_levy = "1000"
-  }
-  // console.log("dev_levy", dev_levy);
+  dev_levy = "1000"
+
 
 
 

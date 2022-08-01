@@ -209,7 +209,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
                   className="text-yellow-400"
                 />
               </div>
-              <p>Are you sure you want to create a revised Assessment?</p>
+              <p>Are you sure you want to create objection?</p>
               {/* <textarea required className="form-control w-full rounded" minlength="10" maxlength="50" onChange={(e) => setComment(e.target.value)}></textarea> */}
               <div className="mt-2 flex justify-between">
                 <button onClick={toggleObjectionModal}
@@ -279,7 +279,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
           },
           {
             icon: Refresh,
-            tooltip: 'Revise Assessment',
+            tooltip: 'Objection',
             onClick: (event, rowData) => {
               event.preventDefault()
               setRevisedAssFields(

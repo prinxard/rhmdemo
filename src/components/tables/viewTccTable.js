@@ -192,7 +192,7 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
     }
   }
 
-  let AuditChecked = async (e) => {
+  const AuditChecked = async (e) => {
     e.preventDefault()
     setIsFetching(true)
     let auditTcc = {
@@ -212,7 +212,7 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
     }
   }
 
-  let PrintAuthorized = async (e) => {
+  const PrintAuthorized = async (e) => {
     e.preventDefault()
     setIsFetching(true)
     let printTcc = {
@@ -232,7 +232,7 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
     }
   }
 
-  let Approve = async (e) => {
+  const Approve = async (e) => {
     e.preventDefault()
     setIsFetching(true)
     let approveTcc = {
@@ -252,8 +252,7 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
     }
   }
 
-  let Decline = (data) => {
-    console.log(data);
+  const Decline = (data) => {
     setIsFetching(true)
     let declineTcc = {
       id: `${tccID}`,
@@ -262,30 +261,15 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
     }
     axios.post(`${url.BASE_URL}forma/tcc-status`, declineTcc)
       .then(function (response) {
-        // handle success
         setIsFetching(false)
         toast.success("Success!");
         router.push('/view/listtcc')
         console.log(response);
       })
       .catch(function (error) {
-        // handle error
         toast.error("Failed!");
-
         setIsFetching(false)
-
       })
-
-    // try {
-    //   let res = axios.post(`${url.BASE_URL}forma/tcc-status`, declineTcc);
-    //   setIsFetching(false)
-    //   toast.success("Success!");
-    //   router.push('/view/listtcc')
-    // } catch (error) {
-    //   toast.error("Failed!");
-    //   console.log(error);
-    //   setIsFetching(false)
-    // }
   }
 
   return (
