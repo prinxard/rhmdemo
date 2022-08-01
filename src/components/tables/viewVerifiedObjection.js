@@ -57,7 +57,7 @@ const fields = [
 
   {
     title: "Proposed Tax",
-    field: "tp_tax",
+    field: "tax",
   },
   {
     title: "Status",
@@ -72,7 +72,7 @@ const fields = [
 
 ];
 
-export const ViewSubmittedObjectionTable = ({ submittedData }) => {
+export const ViewVerifiedObjectionTable = ({ submittedData }) => {
   let items = submittedData;
 
   const { auth } = useSelector(
@@ -90,7 +90,7 @@ export const ViewSubmittedObjectionTable = ({ submittedData }) => {
 
   return (
     <>
-      <MaterialTable title="Submitted Objection List"
+      <MaterialTable title="Verified Objection List"
         data={items}
         columns={fields}
         options={{
@@ -123,7 +123,7 @@ export const ViewSubmittedObjectionTable = ({ submittedData }) => {
           if (userGroup.some(r => reportRange.includes(r))) {
             ''
           } else {
-            window.open(`/view/objection/submitted/${rowData.assessment_id}_${rowData.kgtin}`, "_self")
+            window.open(`/view/objection/verified/${rowData.assessment_id}_${rowData.kgtin}`, "_self")
             event.stopPropagation();
           }
         }}
@@ -132,14 +132,12 @@ export const ViewSubmittedObjectionTable = ({ submittedData }) => {
   );
 };
 
-export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
+export const ViewVerifiedObjection = ({ tpKgtin, objUploads, objectionData }) => {
   const [payerDetails, setpayerDetails] = useState([]);
   const [isFetching, setIsFetching] = useState(() => false);
   const [routerAssId, setAssessId] = useState('');
-  const [uploadedDocs, setUploadedDocs] = useState([]);
-  const [verifyModal, setVerifyModal] = useState(false);
+  const [approveModal, setapproveModal] = useState(false);
   const [declineModal, setDeclineModal] = useState(false);
-  const [fixedValues, fixValues] = useState({ amount: "" });
   const router = useRouter();
 
   const {
@@ -168,35 +166,17 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
     objectionStatus = element.status
   });
 
-  const verifyPopup = () => {
-    setVerifyModal(!verifyModal);
+  const approvePopup = () => {
+    setapproveModal(!approveModal);
   };
   const declinePopup = () => {
     setDeclineModal(!declineModal);
   };
 
-  const VerifyObjection = (data) => {
-    setIsFetching(true)
-    data.tax = (data.tax).replace(/,/g, '')
-    data.assessment_id = routerAssId
-    data.status = "Verified"
-
-    axios.put(`${url.BASE_URL}forma/objection`, data)
-      .then(function (response) {
-        setIsFetching(false)
-        toast.success("Success!");
-        router.push('/view/objection/verified')
-      })
-      .catch(function (error) {
-        toast.error("Failed!");
-        setIsFetching(false)
-      })
-  }
-
-  const DeclineObjection = (data) => {
+  const ApproveObjection = (data) => {
     setIsFetching(true)
     data.assessment_id = routerAssId
-    data.status = "Declined"
+    data.status = "Approved"
 
     axios.put(`${url.BASE_URL}forma/objection`, data)
       .then(function (response) {
@@ -243,6 +223,22 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
     }
   }, [router]);
 
+  const DeclineObjection = (data) => {
+    setIsFetching(true)
+    data.assessment_id = routerAssId
+    data.status = "Declined"
+
+    axios.put(`${url.BASE_URL}forma/objection`, data)
+      .then(function (response) {
+        setIsFetching(false)
+        toast.success("Success!");
+        router.push('/view/objection/submitted')
+      })
+      .catch(function (error) {
+        toast.error("Failed!");
+        setIsFetching(false)
+      })
+  }
 
   const Approval = [2, 3, 1]
   const decoded = jwt.decode(auth);
@@ -266,27 +262,17 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
           <p>Please wait...</p>
         </div>
       )}
-      {verifyModal && (
+      {approveModal && (
         <div className="modal">
           <div className="modal-content" width="300">
             <div className="text-center">
-              <p>Please fill in the proposed tax</p>
-              <p>and add a comment</p>
+              <p>Please add a comment</p>
             </div>
 
-            <form onSubmit={handleSubmit(VerifyObjection)}>
-              <FormatMoneyComponentReport
-                ref={register()}
-                name="tax"
-                control={control}
-                defaultValue={""}
-                onValueChange={(v) => fixValues({ amount: v })}
-                placeholder="₦ Enter Income"
-                required={true}
-              />
-              <textarea name="verifiedcomment" ref={register()} required className="form-control mt-3 w-full rounded" minlength="10" maxlength="150" placeholder="comment"></textarea>
+            <form onSubmit={handleSubmit(ApproveObjection)}>
+              <textarea name="approvedcomment" ref={register()} required className="form-control mt-3 w-full rounded" minlength="5" maxlength="150" placeholder="comment"></textarea>
               <div className="mt-2 flex justify-between">
-                <button onClick={verifyPopup}
+                <button onClick={approvePopup}
                   className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
                 >
                   Cancel
@@ -334,25 +320,23 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
       )}
 
       <div>
-        {objectionStatus === "Submitted" ?
+        {objectionStatus === "Verified" ?
           <div className="flex justify-between">
-            <div className="flex mr-3">
-              <button
-                className="btn my-2 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                type="submit"
-              >
-                <a href={`/view/approvedasses/${daAssessmentId}`} target="_blank" >View Assessment</a>
 
-              </button>
-            </div>
+            <button
+              className="btn my-2 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+              type="submit"
+            >
+              <a href={`/view/approvedasses/${daAssessmentId}`} target="_blank" >View Assessment</a>
 
+            </button>
             <div className="flex">
-
-              <div className="mr-3">
-                <button onClick={verifyPopup}
-                  className="btn bg-purple-400 mr-3 btn-default text-white btn-outlined bg-transparent rounded-md"
+              <div className=" mr-3">
+                <button onClick={approvePopup}
+                  className="btn bg-green-400  mr-3 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
                 >
-                  Verify
+                  Approve
                 </button>
               </div>
               <div className=" mr-3">
@@ -365,10 +349,11 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
               </div>
             </div>
 
+
           </div> : ""
         }
       </div>
-      
+
       <div className="border mb-3 block p-8 rounded-lg bg-white w-full">
         <div className="flex">
           <h6 className="p-2">Taxpayer Information</h6>

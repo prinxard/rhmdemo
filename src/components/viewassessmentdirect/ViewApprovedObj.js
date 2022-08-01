@@ -5,10 +5,11 @@ import axios from "axios";
 import { formatNumber } from "../../functions/numbers";
 import dateformat from "dateformat";
 import Loader from "react-loader-spinner";
-import { ViewSubmittedObjectionTable } from "../tables/viewSubmittedObjection";
+import { ViewVerifiedObjectionTable } from "../tables/viewVerifiedObjection";
+import { ViewApprovedObjectionTable } from "../tables/viewApprovedObjection";
 
 
-const ViewSubmittedObjection = () => {
+const ViewApprovedObjection = () => {
   const [post, setPost] = useState(() => []);
   const [isFetching, setIsFetching] = useState(() => true);
 
@@ -17,14 +18,14 @@ const ViewSubmittedObjection = () => {
     setAuthToken();
     const fetchPost = async () => {
       try {
-        let res = await axios.get(`${url.BASE_URL}forma/objection?status=Submitted`);
+        let res = await axios.get(`${url.BASE_URL}forma/objection?status=Approved`);
         res = res.data.body;
         let records = [];
         for (let i = 0; i < res.length; i++) {
           let rec = res[i];
           rec.serialNo = num + i
           rec.income = formatNumber(rec.income)
-          rec.tp_tax = formatNumber(rec.tp_tax)
+          rec.tax = formatNumber(rec.tax)
           rec.createtime = dateformat(rec.createtime, "dd mmm yyyy")
           records.push(rec);
         }
@@ -58,9 +59,9 @@ const ViewSubmittedObjection = () => {
         </div>
       )}
      
-      <ViewSubmittedObjectionTable submittedData={post} />
+      <ViewApprovedObjectionTable submittedData={post} />
     </>
   );
 };
 
-export default ViewSubmittedObjection;
+export default ViewApprovedObjection;
