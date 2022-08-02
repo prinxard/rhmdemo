@@ -1,5 +1,5 @@
-import ViewSingleApprovedObjection from "../../../../components/viewassessmentdirect/ViewSingleApprovedObjection";
+import ViewSingleVerifiedObjection from "../../../../components/viewassessmentdirect/ViewSingleVerifiedObjection";
 
-const Index = () => <ViewSingleApprovedObjection />;
+const Index = () => <ViewSingleVerifiedObjection />;
 
 export default Index;
