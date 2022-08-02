@@ -216,6 +216,7 @@ export default function Revise() {
       .then(function (response) {
         setIsFetching(false)
         toast.success("Submitted Successfully!");
+        router.push("/view/objection/submitted")
       })
       .catch(function (error) {
         setIsFetching(false)
