@@ -115,15 +115,16 @@ export const ViewTccTable = ({ tccdata }) => {
         }}
 
         onRowClick={(event, rowData) => {
+          window.open(`/view/listtcc/${rowData.id}`, "_self")
+          event.stopPropagation();
+          // if (userGroup.some(r => reportRange.includes(r))) {
+          //   ''
 
-          if (userGroup.some(r => reportRange.includes(r))) {
-            ''
+          // } else {
 
-          } else {
-
-            window.open(`/view/listtcc/${rowData.id}`, "_self")
-            event.stopPropagation();
-          }
+          //   window.open(`/view/listtcc/${rowData.id}`, "_self")
+          //   event.stopPropagation();
+          // }
         }}
       />
     </>
@@ -725,7 +726,7 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
                   <div>
 
                     {assessmentData2.map((ele, i) => (
-                      <input readOnly className="form-control w-full rounded" key={i} defaultValue={ele.tax} type="text"
+                      <input readOnly className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.tax)} type="text"
                       />
                     ))}
                   </div>

@@ -279,7 +279,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
           },
           {
             icon: Refresh,
-            tooltip: 'Objection',
+            tooltip: 'Revise Assessment',
             onClick: (event, rowData) => {
               event.preventDefault()
               setRevisedAssFields(
