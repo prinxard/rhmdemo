@@ -317,11 +317,8 @@ export const StartBOJ = () => {
 
   console.log("T", tax_paid);
 
-  if (tax_paid <= 50000) {
-    dev_levy = "500"
-  } else {
-    dev_levy = "1000"
-  }
+  
+  dev_levy = "1000"
   // console.log("dev_levy", dev_levy);
 
 

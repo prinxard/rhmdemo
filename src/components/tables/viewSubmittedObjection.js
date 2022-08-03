@@ -335,18 +335,10 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
 
       <div>
         {objectionStatus === "Submitted" ?
-          <div className="flex justify-between">
-            <div className="flex mr-3">
-              <button
-                className="btn my-2 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                type="submit"
-              >
-                <a href={`/view/approvedasses/${daAssessmentId}`} target="_blank" >View Assessment</a>
+          <div className="flex justify-end">
 
-              </button>
-            </div>
 
-            <div className="flex">
+            <div className="flex my-2">
 
               <div className="mr-3">
                 <button onClick={verifyPopup}
@@ -368,7 +360,7 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
           </div> : ""
         }
       </div>
-      
+
       <div className="border mb-3 block p-8 rounded-lg bg-white w-full">
         <div className="flex">
           <h6 className="p-2">Taxpayer Information</h6>
@@ -449,10 +441,6 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
                 <label className="self-center font-bold">Proposed Income:</label>
                 <p className="font-bold">{formatNumber(data.income)}</p>
               </div>
-              {/* <div className="mb-2 grid grid-cols-2 gap-2">
-                <label className="self-center font-bold">Tax:</label>
-                <p className="font-bold">{formatNumber(data.tp_tax)}</p>
-              </div> */}
               <div className="mb-2 grid grid-cols-2 gap-2">
                 <label className="self-center font-bold">Dev levy:</label>
                 <p className="font-bold">{formatNumber(data.dev_levy)}</p>
@@ -474,11 +462,6 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
             </div>
             {objUploads.map((data) => (
               <div className="flex justify-between my-3">
-                {/* <button
-                  className="btn my-2 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                >
-                  <a href={``} target="_blank" >{data.doc_name}</a>
-                </button> */}
                 <p className="font-bold"><a href="" className="no-underline hover:underline text-blue-500">{data.doc_name}</a></p>
                 <span className="h-5 w-5 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
                   <FiCheck
@@ -488,7 +471,15 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
                 </span>
               </div>
             ))}
+            <div className="flex mr-3">
+              <button
+                className="btn my-2 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                type="submit"
+              >
+                <a href={`/view/approvedasses/${daAssessmentId}`} target="_blank" >View Assessment</a>
 
+              </button>
+            </div>
           </div>
         </div>
       </div>
