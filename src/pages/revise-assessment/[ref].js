@@ -19,12 +19,13 @@ export default function Revise() {
   const [fixedValues, fixValues] = useState({ amount: "" });
   const [appLetter, setAppLetter] = useState(null);
   const [supportingDoc, setSupportingDoc] = useState(null);
-  const [supportingDocIn, setSupportingDocIn] = useState(null);
   const [uploadedAppLetter, setUploadedAppLetter] = useState(false);
   const [uploadErrors, setUploadErrors] = useState(() => []);
   const [uploadedDocs, setUploadedDocs] = useState([]);
   const [supportDocInput, setInput] = useState({ name: '' })
   const [uploadDep, setUploadDep] = useState(false);
+  const [hidesubmit, setHideSubmit] = useState("");
+
 
 
   const router = useRouter();
@@ -82,6 +83,7 @@ export default function Revise() {
     await axios.put(`${url.BASE_URL}forma/objection`, data)
       .then(function (response) {
         setIsFetching(false)
+        setHideSubmit("hidden")
         toast.success("Created Successfully!");
       })
       .catch(function (error) {
@@ -460,7 +462,7 @@ export default function Revise() {
                 <label className="self-center font-bold"> Tax liability:</label>
                 <p className="font-bold">{formatNumber(finalTax)}</p>
               </div>
-              <div className="flex justify-end">
+              <div className={`flex justify-end ${hidesubmit}`}>
                 <button
                   style={{ backgroundColor: "#84abeb" }}
                   className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
@@ -519,7 +521,7 @@ export default function Revise() {
                       className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
                       type="submit"
                     >
-                      Submit
+                      Upload
                     </button>
 
                   </div>
@@ -556,7 +558,7 @@ export default function Revise() {
                       className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
                       type="submit"
                     >
-                      Submit
+                      Upload
                     </button>
 
                   </div>
