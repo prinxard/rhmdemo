@@ -159,7 +159,7 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
   // console.log(statusTCC);
 
   const admin = [1]
-  const chairman = [1, 9]
+  const chairman = [1, 9, 39]
   const Approval = [12, 1]
   const verify = [2, 3, 1]
   const Audit = [21, 1]
