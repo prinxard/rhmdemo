@@ -24,7 +24,7 @@ const ViewSingleVerifiedObjection = () => {
       let kgtin = routerData.split('_').pop()
       let assessmentId = routerData.split('_').shift()
       setGlobalAssId(assessmentId)
-      setTpKgtin(kgtin) 
+      setTpKgtin(kgtin)
       setAuthToken()
       const fetchPost = async () => {
         try {
