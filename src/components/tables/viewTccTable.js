@@ -546,7 +546,23 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
                       </button>
 
                     </div>
-                  </div> : ""
+                  </div> :
+                  <div className="flex mr-3">
+                    <button
+                      className="btn bg-green-600 mr-2 btn-default text-white btn-outlined bg-transparent rounded-md"
+                      type="submit"
+                    >
+                      <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
+                    </button>
+
+                    <button
+                      className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                      type="submit"
+                    >
+                      <Link href={`/tcc/${tccID}`}> Upload Docs</Link>
+                    </button>
+
+                  </div>
                 }
               </div>
             </div>
