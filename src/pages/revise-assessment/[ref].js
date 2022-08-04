@@ -10,7 +10,7 @@ import { FormatMoneyComponentReport } from '../../components/FormInput/formInput
 import { formatNumber } from '../../functions/numbers';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FiCheck } from 'react-icons/fi';
+import { FiDelete } from 'react-icons/fi';
 
 export default function Revise() {
   const [payerDetails, setpayerDetails] = useState([]);
@@ -26,10 +26,6 @@ export default function Revise() {
   const [uploadDep, setUploadDep] = useState(false);
   const [hidesubmit, setHideSubmit] = useState("");
 
-
-
-  const router = useRouter();
-
   const {
     register,
     handleSubmit,
@@ -38,10 +34,16 @@ export default function Revise() {
     formState: { errors },
   } = useForm()
 
+
+
+  const router = useRouter();
+
+
   const handleChange = (e) => setInput({
     ...supportDocInput,
     [e.currentTarget.name]: e.currentTarget.value
   });
+
 
   setAuthToken();
   useEffect(() => {
@@ -75,6 +77,7 @@ export default function Revise() {
     }
   }, [router, uploadDep]);
 
+  console.log("uploadedDocs", uploadedDocs);
 
   const InitiateObj = async (data) => {
     setIsFetching(true)
@@ -98,6 +101,29 @@ export default function Revise() {
       })
 
   }
+
+  const DeleteDocument = (event) => {
+    event.preventDefault()
+
+    // setIsFetching(true)
+    // await axios.delete(`${url.BASE_URL}forma/objection-upload`, { file_name: file_name })
+    //   .then(function (response) {
+    //     setIsFetching(false)
+    //     toast.success("Deleted Successfully!");
+    //   })
+    //   .catch(function (error) {
+    //     setIsFetching(false)
+    //     if (error) {
+    //       toast.error("Cannot Delete Document");
+    //     } else {
+    //       toast.error("Failed! Try again");
+
+    //     }
+
+    //   })
+
+  }
+
   const onChangeAppLetter = e => {
     let file = e.target.files[0]
     console.log(file);
@@ -180,7 +206,7 @@ export default function Revise() {
 
   };
 
-  const UploadSupportingDocs = async (event) => {
+  const UploadSupportingDocs = async () => {
     setIsFetching(true)
     const formData = new FormData();
     formData.append('assessment_id', routerAssId);
@@ -415,7 +441,7 @@ export default function Revise() {
             <p>Please wait...</p>
           </div>
         )}
-        
+
         <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
           <div className="w-full lg:w-1/2 max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
             <form onSubmit={handleSubmit(InitiateObj)}>
@@ -482,14 +508,20 @@ export default function Revise() {
                 <p className="text-center"><small className="font-bold">(Accepted document formats are png, jpeg, pdf. max size 100kb)</small></p>
               </div>
               {uploadedDocs.map((data) => (
-                <div className="flex justify-between my-3">
-                  <p className="font-bold">{data.doc_name}</p>
-                  <span className="h-5 w-5 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                    <FiCheck
-                      size={15}
-                      className="stroke-current text-green-500"
-                    />
-                  </span>
+                <div key={data.id}>
+                  <form className="flex justify-between my-3" onSubmit={DeleteDocument}>
+                    <p className="font-bold">{data.doc_name}</p>
+                    <input type="text" name="file_name" defaultValue={data.file_name} className="" />
+                    <button className=" text-white flex items-center justify-center  text-lg font-display font-bold"
+                    type="submit"
+                    >
+                      <FiDelete
+                        size={15}
+                        className=" text-red-500"
+                      />
+
+                    </button>
+                  </form>
                 </div>
               ))}
 
