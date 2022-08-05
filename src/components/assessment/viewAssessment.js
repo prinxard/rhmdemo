@@ -101,8 +101,7 @@ export const StartAssessment = () => {
           .then(function (response) {
             let assessment_id = response.data.body.assessment_id
             if (typeWatch === "Assessment") {
-              console.log("TypeWatch2", typeWatch);
-              router.push(`/direct-asses/${assessment_id},${kgtinWatch}`)
+              // router.push(`/direct-asses/${assessment_id}`)
             } else {
               router.push(`/view/boj/${assessment_id},${kgtinWatch}`)
             }
@@ -114,7 +113,6 @@ export const StartAssessment = () => {
         setModal(true)
         if (error.response) {
           setValidateMssg((error.response.data.message).replaceAll("Error", "Warning"));
-          // console.log((error.response.data.message).replaceAll("Error", "Warning"));
         } else {
           toast.error("Failed!");
         }
@@ -181,7 +179,6 @@ export const StartAssessment = () => {
 
       {modal && (
         <div className="modal">
-          {/* <div onClick={toggleModal} className="overlay"></div> */}
           <div className="modal-content" width="300">
             <form onSubmit={handleSubmit(onSubmitform)}>
               <div className="flex justify-center">
@@ -222,13 +219,8 @@ export const StartAssessment = () => {
 
               <div className="w-full lg:w-2/5">
                 <div className="">
-                  {/* <p>Enter Taxpayer KGTIN</p> */}
                   <input ref={register()} type="text" name="kgtin" placeholder="Enter KGTIN" />
                 </div>
-                {/* <div>
-                  <small className={`${validmsg}`}>{payerDetails.tp_name}</small>
-                  <small className={`text-red-600 ${invalidmsg}`}>{invalidkgtinmessage}</small>
-                </div> */}
               </div>
 
               <div className="w-full lg:w-2/5 py-2 self-center">
@@ -241,20 +233,8 @@ export const StartAssessment = () => {
                 </a>
               </div>
 
-              {/* <div className="w-full lg:w-3/5 ">
-                <div className="self-center">
-                  <SelectAnnual
-                    label="Select Year"
-                    required
-                    ref={register()}
-                    name="year"
-                  />
-                </div>
-              </div> */}
-
               <div className="w-full lg:w-4/5">
                 <div>
-                  {/* <p>Select Year</p> */}
                   <select ref={register()} name="year" id="">
                     <option value="">Select Year</option>
                     <option value="2018">2018</option>
@@ -266,7 +246,6 @@ export const StartAssessment = () => {
               </div>
 
               <div className="w-full lg:w-4/5 ">
-                {/* <p>Select Type</p> */}
                 <select ref={register()} name="type" id="">
                   <option value="Assessment">Assessment</option>
                   <option value="BOJ">BOJ Assessment</option>
@@ -348,8 +327,7 @@ export const StartAssessment = () => {
 export const StartSingleIndividualAssessment = ({ kgtinVal, payerprop, routerAssId }) => {
   let assessment_id = routerAssId
   let indvData = payerprop
-  console.log("indvData", indvData);
-
+  
   const [toggleel, setToggle] = useState('hidden')
   const [togglee2, setToggle2] = useState('hidden')
   const [togglee3, setToggle3] = useState('hidden')
@@ -615,30 +593,6 @@ export const StartSingleIndividualAssessment = ({ kgtinVal, payerprop, routerAss
     }
   )
 
-
-  // let res_no = indvData.map(function (x) {
-  //   let houseNumb = x.house_no
-  //   return houseNumb
-  // })
-
-  // residentialAddress.house_no = String(res_no)
-
-  // let streetVal = indvData.map(function (x) {
-  //   let street = x.street
-  //   return street
-  // })
-
-  // residentialAddress.street = String(streetVal)
-
-
-  // let lgaVal = indvData.map(function (x) {
-  //   let lga = x.lga
-  //   return lga
-  // })
-
-
-
-  // residentialAddress.lga = String(lgaVal)
 
   const [selfEmployed, setSelfEmployed] = useState(
     {
