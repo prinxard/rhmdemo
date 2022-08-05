@@ -178,9 +178,9 @@ export default function index() {
                         </div>
                         <div className="form-group ">
                             <p>BVN</p>
-                            <input name="bvn" ref={register({ required: "BVN is Required" })} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                            <input name="bvn" ref={register()} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
                             />
-                            {errors.bvn && <small className="text-red-600">{errors.bvn.message}</small>}
+                            {/* {errors.bvn && <small className="text-red-600">{errors.bvn.message}</small>} */}
                         </div>
                         <div className="form-group ">
                             <p>Tax Office</p>
