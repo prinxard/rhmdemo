@@ -71,7 +71,7 @@ export default function IndividualReportstable({ FilteredData }) {
         shallowEqual
     );
 
-    const reportRange = [39]
+    const reportRange = [39, 9, 20]
     const decoded = jwt.decode(auth);
     const userGroup = decoded.groups
 
@@ -81,19 +81,23 @@ export default function IndividualReportstable({ FilteredData }) {
             <MaterialTable title="Individual Taxpayer Data"
                 data={items}
                 columns={fields}
-                actions={[
 
-                    {
-                        icon: MoreHoriz,
-                        tooltip: 'View Profile',
-                        onClick: (event, rowData) => router.push(`/payer-profile/${rowData.KGTIN}`)
-                    },
-                    {
-                        icon: Edit,
-                        tooltip: 'Edit Payer',
-                        onClick: (event, rowData) => router.push(`/update-individual/${rowData.KGTIN}`)
-                    }
-                ]}
+                actions={
+                    [
+
+                        {
+                            icon: MoreHoriz,
+                            tooltip: 'View Profile',
+                            onClick: (event, rowData) => router.push(`/payer-profile/${rowData.KGTIN}`),
+                            disabled: userGroup.some(r => reportRange.includes(r))
+                        },
+                        {
+                            icon: Edit,
+                            tooltip: 'Edit Payer',
+                            onClick: (event, rowData) => router.push(`/update-individual/${rowData.KGTIN}`),
+                            disabled: userGroup.some(r => reportRange.includes(r))
+                        }
+                    ]}
                 options={{
                     search: true,
                     paging: true,
