@@ -24,8 +24,8 @@ export const StartBOJ = () => {
 
   const [payerDetails, setpayerDetails] = useState([]);
   const [isFetching, setIsFetching] = useState(() => false);
-  const [isFetching2, setIsFetching2] = useState(() => false);
-  const [bojErrors, setErrors] = useState(() => []);
+  const [assmentYear, setAssessmentYear] = useState('');
+  const [payerKgtin, setPayerKgtin] = useState('');
   const [bojData, setBojData] = useState(() => []);
   const [employed, setEmployed] = useState('');
   const [self_employed, setSelfEmployed] = useState('');
@@ -136,11 +136,14 @@ export const StartBOJ = () => {
   useEffect(() => {
     if (router && router.query) {
       let routerData = String(router.query.ref);
-      let kgtin = routerData.split(',').pop()
-      let assessId = routerData.split(',').shift()
+      let kgtin = routerData.split('_').pop()
+      let assessId = routerData.split('_').shift()
+      let assessmentYear = routerData.split('_').slice(1, 2).toString()
+      setAssessmentYear(assessmentYear)
+      setPayerKgtin(kgtin)
       setAssessId(assessId)
       let kgtinPost = {
-        "KGTIN": `${kgtin}`
+        "KGTIN": kgtin
       }
 
       setAuthToken();
@@ -164,8 +167,8 @@ export const StartBOJ = () => {
   useEffect(() => {
     if (router && router.query) {
       let routerData = String(router.query.ref);
-      let kgtin = routerData.split(',').pop()
-      let assessId = routerData.split(',').shift()
+      let kgtin = routerData.split('_').pop()
+      let assessId = routerData.split('_').shift()
       // setAssessId(assessId)
       let fetchboj = {
         KGTIN: kgtin,
@@ -192,11 +195,9 @@ export const StartBOJ = () => {
 
 
   const TotalIncome = Number(emplFigure) + Number(selfemplFigure) + Number(otherIncomeFigure)
- 
+
   setAuthToken();
   let UpdateBOJ = async (data) => {
-    // console.log(data);
-    // console.log(JsonTax);
     setIsFetching(true)
     if (!data.self_employment && !data.employment) {
       alert("Please fill out either employment or self employment amount")
@@ -210,7 +211,9 @@ export const StartBOJ = () => {
         previous_yr_tax: previousTaxFigure,
         boj_comment: data.comment,
         dev_levy: dev_levy,
-        other_income: otherIncomeFigure
+        other_income: otherIncomeFigure,
+        year: assmentYear,
+        kgtin: payerKgtin
       }
       try {
         let res = await axios.put(`${url.BASE_URL}forma/boj-assessment`, BOJObject);
@@ -230,12 +233,7 @@ export const StartBOJ = () => {
 
   }
 
-  let CalTax = () => {
-    setEmployed(emplFigure)
-    setSelfEmployed(selfemplFigure)
-  }
-
-
+ 
 
   consolidatedIncome = (Number(selfEmployedF) + Number(employedF) + Number(otherIncomeF));
   // console.log("Consl", consolidatedIncome);
@@ -310,16 +308,14 @@ export const StartBOJ = () => {
   }
 
   tax = tax;
- 
+
   tax_paid = tax;
 
   let JsonTax = String(tax_paid)
 
   console.log("T", tax_paid);
 
-  
   dev_levy = "1000"
-  // console.log("dev_levy", dev_levy);
 
 
 
@@ -356,7 +352,6 @@ export const StartBOJ = () => {
         <div className="border mb-3 block p-8 rounded-lg bg-white w-full">
           <div className="flex">
             <h6 className="p-2">Taxpayer Information</h6>
-            {/* <a href="" className="text-blue-600 self-center">Edit</a> */}
           </div>
           <p className="mb-3 font-bold"></p>
           <form>
@@ -450,7 +445,7 @@ export const StartBOJ = () => {
                     onValueChange={(v) => fixValues3({ amount: v })}
                   />
                 </div>
-                
+
                 <div className="mb-2 grid grid-cols-3 gap-2">
                   <p className="font-bold">Total Income:  </p>
                   <p><span className="font-bold">{formatNumber(TotalIncome)}</span></p>
@@ -475,8 +470,6 @@ export const StartBOJ = () => {
                   <label className="self-center font-bold">Tax:</label>
                   <div>
                     <div className="flex justify-evenly">
-                      {/* <button type="button" onClick={CalTax} style={{ backgroundColor: "#84abeb" }} className="btn w-32 text-white btn-outlined bg-transparent rounded-md">Show tax</button> */}
-                      {/* <input readOnly defaultValue={formatNumber(tax_paid)} ref={register()} type="text" name="tax" className="w-32" id="" /> */}
                       <p className="font-bold">{formatNumber(JsonTax)}</p>
                     </div>
                   </div>
@@ -485,8 +478,6 @@ export const StartBOJ = () => {
                   <label className="self-center font-bold">Development levy:</label>
                   <div>
                     <div className="flex justify-evenly">
-                      {/* <button type="button" onClick={CalTax} style={{ backgroundColor: "#84abeb" }} className="btn w-32 text-white btn-outlined bg-transparent rounded-md">Show tax</button> */}
-                      {/* <input readOnly defaultValue={formatNumber(tax_paid)} ref={register()} type="text" name="tax" className="w-32" id="" /> */}
                       <p className="font-bold">{formatNumber(dev_levy)}</p>
                     </div>
                   </div>
@@ -495,8 +486,6 @@ export const StartBOJ = () => {
                   <label className="self-center font-bold">Total tax due for payment:</label>
                   <div>
                     <div className="flex justify-evenly">
-                      {/* <button type="button" onClick={CalTax} style={{ backgroundColor: "#84abeb" }} className="btn w-32 text-white btn-outlined bg-transparent rounded-md">Show tax</button> */}
-                      {/* <input readOnly defaultValue={formatNumber(tax_paid)} ref={register()} type="text" name="tax" className="w-32" id="" /> */}
                       <p className="font-bold">{formatNumber(Number(JsonTax) + Number(dev_levy))}</p>
                     </div>
                   </div>

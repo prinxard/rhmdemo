@@ -88,7 +88,7 @@ export const ViewPendingTable = ({ draftData }) => {
     shallowEqual
   );
 
-  const reportRange = [39]
+  const reportRange = [39, 9, 20]
   const decoded = jwt.decode(auth);
   const userGroup = decoded.groups
 
@@ -134,10 +134,10 @@ export const ViewPendingTable = ({ draftData }) => {
           else{
             rowData.assessment_type === "BOJ" ?
 
-              window.open(`/view/boj/${rowData.assessment_id},${rowData.kgtin}`, "_self")
+              window.open(`/view/boj/${rowData.assessment_id}_${rowData.year}_${rowData.kgtin}`, "_self")
               :
 
-              window.open(`/view/pendingdirect/${rowData.assessment_id},${rowData.kgtin}`, "_self")
+              window.open(`/view/pendingdirect/${rowData.assessment_id}_${rowData.year}_${rowData.kgtin}`, "_self")
 
           }
 
@@ -155,7 +155,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
   partner, changedPartner, rentIncome, changedRentIncome, bankInterest, changedBankInterest, dividends,
   changedBankDividends, changedPension, pension, residentialAddr, asset, changedAsset, outsideSource,
   changedOutsideSource, changedVehicles, vehicles, changedLand, land, farm, changedFarm, changedSpouse, spouse,
-  changedChildren, children, domestic, changedDomestic, assessment, kgtinVal
+  changedChildren, children, domestic, changedDomestic, assessment, kgtinVal, assmentYear
 
 }) => {
   const [toggleel, setToggle] = useState('hidden')
@@ -941,6 +941,8 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
       nhis: `${NhisAmount}`,
       lap: `${lapAmount}`,
       pension: `${penDeductAmount}`,
+      year: assmentYear,
+      kgtin: kgtinVal
     }
     axios.put(`${url.BASE_URL}forma/tax-cal`, assessFormObj)
       .then(function (response) {

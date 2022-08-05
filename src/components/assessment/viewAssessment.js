@@ -66,9 +66,9 @@ export const StartAssessment = () => {
       let assessment_id = res.data.body.assessment_id
       setIsFetching2(false)
       if (data.type === "Assessment") {
-        router.push(`/direct-asses/${assessment_id}_${KGTIN}_${yearWatch}`)
+        router.push(`/direct-asses/${assessment_id}_${yearWatch}_${KGTIN}`)
       } else {
-        router.push(`/view/boj/${assessment_id},${KGTIN}_${yearWatch}`)
+        router.push(`/view/boj/${assessment_id}_${yearWatch}_${KGTIN}`)
       }
     }
     catch (err) {
@@ -101,9 +101,9 @@ export const StartAssessment = () => {
           .then(function (response) {
             let assessment_id = response.data.body.assessment_id
             if (typeWatch === "Assessment") {
-              router.push(`/direct-asses/${assessment_id},${kgtinWatch}`)
+              router.push(`/direct-asses/${assessment_id}_${yearWatch}_${kgtinWatch}`)
             } else {
-              router.push(`/view/boj/${assessment_id},${kgtinWatch}`)
+              router.push(`/view/boj/${assessment_id}_${yearWatch}_${kgtinWatch}`)
             }
           })
 
@@ -324,7 +324,7 @@ export const StartAssessment = () => {
 };
 
 
-export const StartSingleIndividualAssessment = ({ kgtinVal, payerprop, routerAssId }) => {
+export const StartSingleIndividualAssessment = ({ kgtinVal, assessmentYear, payerprop, routerAssId }) => {
   let assessment_id = routerAssId
   let indvData = payerprop
   
@@ -1231,6 +1231,8 @@ export const StartSingleIndividualAssessment = ({ kgtinVal, payerprop, routerAss
       nhis: `${formSubmitNhisCal}`,
       lap: `${formSubmitLapCal}`,
       pension: `${formSubmitPensCal}`,
+      year: assessmentYear,
+      kgtin: kgtinVal
     }
     try {
       let res = await axios.put(`${url.BASE_URL}forma/tax-cal`, assessFormObj);

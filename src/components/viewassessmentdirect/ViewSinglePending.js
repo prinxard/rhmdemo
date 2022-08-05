@@ -40,13 +40,17 @@ const ViewSinglePending = () => {
   const [assessment, setAssessment] = useState([]);
   const [routerAssId, setAssessId] = useState('');
   const [kgtinVal, setKGTINVal] = useState('');
+  const [assmentYear, setAssessmentYear] = useState('');
+  
 
   const router = useRouter();
   useEffect(() => {
     if (router && router.query) {
       let routerData = String(router.query.ref);
-      let kgtin = routerData.split(',').pop()
-      let assessmentId = routerData.split(',').shift()
+      let kgtin = routerData.split('_').pop()
+      let assessmentId = routerData.split('_').shift()
+      let assessmentYear = routerData.split('_').slice(1, 2).toString()
+      setAssessmentYear(assessmentYear)
       setAssessId(assessmentId)
       setKGTINVal(kgtin)
       let sendData = {
@@ -365,7 +369,7 @@ const ViewSinglePending = () => {
             changedChildren={(e, index, fieldName) => handleChildren(e.target.value, index, fieldName)}
             changedDomestic={(e, index, fieldName) => handleDomestic(e.target.value, index, fieldName)}
             outsideSource={outsideSource} vehicles={vehicles} land={land} farm={farm} spouse={spouse}
-            children={children} domestic={domestic} kgtinVal={kgtinVal}
+            children={children} domestic={domestic} kgtinVal={kgtinVal} assmentYear={assmentYear}
 
           />
         </>
