@@ -91,7 +91,7 @@ export const ViewCompletedTable = ({ submittedData }) => {
     shallowEqual
   );
 
-  const reportRange = [39]
+  const reportRange = [39, 20, 9]
   const decoded = jwt.decode(auth);
   const userGroup = decoded.groups
 

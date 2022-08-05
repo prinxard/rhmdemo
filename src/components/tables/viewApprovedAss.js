@@ -100,7 +100,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
 
 
   const DeleteRange = [1, 12]
-  const reportRange = [39]
+  const reportRange = [39, 9, 20]
   const decoded = jwt.decode(auth);
   const userGroup = decoded.groups
 

@@ -159,7 +159,7 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
   // console.log(statusTCC);
 
   const admin = [1]
-  const chairman = [1, 9]
+  const chairman = [1, 9, 39]
   const Approval = [12, 1]
   const verify = [2, 3, 1]
   const Audit = [21, 1]
@@ -530,7 +530,23 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
                       </button>
 
                     </div>
-                  </div> : ""
+                  </div> :
+                  <div className="flex mr-3">
+                    <button
+                      className="btn bg-green-600 mr-2 btn-default text-white btn-outlined bg-transparent rounded-md"
+                      type="submit"
+                    >
+                      <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
+                    </button>
+
+                    <button
+                      className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                      type="submit"
+                    >
+                      <Link href={`/tcc/${tccID}`}> Upload Docs</Link>
+                    </button>
+
+                  </div>
                 }
               </div>
             </div>
