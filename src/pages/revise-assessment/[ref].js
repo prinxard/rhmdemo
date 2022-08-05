@@ -511,7 +511,7 @@ export default function Revise() {
                 <div key={data.id}>
                   <form className="flex justify-between my-3" onSubmit={DeleteDocument}>
                     <p className="font-bold">{data.doc_name}</p>
-                    <input type="text" name="file_name" defaultValue={data.file_name} className="" />
+                    <input type="text" name="file_name" defaultValue={data.file_name} className="hidden" />
                     <button className=" text-white flex items-center justify-center  text-lg font-display font-bold"
                     type="submit"
                     >

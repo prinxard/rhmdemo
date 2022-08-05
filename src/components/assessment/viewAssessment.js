@@ -66,9 +66,9 @@ export const StartAssessment = () => {
       let assessment_id = res.data.body.assessment_id
       setIsFetching2(false)
       if (data.type === "Assessment") {
-        router.push(`/direct-asses/${assessment_id},${KGTIN}`)
+        router.push(`/direct-asses/${assessment_id}_${KGTIN}_${yearWatch}`)
       } else {
-        router.push(`/view/boj/${assessment_id},${KGTIN}`)
+        router.push(`/view/boj/${assessment_id},${KGTIN}_${yearWatch}`)
       }
     }
     catch (err) {
@@ -101,7 +101,7 @@ export const StartAssessment = () => {
           .then(function (response) {
             let assessment_id = response.data.body.assessment_id
             if (typeWatch === "Assessment") {
-              // router.push(`/direct-asses/${assessment_id}`)
+              router.push(`/direct-asses/${assessment_id},${kgtinWatch}`)
             } else {
               router.push(`/view/boj/${assessment_id},${kgtinWatch}`)
             }
@@ -235,7 +235,7 @@ export const StartAssessment = () => {
 
               <div className="w-full lg:w-4/5">
                 <div>
-                  <select ref={register()} name="year" id="">
+                  <select required ref={register()} name="year" id="">
                     <option value="">Select Year</option>
                     <option value="2018">2018</option>
                     <option value="2019">2019</option>
