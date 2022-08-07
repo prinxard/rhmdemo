@@ -42,8 +42,8 @@ const ForgotPasswordForm = () => {
   return (
     <div className=" w-96">
       <CenteredForm
-        title="Forgot password"
-        subtitle="Please enter your Tax Id to recover your password"
+        title="Password Reset"
+        subtitle="Please enter your email address"
       >
         {successMessage !== null && (
           <>
@@ -63,14 +63,14 @@ const ForgotPasswordForm = () => {
           <form onSubmit={handleSubmit(SubmitHandler)} autoComplete="off">
             <div className="">
               <NewFormInput
-                name="kgtin"
+                name="email"
                 label={<KgtinIcon />}
                 ref={register({
-                  minLength: 10,
-                  maxLength: 10,
+                  // minLength: 10,
+                  // maxLength: 10,
                   pattern: {
-                    value: /^[0-9]*[.]?[0-9]*$/,
-                    message: 'KGTIN or TIN must be a number',
+                    value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
+                    message: 'enter a valid email format',
                   },
                 })}
                 autoComplete="off"
@@ -84,8 +84,8 @@ const ForgotPasswordForm = () => {
               {errors.kgtin && errors.kgtin.type === 'maxLength' && (
                 <p className="text-red-600">KGTIN or TIN must be 10 digits</p>
               )}
-              {errors.kgtin && (
-                <p className="text-red-600 bg-white">{errors.kgtin.message}</p>
+              {errors.email && (
+                <p className="text-red-600 bg-white">Enter a valid email</p>
               )}
             </div>
 
@@ -104,7 +104,7 @@ const ForgotPasswordForm = () => {
               </CustomButton>
             </div>
 
-            <div className="flex flex-row w-full mt-3">
+            {/* <div className="flex flex-row w-full mt-3">
               <span className="mr-1">New user?</span>
               <span>
                 <Link href="/signup">
@@ -119,7 +119,7 @@ const ForgotPasswordForm = () => {
                   <a className="link">Login here</a>
                 </Link>
               </span>
-            </div>
+            </div> */}
           </form>
         </div>
       </CenteredForm>

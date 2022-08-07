@@ -41,7 +41,7 @@ const ViewSinglePending = () => {
   const [routerAssId, setAssessId] = useState('');
   const [kgtinVal, setKGTINVal] = useState('');
   const [assmentYear, setAssessmentYear] = useState('');
-  
+
 
   const router = useRouter();
   useEffect(() => {
@@ -188,7 +188,7 @@ const ViewSinglePending = () => {
     updateNhis[fieldName] = newValue
     NhisCopy[index] = updateNhis
     setNhis(NhisCopy)
-   
+
   }
 
   function handlePartner(newValue, index, fieldName) {
@@ -370,7 +370,6 @@ const ViewSinglePending = () => {
             changedDomestic={(e, index, fieldName) => handleDomestic(e.target.value, index, fieldName)}
             outsideSource={outsideSource} vehicles={vehicles} land={land} farm={farm} spouse={spouse}
             children={children} domestic={domestic} kgtinVal={kgtinVal} assmentYear={assmentYear}
-
           />
         </>
       </Widget>
