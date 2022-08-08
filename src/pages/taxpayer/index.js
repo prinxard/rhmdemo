@@ -107,7 +107,7 @@ export default function index() {
                             <select name="indv_title" ref={register()} className="form-control SlectBox mb-4 w-full rounded font-light text-gray-500">
                                 <option value="mr">Mr</option>
                                 <option value="mrs">Mrs</option>
-                                <option value="mrss">Mrss</option>
+                                <option value="mrss">Miss</option>
                             </select>
                         </div>
 

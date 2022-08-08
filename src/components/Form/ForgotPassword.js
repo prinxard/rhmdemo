@@ -70,7 +70,6 @@ const ForgotPasswordForm = () => {
                   // maxLength: 10,
                   pattern: {
                     value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
-                    message: 'enter a valid email format',
                   },
                 })}
                 autoComplete="off"
@@ -115,6 +114,13 @@ const ForgotPasswordForm = () => {
                 </Link>
               </span>
             </div> */}
+            <div className="flex justify-end">
+              <span>
+                <Link href="/">
+                  <a className="link">Back to Login</a>
+                </Link>
+              </span>
+            </div>
           </form>
         </div>
       </CenteredForm>
