@@ -65,13 +65,13 @@ const PasswordResetForm = () => {
         //   },
         // }
       );
-      LogoutUser()
       setSubmitting(false);
       setSuccessMsg(res.data.message);
-      // setTimeout(() => {
-      //   setSuccessMsg(null);
-      //   // router.push("/");
-      // }, 10000);
+      setTimeout(() => {
+        LogoutUser()
+        setSuccessMsg(null);
+        // router.push("/");
+      }, 10000);
     } catch (e) {
       setSubmitting(false);
       // if (e.response) {
