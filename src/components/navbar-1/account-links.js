@@ -17,10 +17,10 @@ const AccountLinks = () => {
 
   const items = [
     {
-      url: '/user-page/user-profile',
+      url: '/view/users/update',
       icon: <FiUser size={18} className="stroke-current" />,
       name: 'Profile',
-      badge: null,
+      // badge: null,
     },
   ];
 

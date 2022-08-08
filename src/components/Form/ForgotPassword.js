@@ -24,7 +24,7 @@ const ForgotPasswordForm = () => {
   const SubmitHandler = async (data) => {
     setSubmitting(true);
     try {
-      const res = await axios.post(`${url.BASE_URL}user/forgot-password`, data);
+      const res = await axios.put(`${url.BASE_URL}user/reset-password`, data);
       setSubmitting(false);
       setSuccessMessage(res.data.message);
       setTimeout(() => {
@@ -76,14 +76,9 @@ const ForgotPasswordForm = () => {
                 autoComplete="off"
                 type="text"
                 required
-                placeholder="Tax Id"
+                placeholder="email"
               />
-              {errors.kgtin && errors.kgtin.type === 'minLength' && (
-                <p className="text-red-600">KGTIN or TIN must be 10 digits</p>
-              )}
-              {errors.kgtin && errors.kgtin.type === 'maxLength' && (
-                <p className="text-red-600">KGTIN or TIN must be 10 digits</p>
-              )}
+
               {errors.email && (
                 <p className="text-red-600 bg-white">Enter a valid email</p>
               )}
