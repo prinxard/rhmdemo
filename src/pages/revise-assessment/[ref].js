@@ -25,29 +25,46 @@ export default function Revise() {
   const [uploadDep, setUploadDep] = useState(false);
   const [hidesubmit, setHideSubmit] = useState("");
   const router = useRouter();
-  
+
   const [uploadedDocs, setUploadedDocs] = useState([]);
   // const [serviceList, setServiceList] = useState([{ service: "" }]);
 
-  const handleServiceChange = (e, index) => {
-    const { name, value } = e.target;
-    const list = [...uploadedDocs];
-    list[index][name] = value;
-    setUploadedDocs(list);
-  };
+  // const handleServiceChange = (e, index) => {
+  //   const { name, value } = e.target;
+  //   const list = [...uploadedDocs];
+  //   list[index][name] = value;
+  //   setUploadedDocs(list);
+  // };
 
-  console.log("uploadedDocs", uploadedDocs);
 
   const handleServiceRemove = (index) => {
+    setIsFetching(true)
     const list = [...uploadedDocs];
-    console.log(list[index].file_name);
-    // list.splice(index, 1);
-    // setServiceList(list);
+    let fileName = list[index].file_name;
+    let uploadFile = {
+      file_name: fileName
+    }
+    axios.delete(`${url.BASE_URL}forma/objection-upload`, {data: uploadFile})
+    .then(function (response) {
+      setIsFetching(false)
+      toast.success("Deleted Successfully!");
+      setUploadDep(!uploadDep)
+    })
+    .catch(function (error) {
+        console.log("fileName", fileName);
+        setIsFetching(false)
+        if (error) {
+          toast.error("Cannot Delete Document");
+        } else {
+          toast.error("Failed! Try again");
+
+        }
+
+      })
+
   };
 
-  const handleServiceAdd = () => {
-    setServiceList([...serviceList, { service: "" }]);
-  };
+
 
   const {
     register,
@@ -120,27 +137,6 @@ export default function Revise() {
 
   }
 
-  const DeleteDocument = (event) => {
-    event.preventDefault()
-
-    // setIsFetching(true)
-    // await axios.delete(`${url.BASE_URL}forma/objection-upload`, { file_name: file_name })
-    //   .then(function (response) {
-    //     setIsFetching(false)
-    //     toast.success("Deleted Successfully!");
-    //   })
-    //   .catch(function (error) {
-    //     setIsFetching(false)
-    //     if (error) {
-    //       toast.error("Cannot Delete Document");
-    //     } else {
-    //       toast.error("Failed! Try again");
-
-    //     }
-
-    //   })
-
-  }
 
   const onChangeAppLetter = e => {
     let file = e.target.files[0]
@@ -526,7 +522,7 @@ export default function Revise() {
                 <p className="text-center"><small className="font-bold">(Accepted document formats are png, jpeg, pdf. max size 100kb)</small></p>
               </div>
 
-{/* 
+              {/* 
               <form className="App" autoComplete="off">
                 <div className="form-field">
                   <label htmlFor="service">Service(s)</label>
@@ -580,10 +576,10 @@ export default function Revise() {
                 {uploadedDocs.map((singleFile, index) => (
                   <div key={index} className="flex justify-between my-3" >
                     <p className="font-bold">{singleFile.doc_name}</p>
-                    <input type="text" name="file_name"  onChange={(e) => handleServiceChange(e, index)} defaultValue={singleFile.file_name} className="hidden" />
+                    <input type="text" name="file_name" defaultValue={singleFile.file_name} className="hidden" />
                     <button className=" text-white flex items-center justify-center  text-lg font-display font-bold"
-                    type="button"
-                    onClick={() => handleServiceRemove(index)}
+                      type="button"
+                      onClick={() => handleServiceRemove(index)}
                     >
                       <FiDelete
                         size={15}
