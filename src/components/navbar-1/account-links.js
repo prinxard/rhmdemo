@@ -6,8 +6,8 @@ import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { logout } from "../../redux/authentication/auth.actions";
 
 const AccountLinks = () => {
-  const dispatch = useDispatch();
   const router = useRouter();
+  const dispatch = useDispatch();
   const { auth } = useSelector(
     (state) => ({
       auth: state.authentication.auth,
@@ -17,10 +17,10 @@ const AccountLinks = () => {
 
   const items = [
     {
-      url: '/user-page/user-profile',
+      url: '/view/users/update',
       icon: <FiUser size={18} className="stroke-current" />,
-      name: 'Profile',
-      badge: null,
+      name: 'profile',
+      // badge: null,
     },
   ];
 

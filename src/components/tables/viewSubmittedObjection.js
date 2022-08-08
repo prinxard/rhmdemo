@@ -462,7 +462,7 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
             </div>
             {objUploads.map((data) => (
               <div className="flex justify-between my-3">
-                <p className="font-bold"><a href="" className="no-underline hover:underline text-blue-500">{data.doc_name}</a></p>
+                <p className="font-bold"><a href={`https://annualuploads.bespoque.dev/rhm/uploads/da/objection/${data.file_name}`} target="_blank" className="no-underline hover:underline text-blue-500">{data.doc_name}</a></p>
                 <span className="h-5 w-5 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
                   <FiCheck
                     size={15}

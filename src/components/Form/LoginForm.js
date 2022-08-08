@@ -66,7 +66,7 @@ const LoginForm = () => {
           name="email"
           label={<KgtinIcon />}
           ref={register({
-            minLength: 10,
+            // minLength: 5,
             // maxLength: 10,
             pattern: {
               value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
@@ -78,14 +78,14 @@ const LoginForm = () => {
           required
           placeholder="Email"
         />
-        {errors.email && errors.email.type === "minLength" && (
-          <p className="text-red-600">Enter a vilid email</p>
+        {/* {errors.email && errors.email.type === "minLength" && (
+          <p className="text-red-600">Enter a valid email</p>
         )}
         {errors.email && errors.email.type === "maxLength" && (
           <p className="text-red-600">Enter a correct password</p>
-        )}
+        )} */}
         {errors.email && (
-          <p className="text-red-600 bg-white">{errors.email.message}</p>
+          <p className="text-red-600 bg-white">Enter a valid email</p>
         )}
 
         <Input
@@ -112,11 +112,11 @@ const LoginForm = () => {
             />
           </CustomButton>
           <div className="mt-2">
-            {/* <p>
+            <p>
               <Link href="/reset-password">
                 <a className="text-blue-500">Forgot password ?</a>
               </Link>
-            </p> */}
+            </p>
           </div>
         </div>
 

@@ -24,7 +24,7 @@ const ForgotPasswordForm = () => {
   const SubmitHandler = async (data) => {
     setSubmitting(true);
     try {
-      const res = await axios.post(`${url.BASE_URL}user/forgot-password`, data);
+      const res = await axios.put(`${url.BASE_URL}user/reset-password`, data);
       setSubmitting(false);
       setSuccessMessage(res.data.message);
       setTimeout(() => {
@@ -42,8 +42,8 @@ const ForgotPasswordForm = () => {
   return (
     <div className=" w-96">
       <CenteredForm
-        title="Forgot password"
-        subtitle="Please enter your Tax Id to recover your password"
+        title="Password Reset"
+        subtitle="Please enter your email address"
       >
         {successMessage !== null && (
           <>
@@ -63,29 +63,23 @@ const ForgotPasswordForm = () => {
           <form onSubmit={handleSubmit(SubmitHandler)} autoComplete="off">
             <div className="">
               <NewFormInput
-                name="kgtin"
+                name="email"
                 label={<KgtinIcon />}
                 ref={register({
-                  minLength: 10,
-                  maxLength: 10,
+                  // minLength: 10,
+                  // maxLength: 10,
                   pattern: {
-                    value: /^[0-9]*[.]?[0-9]*$/,
-                    message: 'KGTIN or TIN must be a number',
+                    value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
                   },
                 })}
                 autoComplete="off"
                 type="text"
                 required
-                placeholder="Tax Id"
+                placeholder="email"
               />
-              {errors.kgtin && errors.kgtin.type === 'minLength' && (
-                <p className="text-red-600">KGTIN or TIN must be 10 digits</p>
-              )}
-              {errors.kgtin && errors.kgtin.type === 'maxLength' && (
-                <p className="text-red-600">KGTIN or TIN must be 10 digits</p>
-              )}
-              {errors.kgtin && (
-                <p className="text-red-600 bg-white">{errors.kgtin.message}</p>
+
+              {errors.email && (
+                <p className="text-red-600 bg-white">Enter a valid email</p>
               )}
             </div>
 
@@ -104,7 +98,7 @@ const ForgotPasswordForm = () => {
               </CustomButton>
             </div>
 
-            <div className="flex flex-row w-full mt-3">
+            {/* <div className="flex flex-row w-full mt-3">
               <span className="mr-1">New user?</span>
               <span>
                 <Link href="/signup">
@@ -117,6 +111,13 @@ const ForgotPasswordForm = () => {
               <span>
                 <Link href="/">
                   <a className="link">Login here</a>
+                </Link>
+              </span>
+            </div> */}
+            <div className="flex justify-end">
+              <span>
+                <Link href="/">
+                  <a className="link">Back to Login</a>
                 </Link>
               </span>
             </div>

@@ -21,10 +21,50 @@ export default function Revise() {
   const [supportingDoc, setSupportingDoc] = useState(null);
   const [uploadedAppLetter, setUploadedAppLetter] = useState(false);
   const [uploadErrors, setUploadErrors] = useState(() => []);
-  const [uploadedDocs, setUploadedDocs] = useState([]);
   const [supportDocInput, setInput] = useState({ name: '' })
   const [uploadDep, setUploadDep] = useState(false);
   const [hidesubmit, setHideSubmit] = useState("");
+  const router = useRouter();
+
+  const [uploadedDocs, setUploadedDocs] = useState([]);
+  // const [serviceList, setServiceList] = useState([{ service: "" }]);
+
+  // const handleServiceChange = (e, index) => {
+  //   const { name, value } = e.target;
+  //   const list = [...uploadedDocs];
+  //   list[index][name] = value;
+  //   setUploadedDocs(list);
+  // };
+
+
+  const handleServiceRemove = (index) => {
+    setIsFetching(true)
+    const list = [...uploadedDocs];
+    let fileName = list[index].file_name;
+    let uploadFile = {
+      file_name: fileName
+    }
+    axios.delete(`${url.BASE_URL}forma/objection-upload`, {data: uploadFile})
+    .then(function (response) {
+      setIsFetching(false)
+      toast.success("Deleted Successfully!");
+      setUploadDep(!uploadDep)
+    })
+    .catch(function (error) {
+        console.log("fileName", fileName);
+        setIsFetching(false)
+        if (error) {
+          toast.error("Cannot Delete Document");
+        } else {
+          toast.error("Failed! Try again");
+
+        }
+
+      })
+
+  };
+
+
 
   const {
     register,
@@ -33,10 +73,6 @@ export default function Revise() {
     control,
     formState: { errors },
   } = useForm()
-
-
-
-  const router = useRouter();
 
 
   const handleChange = (e) => setInput({
@@ -77,7 +113,6 @@ export default function Revise() {
     }
   }, [router, uploadDep]);
 
-  console.log("uploadedDocs", uploadedDocs);
 
   const InitiateObj = async (data) => {
     setIsFetching(true)
@@ -102,27 +137,6 @@ export default function Revise() {
 
   }
 
-  const DeleteDocument = (event) => {
-    event.preventDefault()
-
-    // setIsFetching(true)
-    // await axios.delete(`${url.BASE_URL}forma/objection-upload`, { file_name: file_name })
-    //   .then(function (response) {
-    //     setIsFetching(false)
-    //     toast.success("Deleted Successfully!");
-    //   })
-    //   .catch(function (error) {
-    //     setIsFetching(false)
-    //     if (error) {
-    //       toast.error("Cannot Delete Document");
-    //     } else {
-    //       toast.error("Failed! Try again");
-
-    //     }
-
-    //   })
-
-  }
 
   const onChangeAppLetter = e => {
     let file = e.target.files[0]
@@ -507,13 +521,65 @@ export default function Revise() {
                 <p className="font-bold text-center">Upload Supporting Documents</p>
                 <p className="text-center"><small className="font-bold">(Accepted document formats are png, jpeg, pdf. max size 100kb)</small></p>
               </div>
-              {uploadedDocs.map((data) => (
-                <div key={data.id}>
-                  <form className="flex justify-between my-3" onSubmit={DeleteDocument}>
-                    <p className="font-bold">{data.doc_name}</p>
-                    <input type="text" name="file_name" defaultValue={data.file_name} className="hidden" />
+
+              {/* 
+              <form className="App" autoComplete="off">
+                <div className="form-field">
+                  <label htmlFor="service">Service(s)</label>
+                  {serviceList.map((singleService, index) => (
+                    <div key={index} className="services">
+                      <div className="first-division">
+                        <input
+                          name="service"
+                          type="text"
+                          id="service"
+                          value={singleService.service}
+                          onChange={(e) => handleServiceChange(e, index)}
+                          required
+                        />
+                        {serviceList.length - 1 === index && serviceList.length < 4 && (
+                          <button
+                            type="button"
+                            onClick={handleServiceAdd}
+                            className="add-btn"
+                          >
+                            <span>Add a Service</span>
+                          </button>
+                        )}
+                      </div>
+                      <div className="second-division">
+                        {serviceList.length !== 1 && (
+                          <button
+                            type="button"
+                            onClick={() => handleServiceRemove(index)}
+                            className="remove-btn"
+                          >
+                            <span>Remove</span>
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="output">
+                  <h2>Output</h2>
+                  {serviceList &&
+                    serviceList.map((singleService, index) => (
+                      <ul key={index}>
+                        {singleService.service && <li>{singleService.service}</li>}
+                      </ul>
+                    ))}
+                </div>
+              </form> */}
+
+              <form>
+                {uploadedDocs.map((singleFile, index) => (
+                  <div key={index} className="flex justify-between my-3" >
+                    <p className="font-bold">{singleFile.doc_name}</p>
+                    <input type="text" name="file_name" defaultValue={singleFile.file_name} className="hidden" />
                     <button className=" text-white flex items-center justify-center  text-lg font-display font-bold"
-                    type="submit"
+                      type="button"
+                      onClick={() => handleServiceRemove(index)}
                     >
                       <FiDelete
                         size={15}
@@ -521,9 +587,9 @@ export default function Revise() {
                       />
 
                     </button>
-                  </form>
-                </div>
-              ))}
+                  </div>
+                ))}
+              </form>
 
               <hr />
               <form onSubmit={handleSubmit(UploadAppLetter)}>
