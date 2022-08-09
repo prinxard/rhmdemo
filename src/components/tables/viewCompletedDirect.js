@@ -63,6 +63,10 @@ const fields = [
     field: "totalTaxDue",
   },
   {
+    title: "Dev levy",
+    field: "dev_levy",
+  },
+  {
     title: "Status",
     field: "status",
   },
