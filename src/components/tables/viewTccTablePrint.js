@@ -27,7 +27,7 @@ import Loader from "react-loader-spinner";
 import url from '../../config/url';
 import axios from "axios";
 import ReactToPrint from "react-to-print";
-import { CoatOfArms, KgirsLogo, KogiGov, Signature, TccbgImage } from "../Images/Images";
+import { CoatOfArms, KgirsLogo, KgirsLogoWatermark, KgirsLogoWatermark2, KogiGov, Signature, TccbgImage } from "../Images/Images";
 import QRCode from "react-qr-code";
 
 
@@ -287,11 +287,10 @@ export const ViewSingleTccPrintTable = ({
 
       </div>
 
-      <section>
-        <div ref={componentRef}>
-          <div className="flex justify-around bg-no-repeat bg-center" style={{backgroundImage: `url(("/images/logowatermark.png"))`}}>
+      <section ref={componentRef} className="border p-2">
+        <div>
+          <div className="flex justify-around bg-no-repeat bg-center" style={{backgroundImage: `url(/images/logowatermark.png)`}}>
             <div>
-              
               <div className="flex mb-8">
                 <KgirsLogo />
                 <p className="self-center w-48 font-bold">KOGI STATE INTERNAL REVENUE SERVICE</p>
@@ -371,7 +370,7 @@ export const ViewSingleTccPrintTable = ({
                   </div>
                 ))}
 
-                <div className="w-10"></div>
+                {/* <div className="w-10"></div> */}
                 <div>
                   <table className="table divide-y mb-4 striped">
                     <thead >
