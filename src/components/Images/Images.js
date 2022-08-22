@@ -27,7 +27,7 @@ export const Signature = () => {
   return (
     <Image
       layout="fixed"
-      src="/images/signature.png"
+      src="/images/signaturecolored.png"
       alt="login"
       width={121}
       height={49}

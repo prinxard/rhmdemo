@@ -165,6 +165,27 @@ const initialState = [
               // },
             ],
           },
+          {
+            url: '/',
+            title: 'PAYSLIP',
+            items: [
+              {
+                title: 'Create',
+                url: '/',
+                items: [],
+              },
+              {
+                title: 'View',
+                url: '/',
+                items: [],
+              },
+              // {
+              //   title: 'Unassessed Collections',
+              //   url: '/unassessed-report',
+              //   items: [],
+              // },
+            ],
+          },
           // {
           //   url: '/',
           //   title: 'Dashboard',
