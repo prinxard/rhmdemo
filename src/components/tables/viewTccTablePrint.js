@@ -273,8 +273,8 @@ export const ViewSingleTccPrintTable = ({
       <div className="m-3 flex justify-end">
         <div onClick={ChangePrint}>
           <ReactToPrint
-            // pageStyle='@page { size: auto; margin: 0mm; } @media print { body { -webkit-print-color-adjust: exact; padding: 40px !important; } }'
-            pageStyle="@page { size: 7.5in 13in  }"
+            pageStyle='@page { size: auto; margin: 0mm; } @media print { body { -webkit-print-color-adjust: exact; padding: 40px !important; } }'
+            // pageStyle="@page { size: 7.5in 13in  }"
             trigger={() => <button className="btn w-32 bg-green-600 btn-default text-white
             btn-outlined bg-transparent rounded-md"
               type="submit"
@@ -286,10 +286,11 @@ export const ViewSingleTccPrintTable = ({
         </div>
 
       </div>
+      
 
       <section ref={componentRef} className="border p-2">
         <div>
-          <div className="flex justify-around bg-no-repeat bg-center" style={{backgroundImage: `url(/images/logowatermark.png)`}}>
+          <div className="flex justify-around bg-no-repeat bg-bottom" style={{backgroundImage: `url(/images/logowatermark.png)`}}>
             <div>
               <div className="flex mb-8">
                 <KgirsLogo />
