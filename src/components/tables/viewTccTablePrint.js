@@ -290,7 +290,7 @@ export const ViewSingleTccPrintTable = ({
 
       <section ref={componentRef} className="border p-2">
         <div>
-          <div className="flex justify-around bg-no-repeat bg-bottom" style={{backgroundImage: `url(/images/logowatermark.png)`}}>
+          <div className="flex justify-around bg-no-repeat bg-center" style={{backgroundImage: `url(/images/logowatermark.png)`}}>
             <div>
               <div className="flex mb-8">
                 <KgirsLogo />
