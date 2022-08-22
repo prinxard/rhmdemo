@@ -371,7 +371,7 @@ export const ViewSingleTccPrintTable = ({
                   </div>
                 ))}
 
-                {/* <div className="w-10"></div> */}
+                <div className="w-10"></div>
                 <div>
                   <table className="table divide-y mb-4 striped">
                     <thead >
