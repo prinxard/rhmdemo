@@ -10,6 +10,18 @@ export const KgirsLogo = () => {
     />
   );
 };
+export const KgirsLogoWatermark = () => {
+  return (
+    <Image
+      layout="fixed"
+      src="/images/background.png"
+      alt="login"
+      width={60}
+      height={60}
+    />
+  );
+};
+
 
 export const RHMLogo = () => {
   return (
@@ -27,7 +39,7 @@ export const Signature = () => {
   return (
     <Image
       layout="fixed"
-      src="/images/signature.png"
+      src="/images/signaturecolored.png"
       alt="login"
       width={121}
       height={49}

@@ -27,7 +27,7 @@ import Loader from "react-loader-spinner";
 import url from '../../config/url';
 import axios from "axios";
 import ReactToPrint from "react-to-print";
-import { CoatOfArms, KgirsLogo, KogiGov, Signature, TccbgImage } from "../Images/Images";
+import { CoatOfArms, KgirsLogo, KgirsLogoWatermark, KgirsLogoWatermark2, KogiGov, Signature, TccbgImage } from "../Images/Images";
 import QRCode from "react-qr-code";
 
 
@@ -273,8 +273,8 @@ export const ViewSingleTccPrintTable = ({
       <div className="m-3 flex justify-end">
         <div onClick={ChangePrint}>
           <ReactToPrint
-            // pageStyle='@page { size: auto; margin: 0mm; } @media print { body { -webkit-print-color-adjust: exact; padding: 40px !important; } }'
-            pageStyle="@page { size: 7.5in 13in  }"
+            pageStyle='@page { size: auto; margin: 0mm; } @media print { body { -webkit-print-color-adjust: exact; padding: 40px !important; } }'
+            // pageStyle="@page { size: 7.5in 13in  }"
             trigger={() => <button className="btn w-32 bg-green-600 btn-default text-white
             btn-outlined bg-transparent rounded-md"
               type="submit"
@@ -287,47 +287,26 @@ export const ViewSingleTccPrintTable = ({
 
       </div>
 
-      <section>
-        <div ref={componentRef}>
-          <div className="flex justify-around">
-            <div>
-              {/* <h4 className="flex justify-end text-red-600">ORIGINAL</h4>
-              <div className="flex justify-end">
-                {payerDetails.map((ind, i) => (
-                  <div>
-                    <div className="flex">
-                      <p>Issue Date:</p>
-                      <p className="pl-2">{dateIssue}</p>
-                    </div>
-                    <div className="flex">
-                      <p>TIN/KGTIN:</p>
-                      <p className="pl-2">{ind.tp_id}</p>
-                    </div>
-                    <div className="flex">
-                      <p>File Ref:</p>
-                      <p className="pl-2">{ind.file_ref}</p>
-                    </div>
-                  </div>
-                ))}
-              </div> */}
 
-              {/* <div className="flex justify-end">
-                <small>1232333ND23444GH</small>
-              </div> */}
+      <section ref={componentRef} className="border p-2">
+        <div>
+          <div className="flex justify-around bg-no-repeat bg-center" style={{ backgroundImage: `url(/images/background.png)` }}>
+            <div>
               <div className="flex mb-8">
                 <KgirsLogo />
                 <p className="self-center w-48 font-bold">KOGI STATE INTERNAL REVENUE SERVICE</p>
-
               </div>
 
-              {/* <div className="flex justify-end">
-                <p className="border font-bold p-2 text-center w-64">KGIRS/PAYE/TCC/202202/81</p>
-              </div> */}
+
               {payerDetails.map((ind, i) => (
-                <div className="flex justify-end">
+                <div className="flex justify-between">
+                  <h6>INCOME TAX CLEARANCE CERTIFICATE</h6>
                   <p className="border font-bold p-2 text-center w-64">{`File No - ${ind.file_ref}`}</p>
                 </div>
               ))}
+
+
+
 
               {payerDetails.map((ind, i) => (
                 <div>
@@ -516,12 +495,16 @@ export const ViewSingleTccPrintTable = ({
                 </div>
               </div>
               <div>
+                {/* <div>
+                  <img src="/images/I.png" alt="" srcset="" />
+                </div> */}
+
                 <p className="mb-2"><span className="font-bold">3.</span> His/her known source(s) of income are: <span>Employment, Trade/Professional</span> </p>
-                {/* <p><span className="font-bold">4.</span> This certificate expires on: <span>{expiry}</span> </p> */}
                 <p><span className="font-bold">4.</span> This certificate expires on: <span>{expiry}</span> </p>
               </div>
 
               <div className="flex justify-between mt-2">
+                <div></div>
                 <div>
                   <QRCode
                     value={`https://irs.kg.gov.ng/verify/fetch_tcc.php?ref=${fileRef}`}
