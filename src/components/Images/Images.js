@@ -14,24 +14,14 @@ export const KgirsLogoWatermark = () => {
   return (
     <Image
       layout="fixed"
-      src="/images/logowatermark.png"
+      src="/images/background.png"
       alt="login"
       width={60}
       height={60}
     />
   );
 };
-export const KgirsLogoWatermark2 = () => {
-  return (
-    <Image
-      layout="fixed"
-      src="/images/watermark2.png"
-      alt="login"
-      width={60}
-      height={60}
-    />
-  );
-};
+
 
 export const RHMLogo = () => {
   return (

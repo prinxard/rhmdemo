@@ -286,11 +286,11 @@ export const ViewSingleTccPrintTable = ({
         </div>
 
       </div>
-      
+
 
       <section ref={componentRef} className="border p-2">
         <div>
-          <div className="flex justify-around bg-no-repeat bg-center" style={{backgroundImage: `url(/images/logowatermark.png)`}}>
+          <div className="flex justify-around bg-no-repeat bg-center" style={{ backgroundImage: `url(/images/background.png)` }}>
             <div>
               <div className="flex mb-8">
                 <KgirsLogo />
@@ -495,8 +495,10 @@ export const ViewSingleTccPrintTable = ({
                 </div>
               </div>
               <div>
+                {/* <img src="/images/textInc.png" alt="" srcset="" />
+                <div className="flex justify-around bg-no-repeat bg-center w-full" style={{ backgroundImage: `url(/images/logowatermark.png)` }}>
+                </div> */}
                 <p className="mb-2"><span className="font-bold">3.</span> His/her known source(s) of income are: <span>Employment, Trade/Professional</span> </p>
-                {/* <p><span className="font-bold">4.</span> This certificate expires on: <span>{expiry}</span> </p> */}
                 <p><span className="font-bold">4.</span> This certificate expires on: <span>{expiry}</span> </p>
               </div>
 
