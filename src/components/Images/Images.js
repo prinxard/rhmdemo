@@ -46,6 +46,17 @@ export const Signature = () => {
     />
   );
 };
+export const SignatureCol = () => {
+  return (
+    <Image
+      layout="fixed"
+      src="/images/signaturecolored.png"
+      alt="login"
+      width={121}
+      height={49}
+    />
+  );
+};
 
 export const KogiGov = () => {
   return (

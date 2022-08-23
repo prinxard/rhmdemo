@@ -27,7 +27,7 @@ import Loader from "react-loader-spinner";
 import url from '../../config/url';
 import axios from "axios";
 import ReactToPrint from "react-to-print";
-import { CoatOfArms, KgirsLogo, KgirsLogoWatermark, KgirsLogoWatermark2, KogiGov, Signature, TccbgImage } from "../Images/Images";
+import { CoatOfArms, KgirsLogo, KgirsLogoWatermark, KgirsLogoWatermark2, KogiGov, Signature, SignatureCol, TccbgImage } from "../Images/Images";
 import QRCode from "react-qr-code";
 
 
@@ -516,7 +516,7 @@ export const ViewSingleTccPrintTable = ({
                 </div>
                 <div className="flex justify-between mt-4">
                   <div className="flex flex-col">
-                    <Signature />
+                    <SignatureCol />
                     <hr />
                     <p className="font-bold text-center">Sule Salihu Enehe</p>
                     <p className="font-bold text-center">Ag. Executive Chairman</p>
