@@ -163,7 +163,7 @@ export default function index() {
                         <div className="mt-2">
                             <Signature />
                             <hr />
-                            Authorized Signitory
+                            Authorized Signatory
                         </div>
                     </div>
                 </div>
