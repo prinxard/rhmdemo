@@ -170,7 +170,7 @@ export const StartAssessmentReportView = () => {
         rec.gross_income = formatNumber(rec.gross_income)
         rec.totalTaxFormated = formatNumber((Number(rec.add_assmt) + Number(rec.tax) ))
         rec.totalTaxDue = (Number(rec.add_assmt) + Number(rec.tax) )
-        rec.balance = formatNumber(Number(rec.taxPaid)  - (Number(rec.totalTaxDue) + Number(rec.dev_levy)) )
+        rec.balance = formatNumber(Number(rec.taxPaid)  - (Number(rec.totalTaxDue)) )
         rec.overallGross = formatNumber(Number(rec.employed) + Number(rec.self_employed) + Number(rec.other_income))
         rec.createtime = dateformat(rec.createtime, "dd mmm yyyy")
         records.push(rec);
