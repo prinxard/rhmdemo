@@ -54,6 +54,12 @@ const fields = [
     field: "totalTaxFormated",
   },
   {
+    title: "Dev Levy",
+    field: "dev_levy",
+    render: (dev_levy) => formatNumber(dev_levy.dev_levy)
+
+  },
+  {
     title: "Amount Paid",
     field: "taxPaid",
     render: (taxPaid) => formatNumber(taxPaid.taxPaid)

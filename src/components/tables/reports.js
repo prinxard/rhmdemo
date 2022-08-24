@@ -139,7 +139,7 @@ export const StartReportView = () => {
     axios.post(`${url.BASE_URL}collection/view-collection-report`, data)
       .then(function (response) {
         let search = response.data.body;
-
+        console.log("search", search);
         setFilteredData(search)
         console.log("FilteredData", FilteredData);
         setIsFetching(false)
@@ -222,7 +222,7 @@ export const StartReportView = () => {
                 </div>
 
               </div>
-              
+
               <div className="form-group mt-2">
                 <p className="text-center">Payment Channel</p>
                 <select name="channel_id" id="" ref={register()} className="form-control w-full rounded font-light text-gray-500">
