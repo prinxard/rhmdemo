@@ -152,7 +152,7 @@ export default function Revise() {
         return;
       }
       if (file.size > 1024 * 100) {
-        alert("file too large..file size shoulde not exceed 200kb");
+        alert("file too large..file size shoulde not exceed 100kb");
         return
       }
 
@@ -176,7 +176,7 @@ export default function Revise() {
         return;
       }
       if (file.size > 1024 * 100) {
-        alert("file too large..file size shoulde not exceed 200kb");
+        alert("file too large..file size shoulde not exceed 100kb");
         return
       }
 
