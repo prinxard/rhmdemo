@@ -293,11 +293,11 @@ export const ViewSingleTccPrintTable = ({
           <div className="flex justify-around bg-no-repeat bg-center" style={{ backgroundImage: `url(/images/background.png)` }}>
             <div>
               <div className="flex justify-between">
+                <h4>KOGI STATE GOVERNMENT</h4>
                 <div className="flex mb-8">
                   <KgirsLogo />
                   <p className="self-center w-48 font-bold">KOGI STATE INTERNAL REVENUE SERVICE</p>
                 </div>
-                <h4>KOGI STATE GOVERNMENT</h4>
               </div>
 
 
