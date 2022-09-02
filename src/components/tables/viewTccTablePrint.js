@@ -205,6 +205,7 @@ export const ViewSingleTccPrintTable = ({
 
   payerDetails.forEach((ind, i) => {
     printPrintTime = ind.aprvPrint_time
+    console.log("ind.aprvPrint_time", );
   })
 
   if (printPrintTime === undefined) {
@@ -245,8 +246,10 @@ export const ViewSingleTccPrintTable = ({
 
   let date = printPrintTime
   let due_date = new Date(date)
-  due_date.setDate(due_date.getDate() + 365);
-  let expiry = dateformat(due_date, "dd mmm yyyy")
+  let dueDateYear = due_date.getFullYear()
+  console.log("date year", due_date.getFullYear());
+  // due_date.setDate(due_date.getDate() + 365);
+  // let expiry = dateformat(due_date, "dd mmm yyyy")
 
   let Issdate = new Date()
   let Issdue_date = new Date(Issdate)
@@ -503,7 +506,7 @@ export const ViewSingleTccPrintTable = ({
                 </div> */}
 
                 <p className="mb-2"><span className="font-bold">3.</span> His/her known source(s) of income are: <span>Employment, Trade/Professional</span> </p>
-                <p><span className="font-bold">4.</span> This certificate expires on: <span>{expiry}</span> </p>
+                <p><span className="font-bold">4.</span> This certificate expires on: <span>31st Dec {dueDateYear}</span> </p>
               </div>
 
               <div className="flex justify-between mt-2">
