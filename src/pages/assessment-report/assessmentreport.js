@@ -165,6 +165,17 @@ export default function AssessmentReportstable({ FilteredData }) {
           SortArrow: ArrowDownward
         }}
 
+        onRowClick={(event, rowData) => {
+
+          // if (userGroup.some(r => reportRange.includes(r))) {
+          //   ''
+
+          // } else {
+
+          // }
+          window.open(`/view/approvedasses/${rowData.assessment_id},${rowData.kgtin}`, "_self")
+          event.stopPropagation();
+        }}
       // onRowClick={(event, rowData) => {
 
       //     if (userGroup.some(r => reportRange.includes(r))) {
