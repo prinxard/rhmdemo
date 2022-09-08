@@ -166,27 +166,9 @@ export default function AssessmentReportstable({ FilteredData }) {
         }}
 
         onRowClick={(event, rowData) => {
-
-          // if (userGroup.some(r => reportRange.includes(r))) {
-          //   ''
-
-          // } else {
-
-          // }
           window.open(`/view/approvedasses/${rowData.assessment_id},${rowData.kgtin}`, "_self")
           event.stopPropagation();
         }}
-      // onRowClick={(event, rowData) => {
-
-      //     if (userGroup.some(r => reportRange.includes(r))) {
-      //         ''
-
-      //     }
-      //     else {
-      //         window.open(`view/collections/${rowData.idpymt}`, "_self")
-      //         event.stopPropagation();
-      //     }
-      // }}
       />
 
     </>
