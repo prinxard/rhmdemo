@@ -158,34 +158,26 @@ const initialState = [
                 url: '/view/listpayetcc',
                 items: [],
               },
-              // {
-              //   title: 'Unassessed Collections',
-              //   url: '/unassessed-report',
-              //   items: [],
-              // },
+           
             ],
           },
-          {
-            url: '/',
-            title: 'PAYSLIP',
-            items: [
-              {
-                title: 'Create',
-                url: '/',
-                items: [],
-              },
-              {
-                title: 'View',
-                url: '/',
-                items: [],
-              },
-              // {
-              //   title: 'Unassessed Collections',
-              //   url: '/unassessed-report',
-              //   items: [],
-              // },
-            ],
-          },
+          // {
+          //   url: '/',
+          //   title: 'PAYSLIP',
+          //   items: [
+          //     {
+          //       title: 'Create',
+          //       url: '/',
+          //       items: [],
+          //     },
+          //     {
+          //       title: 'View',
+          //       url: '/',
+          //       items: [],
+          //     },
+              
+          //   ],
+          // },
           // {
           //   url: '/',
           //   title: 'Dashboard',
@@ -209,30 +201,30 @@ const initialState = [
         ],
       },
 
-      {
-        url: '/',
-        icon: <Paye />,
-        title: 'MARKET',
-        items: [
-          {
-            url: '/',
-            title: 'AGENT',
-            items: [
-              {
-                title: 'Register',
-                url: '/markets/agents/registeragent',
-                items: [],
-              },
-              {
-                title: 'List',
-                url: '/',
-                items: [],
-              },
-            ],
-          },
+      // {
+      //   url: '/',
+      //   icon: <Paye />,
+      //   title: 'MARKET',
+      //   items: [
+      //     {
+      //       url: '/',
+      //       title: 'AGENT',
+      //       items: [
+      //         {
+      //           title: 'Register',
+      //           url: '/markets/agents/registeragent',
+      //           items: [],
+      //         },
+      //         {
+      //           title: 'List',
+      //           url: '/',
+      //           items: [],
+      //         },
+      //       ],
+      //     },
           
-        ],
-      },
+      //   ],
+      // },
 
       {
         url: '/',
