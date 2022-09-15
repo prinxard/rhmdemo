@@ -205,7 +205,7 @@ export const ViewSingleTccPrintTable = ({
 
   payerDetails.forEach((ind, i) => {
     printPrintTime = ind.aprvPrint_time
-    console.log("ind.aprvPrint_time", );
+    console.log("ind.aprvPrint_time",);
   })
 
   if (printPrintTime === undefined) {
@@ -296,17 +296,21 @@ export const ViewSingleTccPrintTable = ({
           <div className="flex justify-around bg-no-repeat bg-center" style={{ backgroundImage: `url(/images/background.png)` }}>
             <div>
               <div className="flex justify-between">
-                <h4>KOGI STATE GOVERNMENT</h4>
+                <div>
+                  <h4>KOGI STATE GOVERNMENT</h4>
+                  <h6>TAX CLEARANCE CERTIFICATE</h6>
+                </div>
                 <div className="flex mb-8">
                   <KgirsLogo />
-                  <p className="self-center w-48 font-bold">KOGI STATE INTERNAL REVENUE SERVICE</p>
+                  <div>
+                    <p className="self-center w-48 font-bold">KOGI STATE INTERNAL REVENUE SERVICE</p>
+                  </div>
                 </div>
               </div>
 
 
               {payerDetails.map((ind, i) => (
-                <div className="flex justify-between">
-                  <h6>INCOME TAX CLEARANCE CERTIFICATE</h6>
+                <div className="flex justify-end">
                   <p className="border font-bold p-2 text-center w-64">{`File No - ${ind.file_ref}`}</p>
                 </div>
               ))}
@@ -339,8 +343,8 @@ export const ViewSingleTccPrintTable = ({
                       <KogiGov />
                     </div>
                   </div>
-                  <p> <span className="font-bold">1.</span> This is to Verify that <span className="font-bold">{ind.taxpayer_name}</span> of</p>
-                  <p className="font-bold">{ind.address}</p>
+                  <p> <span className="font-bold">1.</span> This is to certify that <span className="font-bold">{ind.taxpayer_name}</span> </p>
+                  <p className="font-bold"><span>of </span>{ind.address}</p>
                   <div>
                     <p>fully paid his/her Personal Income Tax for the past years, that is: <span>
                       {`${secondYear !== "" ? `${firstYear},` : firstYear} ${thirdYear !== "" ? `${secondYear},` : secondYear} ${thirdYear}`}
@@ -509,7 +513,7 @@ export const ViewSingleTccPrintTable = ({
                 <p><span className="font-bold">4.</span> This certificate expires on: <span>31st Dec {dueDateYear}</span> </p>
               </div>
 
-              <div className="flex justify-between mt-2">
+              <div className="flex justify-between my-4">
                 <div></div>
                 <div>
                   <QRCode
@@ -526,7 +530,8 @@ export const ViewSingleTccPrintTable = ({
                   </div>
                 </div>
               </div>
-
+              <p>To verify certificate</p>
+              <p>-visit: <span><a href="http://irs.kg.gov.ng/verify-tcc/" target="_blank">  www.irs.kg.gov.ng/verify-tcc</a></span></p>
             </div>
 
           </div>

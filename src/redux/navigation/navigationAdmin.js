@@ -211,6 +211,31 @@ const initialState = [
 
       {
         url: '/',
+        icon: <Paye />,
+        title: 'MARKET',
+        items: [
+          {
+            url: '/',
+            title: 'AGENT',
+            items: [
+              {
+                title: 'Register',
+                url: '/markets/agents/registeragent',
+                items: [],
+              },
+              {
+                title: 'List',
+                url: '/',
+                items: [],
+              },
+            ],
+          },
+          
+        ],
+      },
+
+      {
+        url: '/',
         icon: <Collections />,
         title: 'Collections',
         items: [

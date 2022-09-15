@@ -52,8 +52,6 @@ const TccPrintList = () => {
 
 console.log(tccdata);
  
-
-
   return (
     <>
       <SectionTitle title="View TCC Print List" subtitle="Tcc Print List " />
