@@ -533,7 +533,6 @@ export const ViewSingleTccPrintTable = ({
               <p>-visit: <span><a href="https://irs.kg.gov.ng/verify-tcc/" target="_blank">  https://irs.kg.gov.ng/verify-tcc</a></span></p>
             </div>
           </div>
-
         </div>
 
       </section>
