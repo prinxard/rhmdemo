@@ -225,7 +225,7 @@ const initialState = [
               },
               {
                 title: 'List',
-                url: '/',
+                url: '/view/agents/list-agents',
                 items: [],
               },
             ],

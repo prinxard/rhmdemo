@@ -1,8 +1,8 @@
 import SectionTitle from '../section-title';
-import * as Icons from '../Icons/index';
 import { useEffect, useState } from 'react';
 import setAuthToken from '../../functions/setAuthToken';
 import CustomButton from "../CustomButton/CustomButton";
+import * as Icons from '../Icons/index';
 import Search from '@material-ui/icons/Search'
 import SaveAlt from '@material-ui/icons/SaveAlt'
 import ChevronLeft from '@material-ui/icons/ChevronLeft'
@@ -72,7 +72,7 @@ const columns = [
   {
     title: "Created Time",
     field: "createtime",
-    render: (timecreated) => dateformat(timecreated.createtime)
+    render: (timecreated) => dateformat(timecreated.createtime, "yyyy-mm-dd")
   },
 ];
 
@@ -87,6 +87,7 @@ const StartReportUnassessed = () => {
       try {
         let res = await axios.get(`${url.BASE_URL}forma/unassessed-amount`);
         res = res.data.body.unassessedAmount;
+        console.log("res", res);
         setIsFetching(false);
         setPost(() => res);
       } catch (e) {
@@ -97,7 +98,6 @@ const StartReportUnassessed = () => {
     fetchPost();
   }, []);
 
-  console.log("post", post);
   return (
     <>
       <SectionTitle title="Unassessed Collections" />

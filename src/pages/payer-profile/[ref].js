@@ -119,7 +119,6 @@ export default function SinglePayerProfile() {
 
   let additionalAss
   useEffect(() => {
-
     setIsFetching(true);
     if (router && router.query) {
       let indvkgtin = router.query.ref;
@@ -133,7 +132,6 @@ export default function SinglePayerProfile() {
             `${url.BASE_URL}taxpayer/taxpayer-profile`, kgtin
           );
           res = res.data.body;
-          console.log("res", res);
           let overView = res.overview
           let profile = res.taxpayer
           let userData = res.tpIndividual[0]
@@ -299,7 +297,6 @@ export default function SinglePayerProfile() {
           ))}
 
           <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
-
             <div className="lg:w-1/3 max-w-md  bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
               <div>
                 <div className="flex justify-center">
