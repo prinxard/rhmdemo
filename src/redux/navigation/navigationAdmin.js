@@ -201,27 +201,27 @@ const initialState = [
         ],
       },
 
-      // {
-      //   url: '/',
-      //   icon: <Paye />,
-      //   title: 'MARKET',
-      //   items: [
-      //     {
-      //       url: '/',
-      //       title: 'AGENT',
-      //       items: [
-      //         {
-      //           title: 'Register',
-      //           url: '/markets/agents/registeragent',
-      //           items: [],
-      //         },
-      //         {
-      //           title: 'List',
-      //           url: '/',
-      //           items: [],
-      //         },
-      //       ],
-      //     },
+      {
+        url: '/',
+        icon: <Paye />,
+        title: 'MARKET',
+        items: [
+          {
+            url: '/',
+            title: 'AGENT',
+            items: [
+              {
+                title: 'Register',
+                url: '/markets/agents/registeragent',
+                items: [],
+              },
+              {
+                title: 'List',
+                url: '/view/agents/list-agents',
+                items: [],
+              },
+            ],
+          },
           
       //   ],
       // },

@@ -344,7 +344,7 @@ export const ViewSingleTccPrintTable = ({
                     </div>
                   </div>
                   <p> <span className="font-bold">1.</span> This is to certify that <span className="font-bold">{ind.taxpayer_name}</span> </p>
-                  <p className="font-bold"><span>of </span>{ind.address}</p>
+                  <p>of <span className="font-bold">{ind.address}</span></p>
                   <div>
                     <p>fully paid his/her Personal Income Tax for the past years, that is: <span>
                       {`${secondYear !== "" ? `${firstYear},` : firstYear} ${thirdYear !== "" ? `${secondYear},` : secondYear} ${thirdYear}`}
@@ -497,7 +497,6 @@ export const ViewSingleTccPrintTable = ({
                           </td>
 
                         </tr>
-
                       }
 
                     </tbody>
@@ -531,7 +530,7 @@ export const ViewSingleTccPrintTable = ({
                 </div>
               </div>
               <p>To verify certificate</p>
-              <p>-visit: <span><a href="http://irs.kg.gov.ng/verify-tcc/" target="_blank">  www.irs.kg.gov.ng/verify-tcc</a></span></p>
+              <p>-visit: <span><a href="https://irs.kg.gov.ng/verify-tcc/" target="_blank">  https://irs.kg.gov.ng/verify-tcc</a></span></p>
             </div>
           </div>
 
