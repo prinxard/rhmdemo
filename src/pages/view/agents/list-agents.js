@@ -1,4 +1,5 @@
 import MaterialTable from '@material-table/core';
+import { Delete, Edit, MoreHoriz, AttachMoney } from "@material-ui/icons";
 import React, { useEffect, useState } from 'react'
 import url from "../../../config/url";
 import setAuthToken from '../../../functions/setAuthToken';
@@ -17,10 +18,12 @@ import Loader from "react-loader-spinner";
 import axios from "axios";
 import { formatNumber } from 'accounting';
 import dateformat from "dateformat";
+import { useRouter } from 'next/router';
 
 const ListAgents = () => {
     const [post, setPost] = useState(() => []);
     const [isFetching, setIsFetching] = useState(() => true);
+    const router = useRouter();
 
     const columns = [
         {
@@ -87,10 +90,34 @@ const ListAgents = () => {
                 columns={columns}
                 data={post}
 
+                actions={
+                    [
+
+                        {
+                            icon: MoreHoriz,
+                            tooltip: 'View Profile',
+                            onClick: (event, rowData) => router.push(`/view/agents/${rowData.user}`),
+                            
+                        },
+                        {
+                            icon: Edit,
+                            tooltip: 'Edit',
+                            onClick: (event, rowData) => router.push(`/markets/agents/register/${rowData.user}`),
+                            
+                        },
+                        {
+                            icon: AttachMoney,
+                            tooltip: 'Fund Wallet',
+                            onClick: (event, rowData) => router.push(`/markets/agents/fund/${rowData.user}`),
+                            
+                        }
+                    ]}
+
                 options={{
                     search: true,
                     paging: true,
                     filtering: true,
+                    actionsColumnIndex: -1,
                     exportButton: {
                         csv: true,
                         pdf: false
@@ -112,10 +139,10 @@ const ListAgents = () => {
                     Clear: Clear,
                     SortArrow: ArrowDownward
                 }}
-                onRowClick={(event, rowData) => {
-                    window.open(`/view/agents/${rowData.user}`, "_self")
-                    event.stopPropagation();
-                }}
+                // onRowClick={(event, rowData) => {
+                //     window.open(`/view/agents/${rowData.user}`, "_self")
+                //     event.stopPropagation();
+                // }}
             />
         </>
     )

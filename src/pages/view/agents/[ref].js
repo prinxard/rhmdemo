@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import MaterialTable from '@material-table/core';
 import url from "../../../config/url";
 import setAuthToken from '../../../functions/setAuthToken';
 import * as Icons from '../../../components/Icons/index';
@@ -18,11 +17,13 @@ import axios from "axios";
 import { formatNumber } from 'accounting';
 import dateformat from "dateformat";
 import { useRouter } from 'next/router';
+import MaterialTable from 'material-table';
 
-const ViewAgent = () => {
-    const [isFetching, setIsFetching] = useState(() => true);
-    const [agentDetails, setAgentDetails] = useState([]);
+export default function ViewAgent() {
+    const [agentDetails, setDetailsAgent] = useState(() => []);
     const [agentTransactions, setAgentTransactions] = useState([]);
+    const [markets, setmarkets] = useState([]);
+    const [isFetching, setIsFetching] = useState(() => true);
     const router = useRouter();
 
     const transactionsCol = [
@@ -45,24 +46,37 @@ const ViewAgent = () => {
             type: "date"
         },
     ];
+    const marketsCol = [
+        {
+            title: "Tax office",
+            field: "taxOffice",
+        },
+        {
+            title: "Market",
+            field: "market",
+        },
+        {
+            title: "LGA",
+            field: "lga",
+        },
+    ];
 
     setAuthToken();
     useEffect(() => {
         setIsFetching(true);
         if (router && router.query) {
-            let agentEmail = router.query.ref;
+            const agentEmail = router.query.ref;
             const fetchPost = () => {
                 axios.get(`${url.BASE_URL}market/admin/agent/profile?id=${agentEmail}`)
                     .then(function (response) {
                         setIsFetching(false);
-                        let responseAll = response.data.body
-                        let useDet = responseAll.userDetails
-                        console.log("useDet",useDet);
-                        setAgentDetails(useDet)
-                        let transactions = response.data.body.transactions
+                        const responseAll = response.data.body
+                        const transactions = responseAll.transactions
+                        const useDet = responseAll.userDetails
+                        const agentMarket = responseAll.marketGroup
+                        setmarkets(agentMarket)
                         setAgentTransactions(transactions)
-                        console.log("userD", agentDetails);
-
+                        setDetailsAgent(useDet)
                     })
                     .catch(function (error) {
                         setIsFetching(false);
@@ -72,6 +86,8 @@ const ViewAgent = () => {
         }
     }, [router]);
 
+    console.log("agentDetails", agentDetails);
+    console.log("agentTransactions", agentTransactions);
     return (
         <div>
             {isFetching && (
@@ -95,14 +111,29 @@ const ViewAgent = () => {
                             <img src="/images/avater.png" alt="" sizes="" className="rounded-full w-20 h-20 ring-2 ring-gray-300 dark:ring-gray-500" />
                         </div>
                         <div>
-                            <div className="mt-4">
-                                <div className="text-center">
-                                    <p className="text-lg text-blue-400">{formatNumber(agentDetails.balance)}</p>
+                            {agentDetails === null || agentDetails === undefined ? "" :
+                                <div className="mt-4">
+                                    <div className="text-center">
+                                        <p className="text-lg text-blue-400">{formatNumber(agentDetails.balance)}</p>
+                                    </div>
+                                    <div className="">
+                                        <p>Name</p>
+                                        <p className="font-bold  my-2">{agentDetails.name} </p>
+                                    </div>
+                                    <div>
+                                        <p>email</p>
+                                        <p className="font-bold  my-2">{agentDetails.user} </p>
+                                    </div>
+                                    <div>
+                                        <p>Phone</p>
+                                        <p className="font-bold  my-2">{agentDetails.phone} </p>
+                                    </div>
+                                    <div>
+                                        <p>Active</p>
+                                        <p className="font-bold my-2">{agentDetails.active} </p>
+                                    </div>
                                 </div>
-                                <p className="font-bold text-center my-2"><em>{agentDetails.name}</em> </p>
-                                <p className="font-bold text-center my-2"><em>{agentDetails.user}</em> </p>
-                                <p className="font-bold text-center my-2"><em>{agentDetails.phone}</em> </p>
-                            </div>
+                            }
                         </div>
 
                     </div>
@@ -135,10 +166,34 @@ const ViewAgent = () => {
                             }}
                         />
                     </div>
+                    <div className="mt-3">
+                        <MaterialTable title="Market Group"
+                            data={markets}
+                            columns={marketsCol}
+                            options={{
+                                search: false,
+                                filtering: false,
+                                paging: false,
+                            }}
+                            icons={{
+                                Check: Check,
+                                DetailPanel: ChevronRight,
+                                Export: SaveAlt,
+                                Filter: () => <Icons.Filter />,
+                                FirstPage: FirstPage,
+                                LastPage: LastPage,
+                                NextPage: ChevronRight,
+                                PreviousPage: ChevronLeft,
+                                Search: Search,
+                                ThirdStateCheck: Remove,
+                                Clear: Clear,
+                                SortArrow: ArrowDownward
+
+                            }}
+                        />
+                    </div>
                 </div>
             </div>
         </div>
     )
 }
-
-export default ViewAgent

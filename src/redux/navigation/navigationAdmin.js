@@ -120,27 +120,27 @@ const initialState = [
               },
             ],
           },
-          // {
-          //   url: '/',
-          //   title: 'Objection',
-          //   items: [
-          //     {
-          //       title: 'Submitted',
-          //       url: '/view/objection/submitted',
-          //       items: [],
-          //     },
-          //     {
-          //       title: 'Verified',
-          //       url: '/view/objection/verified',
-          //       items: [],
-          //     },
-          //     {
-          //       title: 'Approved',
-          //       url: '/view/objection/approved',
-          //       items: [],
-          //     },
-          //   ],
-          // },
+          {
+            url: '/',
+            title: 'Objection',
+            items: [
+              {
+                title: 'Submitted',
+                url: '/view/objection/submitted',
+                items: [],
+              },
+              {
+                title: 'Verified',
+                url: '/view/objection/verified',
+                items: [],
+              },
+              {
+                title: 'Approved',
+                url: '/view/objection/approved',
+                items: [],
+              },
+            ],
+          },
         ],
       },
 
@@ -209,30 +209,30 @@ const initialState = [
         ],
       },
 
-      // {
-      //   url: '/',
-      //   icon: <Paye />,
-      //   title: 'MARKET',
-      //   items: [
-      //     {
-      //       url: '/',
-      //       title: 'AGENT',
-      //       items: [
-      //         {
-      //           title: 'Register',
-      //           url: '/markets/agents/registeragent',
-      //           items: [],
-      //         },
-      //         {
-      //           title: 'List',
-      //           url: '/view/agents/list-agents',
-      //           items: [],
-      //         },
-      //       ],
-      //     },
+      {
+        url: '/',
+        icon: <Paye />,
+        title: 'MARKET',
+        items: [
+          {
+            url: '/',
+            title: 'Agent',
+            items: [
+              {
+                title: 'Register',
+                url: '/markets/agents/register/registeragent',
+                items: [],
+              },
+              {
+                title: 'List',
+                url: '/view/agents/list-agents',
+                items: [],
+              },
+            ],
+          },
           
-      //   ],
-      // },
+        ],
+      },
 
       {
         url: '/',

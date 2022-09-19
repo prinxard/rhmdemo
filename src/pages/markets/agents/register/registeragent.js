@@ -2,9 +2,9 @@ import { useRouter } from 'next/router';
 import React from 'react'
 import axios from "axios";
 import { useState } from 'react';
-import url from "../../../config/url";
+import url from "../../../../config/url";
 import { useForm } from 'react-hook-form';
-import setAuthToken from '../../../functions/setAuthToken';
+import setAuthToken from '../../../../functions/setAuthToken';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from 'react-loader-spinner';
