@@ -8,11 +8,14 @@ import setAuthToken from '../../../../functions/setAuthToken';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from 'react-loader-spinner';
+import { FormatMoneyComponentReport } from '../../../../components/FormInput/formInputs';
 
 const FundAgentWallet = () => {
     const [createError, setError] = useState("")
     const [isFetching, setIsFetching] = useState(() => false);
     const [userdetails, setUserDetails] = useState([]);
+    const [emailurl, setEmailUrl] = useState([]);
+    const [fixedValues, fixValues] = useState({ amount: "" });
     const router = useRouter();
     const {
         register,
@@ -26,6 +29,7 @@ const FundAgentWallet = () => {
         setIsFetching(true);
         if (router && router.query) {
             const agentEmail = router.query.ref;
+            setEmailUrl(agentEmail)
             const fetchPost = () => {
                 axios.get(`${url.BASE_URL}market/admin/agent/profile?id=${agentEmail}`)
                     .then(function (response) {
@@ -42,13 +46,13 @@ const FundAgentWallet = () => {
     }, [router]);
 
     const onSubmit = (data) => {
-        console.log(data);
+        data.amount = (data.amount).replace(/,/g, '')
         setIsFetching(true)
 
-        axios.put(`${url.BASE_URL}market/admin/agent/profile`, data)
+        axios.post(`${url.BASE_URL}market/admin/agent/account`, data)
             .then(function (response) {
                 setIsFetching(false)
-                toast.success("Created Successfully!");
+                toast.success("Funded Successfully!");
                 router.push("/dashboard")
             })
             .catch(function (error) {
@@ -82,10 +86,29 @@ const FundAgentWallet = () => {
             )}
             <div className="flex border mb-3 block p-3 justify-center rounded-lg bg-white w-full">
                 <section>
-                    <h4 htmlFor="">Fund Wallet</h4>
-                    
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <h4 htmlFor="" className="mb-3">Fund Wallet</h4>
+                        <small className="flex text-red-600">{createError}</small>
+                        <input type="text" ref={register()} name="user" className="hidden" value={emailurl} />
+                        <FormatMoneyComponentReport
+                            ref={register()}
+                            name="amount"
+                            control={control}
+                            defaultValue={""}
+                            onValueChange={(v) => fixValues({ amount: v })}
+                            placeholder="₦ Enter Amount"
+                            required={true}
+                        />
+                        <button
+                            style={{ backgroundColor: "#84abeb" }}
+                            className="btn btn-default mt-3 text-white btn-outlined bg-transparent rounded-md"
+                            type="submit"
+                        >
+                            Fund
+                        </button>
+                    </form>
                 </section>
-               
+
             </div>
         </>
     )
