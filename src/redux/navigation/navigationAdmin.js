@@ -165,27 +165,23 @@ const initialState = [
               // },
             ],
           },
-          {
-            url: '/',
-            title: 'PAYSLIP',
-            items: [
-              {
-                title: 'Create',
-                url: '/',
-                items: [],
-              },
-              {
-                title: 'View',
-                url: '/',
-                items: [],
-              },
-              // {
-              //   title: 'Unassessed Collections',
-              //   url: '/unassessed-report',
-              //   items: [],
-              // },
-            ],
-          },
+          // {
+          //   url: '/',
+          //   title: 'PAYSLIP',
+          //   items: [
+          //     {
+          //       title: 'Create',
+          //       url: '/',
+          //       items: [],
+          //     },
+          //     {
+          //       title: 'View',
+          //       url: '/',
+          //       items: [],
+          //     },
+        
+          //   ],
+          // },
           // {
           //   url: '/',
           //   title: 'Dashboard',
@@ -209,30 +205,30 @@ const initialState = [
         ],
       },
 
-      {
-        url: '/',
-        icon: <Paye />,
-        title: 'MARKET',
-        items: [
-          {
-            url: '/',
-            title: 'Agent',
-            items: [
-              {
-                title: 'Register',
-                url: '/markets/agents/register/registeragent',
-                items: [],
-              },
-              {
-                title: 'List',
-                url: '/view/agents/list-agents',
-                items: [],
-              },
-            ],
-          },
+      // {
+      //   url: '/',
+      //   icon: <Paye />,
+      //   title: 'MARKET',
+      //   items: [
+      //     {
+      //       url: '/',
+      //       title: 'Agent',
+      //       items: [
+      //         {
+      //           title: 'Register',
+      //           url: '/markets/agents/register/registeragent',
+      //           items: [],
+      //         },
+      //         {
+      //           title: 'List',
+      //           url: '/view/agents/list-agents',
+      //           items: [],
+      //         },
+      //       ],
+      //     },
           
-        ],
-      },
+      //   ],
+      // },
 
       {
         url: '/',
