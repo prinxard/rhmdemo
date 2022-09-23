@@ -166,6 +166,9 @@ export const StartReportView = () => {
                 <input type="text" ref={register()} name="t_payer" className="form-control w-full rounded font-light text-gray-500" />
               </div>
               <div className="mb-2">
+                <input type="text" ref={register()} name="tell_no" className="form-control hidden w-full rounded font-light text-gray-500" />
+              </div>
+              <div className="mb-2">
                 <label className="" htmlFor="kgtin"> Assessment ID</label>
                 <input type="text" ref={register()} name="assessment_id" className="form-control w-full rounded font-light text-gray-500"
                 />
