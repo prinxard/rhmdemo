@@ -233,6 +233,7 @@ export const StartReportView = () => {
                   <option value="Paystack">Paystack</option>
                   <option value="Remita">Remita</option>
                   <option value="WebPay">WebPay</option>
+                  <option value="Paytax">Paytax</option>
                 </select>
                 {/* <input type="text" ref={register()} name="channel_id" className="form-control w-full rounded font-light text-gray-500"
                   /> */}
