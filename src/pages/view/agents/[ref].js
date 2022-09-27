@@ -38,6 +38,7 @@ export default function ViewAgent() {
         {
             title: "Amount",
             field: "amount",
+            type: "numeric",
             render: (expense) => formatNumber(expense.amount)
         },
         {
@@ -144,6 +145,14 @@ export default function ViewAgent() {
                         <MaterialTable title="Transactions"
                             data={agentTransactions}
                             columns={transactionsCol}
+                            renderSummaryRow={({ column, data }) =>
+                            column.field === "amount"
+                              ? {
+                                  value: data.reduce((agg, row) => agg + row.age, 0),
+                                  style: { background: "red" },
+                                }
+                              : undefined
+                          }
                             options={{
                                 search: true,
                                 filtering: true,
