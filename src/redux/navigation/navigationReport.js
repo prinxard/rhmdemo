@@ -90,7 +90,7 @@ const initialState = [
             items: [
               {
                 url: '/view/listapprovedtcc',
-                title: 'Pending Approval',
+                title: 'Pending E C. Sign',
                 items: [],
               },
               {
