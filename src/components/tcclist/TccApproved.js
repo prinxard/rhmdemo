@@ -45,12 +45,12 @@ const ApprovedTCCList = () => {
           rec.crt_time = dateformat(rec.crt_time, "dd mmm yyyy")
           records.push(rec);
         }
-        // records.map(()=>{
-        //   if (records.find(v => v.status === "Approved")) {
-        //     records.find(v => v.status === "Approved").status = "Pending E.C Signature";
-        //   }
+        records.map(()=>{
+          if (records.find(v => v.status === "Approved")) {
+            records.find(v => v.status === "Approved").status = "Pending E.C Signature";
+          }
 
-        // })
+        })
         setIsFetching(false);
         setTccData(() => records);
       } catch (e) {

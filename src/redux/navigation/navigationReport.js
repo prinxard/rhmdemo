@@ -90,7 +90,7 @@ const initialState = [
             items: [
               {
                 url: '/view/listapprovedtcc',
-                title: 'View Approved',
+                title: 'Pending Approval',
                 items: [],
               },
               {
