@@ -88,19 +88,25 @@ const initialState = [
             title: 'Tax Clearance (TCC)',
             items: [
               {
-                url: '/tcc',
-                title: 'Create',
-                items: [],
-              },
-              {
-                url: '/view/listtcc',
-                title: 'View',
-                items: [],
-              },
-              {
-                url: '/view/listprinttcc',
-                title: 'Print',
-                items: [],
+                url: '/',
+                title: 'Tax Clearance (TCC)',
+                items: [
+                  {
+                    url: '/view/listapprovedtcc',
+                    title: 'View Approved',
+                    items: [],
+                  },
+                  {
+                    url: '/view/listtcc',
+                    title: 'View All',
+                    items: [],
+                  },
+                  {
+                    url: '/view/listprinttcc',
+                    title: 'View Print',
+                    items: [],
+                  },
+                ],
               },
             ],
           },
@@ -179,7 +185,7 @@ const initialState = [
           //       url: '/',
           //       items: [],
           //     },
-        
+
           //   ],
           // },
           // {
@@ -226,7 +232,7 @@ const initialState = [
       //         },
       //       ],
       //     },
-          
+
       //   ],
       // },
 
