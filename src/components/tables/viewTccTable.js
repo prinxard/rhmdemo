@@ -545,7 +545,6 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
                     >
                       <Link href={`/tcc/${tccID}`}> Upload Docs</Link>
                     </button>
-
                   </div>
                 }
               </div>
