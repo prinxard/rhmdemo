@@ -139,14 +139,13 @@ export const ViewVerifiedObjection = ({ tpKgtin, objUploads, objectionData }) =>
   const [approveModal, setapproveModal] = useState(false);
   const [declineModal, setDeclineModal] = useState(false);
   const router = useRouter();
-
   const {
     register,
     handleSubmit,
     control,
     formState: { errors },
   } = useForm()
-
+  console.log("objectionData", objectionData);
   const { config, palettes, auth } = useSelector(
     (state) => ({
       config: state.config,
@@ -206,12 +205,12 @@ export const ViewVerifiedObjection = ({ tpKgtin, objUploads, objectionData }) =>
             console.log("IndData", IndData);
             setIsFetching(false);
             setpayerDetails(IndData)
-            axios.post(`${url.BASE_URL}forma/view-objection`, { assessment_id: assessId })
-              .then(function (response) {
-                setUploadedDocs(response.data.body.objUpload)
-              }).catch(function (error) {
-                console.log(error);
-              })
+            // axios.post(`${url.BASE_URL}forma/view-objection`, { assessment_id: assessId })
+            //   .then(function (response) {
+            //     setUploadedDocs(response.data.body.objUpload)
+            //   }).catch(function (error) {
+            //     console.log(error);
+            //   })
           }).catch(function (error) {
             setIsFetching(false);
             console.log(error);
@@ -322,15 +321,15 @@ export const ViewVerifiedObjection = ({ tpKgtin, objUploads, objectionData }) =>
       <div>
         {objectionStatus === "Verified" ?
           <div className="flex justify-between">
+            <div>
+              <p className="font-bold">Verifier Comment</p>
+              {objectionData.map((data) => (
+                <p>{data.verifiedcomment}</p>
+              ))}
 
-            <button
-              className="btn my-2 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-              type="submit"
-            >
-              <a href={`/view/approvedasses/${daAssessmentId}`} target="_blank" >View Assessment</a>
+            </div>
 
-            </button>
-            <div className="flex">
+            <div className="flex my-2">
               <div className=" mr-3">
                 <button onClick={approvePopup}
                   className="btn bg-green-400  mr-3 btn-default text-white btn-outlined bg-transparent rounded-md"
@@ -464,7 +463,7 @@ export const ViewVerifiedObjection = ({ tpKgtin, objUploads, objectionData }) =>
                 >
                   <a href={``} target="_blank" >{data.doc_name}</a>
                 </button> */}
-                <p className="font-bold"><a href="" className="no-underline hover:underline text-blue-500">{data.doc_name}</a></p>
+                <p className="font-bold"><a href={`https://annualuploads.bespoque.dev/rhm/uploads/da/objection/${data.file_name}`} target="_blank" className="no-underline hover:underline text-blue-500">{data.doc_name}</a></p>
                 <span className="h-5 w-5 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
                   <FiCheck
                     size={15}
@@ -473,7 +472,13 @@ export const ViewVerifiedObjection = ({ tpKgtin, objUploads, objectionData }) =>
                 </span>
               </div>
             ))}
+            <button
+              className="btn my-2 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+              type="submit"
+            >
+              <a href={`/view/approvedasses/${daAssessmentId}`} target="_blank" >View Assessment</a>
 
+            </button>
           </div>
         </div>
       </div>

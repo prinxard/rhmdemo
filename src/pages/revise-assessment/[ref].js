@@ -24,6 +24,7 @@ export default function Revise() {
   const [supportDocInput, setInput] = useState({ name: '' })
   const [uploadDep, setUploadDep] = useState(false);
   const [hidesubmit, setHideSubmit] = useState("");
+  const [togglesubmitobjection, setTogglesubmitobjection] = useState("hidden");
   const router = useRouter();
 
   const [uploadedDocs, setUploadedDocs] = useState([]);
@@ -122,6 +123,7 @@ export default function Revise() {
       .then(function (response) {
         setIsFetching(false)
         setHideSubmit("hidden")
+        setTogglesubmitobjection("")
         toast.success("Created Successfully!");
       })
       .catch(function (error) {
@@ -475,7 +477,7 @@ export default function Revise() {
               </div>
 
               <div className="my-2 grid grid-cols-2 gap-2">
-                <label className="self-center"> Income:</label>
+                <label className="self-center">Actual Income:</label>
                 <FormatMoneyComponentReport
                   ref={register()}
                   name="income"
@@ -508,7 +510,7 @@ export default function Revise() {
                   className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
                   type="submit"
                 >
-                  Submit
+                  Save
                 </button>
               </div>
             </form>
@@ -521,56 +523,6 @@ export default function Revise() {
                 <p className="font-bold text-center">Upload Supporting Documents</p>
                 <p className="text-center"><small className="font-bold">(Accepted document formats are png, jpeg, pdf. max size 100kb)</small></p>
               </div>
-
-              {/* 
-              <form className="App" autoComplete="off">
-                <div className="form-field">
-                  <label htmlFor="service">Service(s)</label>
-                  {serviceList.map((singleService, index) => (
-                    <div key={index} className="services">
-                      <div className="first-division">
-                        <input
-                          name="service"
-                          type="text"
-                          id="service"
-                          value={singleService.service}
-                          onChange={(e) => handleServiceChange(e, index)}
-                          required
-                        />
-                        {serviceList.length - 1 === index && serviceList.length < 4 && (
-                          <button
-                            type="button"
-                            onClick={handleServiceAdd}
-                            className="add-btn"
-                          >
-                            <span>Add a Service</span>
-                          </button>
-                        )}
-                      </div>
-                      <div className="second-division">
-                        {serviceList.length !== 1 && (
-                          <button
-                            type="button"
-                            onClick={() => handleServiceRemove(index)}
-                            className="remove-btn"
-                          >
-                            <span>Remove</span>
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="output">
-                  <h2>Output</h2>
-                  {serviceList &&
-                    serviceList.map((singleService, index) => (
-                      <ul key={index}>
-                        {singleService.service && <li>{singleService.service}</li>}
-                      </ul>
-                    ))}
-                </div>
-              </form> */}
 
               <form>
                 {uploadedDocs.map((singleFile, index) => (
@@ -630,7 +582,7 @@ export default function Revise() {
               <p className="font-bold flex justify-center my-3">Other Documents</p>
               <form onSubmit={handleSubmit(UploadSupportingDocs)}>
                 <div className="flex justify-between mb-5">
-                  <input type="text" name="name" minlength="5" maxlength="50" required value={supportDocInput.name} onChange={handleChange} placeholder="Enter file name" />
+                  <input type="text" name="name" minlength="5" maxlength="50" required value={supportDocInput.name} onChange={handleChange} placeholder="Enter document name" />
                   <input
                     type="file"
                     className="hidden"
@@ -670,7 +622,7 @@ export default function Revise() {
 
       </div>
 
-      <form className="my-4 flex justify-center" onSubmit={SubmitObjection}>
+      <form className={`my-4 flex justify-center ${togglesubmitobjection}`} onSubmit={SubmitObjection}>
         <button className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
           type="submit"
         >

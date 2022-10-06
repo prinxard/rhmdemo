@@ -15,7 +15,7 @@ import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Clear from "@material-ui/icons/Clear";
 // import MaterialTable from "material-table";
 import MaterialTable from '@material-table/core';
-import { Delete, WarningRounded, Refresh } from "@material-ui/icons";
+import { Delete, WarningRounded, Refresh, Redo } from "@material-ui/icons";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from "react-loader-spinner";
@@ -278,7 +278,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
             }
           },
           {
-            icon: Refresh,
+            icon: Redo,
             tooltip: 'Objection',
             // hidden: true,
             onClick: (event, rowData) => {
