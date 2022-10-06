@@ -136,7 +136,7 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
   const [payerDetails, setpayerDetails] = useState([]);
   const [isFetching, setIsFetching] = useState(() => false);
   const [routerAssId, setAssessId] = useState('');
-  const [uploadedDocs, setUploadedDocs] = useState([]);
+  // const [uploadedDocs, setUploadedDocs] = useState([]);
   const [verifyModal, setVerifyModal] = useState(false);
   const [declineModal, setDeclineModal] = useState(false);
   const [fixedValues, fixValues] = useState({ amount: "" });
@@ -146,8 +146,12 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
     register,
     handleSubmit,
     control,
+    watch,
     formState: { errors },
   } = useForm()
+
+  let objNotice = watch("noticeobjection", "")
+  console.log(objNotice);
 
   const { config, palettes, auth } = useSelector(
     (state) => ({
@@ -176,21 +180,25 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
   };
 
   const VerifyObjection = (data) => {
-    setIsFetching(true)
-    data.tax = (data.tax).replace(/,/g, '')
-    data.assessment_id = routerAssId
-    data.status = "Verified"
+    if (objNotice === "") {
+      alert("Please select the type of objection noctice")
+    } else {
+      setIsFetching(true)
+      data.tax = (data.tax).replace(/,/g, '')
+      data.assessment_id = routerAssId
+      data.status = "Verified"
 
-    axios.put(`${url.BASE_URL}forma/objection`, data)
-      .then(function (response) {
-        setIsFetching(false)
-        toast.success("Success!");
-        router.push('/view/objection/verified')
-      })
-      .catch(function (error) {
-        toast.error("Failed!");
-        setIsFetching(false)
-      })
+      axios.put(`${url.BASE_URL}forma/objection`, data)
+        .then(function (response) {
+          setIsFetching(false)
+          toast.success("Success!");
+          router.push('/view/objection/verified')
+        })
+        .catch(function (error) {
+          toast.error("Failed!");
+          setIsFetching(false)
+        })
+    }
   }
 
   const DeclineObjection = (data) => {
@@ -226,12 +234,12 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
             console.log("IndData", IndData);
             setIsFetching(false);
             setpayerDetails(IndData)
-            axios.post(`${url.BASE_URL}forma/view-objection`, { assessment_id: assessId })
-              .then(function (response) {
-                setUploadedDocs(response.data.body.objUpload)
-              }).catch(function (error) {
-                console.log(error);
-              })
+            // axios.post(`${url.BASE_URL}forma/view-objection`, { assessment_id: assessId })
+            //   .then(function (response) {
+            //     setUploadedDocs(response.data.body.objUpload)
+            //   }).catch(function (error) {
+            //     console.log(error);
+            //   })
           }).catch(function (error) {
             setIsFetching(false);
             console.log(error);
@@ -281,7 +289,7 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
                 control={control}
                 defaultValue={""}
                 onValueChange={(v) => fixValues({ amount: v })}
-                placeholder="₦ Enter Income"
+                placeholder="₦ Enter Proposed Tax"
                 required={true}
               />
               <textarea name="verifiedcomment" ref={register()} required className="form-control mt-3 w-full rounded" minlength="10" maxlength="150" placeholder="comment"></textarea>
@@ -335,8 +343,15 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
 
       <div>
         {objectionStatus === "Submitted" ?
-          <div className="flex justify-end">
-
+          <div className="flex justify-between">
+            <form className="">
+              <select ref={register()} name="noticeobjection" className="form-control w-full rounded font-light text-gray-500">
+                <option value="">Notice of Objection</option>
+                <option value="Undertaxed">Undertaxed</option>
+                <option value="PITA">Downward with PITA</option>
+                <option value="no_PITA">Downward without PITA</option>
+              </select>
+            </form>
 
             <div className="flex my-2">
 
