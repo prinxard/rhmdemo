@@ -88,6 +88,11 @@ const initialState = [
             title: 'Tax Clearance (TCC)',
             items: [
               {
+                url: '/tcc',
+                title: 'Create',
+                items: [],
+              },
+              {
                 url: '/view/listapprovedtcc',
                 title: 'Pending E C. Sign',
                 items: [],
