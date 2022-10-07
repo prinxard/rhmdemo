@@ -618,7 +618,7 @@ export const StartTcc = () => {
                 <div>
 
                   {assessmentData3.map((ele, i) => (
-                    <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.tax)} ref={register()} type="text"
+                    <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.taxAmount)} ref={register()} type="text"
                     />
                   ))}
 
