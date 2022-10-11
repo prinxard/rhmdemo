@@ -81,7 +81,6 @@ const ViewSingleApproved = () => {
     }
   }, [router]);
 
-  console.log("makeArray", makeArray);
   
 
   let ChangePrint = async (e) => {

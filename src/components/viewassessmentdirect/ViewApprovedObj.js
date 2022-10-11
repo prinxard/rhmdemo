@@ -39,7 +39,7 @@ const ViewApprovedObjection = () => {
     };
     fetchPost();
   }, []);
-
+console.log(post);
 
 
   return (

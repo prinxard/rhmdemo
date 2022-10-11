@@ -3,7 +3,7 @@ import { formatNumber } from "../../functions/numbers";
 import * as Icons from '../Icons/index';
 import dateformat from "dateformat";
 import setAuthToken from "../../functions/setAuthToken";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Loader from "react-loader-spinner";
 import url from '../../config/url';
 import axios from "axios";
@@ -26,6 +26,7 @@ import Clear from "@material-ui/icons/Clear";
 import MaterialTable from "material-table";
 import { FiCheck } from "react-icons/fi";
 import { FormatMoneyComponentReport } from "../FormInput/formInputs";
+import ReactToPrint from "react-to-print";
 
 const fields = [
   {
@@ -132,62 +133,159 @@ export const ViewApprovedObjectionTable = ({ submittedData }) => {
   );
 };
 
-export const ViewApprovedObjection = ({ tpKgtin, objUploads, objectionData }) => {
-
+export const ViewApprovedObjectionSingle = ({ objectionData, ref, objNotice, assessmentId, createdTime, taxpayerTax, recommendedTax }) => {
   const router = useRouter();
+  const componentRef = useRef();
+  console.log("objectionData", objectionData);
 
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm()
-
-  const { config, palettes, auth } = useSelector(
-    (state) => ({
-      config: state.config,
-      palettes: state.palettes,
-      auth: state.authentication.auth,
-    }),
-    shallowEqual
-  );
-
-  let daAssessmentId
-  let objectionStatus
-
-  objectionData.forEach(element => {
-    daAssessmentId = element.da_assessment_id
-  });
-  objectionData.forEach(element => {
-    objectionStatus = element.status
-  });
-
-
-  const Approval = [2, 3, 1]
-  const decoded = jwt.decode(auth);
-  const userGroup = decoded.groups
-
+  console.log("noticeStatus", objNotice);
+  let today = new Date().toJSON().slice(0, 10);
 
   return (
     <>
-      <ToastContainer />
-      {/* {isFetching && (
-        <div className="flex justify-start item mb-2">
-          <Loader
-            visible={isFetching}
-            type="BallTriangle"
-            color="#00FA9A"
-            height={19}
-            width={19}
-            timeout={0}
-            className="ml-2"
+
+      <div className="m-3 flex justify-end">
+        <div>
+          <ReactToPrint
+            pageStyle='@page { size: auto; margin: 0mm; } @media print { body { -webkit-print-color-adjust: exact; padding: 40px !important; } }'
+            // pageStyle="@page { size: 7.5in 13in  }"
+            trigger={() => <button 
+              type="submit"
+            >
+              Print
+            </button>}
+            content={() => componentRef.current}
           />
-          <p>Please wait...</p>
         </div>
-      )} */}
 
-      <p>Objection letter</p>
+      </div>
 
+      <div>
+        {objNotice === null ? "no status"
+          :
+          <div ref={componentRef}>
+            <div>
+              {objNotice === "undertaxed" ?
+                <div className="text-justify text-base max-w-prose" style={{ maxWidth: "800px" }} >
+                  <p> {today} </p>
+                  <p>{assessmentId}</p>
+                  <p>Sir/Ma</p>
+                  <p className="font-bold">Re: Underassessed Objection</p>
+                  <p>The above Subject refers <span></span></p><br />
+                  <p>
+                    We acknowledge the receipt of your letter
+                    <span className="font-bold"> {dateformat(createdTime, "yyyy-mm-dd")} </span>
+                    in respect to the objection of your Direct Assessment
+                  </p>
+                  <br />
+                  <p>
+                    We have reviewed your letter of complaint and objection along with
+                    your previous tax records with Kogi State Internal Revenue Service.
+                    The Management have looked at the reasonability of your objection
+                    and revised your assessment to <span className="font-bold">₦ {formatNumber(recommendedTax)} </span>
+                    Instead of Quote assessment amount <span className="font-bold"> ₦ {formatNumber(taxpayerTax)} </span>
+                  </p><br />
+                  <p>
+                    Please Take Note that you have been previously under assessed, but
+                    Management has waived recovery of such moneys as stipulated in
+                    section 52[1] of PITA 2011 as amended.
+                  </p><br />
+                  <p>
+                    You are by this expected to make payments to any Kogi State Internal
+                    Revenue Service Designated banks. Please accept the assurance of our
+                    highest regards.
+                  </p>
+                  <br />
+                  <p>
+                    Yours Faithfully.
+                  </p>
+                  For: <span className="font-bold">KOGI STATE INTERNAL REVENUE SERVICE </span>
+                  <p className="font-bold">Sule Salihu Enehe</p>
+                  Acting Executive Chairman
+
+                </div>
+                :
+                <div>
+                  {objNotice === "no_PITA" ?
+                    <div className="text-justify text-base max-w-prose" style={{ maxWidth: "800px" }}>
+                      <p> {today} </p>
+                      <p>{assessmentId}</p>
+                      <p>Sir/Ma</p>
+                      <p className="font-bold">Re: Downward Review Without PITA</p>
+                      <p>The above Subject refers <span></span></p><br />
+                      <p>
+                        We acknowledge the receipt of your letter
+                        <span className="font-bold"> {dateformat(createdTime, "yyyy-mm-dd")} </span>
+                        in respect to the objection of your Direct Assessment
+                      </p>
+                      <br />
+                      <p>
+                        We have reviewed your letter of complaint and objection along with
+                        your previous tax records with Kogi State Internal Revenue Service.
+                        The Management have looked at the reasonability of your objection
+                        and revised your assessment to <span className="font-bold">₦ {formatNumber(recommendedTax)} </span>
+                        Instead of Quote assessment amount <span className="font-bold"> ₦ {formatNumber(taxpayerTax)} </span>
+                      </p><br />
+                      <p>
+                        You are by this expected to make payments to any Kogi State Internal
+                        Revenue Service Designated banks. Please accept the assurance of our
+                        highest regards.
+                      </p>
+                      <br />
+                      <p>
+                        Yours Faithfully.
+                      </p>
+                      For: <span className="font-bold">KOGI STATE INTERNAL REVENUE SERVICE </span>
+                      <p className="font-bold">Sule Salihu Enehe</p>
+                      Acting Executive Chairman
+
+                    </div>
+                    :
+                    <div>
+                      {objNotice === "PITA" ?
+                        <div className="text-justify text-base max-w-prose" style={{ maxWidth: "800px" }}>
+                          <p> {today} </p>
+                          <p>{assessmentId}</p>
+                          <p>Sir/Ma</p>
+                          <p className="font-bold">Re: Downward Review With PITA</p>
+                          <p>The above Subject refers <span></span></p><br />
+                          <p>
+                            We acknowledge the receipt of your letter
+                            <span className="font-bold"> {dateformat(createdTime, "yyyy-mm-dd")} </span>
+                            in respect to the objection of your Direct Assessment
+                          </p>
+                          <br />
+                          <p>
+                            We have reviewed your letter of objection in line with section 24[A] of
+                            PITA 2011 as amended.
+                            The Management have looked at the reasonability of your objection
+                            and revised your assessment to <span className="font-bold">₦ {formatNumber(recommendedTax)} </span>
+                            Instead of Quote assessment amount <span className="font-bold"> ₦ {formatNumber(taxpayerTax)} </span>
+                          </p><br />
+                          <p>
+                            You are by this expected to make payments to any Kogi State Internal
+                            Revenue Service Designated banks. Please accept the assurance of our
+                            highest regards.
+                          </p>
+                          <br />
+                          <p>
+                            Yours Faithfully.
+                          </p>
+                          For: <span className="font-bold">KOGI STATE INTERNAL REVENUE SERVICE </span>
+                          <p className="font-bold">Sule Salihu Enehe</p>
+                          Acting Executive Chairman
+
+                        </div> : ""
+                      }
+                    </div>
+                  }
+
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
       <style
         jsx>{
           `

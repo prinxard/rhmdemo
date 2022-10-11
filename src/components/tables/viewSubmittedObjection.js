@@ -187,6 +187,7 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
       data.tax = (data.tax).replace(/,/g, '')
       data.assessment_id = routerAssId
       data.status = "Verified"
+      data.notice = objNotice
 
       axios.put(`${url.BASE_URL}forma/objection`, data)
         .then(function (response) {
@@ -343,11 +344,11 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
 
       <div>
         {objectionStatus === "Submitted" ?
-          <div className="flex justify-between">
-            <form className="">
+          <div className="flex justify-end">
+            <form className="mr-3">
               <select ref={register()} name="noticeobjection" className="form-control w-full rounded font-light text-gray-500">
-                <option value="">Notice of Objection</option>
-                <option value="Undertaxed">Undertaxed</option>
+                <option value="">Type of Objection</option>
+                <option value="undertaxed">Undertaxed</option>
                 <option value="PITA">Downward with PITA</option>
                 <option value="no_PITA">Downward without PITA</option>
               </select>

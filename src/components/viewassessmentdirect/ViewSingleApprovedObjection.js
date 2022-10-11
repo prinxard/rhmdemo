@@ -1,23 +1,26 @@
 import Widget from '../widget'
 import SectionTitle from '../section-title';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import axios from "axios";
 import Loader from 'react-loader-spinner';
 import setAuthToken from '../../functions/setAuthToken';
 import url from '../../config/url';
-import { ViewObjection } from '../tables/viewSubmittedObjection';
-import { ViewVerifiedObjection } from '../tables/viewVerifiedObjection';
-import { ViewApprovedObjection } from '../tables/viewApprovedObjection';
+import { ViewApprovedObjectionSingle } from '../tables/viewApprovedObjection';
 
 
 const ViewSingleApprovedObjection = () => {
   const router = useRouter();
   const [isFetching, setIsFetching] = useState(() => true);
   const [globalAssId, setGlobalAssId] = useState("")
+  const [objNotice, setObjNotice] = useState("")
+  const [createdTime, setCreatedTime] = useState("")
+  const [taxpayerTax, setTpTax] = useState("")
+  const [recommendedTax, setRecommTax] = useState("")
   const [objectionData, setObjectionData] = useState([])
   const [objUploads, setObjUploads] = useState([])
   const [tpKgtin, setTpKgtin] = useState([])
+
 
   useEffect(() => {
     if (router && router.query) {
@@ -25,12 +28,20 @@ const ViewSingleApprovedObjection = () => {
       let kgtin = routerData.split('_').pop()
       let assessmentId = routerData.split('_').shift()
       setGlobalAssId(assessmentId)
-      setTpKgtin(kgtin) 
+      setTpKgtin(kgtin)
       setAuthToken()
       const fetchPost = async () => {
         try {
           let res = await axios.post(`${url.BASE_URL}forma/view-objection`, { assessment_id: assessmentId });
           let objData = res.data.body.obj
+          let objDataNotice = objData[0].notice
+          let createTime = objData[0].createtime
+          let tpTax = objData[0].tp_tax
+          let mainTax = objData[0].tax
+          setRecommTax(mainTax)
+          setTpTax(tpTax)
+          setCreatedTime(createTime)
+          setObjNotice(objDataNotice)
           let objDoc = res.data.body.objUpload
           setObjectionData(objData);
           setObjUploads(objDoc)
@@ -49,7 +60,7 @@ const ViewSingleApprovedObjection = () => {
     <>
 
       <SectionTitle title="Objection notice" />
-
+ 
       <Widget>
 
         {isFetching ? (
@@ -65,7 +76,12 @@ const ViewSingleApprovedObjection = () => {
             />
             <p>Fetching data...</p>
           </div>
-        ) : <ViewApprovedObjection
+        ) : <ViewApprovedObjectionSingle
+          createdTime={createdTime}
+          objNotice={objNotice}
+          taxpayerTax={taxpayerTax}
+          assessmentId={globalAssId}
+          recommendedTax={recommendedTax}
           tpKgtin={tpKgtin}
           objUploads={objUploads}
           objectionData={objectionData}

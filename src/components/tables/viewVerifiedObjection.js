@@ -326,7 +326,12 @@ export const ViewVerifiedObjection = ({ tpKgtin, objUploads, objectionData }) =>
               {objectionData.map((data) => (
                 <p>{data.verifiedcomment}</p>
               ))}
-
+            <div>
+              <p className="font-bold">Revised Tax</p>
+              {objectionData.map((data)=>(
+                <p className="font-bold">{formatNumber(data.tax)}</p>
+              ))}
+            </div>
             </div>
 
             <div className="flex my-2">
