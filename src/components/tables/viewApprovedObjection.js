@@ -20,6 +20,7 @@ import Clear from "@material-ui/icons/Clear";
 import MaterialTable from "material-table";
 import ReactToPrint from "react-to-print";
 import { KgirsLogo, KogiGov } from "../Images/Images";
+import { ToWords } from 'to-words';
 
 const fields = [
   {
@@ -126,14 +127,19 @@ export const ViewApprovedObjectionTable = ({ submittedData }) => {
   );
 };
 
-export const ViewApprovedObjectionSingle = ({ objectionData, ref, objNotice, assessmentId, createdTime, taxpayerTax, recommendedTax }) => {
+export const ViewApprovedObjectionSingle = ({ objectionData, year, objNotice, assessmentId, createdTime, taxpayerTax, recommendedTax }) => {
   const router = useRouter();
   const componentRef = useRef();
   console.log("objectionData", objectionData);
 
   console.log("noticeStatus", objNotice);
-  let today = new Date().toJSON().slice(0, 10);
-
+  const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
+  let today = new Date().toLocaleDateString('en-us', options);
+  let timeCreated = new Date(createdTime).toDateString()
+  const toWords = new ToWords();
+  let revisedAssWords = toWords.convert(recommendedTax);
+  let initTaxWords = toWords.convert(taxpayerTax);
+  console.log("words", revisedAssWords);
   return (
     <>
 
@@ -156,23 +162,27 @@ export const ViewApprovedObjectionSingle = ({ objectionData, ref, objNotice, ass
       <div className="">
         {objNotice === null ? "no status"
           :
-          <div ref={componentRef} className="p-4 mt-10">
+          <div ref={componentRef} className="p-4 mt-5">
             <div className="flex justify-center">
               {objNotice === "undertaxed" ?
                 <div className="text-justify text-base max-w-prose"  >
                   <div className="flex justify-between my-3">
-                    <p align="left"> <KgirsLogo /></p>
-                    <h3 className="mt-9">KOGI STATE GOVERNMENT</h3>
-                    <p align="right"> <KogiGov /></p>
+                    <p> <KgirsLogo /></p>
+                    <h3 className="self-center">KOGI STATE GOVERNMENT</h3>
+                    <p> <KogiGov /></p>
                   </div>
-                  <p> {today} </p>
+                  <p className="flex justify-between mb-3"> <span>File reference</span> {today}  </p>
                   <p>{assessmentId}</p>
-                  <p>Sir/Ma</p>
-                  <p className="font-bold">Re: Underassessed Objection</p>
-                  <p>The above Subject refers <span></span></p><br />
+                  <p>Sir/Ma</p><br />
+                  {objectionData.map((data) => (
+                    <div>
+                      <p className="font-bold">RE: {data.grounds}</p><br />
+                    </div>
+                  ))}
+                  <p>The above Subject refers;</p>
                   <p>
                     We acknowledge the receipt of your letter dated
-                    <span className="font-bold"> {dateformat(createdTime, "yyyy-mm-dd")}, </span>
+                    <span className="font-bold"> {(timeCreated)}, </span>
                     in respect to the objection of your Direct Assessment
                   </p>
                   <br />
@@ -180,24 +190,35 @@ export const ViewApprovedObjectionSingle = ({ objectionData, ref, objNotice, ass
                     We have reviewed your letter of complaint and objection along with
                     your previous tax records with Kogi State Internal Revenue Service.
                     The Management have looked at the reasonability of your objection
-                    and revised your assessment to <span className="font-bold">₦ {formatNumber(recommendedTax)} </span>
-                    Instead of Quote assessment amount <span className="font-bold"> ₦ {formatNumber(taxpayerTax)} </span>
+                    and revised your assessment to <span className="font-bold">₦{formatNumber(recommendedTax)} ({revisedAssWords} Naira only) </span>
+                    Instead of <span className="font-bold"> ₦{formatNumber(taxpayerTax)} ({initTaxWords} Naira only)</span>
                   </p><br />
                   <p>
                     Please Take Note that you have been previously under assessed, but
                     Management has waived recovery of such moneys as stipulated in
                     section 52[1] of PITA 2011 as amended.
                   </p><br />
+                  {/* <p>
+                    You may wish to persuse the sections 3 and 48 of the Persona Income Tax Act (PITA) 2011
+                    as ammended which create that obligation on every citezen of Nigeria
+                  </p><br /> */}
                   <p>
                     You are by this expected to make payments to any Kogi State Internal
-                    Revenue Service Designated banks. Please accept the assurance of our
-                    highest regards.
+                    Revenue Service Designated banks using the Assessment Id <span className="font-bold">{assessmentId}</span>. 
+                    Otherwise submit the following document for the year <span className="font-bold">{year}</span> to enable
+                    us carry out proper assessment in consideration of your objection:
+                    {/* Please accept the assurance of our highest regards. */}
                   </p>
+                  <ul>
+                    <li>1. Audited financial statements</li>
+                    <li>2. Bank accounts of the directors and</li>
+                    <li>3. Any other relevant document to that effect</li>
+                  </ul>
                   <br />
                   <p>
                     Yours Faithfully.
                   </p>
-                  For: <span className="font-bold">KOGI STATE INTERNAL REVENUE SERVICE </span>
+                  <p>For:<span className="font-bold"> KOGI STATE INTERNAL REVENUE SERVICE </span></p><br /><br />
                   <p className="font-bold">Sule Salihu Enehe</p>
                   Acting Executive Chairman
 
@@ -268,7 +289,11 @@ export const ViewApprovedObjectionSingle = ({ objectionData, ref, objNotice, ass
                             PITA 2011 as amended.
                             The Management have looked at the reasonability of your objection
                             and revised your assessment to <span className="font-bold">₦ {formatNumber(recommendedTax)} </span>
-                            Instead of Quote assessment amount <span className="font-bold"> ₦ {formatNumber(taxpayerTax)} </span>
+                            Instead of <span className="font-bold"> ₦ {formatNumber(taxpayerTax)} </span>
+                          </p><br />
+                          <p>
+                            You may wish to persuse the sections 3 and 48 of the Persona Income Tax Act (PITA) 2011
+                            as ammended which create that obligation on every citezen of Nigeria
                           </p><br />
                           <p>
                             You are by this expected to make payments to any Kogi State Internal

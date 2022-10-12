@@ -16,6 +16,7 @@ const ViewSingleApprovedObjection = () => {
   const [objNotice, setObjNotice] = useState("")
   const [createdTime, setCreatedTime] = useState("")
   const [taxpayerTax, setTpTax] = useState("")
+  const [year, setYear] = useState("")
   const [recommendedTax, setRecommTax] = useState("")
   const [objectionData, setObjectionData] = useState([])
   const [objUploads, setObjUploads] = useState([])
@@ -33,10 +34,13 @@ const ViewSingleApprovedObjection = () => {
       const fetchPost = async () => {
         try {
           let res = await axios.post(`${url.BASE_URL}forma/view-objection`, { assessment_id: assessmentId });
+          console.log("res", res);
           let objData = res.data.body.obj
           let objDataNotice = objData[0].notice
           let createTime = objData[0].createtime
           let tpTax = objData[0].tp_tax
+          let assessYear = objData[0].year
+          setYear(assessYear)
           let mainTax = objData[0].tax
           setRecommTax(mainTax)
           setTpTax(tpTax)
@@ -78,6 +82,7 @@ const ViewSingleApprovedObjection = () => {
           </div>
         ) : <ViewApprovedObjectionSingle
           createdTime={createdTime}
+          year={year}
           objNotice={objNotice}
           taxpayerTax={taxpayerTax}
           assessmentId={globalAssId}

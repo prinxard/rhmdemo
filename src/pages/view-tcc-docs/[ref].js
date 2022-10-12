@@ -14,44 +14,25 @@ const ViewDocumentsTcc = () => {
     const [idTcc, setIdTcc] = useState('')
 
     const uploadBase = 'https://annualuploads.bespoque.dev/rhm-live/uploads/da/tcc/'
-
-    // const applicationLetter = uploads.map(function (doc) {
-    //     let appLet = doc.doc
-    //     return cover
-    // })
     const appletter = uploads.filter(data => data.item === "application_letter");
-
-    // const docLet = applet.filter(item => item.doc !== null && item !== "")
     const docLet = appletter.map(item => item.doc)
 
     const paySlip = uploads.filter(data => data.item === "payslip");
-
-    // const docLet = applet.filter(item => item.doc !== null && item !== "")
     const docPay = paySlip.map(item => item.doc)
 
     const passPort = uploads.filter(data => data.item === "passport");
-
-    // const docLet = applet.filter(item => item.doc !== null && item !== "")
     const docPass = passPort.map(item => item.doc)
 
     const idCard = uploads.filter(data => data.item === "idcard");
-
-    // const docLet = applet.filter(item => item.doc !== null && item !== "")
     const docId = idCard.map(item => item.doc)
 
     const incomeForm = uploads.filter(data => data.item === "income_form");
-
-    // const docLet = applet.filter(item => item.doc !== null && item !== "")
     const docIncomeForm = incomeForm.map(item => item.doc)
 
     const introLetter = uploads.filter(data => data.item === "intro_letter");
-
-    // const docLet = applet.filter(item => item.doc !== null && item !== "")
     const docIntroLett = introLetter.map(item => item.doc)
 
     const sign = uploads.filter(data => data.item === "sign");
-
-    // const docLet = applet.filter(item => item.doc !== null && item !== "")
     const docSign = sign.map(item => item.doc)
 
 
@@ -122,23 +103,6 @@ const ViewDocumentsTcc = () => {
 
                     </div>
                     <hr />
-                    {/* <div className="grid justify-items-start">
-
-                        <div className="font-semibold">
-                            PaySlip
-                        </div>
-
-                        <div className="flex">
-                            {docPay.map((element, i) => (
-                                <div key={i} className="p-2">
-                                    <a href={`${uploadBase}${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
-                                </div>
-                            ))}
-                        </div>
-
-                    </div> */}
-                    <hr />
-
                     <div className="grid justify-items-start">
 
                         <div className="font-semibold">
@@ -155,23 +119,6 @@ const ViewDocumentsTcc = () => {
 
                     </div>
                     <hr />
-
-                    {/* <div className="grid justify-items-start">
-
-                        <div className="font-semibold">
-                            ID Card
-                        </div>
-
-                        <div className="flex">
-                            {docId.map((element, i) => (
-                                <div key={i} className="p-2">
-                                    <a href={`${uploadBase}${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
-                                </div>
-                            ))}
-                        </div>
-
-                    </div> */}
-                    <hr />
                     <div className="grid justify-items-start">
 
                         <div className="font-semibold">
@@ -187,22 +134,6 @@ const ViewDocumentsTcc = () => {
                         </div>
 
                     </div>
-                    <hr />
-                    {/* <div className="grid justify-items-start">
-
-                        <div className="font-semibold">
-                            Introduction Letter
-                        </div>
-
-                        <div className="flex">
-                            {docIntroLett.map((element, i) => (
-                                <div key={i} className="p-2">
-                                    <a href={`${uploadBase}${element}`} target="_blank" className="underline underline-offset-4 text-blue-600">Download</a>
-                                </div>
-                            ))}
-                        </div>
-
-                    </div> */}
                     <hr />
                     <div className="grid justify-items-start">
 

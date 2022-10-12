@@ -170,23 +170,23 @@ const initialState = [
               // },
             ],
           },
-          // {
-          //   url: '/',
-          //   title: 'PAYSLIP',
-          //   items: [
-          //     {
-          //       title: 'Create',
-          //       url: '/',
-          //       items: [],
-          //     },
-          //     {
-          //       title: 'View',
-          //       url: '/',
-          //       items: [],
-          //     },
+          {
+            url: '/',
+            title: 'PAYSLIP',
+            items: [
+              {
+                title: 'Create',
+                url: '/pita/payslip',
+                items: [],
+              },
+              {
+                title: 'View',
+                url: '/',
+                items: [],
+              },
 
-          //   ],
-          // },
+            ],
+          },
           // {
           //   url: '/',
           //   title: 'Dashboard',
