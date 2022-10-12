@@ -2,17 +2,11 @@
 import { formatNumber } from "../../functions/numbers";
 import * as Icons from '../Icons/index';
 import dateformat from "dateformat";
-import setAuthToken from "../../functions/setAuthToken";
-import { useEffect, useRef, useState } from "react";
-import Loader from "react-loader-spinner";
-import url from '../../config/url';
-import axios from "axios";
+import { useRef } from "react";
 import { useRouter } from "next/router";
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import jwt from "jsonwebtoken";
-import { useSelector, shallowEqual, useDispatch } from "react-redux";
-import { useForm } from "react-hook-form";
+import { useSelector, shallowEqual } from "react-redux";
 import Search from '@material-ui/icons/Search'
 import SaveAlt from '@material-ui/icons/SaveAlt'
 import ChevronLeft from '@material-ui/icons/ChevronLeft'
@@ -24,9 +18,8 @@ import Remove from '@material-ui/icons/Remove'
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Clear from "@material-ui/icons/Clear";
 import MaterialTable from "material-table";
-import { FiCheck } from "react-icons/fi";
-import { FormatMoneyComponentReport } from "../FormInput/formInputs";
 import ReactToPrint from "react-to-print";
+import { KgirsLogo, KogiGov } from "../Images/Images";
 
 const fields = [
   {
@@ -149,8 +142,8 @@ export const ViewApprovedObjectionSingle = ({ objectionData, ref, objNotice, ass
           <ReactToPrint
             pageStyle='@page { size: auto; margin: 0mm; } @media print { body { -webkit-print-color-adjust: exact; padding: 40px !important; } }'
             // pageStyle="@page { size: 7.5in 13in  }"
-            trigger={() => <button 
-              type="submit"
+            trigger={() => <button
+              type="submit" className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
             >
               Print
             </button>}
@@ -160,21 +153,26 @@ export const ViewApprovedObjectionSingle = ({ objectionData, ref, objNotice, ass
 
       </div>
 
-      <div>
+      <div className="">
         {objNotice === null ? "no status"
           :
-          <div ref={componentRef}>
-            <div>
+          <div ref={componentRef} className="p-4 mt-10">
+            <div className="flex justify-center">
               {objNotice === "undertaxed" ?
-                <div className="text-justify text-base max-w-prose" style={{ maxWidth: "800px" }} >
+                <div className="text-justify text-base max-w-prose"  >
+                  <div className="flex justify-between my-3">
+                    <p align="left"> <KgirsLogo /></p>
+                    <h3 className="mt-9">KOGI STATE GOVERNMENT</h3>
+                    <p align="right"> <KogiGov /></p>
+                  </div>
                   <p> {today} </p>
                   <p>{assessmentId}</p>
                   <p>Sir/Ma</p>
                   <p className="font-bold">Re: Underassessed Objection</p>
                   <p>The above Subject refers <span></span></p><br />
                   <p>
-                    We acknowledge the receipt of your letter
-                    <span className="font-bold"> {dateformat(createdTime, "yyyy-mm-dd")} </span>
+                    We acknowledge the receipt of your letter dated
+                    <span className="font-bold"> {dateformat(createdTime, "yyyy-mm-dd")}, </span>
                     in respect to the objection of your Direct Assessment
                   </p>
                   <br />
@@ -207,15 +205,20 @@ export const ViewApprovedObjectionSingle = ({ objectionData, ref, objNotice, ass
                 :
                 <div>
                   {objNotice === "no_PITA" ?
-                    <div className="text-justify text-base max-w-prose" style={{ maxWidth: "800px" }}>
+                    <div className="text-justify text-base max-w-prose" >
+                      <div className="flex justify-between my-3">
+                        <p align="left"> <KgirsLogo /></p>
+                        <h3 className="mt-9">KOGI STATE GOVERNMENT</h3>
+                        <p align="right"> <KogiGov /></p>
+                      </div>
                       <p> {today} </p>
                       <p>{assessmentId}</p>
                       <p>Sir/Ma</p>
                       <p className="font-bold">Re: Downward Review Without PITA</p>
                       <p>The above Subject refers <span></span></p><br />
                       <p>
-                        We acknowledge the receipt of your letter
-                        <span className="font-bold"> {dateformat(createdTime, "yyyy-mm-dd")} </span>
+                        We acknowledge the receipt of your letter dated
+                        <span className="font-bold"> {dateformat(createdTime, "yyyy-mm-dd")}, </span>
                         in respect to the objection of your Direct Assessment
                       </p>
                       <br />
@@ -243,15 +246,20 @@ export const ViewApprovedObjectionSingle = ({ objectionData, ref, objNotice, ass
                     :
                     <div>
                       {objNotice === "PITA" ?
-                        <div className="text-justify text-base max-w-prose" style={{ maxWidth: "800px" }}>
+                        <div className="text-justify text-base max-w-prose" >
+                          <div className="flex justify-between my-3">
+                            <p align="left"> <KgirsLogo /></p>
+                            <h3 className="">KOGI STATE GOVERNMENT</h3>
+                            <p align="right"> <KogiGov /></p>
+                          </div>
                           <p> {today} </p>
                           <p>{assessmentId}</p>
                           <p>Sir/Ma</p>
                           <p className="font-bold">Re: Downward Review With PITA</p>
                           <p>The above Subject refers <span></span></p><br />
                           <p>
-                            We acknowledge the receipt of your letter
-                            <span className="font-bold"> {dateformat(createdTime, "yyyy-mm-dd")} </span>
+                            We acknowledge the receipt of your letter dated
+                            <span className="font-bold"> {dateformat(createdTime, "yyyy-mm-dd")}, </span>
                             in respect to the objection of your Direct Assessment
                           </p>
                           <br />
