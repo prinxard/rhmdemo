@@ -15,12 +15,14 @@ const ViewSingleApprovedObjection = () => {
   const [globalAssId, setGlobalAssId] = useState("")
   const [objNotice, setObjNotice] = useState("")
   const [createdTime, setCreatedTime] = useState("")
-  const [taxpayerTax, setTpTax] = useState("")
   const [year, setYear] = useState("")
   const [recommendedTax, setRecommTax] = useState("")
   const [objectionData, setObjectionData] = useState([])
   const [objUploads, setObjUploads] = useState([])
   const [tpKgtin, setTpKgtin] = useState([])
+  const [DATax, setAssessmentData] = useState([])
+  const [payerName, setName] = useState([])
+  const [payerAddr, setAddr] = useState([])
 
 
   useEffect(() => {
@@ -29,24 +31,29 @@ const ViewSingleApprovedObjection = () => {
       let kgtin = routerData.split('_').pop()
       let assessmentId = routerData.split('_').shift()
       setGlobalAssId(assessmentId)
-      setTpKgtin(kgtin)
       setAuthToken()
       const fetchPost = async () => {
         try {
           let res = await axios.post(`${url.BASE_URL}forma/view-objection`, { assessment_id: assessmentId });
           console.log("res", res);
+          let directTax = res.data.body.assessment[0].tax
+          let tpName = res.data.body.taxpayer[0].tp_name
+          let tpAddr = res.data.body.taxpayer[0].address
           let objData = res.data.body.obj
           let objDataNotice = objData.notice
           let createTime = objData.createtime
-          let tpTax = objData.tp_tax
+          let payerkgtin = objData.kgtin
           let assessYear = objData.year
           let mainTax = objData.tax
+          let objDoc = res.data.body.objUpload
+          setTpKgtin(payerkgtin)
+          setAddr(tpAddr)
+          setName(tpName)
+          setAssessmentData(directTax)
           setYear(assessYear)
           setRecommTax(mainTax)
-          setTpTax(tpTax)
           setCreatedTime(createTime)
           setObjNotice(objDataNotice)
-          let objDoc = res.data.body.objUpload
           setObjectionData(objData);
           setObjUploads(objDoc)
           setIsFetching(false);
@@ -58,6 +65,7 @@ const ViewSingleApprovedObjection = () => {
       fetchPost();
     }
   }, [router]);
+
 
   return (
 
@@ -82,9 +90,11 @@ const ViewSingleApprovedObjection = () => {
           </div>
         ) : <ViewApprovedObjectionSingle
           createdTime={createdTime}
+          DATax={DATax}
           year={year}
           objNotice={objNotice}
-          taxpayerTax={taxpayerTax}
+          payerName={payerName}
+          payerAddr={payerAddr}
           assessmentId={globalAssId}
           recommendedTax={recommendedTax}
           tpKgtin={tpKgtin}
