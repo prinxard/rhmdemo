@@ -170,11 +170,11 @@ export const ViewApprovedObjectionSingle = ({ objectionData, year, objNotice, as
                   <p className="flex justify-between mb-3"> <span>File reference</span> {today}  </p>
                   <p>{assessmentId}</p>
                   <p>Sir/Ma</p><br />
-                  {objectionData.map((data) => (
-                    <div>
-                      <p className="font-bold">RE: {data.grounds}</p><br />
-                    </div>
-                  ))}
+
+                  <div>
+                    <p className="font-bold">RE: {objectionData.grounds}</p><br />
+                  </div>
+
                   <p>The above Subject refers;</p>
                   <p>
                     We acknowledge the receipt of your letter dated
@@ -231,11 +231,9 @@ export const ViewApprovedObjectionSingle = ({ objectionData, year, objNotice, as
                       <p className="flex justify-between mb-3"> <span>File reference</span> {today}  </p>
                       <p>{assessmentId}</p>
                       <p>Sir/Ma</p><br />
-                      {objectionData.map((data) => (
-                        <div>
-                          <p className="font-bold">RE: {data.grounds}</p><br />
-                        </div>
-                      ))}
+                      <div>
+                        <p className="font-bold">RE: {objectionData.grounds}</p><br />
+                      </div>
                       <p>The above Subject refers;</p>
                       <p>
                         We acknowledge the receipt of your letter dated
@@ -266,7 +264,7 @@ export const ViewApprovedObjectionSingle = ({ objectionData, year, objNotice, as
                       <p>
                         Yours Faithfully.
                       </p>
-                      For: <span className="font-bold">KOGI STATE INTERNAL REVENUE SERVICE </span>
+                      <p>For:<span className="font-bold"> KOGI STATE INTERNAL REVENUE SERVICE </span></p><br /><br />
                       <p className="font-bold">Sule Salihu Enehe</p>
                       Acting Executive Chairman
 
@@ -282,36 +280,44 @@ export const ViewApprovedObjectionSingle = ({ objectionData, year, objNotice, as
                           </div>
                           <p> {today} </p>
                           <p>{assessmentId}</p>
-                          <p>Sir/Ma</p>
-                          <p className="font-bold">Re: Downward Review With PITA</p>
-                          <p>The above Subject refers <span></span></p><br />
+                          <p>Sir/Ma</p><br />
+                          <div>
+                            <p className="font-bold">RE: {objectionData.grounds}</p><br />
+                          </div>
+                          <p>The above Subject refers;</p>
                           <p>
                             We acknowledge the receipt of your letter dated
-                            <span className="font-bold"> {dateformat(createdTime, "yyyy-mm-dd")}, </span>
+                            <span className="font-bold"> {(timeCreated)}, </span>
                             in respect to the objection of your Direct Assessment
                           </p>
                           <br />
                           <p>
                             We have reviewed your letter of objection in line with section 24[A] of
-                            PITA 2011 as amended.
-                            The Management have looked at the reasonability of your objection
-                            and revised your assessment to <span className="font-bold">₦ {formatNumber(recommendedTax)} </span>
-                            Instead of <span className="font-bold"> ₦ {formatNumber(taxpayerTax)} </span>
+                            PITA 2011 as amended.The Management have looked at the reasonability of your objection
+                            and revised your assessment to <span className="font-bold">₦{formatNumber(recommendedTax)} </span>
+                            Instead of <span className="font-bold"> ₦{formatNumber(taxpayerTax)} </span>
                           </p><br />
-                          <p>
+                          {/* <p>
                             You may wish to persuse the sections 3 and 48 of the Persona Income Tax Act (PITA) 2011
                             as ammended which create that obligation on every citezen of Nigeria
-                          </p><br />
+                          </p><br /> */}
                           <p>
                             You are by this expected to make payments to any Kogi State Internal
-                            Revenue Service Designated banks. Please accept the assurance of our
-                            highest regards.
+                            Revenue Service Designated banks using the Assessment Id <span className="font-bold">{assessmentId}</span>.
+                            Otherwise submit the following document for the year <span className="font-bold">{year}</span> to enable
+                            us carry out proper assessment in consideration of your objection:
+                            {/* Please accept the assurance of our highest regards. */}
                           </p>
+                          <ul>
+                            <li>1. Audited financial statements</li>
+                            <li>2. Bank accounts of the directors and</li>
+                            <li>3. Any other relevant document to that effect</li>
+                          </ul>
                           <br />
                           <p>
                             Yours Faithfully.
                           </p>
-                          For: <span className="font-bold">KOGI STATE INTERNAL REVENUE SERVICE </span>
+                          <p>For:<span className="font-bold"> KOGI STATE INTERNAL REVENUE SERVICE </span></p><br /><br />
                           <p className="font-bold">Sule Salihu Enehe</p>
                           Acting Executive Chairman
 

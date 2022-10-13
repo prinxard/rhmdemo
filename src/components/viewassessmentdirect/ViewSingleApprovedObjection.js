@@ -36,12 +36,12 @@ const ViewSingleApprovedObjection = () => {
           let res = await axios.post(`${url.BASE_URL}forma/view-objection`, { assessment_id: assessmentId });
           console.log("res", res);
           let objData = res.data.body.obj
-          let objDataNotice = objData[0].notice
-          let createTime = objData[0].createtime
-          let tpTax = objData[0].tp_tax
-          let assessYear = objData[0].year
+          let objDataNotice = objData.notice
+          let createTime = objData.createtime
+          let tpTax = objData.tp_tax
+          let assessYear = objData.year
+          let mainTax = objData.tax
           setYear(assessYear)
-          let mainTax = objData[0].tax
           setRecommTax(mainTax)
           setTpTax(tpTax)
           setCreatedTime(createTime)
