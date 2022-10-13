@@ -81,7 +81,6 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
     "swr": "^0.4.2",
-    "to-words": "^3.3.0",
     "uuid": "^8.3.2"
   },
   "license": "ISC",

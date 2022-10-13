@@ -1,4 +1,3 @@
-
 import { formatNumber } from "../../functions/numbers";
 import * as Icons from '../Icons/index';
 import dateformat from "dateformat";
@@ -20,7 +19,7 @@ import Clear from "@material-ui/icons/Clear";
 import MaterialTable from "material-table";
 import ReactToPrint from "react-to-print";
 import { KgirsLogo, KogiGov } from "../Images/Images";
-import { ToWords } from 'to-words';
+
 
 const fields = [
   {
@@ -136,10 +135,7 @@ export const ViewApprovedObjectionSingle = ({ objectionData, year, objNotice, as
   const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
   let today = new Date().toLocaleDateString('en-us', options);
   let timeCreated = new Date(createdTime).toDateString()
-  const toWords = new ToWords();
-  let revisedAssWords = toWords.convert(recommendedTax);
-  let initTaxWords = toWords.convert(taxpayerTax);
-  console.log("words", revisedAssWords);
+
   return (
     <>
 
@@ -190,8 +186,8 @@ export const ViewApprovedObjectionSingle = ({ objectionData, year, objNotice, as
                     We have reviewed your letter of complaint and objection along with
                     your previous tax records with Kogi State Internal Revenue Service.
                     The Management have looked at the reasonability of your objection
-                    and revised your assessment to <span className="font-bold">₦{formatNumber(recommendedTax)} ({revisedAssWords} Naira only) </span>
-                    Instead of <span className="font-bold"> ₦{formatNumber(taxpayerTax)} ({initTaxWords} Naira only)</span>
+                    and revised your assessment to <span className="font-bold">₦{formatNumber(recommendedTax)}  </span>
+                    Instead of <span className="font-bold"> ₦{formatNumber(taxpayerTax)} </span>
                   </p><br />
                   <p>
                     Please Take Note that you have been previously under assessed, but
@@ -204,7 +200,7 @@ export const ViewApprovedObjectionSingle = ({ objectionData, year, objNotice, as
                   </p><br /> */}
                   <p>
                     You are by this expected to make payments to any Kogi State Internal
-                    Revenue Service Designated banks using the Assessment Id <span className="font-bold">{assessmentId}</span>. 
+                    Revenue Service Designated banks using the Assessment Id <span className="font-bold">{assessmentId}</span>.
                     Otherwise submit the following document for the year <span className="font-bold">{year}</span> to enable
                     us carry out proper assessment in consideration of your objection:
                     {/* Please accept the assurance of our highest regards. */}
@@ -232,14 +228,18 @@ export const ViewApprovedObjectionSingle = ({ objectionData, year, objNotice, as
                         <h3 className="mt-9">KOGI STATE GOVERNMENT</h3>
                         <p align="right"> <KogiGov /></p>
                       </div>
-                      <p> {today} </p>
+                      <p className="flex justify-between mb-3"> <span>File reference</span> {today}  </p>
                       <p>{assessmentId}</p>
-                      <p>Sir/Ma</p>
-                      <p className="font-bold">Re: Downward Review Without PITA</p>
-                      <p>The above Subject refers <span></span></p><br />
+                      <p>Sir/Ma</p><br />
+                      {objectionData.map((data) => (
+                        <div>
+                          <p className="font-bold">RE: {data.grounds}</p><br />
+                        </div>
+                      ))}
+                      <p>The above Subject refers;</p>
                       <p>
                         We acknowledge the receipt of your letter dated
-                        <span className="font-bold"> {dateformat(createdTime, "yyyy-mm-dd")}, </span>
+                        <span className="font-bold"> {(timeCreated)}, </span>
                         in respect to the objection of your Direct Assessment
                       </p>
                       <br />
@@ -248,13 +248,20 @@ export const ViewApprovedObjectionSingle = ({ objectionData, year, objNotice, as
                         your previous tax records with Kogi State Internal Revenue Service.
                         The Management have looked at the reasonability of your objection
                         and revised your assessment to <span className="font-bold">₦ {formatNumber(recommendedTax)} </span>
-                        Instead of Quote assessment amount <span className="font-bold"> ₦ {formatNumber(taxpayerTax)} </span>
+                        Instead of <span className="font-bold"> ₦ {formatNumber(taxpayerTax)} </span>
                       </p><br />
                       <p>
                         You are by this expected to make payments to any Kogi State Internal
-                        Revenue Service Designated banks. Please accept the assurance of our
-                        highest regards.
+                        Revenue Service Designated banks using the Assessment Id <span className="font-bold">{assessmentId}</span>.
+                        Otherwise submit the following document for the year <span className="font-bold">{year}</span> to enable
+                        us carry out proper assessment in consideration of your objection:
+                        {/* Please accept the assurance of our highest regards. */}
                       </p>
+                      <ul>
+                        <li>1. Audited financial statements</li>
+                        <li>2. Bank accounts of the directors and</li>
+                        <li>3. Any other relevant document to that effect</li>
+                      </ul>
                       <br />
                       <p>
                         Yours Faithfully.
