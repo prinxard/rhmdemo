@@ -156,7 +156,7 @@ export const ViewApprovedObjectionSingle = ({ objectionData, year, objNotice, as
       </div>
 
       <div className="">
-        {objNotice === null ? "no status"
+        {objNotice === null ? "Objection type not available"
           :
           <div ref={componentRef} className="p-4 mt-5">
             <div className="flex justify-center">
