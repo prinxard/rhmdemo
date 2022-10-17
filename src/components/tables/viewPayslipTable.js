@@ -30,13 +30,14 @@ import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
+import { Delete, Edit, MoreHoriz } from "@material-ui/icons";
 
 const fields = [
   {
     title: "SN",
     field: "serialNo",
     filtering: false,
-    width: "2%"
+    width: "10%"
   },
   {
     title: "Org KGTIN",
@@ -73,7 +74,7 @@ const fields = [
 
 export const ViewPayslipTable = ({ tccdata }) => {
   let items = tccdata;
-
+  const router = useRouter()
   const { config, palettes, auth } = useSelector(
     (state) => ({
       config: state.config,
@@ -93,10 +94,34 @@ export const ViewPayslipTable = ({ tccdata }) => {
         data={items}
         columns={fields}
 
+        actions={
+          [
+
+            {
+              icon: MoreHoriz,
+              tooltip: 'View',
+              onClick: (event, rowData) => router.push(`/view/payslip/${rowData.id}`),
+
+            },
+            {
+              icon: Edit,
+              tooltip: 'Edit',
+              onClick: (event, rowData) => router.push(`/markets/agents/register/${rowData.user}`),
+
+            },
+            {
+              icon: Delete,
+              tooltip: 'Delete',
+              onClick: (event, rowData) => router.push(`/markets/agents/fund/${rowData.user}`),
+
+            }
+          ]}
+
         options={{
           search: true,
           paging: true,
           filtering: true,
+          actionsColumnIndex: -1,
           exportButton: {
             csv: true,
             pdf: false
@@ -119,842 +144,111 @@ export const ViewPayslipTable = ({ tccdata }) => {
           SortArrow: ArrowDownward
         }}
 
-        onRowClick={(event, rowData) => {
-          window.open(`/view/listtcc/${rowData.id}`, "_self")
-          event.stopPropagation();
-          // if (userGroup.some(r => reportRange.includes(r))) {
-          //   ''
+      // onRowClick={(event, rowData) => {
 
-          // } else {
+      //   window.open(`/view/payslip/${rowData.id}`, "_self")
+      //   event.stopPropagation();
+      //   // if (userGroup.some(r => reportRange.includes(r))) {
+      //   //   ''
 
-          //   window.open(`/view/listtcc/${rowData.id}`, "_self")
-          //   event.stopPropagation();
-          // }
-        }}
+      //   // } else {
+
+      //   //   window.open(`/view/listtcc/${rowData.id}`, "_self")
+      //   //   event.stopPropagation();
+      //   // }
+      // }}
       />
     </>
   );
 };
 
-export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assessmentData2, assessmentData3 }) => {
-  const [isFetching, setIsFetching] = useState(false)
-  const [declineModal, setDeclineModal] = useState(false);
-  const { config, palettes, auth } = useSelector(
-    (state) => ({
-      config: state.config,
-      palettes: state.palettes,
-      auth: state.authentication.auth,
-    }),
-    shallowEqual
-  );
-
-  const router = useRouter();
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm()
-
-  const TCCStatus = payerDetails.map((data, i) => {
-    let stat = data.status
-    return stat
-  })
-  const statusTCC = String(TCCStatus)
-  // console.log(statusTCC);
-
-  const admin = [1]
-  const chairman = [1, 9, 39]
-  const Approval = [12, 1]
-  const verify = [2, 3, 1]
-  const Audit = [21, 1]
-  const decoded = jwt.decode(auth);
-  const userGroup = decoded.groups
-
-
-  const declinePopup = (e) => {
-    // e.preventDefault()
-    setDeclineModal(!declineModal);
-  };
-
-  setAuthToken();
-  let VerifyTcc = async (e) => {
-    e.preventDefault()
-    setIsFetching(true)
-    let approveTcc = {
-      id: `${tccID}`,
-      comments: "",
-      status: "Verified"
-    }
-    try {
-      let res = await axios.post(`${url.BASE_URL}forma/tcc-status`, approveTcc);
-      setIsFetching(false)
-      router.push('/view/listtcc')
-      toast.success("Success!");
-    } catch (error) {
-      toast.error("Failed!");
-      console.log(error);
-      setIsFetching(false)
-    }
-  }
-
-  const AuditChecked = async (e) => {
-    e.preventDefault()
-    setIsFetching(true)
-    let auditTcc = {
-      id: `${tccID}`,
-      comments: "",
-      status: "Audit Checked"
-    }
-    try {
-      let res = await axios.post(`${url.BASE_URL}forma/tcc-status`, auditTcc);
-      setIsFetching(false)
-      router.push('/view/listtcc')
-      toast.success("Success!");
-    } catch (error) {
-      toast.error("Failed!");
-      console.log(error);
-      setIsFetching(false)
-    }
-  }
-
-  const PrintAuthorized = async (e) => {
-    e.preventDefault()
-    setIsFetching(true)
-    let printTcc = {
-      id: `${tccID}`,
-      comments: "",
-      status: "Print Authorized"
-    }
-    try {
-      let res = await axios.post(`${url.BASE_URL}forma/tcc-status`, printTcc);
-      setIsFetching(false)
-      router.push('/view/listtcc')
-      toast.success("Success!");
-    } catch (error) {
-      toast.error("Failed!");
-      console.log(error);
-      setIsFetching(false)
-    }
-  }
-
-  const Approve = async (e) => {
-    e.preventDefault()
-    setIsFetching(true)
-    let approveTcc = {
-      id: `${tccID}`,
-      comments: "",
-      status: "Approved"
-    }
-    try {
-      let res = await axios.post(`${url.BASE_URL}forma/tcc-status`, approveTcc);
-      setIsFetching(false)
-      router.push('/view/listtcc')
-      toast.success("Success!");
-    } catch (error) {
-      toast.error("Failed!");
-      console.log(error);
-      setIsFetching(false)
-    }
-  }
-
-  const Decline = (data) => {
-    setIsFetching(true)
-    let declineTcc = {
-      id: `${tccID}`,
-      comments: data.comment,
-      status: "Declined"
-    }
-    axios.post(`${url.BASE_URL}forma/tcc-status`, declineTcc)
-      .then(function (response) {
-        setIsFetching(false)
-        toast.success("Success!");
-        router.push('/view/listtcc')
-        console.log(response);
-      })
-      .catch(function (error) {
-        toast.error("Failed!");
-        setIsFetching(false)
-      })
-  }
-
+export const ViewSinglePayslip = ({ paySlipData }) => {
   return (
     <>
-      <ToastContainer />
+      {paySlipData.map((data) => (
+        <form className="border mb-3 block p-6 rounded-lg bg-white w-full">
+          <div className="flex gap-2 justify-center ">
 
-      {declineModal && (
-        <div className="modal">
-          {/* <div onClick={toggleModal} className="overlay"></div> */}
-          <div className="modal-content" width="300">
-            <div className="text-center">
-              <p>Are you sure you want to Decline ?</p>
-              <p>Please state reason why</p>
+            <div className="grid grid-cols-2 gap-4 w-1/2 border-r pr-3">
+
+              <div className="form-group">
+                <p>Organization/Employer </p>
+                <input name="org_id" value={data.org_id} readOnly type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                />
+              </div>
+
+              <div className="form-group ">
+                <p>Taxpayer/Employee </p>
+                <input name="paye_tp" value={data.paye_tp} readOnly type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                />
+              </div>
+
+              <div className="form-group ">
+                <p>Start date </p>
+                <input name="sdate" value={data.sdate} readOnly type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                />
+              </div>
+
+              <div className="form-group">
+                <p>End date</p>
+                <input name="edate" value={data.edate} readOnly type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                />
+              </div>
+
+              <div className="form-group">
+                <p>Annual Salary</p>
+                <input name="edate" value={formatNumber(data.basic)} readOnly type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                />
+              </div>
+
+              <div className="form-group ">
+                <p>Tax office</p>
+                <input name="tax_office" value={data.tax_office} readOnly type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                />
+              </div>
+
             </div>
+            <div className="grid grid-cols-2 gap-4 w-1/2 content-start">
 
-            <form onSubmit={handleSubmit(Decline)}>
-              <textarea name="comment" ref={register()} required className="form-control w-full rounded" minlength="10" maxlength="50" placeholder="comment"></textarea>
-              <div className="mt-2 flex justify-between">
-                <button onClick={declinePopup}
-                  className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                >
-                  Cancel
-                </button>
-
-                <button
-                  className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                >
-                  Continue
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {isFetching && (
-        <div className="flex justify-start item mb-2">
-          <Loader
-            visible={isFetching}
-            type="BallTriangle"
-            color="#00FA9A"
-            height={19}
-            width={19}
-            timeout={0}
-            className="ml-2"
-          />
-          <p className="font-bold">Processing...</p>
-        </div>
-      )}
-      <Widget>
-        <div>
-          {statusTCC === "Declined" ?
-            <div className="flex justify-between">
-              <button
-                className="btn bg-green-600 mb-3 btn-default text-white btn-outlined bg-transparent rounded-md"
-                type="submit"
-              >
-                <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
-              </button>
-              <div>
-                <p className="font-bold">Reason for decline</p>
-                {payerDetails.map((el) => (
-                  <p className="mb-3">{el.comments}</p>
-                ))}
-              </div>
-            </div> :
-            <div className="mb-6">
-              <div>
-                {statusTCC === "Draft" ?
-                  <div className="flex justify-between">
-                    <div className="flex mr-3">
-                      <button
-                        className="btn bg-green-600 mr-2 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
-                      </button>
-
-                      <button
-                        className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        <Link href={`/tcc/${tccID}`}> Upload Docs</Link>
-                      </button>
-
-                    </div>
-                    {userGroup.some(r => verify.includes(r)) ?
-                      <div className="flex">
-
-                        <form onSubmit={VerifyTcc} className=" mr-3">
-                          <button
-                            className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
-                            type="submit"
-                          >
-                            Verify
-                          </button>
-                        </form>
-                        <div className=" mr-3">
-                          <button onClick={declinePopup}
-                            className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-
-                          >
-                            Decline
-                          </button>
-                        </div>
-                      </div>
-                      : ""}
-
-                  </div> : ""
-                }
-              </div>
-              <div>
-                {statusTCC === "Verified" ?
-                  <div className="flex justify-between">
-                    <div className="flex mr-3">
-                      <button
-                        className="btn bg-green-600 mr-2 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
-                      </button>
-
-                      <button
-                        className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        <Link href={`/tcc/${tccID}`}> Upload Docs</Link>
-                      </button>
-
-                    </div>
-                    {userGroup.some(r => Audit.includes(r)) ?
-                      <div className="flex">
-                        <form onSubmit={AuditChecked} className=" mr-3">
-                          <button
-                            className="btn bg-green-400  mr-3 btn-default text-white btn-outlined bg-transparent rounded-md"
-                            type="submit"
-                          >
-                            Audit Check
-                          </button>
-                        </form>
-                        <div className=" mr-3">
-                          <button onClick={declinePopup}
-                            className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-
-                          >
-                            Decline
-                          </button>
-                        </div>
-                      </div>
-
-                      : ""}
-                  </div> : ""
-                }
-              </div>
-              <div>
-                {statusTCC === "Audit Checked" ?
-                  <div className="flex justify-between">
-                    <div className="flex mr-3">
-                      <button
-                        className="btn bg-green-600 mr-2 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
-                      </button>
-
-                      <button
-                        className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        <Link href={`/tcc/${tccID}`}> Upload Docs</Link>
-                      </button>
-
-                    </div>
-                    {userGroup.some(r => Approval.includes(r)) ?
-                      <div className="flex">
-                        <form onSubmit={Approve} className=" mr-3">
-                          <button
-                            className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                            type="submit"
-                          >
-                            Approve
-                          </button>
-                        </form>
-                        <div className=" mr-3">
-                          <button onClick={declinePopup}
-                            className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-
-                          >
-                            Decline
-                          </button>
-                        </div>
-                      </div> : ""}
-                  </div>
-                  : ""
-                }
-              </div>
-              <div>
-                {statusTCC === "Approved" ?
-                  <div className="flex justify-between">
-                    <div className="flex mr-3">
-                      <button
-                        className="btn bg-green-600 mr-2 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
-                      </button>
-
-                      <button
-                        className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        <Link href={`/tcc/${tccID}`}> Upload Docs</Link>
-                      </button>
-
-                    </div>
-                    {userGroup.some(r => chairman.includes(r)) ?
-                      <div className="flex">
-                        <form onSubmit={PrintAuthorized} className=" mr-3">
-                          <button
-                            className="btn bg-green-400  mr-3 btn-default text-white btn-outlined bg-transparent rounded-md"
-                            type="submit"
-                          >
-                            Sign
-                          </button>
-                        </form>
-                        <div className=" mr-3">
-                          <button onClick={declinePopup}
-                            className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-
-                          >
-                            Decline
-                          </button>
-                        </div>
-                      </div>
-
-                      : ""}
-                  </div> : ""
-                }
-              </div>
-              <div>
-                {statusTCC === "Print Authorized" ?
-                  <div className="flex justify-between">
-                    <div className="flex mr-3">
-                      <button
-                        className="btn bg-green-600 mr-2 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
-                      </button>
-
-                      <button
-                        className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        <Link href={`/tcc/${tccID}`}> Upload Docs</Link>
-                      </button>
-
-                    </div>
-                  </div> :
-                  <div className="flex mr-3">
-                    <button
-                      className="btn bg-green-600 mr-2 btn-default text-white btn-outlined bg-transparent rounded-md"
-                      type="submit"
-                    >
-                      <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
-                    </button>
-
-                    <button
-                      className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                      type="submit"
-                    >
-                      <Link href={`/tcc/${tccID}`}> Upload Docs</Link>
-                    </button>
-                  </div>
-                }
-              </div>
-            </div>
-
-          }
-
-          <div className="flex border mb-3 block p-3 rounded-lg bg-white w-full">
-
-            <div className="">
-
-              <div className="mb-6 grid grid-cols-3 gap-2">
-                <label>Taxpayer:</label>
-                {payerDetails == null || payerDetails == "" || payerDetails == undefined ? <input readOnly name="taxpayername" type="text" />
-                  :
-                  <div>
-
-                    {payerDetails.map((ind, i) => (
-                      <input name="taxpayername" readOnly type="text" defaultValue={ind.taxpayer_name} className="form-control w-full rounded"
-                      />
-                    ))}
-                  </div>
-                }
+              <div className="form-group ">
+                <p>Rank/G-Level</p>
+                <input name="rank" value={data.rank} readOnly type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                />
               </div>
 
-              <div className="mb-6 grid grid-cols-3 gap-2">
-                <label>KGTIN:</label>
-                {payerDetails == null || payerDetails == "" || payerDetails == undefined ? <input readOnly name="tp_id" type="text" />
-                  :
-                  <div>
-
-                    {payerDetails.map((ind, i) => (
-                      <input name="tp_id" readOnly type="text" defaultValue={ind.tp_id} className="form-control w-full rounded"
-                      />
-                    ))}
-                  </div>
-                }
+              <div className="form-group">
+                <p>Other Allowance</p>
+                <input name="other_allw" value={data.other_allw} readOnly type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                />
               </div>
 
-              <div className="mb-6 grid grid-cols-3 gap-2">
-                <label>File no:</label>
-                {payerDetails == null || payerDetails == "" || payerDetails == undefined ? <input readOnly name="tp_id" type="text" />
-                  :
-                  <div>
-
-                    {payerDetails.map((ind, i) => (
-                      <input readOnly type="text" defaultValue={ind.file_ref} className="form-control w-full rounded"
-                      />
-                    ))}
-                  </div>
-                }
+              <div className="form-group mb-4">
+                <p>Pension</p>
+                <input name="pension" value={data.pension} readOnly type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                />
               </div>
 
-              <div className="mb-6 grid grid-cols-3 gap-2">
-                <label htmlFor="employername">Tax Office:</label>
-                {payerDetails == null || payerDetails == "" || payerDetails == undefined ? <input readOnly type="text" />
-                  :
-                  <div>
-
-                    {payerDetails.map((ind, i) => (
-                      <input name="tax_office" readOnly type="text" defaultValue={ind.tax_office} className="form-control w-full rounded"
-                      />
-                    ))}
-                  </div>
-                }
+              <div className="form-group mb-4">
+                <p>National Housing Fund</p>
+                <input name="nhf" value={data.nhf} readOnly type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                />
               </div>
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label htmlFor="employername">Processing Fee:</label>
-                {payerDetails == null || payerDetails == "" || payerDetails == undefined ? <input readOnly type="text" />
-                  :
-                  <div>
 
-                    {payerDetails.map((ind, i) => (
-                      <input name="tax_office" readOnly type="text" defaultValue={formatNumber(ind.prc_fee)} className="form-control w-full rounded"
-                      />
-                    ))}
-                  </div>
-                }
+              <div className="form-group">
+                <p>Benefits</p>
+                <input name="benefits" value={data.benefits} readOnly type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                />
+              </div>
+              <div className="form-group">
+                <p>Life Assurance Policy</p>
+                <input name="lap" value={data.lap} readOnly type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                />
               </div>
             </div>
           </div>
+        </form>
 
-          <div className={`flex justify-between border mb-3 rounded-lg bg-white w-full`}>
-
-            <div className="p-3">
-              <h6 className="text-right mb-6">Year 1</h6>
-              <div className="mb-6 grid grid-cols-2 ">
-                <label>Assessment year </label>
-                {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input readOnly type="text" />
-                  :
-                  <div>
-
-                    {assessmentData.map((ind, i) => (
-                      <input readOnly type="text" defaultValue={ind.year} className="form-control w-full rounded"
-                      />
-                    ))}
-                  </div>
-                }
-              </div>
-
-              <div className="mb-6 grid grid-cols-2 gap-3">
-                <label>Tax Payable </label>
-                {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input readOnly className="form-control w-full rounded" type="text" defaultValue={0} />
-                  :
-                  <div>
-
-                    {assessmentData.map((ele, i) => (
-                      <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.tax)} type="text"
-                      />
-                    ))}
-
-                  </div>
-                }
-
-              </div>
-
-              <div className="mb-6 grid grid-cols-2 gap-3">
-                <label>Income from employment</label>
-                {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
-                  :
-                  <div>
-
-                    {assessmentData.map((ele, i) => (
-                      <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.employed)} type="text"
-                      />
-                    ))}
-
-                  </div>
-                }
-              </div>
-
-              <div className="mb-6 grid grid-cols-2 gap-3">
-                <label>Income from Trade/Professional</label>
-                {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
-                  :
-                  <div>
-
-                    {assessmentData.map((ele, i) => (
-                      <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.self_employed)} type="text"
-                      />
-                    ))}
-
-                  </div>
-                }
-              </div>
-
-              <div className="mb-6 grid grid-cols-2 gap-3">
-                <label>Other Income</label>
-                {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
-                  :
-                  <div>
-
-                    {assessmentData.map((ele, i) => (
-                      <input readOnly name="other_income" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.other_income)} type="text"
-                      />
-                    ))}
-
-                  </div>
-                }
-              </div>
-
-              <div className="mb-6 grid grid-cols-2 gap-3">
-                <label>Assessment ID</label>
-                {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input className="form-control w-full rounded" readOnly type="text" />
-                  :
-                  <div>
-
-                    {assessmentData.map((ele, i) => (
-                      <input readOnly name="assmt_1" className="form-control w-full rounded" key={i} defaultValue={(ele.assessment_id)} type="text"
-                      />
-                    ))}
-
-                  </div>
-                }
-              </div>
-            </div>
-
-            <div className="p-3 grid justify-items-stretch">
-              <h6 className="text-center mb-6">Year 2</h6>
-              <div className="mb-6 justify-self-center">
-                {assessmentData2 == null || assessmentData2 == "" || assessmentData2 == undefined ? <input className="form-control w-full rounded" readOnly type="text" />
-                  :
-                  <div>
-                    {assessmentData2.map((ele, i) => (
-                      <input readOnly className="form-control w-full rounded" key={i} defaultValue={ele.year} type="text"
-                      />
-                    ))}
-                  </div>
-                }
-              </div>
-              <div className="mb-6 justify-self-center">
-                {assessmentData2 == null || assessmentData2 == "" || assessmentData2 == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
-                  :
-                  <div>
-
-                    {assessmentData2.map((ele, i) => (
-                      <input readOnly className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.tax)} type="text"
-                      />
-                    ))}
-                  </div>
-                }
-              </div>
-
-              <div className="mb-6 justify-self-center">
-
-                {assessmentData2 == null || assessmentData2 == "" || assessmentData2 == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
-                  :
-                  <div>
-
-                    {assessmentData2.map((ele, i) => (
-                      <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.employed)} type="text"
-                      />
-                    ))}
-                  </div>
-                }
-              </div>
-
-
-              <div className="mb-6 justify-self-center">
-
-                {assessmentData2 == null || assessmentData2 == "" || assessmentData2 == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
-                  :
-                  <div>
-
-                    {assessmentData2.map((ele, i) => (
-                      <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.self_employed)} type="text"
-                      />
-                    ))}
-                  </div>
-                }
-              </div>
-
-              <div className="mb-6 justify-self-center">
-
-                {assessmentData2 == null || assessmentData2 == "" || assessmentData2 == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
-                  :
-                  <div>
-
-                    {assessmentData2.map((ele, i) => (
-                      <input readOnly name="other_income" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.other_income)} type="text"
-                      />
-                    ))}
-
-                  </div>
-                }
-              </div>
-
-              <div className="mb-6 justify-self-center">
-
-                {assessmentData2 == null || assessmentData2 == "" || assessmentData2 == undefined ? <input className="form-control w-full rounded" readOnly name="assmt_2" type="text" />
-                  :
-                  <div>
-
-                    {assessmentData2.map((ele, i) => (
-                      <input readOnly name="assmt_2" className="form-control w-full rounded" key={i} defaultValue={ele.assessment_id} type="text"
-                      />
-                    ))}
-
-                  </div>
-                }
-              </div>
-
-            </div>
-
-            <div className="p-3 grid justify-items-stretch">
-              <h6 className="text-center mb-6">Year 3</h6>
-              <div className="mb-6 justify-self-center">
-
-                {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" readOnly type="text" />
-                  :
-                  <div>
-
-                    {assessmentData3.map((ele, i) => (
-                      <input readOnly className="form-control w-full rounded" key={i} defaultValue={(ele.year)} type="text"
-                      />
-                    ))}
-                  </div>
-                }
-              </div>
-
-              <div className="mb-6 justify-self-center">
-
-                {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
-                  :
-                  <div>
-
-                    {assessmentData3.map((ele, i) => (
-                      <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.tax)} type="text"
-                      />
-                    ))}
-
-                  </div>
-                }
-              </div>
-
-              <div className="mb-6 justify-self-center">
-
-                {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
-                  :
-                  <div>
-
-                    {assessmentData3.map((ele, i) => (
-                      <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.employed)} type="text"
-                      />
-                    ))}
-                  </div>
-                }
-              </div>
-
-              <div className="mb-6 justify-self-center">
-
-                {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
-                  :
-                  <div>
-
-                    {assessmentData3.map((ele, i) => (
-                      <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.self_employed)} type="text"
-                      />
-                    ))}
-                  </div>
-                }
-              </div>
-              <div className="mb-6 justify-self-center">
-
-                {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
-                  :
-                  <div>
-
-                    {assessmentData3.map((ele, i) => (
-                      <input readOnly name="other_income" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.other_income)} type="text"
-                      />
-                    ))}
-
-                  </div>
-                }
-              </div>
-
-              <div className="mb-6 justify-self-center">
-
-                {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" readOnly name="assmt_3" type="text" />
-                  :
-                  <div>
-
-                    {assessmentData3.map((ele, i) => (
-                      <input readOnly name="assmt_3" className="form-control w-full rounded" key={i} defaultValue={(ele.assessment_id)} type="text"
-                      />
-                    ))}
-
-                  </div>
-                }
-              </div>
-            </div>
-          </div>
-        </div>
-      </Widget>
-
-      <style
-        jsx>{
-          `
-        body.active-modal {
-          overflow-y: hidden;
-      }
-      
-      // .btn-modal {
-      //     padding: 10px 20px;
-      //     display: block;
-      //     margin: 100px auto 0;
-      //     font-size: 18px;
-      // }
-      
-      .modal, .overlay {
-          width: 100vw;
-          height: 100vh;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          position: fixed;
-      }
-      
-      .overlay {
-          background: rgba(49,49,49,0.8);
-      }
-      .modal-content {
-          position: absolute;
-          top: 20%;
-          left: 60%;
-          transform: translate(-50%, -50%);
-          line-height: 1.4;
-          background: #f1f1f1;
-          padding: 14px 28px;
-          border-radius: 3px;
-          max-width: 400px;
-          min-width: 300px;
-      }
-      
-      .close-modal {
-          position: absolute;
-          top: 10px;
-          right: 10px;
-          padding: 5px 7px;
-      }
-        `
-        }
-      </style>
+      ))}
     </>
-  );
+  )
 };
