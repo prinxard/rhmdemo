@@ -181,7 +181,7 @@ const initialState = [
               },
               {
                 title: 'View',
-                url: '/',
+                url: '/view/payslip',
                 items: [],
               },
 

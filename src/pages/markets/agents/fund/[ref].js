@@ -63,8 +63,6 @@ const FundAgentWallet = () => {
                     toast.error("Failed to create user!");
                 }
             })
-
-
     };
 
     return (

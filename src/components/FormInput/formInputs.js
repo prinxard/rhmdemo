@@ -173,7 +173,8 @@ export const FormatMoneyComponentReport = ({
   name,
   defaultValue,
   required,
-  placeholder
+  placeholder,
+  className
 }) => (
   <Controller
     as={
