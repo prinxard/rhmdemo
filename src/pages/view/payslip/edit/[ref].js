@@ -22,7 +22,7 @@ function UpdatePayslip() {
 
     const updatePayslip = (data) => {
         console.log(data);
-        // setIsFetching(true)
+        setIsFetching(true)
         // data.basic = (data.basic).replace(/,/g, '')
         // data.other_allw = (data.other_allw).replace(/,/g, '')
         // data.pension = (data.pension).replace(/,/g, '')
@@ -31,19 +31,19 @@ function UpdatePayslip() {
         // data.lap = (data.lap).replace(/,/g, '')
 
 
-        // axios.put(`${url.BASE_URL}paye/payslip`, data)
-        //     .then(function (response) {
-        //         setIsFetching(false)
-        //         toast.success("Created Successfully!");
-        //     })
-        //     .catch(function (error) {
-        //         setIsFetching(false)
-        //         if (error.response) {
-        //             setCreateError(() => error.response.data.message);
-        //         } else {
-        //             toast.error("Failed to create user!");
-        //         }
-        //     })
+        axios.put(`${url.BASE_URL}paye/payslip`, data)
+            .then(function (response) {
+                setIsFetching(false)
+                toast.success("updated Successfully!");
+            })
+            .catch(function (error) {
+                setIsFetching(false)
+                if (error.response) {
+                    setCreateError(() => error.response.data.message);
+                } else {
+                    toast.error("Failed to update!");
+                }
+            })
     }
 
     setAuthToken();
