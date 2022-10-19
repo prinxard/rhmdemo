@@ -23,14 +23,14 @@ import { shallowEqual, useSelector } from "react-redux";
 import jwt from "jsonwebtoken";
 import setAuthToken from "../../functions/setAuthToken";
 import { useState } from "react";
-import Loader from "react-loader-spinner";
 import url from '../../config/url';
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
-import { Delete, Edit, MoreHoriz } from "@material-ui/icons";
+import { Delete, Edit, MoreHoriz, WarningRounded } from "@material-ui/icons";
+import Loader from "react-loader-spinner";
 
 const fields = [
   {
@@ -74,6 +74,10 @@ const fields = [
 
 export const ViewPayslipTable = ({ tccdata }) => {
   let items = tccdata;
+  const [modal, setModal] = useState(false);
+  const [payslipId, setPayslipId] = useState("");
+  const [isFetching, setIsFetching] = useState(() => false);
+
   const router = useRouter()
   const { config, palettes, auth } = useSelector(
     (state) => ({
@@ -84,12 +88,78 @@ export const ViewPayslipTable = ({ tccdata }) => {
     shallowEqual
   );
 
-  const reportRange = [39]
-  const decoded = jwt.decode(auth);
-  const userGroup = decoded.groups
+  const toggleModal = () => {
+    setModal(!modal);
+  };
+
+  const DeleteAssessment = async (data) => {
+    data.preventDefault()
+    setIsFetching(true)
+    try {
+      await axios.delete(`${url.BASE_URL}paye/payslip?id=${payslipId}`)
+      setIsFetching(false)
+      toast.success("Deleted Successfully!");
+      window.location.reload()
+    } catch (error) {
+      setIsFetching(false)
+      if (error) {
+        toast.error(error.response.data.message)
+      } else {
+
+      }
+    }
+  };
 
   return (
     <>
+      <ToastContainer />
+      {modal && (
+        <div className="modal">
+          <div className="modal-content" width="300">
+            <form onSubmit={DeleteAssessment}>
+              <div className="flex justify-center">
+                <WarningRounded
+                  size={15}
+                  className="text-yellow-400"
+                />
+              </div>
+              <p>Are you sure you want to delete?</p>
+              <div className="mt-2 flex justify-between">
+                <button onClick={toggleModal}
+                  className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                >
+                  Cancel
+                </button>
+                <div>
+
+                </div>
+                <button
+                  className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  Continue
+                </button>
+
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {isFetching && (
+        <div className="flex justify-start item mb-2">
+          <Loader
+            visible={isFetching}
+            type="BallTriangle"
+            color="#00FA9A"
+            height={19}
+            width={19}
+            timeout={0}
+            className="ml-2"
+          />
+          <p className="font-bold">Processing...</p>
+        </div>
+      )}
       <MaterialTable title="Payslip List"
         data={items}
         columns={fields}
@@ -106,13 +176,17 @@ export const ViewPayslipTable = ({ tccdata }) => {
             {
               icon: Edit,
               tooltip: 'Edit',
-              onClick: (event, rowData) => router.push(`/markets/agents/register/${rowData.user}`),
+              onClick: (event, rowData) => router.push(`/view/payslip/edit/${rowData.id}`),
 
             },
             {
               icon: Delete,
               tooltip: 'Delete',
-              onClick: (event, rowData) => router.push(`/markets/agents/fund/${rowData.user}`),
+              onClick: (event, rowData) => {
+                event.preventDefault()
+                setPayslipId(rowData.id)
+                setModal(true)
+              },
 
             }
           ]}
@@ -158,6 +232,56 @@ export const ViewPayslipTable = ({ tccdata }) => {
       //   // }
       // }}
       />
+
+      <style
+        jsx>{
+          `
+        body.active-modal {
+          overflow-y: hidden;
+      }
+      
+      // .btn-modal {
+      //     padding: 10px 20px;
+      //     display: block;
+      //     margin: 100px auto 0;
+      //     font-size: 18px;
+      // }
+      
+      .modal, .overlay {
+          width: 100vw;
+          height: 100vh;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          position: fixed;
+      }
+      
+      .overlay {
+          background: rgba(49,49,49,0.8);
+      }
+      .modal-content {
+          position: absolute;
+          top: 20%;
+          left: 60%;
+          transform: translate(-50%, -50%);
+          line-height: 1.4;
+          background: #f1f1f1;
+          padding: 14px 28px;
+          border-radius: 3px;
+          max-width: 400px;
+          min-width: 300px;
+      }
+      
+      .close-modal {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          padding: 5px 7px;
+      }
+        `
+        }
+      </style>
     </>
   );
 };
@@ -249,6 +373,7 @@ export const ViewSinglePayslip = ({ paySlipData }) => {
         </form>
 
       ))}
+
     </>
   )
 };

@@ -352,8 +352,6 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
           }
         }}
       />
-
-
       <style
         jsx>{
           `

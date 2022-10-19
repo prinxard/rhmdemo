@@ -1,9 +1,8 @@
 import SectionTitle from "../section-title";
 import url from "../../config/url";
+import axios from "axios";
 import setAuthToken from "../../functions/setAuthToken";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { formatNumber } from "../../functions/numbers";
 import dateformat from "dateformat";
 import Loader from "react-loader-spinner";
 import { ViewPayslipTable } from "../tables/viewPayslipTable";
