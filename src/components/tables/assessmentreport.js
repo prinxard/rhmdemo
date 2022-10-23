@@ -47,12 +47,11 @@ export const StartAssessmentReportView = () => {
   const [fixedValues, SetFixValuesStart] = useState({ amount: "" });
   const [fixedValuesend, SetFixValuesEnd] = useState({ amount: "" });
   const [revenueItem, setRevenueItem] = useState([]);
-  const [post, setPost] = useState(() => []);
+  // const [post, setPost] = useState(() => []);
   const [station, setStation] = useState([]);
   const [FilteredData, setFilteredData] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const [tableState, setTableState] = useState("hidden");
-
 
   const router = useRouter();
 
@@ -156,36 +155,53 @@ export const StartAssessmentReportView = () => {
       data.year = watchYear.getFullYear()
     }
 
-    try {
-      let res = await axios.post(`${url.BASE_URL}forma/list-assessment-report`, data);
-      res = res.data.body.assessmentApproved;
-      console.log("res", res);
+    axios.post(`${url.BASE_URL}forma/list-assessment-report`, data)
+    .then(function (response) {
+      let search = response.data.body.assessmentApproved;
+      console.log("search", search);
+      setFilteredData(search)
+      console.log("FilteredData", FilteredData);
+      setIsFetching(false)
       setTableState('')
-      let records = [];
-      let num = 1
-      for (let i = 0; i < res.length; i++) {
-        let rec = res[i];
-        rec.serialNo = num + i
-        rec.taxPaidFormatted = formatNumber(rec.taxPaid)
-        rec.gross_income = formatNumber(rec.gross_income)
-        rec.totalTaxFormated = formatNumber((Number(rec.add_assmt) + Number(rec.tax) ))
-        rec.totalTaxDue = (Number(rec.add_assmt) + Number(rec.tax) )
-        rec.balance = formatNumber(Number(rec.taxPaid)  - (Number(rec.totalTaxDue)) )
-        rec.overallGross = formatNumber(Number(rec.employed) + Number(rec.self_employed) + Number(rec.other_income))
-        rec.createtime = dateformat(rec.createtime, "dd mmm yyyy")
-        records.push(rec);
-
-      }
-      setIsFetching(false);
-      setPost(() => records);
-
-    } catch (error) {
-      setIsFetching(false);
+    })
+    .catch(function (error) {
       setTableState('')
-      console.log(error);
-    }
+      setIsFetching(false)
 
-  }
+    })
+}
+
+  //   try {
+  //     let res = await axios.post(`${url.BASE_URL}forma/list-assessment-report`, data);
+  //     setIsFetching(false);
+  //     res = res.data.body.assessmentApproved;
+  //     setFilteredData(res)
+  //     console.log("res", res);
+  //     setTableState('')
+  //     // let records = [];
+  //     // let num = 1
+  //     // for (let i = 0; i < res.length; i++) {
+  //     //   let rec = res[i];
+  //     //   rec.serialNo = num + i
+  //     //   // rec.totalTaxFormated = formatNumber((Number(rec.add_assmt) + Number(rec.tax) ))
+  //     //   // rec.totalTaxDue = (Number(rec.add_assmt) + Number(rec.tax) )
+  //     //   // rec.balance = formatNumber(Number(rec.taxPaid)  - (Number(rec.totalTaxDue)) )
+  //     //   // rec.overallGross = formatNumber(Number(rec.employed) + Number(rec.self_employed) + Number(rec.other_income))
+  //     //   // rec.createtime = dateformat(rec.createtime, "dd mmm yyyy")
+  //     //   records.push(rec);
+
+  //     // }
+  //     // setIsFetching(false);
+  //     // setPost(() => records);
+
+  //   } catch (error) {
+  //     setIsFetching(false);
+  //     setTableState('')
+  //     console.log(error);
+  //   }
+
+  // }
+
 
 
   return (
@@ -336,12 +352,11 @@ export const StartAssessmentReportView = () => {
           </div>
         ) :
           <div className={`${tableState}`}>
-            <AssessmentReportstable FilteredData={post} />
+            <AssessmentReportstable FilteredData={FilteredData} />
           </div>
         }
 
       </div>
-
 
     </>
   );

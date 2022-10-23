@@ -172,7 +172,7 @@ const initialState = [
           },
           {
             url: '/',
-            title: 'PAYSLIP',
+            title: 'Income Details',
             items: [
               {
                 title: 'Create',
@@ -180,7 +180,7 @@ const initialState = [
                 items: [],
               },
               {
-                title: 'View',
+                title: 'employee income details',
                 url: '/view/payslip',
                 items: [],
               },

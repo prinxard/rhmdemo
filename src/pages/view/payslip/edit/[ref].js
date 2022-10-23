@@ -6,11 +6,15 @@ import url from "../../../../config/url"
 import axios from "axios";
 import { formatNumber } from 'accounting';
 import SectionTitle from '../../../../components/section-title';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Loader from 'react-loader-spinner';
 
 function UpdatePayslip() {
     const [id, setId] = useState("")
     const [payslipData, setPayslipData] = useState([])
     const [isFetching, setIsFetching] = useState(() => true);
+    const [createError, setCreateError] = useState("");
     const router = useRouter()
     const {
         register,
@@ -22,6 +26,7 @@ function UpdatePayslip() {
 
     const updatePayslip = (data) => {
         console.log(data);
+        data.id = id
         setIsFetching(true)
         // data.basic = (data.basic).replace(/,/g, '')
         // data.other_allw = (data.other_allw).replace(/,/g, '')
@@ -69,7 +74,22 @@ function UpdatePayslip() {
 
     return (
         <>
+        <ToastContainer />
             <SectionTitle title="Update payslip" />
+            {isFetching && (
+                    <div className="flex justify-center item mb-2">
+                        <Loader
+                            visible={isFetching}
+                            type="BallTriangle"
+                            color="#00FA9A"
+                            height={19}
+                            width={19}
+                            timeout={0}
+                            className="ml-2"
+                        />
+                        <p className="font-bold">Please wait...</p>
+                    </div>
+                )}
             {payslipData.map((data) => (
                 <form onSubmit={handleSubmit(updatePayslip)} className="border mb-3 block p-6 rounded-lg bg-white w-full">
                     <div className="flex gap-2 justify-center ">
@@ -101,7 +121,7 @@ function UpdatePayslip() {
 
                             <div className="form-group">
                                 <p>Annual Salary</p>
-                                <input ref={register()} name="edate" value={formatNumber(data.basic)} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
+                                <input ref={register()} name="basic" value={(data.basic)} type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
                                 />
                             </div>
 

@@ -102,22 +102,24 @@ export default function Reportstable({ FilteredData }) {
             <MaterialTable title="Report Data"
                 data={items}
                 columns={fields}
-                // renderSummaryRow={({ column, data }) =>
-                //     column.field === "amount"
-                //         ? {
-                //             value: formatNumber(data.reduce((agg, row) => Number(agg) + (Number(row.amount)), 0)),
-                //             style: { fontWeight: "bold" },
-                //         }
-                //         : undefined
-                // }
+                renderSummaryRow={({ column, data }) =>
+                    column.field === "amount"
+                        ? {
+                            value: formatNumber(data.reduce((agg, row) => Number(agg) + (Number(row.amount)), 0)),
+                            style: { fontWeight: "bold" },
+                        }
+                        : undefined
+                }
                 options={{
                     search: false,
                     paging: true,
                     filtering: true,
+                    // Using the regular material-table
                     // exportButton: {
                     //     csv: true,
                     //     pdf: false
                     // },
+                    // Using material table core
                     exportMenu: [
                         {
                             label: "Export CSV",

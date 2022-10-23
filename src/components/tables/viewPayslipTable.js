@@ -40,30 +40,37 @@ const fields = [
     width: "10%"
   },
   {
-    title: "Org KGTIN",
-    field: "org_id",
+    title: "Organization",
+    field: "orgName",
   },
   {
-    title: "Emp KGTIN",
-    field: "paye_tp",
+    title: "Employee",
+    field: "tpName",
   },
   {
-    title: "Salary",
+    title: "Gross Salary",
     field: "basic",
     render: (basic) => formatNumber(basic.basic)
   },
   {
-    title: "Start Date",
-    field: "sdate",
+    title: "Tax",
+    field: "tax",
+    render: (tax) => formatNumber(tax.tax)
+  },
+  {
+    title: "Consolidated Relief",
+    field: "consolidated_relief",
+    render: (rel) => formatNumber(rel.consolidated_relief)
+  },
+  {
+    title: "Year",
+    field: "payroll_year",
   },
   {
     title: "Tax Office",
     field: "tax_office",
   },
-  {
-    title: "Status",
-    field: "status",
-  },
+
   {
     title: "Create Time",
     field: "insert_time",
@@ -160,7 +167,7 @@ export const ViewPayslipTable = ({ tccdata }) => {
           <p className="font-bold">Processing...</p>
         </div>
       )}
-      <MaterialTable title="Payslip List"
+      <MaterialTable title="Income List"
         data={items}
         columns={fields}
 
@@ -289,91 +296,138 @@ export const ViewPayslipTable = ({ tccdata }) => {
 export const ViewSinglePayslip = ({ paySlipData }) => {
   return (
     <>
+      <div class="hidden sm:block" aria-hidden="true">
+        <div class="py-5">
+          <div class="border-t border-gray-200"></div>
+        </div>
+      </div>
       {paySlipData.map((data) => (
-        <form className="border mb-3 block p-6 rounded-lg bg-white w-full">
-          <div className="flex gap-2 justify-center ">
-
-            <div className="grid grid-cols-2 gap-4 w-1/2 border-r pr-3">
-
-              <div className="form-group">
-                <p>Organization/Employer </p>
-                <input name="org_id" value={data.org_id} readOnly type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
-                />
+        <div>
+          <div class="mt-10 sm:mt-0">
+            <div class="md:grid md:grid-cols-3 md:gap-6">
+              <div class="md:col-span-1">
+                <div class="px-4 sm:px-0">
+                  <h3 class="text-lg font-medium leading-6 text-gray-900">Employment Details</h3>
+                </div>
               </div>
+              <div class="mt-5 md:col-span-2 md:mt-0">
+                <form action="#" method="POST">
+                  <div class="overflow-hidden shadow sm:rounded-md">
+                    <div class="bg-white px-4 py-5 sm:p-6">
+                      <div class="grid grid-cols-6 gap-6">
+                        <div class="col-span-6 sm:col-span-3">
+                          <label for="first-name" class="block text-sm font-medium text-gray-700">Organization/Employer</label>
+                          <input type="text"  readOnly defaultValue={data.orgName}  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                        </div>
 
-              <div className="form-group ">
-                <p>Taxpayer/Employee </p>
-                <input name="paye_tp" value={data.paye_tp} readOnly type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
-                />
-              </div>
+                        <div class="col-span-6 sm:col-span-3">
+                          <label for="last-name" class="block text-sm font-medium text-gray-700">Taxpayer/Employee</label>
+                          <input type="text"  readOnly defaultValue={data.tpName} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                        </div>
+                        <div class="col-span-6 sm:col-span-3">
+                          <label for="last-name" class="block text-sm font-medium text-gray-700">Year </label>
+                          <input type="text" readOnly defaultValue={data.payroll_year} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                        </div>
+                        <div class="col-span-6 sm:col-span-3">
+                          <label for="first-name" class="block text-sm font-medium text-gray-700">Number of months</label>
+                          <input type="text" readOnly defaultValue={formatNumber(data.no_months)} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                        </div>
 
-              <div className="form-group ">
-                <p>Start date </p>
-                <input name="sdate" value={data.sdate} readOnly type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
-                />
-              </div>
+                        <div class="col-span-6 sm:col-span-3">
+                          <label for="last-name" class="block text-sm font-medium text-gray-700">Gross Income</label>
+                          <input type="text" readOnly defaultValue={formatNumber(data.basic)} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                        </div>
+                        <div class="col-span-6 sm:col-span-3">
+                          <label for="last-name" class="block text-sm font-medium text-gray-700">Rank/G-Level</label>
+                          <input type="text" readOnly defaultValue={data.rank} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                        </div>
 
-              <div className="form-group">
-                <p>End date</p>
-                <input name="edate" value={data.edate} readOnly type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
-                />
-              </div>
+                      </div>
+                    </div>
 
-              <div className="form-group">
-                <p>Annual Salary</p>
-                <input name="edate" value={formatNumber(data.basic)} readOnly type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
-                />
-              </div>
-
-              <div className="form-group ">
-                <p>Tax office</p>
-                <input name="tax_office" value={data.tax_office} readOnly type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
-                />
-              </div>
-
-            </div>
-            <div className="grid grid-cols-2 gap-4 w-1/2 content-start">
-
-              <div className="form-group ">
-                <p>Rank/G-Level</p>
-                <input name="rank" value={data.rank} readOnly type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
-                />
-              </div>
-
-              <div className="form-group">
-                <p>Other Allowance</p>
-                <input name="other_allw" value={data.other_allw} readOnly type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
-                />
-              </div>
-
-              <div className="form-group mb-4">
-                <p>Pension</p>
-                <input name="pension" value={data.pension} readOnly type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
-                />
-              </div>
-
-              <div className="form-group mb-4">
-                <p>National Housing Fund</p>
-                <input name="nhf" value={data.nhf} readOnly type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
-                />
-              </div>
-
-              <div className="form-group">
-                <p>Benefits</p>
-                <input name="benefits" value={data.benefits} readOnly type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
-                />
-              </div>
-              <div className="form-group">
-                <p>Life Assurance Policy</p>
-                <input name="lap" value={data.lap} readOnly type="text" className="form-control mb-4 w-full rounded font-light text-gray-500"
-                />
+                  </div>
+                </form>
               </div>
             </div>
           </div>
-        </form>
 
+          <div class="hidden sm:block" aria-hidden="true">
+            <div class="py-5">
+              <div class="border-t border-gray-200"></div>
+            </div>
+          </div>
+
+          <div class="mt-10 sm:mt-0">
+            <div class="md:grid md:grid-cols-3 md:gap-6">
+              <div class="md:col-span-1">
+                <div class="px-4 sm:px-0">
+                  <h3 class="text-lg font-medium leading-6 text-gray-900">Other Details</h3>
+                </div>
+              </div>
+              <div class="mt-5 md:col-span-2 md:mt-0">
+                <form action="#" method="POST">
+                  <div class="overflow-hidden shadow sm:rounded-md">
+                    <div class="bg-white px-4 py-5 sm:p-6">
+                      <div class="grid grid-cols-6 gap-6">
+                        <div class="col-span-6 sm:col-span-3">
+                          <label for="first-name" class="block text-sm font-medium text-gray-700">Tax Office</label>
+                          <input type="text" readOnly defaultValue={data.tax_office} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-3">
+                          <label for="last-name" class="block text-sm font-medium text-gray-700">Pension</label>
+                          <input type="text" readOnly defaultValue={formatNumber(data.pension)} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                        </div>
+                        <div class="col-span-6 sm:col-span-3">
+                          <label for="last-name" class="block text-sm font-medium text-gray-700">National Housing Fund (NHF)</label>
+                          <input type="text" readOnly defaultValue={formatNumber(data.nhf)} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                        </div>
+                        <div class="col-span-6 sm:col-span-3">
+                          <label for="first-name" class="block text-sm font-medium text-gray-700">Life Assurance (LAP)</label>
+                          <input type="text" readOnly defaultValue={formatNumber(data.lap)} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-3">
+                          <label for="last-name" class="block text-sm font-medium text-gray-700">Leave Allowance</label>
+                          <input type="text" readOnly defaultValue={formatNumber(leave_allw)} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                        </div>
+                        <div class="col-span-6 sm:col-span-3">
+                          <label for="last-name" class="block text-sm font-medium text-gray-700">Transport Allowance</label>
+                          <input type="text" readOnly defaultValue={formatNumber(data.trans_allw)} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                        </div>
+                        <div class="col-span-6 sm:col-span-3">
+                          <label for="last-name" class="block text-sm font-medium text-gray-700">Other Allowance</label>
+                          <input type="text" readOnly defaultValue={formatNumber(data.other_allw)} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                        </div>
+                        <div class="col-span-6 sm:col-span-3">
+                          <label for="last-name" class="block text-sm font-medium text-gray-700">Housing Allowance</label>
+                          <input type="text" readOnly defaultValue={formatNumber(data.housing)} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                        </div>
+                        <div class="col-span-6 sm:col-span-3">
+                          <label for="last-name" class="block text-sm font-medium text-gray-700">Utilities</label>
+                          <input type="text" readOnly defaultValue={formatNumber(data.utilities)} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                        </div>
+                        <div class="col-span-6 sm:col-span-3">
+                          <label for="last-name" class="block text-sm font-medium text-gray-700">Upfront</label>
+                          <input type="text" readOnly defaultValue={formatNumber(data.upfront)} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                        </div>
+                        <div class="col-span-6 sm:col-span-3">
+                          <label for="last-name" class="block text-sm font-medium text-gray-700">Thirteenth Month</label>
+                          <input type="text" readOnly defaultValue={formatNumber(data.month_13)} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                        </div>
+                        <div class="col-span-6 sm:col-span-3">
+                          <label for="last-name" class="block text-sm font-medium text-gray-700">Benefits</label>
+                          <input type="text" readOnly defaultValue={formatNumber(data.benefits)} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
       ))}
-
     </>
   )
 };

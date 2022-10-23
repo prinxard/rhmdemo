@@ -25,12 +25,6 @@ const PayslipList = () => {
           rec.insert_time = dateformat(rec.insert_time, "dd mmm yyyy")
           records.push(rec);
         }
-        // records.map(()=>{
-        //   if (records.find(v => v.status === "Approved")) {
-        //     records.find(v => v.status === "Approved").status = "Pending E.C Signature";
-        //   }
-
-        // })
         setIsFetching(false);
         setTccData(() => records);
       } catch (e) {
@@ -47,7 +41,6 @@ console.log(tccdata);
 
   return (
     <>
-      <SectionTitle title="View Payslip"/>
 
       {isFetching && (
         <div className="flex justify-center item mb-2">

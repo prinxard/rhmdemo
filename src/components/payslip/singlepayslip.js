@@ -11,31 +11,33 @@ const SinglePayslip = () => {
   const [paySlipData, setPayslipData] = useState(() => []);
   const [isFetching, setIsFetching] = useState(() => true);
   const router = useRouter()
+console.log("paySlipData", paySlipData);
 
   useEffect(() => {
     if (router && router.query) {
       let payslipId = router.query.ref;
       setAuthToken();
-      const fetchPost = async () => {
-        try {
-          setIsFetching(false);
-          let res = await axios.get(`${url.BASE_URL}paye/payslip?id=${payslipId}`);
-          let fetchPayslip = res.data.body;
-          setPayslipData(fetchPayslip)
-          console.log(fetchPayslip);
-        } catch (e) {
-          setIsFetching(false);
-          console.log(e);
-        }
+      const fetchPost = () => {
+        setIsFetching(true)
+        axios.get(`${url.BASE_URL}paye/payslip?id=${payslipId}`)
+            .then(function (response) {
+                setIsFetching(false)
+                let fetchPayslip = response.data.body;
+                setPayslipData(fetchPayslip)
+            })
+            .catch(function (error) {
+              setIsFetching(false);
+              //   console.log(e);
+
+            })
       };
       fetchPost();
     }
   }, [router]);
 
-
   return (
     <>
-      <SectionTitle title="View Payslip" />
+      <SectionTitle title="View Income Employee Income details" />
 
       {isFetching && (
         <div className="flex justify-center item mb-2">
