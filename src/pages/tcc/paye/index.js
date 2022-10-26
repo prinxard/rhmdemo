@@ -52,7 +52,7 @@ function index() {
     const CreateTcc = (data) => {
         setIsFetching(true)
         console.log("data", data);
-        if (data.taxYr_1 && data.incYr_1 == 0) {
+        if (data.taxYr_1 == 0 && data.incYr_1 == 0) {
             alert("Please provide Tax and Income figures for Year one")
         }
         else {
@@ -130,9 +130,6 @@ function index() {
                     .then(function (response) {
                         setIsFetching(false)
                         setPayslipYear1(response.data.body[0]);
-                        // setTaxpayerinfo(response.data.body)
-                        // console.log("response", response);
-                        // setKgtinErr("")
                     })
                     .catch(function (error) {
                         setPayslipYear1("")
@@ -163,9 +160,6 @@ function index() {
                     .then(function (response) {
                         setIsFetching(false)
                         setPayslipYear2(response.data.body[0]);
-                        // setTaxpayerinfo(response.data.body)
-                        // console.log("response", response);
-                        // setKgtinErr("")
                     })
                     .catch(function (error) {
                         setPayslipYear2("")

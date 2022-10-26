@@ -65,25 +65,9 @@ export default function payslip() {
     let lap = watch("lap", "0").replace(/,/g, '')
     let basic = watch("basic", "0").replace(/,/g, '')
     let no_months = watch("no_months", "0").replace(/,/g, '')
-    let payroll_year = watch("payroll_year", new Date())
-    payroll_year = payroll_year.getFullYear()
-
-    // console.log("housing", housing);
-    // console.log("trans_allw", trans_allw);
-    // console.log("leave_allw", leave_allw);
-    // console.log("utilities", utilities);
-    // console.log("other_allw", other_allw);
-    // console.log("benefits", benefits);
-    // console.log("pension", pension);
-    // console.log("nhf", nhf);
-    // console.log("lap", lap);
-    // console.log("basic", basic);
-    // console.log("no_months", no_months);
-    // console.log("payroll_year", (payroll_year).getFullYear())
-
+    let payroll_year = watch("payroll_year", "")
     let consolidatedRelief
     let tax
-
 
 
     let allowance = (Number(housing) + Number(trans_allw) + Number(leave_allw) + Number(utilities) + Number(other_allw) + Number(benefits));
@@ -240,36 +224,41 @@ export default function payslip() {
     const createPayslip = (data) => {
         setIsFetching(true)
         console.log(data);
-        data.basic = (data.basic).replace(/,/g, '')
-        data.other_allw = (data.other_allw).replace(/,/g, '')
-        data.pension = (data.pension).replace(/,/g, '')
-        data.nhf = (data.nhf).replace(/,/g, '')
-        data.benefits = (data.benefits).replace(/,/g, '')
-        data.lap = (data.lap).replace(/,/g, '')
-        data.housing = (data.housing).replace(/,/g, '')
-        data.trans_allw = (data.trans_allw).replace(/,/g, '')
-        data.leave_allw = (data.leave_allw).replace(/,/g, '')
-        data.utilities = (data.utilities).replace(/,/g, '')
-        data.upfront = (data.upfront).replace(/,/g, '')
-        data.month_13 = (data.month_13).replace(/,/g, '')
-        data.housing = (data.housing).replace(/,/g, '')
-        data.payroll_year = payroll_year
-        data.tax = tax
-        data.consolidated_relief = consolidatedRelief
+        if (data.org_id === "" || data.paye_tp === "") {
+            alert("Please provide Organization and Employee KGTIN")
+        } else {
+            data.basic = (data.basic).replace(/,/g, '')
+            data.other_allw = (data.other_allw).replace(/,/g, '')
+            data.pension = (data.pension).replace(/,/g, '')
+            data.nhf = (data.nhf).replace(/,/g, '')
+            data.benefits = (data.benefits).replace(/,/g, '')
+            data.lap = (data.lap).replace(/,/g, '')
+            data.housing = (data.housing).replace(/,/g, '')
+            data.trans_allw = (data.trans_allw).replace(/,/g, '')
+            data.leave_allw = (data.leave_allw).replace(/,/g, '')
+            data.utilities = (data.utilities).replace(/,/g, '')
+            data.upfront = (data.upfront).replace(/,/g, '')
+            data.month_13 = (data.month_13).replace(/,/g, '')
+            data.housing = (data.housing).replace(/,/g, '')
+            data.payroll_year = payroll_year.getFullYear()
+            data.tax = tax
+            data.consolidated_relief = consolidatedRelief
+            
+            axios.post(`${url.BASE_URL}paye/payslip`, data)
+                .then(function (response) {
+                    setIsFetching(false)
+                    toast.success("Created Successfully!");
+                })
+                .catch(function (error) {
+                    setIsFetching(false)
+                    if (error.response) {
+                        setCreateError(() => error.response.data.message);
+                    } else {
+                        toast.error("Failed to add Income Details!");
+                    }
+                })
+        }
 
-        axios.post(`${url.BASE_URL}paye/payslip`, data)
-            .then(function (response) {
-                setIsFetching(false)
-                toast.success("Created Successfully!");
-            })
-            .catch(function (error) {
-                setIsFetching(false)
-                if (error.response) {
-                    setCreateError(() => error.response.data.message);
-                } else {
-                    toast.error("Failed to add Income Details!");
-                }
-            })
     }
 
     return (
@@ -357,6 +346,7 @@ export default function payslip() {
                                 name="payroll_year"
                                 ref={registerForm()}
                                 control={control}
+                                
                                 // defaultValue={new Date()}
                                 render={({ onChange, value }) => {
                                     return (
@@ -368,6 +358,7 @@ export default function payslip() {
                                             dateFormat="yyyy"
                                             yearItemNumber={8}
                                             placeholderText="Select Year"
+                                            required={true}
                                         />
                                     );
                                 }}
@@ -403,7 +394,7 @@ export default function payslip() {
                         <p></p>
 
                         <div className="form-group ">
-                            <p>Gross Income <small className="font-bold text-red-600">*</small></p>
+                            <p>Annual Salary <small className="font-bold text-red-600">*</small></p>
                             <FormatMoneyComponentReport
                                 ref={registerForm()}
                                 name="basic"
