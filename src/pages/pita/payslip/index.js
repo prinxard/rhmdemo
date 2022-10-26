@@ -67,7 +67,7 @@ export default function payslip() {
     let no_months = watch("no_months", "0").replace(/,/g, '')
     let payroll_year = watch("payroll_year", new Date())
     payroll_year = payroll_year.getFullYear()
-    
+
     // console.log("housing", housing);
     // console.log("trans_allw", trans_allw);
     // console.log("leave_allw", leave_allw);
@@ -164,8 +164,6 @@ export default function payslip() {
 
     tax = tax / 12 * no_months;
 
-    console.log("Tax", tax);
-    console.log("consolidatedRelief", consolidatedRelief);
     // tax_paid = tax;
 
     //   let JsonTax = String(tax_paid)
@@ -257,7 +255,7 @@ export default function payslip() {
         data.housing = (data.housing).replace(/,/g, '')
         data.payroll_year = payroll_year
         data.tax = tax
-        data.consolidatedRelief = consolidatedRelief
+        data.consolidated_relief = consolidatedRelief
 
         axios.post(`${url.BASE_URL}paye/payslip`, data)
             .then(function (response) {
@@ -450,7 +448,10 @@ export default function payslip() {
                             <p className="font-bold">Tax</p>
                             <p className="font-bold">{formatNumber(tax)}</p>
                         </div>
-
+                        <div className="form-group">
+                            <p className="font-bold">Consolidated Relief</p>
+                            <p className="font-bold">{formatNumber(consolidatedRelief)}</p>
+                        </div>
                     </div>
                     <div className="grid grid-cols-2 gap-4 w-1/2 content-start">
 
@@ -549,7 +550,7 @@ export default function payslip() {
                             />
                         </div>
 
-                      
+
                     </div>
                 </div>
                 <div className="flex justify-center">

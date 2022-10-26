@@ -75,11 +75,11 @@ export const StartTcc = () => {
 
   setAuthToken();
   const verifiyKGTIN = async () => {
+    setIsFetching(true)
     let testkgtin = kgtEnentered
     let kgtin = {
       "KGTIN": `${testkgtin}`
     }
-    setIsFetching(true)
     try {
       let res = await axios.post(`${url.BASE_URL}taxpayer/view-taxpayers`, kgtin);
       setIsFetching(false)
@@ -132,7 +132,7 @@ export const StartTcc = () => {
     fetchPostYear1();
 
   }, [watchYear1.getFullYear()]);
-  console.log("tccerror", tccErrors);
+
 
   useEffect(() => {
     const kgtinYear = {

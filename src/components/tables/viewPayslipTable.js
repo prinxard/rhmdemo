@@ -296,7 +296,167 @@ export const ViewPayslipTable = ({ tccdata }) => {
 export const ViewSinglePayslip = ({ paySlipData }) => {
   return (
     <>
-      <div class="hidden sm:block" aria-hidden="true">
+      <Widget>
+        <div className="py-10 w-full">
+          {paySlipData.map((data) => (
+            <div className="lg:flex justify-between w-full">
+              <div className="w-full">
+                <div className="uppercase lg:w-4/5 w-full px-2">
+                  <h6 className="font-bold mb-2 text-base text-gray-500">
+                    Employee details
+                  </h6>
+                  <div className="shadow-lg w-full">
+                    <div className="  w-full p-2">
+                      <h1 className="text-sm">Organization Name</h1>
+                      <span className="text-black font-semibold">
+                        {data.orgName}
+                      </span>
+                    </div>
+                    <div className="  w-full p-2">
+                      <h1 className="text-sm">Organization KGTIN</h1>
+                      <span className="text-black font-semibold">
+                        {data.org_id}
+                      </span>
+                    </div>
+                    <div className="  w-full p-2">
+                      <h1 className="text-sm">Taxpayer Name</h1>
+                      <span className="text-black font-semibold">
+                        {data.tpName}
+                      </span>
+                    </div>
+                    <div className="  w-full p-2">
+                      <h1 className="text-sm">Taxpayer KGTIN</h1>
+                      <span className="text-black font-semibold">
+                        {data.paye_tp}
+                      </span>
+                    </div>
+                    <div className="  w-full p-2">
+                      <h1 className="text-sm">Year</h1>
+                      <span className="text-black font-semibold">
+                        {data.payroll_year}
+                      </span>
+                    </div>
+                    <div className="  w-full p-2">
+                      <h1 className="text-sm">Number of Months</h1>
+                      <span className="text-black font-semibold">
+                        {data.no_months}
+                      </span>
+                    </div>
+                    <div className="  w-full p-2">
+                      <h1 className="text-sm">rank</h1>
+                      <span className="text-black font-semibold">
+                        {data.rank}
+                      </span>
+                    </div>
+                    <div className="  w-full p-2">
+                      <h1 className="text-sm">Tax Office</h1>
+                      <span className="text-black font-semibold">
+                        {data.tax_office}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div className="w-full">
+                <div className="uppercase lg:w-4/5 w-full px-2">
+                  <h6 className="font-bold mb-2 text-base text-gray-500">
+                    Income details
+                  </h6>
+                  <div className="shadow-lg w-full">
+                    <div className="w-full p-2">
+                      <h1 className="text-sm">Annual Salary</h1>
+                      <span className="text-black font-semibold">
+                        {formatNumber(data.basic)}
+                      </span>
+                    </div>
+                    <div className="w-full p-2">
+                      <h1 className="text-sm">Pension</h1>
+                      <span className="text-black font-semibold">
+                        {formatNumber(data.pension)}
+                      </span>
+                    </div>
+                    <div className="w-full p-2">
+                      <h1 className="text-sm">National Housing Fund (NHF)</h1>
+                      <span className="text-black font-semibold">
+                        {formatNumber(data.nhf)}
+                      </span>
+                    </div>
+                    <div className="w-full p-2">
+                      <h1 className="text-sm">Life Assurance</h1>
+                      <span className="text-black font-semibold">
+                        {formatNumber(data.lap)}
+                      </span>
+                    </div>
+                    <div className="w-full p-2">
+                      <h1 className="text-sm">Leave Allowance</h1>
+                      <span className="text-black font-semibold">
+                        {formatNumber(data.leave_allw)}
+                      </span>
+                    </div>
+                    <div className="w-full p-2">
+                      <h1 className="text-sm">Transport Allowance</h1>
+                      <span className="text-black font-semibold">
+                        {formatNumber(data.trans_allw)}
+                      </span>
+                    </div>
+                    <div className="w-full p-2">
+                      <h1 className="text-sm">Other Allowance</h1>
+                      <span className="text-black font-semibold">
+                        {formatNumber(data.other_allw)}
+                      </span>
+                    </div>
+                    <div className="w-full p-2">
+                      <h1 className="text-sm">Housing Allowance</h1>
+                      <span className="text-black font-semibold">
+                        {formatNumber(data.housing)}
+                      </span>
+                    </div>
+                    <div className="w-full p-2">
+                      <h1 className="text-sm">Thirteenth Month</h1>
+                      <span className="text-black font-semibold">
+                        {formatNumber(data.month_13)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="w-full">
+                <div className="uppercase lg:w-4/5 w-full px-2">
+                  <h6 className="font-bold mb-2 text-base text-gray-500">
+                    Tax Coputation
+                  </h6>
+                  <div className="shadow-lg w-full">
+                    <div className="w-full p-2">
+                      <h1 className="text-sm ">Gross Annual Salary</h1>
+                      <span className="text-black font-semibold">
+                        {formatNumber(Number(data.basic) + Number(data.housing) + Number(data.other_allw) + Number(data.trans_allw) + Number(data.leave_allw))}
+                      </span>
+                    </div>
+                    <div className="w-full p-2">
+                      <h1 className="text-sm ">Tax</h1>
+                      <span className="text-black font-semibold">
+                        {formatNumber(data.tax)}
+                      </span>
+                    </div>
+                    <div className="w-full p-2">
+                      <h1 className="text-sm ">Consolidated Relief</h1>
+                      <span className="text-black font-semibold">
+                        {formatNumber(data.consolidated_relief)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          ))}
+        </div>
+      </Widget>
+
+      {/* <div class="hidden sm:block" aria-hidden="true">
         <div class="py-5">
           <div class="border-t border-gray-200"></div>
         </div>
@@ -436,7 +596,7 @@ export const ViewSinglePayslip = ({ paySlipData }) => {
             </div>
           </div>
         </div>
-      ))}
+      ))} */}
     </>
   )
 };

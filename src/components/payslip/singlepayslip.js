@@ -37,7 +37,7 @@ console.log("paySlipData", paySlipData);
 
   return (
     <>
-      <SectionTitle title="View Income Employee Income details" />
+      <SectionTitle title="View Income details" />
 
       {isFetching && (
         <div className="flex justify-center item mb-2">

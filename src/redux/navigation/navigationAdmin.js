@@ -159,6 +159,11 @@ const initialState = [
             title: 'TCC',
             items: [
               {
+                title: 'Create',
+                url: '/tcc/paye',
+                items: [],
+              },
+              {
                 title: 'View',
                 url: '/view/listpayetcc',
                 items: [],
@@ -180,7 +185,7 @@ const initialState = [
                 items: [],
               },
               {
-                title: 'employee income details',
+                title: 'view',
                 url: '/view/payslip',
                 items: [],
               },
