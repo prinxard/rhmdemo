@@ -10,12 +10,16 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from 'react-loader-spinner';
 import url from '../../../config/url';
+import { formatNumber } from 'accounting';
 
 
 function index() {
     const [kgtinErr, setKgtinErr] = useState("")
     const [isFetching, setIsFetching] = useState(() => false);
     const [taxpayerInfo, setTaxpayerinfo] = useState([]);
+    const [payslipYear1, setPayslipYear1] = useState([]);
+    const [payslipYear2, setPayslipYear2] = useState([]);
+    const [payslipYear3, setPayslipYear3] = useState([]);
     const {
         register,
         handleSubmit,
@@ -25,25 +29,75 @@ function index() {
     } = useForm(
         { mode: "onBlur", }
     )
-    console.log("dirtyFields", dirtyFields);
-    console.log("taxpayerInfo", taxpayerInfo)
+
+    console.log("payslipYear1", payslipYear1);
     const {
         register: registerkgtin,
-        formState: { errors: errors2 },
         handleSubmit: handleSubmitkgtin,
 
     } = useForm(
         { mode: "onBlur", }
     )
 
-    const watchYear1 = watch("year1", "");
-    const watchYear2 = watch("year2", "");
-    const watchYear3 = watch("year3", "");
+
+
     console.log("taxpayerInfo", taxpayerInfo);
+    console.log("dirtyFields", dirtyFields);
+
+    const watchYear1 = watch("assmtYr_1", "");
+    const watchYear2 = watch("assmtYr_2", "");
+    const watchYear3 = watch("assmtYr_3", "");
 
     setAuthToken();
     const CreateTcc = (data) => {
+        setIsFetching(true)
         console.log("data", data);
+        if (data.taxYr_1 && data.incYr_1 == 0) {
+            alert("Please provide Tax and Income figures for Year one")
+        }
+        else {
+            data.assmtYr_1 = (data.assmtYr_1).getFullYear()
+
+            if (data.assmtYr_2 === undefined) {
+                delete data.assmtYr_2
+            } else {
+                data.assmtYr_2 = (data.assmtYr_2).getFullYear()
+            }
+
+            if (data.assmtYr_3 === undefined) {
+                delete data.assmtYr_3
+            }
+            else {
+                data.assmtYr_3 = (data.assmtYr_3).getFullYear()
+            }
+
+            data.incYr_1 = (data.incYr_1).replace(/,/g, '')
+            data.incYr_2 = (data.incYr_2).replace(/,/g, '')
+            data.incYr_3 = (data.incYr_3).replace(/,/g, '')
+            data.taxYr_1 = (data.taxYr_1).replace(/,/g, '')
+            data.taxYr_2 = (data.taxYr_2).replace(/,/g, '')
+            data.taxYr_3 = (data.taxYr_2).replace(/,/g, '')
+            data.tp_id = taxpayerInfo.KGTIN
+            data.employer = payslipYear1.org_id
+
+            axios.post(`${url.BASE_URL}paye/tcc`, data)
+                .then(function (response) {
+                    setIsFetching(false)
+                    toast.success("Created Successfully!")
+                })
+                .catch(function (error) {
+                    setTaxpayerinfo("")
+                    setIsFetching(false)
+                    if (error.response) {
+                        toast.error(error.response.data.message)
+                    } else {
+
+                    }
+                })
+        }
+
+
+
     };
 
     const verifiyKGTIN = (data) => {
@@ -55,6 +109,7 @@ function index() {
                 setKgtinErr("")
             })
             .catch(function (error) {
+                setTaxpayerinfo("")
                 setIsFetching(false)
                 if (error.response) {
                     setKgtinErr(error.response.data.message)
@@ -67,19 +122,20 @@ function index() {
     useEffect(() => {
 
         const fetchPostYear1 = () => {
-            if (dirtyFields.year1) {
+            if (dirtyFields.assmtYr_1) {
                 let year1 = watchYear1.getFullYear()
                 let kgtin = taxpayerInfo.KGTIN
                 setIsFetching(true)
                 axios.get(`${url.BASE_URL}paye/payslip?id=tcc&kgtin=${kgtin}&year=${year1}`)
                     .then(function (response) {
                         setIsFetching(false)
-                        console.log(response.data.body);
+                        setPayslipYear1(response.data.body[0]);
                         // setTaxpayerinfo(response.data.body)
                         // console.log("response", response);
                         // setKgtinErr("")
                     })
                     .catch(function (error) {
+                        setPayslipYear1("")
                         setIsFetching(false)
                         if (error.response) {
                             toast.error(error.response.data.message)
@@ -94,6 +150,74 @@ function index() {
         fetchPostYear1();
 
     }, [watchYear1]);
+
+
+    useEffect(() => {
+
+        const fetchPostYear2 = () => {
+            if (dirtyFields.assmtYr_2) {
+                let year2 = watchYear2.getFullYear()
+                let kgtin = taxpayerInfo.KGTIN
+                setIsFetching(true)
+                axios.get(`${url.BASE_URL}paye/payslip?id=tcc&kgtin=${kgtin}&year=${year2}`)
+                    .then(function (response) {
+                        setIsFetching(false)
+                        setPayslipYear2(response.data.body[0]);
+                        // setTaxpayerinfo(response.data.body)
+                        // console.log("response", response);
+                        // setKgtinErr("")
+                    })
+                    .catch(function (error) {
+                        setPayslipYear2("")
+                        setIsFetching(false)
+                        if (error.response) {
+                            toast.error(error.response.data.message)
+                        } else {
+
+                        }
+                    })
+
+            }
+
+        };
+        fetchPostYear2();
+
+    }, [watchYear2]);
+
+    console.log("payslipYear2", payslipYear2);
+
+    useEffect(() => {
+
+        const fetchPostYear3 = () => {
+            if (dirtyFields.assmtYr_3) {
+                let year3 = watchYear3.getFullYear()
+                let kgtin = taxpayerInfo.KGTIN
+                setIsFetching(true)
+                axios.get(`${url.BASE_URL}paye/payslip?id=tcc&kgtin=${kgtin}&year=${year3}`)
+                    .then(function (response) {
+                        setIsFetching(false)
+                        setPayslipYear3(response.data.body[0]);
+                        // setTaxpayerinfo(response.data.body)
+                        // console.log("response", response);
+                        // setKgtinErr("")
+                    })
+                    .catch(function (error) {
+                        setPayslipYear3("")
+                        setIsFetching(false)
+                        if (error.response) {
+                            toast.error(error.response.data.message)
+                        } else {
+
+                        }
+                    })
+
+            }
+
+        };
+        fetchPostYear3();
+
+    }, [watchYear3]);
+
     return (
 
         <>
@@ -133,12 +257,6 @@ function index() {
                     </div>
                 </form>
 
-                {/* <div className="grid grid-cols-4 gap-2">
-                    <div></div>
-                    <small className={`${validmsg}`}>{payerDetails.tp_name}</small>
-                    <small className={`text-red-600 ${invalidmsg}`}>{invalidkgtinmessage}</small>
-                </div> */}
-
             </div>
 
             <form onSubmit={handleSubmit(CreateTcc)}>
@@ -151,7 +269,7 @@ function index() {
 
                             <div>
 
-                                <input ref={register()} value={taxpayerInfo.tp_name} name="tp_name" readOnly type="text" className="form-control w-full rounded"
+                                <input ref={register()} value={taxpayerInfo.tp_name} readOnly type="text" className="form-control w-full rounded"
                                 />
                             </div>
 
@@ -166,7 +284,7 @@ function index() {
 
                         <div className="mb-6 grid grid-cols-3 gap-2">
                             <label>File no:</label>
-                            <input ref={register()} name="file_ref" type="text" className="form-control w-full rounded"
+                            <input ref={register()} required name="file_ref" type="text" className="form-control w-full rounded"
                             />
 
                         </div>
@@ -174,13 +292,13 @@ function index() {
                         <div className="mb-6 grid grid-cols-3 gap-2">
                             <label htmlFor="employername">Tax Office:</label>
                             <div>
-                                <input ref={register()} value={taxpayerInfo.tax_office} name="tax_office" readOnly type="text" className="form-control w-full rounded"
+                                <input ref={register()} value={taxpayerInfo.tax_office} name="tax_station" readOnly type="text" className="form-control w-full rounded"
                                 />
                             </div>
                         </div>
                         <div className="mb-6 grid grid-cols-3 gap-4">
                             <label htmlFor="employername">Processing Fee:</label>
-                            <input ref={register()} placeholder="₦" name="prc_fee" type="text" className="form-control w-full rounded"
+                            <input ref={register()} required placeholder="₦" name="prc_fee" type="text" className="form-control w-full rounded"
                             />
                         </div>
                     </div>
@@ -192,7 +310,7 @@ function index() {
                         <div className="mb-6 grid grid-cols-2 ">
                             <label>Assessment year </label>
                             <Controller
-                                name="year1"
+                                name="assmtYr_1"
                                 control={control}
                                 // defaultValue={new Date()}
                                 render={({ onChange, value }) => {
@@ -211,48 +329,21 @@ function index() {
                             />
                         </div>
 
-                        <div className="mb-6 grid grid-cols-2 gap-3">
-                            <label>Assessment ID</label>
-                            <div>
-                                <input className="form-control w-full rounded" ref={register()} name="assmt_1" readOnly type="text" />
-                            </div>
-
-                        </div>
 
                         <div className="mb-6 grid grid-cols-2 gap-3">
                             <label>Tax Payable </label>
-
                             <div>
-                                <input readOnly name="tax1" className="form-control w-full rounded" ref={register()} type="text"
-                                />
-                            </div>
-
-                        </div>
-
-                        <div className="mb-6 grid grid-cols-2 gap-3">
-                            <label>Income from employment</label>
-                            <div>
-                                <input readOnly name="tax1" className="form-control w-full rounded" ref={register()} type="text"
+                                <input readOnly name="taxYr_1" value={formatNumber(payslipYear1.tax)} className="form-control w-full rounded" ref={register()} type="text"
                                 />
                             </div>
                         </div>
 
                         <div className="mb-6 grid grid-cols-2 gap-3">
-                            <label>Income from Trade/Professional</label>
+                            <label>Gross Annual Income</label>
                             <div>
-                                <input readOnly name="tax1" className="form-control w-full rounded" ref={register()} type="text"
+                                <input readOnly name="incYr_1" value={formatNumber(Number(payslipYear1.basic) + Number(payslipYear1.housing) + Number(payslipYear1.trans_allw) + Number(payslipYear1.leave_allw) + Number(payslipYear1.other_allw) + Number(payslipYear1.benefits) + Number(payslipYear1.utilities))} className="form-control w-full rounded" ref={register()} type="text"
                                 />
                             </div>
-                        </div>
-
-                        <div className="mb-6 grid grid-cols-2 gap-3">
-                            <label>Other Income</label>
-
-                            <div>
-                                <input readOnly name="other_income" className="form-control w-full rounded" ref={register()} type="text"
-                                />
-                            </div>
-
                         </div>
                     </div>
 
@@ -261,9 +352,9 @@ function index() {
                         <div className="mb-6 justify-self-center">
 
                             <Controller
-                                name="year2"
+                                name="assmtYr_2"
                                 control={control}
-                                // defaultValue={c}
+                                // defaultValue={new Date()}
                                 render={({ onChange, value }) => {
                                     return (
                                         <DatePicker
@@ -275,51 +366,29 @@ function index() {
                                             yearItemNumber={8}
                                             placeholderText="Select Year"
 
-
                                         />
                                     );
                                 }}
                             />
                         </div>
 
-                        <div className="mb-6 justify-self-center">
-                            <div>
-                                <input readOnly name="assmt_2" ref={register()} className="form-control w-full rounded" type="text"
-                                />
-                            </div>
-                        </div>
 
                         <div className="mb-6 justify-self-center">
                             <div>
-                                <input readOnly name="tax1" className="form-control w-full rounded" ref={register()} type="text"
+                                <input readOnly name="taxYr_2" value={formatNumber(payslipYear2.tax)} className="form-control w-full rounded" ref={register()} type="text"
                                 />
-
                             </div>
                         </div>
 
                         <div className="mb-6 justify-self-center">
 
                             <div>
-                                <input readOnly name="tax1" className="form-control w-full rounded" ref={register()} type="text"
+                                <input readOnly name="incYr_2" value={formatNumber(Number(payslipYear2.basic) + Number(payslipYear2.housing) + Number(payslipYear2.trans_allw) + Number(payslipYear2.leave_allw) + Number(payslipYear2.other_allw) + Number(payslipYear2.benefits) + Number(payslipYear2.utilities))} className="form-control w-full rounded" ref={register()} type="text"
                                 />
                             </div>
 
                         </div>
 
-                        <div className="mb-6 justify-self-center">
-                            <div>
-
-                                <input readOnly name="tax1" className="form-control w-full rounded" ref={register()} type="text"
-                                />
-                            </div>
-                        </div>
-
-                        <div className="mb-6 justify-self-center">
-                            <div>
-                                <input readOnly name="other_income" className="form-control w-full rounded" ref={register()} type="text"
-                                />
-                            </div>
-                        </div>
                     </div>
 
                     <div className="p-3 grid justify-items-stretch">
@@ -327,9 +396,9 @@ function index() {
                         <div className="mb-6 justify-self-center">
 
                             <Controller
-                                name="year3"
+                                name="assmtYr_3"
                                 control={control}
-                                // defaultValue={f}
+                                // defaultValue={new Date()}
                                 render={({ onChange, value }) => {
                                     return (
                                         <DatePicker
@@ -349,42 +418,16 @@ function index() {
 
                         <div className="mb-6 justify-self-center">
                             <div>
-                                <input readOnly name="assmt_3" ref={register()} className="form-control w-full rounded" type="text"
+                                <input readOnly name="taxYr_3" value={formatNumber(payslipYear3.tax)} className="form-control w-full rounded" ref={register()} type="text"
                                 />
                             </div>
                         </div>
 
                         <div className="mb-6 justify-self-center">
-
                             <div>
-                                <input readOnly name="tax1" className="form-control w-full rounded" ref={register()} type="text"
+                                <input readOnly name="incYr_3" value={formatNumber(Number(payslipYear3.basic) + Number(payslipYear3.housing) + Number(payslipYear3.trans_allw) + Number(payslipYear3.leave_allw) + Number(payslipYear3.other_allw) + Number(payslipYear3.benefits) + Number(payslipYear3.utilities))} className="form-control w-full rounded" ref={register()} type="text"
                                 />
                             </div>
-
-                        </div>
-
-                        <div className="mb-6 justify-self-center">
-
-                            <div>
-                                <input readOnly name="tax1" className="form-control w-full rounded" ref={register()} type="text"
-                                />
-                            </div>
-
-                        </div>
-
-                        <div className="mb-6 justify-self-center">
-
-                            <div>
-                                <input readOnly name="tax1" className="form-control w-full rounded" ref={register()} type="text"
-                                />
-                            </div>
-                        </div>
-                        <div className="mb-6 justify-self-center">
-                            <div>
-                                <input readOnly name="other_income" className="form-control w-full rounded" ref={register()} type="text"
-                                />
-                            </div>
-
                         </div>
 
                     </div>

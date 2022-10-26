@@ -158,6 +158,7 @@ export const ViewSinglePayeTccPrintTable = ({
   PayeTccData
 }) => {
 
+console.log("PayeTccData", PayeTccData);
 
   const componentRef = useRef();
 
@@ -233,7 +234,7 @@ export const ViewSinglePayeTccPrintTable = ({
         </div>
 
       </div>
-      {PayeTccData.map((ind, i) => (
+      {PayeTccData.map((ind) => (
 
         <section>
           <div ref={componentRef}>

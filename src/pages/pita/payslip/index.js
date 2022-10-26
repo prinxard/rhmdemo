@@ -382,17 +382,7 @@ export default function payslip() {
                         </div>
 
 
-                        <div className="form-group ">
-                            <p>Gross Income <small className="font-bold text-red-600">*</small></p>
-                            <FormatMoneyComponentReport
-                                ref={registerForm()}
-                                name="basic"
-                                control={control}
-                                defaultValue={""}
-                                onValueChange={(v) => setNumberVal({ amount: v })}
-                                required={true}
-                            />
-                        </div>
+                  
 
 
                         <div className="form-group ">
@@ -409,51 +399,20 @@ export default function payslip() {
                             />
                         </div>
 
+                        <p className="font-bold">INCOME </p>
+                        <p></p>
 
-
                         <div className="form-group ">
-                            <p>Pension</p>
+                            <p>Gross Income <small className="font-bold text-red-600">*</small></p>
                             <FormatMoneyComponentReport
-                                name="pension"
-                                control={control}
-                                defaultValue={"0"}
-                                onValueChange={(v) => setNumberVal({ amount: v })}
                                 ref={registerForm()}
+                                name="basic"
+                                control={control}
+                                defaultValue={""}
+                                onValueChange={(v) => setNumberVal({ amount: v })}
                                 required={true}
                             />
                         </div>
-                        <div className="form-group ">
-                            <p>National Housing Fund (NHF)</p>
-                            <FormatMoneyComponentReport
-                                name="nhf"
-                                control={control}
-                                defaultValue={"0"}
-                                onValueChange={(v) => setNumberVal({ amount: v })}
-                                ref={registerForm()}
-                                required={true}
-                            />
-                        </div>
-                        <div className="form-group ">
-                            <p>Life Assurance (LAP)</p>
-                            <FormatMoneyComponentReport
-                                name="lap"
-                                control={control}
-                                defaultValue={"0"}
-                                onValueChange={(v) => setNumberVal({ amount: v })}
-                                ref={registerForm()}
-                                required={true}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <p className="font-bold">Tax</p>
-                            <p className="font-bold">{formatNumber(tax)}</p>
-                        </div>
-                        <div className="form-group">
-                            <p className="font-bold">Consolidated Relief</p>
-                            <p className="font-bold">{formatNumber(consolidatedRelief)}</p>
-                        </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4 w-1/2 content-start">
 
                         <div className="form-group ">
                             <p>Leave Allowance</p>
@@ -525,7 +484,7 @@ export default function payslip() {
                                 required={true}
                             />
                         </div>
-                        <div className="form-group ">
+                        <div className="form-group">
                             <p>Thirteenth Month</p>
                             <FormatMoneyComponentReport
                                 name="month_13"
@@ -538,7 +497,7 @@ export default function payslip() {
                         </div>
 
 
-                        <div className="form-group ">
+                        <div className="form-group">
                             <p>Benefits</p>
                             <FormatMoneyComponentReport
                                 name="benefits"
@@ -550,7 +509,56 @@ export default function payslip() {
                             />
                         </div>
 
+                    </div>
+                    <div className="grid grid-cols-2 gap-4 w-1/2 content-start">
+                    <p className="font-bold">DEDUCTONS</p>
+                    <p></p>
+                    <div className="form-group ">
+                            <p>Pension</p>
+                            <FormatMoneyComponentReport
+                                name="pension"
+                                control={control}
+                                defaultValue={"0"}
+                                onValueChange={(v) => setNumberVal({ amount: v })}
+                                ref={registerForm()}
+                                required={true}
+                            />
+                        </div>
 
+                        <div className="form-group ">
+                            <p>National Housing Fund (NHF)</p>
+                            <FormatMoneyComponentReport
+                                name="nhf"
+                                control={control}
+                                defaultValue={"0"}
+                                onValueChange={(v) => setNumberVal({ amount: v })}
+                                ref={registerForm()}
+                                required={true}
+                            />
+                        </div>
+                        <div className="form-group ">
+                            <p>Life Assurance (LAP)</p>
+                            <FormatMoneyComponentReport
+                                name="lap"
+                                control={control}
+                                defaultValue={"0"}
+                                onValueChange={(v) => setNumberVal({ amount: v })}
+                                ref={registerForm()}
+                                required={true}
+                            />
+                        </div>
+
+                        <p></p>
+                        <p className="font-bold">TAX CALCULATION</p>
+                        <p></p>
+                        <div className="form-group">
+                            <p className="font-bold">Tax</p>
+                            <p className="font-bold">{formatNumber(tax)}</p>
+                        </div>
+                        <div className="form-group">
+                            <p className="font-bold">Consolidated Relief</p>
+                            <p className="font-bold">{formatNumber(consolidatedRelief)}</p>
+                        </div>
                     </div>
                 </div>
                 <div className="flex justify-center">
