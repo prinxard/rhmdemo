@@ -50,12 +50,12 @@ function index() {
 
     setAuthToken();
     const CreateTcc = (data) => {
-        setIsFetching(true)
         console.log("data", data);
         if (data.taxYr_1 == 0 && data.incYr_1 == 0) {
             alert("Please provide Tax and Income figures for Year one")
         }
         else {
+            setIsFetching(true)
             data.assmtYr_1 = (data.assmtYr_1).getFullYear()
 
             if (data.assmtYr_2 === undefined) {

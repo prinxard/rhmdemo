@@ -222,11 +222,11 @@ export default function payslip() {
     }
 
     const createPayslip = (data) => {
-        setIsFetching(true)
         console.log(data);
         if (data.org_id === "" || data.paye_tp === "") {
             alert("Please provide Organization and Employee KGTIN")
         } else {
+            setIsFetching(true)
             data.basic = (data.basic).replace(/,/g, '')
             data.other_allw = (data.other_allw).replace(/,/g, '')
             data.pension = (data.pension).replace(/,/g, '')
