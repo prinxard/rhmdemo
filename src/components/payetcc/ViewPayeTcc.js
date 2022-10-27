@@ -6,17 +6,15 @@ import axios from "axios";
 import url from "../../config/url";
 import setAuthToken from "../../functions/setAuthToken";
 import Loader from "react-loader-spinner";
-import { ViewSingleTccTable } from "../tables/viewTccTable";
 import { ViewSinglePayeTcc } from "../tables/viewAllPayeTccTable";
 
 
 const SinglePayeTcc = () => {
   const [isFetching, setIsFetching] = useState(() => true);
   const [tccdata, setTccData] = useState(() => []);
-  const [assess1, setAssess1] = useState(() => []);
-  const [assess2, setAssess2] = useState(() => []);
-  const [assess3, setAssess3] = useState(() => []);
   const [tccID, setTccID] = useState(() => []);
+  const [statusTCC, setTccStatus] = useState("");
+
   const router = useRouter();
   useEffect(() => {
     if (router && router.query) {
@@ -27,24 +25,24 @@ const SinglePayeTcc = () => {
       }
       setAuthToken();
       const fetchPost = async () => {
-        try {
-          let res = await axios.post(`${url.BASE_URL}paye/view-tcc`, id);
-          console.log("res", res);
-          let fetctTcc = res.data.body;
-          let tccdat = fetctTcc.tcc
-          let firstass = fetctTcc.assessment1
-          let secondass = fetctTcc.assessment2
-          let thirdass = fetctTcc.assessment3
-          console.log(fetctTcc);
-          setTccData(tccdat)
-          setAssess1(firstass)
-          setAssess2(secondass)
-          setAssess3(thirdass)
-          setIsFetching(false);
-        } catch (e) {
-          console.log(e);
-          setIsFetching(false);
-        }
+        setIsFetching(true);
+        axios.post(`${url.BASE_URL}paye/view-tcc`, id)
+          .then(function (response) {
+            setIsFetching(false);
+            console.log("Response", response);
+            let fetctTcc = response.data.body.tcc[0];
+            let status = response.data.body.tcc[0].status
+            setTccStatus(status)
+            setTccData(fetctTcc)
+            console.log(fetctTcc);
+
+          })
+          .catch(function (error) {
+            setIsFetching(false);
+            console.log(error);
+
+          })
+
       };
       fetchPost();
     }
@@ -75,9 +73,7 @@ const SinglePayeTcc = () => {
             <ViewSinglePayeTcc
               tccID={tccID}
               payerDetails={tccdata}
-              assessmentData={assess1}
-              assessmentData2={assess2}
-              assessmentData3={assess3}
+              statusTCC={statusTCC}
             />
           }
         </>

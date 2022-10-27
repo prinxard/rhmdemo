@@ -22,7 +22,8 @@ console.log("paySlipData", paySlipData);
         axios.get(`${url.BASE_URL}paye/payslip?id=${payslipId}`)
             .then(function (response) {
                 setIsFetching(false)
-                let fetchPayslip = response.data.body;
+                let fetchPayslip = response.data.body.payroll;
+                console.log("fetchPayslip", fetchPayslip);
                 setPayslipData(fetchPayslip)
             })
             .catch(function (error) {

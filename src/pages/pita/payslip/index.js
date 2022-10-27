@@ -61,6 +61,7 @@ export default function payslip() {
     let other_allw = watch("other_allw", "0").replace(/,/g, '')
     let benefits = watch("benefits", "0").replace(/,/g, '')
     let pension = watch("pension", "0").replace(/,/g, '')
+    let month_13 = watch("pension", "0").replace(/,/g, '')
     let nhf = watch("nhf", "0").replace(/,/g, '')
     let lap = watch("lap", "0").replace(/,/g, '')
     let basic = watch("basic", "0").replace(/,/g, '')
@@ -70,7 +71,7 @@ export default function payslip() {
     let tax
 
 
-    let allowance = (Number(housing) + Number(trans_allw) + Number(leave_allw) + Number(utilities) + Number(other_allw) + Number(benefits));
+    let allowance = (Number(housing) + Number(trans_allw) + Number(leave_allw) + Number(utilities) + Number(other_allw) + Number(benefits) + Number(month_13));
     let totalRelief = (Number(pension) + Number(nhf) + Number(lap));
 
     let consolidatedIncome = (Number(basic) + Number(allowance));
@@ -240,10 +241,11 @@ export default function payslip() {
             data.upfront = (data.upfront).replace(/,/g, '')
             data.month_13 = (data.month_13).replace(/,/g, '')
             data.housing = (data.housing).replace(/,/g, '')
+            data.other_relief = (data.other_relief).replace(/,/g, '')
             data.payroll_year = payroll_year.getFullYear()
             data.tax = tax
             data.consolidated_relief = consolidatedRelief
-            
+
             axios.post(`${url.BASE_URL}paye/payslip`, data)
                 .then(function (response) {
                     setIsFetching(false)
@@ -346,7 +348,7 @@ export default function payslip() {
                                 name="payroll_year"
                                 ref={registerForm()}
                                 control={control}
-                                
+
                                 // defaultValue={new Date()}
                                 render={({ onChange, value }) => {
                                     return (
@@ -373,7 +375,7 @@ export default function payslip() {
                         </div>
 
 
-                  
+
 
 
                         <div className="form-group ">
@@ -502,9 +504,9 @@ export default function payslip() {
 
                     </div>
                     <div className="grid grid-cols-2 gap-4 w-1/2 content-start">
-                    <p className="font-bold">DEDUCTONS</p>
-                    <p></p>
-                    <div className="form-group ">
+                        <p className="font-bold">DEDUCTONS</p>
+                        <p></p>
+                        <div className="form-group ">
                             <p>Pension</p>
                             <FormatMoneyComponentReport
                                 name="pension"
@@ -538,17 +540,41 @@ export default function payslip() {
                                 required={true}
                             />
                         </div>
+                        <div className="form-group ">
+                            <p>Other Relief (Include reason)</p>
+                            <FormatMoneyComponentReport
+                                name="other_relief"
+                                control={control}
+                                defaultValue={"0"}
+                                onValueChange={(v) => setNumberVal({ amount: v })}
+                                ref={registerForm()}
+                                required={true}
+                            />
+                        </div>
+
+                        <div className="form-group ">
+                            <p>Reason for Other Relief</p>
+                            <textarea name="other_relief_notes" id="" cols="30" rows="2"></textarea>
+                        </div>
 
                         <p></p>
                         <p className="font-bold">TAX CALCULATION</p>
                         <p></p>
                         <div className="form-group">
-                            <p className="font-bold">Tax</p>
-                            <p className="font-bold">{formatNumber(tax)}</p>
+                            <p className="font-bold">Gross Income</p>
+                            <p className="font-bold">{formatNumber(Number(housing) + Number(basic) + Number(trans_allw) + Number(leave_allw) + Number(utilities) + Number(other_allw) + Number(benefits) + Number(month_13))}</p>
                         </div>
                         <div className="form-group">
                             <p className="font-bold">Consolidated Relief</p>
                             <p className="font-bold">{formatNumber(consolidatedRelief)}</p>
+                        </div>
+                        <div className="form-group">
+                            <p className="font-bold">Taxable Income</p>
+                            <p className="font-bold">{formatNumber(tax)}</p>
+                        </div>
+                        <div className="form-group">
+                            <p className="font-bold">Tax Payable</p>
+                            <p className="font-bold">{formatNumber(tax)}</p>
                         </div>
                     </div>
                 </div>
