@@ -14,8 +14,9 @@ import Loader from "react-loader-spinner";
 import Widget1 from "../dashboard/widget-1";
 import * as Icons from '../Icons/index';
 import { ViewTccTable } from "../tables/viewTccTable";
+import { ViewAllPayeTccTable } from "../tables/viewAllPayeTccTable";
 
-const TccList = () => {
+const AllPayeTccList = () => {
   const [tccdata, setTccData] = useState(() => []);
   const [isFetching, setIsFetching] = useState(() => true);
  
@@ -24,7 +25,7 @@ const TccList = () => {
     let num = 1
     const fetchPost = async () => {
       try {
-        let res = await axios.get(`${url.BASE_URL}forma/list-tcc`);
+        let res = await axios.get(`${url.BASE_URL}paye/list-tcc`);
         res = res.data.body.tcc;
         let records = [];
         for (let i = 0; i < res.length; i++) {
@@ -50,7 +51,7 @@ console.log(tccdata);
 
   return (
     <>
-      <SectionTitle title="View TCC" subtitle="Tcc List " />
+      <SectionTitle subtitle="PAYE TCC" />
 
       {isFetching && (
         <div className="flex justify-center item mb-2">
@@ -66,9 +67,9 @@ console.log(tccdata);
           <p>Fetching data...</p>
         </div>
       )}
-          <ViewTccTable tccdata={tccdata} />
+          <ViewAllPayeTccTable tccdata={tccdata} />
     </>
   );
 };
 
-export default TccList;
+export default AllPayeTccList;

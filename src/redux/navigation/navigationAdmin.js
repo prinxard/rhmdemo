@@ -164,7 +164,12 @@ const initialState = [
                 items: [],
               },
               {
-                title: 'View',
+                title: 'View All',
+                url: '/view/listpayetcc/alltcc',
+                items: [],
+              },
+              {
+                title: 'View Print',
                 url: '/view/listpayetcc',
                 items: [],
               },

@@ -7,9 +7,10 @@ import url from "../../config/url";
 import setAuthToken from "../../functions/setAuthToken";
 import Loader from "react-loader-spinner";
 import { ViewSingleTccTable } from "../tables/viewTccTable";
+import { ViewSinglePayeTcc } from "../tables/viewAllPayeTccTable";
 
 
-const SingleTcc = () => {
+const SinglePayeTcc = () => {
   const [isFetching, setIsFetching] = useState(() => true);
   const [tccdata, setTccData] = useState(() => []);
   const [assess1, setAssess1] = useState(() => []);
@@ -27,7 +28,8 @@ const SingleTcc = () => {
       setAuthToken();
       const fetchPost = async () => {
         try {
-          let res = await axios.post(`${url.BASE_URL}forma/view-tcc`, id);
+          let res = await axios.post(`${url.BASE_URL}paye/view-tcc`, id);
+          console.log("res", res);
           let fetctTcc = res.data.body;
           let tccdat = fetctTcc.tcc
           let firstass = fetctTcc.assessment1
@@ -70,7 +72,7 @@ const SingleTcc = () => {
               <p>Fetching data...</p>
             </div>
           ) :
-            <ViewSingleTccTable
+            <ViewSinglePayeTcc
               tccID={tccID}
               payerDetails={tccdata}
               assessmentData={assess1}
@@ -84,4 +86,4 @@ const SingleTcc = () => {
   );
 };
 
-export default SingleTcc;
+export default SinglePayeTcc;
