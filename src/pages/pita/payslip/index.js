@@ -23,7 +23,6 @@ export default function payslip() {
     const [station, setTaxStation] = useState([])
     const [numberVal, setNumberVal] = useState({ amount: "" });
     const [createError, setCreateError] = useState("");
-    const [reliefNote, setReliefNote] = useState("hidden");
 
 
     const router = useRouter();
