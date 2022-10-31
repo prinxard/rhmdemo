@@ -26,15 +26,12 @@ const PrintSingleTccPaye = () => {
       const fetchPost = () => {
         
            axios.post(`${url.BASE_URL}paye/view-tcc`, id)
-           .then(function (resoonse) {
-             let fetctTcc = resoonse.data.body.tcc[0];
-             let payslipY1 = resoonse.data.body.payslipY1[0];
-             let payslipY2 = resoonse.data.body.payslipY2[0];
-             let payslipY3 = resoonse.data.body.payslipY3[0];
-             console.log("fetctTcc", fetctTcc);
-             console.log("payslipY1", payslipY1);
-             console.log("payslipY2", payslipY2);
-             console.log("payslipY3", payslipY3);
+           .then(function (response) {
+             let fetctTcc = response.data.body.tcc[0];
+             console.log("response", response);
+             let payslipY1 = response.data.body.payslipY1[0];
+             let payslipY2 = response.data.body.payslipY2[0];
+             let payslipY3 = response.data.body.payslipY3[0];
              setYrOnePaySl(payslipY1)
              setYrTwoPaySl(payslipY2)
              setYrThreePaySl(payslipY3)

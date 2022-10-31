@@ -14,6 +14,9 @@ const SinglePayeTcc = () => {
   const [tccdata, setTccData] = useState(() => []);
   const [tccID, setTccID] = useState(() => []);
   const [statusTCC, setTccStatus] = useState("");
+  const [yrOnePaySl, setYrOnePaySl] = useState(() => []);
+  const [yrTwoPaySl, setYrTwoPaySl] = useState(() => []);
+  const [yrThreePaySl, setYrThreePaySl] = useState(() => []);
 
   const router = useRouter();
   useEffect(() => {
@@ -32,9 +35,14 @@ const SinglePayeTcc = () => {
             console.log("Response", response);
             let fetctTcc = response.data.body.tcc[0];
             let status = response.data.body.tcc[0].status
+            let payslipY1 = response.data.body.payslipY1[0];
+            let payslipY2 = response.data.body.payslipY2[0];
+            let payslipY3 = response.data.body.payslipY3[0];
             setTccStatus(status)
             setTccData(fetctTcc)
-            console.log(fetctTcc);
+            setYrOnePaySl(payslipY1)
+            setYrTwoPaySl(payslipY2)
+            setYrThreePaySl(payslipY3)
 
           })
           .catch(function (error) {
@@ -74,6 +82,9 @@ const SinglePayeTcc = () => {
               tccID={tccID}
               payerDetails={tccdata}
               statusTCC={statusTCC}
+              yrOnePaySl={yrOnePaySl}
+              yrTwoPaySl={yrTwoPaySl}
+              yrThreePaySl={yrThreePaySl}
             />
           }
         </>

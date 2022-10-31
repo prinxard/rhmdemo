@@ -1,10 +1,5 @@
 import Widget from "../widget";
-import { formatNumber } from "../../functions/numbers";
 import * as Icons from '../Icons/index';
-import Widget1 from "../dashboard/widget-1";
-import dateformat from "dateformat";
-import Link from 'next/link';
-import CustomButton from "../CustomButton/CustomButton";
 import MaterialTable, { MTableToolbar } from "material-table";
 import Search from '@material-ui/icons/Search'
 import ViewColumn from '@material-ui/icons/ViewColumn'
@@ -30,6 +25,7 @@ import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
+import { formatNumber } from "../../functions/numbers";
 
 const fields = [
   {
@@ -131,7 +127,7 @@ export const ViewAllPayeTccTable = ({ tccdata }) => {
   );
 };
 
-export const ViewSinglePayeTcc = ({ tccID, payerDetails, statusTCC }) => {
+export const ViewSinglePayeTcc = ({ tccID, yrOnePaySl, yrTwoPaySl, yrThreePaySl, payerDetails, statusTCC }) => {
   const [isFetching, setIsFetching] = useState(false)
   const [declineModal, setDeclineModal] = useState(false);
   const { config, palettes, auth } = useSelector(
@@ -147,8 +143,6 @@ export const ViewSinglePayeTcc = ({ tccID, payerDetails, statusTCC }) => {
   const {
     register,
     handleSubmit,
-    control,
-    formState: { errors },
   } = useForm()
 
 
@@ -171,7 +165,7 @@ export const ViewSinglePayeTcc = ({ tccID, payerDetails, statusTCC }) => {
     e.preventDefault()
     setIsFetching(true)
     let verifyTcc = {
-      id: `${tccID}`,
+      id: tccID,
       status: "Verified"
     }
     try {
@@ -190,7 +184,7 @@ export const ViewSinglePayeTcc = ({ tccID, payerDetails, statusTCC }) => {
     e.preventDefault()
     setIsFetching(true)
     let auditTcc = {
-      id: `${tccID}`,
+      id: tccID,
       status: "Audit Checked"
     }
     try {
@@ -209,7 +203,7 @@ export const ViewSinglePayeTcc = ({ tccID, payerDetails, statusTCC }) => {
     e.preventDefault()
     setIsFetching(true)
     let printTcc = {
-      id: `${tccID}`,
+      id: tccID,
       status: "Print Authorized"
     }
     try {
@@ -228,7 +222,7 @@ export const ViewSinglePayeTcc = ({ tccID, payerDetails, statusTCC }) => {
     e.preventDefault()
     setIsFetching(true)
     let approveTcc = {
-      id: `${tccID}`,
+      id: tccID,
       status: "Approved"
     }
     try {
@@ -246,7 +240,7 @@ export const ViewSinglePayeTcc = ({ tccID, payerDetails, statusTCC }) => {
   const Decline = (data) => {
     setIsFetching(true)
     let declineTcc = {
-      id: `${tccID}`,
+      id: tccID,
       decline_comment: data.comment,
       status: "Declined"
     }
@@ -262,6 +256,11 @@ export const ViewSinglePayeTcc = ({ tccID, payerDetails, statusTCC }) => {
         setIsFetching(false)
       })
   }
+
+
+
+
+  console.log("Tcc data", payerDetails);
 
   return (
     <>
@@ -315,7 +314,7 @@ export const ViewSinglePayeTcc = ({ tccID, payerDetails, statusTCC }) => {
         <div>
           {statusTCC === "Declined" ?
             <div className="flex justify-between">
-              <button
+              {/* <button
                 className="btn bg-green-600 mb-3 btn-default text-white btn-outlined bg-transparent rounded-md"
                 type="submit"
               >
@@ -326,7 +325,7 @@ export const ViewSinglePayeTcc = ({ tccID, payerDetails, statusTCC }) => {
                 {payerDetails.map((el) => (
                   <p className="mb-3">{el.comments}</p>
                 ))}
-              </div>
+              </div> */}
             </div> :
             <div className="mb-6">
               <div>
@@ -582,7 +581,7 @@ export const ViewSinglePayeTcc = ({ tccID, payerDetails, statusTCC }) => {
               <div className="mb-6 grid grid-cols-3 gap-4">
                 <label>Processing Fee:</label>
                 <div>
-                  <input readOnly type="text" defaultValue={formatNumber(payerDetails.prc_fee)} className="form-control w-full rounded"
+                  <input readOnly type="text" value={formatNumber(payerDetails.prc_fee)} className="form-control w-full rounded"
                   />
                 </div>
               </div>
@@ -604,7 +603,7 @@ export const ViewSinglePayeTcc = ({ tccID, payerDetails, statusTCC }) => {
               <div className="mb-6 grid grid-cols-2 gap-3">
                 <label>Gross Income </label>
                 <div>
-                  <input readOnly defaultValue={formatNumber(payerDetails.incYr_1)} className="form-control w-full rounded" type="text"
+                  <input readOnly value={formatNumber(payerDetails.incYr_1)} className="form-control w-full rounded" type="text"
                   />
                 </div>
               </div>
@@ -612,15 +611,7 @@ export const ViewSinglePayeTcc = ({ tccID, payerDetails, statusTCC }) => {
               <div className="mb-6 grid grid-cols-2 gap-3">
                 <label>Consolidated Relief</label>
                 <div>
-                  <input readOnly defaultValue={formatNumber(payerDetails.consolidated_relief)} className="form-control w-full rounded" type="text"
-                  />
-                </div>
-              </div>
-
-              <div className="mb-6 grid grid-cols-2 gap-3">
-                <label>Other Relief</label>
-                <div>
-                  <input readOnly className="form-control w-full rounded" type="text"
+                  <input readOnly value={formatNumber(yrOnePaySl.consolidated_relief)} className="form-control w-full rounded" type="text"
                   />
                 </div>
               </div>
@@ -628,7 +619,7 @@ export const ViewSinglePayeTcc = ({ tccID, payerDetails, statusTCC }) => {
               <div className="mb-6 grid grid-cols-2 gap-3">
                 <label>Taxable Income</label>
                 <div>
-                  <input readOnly className="form-control w-full rounded" type="text"
+                  <input readOnly value={formatNumber(Number(payerDetails.incYr_1) - (Number(yrOnePaySl.consolidated_relief) + Number(yrOnePaySl.other_relief)))} className="form-control w-full rounded" type="text"
                   />
                 </div>
               </div>
@@ -636,7 +627,7 @@ export const ViewSinglePayeTcc = ({ tccID, payerDetails, statusTCC }) => {
               <div className="mb-6 grid grid-cols-2 gap-3">
                 <label>Tax Payable</label>
                 <div>
-                  <input readOnly defaultValue={formatNumber(payerDetails.taxYr_1)} className="form-control w-full rounded" type="text"
+                  <input readOnly value={formatNumber(payerDetails.taxYr_1)} className="form-control w-full rounded" type="text"
                   />
                 </div>
               </div>
@@ -646,20 +637,21 @@ export const ViewSinglePayeTcc = ({ tccID, payerDetails, statusTCC }) => {
               <h6 className="text-center mb-6">Year 2</h6>
               <div className="mb-6 justify-self-center">
                 <div>
-                  <input readOnly defaultValue={payerDetails.assmtYr_2} className="form-control w-full rounded" type="text"
-                  />
-                </div>
-              </div>
-              <div className="mb-6 justify-self-center">
-                <div>
-                  <input readOnly className="form-control w-full rounded" type="text"
+                  <input readOnly value={payerDetails.assmtYr_2} className="form-control w-full rounded" type="text"
                   />
                 </div>
               </div>
 
               <div className="mb-6 justify-self-center">
                 <div>
-                  <input readOnly className="form-control w-full rounded" type="text"
+                  <input readOnly value={formatNumber(payerDetails.incYr_2)} className="form-control w-full rounded" type="text"
+                  />
+                </div>
+              </div>
+
+              <div className="mb-6 justify-self-center">
+                <div>
+                  <input readOnly value={yrTwoPaySl === undefined || yrTwoPaySl === [] ? null : formatNumber(yrTwoPaySl.consolidated_relief)} className="form-control w-full rounded" type="text"
                   />
                 </div>
               </div>
@@ -667,21 +659,14 @@ export const ViewSinglePayeTcc = ({ tccID, payerDetails, statusTCC }) => {
 
               <div className="mb-6 justify-self-center">
                 <div>
-                  <input readOnly className="form-control w-full rounded" type="text"
+                  <input readOnly value={formatNumber(yrTwoPaySl === undefined || yrTwoPaySl === [] ? null : formatNumber(Number(payerDetails.incYr_2) - (Number(yrTwoPaySl.consolidated_relief) + Number(yrTwoPaySl.other_relief))))} className="form-control w-full rounded" type="text"
                   />
                 </div>
               </div>
 
               <div className="mb-6 justify-self-center">
                 <div>
-                  <input readOnly name="other_income" className="form-control w-full rounded" type="text"
-                  />
-                </div>
-              </div>
-
-              <div className="mb-6 justify-self-center">
-                <div>
-                  <input readOnly name="assmt_2" className="form-control w-full rounded" type="text"
+                  <input readOnly value={formatNumber(payerDetails.taxYr_2)} className="form-control w-full rounded" type="text"
                   />
                 </div>
               </div>
@@ -698,34 +683,27 @@ export const ViewSinglePayeTcc = ({ tccID, payerDetails, statusTCC }) => {
 
               <div className="mb-6 justify-self-center">
                 <div>
-                  <input readOnly className="form-control w-full rounded" type="text"
+                  <input readOnly value={formatNumber(payerDetails.incYr_3)} className="form-control w-full rounded" type="text"
                   />
                 </div>
               </div>
 
               <div className="mb-6 justify-self-center">
                 <div>
-                  <input readOnly className="form-control w-full rounded" type="text"
+                  <input readOnly value={yrThreePaySl === undefined || yrThreePaySl === [] ? null : formatNumber(yrThreePaySl.consolidated_relief)} className="form-control w-full rounded" type="text"
+                  />
+                </div>
+              </div>
+              <div className="mb-6 justify-self-center">
+                <div>
+                  <input readOnly value={(yrThreePaySl === undefined || yrThreePaySl === [] ? null : formatNumber(Number(payerDetails.incYr_3) - (Number(yrThreePaySl.consolidated_relief) + Number(yrThreePaySl.other_relief))))} className="form-control w-full rounded" type="text"
                   />
                 </div>
               </div>
 
               <div className="mb-6 justify-self-center">
                 <div>
-                  <input readOnly className="form-control w-full rounded" type="text"
-                  />
-                </div>
-              </div>
-              <div className="mb-6 justify-self-center">
-                <div>
-                  <input readOnly className="form-control w-full rounded" type="text"
-                  />
-                </div>
-              </div>
-
-              <div className="mb-6 justify-self-center">
-                <div>
-                  <input readOnly className="form-control w-full rounded" type="text"
+                  <input readOnly value={formatNumber(payerDetails.taxYr_3)} className="form-control w-full rounded" type="text"
                   />
                 </div>
 
