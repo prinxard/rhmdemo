@@ -57,8 +57,8 @@ export default function payslip() {
     )
 
     let otherReliefWatch = watch("other_relief", "0").replace(/,/g, '')
-    let watch_relief_notes = watch("other_relief_notes", "").replace(/,/g, '')
-    console.log("otherReliefWatch", otherReliefWatch);
+    let watch_relief_notes = watch("other_relief_notes", "")
+    
 
     let housing = watch("housing", "0").replace(/,/g, '')
     let trans_allw = watch("trans_allw", "0").replace(/,/g, '')
@@ -570,7 +570,7 @@ export default function payslip() {
                             </div>
                             <div className="form-group">
                                 <p>Reason for Other Relief</p>
-                                <textarea name="other_relief_notes" id="" cols="30" rows="2"></textarea>
+                                <textarea name="other_relief_notes" ref={registerForm()}id="" cols="30" rows="2"></textarea>
                             </div>
                             <p className="form-group"></p>
 

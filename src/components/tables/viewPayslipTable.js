@@ -180,12 +180,12 @@ export const ViewPayslipTable = ({ tccdata }) => {
               onClick: (event, rowData) => router.push(`/view/payslip/${rowData.id}`),
 
             },
-            // {
-            //   icon: Edit,
-            //   tooltip: 'Edit',
-            //   onClick: (event, rowData) => router.push(`/view/payslip/edit/${rowData.id}`),
+            {
+              icon: Edit,
+              tooltip: 'Edit',
+              onClick: (event, rowData) => router.push(`/view/payslip/edit/${rowData.id}`),
 
-            // },
+            },
             {
               icon: Delete,
               tooltip: 'Delete',

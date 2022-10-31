@@ -12,6 +12,7 @@ import Loader from 'react-loader-spinner';
 import { FormatMoneyComponentReport } from '../../../../components/FormInput/formInputs';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Widget from '../../../../components/widget';
 
 function UpdatePayslip() {
     const [id, setId] = useState("")
@@ -31,6 +32,9 @@ function UpdatePayslip() {
         { mode: "onBlur", }
     )
 
+    let otherReliefWatch = watch("other_relief", "0").replace(/,/g, '')
+    let watch_relief_notes = watch("other_relief_notes", "").replace(/,/g, '')
+
     useEffect(() => {
         const fetchPost = async () => {
             try {
@@ -46,39 +50,43 @@ function UpdatePayslip() {
     }, [])
 
     const updatePayslip = (data) => {
-        setIsFetching(true)
-        data.id = id
-        data.consolidated_relief = consolidatedRelief
-        data.basic = (data.basic).replace(/,/g, '')
-        data.other_allw = (data.other_allw).replace(/,/g, '')
-        data.pension = (data.pension).replace(/,/g, '')
-        data.nhf = (data.nhf).replace(/,/g, '')
-        data.benefits = (data.benefits).replace(/,/g, '')
-        data.lap = (data.lap).replace(/,/g, '')
-        data.housing = (data.housing).replace(/,/g, '')
-        data.trans_allw = (data.trans_allw).replace(/,/g, '')
-        data.leave_allw = (data.leave_allw).replace(/,/g, '')
-        data.utilities = (data.utilities).replace(/,/g, '')
-        data.upfront = (data.upfront).replace(/,/g, '')
-        data.month_13 = (data.month_13).replace(/,/g, '')
-        data.housing = (data.housing).replace(/,/g, '')
-        data.payroll_year = payroll_year
-        data.tax = tax
+        if (otherReliefWatch > 0 && watch_relief_notes === "") {
+            alert("Please fill out the reason for other relief")
+        } else {
+            setIsFetching(true)
+            data.id = id
+            data.consolidated_relief = consolidatedRelief
+            data.basic = (data.basic).replace(/,/g, '')
+            data.other_allw = (data.other_allw).replace(/,/g, '')
+            data.pension = (data.pension).replace(/,/g, '')
+            data.nhf = (data.nhf).replace(/,/g, '')
+            data.benefits = (data.benefits).replace(/,/g, '')
+            data.lap = (data.lap).replace(/,/g, '')
+            data.housing = (data.housing).replace(/,/g, '')
+            data.other_relief = (data.other_relief).replace(/,/g, '')
+            data.trans_allw = (data.trans_allw).replace(/,/g, '')
+            data.leave_allw = (data.leave_allw).replace(/,/g, '')
+            data.utilities = (data.utilities).replace(/,/g, '')
+            data.upfront = (data.upfront).replace(/,/g, '')
+            data.month_13 = (data.month_13).replace(/,/g, '')
+            data.housing = (data.housing).replace(/,/g, '')
+            data.payroll_year = payroll_year
+            data.tax = tax
 
-
-        axios.put(`${url.BASE_URL}paye/payslip`, data)
-            .then(function (response) {
-                setIsFetching(false)
-                toast.success("updated Successfully!");
-            })
-            .catch(function (error) {
-                setIsFetching(false)
-                if (error.response) {
-                    setCreateError(() => error.response.data.message);
-                } else {
-                    toast.error("Failed to update!");
-                }
-            })
+            axios.put(`${url.BASE_URL}paye/payslip`, data)
+                .then(function (response) {
+                    setIsFetching(false)
+                    toast.success("updated Successfully!");
+                })
+                .catch(function (error) {
+                    setIsFetching(false)
+                    if (error.response) {
+                        setCreateError(() => error.response.data.message);
+                    } else {
+                        toast.error("Failed to update!");
+                    }
+                })
+        }
     }
 
     setAuthToken();
@@ -90,7 +98,7 @@ function UpdatePayslip() {
                 try {
                     setIsFetching(false);
                     let res = await axios.get(`${url.BASE_URL}paye/payslip?id=${payslipId}`);
-                    let fetchPayslip = res.data.body;
+                    let fetchPayslip = res.data.body.payroll;
                     setPayslipData(fetchPayslip)
                     console.log(fetchPayslip);
                 } catch (e) {
@@ -109,6 +117,7 @@ function UpdatePayslip() {
     let other_allw = watch("other_allw", "0").replace(/,/g, '')
     let benefits = watch("benefits", "0").replace(/,/g, '')
     let pension = watch("pension", "0").replace(/,/g, '')
+    let month_13 = watch("month_13", "0").replace(/,/g, '')
     let nhf = watch("nhf", "0").replace(/,/g, '')
     let lap = watch("lap", "0").replace(/,/g, '')
     let basic = watch("basic", "0").replace(/,/g, '')
@@ -118,7 +127,7 @@ function UpdatePayslip() {
     let consolidatedRelief
     let tax
 
-    let allowance = (Number(housing) + Number(trans_allw) + Number(leave_allw) + Number(utilities) + Number(other_allw) + Number(benefits));
+    let allowance = (Number(housing) + Number(trans_allw) + Number(month_13) + Number(leave_allw) + Number(utilities) + Number(other_allw) + Number(benefits));
     let totalRelief = (Number(pension) + Number(nhf) + Number(lap));
 
     let consolidatedIncome = (Number(basic) + Number(allowance));
@@ -214,239 +223,280 @@ function UpdatePayslip() {
                 </div>
             )}
             {payslipData.map((data) => (
-                <form onSubmit={handleSubmit(updatePayslip)} className="border mb-3 block p-6 rounded-lg bg-white w-full">
+
+
+                <form onSubmit={handleSubmit(updatePayslip)} className="border mb-3 block p-6 rounded-lg w-full">
                     <p className="text-red-600 mb-3">{createError}</p>
-                    <div className="flex gap-2 justify-center ">
+                    <Widget>
+                        <div className="flex gap-2 justify-center ">
+                            {/* <div className="grid grid-cols-2 gap-4 w-1/2 border-r"> */}
+                            <div className="grid grid-cols-3 gap-4">
+                                <div className="form-group ">
+                                    <p>Organization/Employer <small className="font-bold text-red-600">*</small></p>
+                                    <input name="org_id" ref={register()} value={data.org_id} required readOnly type="text" className="form-control  w-full rounded font-light text-gray-500"
+                                    />
+                                </div>
 
-                        <div className="grid grid-cols-2 gap-4 w-1/2 border-r pr-3">
+                                <div className="form-group ">
+                                    <p>Taxpayer/Employee <small className="font-bold text-red-600">*</small></p>
+                                    <input name="paye_tp" ref={register()} value={data.paye_tp} required readOnly type="text" className="form-control  w-full rounded font-light text-gray-500"
+                                    />
+                                </div>
+                                <div className="form-group ">
+                                    <p className="block">Year <small className="font-bold text-red-600">*</small></p>
+                                    <Controller
+                                        name="payroll_year"
+                                        ref={register()}
+                                        control={control}
+                                        defaultValue={new Date(`${data.payroll_year}`)}
+                                        render={({ onChange, value }) => {
+                                            return (
+                                                <DatePicker
+                                                    className="form-control w-full rounded"
+                                                    onChange={onChange}
+                                                    selected={value}
+                                                    showYearPicker
+                                                    dateFormat="yyyy"
+                                                    yearItemNumber={8}
+                                                    placeholderText="Select Year"
+                                                    required={true}
+                                                />
+                                            );
+                                        }}
+                                    />
 
-                            <div className="form-group">
-                                <p>Organization/Employer</p>
-                                <input name="org_id" ref={register()} required defaultValue={data.org_id} readOnly type="text" className="form-control  w-full rounded font-light text-gray-500"
-                                />
+                                </div>
+
+
+                                <div className="form-group ">
+                                    <p>Number of months <small className="font-bold text-red-600">*</small></p>
+                                    <input name="no_months" defaultValue={data.no_months} ref={register()} type="number" className="form-control  w-full rounded font-light text-gray-500"
+                                    />
+                                </div>
+
+
+                                <div className="form-group ">
+                                    <p>Tax Office <small className="font-bold text-red-600">*</small></p>
+                                    <select required ref={register()} name="tax_office" className="form-control  SlectBox w-full rounded font-light text-gray-500">
+                                        <option defaultValue={data.tax_office}>{data.tax_office}</option>
+                                        {station.map((office) => <option key={office.idstation} value={office.station_code}>{office.name}</option>)}
+                                    </select>
+                                </div>
+
+
+                                <div className="form-group ">
+                                    <p>Rank/G-Level</p>
+                                    <input name="rank" defaultValue={data.rank} ref={register()} type="text" className="form-control  w-full rounded font-light text-gray-500"
+                                    />
+                                </div>
+
                             </div>
-
-                            <div className="form-group">
-                                <p>Taxpayer/Employee</p>
-                                <input name="paye_tp" ref={register()} required defaultValue={data.paye_tp} readOnly type="text" className="form-control  w-full rounded font-light text-gray-500"
-                                />
-                            </div>
-
-                            <div className="form-group">
-                                <p className="block">Year <small className="font-bold text-red-600">*</small></p>
-                                <Controller
-                                    name="payroll_year"
-                                    ref={register()}
-                                    control={control}
-                                    defaultValue={new Date(`${data.payroll_year}`)}
-                                    render={({ onChange, value }) => {
-                                        return (
-                                            <DatePicker
-                                                className="form-control w-full rounded"
-                                                onChange={onChange}
-                                                selected={value}
-                                                showYearPicker
-                                                dateFormat="yyyy"
-                                                yearItemNumber={8}
-                                                placeholderText="Select Year"
-                                            />
-                                        );
-                                    }}
-                                />
-
-                            </div>
-
-                            <div className="form-group ">
-                                <p>Number of months <small className="font-bold text-red-600">*</small></p>
-                                <input name="no_months" defaultValue={data.no_months} ref={register()} type="number" className="form-control  w-full rounded font-light text-gray-500"
-                                />
-                            </div>
-
-
-                            <div className="form-group ">
-                                <p>Gross Income <small className="font-bold text-red-600">*</small></p>
-                                <FormatMoneyComponentReport
-                                    ref={register()}
-                                    name="basic"
-                                    control={control}
-                                    defaultValue={data.basic}
-                                    onValueChange={(v) => setNumberVal({ amount: v })}
-                                    required={true}
-                                />
-                            </div>
-
-
-                            <div className="form-group ">
-                                <p>Tax Office <small className="font-bold text-red-600">*</small></p>
-                                <select required ref={register()} defaultValue={data.tax_office} name="tax_office" className="form-control  SlectBox w-full rounded font-light text-gray-500">
-                                    {station.map((office) => <option key={office.idstation} value={office.station_code}>{office.name}</option>)}
-                                </select>
-                            </div>
-
-
-                            <div className="form-group ">
-                                <p>Rank/G-Level</p>
-                                <input name="rank" defaultValue={data.rank} ref={register()} type="text" className="form-control  w-full rounded font-light text-gray-500"
-                                />
-                            </div>
-
-
-
-                            <div className="form-group ">
-                                <p>Pension</p>
-                                <FormatMoneyComponentReport
-                                    name="pension"
-                                    control={control}
-                                    defaultValue={data.pension}
-                                    onValueChange={(v) => setNumberVal({ amount: v })}
-                                    ref={register()}
-                                    required={true}
-                                />
-                            </div>
-                            <div className="form-group ">
-                                <p>National Housing Fund (NHF)</p>
-                                <FormatMoneyComponentReport
-                                    name="nhf"
-                                    control={control}
-                                    defaultValue={data.nhf}
-                                    onValueChange={(v) => setNumberVal({ amount: v })}
-                                    ref={register()}
-                                    required={true}
-                                />
-                            </div>
-                            <div className="form-group ">
-                                <p>Life Assurance (LAP)</p>
-                                <FormatMoneyComponentReport
-                                    name="lap"
-                                    control={control}
-                                    defaultValue={data.lap}
-                                    onValueChange={(v) => setNumberVal({ amount: v })}
-                                    ref={register()}
-                                    required={true}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <p className="font-bold">Tax</p>
-                                <p className="font-bold">{formatNumber(tax)}</p>
-                            </div>
-                            <div className="form-group">
-                                <p className="font-bold">Consolidated Relief</p>
-                                <p className="font-bold">{formatNumber(consolidatedRelief)}</p>
-                            </div>
-
                         </div>
-                        <div className="grid grid-cols-2 gap-4 w-1/2 content-start">
+                    </Widget>
 
-                            <div className="form-group ">
-                                <p>Leave Allowance</p>
-                                <FormatMoneyComponentReport
-                                    name="leave_allw"
-                                    control={control}
-                                    defaultValue={data.leave_allw}
-                                    onValueChange={(v) => setNumberVal({ amount: v })}
-                                    ref={register()}
-                                    required={true}
-                                />
+                    <Widget>
+                        <div className="flex gap-2 justify-center">
+                            <div className="grid grid-cols-2 gap-4 w-1/2 border-r pr-3">
+                                <p className="font-bold">INCOME </p>
+                                <p></p>
+                                <div className="form-group ">
+                                    <p>Annual Salary <small className="font-bold text-red-600">*</small></p>
+                                    <FormatMoneyComponentReport
+                                        ref={register()}
+                                        name="basic"
+                                        control={control}
+                                        defaultValue={data.basic}
+                                        onValueChange={(v) => setNumberVal({ amount: v })}
+                                        required={true}
+                                    />
+                                </div>
+
+                                <div className="form-group ">
+                                    <p>Housing Allowance</p>
+                                    <FormatMoneyComponentReport
+                                        name="housing"
+                                        control={control}
+                                        defaultValue={data.housing}
+                                        onValueChange={(v) => setNumberVal({ amount: v })}
+                                        ref={register()}
+                                        required={true}
+                                    />
+                                </div>
+
+                                <div className="form-group ">
+                                    <p>Transport Allowance</p>
+                                    <FormatMoneyComponentReport
+                                        name="trans_allw"
+                                        control={control}
+                                        defaultValue={data.trans_allw}
+                                        onValueChange={(v) => setNumberVal({ amount: v })}
+                                        ref={register()}
+                                        required={true}
+                                    />
+                                </div>
+
+                                <div className="form-group ">
+                                    <p>Leave Allowance</p>
+                                    <FormatMoneyComponentReport
+                                        name="leave_allw"
+                                        control={control}
+                                        defaultValue={data.leave_allw}
+                                        onValueChange={(v) => setNumberVal({ amount: v })}
+                                        ref={register()}
+                                        required={true}
+                                    />
+                                </div>
+
+                                <div className="form-group ">
+                                    <p>Utilities</p>
+                                    <FormatMoneyComponentReport
+                                        name="utilities"
+                                        control={control}
+                                        defaultValue={data.utilities}
+                                        onValueChange={(v) => setNumberVal({ amount: v })}
+                                        ref={register()}
+                                        required={true}
+                                    />
+                                </div>
+
+                                <div className="form-group ">
+                                    <p>Other Allowance</p>
+                                    <FormatMoneyComponentReport
+                                        name="other_allw"
+                                        control={control}
+                                        defaultValue={data.other_allw}
+                                        onValueChange={(v) => setNumberVal({ amount: v })}
+                                        ref={register()}
+                                        required={true}
+                                    />
+                                </div>
+
+                                <div className="form-group ">
+                                    <p>Upfront</p>
+                                    <FormatMoneyComponentReport
+                                        name="upfront"
+                                        control={control}
+                                        defaultValue={data.upfront}
+                                        onValueChange={(v) => setNumberVal({ amount: v })}
+                                        ref={register()}
+                                        required={true}
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <p>Benefits</p>
+                                    <FormatMoneyComponentReport
+                                        name="benefits"
+                                        control={control}
+                                        defaultValue={data.benefits}
+                                        onValueChange={(v) => setNumberVal({ amount: v })}
+                                        ref={register()}
+                                        required={true}
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <p>Thirteenth Month</p>
+                                    <FormatMoneyComponentReport
+                                        name="month_13"
+                                        control={control}
+                                        defaultValue={data.month_13}
+                                        onValueChange={(v) => setNumberVal({ amount: v })}
+                                        ref={register()}
+                                        required={true}
+                                    />
+                                </div>
                             </div>
 
-                            <div className="form-group ">
-                                <p>Transport Allowance</p>
-                                <FormatMoneyComponentReport
-                                    name="trans_allw"
-                                    control={control}
-                                    defaultValue={data.trans_allw}
-                                    onValueChange={(v) => setNumberVal({ amount: v })}
-                                    ref={register()}
-                                    required={true}
-                                />
-                            </div>
 
-                            <div className="form-group ">
-                                <p>Other Allowance</p>
-                                <FormatMoneyComponentReport
-                                    name="other_allw"
-                                    control={control}
-                                    defaultValue={data.other_allw}
-                                    onValueChange={(v) => setNumberVal({ amount: v })}
-                                    ref={register()}
-                                    required={true}
-                                />
-                            </div>
+                            <div className="grid grid-cols-2 gap-4 w-1/2 content-start">
+                                <p className="font-bold">DEDUCTONS</p>
+                                <p></p>
+                                <div className="form-group ">
+                                    <p>Pension</p>
+                                    <FormatMoneyComponentReport
+                                        name="pension"
+                                        control={control}
+                                        defaultValue={data.pension}
+                                        onValueChange={(v) => setNumberVal({ amount: v })}
+                                        ref={register()}
+                                        required={true}
+                                    />
+                                </div>
 
-                            <div className="form-group ">
-                                <p>Housing Allowance</p>
-                                <FormatMoneyComponentReport
-                                    name="housing"
-                                    control={control}
-                                    defaultValue={data.housing}
-                                    onValueChange={(v) => setNumberVal({ amount: v })}
-                                    ref={register()}
-                                    required={true}
-                                />
-                            </div>
+                                <div className="form-group ">
+                                    <p>National Housing Fund (NHF)</p>
+                                    <FormatMoneyComponentReport
+                                        name="nhf"
+                                        control={control}
+                                        defaultValue={data.nhf}
+                                        onValueChange={(v) => setNumberVal({ amount: v })}
+                                        ref={register()}
+                                        required={true}
+                                    />
+                                </div>
+                                <div className="form-group ">
+                                    <p>Life Assurance (LAP)</p>
+                                    <FormatMoneyComponentReport
+                                        name="lap"
+                                        control={control}
+                                        defaultValue={data.lap}
+                                        onValueChange={(v) => setNumberVal({ amount: v })}
+                                        ref={register()}
+                                        required={true}
+                                    />
+                                </div>
+                                <div className="form-group ">
+                                    <p>Other Relief (Include reason)</p>
+                                    <FormatMoneyComponentReport
+                                        name="other_relief"
+                                        control={control}
+                                        defaultValue={data.other_relief}
+                                        onValueChange={(v) => setNumberVal({ amount: v })}
+                                        ref={register()}
+                                        required={true}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <p>Reason for Other Relief</p>
+                                    <textarea defaultValue={data.other_relief_notes} ref={register()} name="other_relief_notes" id="" cols="30" rows="2"></textarea>
+                                </div>
+                                <p className="form-group"></p>
 
-                            <div className="form-group ">
-                                <p>Utilities</p>
-                                <FormatMoneyComponentReport
-                                    name="utilities"
-                                    control={control}
-                                    defaultValue={data.utilities}
-                                    onValueChange={(v) => setNumberVal({ amount: v })}
-                                    ref={register()}
-                                    required={true}
-                                />
-                            </div>
-                            <div className="form-group ">
-                                <p>Upfront</p>
-                                <FormatMoneyComponentReport
-                                    name="upfront"
-                                    control={control}
-                                    defaultValue={data.upfront}
-                                    onValueChange={(v) => setNumberVal({ amount: v })}
-                                    ref={register()}
-                                    required={true}
-                                />
-                            </div>
-                            <div className="form-group ">
-                                <p>Thirteenth Month</p>
-                                <FormatMoneyComponentReport
-                                    name="month_13"
-                                    control={control}
-                                    defaultValue={data.month_13}
-                                    onValueChange={(v) => setNumberVal({ amount: v })}
-                                    ref={register()}
-                                    required={true}
-                                />
-                            </div>
+                                <p className="font-bold">TAX CALCULATION</p>
+                                <p></p>
 
-
-                            <div className="form-group ">
-                                <p>Benefits</p>
-                                <FormatMoneyComponentReport
-                                    name="benefits"
-                                    control={control}
-                                    defaultValue={data.benefits}
-                                    onValueChange={(v) => setNumberVal({ amount: v })}
-                                    ref={register()}
-                                    required={true}
-                                />
+                                <div className="form-group">
+                                    <p className="font-bold">Gross Income</p>
+                                    <p className="font-bold">{formatNumber(gross_inc)}</p>
+                                </div>
+                                <div className="form-group">
+                                    <p className="font-bold">Consolidated Relief</p>
+                                    <p className="font-bold">{formatNumber(consolidatedRelief)}</p>
+                                </div>
+                                <div className="form-group">
+                                    <p className="font-bold">Taxable Income</p>
+                                    <p className="font-bold">{formatNumber(gross_inc - ((consolidatedRelief + totalRelief)))}</p>
+                                </div>
+                                <div className="form-group">
+                                    <p className="font-bold">Tax Payable</p>
+                                    <p className="font-bold">{formatNumber(tax)}</p>
+                                </div>
                             </div>
-
-
                         </div>
-                    </div>
+                    </Widget>
+
                     <div className="flex justify-center">
                         <button
 
                             style={{ backgroundColor: "#84abeb" }}
                             className="btn btn-default text-white my-4 btn-outlined bg-transparent rounded-md"
                         >
-                            Update
+                            Submit
                         </button>
 
                     </div>
                 </form>
-
             ))}
         </>
     )
