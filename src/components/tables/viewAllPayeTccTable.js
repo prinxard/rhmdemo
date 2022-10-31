@@ -202,12 +202,12 @@ export const ViewSinglePayeTcc = ({ tccID, yrOnePaySl, yrTwoPaySl, yrThreePaySl,
   const PrintAuthorized = async (e) => {
     e.preventDefault()
     setIsFetching(true)
-    let printTcc = {
+    let printAuth = {
       id: tccID,
       status: "Print Authorized"
     }
     try {
-      let res = await axios.put(`${url.BASE_URL}paye/tcc-status`, printTcc);
+      let res = await axios.put(`${url.BASE_URL}paye/tcc-status`, printAuth);
       setIsFetching(false)
       router.push('/view/listpayetcc/alltcc')
       toast.success("Success!");
