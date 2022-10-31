@@ -430,21 +430,27 @@ export const ViewSinglePayslip = ({ paySlipData }) => {
                   </h6>
                   <div className="shadow-lg w-full">
                     <div className="w-full p-2">
-                      <h1 className="text-sm ">Gross Annual Salary</h1>
+                      <h1 className="text-sm ">Gross Income </h1>
                       <span className="text-black font-semibold">
                         {formatNumber(Number(data.basic) + Number(data.housing) + Number(data.other_allw) + Number(data.trans_allw) + Number(data.leave_allw))}
-                      </span>
-                    </div>
-                    <div className="w-full p-2">
-                      <h1 className="text-sm ">Tax</h1>
-                      <span className="text-black font-semibold">
-                        {formatNumber(data.tax)}
                       </span>
                     </div>
                     <div className="w-full p-2">
                       <h1 className="text-sm ">Consolidated Relief</h1>
                       <span className="text-black font-semibold">
                         {formatNumber(data.consolidated_relief)}
+                      </span>
+                    </div>
+                    <div className="w-full p-2">
+                      <h1 className="text-sm ">Taxable Income</h1>
+                      <span className="text-black font-semibold">
+                        {formatNumber((Number(data.basic) + Number(data.housing) + Number(data.other_allw) + Number(data.trans_allw) + Number(data.leave_allw))- data.consolidated_relief)}
+                      </span>
+                    </div>
+                    <div className="w-full p-2">
+                      <h1 className="text-sm ">Tax Payable</h1>
+                      <span className="text-black font-semibold">
+                        {formatNumber(data.tax)}
                       </span>
                     </div>
                   </div>

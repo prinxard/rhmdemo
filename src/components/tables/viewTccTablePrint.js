@@ -247,13 +247,13 @@ export const ViewSingleTccPrintTable = ({
   let date = printPrintTime
   let due_date = new Date(date)
   let dueDateYear = due_date.getFullYear()
-  console.log("date year", due_date.getFullYear());
-  // due_date.setDate(due_date.getDate() + 365);
-  // let expiry = dateformat(due_date, "dd mmm yyyy")
+ 
+
 
   let Issdate = new Date()
   let Issdue_date = new Date(Issdate)
   let dateIssue = dateformat(Issdue_date, "dd mmm yyyy")
+
 
 
   setAuthToken();
