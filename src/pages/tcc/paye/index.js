@@ -30,7 +30,12 @@ function index() {
         { mode: "onBlur", }
     )
 
+    let yr1Gross = (Number(payslipYear1.basic) + Number(payslipYear1.housing) + Number(payslipYear1.trans_allw) + Number(payslipYear1.leave_allw) + Number(payslipYear1.other_allw) + Number(payslipYear1.benefits) + Number(payslipYear1.utilities))
+    let yr2Gross = (Number(payslipYear2.basic) + Number(payslipYear2.housing) + Number(payslipYear2.trans_allw) + Number(payslipYear2.leave_allw) + Number(payslipYear2.other_allw) + Number(payslipYear2.benefits) + Number(payslipYear2.utilities))
+    let yr3Gross = (Number(payslipYear3.basic) + Number(payslipYear3.housing) + Number(payslipYear3.trans_allw) + Number(payslipYear3.leave_allw) + Number(payslipYear3.other_allw) + Number(payslipYear3.benefits) + Number(payslipYear3.utilities))
+
     console.log("payslipYear1", payslipYear1);
+
     const {
         register: registerkgtin,
         handleSubmit: handleSubmitkgtin,
@@ -327,7 +332,7 @@ function index() {
                         <div className="mb-6 grid grid-cols-2 gap-3">
                             <label>Gross Income</label>
                             <div>
-                                <input readOnly name="incYr_1" value={formatNumber(Number(payslipYear1.basic) + Number(payslipYear1.housing) + Number(payslipYear1.trans_allw) + Number(payslipYear1.leave_allw) + Number(payslipYear1.other_allw) + Number(payslipYear1.benefits) + Number(payslipYear1.utilities))} className="form-control w-full rounded" ref={register()} type="text"
+                                <input readOnly name="incYr_1" value={formatNumber(yr1Gross)} className="form-control w-full rounded" ref={register()} type="text"
                                 />
                             </div>
                         </div>
@@ -342,7 +347,7 @@ function index() {
                         <div className="mb-6 grid grid-cols-2 gap-3">
                             <label>Taxable Income </label>
                             <div>
-                                <input readOnly name="" value={formatNumber(payslipYear1.tax)} className="form-control w-full rounded" ref={register()} type="text"
+                                <input readOnly name="" value={formatNumber(yr1Gross - (Number(payslipYear1.consolidated_relief) + Number(payslipYear1.other_relief)))} className="form-control w-full rounded" ref={register()} type="text"
                                 />
                             </div>
                         </div>
@@ -386,7 +391,7 @@ function index() {
                         <div className="mb-6 justify-self-center">
 
                             <div>
-                                <input readOnly name="incYr_2" value={formatNumber(Number(payslipYear2.basic) + Number(payslipYear2.housing) + Number(payslipYear2.trans_allw) + Number(payslipYear2.leave_allw) + Number(payslipYear2.other_allw) + Number(payslipYear2.benefits) + Number(payslipYear2.utilities))} className="form-control w-full rounded" ref={register()} type="text"
+                                <input readOnly name="incYr_2" value={formatNumber(yr2Gross)} className="form-control w-full rounded" ref={register()} type="text"
                                 />
                             </div>
 
@@ -400,7 +405,7 @@ function index() {
                         </div>
                         <div className="mb-6 justify-self-center">
                             <div>
-                                <input readOnly value={formatNumber(payslipYear2.tax)} className="form-control w-full rounded" ref={register()} type="text"
+                                <input readOnly value={formatNumber(yr2Gross - (Number(payslipYear2.consolidated_relief) + Number(payslipYear2.other_relief)))} className="form-control w-full rounded" ref={register()} type="text"
                                 />
                             </div>
                         </div>
@@ -441,7 +446,7 @@ function index() {
 
                         <div className="mb-6 justify-self-center">
                             <div>
-                                <input readOnly name="incYr_3" value={formatNumber(Number(payslipYear3.basic) + Number(payslipYear3.housing) + Number(payslipYear3.trans_allw) + Number(payslipYear3.leave_allw) + Number(payslipYear3.other_allw) + Number(payslipYear3.benefits) + Number(payslipYear3.utilities))} className="form-control w-full rounded" ref={register()} type="text"
+                                <input readOnly name="incYr_3" value={formatNumber(yr3Gross)} className="form-control w-full rounded" ref={register()} type="text"
                                 />
                             </div>
                         </div>
@@ -455,7 +460,7 @@ function index() {
 
                         <div className="mb-6 justify-self-center">
                             <div>
-                                <input readOnly value={formatNumber(payslipYear3.tax)} className="form-control w-full rounded" ref={register()} type="text"
+                                <input readOnly value={formatNumber(yr3Gross - (Number(payslipYear3.consolidated_relief) + Number(payslipYear3.other_relief)))} className="form-control w-full rounded" ref={register()} type="text"
                                 />
                             </div>
                         </div>
@@ -466,7 +471,6 @@ function index() {
                                 />
                             </div>
                         </div>
-
 
                     </div>
                 </div>

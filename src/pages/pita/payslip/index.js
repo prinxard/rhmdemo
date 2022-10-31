@@ -251,6 +251,7 @@ export default function payslip() {
                 .then(function (response) {
                     setIsFetching(false)
                     toast.success("Created Successfully!");
+                    setCreateError("")
                 })
                 .catch(function (error) {
                     setIsFetching(false)
