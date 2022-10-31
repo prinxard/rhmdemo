@@ -48,7 +48,7 @@ const fields = [
   },
   {
     title: "Tax Office",
-    field: "tax_office",
+    field: "tax_station",
   },
   {
     title: "Create Time",
@@ -204,7 +204,7 @@ export const ViewSinglePayeTcc = ({ tccID, yrOnePaySl, yrTwoPaySl, yrThreePaySl,
     setIsFetching(true)
     let printAuth = {
       id: tccID,
-      status: "Print Authorized"
+      status: "Authorized for print"
     }
     try {
       let res = await axios.put(`${url.BASE_URL}paye/tcc-status`, printAuth);
@@ -501,7 +501,7 @@ export const ViewSinglePayeTcc = ({ tccID, yrOnePaySl, yrTwoPaySl, yrThreePaySl,
                 }
               </div>
               <div>
-                {statusTCC === "Print Authorized" ?
+                {statusTCC === "Authorized for print" ?
                   <div className="flex justify-between">
                     <div className="flex mr-3">
                       {/* <button

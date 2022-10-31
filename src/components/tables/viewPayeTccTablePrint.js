@@ -386,7 +386,6 @@ export const ViewSinglePayeTccPrintTable = ({
                       </tr>
 
 
-
                       <tr>
                         <td className="">
                           <p className="font-bold">{PayeTccData.assmtYr_3}</p>
