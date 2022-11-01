@@ -351,6 +351,7 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
                 <option value="undertaxed">Undertaxed</option>
                 <option value="PITA">Downward with PITA</option>
                 <option value="no_PITA">Downward without PITA</option>
+                <option value="document_review">Document Review</option>
               </select>
             </form>
 
