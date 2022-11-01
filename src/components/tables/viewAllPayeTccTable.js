@@ -706,7 +706,6 @@ export const ViewSinglePayeTcc = ({ tccID, yrOnePaySl, yrTwoPaySl, yrThreePaySl,
                   <input readOnly value={formatNumber(payerDetails.taxYr_3)} className="form-control w-full rounded" type="text"
                   />
                 </div>
-
               </div>
             </div>
           </div>
