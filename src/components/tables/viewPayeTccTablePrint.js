@@ -284,7 +284,7 @@ export const ViewSinglePayeTccPrintTable = ({
                   </div>
                 </div>
                 <p> <span className="font-bold">1.</span> This is to certify that <span className="font-bold">{PayeTccData.taxpayer_name}</span> </p>
-                <p>of <span className="font-bold">{PayeTccData.address}</span></p>
+                <p>of <span className="font-bold">{PayeTccData.employer}</span></p>
                 <div>
                   <p>fully paid his/her Personal Income Tax for the past years, that is: <span>
                     {`${PayeTccData.assmtYr_2 !== "" ? `${PayeTccData.assmtYr_1},` : PayeTccData.assmtYr_1} ${PayeTccData.assmtYr_3 !== "" ? `${PayeTccData.assmtYr_2},` : PayeTccData.assmtYr_2} ${PayeTccData.assmtYr_3}`}
@@ -330,13 +330,13 @@ export const ViewSinglePayeTccPrintTable = ({
                           Year
                         </th>
                         <th>
-                          Gross Income
+                        Gross Emoluments 
                         </th>
                         <th className="">
                           Taxable Income
                         </th>
                         <th className="">
-                          Tax Payable
+                          Tax Paid
                         </th>
                         <th className="">
                           Assessment Type

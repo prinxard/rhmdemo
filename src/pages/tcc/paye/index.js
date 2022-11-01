@@ -83,7 +83,7 @@ function index() {
             data.taxYr_2 = (data.taxYr_2).replace(/,/g, '')
             data.taxYr_3 = (data.taxYr_3).replace(/,/g, '')
             data.tp_id = taxpayerInfo.KGTIN
-            data.employer = payslipYear1.org_id
+            data.employer = payslipYear1.orgName
 
             axios.post(`${url.BASE_URL}paye/tcc`, data)
                 .then(function (response) {
