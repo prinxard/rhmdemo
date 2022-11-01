@@ -26,8 +26,8 @@ const PayeTccPrintList = () => {
     let num = 1
     const fetchPost = async () => {
       try {
-        let res = await axios.get(`${url.BASE_URL}paye/list-tcc`);
-        res = res.data.body.tccPrint;
+        let res = await axios.get(`${url.BASE_URL}paye/list-tcc?status=Authorized for print`);
+        res = res.data.body
         let records = [];
         console.log(res);
         for (let i = 0; i < res.length; i++) {

@@ -415,7 +415,7 @@ export const ViewSinglePayeTccPrintTable = ({
               <div>
 
                 <p className="mb-2"><span className="font-bold">3.</span> His/her known source(s) of income are: <span>Employment, Trade/Professional</span> </p>
-                <p><span className="font-bold">4.</span> This certificate expires on: <span>31st Dec Test {dueDateYear}</span> </p>
+                <p><span className="font-bold">4.</span> This certificate expires on: <span>31st Dec {dueDateYear}</span> </p>
               </div>
 
               <div className="flex justify-between my-4">
