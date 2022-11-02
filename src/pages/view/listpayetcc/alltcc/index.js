@@ -1,5 +1,5 @@
-import AllPayeTccList from "../../../../components/payetcc/AllTcclist";
+import DraftTccList from "../../../../components/payetcc/Draft";
 
-const Index = () => <AllPayeTccList />;
+const Index = () => <DraftTccList />;
 
 export default Index;

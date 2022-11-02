@@ -164,8 +164,18 @@ const initialState = [
                 items: [],
               },
               {
-                title: 'View All',
+                title: 'View Draft',
                 url: '/view/listpayetcc/alltcc',
+                items: [],
+              },
+              {
+                title: 'View Approved',
+                url: '/view/listpayetcc/alltcc/approved',
+                items: [],
+              },
+              {
+                title: 'View Verified',
+                url: '/view/listpayetcc/alltcc/verified',
                 items: [],
               },
               {

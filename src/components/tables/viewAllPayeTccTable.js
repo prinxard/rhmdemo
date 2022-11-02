@@ -60,9 +60,139 @@ const fields = [
   }
 ];
 
+const fieldsApproved = [
+  {
+    title: "SN",
+    field: "serialNo",
+    filtering: false,
+    width: "10%"
+  },
+  {
+    title: "File Ref",
+    field: "file_ref",
+  },
+  {
+    title: "KGTIN",
+    field: "tp_id",
+  },
+  {
+    title: "Taxpayer Name",
+    field: "taxpayer_name",
+  },
+  {
+    title: "Tax Office",
+    field: "tax_station",
+  },
+  {
+    title: "Create Time",
+    field: "crt_time",
+  },
+  {
+    title: "Status",
+    field: "status",
+  }
+];
+
+const fieldsVerified = [
+  {
+    title: "SN",
+    field: "serialNo",
+    filtering: false,
+    width: "10%"
+  },
+  {
+    title: "File Ref",
+    field: "file_ref",
+  },
+  {
+    title: "KGTIN",
+    field: "tp_id",
+  },
+  {
+    title: "Taxpayer Name",
+    field: "taxpayer_name",
+  },
+  {
+    title: "Tax Office",
+    field: "tax_station",
+  },
+  {
+    title: "Create Time",
+    field: "crt_time",
+  },
+  {
+    title: "Status",
+    field: "status",
+  }
+];
 
 
-export const ViewAllPayeTccTable = ({ tccdata }) => {
+
+export const ViewDraftPayeTccTable = ({ tccdata }) => {
+  let items = tccdata;
+  const { config, palettes, auth } = useSelector(
+    (state) => ({
+      config: state.config,
+      palettes: state.palettes,
+      auth: state.authentication.auth,
+    }),
+    shallowEqual
+  );
+
+  const reportRange = [39]
+  const decoded = jwt.decode(auth);
+  const userGroup = decoded.groups
+
+  return (
+    <>
+      <MaterialTable title="Draft Tcc List"
+        data={items}
+        columns={fields}
+
+        options={{
+          search: true,
+          paging: true,
+          filtering: true,
+          exportButton: {
+            csv: true,
+            pdf: false
+          },
+          exportAllData: true,
+
+        }}
+        icons={{
+          Check: Check,
+          DetailPanel: ChevronRight,
+          Export: SaveAlt,
+          Filter: () => <Icons.Filter />,
+          FirstPage: FirstPage,
+          LastPage: LastPage,
+          NextPage: ChevronRight,
+          PreviousPage: ChevronLeft,
+          Search: Search,
+          ThirdStateCheck: Remove,
+          Clear: Clear,
+          SortArrow: ArrowDownward
+        }}
+
+        onRowClick={(event, rowData) => {
+          window.open(`/view/listpayetcc/alltcc/${rowData.id}`, "_self")
+          event.stopPropagation();
+          // if (userGroup.some(r => reportRange.includes(r))) {
+          //   ''
+
+          // } else {
+
+          //   window.open(`/view/listtcc/${rowData.id}`, "_self")
+          //   event.stopPropagation();
+          // }
+        }}
+      />
+    </>
+  );
+};
+
+export const ViewApprovedTccTable = ({ tccdata }) => {
   let items = tccdata;
 
   const { config, palettes, auth } = useSelector(
@@ -80,9 +210,74 @@ export const ViewAllPayeTccTable = ({ tccdata }) => {
 
   return (
     <>
-      <MaterialTable title="Tcc List"
+      <MaterialTable title="Approved TCC"
         data={items}
-        columns={fields}
+        columns={fieldsApproved}
+
+        options={{
+          search: true,
+          paging: true,
+          filtering: true,
+          exportButton: {
+            csv: true,
+            pdf: false
+          },
+          exportAllData: true,
+
+        }}
+        icons={{
+          Check: Check,
+          DetailPanel: ChevronRight,
+          Export: SaveAlt,
+          Filter: () => <Icons.Filter />,
+          FirstPage: FirstPage,
+          LastPage: LastPage,
+          NextPage: ChevronRight,
+          PreviousPage: ChevronLeft,
+          Search: Search,
+          ThirdStateCheck: Remove,
+          Clear: Clear,
+          SortArrow: ArrowDownward
+        }}
+
+        onRowClick={(event, rowData) => {
+          window.open(`/view/listpayetcc/alltcc/${rowData.id}`, "_self")
+          event.stopPropagation();
+          // if (userGroup.some(r => reportRange.includes(r))) {
+          //   ''
+
+          // } else {
+
+          //   window.open(`/view/listtcc/${rowData.id}`, "_self")
+          //   event.stopPropagation();
+          // }
+        }}
+      />
+    </>
+  );
+};
+
+export const ViewVerifiedTccTable = ({ tccdata }) => {
+  let items = tccdata;
+
+  const { config, palettes, auth } = useSelector(
+    (state) => ({
+      config: state.config,
+      palettes: state.palettes,
+      auth: state.authentication.auth,
+    }),
+    shallowEqual
+  );
+
+  const reportRange = [39]
+  const decoded = jwt.decode(auth);
+  const userGroup = decoded.groups
+
+  return (
+    <>
+      <MaterialTable title="Verified TCC"
+        data={items}
+        columns={fieldsVerified}
 
         options={{
           search: true,
