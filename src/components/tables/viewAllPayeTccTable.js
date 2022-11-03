@@ -257,6 +257,71 @@ export const ViewApprovedTccTable = ({ tccdata }) => {
   );
 };
 
+export const ViewAuditTccTable = ({ tccdata }) => {
+  let items = tccdata;
+
+  const { config, palettes, auth } = useSelector(
+    (state) => ({
+      config: state.config,
+      palettes: state.palettes,
+      auth: state.authentication.auth,
+    }),
+    shallowEqual
+  );
+
+  const reportRange = [39]
+  const decoded = jwt.decode(auth);
+  const userGroup = decoded.groups
+
+  return (
+    <>
+      <MaterialTable title="Audit Checked"
+        data={items}
+        columns={fieldsApproved}
+
+        options={{
+          search: true,
+          paging: true,
+          filtering: true,
+          exportButton: {
+            csv: true,
+            pdf: false
+          },
+          exportAllData: true,
+
+        }}
+        icons={{
+          Check: Check,
+          DetailPanel: ChevronRight,
+          Export: SaveAlt,
+          Filter: () => <Icons.Filter />,
+          FirstPage: FirstPage,
+          LastPage: LastPage,
+          NextPage: ChevronRight,
+          PreviousPage: ChevronLeft,
+          Search: Search,
+          ThirdStateCheck: Remove,
+          Clear: Clear,
+          SortArrow: ArrowDownward
+        }}
+
+        onRowClick={(event, rowData) => {
+          window.open(`/view/listpayetcc/alltcc/${rowData.id}`, "_self")
+          event.stopPropagation();
+          // if (userGroup.some(r => reportRange.includes(r))) {
+          //   ''
+
+          // } else {
+
+          //   window.open(`/view/listtcc/${rowData.id}`, "_self")
+          //   event.stopPropagation();
+          // }
+        }}
+      />
+    </>
+  );
+};
+
 export const ViewVerifiedTccTable = ({ tccdata }) => {
   let items = tccdata;
 

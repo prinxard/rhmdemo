@@ -164,22 +164,27 @@ const initialState = [
                 items: [],
               },
               {
-                title: 'View Draft',
+                title: 'Draft',
                 url: '/view/listpayetcc/alltcc',
                 items: [],
               },
               {
-                title: 'View Approved',
-                url: '/view/listpayetcc/alltcc/approved',
-                items: [],
-              },
-              {
-                title: 'View Verified',
+                title: 'Verified',
                 url: '/view/listpayetcc/alltcc/verified',
                 items: [],
               },
               {
-                title: 'View Print',
+                title: 'Audit Checked',
+                url: '/view/listpayetcc/alltcc/audit',
+                items: [],
+              },
+              {
+                title: 'Pending E.C Sign',
+                url: '/view/listpayetcc/alltcc/approved',
+                items: [],
+              },
+              {
+                title: 'Print',
                 url: '/view/listpayetcc',
                 items: [],
               },
