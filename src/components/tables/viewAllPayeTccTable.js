@@ -26,6 +26,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { formatNumber } from "../../functions/numbers";
+import Link from "next/link";
 
 const fields = [
   {
@@ -398,7 +399,7 @@ export const ViewSinglePayeTcc = ({ tccID, yrOnePaySl, yrTwoPaySl, yrThreePaySl,
     }),
     shallowEqual
   );
-
+console.log("yrOnePaySl", yrOnePaySl);
   const router = useRouter();
   const {
     register,
@@ -597,14 +598,14 @@ export const ViewSinglePayeTcc = ({ tccID, yrOnePaySl, yrTwoPaySl, yrThreePaySl,
                         type="submit"
                       >
                         <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
-                      </button>
+                      </button> */}
 
                       <button
                         className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
                         type="submit"
                       >
-                        <Link href={`/tcc/${tccID}`}> Upload Docs</Link>
-                      </button> */}
+                        <Link href={`/tcc/paye/${tccID}_${payerDetails.tp_id}`}> Upload Docs</Link>
+                      </button>
 
                     </div>
                     {userGroup.some(r => verify.includes(r)) ?
