@@ -399,7 +399,7 @@ export const ViewSinglePayeTcc = ({ tccID, yrOnePaySl, yrTwoPaySl, yrThreePaySl,
     }),
     shallowEqual
   );
-console.log("yrOnePaySl", yrOnePaySl);
+
   const router = useRouter();
   const {
     register,
@@ -521,8 +521,6 @@ console.log("yrOnePaySl", yrOnePaySl);
 
 
 
-  console.log("Tcc data", payerDetails);
-
   return (
     <>
       <ToastContainer />
@@ -642,14 +640,14 @@ console.log("yrOnePaySl", yrOnePaySl);
                         type="submit"
                       >
                         <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
-                      </button>
+                      </button> */}
 
                       <button
                         className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
                         type="submit"
                       >
-                        <Link href={`/tcc/${tccID}`}> Upload Docs</Link>
-                      </button> */}
+                        <Link href={`/tcc/paye/${tccID}_${payerDetails.tp_id}`}> Upload Docs</Link>
+                      </button>
 
                     </div>
                     {userGroup.some(r => Audit.includes(r)) ?
@@ -685,14 +683,14 @@ console.log("yrOnePaySl", yrOnePaySl);
                         type="submit"
                       >
                         <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
-                      </button>
+                      </button> */}
 
                       <button
                         className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
                         type="submit"
                       >
-                        <Link href={`/tcc/${tccID}`}> Upload Docs</Link>
-                      </button> */}
+                        <Link href={`/tcc/paye/${tccID}_${payerDetails.tp_id}`}> Upload Docs</Link>
+                      </button>
 
                     </div>
                     {userGroup.some(r => Approval.includes(r)) ?
@@ -727,14 +725,14 @@ console.log("yrOnePaySl", yrOnePaySl);
                         type="submit"
                       >
                         <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
-                      </button>
+                      </button> */}
 
                       <button
                         className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
                         type="submit"
                       >
-                        <Link href={`/tcc/${tccID}`}> Upload Docs</Link>
-                      </button> */}
+                        <Link href={`/tcc/paye/${tccID}_${payerDetails.tp_id}`}> Upload Docs</Link>
+                      </button>
 
                     </div>
                     {userGroup.some(r => chairman.includes(r)) ?
@@ -770,32 +768,17 @@ console.log("yrOnePaySl", yrOnePaySl);
                         type="submit"
                       >
                         <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
-                      </button>
+                      </button> */}
 
                       <button
                         className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
                         type="submit"
                       >
-                        <Link href={`/tcc/${tccID}`}> Upload Docs</Link>
-                      </button> */}
+                        <Link href={`/tcc/paye/${tccID}_${payerDetails.tp_id}`}> Upload Docs</Link>
+                      </button>
 
                     </div>
                   </div> :
-                  // <div className="flex mr-3">
-                  //   <button
-                  //     className="btn bg-green-600 mr-2 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  //     type="submit"
-                  //   >
-                  //     <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
-                  //   </button>
-
-                  //   <button
-                  //     className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  //     type="submit"
-                  //   >
-                  //     <Link href={`/tcc/${tccID}`}> Upload Docs</Link>
-                  //   </button>
-                  // </div>
                   ""
                 }
               </div>
