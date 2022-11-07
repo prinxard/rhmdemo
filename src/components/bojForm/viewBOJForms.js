@@ -123,14 +123,12 @@ export const StartBOJ = () => {
   let selfEmployedF = selfemplFigure;
   let otherIncomeF = otherIncomeFigure
 
-  console.log(employedF, selfEmployedF);
 
   let consolidatedRelief;
   let chargeableIncome;
   let totalRelief;
   let totalDeduction;
   let consolidatedIncome
-
   let dev_levy
 
   useEffect(() => {
@@ -312,10 +310,10 @@ export const StartBOJ = () => {
   tax_paid = tax;
 
   let JsonTax = String(tax_paid)
-
-  console.log("T", tax_paid);
-
   dev_levy = "1000"
+
+
+
 
 
 

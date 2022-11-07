@@ -26,7 +26,6 @@ const StartAssessmentReport = () => {
   return (
     <>
       <SectionTitle title="Assessment report" />
-
      
         <>
           <StartAssessmentReportView />

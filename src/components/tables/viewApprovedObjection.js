@@ -1,18 +1,11 @@
-
 import { formatNumber } from "../../functions/numbers";
 import * as Icons from '../Icons/index';
 import dateformat from "dateformat";
-import setAuthToken from "../../functions/setAuthToken";
-import { useEffect, useState } from "react";
-import Loader from "react-loader-spinner";
-import url from '../../config/url';
-import axios from "axios";
+import { useRef } from "react";
 import { useRouter } from "next/router";
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import jwt from "jsonwebtoken";
-import { useSelector, shallowEqual, useDispatch } from "react-redux";
-import { useForm } from "react-hook-form";
+import { useSelector, shallowEqual } from "react-redux";
 import Search from '@material-ui/icons/Search'
 import SaveAlt from '@material-ui/icons/SaveAlt'
 import ChevronLeft from '@material-ui/icons/ChevronLeft'
@@ -24,8 +17,9 @@ import Remove from '@material-ui/icons/Remove'
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Clear from "@material-ui/icons/Clear";
 import MaterialTable from "material-table";
-import { FiCheck } from "react-icons/fi";
-import { FormatMoneyComponentReport } from "../FormInput/formInputs";
+import ReactToPrint from "react-to-print";
+import { KgirsLogo, KogiGov } from "../Images/Images";
+
 
 const fields = [
   {
@@ -132,62 +126,271 @@ export const ViewApprovedObjectionTable = ({ submittedData }) => {
   );
 };
 
-export const ViewApprovedObjection = ({ tpKgtin, objUploads, objectionData }) => {
-
+export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, payerAddr, payerName, DATax, objNotice, assessmentId, createdTime, recommendedTax }) => {
   const router = useRouter();
+  const componentRef = useRef();
 
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm()
-
-  const { config, palettes, auth } = useSelector(
-    (state) => ({
-      config: state.config,
-      palettes: state.palettes,
-      auth: state.authentication.auth,
-    }),
-    shallowEqual
-  );
-
-  let daAssessmentId
-  let objectionStatus
-
-  objectionData.forEach(element => {
-    daAssessmentId = element.da_assessment_id
-  });
-  objectionData.forEach(element => {
-    objectionStatus = element.status
-  });
-
-
-  const Approval = [2, 3, 1]
-  const decoded = jwt.decode(auth);
-  const userGroup = decoded.groups
+  const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
+  let today = new Date().toLocaleDateString('en-us', options);
+  let timeCreated = new Date(createdTime).toDateString()
 
 
   return (
     <>
-      <ToastContainer />
-      {/* {isFetching && (
-        <div className="flex justify-start item mb-2">
-          <Loader
-            visible={isFetching}
-            type="BallTriangle"
-            color="#00FA9A"
-            height={19}
-            width={19}
-            timeout={0}
-            className="ml-2"
+
+      <div className="m-3 flex justify-end">
+        <div>
+          <ReactToPrint
+            pageStyle='@page { size: auto; margin: 0mm; } @media print { body { -webkit-print-color-adjust: exact; padding: 40px !important; } }'
+            // pageStyle="@page { size: 7.5in 13in  }"
+            trigger={() => <button
+              type="submit" className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+            >
+              Print
+            </button>}
+            content={() => componentRef.current}
           />
-          <p>Please wait...</p>
         </div>
-      )} */}
 
-      <p>Objection letter</p>
+      </div>
 
+      <div className="">
+        {objNotice === null ? "Objection type not available"
+          :
+          <div ref={componentRef} className="p-4 mt-5">
+            <div className="flex justify-center">
+              {objNotice === "undertaxed" ?
+                <div className="text-justify text-base max-w-prose"  >
+                  {/* <div className="flex justify-between my-3">
+                    <p> <KgirsLogo /></p>
+                    <h3 className="self-center">KOGI STATE GOVERNMENT</h3>
+                    <p> <KogiGov /></p>
+                  </div> */}
+                  <p className="flex justify-between mb-3"> <span>File reference</span> {today}  </p>
+                  <p>{payerName}</p>
+                  <p>{tpKgtin}</p>
+                  <p>{payerAddr}</p>
+                  <p>Sir/Ma</p><br />
+
+                  <div>
+                    <p className="font-bold">RE: {objectionData.grounds}</p><br />
+                  </div>
+
+                  <p>The above Subject refers;</p>
+                  <p>
+                    We acknowledge the receipt of your letter dated
+                    <span className="font-bold"> {timeCreated}, </span>
+                    in respect to the objection of your Direct Assessment
+                  </p>
+                  <br />
+                  <p>
+                    We have reviewed your letter of complaint and objection along with
+                    your previous tax records with Kogi State Internal Revenue Service.
+                    The Management have looked at the reasonability of your objection
+                    and revised your assessment to <span className="font-bold">₦{formatNumber(recommendedTax)}  </span>
+                    Instead of <span className="font-bold"> ₦{formatNumber(DATax)} </span>
+                  </p><br />
+                  <p>
+                    Please Take Note that you have been previously under assessed, but
+                    Management has waived recovery of such moneys as stipulated in
+                    section 52[1] of PITA 2011 as amended.
+                  </p><br />
+
+                  <p>
+                    You are by this expected to make payments to any Kogi State Internal
+                    Revenue Service Designated banks using the Assessment Id <span className="font-bold">{assessmentId}</span>.
+                    {/* Otherwise submit the following document for the year <span className="font-bold">{year}</span> to enable
+                    us carry out proper assessment in consideration of your objection: */}
+                    {/* Please accept the assurance of our highest regards. */}
+                  </p>
+                  {/* <ul>
+                    <li>1. Audited financial statements</li>
+                    <li>2. Bank accounts of the directors and</li>
+                    <li>3. Any other relevant document to that effect</li>
+                  </ul>
+                  <br /> */}
+                  <p><br />
+                    Yours Faithfully.
+                  </p>
+                  <p>For:<span className="font-bold"> KOGI STATE INTERNAL REVENUE SERVICE </span></p><br /><br />
+                  <p className="font-bold">Sule Salihu Enehe</p>
+                  Acting Executive Chairman
+
+                </div>
+                :
+                <div>
+                  {objNotice === "no_PITA" ?
+                    <div className="text-justify text-base max-w-prose" >
+                      {/* <div className="flex justify-between my-3">
+                        <p align="left"> <KgirsLogo /></p>
+                        <h3 className="mt-9">KOGI STATE GOVERNMENT</h3>
+                        <p align="right"> <KogiGov /></p>
+                      </div> */}
+                      <p className="flex justify-between mb-3"> <span>File reference</span> {today}  </p>
+                      <p>{payerName}</p>
+                      <p>{tpKgtin}</p>
+                      <p>{payerAddr}</p>
+                      <p>Sir/Ma</p><br />
+                      <div>
+                        <p className="font-bold">RE: {objectionData.grounds}</p><br />
+                      </div>
+                      <p>The above Subject refers;</p>
+                      <p>
+                        We acknowledge the receipt of your letter dated
+                        <span className="font-bold"> {(timeCreated)}, </span>
+                        in respect to the objection of your Direct Assessment
+                      </p>
+                      <br />
+                      <p>
+                        We have reviewed your letter of complaint and objection along with
+                        your previous tax records with Kogi State Internal Revenue Service.
+                        The Management have looked at the reasonability of your objection
+                        and revised your assessment to <span className="font-bold">₦{formatNumber(recommendedTax)} </span>
+                        Instead of <span className="font-bold"> ₦{formatNumber(DATax)} </span>
+                      </p><br />
+                      <p>
+                        You are by this expected to make payments to any Kogi State Internal
+                        Revenue Service Designated banks using the Assessment Id <span className="font-bold">{assessmentId}</span>.
+                        {/* Otherwise submit the following document for the year <span className="font-bold">{year}</span> to enable
+                        us carry out proper assessment in consideration of your objection: */}
+                        {/* Please accept the assurance of our highest regards. */}
+                      </p>
+                      {/* <ul>
+                        <li>1. Audited financial statements</li>
+                        <li>2. Bank accounts of the directors and</li>
+                        <li>3. Any other relevant document to that effect</li>
+                      </ul>
+                      <br /> */}
+                      <p><br />
+                        Yours Faithfully.
+                      </p>
+                      <p>For:<span className="font-bold"> KOGI STATE INTERNAL REVENUE SERVICE </span></p><br /><br />
+                      <p className="font-bold">Sule Salihu Enehe</p>
+                      Acting Executive Chairman
+
+                    </div>
+                    :
+                    <div>
+                      {objNotice === "PITA" ?
+                        <div className="text-justify text-base max-w-prose" >
+                          {/* <div className="flex justify-between my-3">
+                            <p align="left"> <KgirsLogo /></p>
+                            <h3 className="">KOGI STATE GOVERNMENT</h3>
+                            <p align="right"> <KogiGov /></p>
+                          </div> */}
+                          <p> {today} </p>
+                          <p>{payerName}</p>
+                          <p>{tpKgtin}</p>
+                          <p>{payerAddr}</p>
+                          <p>Sir/Ma</p><br />
+                          <div>
+                            <p className="font-bold">RE: {objectionData.grounds}</p><br />
+                          </div>
+                          <p>The above Subject refers;</p>
+                          <p>
+                            We acknowledge the receipt of your letter dated
+                            <span className="font-bold"> {(timeCreated)}, </span>
+                            in respect to the objection of your Direct Assessment
+                          </p>
+                          <br />
+                          <p>
+                            We have reviewed your letter of objection in line with section 24[A] of
+                            PITA 2011 as amended.The Management have looked at the reasonability of your objection
+                            and revised your assessment to <span className="font-bold">₦{formatNumber(recommendedTax)} </span>
+                            Instead of <span className="font-bold"> ₦{formatNumber(DATax)} </span>
+                          </p><br />
+                          {/* <p>
+                            You may wish to persuse the sections 3 and 48 of the Persona Income Tax Act (PITA) 2011
+                            as ammended which create that obligation on every citezen of Nigeria
+                          </p><br /> */}
+                          <p>
+                            You are by this expected to make payments to any Kogi State Internal
+                            Revenue Service Designated banks using the Assessment Id <span className="font-bold">{assessmentId}</span>.
+                            {/* Otherwise submit the following document for the year <span className="font-bold">{year}</span> to enable
+                            us carry out proper assessment in consideration of your objection: */}
+                            {/* Please accept the assurance of our highest regards. */}
+                          </p><br />
+                          {/* <ul>
+                            <li>1. Audited financial statements</li>
+                            <li>2. Bank accounts of the directors and</li>
+                            <li>3. Any other relevant document to that effect</li>
+                          </ul> */}
+                          <br />
+                          <p>
+                            Yours Faithfully.
+                          </p>
+                          <p>For:<span className="font-bold"> KOGI STATE INTERNAL REVENUE SERVICE </span></p><br /><br />
+                          <p className="font-bold">Sule Salihu Enehe</p>
+                          Acting Executive Chairman
+
+                        </div> 
+                        : 
+                        <div>
+                          { objNotice === "document_review" ? 
+                            <div className="text-justify text-base max-w-prose" >
+                            {/* <div className="flex justify-between my-3">
+                              <p align="left"> <KgirsLogo /></p>
+                              <h3 className="">KOGI STATE GOVERNMENT</h3>
+                              <p align="right"> <KogiGov /></p>
+                            </div> */}
+                            <p> {today} </p>
+                            <p>{payerName}</p>
+                            <p>{tpKgtin}</p>
+                            <p>{payerAddr}</p>
+                            <p>Sir/Ma</p><br />
+                            <div>
+                              <p className="font-bold">RE: {objectionData.grounds}</p><br />
+                            </div>
+                            <p>The above Subject refers;</p>
+                            <p>
+                              We acknowledge the receipt of your letter dated
+                              <span className="font-bold"> {(timeCreated)}, </span>
+                              in respect to the objection of your Direct Assessment
+                            </p>
+                            <br />
+                            <p>
+                              We have reviewed your letter of objection in line with section 24[A] of
+                              PITA 2011 as amended.The Management have looked at the reasonability of your objection
+                              and revised your assessment to <span className="font-bold">₦{formatNumber(recommendedTax)} </span>
+                              Instead of <span className="font-bold"> ₦{formatNumber(DATax)} </span>
+                            </p><br />
+                            <p>
+                              You may wish to persuse the sections 3 and 48 of the Persona Income Tax Act (PITA) 2011
+                              as ammended which create that obligation on every citezen of Nigeria
+                            </p><br />
+                            <p>
+                              You are by this expected to make payments to any Kogi State Internal
+                              Revenue Service Designated banks using the Assessment Id <span className="font-bold">{assessmentId}</span>.
+                              Otherwise submit the following document for the year <span className="font-bold">{year}</span> to enable
+                              us carry out proper assessment in consideration of your objection:
+                              {/* Please accept the assurance of our highest regards. */}
+                            </p><br />
+                            <ul>
+                              <li>1. Audited financial statements</li>
+                              <li>2. Bank accounts of the directors and</li>
+                              <li>3. Any other relevant document to that effect</li>
+                            </ul>
+                            <br />
+                            <p>
+                              Yours Faithfully.
+                            </p>
+                            <p>For:<span className="font-bold"> KOGI STATE INTERNAL REVENUE SERVICE </span></p><br /><br />
+                            <p className="font-bold">Sule Salihu Enehe</p>
+                            Acting Executive Chairman
+  
+                          </div> : ""
+                          }
+                        </div>
+                      }
+                    </div>
+                  }
+
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
       <style
         jsx>{
           `

@@ -1,23 +1,29 @@
 import Widget from '../widget'
 import SectionTitle from '../section-title';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import axios from "axios";
 import Loader from 'react-loader-spinner';
 import setAuthToken from '../../functions/setAuthToken';
 import url from '../../config/url';
-import { ViewObjection } from '../tables/viewSubmittedObjection';
-import { ViewVerifiedObjection } from '../tables/viewVerifiedObjection';
-import { ViewApprovedObjection } from '../tables/viewApprovedObjection';
+import { ViewApprovedObjectionSingle } from '../tables/viewApprovedObjection';
 
 
 const ViewSingleApprovedObjection = () => {
   const router = useRouter();
   const [isFetching, setIsFetching] = useState(() => true);
   const [globalAssId, setGlobalAssId] = useState("")
+  const [objNotice, setObjNotice] = useState("")
+  const [createdTime, setCreatedTime] = useState("")
+  const [year, setYear] = useState("")
+  const [recommendedTax, setRecommTax] = useState("")
   const [objectionData, setObjectionData] = useState([])
   const [objUploads, setObjUploads] = useState([])
   const [tpKgtin, setTpKgtin] = useState([])
+  const [DATax, setAssessmentData] = useState([])
+  const [payerName, setName] = useState([])
+  const [payerAddr, setAddr] = useState([])
+
 
   useEffect(() => {
     if (router && router.query) {
@@ -25,13 +31,29 @@ const ViewSingleApprovedObjection = () => {
       let kgtin = routerData.split('_').pop()
       let assessmentId = routerData.split('_').shift()
       setGlobalAssId(assessmentId)
-      setTpKgtin(kgtin) 
       setAuthToken()
       const fetchPost = async () => {
         try {
           let res = await axios.post(`${url.BASE_URL}forma/view-objection`, { assessment_id: assessmentId });
+          console.log("res", res);
+          let directTax = res.data.body.assessment[0].tax
+          let tpName = res.data.body.taxpayer[0].tp_name
+          let tpAddr = res.data.body.taxpayer[0].address
           let objData = res.data.body.obj
+          let objDataNotice = objData.notice
+          let createTime = objData.createtime
+          let payerkgtin = objData.kgtin
+          let assessYear = objData.year
+          let mainTax = objData.tax
           let objDoc = res.data.body.objUpload
+          setTpKgtin(payerkgtin)
+          setAddr(tpAddr)
+          setName(tpName)
+          setAssessmentData(directTax)
+          setYear(assessYear)
+          setRecommTax(mainTax)
+          setCreatedTime(createTime)
+          setObjNotice(objDataNotice)
           setObjectionData(objData);
           setObjUploads(objDoc)
           setIsFetching(false);
@@ -44,12 +66,13 @@ const ViewSingleApprovedObjection = () => {
     }
   }, [router]);
 
+
   return (
 
     <>
 
       <SectionTitle title="Objection notice" />
-
+ 
       <Widget>
 
         {isFetching ? (
@@ -65,7 +88,15 @@ const ViewSingleApprovedObjection = () => {
             />
             <p>Fetching data...</p>
           </div>
-        ) : <ViewApprovedObjection
+        ) : <ViewApprovedObjectionSingle
+          createdTime={createdTime}
+          DATax={DATax}
+          year={year}
+          objNotice={objNotice}
+          payerName={payerName}
+          payerAddr={payerAddr}
+          assessmentId={globalAssId}
+          recommendedTax={recommendedTax}
           tpKgtin={tpKgtin}
           objUploads={objUploads}
           objectionData={objectionData}

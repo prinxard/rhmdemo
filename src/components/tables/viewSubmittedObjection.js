@@ -162,15 +162,15 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
     shallowEqual
   );
 
-  let daAssessmentId
-  let objectionStatus
+  let daAssessmentId = objectionData.da_assessment_id
+  let objectionStatus = objectionData.status
 
-  objectionData.forEach(element => {
-    daAssessmentId = element.da_assessment_id
-  });
-  objectionData.forEach(element => {
-    objectionStatus = element.status
-  });
+  // objectionData.forEach(element => {
+  //   daAssessmentId = element.da_assessment_id
+  // });
+  // objectionData.forEach(element => {
+  //   objectionStatus = element.status
+  // });
 
   const verifyPopup = () => {
     setVerifyModal(!verifyModal);
@@ -187,6 +187,7 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
       data.tax = (data.tax).replace(/,/g, '')
       data.assessment_id = routerAssId
       data.status = "Verified"
+      data.notice = objNotice
 
       axios.put(`${url.BASE_URL}forma/objection`, data)
         .then(function (response) {
@@ -343,13 +344,14 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
 
       <div>
         {objectionStatus === "Submitted" ?
-          <div className="flex justify-between">
-            <form className="">
+          <div className="flex justify-end">
+            <form className="mr-3">
               <select ref={register()} name="noticeobjection" className="form-control w-full rounded font-light text-gray-500">
-                <option value="">Notice of Objection</option>
-                <option value="Undertaxed">Undertaxed</option>
+                <option value="">Type of Objection</option>
+                <option value="undertaxed">Undertaxed</option>
                 <option value="PITA">Downward with PITA</option>
                 <option value="no_PITA">Downward without PITA</option>
+                <option value="document_review">Document Review</option>
               </select>
             </form>
 
@@ -434,7 +436,7 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
 
       <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
         <div className="w-full lg:w-1/2 max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
-          {objectionData.map((data) => (
+         
             <form>
               <div className="mb-2">
                 <input type="text" defaultValue={routerAssId} name="" className="form-control w-full rounded font-light text-gray-500"
@@ -443,7 +445,7 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
 
               <div className="mb-2">
                 <label> Reason for Objection</label>
-                <textarea type="text" defaultValue={data.grounds} readOnly name="" className="form-control w-full rounded font-light text-gray-500"
+                <textarea type="text" defaultValue={objectionData.grounds} readOnly name="" className="form-control w-full rounded font-light text-gray-500"
                 />
               </div>
 
@@ -454,19 +456,19 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
 
               <div className="mb-2 grid grid-cols-2 gap-2">
                 <label className="self-center font-bold">Proposed Income:</label>
-                <p className="font-bold">{formatNumber(data.income)}</p>
+                <p className="font-bold">{formatNumber(objectionData.income)}</p>
               </div>
               <div className="mb-2 grid grid-cols-2 gap-2">
                 <label className="self-center font-bold">Dev levy:</label>
-                <p className="font-bold">{formatNumber(data.dev_levy)}</p>
+                <p className="font-bold">{formatNumber(objectionData.dev_levy)}</p>
               </div>
               <div className="mb-2 grid grid-cols-2 gap-2">
                 <label className="self-center font-bold"> Tax liability:</label>
-                <p className="font-bold">{formatNumber(data.tp_tax)}</p>
+                <p className="font-bold">{formatNumber(objectionData.tp_tax)}</p>
               </div>
             </form>
 
-          ))}
+      
         </div>
 
 

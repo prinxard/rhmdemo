@@ -267,7 +267,6 @@ export const StartReportView = () => {
             </div>
           </div>
 
-
         </form>
 
         {isFetching ? (

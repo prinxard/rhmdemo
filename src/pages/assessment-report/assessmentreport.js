@@ -48,10 +48,21 @@ const fields = [
   {
     title: "Gross Income",
     field: "overallGross",
+    render: rowData => {
+      return (
+        formatNumber(Number(rowData.employed) + Number(rowData.self_employed) + Number(rowData.other_income))
+      )
+    }
   },
   {
     title: "Total Tax Due",
-    field: "totalTaxFormated",
+    field: "tax",
+    render: rowData => {
+      return (
+        formatNumber(Number(rowData.tax) + Number(rowData.add_assmt))
+      )
+    }
+
   },
   {
     title: "Dev Levy",
@@ -68,11 +79,11 @@ const fields = [
   {
     title: "Balance",
     field: "balance",
-    render: rowData => {
+    render: (rowData) => {
       return (
-        rowData.balance < "0" ? <p style={{ color: "#FF0000", fontWeight: "bold" }}>{rowData.balance}</p> :
-          rowData.balance > "0" ? <p style={{ color: "#8fce00", fontWeight: "bold" }}>{`+${rowData.balance}`}</p> :
-            <p>{rowData.balance}</p>
+        rowData.taxPaid - rowData.tax < "0" ? <p style={{ color: "#FF0000", fontWeight: "bold" }}>{rowData.taxPaid - rowData.tax}</p> :
+        rowData.taxPaid - rowData.tax > "0" ? <p style={{ color: "#8fce00", fontWeight: "bold" }}>{`+${rowData.taxPaid - rowData.tax}`}</p> :
+        <p>{(Number(rowData.taxPaid) - Number(rowData.tax))}</p>
       )
     }
   },
@@ -101,6 +112,7 @@ export default function AssessmentReportstable({ FilteredData }) {
   const router = useRouter();
 
   let items = FilteredData
+  console.log("items", items);
 
   const { config, palettes, auth } = useSelector(
     (state) => ({
@@ -124,14 +136,14 @@ export default function AssessmentReportstable({ FilteredData }) {
       <MaterialTable title="Report Data"
         data={items}
         columns={fields}
-        // renderSummaryRow={({ column, data }) =>
-        //   column.field === "taxPaid"
-        //     ? {
-        //       value: formatNumber(data.reduce((agg, row) => Number(agg) + (Number(row.taxPaid)), 0)),
-        //       style: { fontWeight: "bold" },
-        //     }
-        //     : undefined
-        // }
+        renderSummaryRow={({ column, data }) =>
+          column.field === "taxPaid"
+            ? {
+              value: formatNumber(data.reduce((agg, row) => Number(agg) + (Number(row.taxPaid)), 0)),
+              style: { fontWeight: "bold" },
+            }
+            : undefined
+        }
         options={{
           search: false,
           paging: true,

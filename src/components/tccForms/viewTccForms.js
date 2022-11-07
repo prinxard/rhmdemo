@@ -75,11 +75,11 @@ export const StartTcc = () => {
 
   setAuthToken();
   const verifiyKGTIN = async () => {
+    setIsFetching(true)
     let testkgtin = kgtEnentered
     let kgtin = {
       "KGTIN": `${testkgtin}`
     }
-    setIsFetching(true)
     try {
       let res = await axios.post(`${url.BASE_URL}taxpayer/view-taxpayers`, kgtin);
       setIsFetching(false)
@@ -132,7 +132,7 @@ export const StartTcc = () => {
     fetchPostYear1();
 
   }, [watchYear1.getFullYear()]);
-  console.log("tccerror", tccErrors);
+
 
   useEffect(() => {
     const kgtinYear = {
@@ -221,8 +221,8 @@ export const StartTcc = () => {
     }
     if (watchYear1.getFullYear() === watchYear2.getFullYear() || watchYear1.getFullYear() === watchYear3.getFullYear() || watchYear2.getFullYear() === watchYear3.getFullYear()) {
       alert("Cannot have same year twice")
-      setIsFetching2(false)
     } else {
+      setIsFetching2(false)
       axios.post(`${url.BASE_URL}forma/tcc`, createTCC)
         .then(function (response) {
           // handle success
