@@ -558,7 +558,7 @@ export default function payslip() {
                                 />
                             </div>
                             <div className="form-group ">
-                                <p>Other Relief (Include reason)</p>
+                                <p>Other Deduction (Include reason)</p>
                                 <FormatMoneyComponentReport
                                     name="other_relief"
                                     control={control}
@@ -569,7 +569,7 @@ export default function payslip() {
                                 />
                             </div>
                             <div className="form-group">
-                                <p>Reason for Other Relief</p>
+                                <p>Reason for Other Deduction</p>
                                 <textarea name="other_relief_notes" ref={registerForm()}id="" cols="30" rows="2"></textarea>
                             </div>
                             <p className="form-group"></p>

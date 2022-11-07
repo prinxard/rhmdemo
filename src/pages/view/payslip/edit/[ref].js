@@ -51,7 +51,7 @@ function UpdatePayslip() {
 
     const updatePayslip = (data) => {
         if (otherReliefWatch > 0 && watch_relief_notes === "") {
-            alert("Please fill out the reason for other relief")
+            alert("Please fill out the reason for other Deduction")
         } else {
             setIsFetching(true)
             data.id = id
@@ -447,7 +447,7 @@ function UpdatePayslip() {
                                     />
                                 </div>
                                 <div className="form-group ">
-                                    <p>Other Relief (Include reason)</p>
+                                    <p>Other Deduction (Include reason)</p>
                                     <FormatMoneyComponentReport
                                         name="other_relief"
                                         control={control}
@@ -458,7 +458,7 @@ function UpdatePayslip() {
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <p>Reason for Other Relief</p>
+                                    <p>Reason for Other Deduction</p>
                                     <textarea defaultValue={data.other_relief_notes} ref={register()} name="other_relief_notes" id="" cols="30" rows="2"></textarea>
                                 </div>
                                 <p className="form-group"></p>

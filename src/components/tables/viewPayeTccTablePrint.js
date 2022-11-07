@@ -162,7 +162,7 @@ export const ViewSinglePayeTccPrintTable = ({
   signature
 }) => {
 
-  let basdocurl = 'https://annualuploads.bespoque.dev/rhm/uploads/da/tcc/'
+  let basdocurl = 'https://annualuploads.bespoque.dev/rhm/uploads/paye/tcc/'
 
   console.log("passport", passport);
   console.log("signature", signature);

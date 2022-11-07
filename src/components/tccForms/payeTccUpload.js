@@ -17,12 +17,12 @@ export const UploadPayeeTCC = () => {
   const [filePass, setFilePass] = useState(null);
   const [fileLetter, setFileLetter] = useState(null);
   const [fileAssForm, setFileAssForm] = useState(null);
-  const [fileIntroletter, setIntroLetter] = useState(null);
+  const [fileIntroletter, setFileIntroLetter] = useState(null);
   const [uploadedFile, setUploadedFile] = useState(false);
   const [uploadedFilePass, setUploadedFilePass] = useState(false);
   const [uploadedFileLetter, setUploadedFileLetter] = useState(false);
   const [uploadedAssForm, setUploadedAssFrom] = useState(false);
-  const [uploadedFile7, setUploadedFile7] = useState(false);
+  const [uploadedIntroLetter, setUploadedIntroLetter] = useState(false);
   const [isFetching, setIsFetching] = useState(() => false);
   const [uploadErrors, setUploadErrors] = useState(() => []);
   const [tccId, setTccId] = useState([]);
@@ -302,16 +302,16 @@ export const UploadPayeeTCC = () => {
           'Content-Type': 'multipart/form-data'
         },
       });
-      setFileAssForm(null);
+      setFileIntroLetter(null);
       setIsFetching(false)
-      setUploadedAssFrom(true);
+      setUploadedIntroLetter(true);
       toast.success("Upload Successful!")
     } catch (error) {
-      setFileAssForm(null);
-      setUploadedAssFrom(false);
+      setFileIntroLetter(null);
+      setUploadedIntroLetter(false);
       setIsFetching(false)
       if (error.response) {
-        setUploadedAssFrom(false);
+        setUploadedIntroLetter(false);
         setUploadErrors(() => error.response.data.message);
         toast.error(uploadErrors)
       } else {
@@ -569,7 +569,7 @@ export const UploadPayeeTCC = () => {
                   Submit
                 </button>
 
-                {uploadedFile7 ? (
+                {uploadedIntroLetter ? (
                   <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
                     <FiCheck
                       size={18}
