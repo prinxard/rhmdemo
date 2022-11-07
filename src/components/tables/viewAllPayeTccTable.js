@@ -642,12 +642,12 @@ export const ViewSinglePayeTcc = ({ tccID, yrOnePaySl, yrTwoPaySl, yrThreePaySl,
                         <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
                       </button> */}
 
-                      <button
+                      {/* <button
                         className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
                         type="submit"
                       >
                         <Link href={`/tcc/paye/${tccID}_${payerDetails.tp_id}`}> Upload Docs</Link>
-                      </button>
+                      </button> */}
 
                     </div>
                     {userGroup.some(r => Audit.includes(r)) ?
@@ -685,12 +685,12 @@ export const ViewSinglePayeTcc = ({ tccID, yrOnePaySl, yrTwoPaySl, yrThreePaySl,
                         <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
                       </button> */}
 
-                      <button
+                      {/* <button
                         className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
                         type="submit"
                       >
                         <Link href={`/tcc/paye/${tccID}_${payerDetails.tp_id}`}> Upload Docs</Link>
-                      </button>
+                      </button> */}
 
                     </div>
                     {userGroup.some(r => Approval.includes(r)) ?
@@ -727,12 +727,12 @@ export const ViewSinglePayeTcc = ({ tccID, yrOnePaySl, yrTwoPaySl, yrThreePaySl,
                         <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
                       </button> */}
 
-                      <button
+                      {/* <button
                         className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
                         type="submit"
                       >
                         <Link href={`/tcc/paye/${tccID}_${payerDetails.tp_id}`}> Upload Docs</Link>
-                      </button>
+                      </button> */}
 
                     </div>
                     {userGroup.some(r => chairman.includes(r)) ?
@@ -770,12 +770,12 @@ export const ViewSinglePayeTcc = ({ tccID, yrOnePaySl, yrTwoPaySl, yrThreePaySl,
                         <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
                       </button> */}
 
-                      <button
+                      {/* <button
                         className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
                         type="submit"
                       >
                         <Link href={`/tcc/paye/${tccID}_${payerDetails.tp_id}`}> Upload Docs</Link>
-                      </button>
+                      </button> */}
 
                     </div>
                   </div> :
