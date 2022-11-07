@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Loader from 'react-loader-spinner';
 import url from '../../../config/url';
 import { formatNumber } from 'accounting';
+import { useRouter } from 'next/router';
 
 
 function index() {
@@ -20,6 +21,7 @@ function index() {
     const [payslipYear1, setPayslipYear1] = useState([]);
     const [payslipYear2, setPayslipYear2] = useState([]);
     const [payslipYear3, setPayslipYear3] = useState([]);
+    const router = useRouter();
     const {
         register,
         handleSubmit,
@@ -34,7 +36,6 @@ function index() {
     let yr2Gross = (Number(payslipYear2.basic) + Number(payslipYear2.housing) + Number(payslipYear2.trans_allw) + Number(payslipYear2.leave_allw) + Number(payslipYear2.other_allw) + Number(payslipYear2.benefits) + Number(payslipYear2.utilities))
     let yr3Gross = (Number(payslipYear3.basic) + Number(payslipYear3.housing) + Number(payslipYear3.trans_allw) + Number(payslipYear3.leave_allw) + Number(payslipYear3.other_allw) + Number(payslipYear3.benefits) + Number(payslipYear3.utilities))
 
-    console.log("payslipYear1", payslipYear1);
 
     const {
         register: registerkgtin,
@@ -45,19 +46,18 @@ function index() {
     )
 
 
-
-    console.log("taxpayerInfo", taxpayerInfo);
-    console.log("dirtyFields", dirtyFields);
-
     const watchYear1 = watch("assmtYr_1", "");
     const watchYear2 = watch("assmtYr_2", "");
     const watchYear3 = watch("assmtYr_3", "");
 
     setAuthToken();
-    const CreateTcc = (data) => {
+    const CreateTcc = async (data) => {
         console.log("data", data);
         if (data.taxYr_1 == 0 && data.incYr_1 == 0) {
             alert("Please provide Tax and Income figures for Year one")
+        }
+        else if (watchYear1.getFullYear() === watchYear2.getFullYear() || watchYear1.getFullYear() === watchYear3.getFullYear() || watchYear2.getFullYear() === watchYear3.getFullYear()) {
+            alert("Cannot have same year twice")
         }
         else {
             setIsFetching(true)
@@ -85,9 +85,11 @@ function index() {
             data.tp_id = taxpayerInfo.KGTIN
             data.employer = payslipYear1.orgName
 
-            axios.post(`${url.BASE_URL}paye/tcc`, data)
+            await axios.post(`${url.BASE_URL}paye/tcc`, data)
                 .then(function (response) {
                     setIsFetching(false)
+                    console.log("response", response);
+                    router.push(`/tcc/paye/${response.data.body.id}_${response.data.body.tp_id}`)
                     toast.success("Created Successfully!")
                 })
                 .catch(function (error) {
@@ -133,7 +135,6 @@ function index() {
                 setIsFetching(true)
                 axios.get(`${url.BASE_URL}paye/payslip?id=tcc&kgtin=${kgtin}&year=${year1}`)
                     .then(function (response) {
-                        console.log("response", response);
                         setIsFetching(false)
                         setPayslipYear1(response.data.body.payroll[0]);
                     })
@@ -184,7 +185,6 @@ function index() {
 
     }, [watchYear2]);
 
-    console.log("payslipYear2", payslipYear2);
 
     useEffect(() => {
 
@@ -485,6 +485,7 @@ function index() {
                     </button>
                 </div>
             </form>
+
         </>
     )
 }

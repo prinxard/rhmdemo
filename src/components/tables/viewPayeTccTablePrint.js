@@ -157,42 +157,15 @@ export const ViewSinglePayeTccPrintTable = ({
   yrOnePaySl,
   yrTwoPaySl,
   yrThreePaySl,
-  PayeTccData
+  PayeTccData,
+  passport,
+  signature
 }) => {
 
-  // console.log("PayeTccData", PayeTccData);
+  let basdocurl = 'https://annualuploads.bespoque.dev/rhm/uploads/da/tcc/'
 
-  //   const componentRef = useRef();
-
-  //   let picUpload = ""
-  //   let signature = ""
-
-  //   let printPrintTime
-
-
-  //   PayeTccData.forEach((ind, i) => {
-  //     picUpload = ind.passport.data
-  //   })
-  //   PayeTccData.forEach((ind, i) => {
-  //     signature = ind.signature.data
-  //   })
-
-  //   console.log("PayeTccData", PayeTccData);
-  //   console.log("picUpload", picUpload);
-
-  //   const base64StringPic = Buffer.from(picUpload).toString('base64')
-  //   const base64StringSig = Buffer.from(signature).toString('base64')
-
-  //   PayeTccData.forEach((ind, i) => {
-  //     printPrintTime = ind.aprvPrint_time
-  //   })
-
-  //   if (printPrintTime === undefined) {
-  //     printPrintTime = new Date()
-  //   } else {
-  //     printPrintTime = printPrintTime
-  //   }
-
+  console.log("passport", passport);
+  console.log("signature", signature);
 
 
   let date = PayeTccData.aprvPrint_time
@@ -264,14 +237,14 @@ export const ViewSinglePayeTccPrintTable = ({
                   <div className="flex">
                     <div>
                       <img
-                        src={`source`}
+                        src={`${basdocurl}${passport}`}
                         alt=""
                         className="rounded h-16 w-16"
                       />
                     </div>
                     <div className="self-end ml-2">
                       <img
-                        src={`source`}
+                        src={`${basdocurl}${signature}`}
                         alt=""
                         className="rounded h-10 w-24"
                       />

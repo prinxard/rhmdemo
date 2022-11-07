@@ -16,11 +16,6 @@ import { UploadTccForms } from "../tccForms/viewTccForms";
 
 const UploadTcc = () => {
   const [tccId, setTccId] = useState(() => []);
-  const [total, setTotal] = useState(() => []);
-  const [isFetching, setIsFetching] = useState(() => true);
-  const [currentPage, setCurrentPage] = useState(() => 1);
-  const [postPerPage, setPostPerPage] = useState(10);
-  const [query, setQuery] = useState(() => "");
   const router = useRouter();
   useEffect(() => {
     if (router && router.query) {
@@ -29,7 +24,6 @@ const UploadTcc = () => {
       console.log(createId);
     }
   }, [router]);
-
 
 
   return (
