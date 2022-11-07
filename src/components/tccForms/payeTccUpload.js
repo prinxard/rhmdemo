@@ -131,12 +131,12 @@ export const UploadPayeeTCC = () => {
     const file = e.target.files[0]
     if (file) {
       if (!file) {
-        setFileAssForm(null);
+        setFileIntroLetter(null);
         return;
       }
       if (file.type !== "image/jpeg" && file.type !== "application/pdf" && file.type !== "image/png") {
         alert("file type not allowed. only pdf, png and jpeg are allowed");
-        setFileAssForm(null);
+        setFileIntroLetter(null);
         return;
       }
       if (file.size > 1024 * 100) {
@@ -144,7 +144,7 @@ export const UploadPayeeTCC = () => {
         return
       }
       else {
-        setFileAssForm(file);
+        setFileIntroLetter(file);
       }
     }
   };
@@ -494,7 +494,7 @@ export const UploadPayeeTCC = () => {
                 required
                 type="file"
                 className="hidden"
-                id='customFile5'
+                id='assform'
                 onChange={onChangeAssForm}
                 onClick={(e) => (e.target.value = null)}
               />
@@ -504,7 +504,7 @@ export const UploadPayeeTCC = () => {
                 <p >{fileAssForm ? fileAssForm.name : ""}</p>
 
                 <label
-                  htmlFor='customFile5'
+                  htmlFor='assform'
                   style={{ backgroundColor: "#84abeb" }}
                   className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
                 >
@@ -543,7 +543,7 @@ export const UploadPayeeTCC = () => {
                 required
                 type="file"
                 className="hidden"
-                id='customFile7'
+                id='introletter'
                 onChange={onChangeIntroLetter}
                 onClick={(e) => (e.target.value = null)}
               />
@@ -553,7 +553,7 @@ export const UploadPayeeTCC = () => {
                 <p >{fileIntroletter ? fileIntroletter.name : ""}</p>
 
                 <label
-                  htmlFor='customFile7'
+                  htmlFor='introletter'
                   style={{ backgroundColor: "#84abeb" }}
                   className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
                 >
