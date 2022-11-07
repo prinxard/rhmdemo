@@ -18,11 +18,13 @@ export const UploadPayeeTCC = () => {
   const [fileLetter, setFileLetter] = useState(null);
   const [fileAssForm, setFileAssForm] = useState(null);
   const [fileIntroletter, setFileIntroLetter] = useState(null);
+  const [fileStaffID, setFileStaffId] = useState(null);
   const [uploadedFile, setUploadedFile] = useState(false);
   const [uploadedFilePass, setUploadedFilePass] = useState(false);
   const [uploadedFileLetter, setUploadedFileLetter] = useState(false);
   const [uploadedAssForm, setUploadedAssFrom] = useState(false);
   const [uploadedIntroLetter, setUploadedIntroLetter] = useState(false);
+  const [uploadedStaffID, setUploadedStaffId] = useState(false);
   const [isFetching, setIsFetching] = useState(() => false);
   const [uploadErrors, setUploadErrors] = useState(() => []);
   const [tccId, setTccId] = useState([]);
@@ -137,6 +139,28 @@ export const UploadPayeeTCC = () => {
       if (file.type !== "image/jpeg" && file.type !== "application/pdf" && file.type !== "image/png") {
         alert("file type not allowed. only pdf, png and jpeg are allowed");
         setFileIntroLetter(null);
+        return;
+      }
+      if (file.size > 1024 * 100) {
+        alert("file too large..file size should not exceed 100kb");
+        return
+      }
+      else {
+        setFileIntroLetter(file);
+      }
+    }
+  };
+
+  const onChangeStaffID = e => {
+    const file = e.target.files[0]
+    if (file) {
+      if (!file) {
+        setFileStaffId(null);
+        return;
+      }
+      if (file.type !== "image/jpeg" && file.type !== "application/pdf" && file.type !== "image/png") {
+        alert("file type not allowed. only pdf, png and jpeg are allowed");
+        setFileStaffId(null);
         return;
       }
       if (file.size > 1024 * 100) {
@@ -312,6 +336,40 @@ export const UploadPayeeTCC = () => {
       setIsFetching(false)
       if (error.response) {
         setUploadedIntroLetter(false);
+        setUploadErrors(() => error.response.data.message);
+        toast.error(uploadErrors)
+      } else {
+        toast.error("Failed to upload!");
+      }
+      console.log(error);
+    }
+
+  };
+
+  const StaffID = async (e) => {
+    e.preventDefault()
+    setIsFetching(true)
+    const formData = new FormData();
+    formData.append('tcc_id', tccId);
+    formData.append('doc_title', 'staff_id');
+    formData.append('doc_name', fileStaffID);
+    formData.append('kgtin', kgtin);
+    try {
+      const res = await axios.post(`${url.BASE_URL}paye/tcc/upload`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+      });
+      setFileStaffId(null);
+      setIsFetching(false)
+      setUploadedStaffId(true);
+      toast.success("Upload Successful!")
+    } catch (error) {
+      setFileStaffId(null);
+      setUploadedStaffId(false);
+      setIsFetching(false)
+      if (error.response) {
+        setUploadedStaffId(false);
         setUploadErrors(() => error.response.data.message);
         toast.error(uploadErrors)
       } else {
@@ -570,6 +628,54 @@ export const UploadPayeeTCC = () => {
                 </button>
 
                 {uploadedIntroLetter ? (
+                  <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <FiCheck
+                      size={18}
+                      className="stroke-current text-green-500"
+                    />
+                  </span>) : null}
+
+              </div>
+            </div>
+          </form>
+
+          <hr className="mb-2" />
+          <hr className="mb-2" />
+
+          <form onSubmit={StaffID}>
+            <div className="flex justify-between mb-5">
+              <p>Staff ID</p>
+              <input
+                required
+                type="file"
+                className="hidden"
+                id='introletter'
+                onChange={onChangeStaffID}
+                onClick={(e) => (e.target.value = null)}
+              />
+
+              <div className="flex justify-evenly">
+
+                <p >{fileStaffID ? fileStaffID.name : ""}</p>
+
+                <label
+                  htmlFor='introletter'
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                >
+                  Select File
+                </label>
+
+                <button
+                  style={{ backgroundColor: "#84abeb" }}
+                  className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
+                  type="submit"
+                // disabled={disabled3}
+                >
+                  Submit
+                </button>
+
+                {uploadedStaffID ? (
                   <span className="h-10 w-10 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
                     <FiCheck
                       size={18}

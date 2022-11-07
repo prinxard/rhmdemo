@@ -27,6 +27,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { formatNumber } from "../../functions/numbers";
 import Link from "next/link";
+import { FiCheck } from "react-icons/fi";
 
 const fields = [
   {
@@ -388,7 +389,7 @@ export const ViewVerifiedTccTable = ({ tccdata }) => {
   );
 };
 
-export const ViewSinglePayeTcc = ({ tccID, yrOnePaySl, yrTwoPaySl, yrThreePaySl, payerDetails, statusTCC }) => {
+export const ViewSinglePayeTcc = ({ tccID, uploads, yrOnePaySl, yrTwoPaySl, yrThreePaySl, payerDetails, statusTCC }) => {
   const [isFetching, setIsFetching] = useState(false)
   const [declineModal, setDeclineModal] = useState(false);
   const { config, palettes, auth } = useSelector(
@@ -788,7 +789,7 @@ export const ViewSinglePayeTcc = ({ tccID, yrOnePaySl, yrTwoPaySl, yrThreePaySl,
 
           <div className="flex border mb-3 block p-3 rounded-lg bg-white w-full">
 
-            <div className="">
+            <div className="w-full lg:w-2/3">
 
               <div className="mb-6 grid grid-cols-3 gap-2">
                 <label>Taxpayer:</label>
@@ -828,6 +829,25 @@ export const ViewSinglePayeTcc = ({ tccID, yrOnePaySl, yrTwoPaySl, yrThreePaySl,
                   <input readOnly type="text" value={formatNumber(payerDetails.prc_fee)} className="form-control w-full rounded"
                   />
                 </div>
+              </div>
+            </div>
+            <div className="w-full lg:w-1/3 border-l p-3">
+              <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
+                <div className=" mb-5">
+                  <p className="font-bold text-center">Uploaded Supporting Documents</p>
+                </div>
+                {uploads.map((data) => (
+                  <div className="flex justify-between my-3">
+                    {/* <p className="font-bold"><a href={`https://annualuploads.bespoque.dev/rhm/uploads/da/objection/`} target="_blank" className="no-underline hover:underline text-blue-500">Name</a></p> */}
+                    <p className="font-bold"><a href={`https://annualuploads.bespoque.dev/rhm/uploads/paye/tcc/${data.doc_name}`} target="_blank" className="no-underline hover:underline text-blue-500">{data.doc_title}</a></p>
+                    <span className="h-5 w-5 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                      <FiCheck
+                        size={15}
+                        className="stroke-current text-green-500"
+                      />
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
