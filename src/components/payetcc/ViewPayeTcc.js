@@ -17,6 +17,7 @@ const SinglePayeTcc = () => {
   const [yrOnePaySl, setYrOnePaySl] = useState(() => []);
   const [yrTwoPaySl, setYrTwoPaySl] = useState(() => []);
   const [yrThreePaySl, setYrThreePaySl] = useState(() => []);
+  const [uploads, setTccUploads] = useState(() => []);
 
   const router = useRouter();
   useEffect(() => {
@@ -37,6 +38,8 @@ const SinglePayeTcc = () => {
             let payslipY1 = response.data.body.payslipY1[0];
             let payslipY2 = response.data.body.payslipY2[0];
             let payslipY3 = response.data.body.payslipY3[0];
+            let TccUpload = response.data.body.tccUploads;
+            setTccUploads(TccUpload)
             setTccStatus(status)
             setTccData(fetctTcc)
             setYrOnePaySl(payslipY1)
@@ -84,6 +87,7 @@ const SinglePayeTcc = () => {
               yrOnePaySl={yrOnePaySl}
               yrTwoPaySl={yrTwoPaySl}
               yrThreePaySl={yrThreePaySl}
+              uploads={uploads}
             />
           }
         </>
