@@ -382,7 +382,7 @@ export default function payslip() {
 
                             <div className="form-group ">
                                 <p>Number of months <small className="font-bold text-red-600">*</small></p>
-                                <input name="no_months" defaultValue={"12"} ref={registerForm()} type="number" className="form-control  w-full rounded font-light text-gray-500"
+                                <input name="no_months" defaultValue={"12"} ref={registerForm()} max="12" min="1" type="number" className="form-control  w-full rounded font-light text-gray-500"
                                 />
                             </div>
 
