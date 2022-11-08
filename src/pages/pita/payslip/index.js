@@ -558,7 +558,7 @@ export default function payslip() {
                                 />
                             </div>
                             <div className="form-group ">
-                                <p>Other Deduction (Include reason)</p>
+                                <p>Other Deduction</p>
                                 <FormatMoneyComponentReport
                                     name="other_relief"
                                     control={control}
