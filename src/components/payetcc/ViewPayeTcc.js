@@ -64,7 +64,7 @@ const SinglePayeTcc = () => {
     <>
       <SectionTitle subtitle="View Tcc" />
 
-      <Widget>
+      {/* <Widget> */}
 
         <>
           {isFetching ? (
@@ -92,7 +92,7 @@ const SinglePayeTcc = () => {
             />
           }
         </>
-      </Widget>
+      {/* </Widget> */}
     </>
   );
 };

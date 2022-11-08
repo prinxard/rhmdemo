@@ -570,7 +570,7 @@ export const ViewSinglePayeTcc = ({ tccID, uploads, yrOnePaySl, yrTwoPaySl, yrTh
           <p className="font-bold">Processing...</p>
         </div>
       )}
-      <Widget>
+      
         <div>
           {statusTCC === "Declined" ?
             <div className="flex justify-between">
@@ -832,7 +832,7 @@ export const ViewSinglePayeTcc = ({ tccID, uploads, yrOnePaySl, yrTwoPaySl, yrTh
               </div>
             </div>
             <div className="w-full lg:w-1/3 border-l p-3">
-              <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
+              <div className="max-w-md mx-auto bg-white rounded-xl  overflow-hidden md:max-w-2xl p-4">
                 <div className=" mb-5">
                   <p className="font-bold text-center">Uploaded Supporting Documents</p>
                 </div>
@@ -974,7 +974,7 @@ export const ViewSinglePayeTcc = ({ tccID, uploads, yrOnePaySl, yrTwoPaySl, yrTh
             </div>
           </div>
         </div>
-      </Widget>
+     
 
       <style
         jsx>{
