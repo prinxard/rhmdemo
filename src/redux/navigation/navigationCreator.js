@@ -152,7 +152,32 @@ const initialState = [
             title: 'TCC',
             items: [
               {
-                title: 'View',
+                title: 'Create',
+                url: '/tcc/paye',
+                items: [],
+              },
+              {
+                title: 'Draft',
+                url: '/view/listpayetcc/alltcc',
+                items: [],
+              },
+              {
+                title: 'Verified',
+                url: '/view/listpayetcc/alltcc/verified',
+                items: [],
+              },
+              {
+                title: 'Audit Checked',
+                url: '/view/listpayetcc/alltcc/audit',
+                items: [],
+              },
+              {
+                title: 'Pending E.C Sign',
+                url: '/view/listpayetcc/alltcc/approved',
+                items: [],
+              },
+              {
+                title: 'Print',
                 url: '/view/listpayetcc',
                 items: [],
               },
@@ -161,6 +186,23 @@ const initialState = [
               //   url: '/unassessed-report',
               //   items: [],
               // },
+            ],
+          },
+          {
+            url: '/',
+            title: 'Income Details',
+            items: [
+              {
+                title: 'Create',
+                url: '/pita/payslip',
+                items: [],
+              },
+              {
+                title: 'view',
+                url: '/view/payslip',
+                items: [],
+              },
+
             ],
           },
           // {
