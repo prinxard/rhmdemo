@@ -168,7 +168,7 @@ export const UploadPayeeTCC = () => {
         return
       }
       else {
-        setFileIntroLetter(file);
+        setFileStaffId(file);
       }
     }
   };
@@ -649,7 +649,7 @@ export const UploadPayeeTCC = () => {
                 required
                 type="file"
                 className="hidden"
-                id='introletter'
+                id='staffid'
                 onChange={onChangeStaffID}
                 onClick={(e) => (e.target.value = null)}
               />
@@ -659,7 +659,7 @@ export const UploadPayeeTCC = () => {
                 <p >{fileStaffID ? fileStaffID.name : ""}</p>
 
                 <label
-                  htmlFor='introletter'
+                  htmlFor='staffid'
                   style={{ backgroundColor: "#84abeb" }}
                   className="btn btn-default text-white btn-outlined bg-transparent rounded-md mx-2"
                 >
