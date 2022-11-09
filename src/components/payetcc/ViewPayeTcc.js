@@ -18,6 +18,9 @@ const SinglePayeTcc = () => {
   const [yrTwoPaySl, setYrTwoPaySl] = useState(() => []);
   const [yrThreePaySl, setYrThreePaySl] = useState(() => []);
   const [uploads, setTccUploads] = useState(() => []);
+  const [slipYear1, setSlipYear1] = useState(() => []);
+  const [slipYear2, setSlipYear2] = useState(() => []);
+  const [slipYear3, setSlipYear3] = useState(() => []);
 
   const router = useRouter();
   useEffect(() => {
@@ -46,7 +49,13 @@ const SinglePayeTcc = () => {
             setYrOnePaySl(payslipY1)
             setYrTwoPaySl(payslipY2)
             setYrThreePaySl(payslipY3)
-
+            let uploadYear1 = response.data.body.payslipY1Upload
+            let uploadYear2 = response.data.body.payslipY2Upload
+            let uploadYear3 = response.data.body.payslipY3Upload
+            setSlipYear1(uploadYear1)
+            setSlipYear2(uploadYear2)
+            setSlipYear3(uploadYear3)
+            
           })
           .catch(function (error) {
             setIsFetching(false);
@@ -89,6 +98,9 @@ const SinglePayeTcc = () => {
               yrTwoPaySl={yrTwoPaySl}
               yrThreePaySl={yrThreePaySl}
               uploads={uploads}
+              slipYear1={slipYear1}
+              slipYear2={slipYear2}
+              slipYear3={slipYear3}
             />
           }
         </>

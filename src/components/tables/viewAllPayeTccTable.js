@@ -389,7 +389,7 @@ export const ViewVerifiedTccTable = ({ tccdata }) => {
   );
 };
 
-export const ViewSinglePayeTcc = ({ tccID, uploads, yrOnePaySl, yrTwoPaySl, yrThreePaySl, payerDetails, statusTCC }) => {
+export const ViewSinglePayeTcc = ({ tccID, slipYear1, slipYear2, slipYear3, uploads, yrOnePaySl, yrTwoPaySl, yrThreePaySl, payerDetails, statusTCC }) => {
   const [isFetching, setIsFetching] = useState(false)
   const [declineModal, setDeclineModal] = useState(false);
   const { config, palettes, auth } = useSelector(
@@ -570,11 +570,11 @@ export const ViewSinglePayeTcc = ({ tccID, uploads, yrOnePaySl, yrTwoPaySl, yrTh
           <p className="font-bold">Processing...</p>
         </div>
       )}
-      
-        <div>
-          {statusTCC === "Declined" ?
-            <div className="flex justify-between">
-              {/* <button
+
+      <div>
+        {statusTCC === "Declined" ?
+          <div className="flex justify-between">
+            {/* <button
                 className="btn bg-green-600 mb-3 btn-default text-white btn-outlined bg-transparent rounded-md"
                 type="submit"
               >
@@ -586,396 +586,437 @@ export const ViewSinglePayeTcc = ({ tccID, uploads, yrOnePaySl, yrTwoPaySl, yrTh
                   <p className="mb-3">{el.comments}</p>
                 ))}
               </div> */}
-            </div> :
-            <div className="mb-6">
-              <div>
-                {statusTCC === "Draft" ?
-                  <div className="flex justify-between">
-                    <div className="flex mr-3">
-                      {/* <button
+          </div> :
+          <div className="mb-6">
+            <div>
+              {statusTCC === "Draft" ?
+                <div className="flex justify-between">
+                  <div className="flex mr-3">
+                    {/* <button
                         className="btn bg-green-600 mr-2 btn-default text-white btn-outlined bg-transparent rounded-md"
                         type="submit"
                       >
                         <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
                       </button> */}
 
-                      <button
-                        className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        <Link href={`/tcc/paye/${tccID}_${payerDetails.tp_id}`}> Upload Docs</Link>
-                      </button>
+                    <button
+                      className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                      type="submit"
+                    >
+                      <Link href={`/tcc/paye/${tccID}_${payerDetails.tp_id}`}> Upload Docs</Link>
+                    </button>
 
-                    </div>
-                    {userGroup.some(r => verify.includes(r)) ?
-                      <div className="flex">
-
-                        <form onSubmit={VerifyTcc} className=" mr-3">
-                          <button
-                            className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
-                            type="submit"
-                          >
-                            Verify
-                          </button>
-                        </form>
-                        <div className=" mr-3">
-                          <button onClick={declinePopup}
-                            className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-
-                          >
-                            Decline
-                          </button>
-                        </div>
-                      </div>
-                      : ""}
-
-                  </div> : ""
-                }
-              </div>
-              <div>
-                {statusTCC === "Verified" ?
-                  <div className="flex justify-between">
-                    <div className="flex mr-3">
-                      {/* <button
-                        className="btn bg-green-600 mr-2 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
-                      </button> */}
-
-                      {/* <button
-                        className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        <Link href={`/tcc/paye/${tccID}_${payerDetails.tp_id}`}> Upload Docs</Link>
-                      </button> */}
-
-                    </div>
-                    {userGroup.some(r => Audit.includes(r)) ?
-                      <div className="flex">
-                        <form onSubmit={AuditChecked} className=" mr-3">
-                          <button
-                            className="btn bg-green-400  mr-3 btn-default text-white btn-outlined bg-transparent rounded-md"
-                            type="submit"
-                          >
-                            Audit Check
-                          </button>
-                        </form>
-                        <div className=" mr-3">
-                          <button onClick={declinePopup}
-                            className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-
-                          >
-                            Decline
-                          </button>
-                        </div>
-                      </div>
-
-                      : ""}
-                  </div> : ""
-                }
-              </div>
-              <div>
-                {statusTCC === "Audit Checked" ?
-                  <div className="flex justify-between">
-                    <div className="flex mr-3">
-                      {/* <button
-                        className="btn bg-green-600 mr-2 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
-                      </button> */}
-
-                      {/* <button
-                        className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        <Link href={`/tcc/paye/${tccID}_${payerDetails.tp_id}`}> Upload Docs</Link>
-                      </button> */}
-
-                    </div>
-                    {userGroup.some(r => Approval.includes(r)) ?
-                      <div className="flex">
-                        <form onSubmit={Approve} className=" mr-3">
-                          <button
-                            className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                            type="submit"
-                          >
-                            Approve
-                          </button>
-                        </form>
-                        <div className=" mr-3">
-                          <button onClick={declinePopup}
-                            className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-
-                          >
-                            Decline
-                          </button>
-                        </div>
-                      </div> : ""}
                   </div>
-                  : ""
-                }
-              </div>
-              <div>
-                {statusTCC === "Approved" ?
-                  <div className="flex justify-between">
-                    <div className="flex mr-3">
-                      {/* <button
-                        className="btn bg-green-600 mr-2 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
-                      </button> */}
+                  {userGroup.some(r => verify.includes(r)) ?
+                    <div className="flex">
 
-                      {/* <button
-                        className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        <Link href={`/tcc/paye/${tccID}_${payerDetails.tp_id}`}> Upload Docs</Link>
-                      </button> */}
+                      <form onSubmit={VerifyTcc} className=" mr-3">
+                        <button
+                          className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
+                          type="submit"
+                        >
+                          Verify
+                        </button>
+                      </form>
+                      <div className=" mr-3">
+                        <button onClick={declinePopup}
+                          className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
 
-                    </div>
-                    {userGroup.some(r => chairman.includes(r)) ?
-                      <div className="flex">
-                        <form onSubmit={PrintAuthorized} className=" mr-3">
-                          <button
-                            className="btn bg-green-400  mr-3 btn-default text-white btn-outlined bg-transparent rounded-md"
-                            type="submit"
-                          >
-                            Sign
-                          </button>
-                        </form>
-                        <div className=" mr-3">
-                          <button onClick={declinePopup}
-                            className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-
-                          >
-                            Decline
-                          </button>
-                        </div>
+                        >
+                          Decline
+                        </button>
                       </div>
+                    </div>
+                    : ""}
 
-                      : ""}
-                  </div> : ""
-                }
-              </div>
-              <div>
-                {statusTCC === "Authorized for print" ?
-                  <div className="flex justify-between">
-                    <div className="flex mr-3">
-                      {/* <button
+                </div> : ""
+              }
+            </div>
+            <div>
+              {statusTCC === "Verified" ?
+                <div className="flex justify-between">
+                  <div className="flex mr-3">
+                    {/* <button
                         className="btn bg-green-600 mr-2 btn-default text-white btn-outlined bg-transparent rounded-md"
                         type="submit"
                       >
                         <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
                       </button> */}
 
-                      {/* <button
+                    {/* <button
                         className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
                         type="submit"
                       >
                         <Link href={`/tcc/paye/${tccID}_${payerDetails.tp_id}`}> Upload Docs</Link>
                       </button> */}
 
-                    </div>
-                  </div> :
-                  ""
-                }
-              </div>
-            </div>
-
-          }
-
-          <div className="flex border mb-3 block p-3 rounded-lg bg-white w-full">
-
-            <div className="w-full lg:w-2/3">
-
-              <div className="mb-6 grid grid-cols-3 gap-2">
-                <label>Taxpayer:</label>
-                <div>
-                  <input readOnly type="text" defaultValue={payerDetails.taxpayer_name} className="form-control w-full rounded"
-                  />
-                </div>
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-2">
-                <label>KGTIN:</label>
-                <div>
-                  <input readOnly type="text" defaultValue={payerDetails.tp_id} className="form-control w-full rounded"
-                  />
-                </div>
-
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-2">
-                <label>File no:</label>
-                <div>
-                  <input readOnly type="text" defaultValue={payerDetails.file_ref} className="form-control w-full rounded"
-                  />
-                </div>
-              </div>
-
-              <div className="mb-6 grid grid-cols-3 gap-2">
-                <label>Tax Office:</label>
-                <div>
-                  <input readOnly type="text" defaultValue={payerDetails.tax_station} className="form-control w-full rounded"
-                  />
-                </div>
-              </div>
-              <div className="mb-6 grid grid-cols-3 gap-4">
-                <label>Processing Fee:</label>
-                <div>
-                  <input readOnly type="text" value={formatNumber(payerDetails.prc_fee)} className="form-control w-full rounded"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="w-full lg:w-1/3 border-l p-3">
-              <div className="max-w-md mx-auto bg-white rounded-xl  overflow-hidden md:max-w-2xl p-4">
-                <div className=" mb-5">
-                  <p className="font-bold text-center">Uploaded Supporting Documents</p>
-                </div>
-                {uploads.map((data) => (
-                  <div className="flex justify-between my-3">
-                    <p className="font-bold"><a href={`https://annualuploads.bespoque.dev/rhm/uploads/paye/tcc/${data.doc_name}`} target="_blank" className="no-underline hover:underline text-blue-500">{data.doc_title}</a></p>
-                    <span className="h-5 w-5 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
-                      <FiCheck
-                        size={15}
-                        className="stroke-current text-green-500"
-                      />
-                    </span>
                   </div>
-                ))}
-              </div>
-              <p className="font-bold text-center">Payslip</p>
-              <hr />
+                  {userGroup.some(r => Audit.includes(r)) ?
+                    <div className="flex">
+                      <form onSubmit={AuditChecked} className=" mr-3">
+                        <button
+                          className="btn bg-green-400  mr-3 btn-default text-white btn-outlined bg-transparent rounded-md"
+                          type="submit"
+                        >
+                          Audit Check
+                        </button>
+                      </form>
+                      <div className=" mr-3">
+                        <button onClick={declinePopup}
+                          className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+
+                        >
+                          Decline
+                        </button>
+                      </div>
+                    </div>
+
+                    : ""}
+                </div> : ""
+              }
+            </div>
+            <div>
+              {statusTCC === "Audit Checked" ?
+                <div className="flex justify-between">
+                  <div className="flex mr-3">
+                    {/* <button
+                        className="btn bg-green-600 mr-2 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                      >
+                        <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
+                      </button> */}
+
+                    {/* <button
+                        className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                      >
+                        <Link href={`/tcc/paye/${tccID}_${payerDetails.tp_id}`}> Upload Docs</Link>
+                      </button> */}
+
+                  </div>
+                  {userGroup.some(r => Approval.includes(r)) ?
+                    <div className="flex">
+                      <form onSubmit={Approve} className=" mr-3">
+                        <button
+                          className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                          type="submit"
+                        >
+                          Approve
+                        </button>
+                      </form>
+                      <div className=" mr-3">
+                        <button onClick={declinePopup}
+                          className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+
+                        >
+                          Decline
+                        </button>
+                      </div>
+                    </div> : ""}
+                </div>
+                : ""
+              }
+            </div>
+            <div>
+              {statusTCC === "Approved" ?
+                <div className="flex justify-between">
+                  <div className="flex mr-3">
+                    {/* <button
+                        className="btn bg-green-600 mr-2 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                      >
+                        <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
+                      </button> */}
+
+                    {/* <button
+                        className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                      >
+                        <Link href={`/tcc/paye/${tccID}_${payerDetails.tp_id}`}> Upload Docs</Link>
+                      </button> */}
+
+                  </div>
+                  {userGroup.some(r => chairman.includes(r)) ?
+                    <div className="flex">
+                      <form onSubmit={PrintAuthorized} className=" mr-3">
+                        <button
+                          className="btn bg-green-400  mr-3 btn-default text-white btn-outlined bg-transparent rounded-md"
+                          type="submit"
+                        >
+                          Sign
+                        </button>
+                      </form>
+                      <div className=" mr-3">
+                        <button onClick={declinePopup}
+                          className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+
+                        >
+                          Decline
+                        </button>
+                      </div>
+                    </div>
+
+                    : ""}
+                </div> : ""
+              }
+            </div>
+            <div>
+              {statusTCC === "Authorized for print" ?
+                <div className="flex justify-between">
+                  <div className="flex mr-3">
+                    {/* <button
+                        className="btn bg-green-600 mr-2 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                      >
+                        <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
+                      </button> */}
+
+                    {/* <button
+                        className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                      >
+                        <Link href={`/tcc/paye/${tccID}_${payerDetails.tp_id}`}> Upload Docs</Link>
+                      </button> */}
+
+                  </div>
+                </div> :
+                ""
+              }
             </div>
           </div>
 
-          <div className={`flex justify-between border mb-3 rounded-lg bg-white w-full`}>
+        }
 
-            <div className="p-3">
-              <h6 className="text-right mb-6">Year 1</h6>
-              <div className="mb-6 grid grid-cols-2 ">
-                <label>Income year </label>
-                <div>
-                  <input readOnly type="text" defaultValue={payerDetails.assmtYr_1} className="form-control w-full rounded"
-                  />
-                </div>
-              </div>
+        <div className="flex border mb-3 block p-3 rounded-lg bg-white w-full">
 
-              <div className="mb-6 grid grid-cols-2 gap-3">
-                <label>Gross Income </label>
-                <div>
-                  <input readOnly value={formatNumber(payerDetails.incYr_1)} className="form-control w-full rounded" type="text"
-                  />
-                </div>
-              </div>
+          <div className="w-full lg:w-2/3">
 
-              <div className="mb-6 grid grid-cols-2 gap-3">
-                <label>Consolidated Relief</label>
-                <div>
-                  <input readOnly value={formatNumber(yrOnePaySl.consolidated_relief)} className="form-control w-full rounded" type="text"
-                  />
-                </div>
-              </div>
-
-              <div className="mb-6 grid grid-cols-2 gap-3">
-                <label>Taxable Income</label>
-                <div>
-                  <input readOnly value={formatNumber(Number(payerDetails.incYr_1) - (Number(yrOnePaySl.consolidated_relief) + Number(yrOnePaySl.other_relief)))} className="form-control w-full rounded" type="text"
-                  />
-                </div>
-              </div>
-
-              <div className="mb-6 grid grid-cols-2 gap-3">
-                <label>Tax Payable</label>
-                <div>
-                  <input readOnly value={formatNumber(payerDetails.taxYr_1)} className="form-control w-full rounded" type="text"
-                  />
-                </div>
+            <div className="mb-6 grid grid-cols-3 gap-2">
+              <label>Taxpayer:</label>
+              <div>
+                <input readOnly type="text" defaultValue={payerDetails.taxpayer_name} className="form-control w-full rounded"
+                />
               </div>
             </div>
 
-            <div className="p-3 grid justify-items-stretch">
-              <h6 className="text-center mb-6">Year 2</h6>
-              <div className="mb-6 justify-self-center">
-                <div>
-                  <input readOnly value={payerDetails.assmtYr_2} className="form-control w-full rounded" type="text"
-                  />
-                </div>
+            <div className="mb-6 grid grid-cols-3 gap-2">
+              <label>KGTIN:</label>
+              <div>
+                <input readOnly type="text" defaultValue={payerDetails.tp_id} className="form-control w-full rounded"
+                />
               </div>
 
-              <div className="mb-6 justify-self-center">
-                <div>
-                  <input readOnly value={formatNumber(payerDetails.incYr_2)} className="form-control w-full rounded" type="text"
-                  />
-                </div>
-              </div>
+            </div>
 
-              <div className="mb-6 justify-self-center">
-                <div>
-                  <input readOnly value={yrTwoPaySl === undefined || yrTwoPaySl === [] ? null : formatNumber(yrTwoPaySl.consolidated_relief)} className="form-control w-full rounded" type="text"
-                  />
-                </div>
-              </div>
-
-
-              <div className="mb-6 justify-self-center">
-                <div>
-                  <input readOnly value={formatNumber(yrTwoPaySl === undefined || yrTwoPaySl === [] ? null : formatNumber(Number(payerDetails.incYr_2) - (Number(yrTwoPaySl.consolidated_relief) + Number(yrTwoPaySl.other_relief))))} className="form-control w-full rounded" type="text"
-                  />
-                </div>
-              </div>
-
-              <div className="mb-6 justify-self-center">
-                <div>
-                  <input readOnly value={formatNumber(payerDetails.taxYr_2)} className="form-control w-full rounded" type="text"
-                  />
-                </div>
+            <div className="mb-6 grid grid-cols-3 gap-2">
+              <label>File no:</label>
+              <div>
+                <input readOnly type="text" defaultValue={payerDetails.file_ref} className="form-control w-full rounded"
+                />
               </div>
             </div>
 
-            <div className="p-3 grid justify-items-stretch">
-              <h6 className="text-center mb-6">Year 3</h6>
-              <div className="mb-6 justify-self-center">
-                <div>
-                  <input readOnly defaultValue={payerDetails.assmtYr_3} className="form-control w-full rounded" type="text"
-                  />
-                </div>
+            <div className="mb-6 grid grid-cols-3 gap-2">
+              <label>Tax Office:</label>
+              <div>
+                <input readOnly type="text" defaultValue={payerDetails.tax_station} className="form-control w-full rounded"
+                />
               </div>
+            </div>
+            <div className="mb-6 grid grid-cols-3 gap-4">
+              <label>Processing Fee:</label>
+              <div>
+                <input readOnly type="text" value={formatNumber(payerDetails.prc_fee)} className="form-control w-full rounded"
+                />
+              </div>
+            </div>
+          </div>
+          <div className="w-full lg:w-1/3 border-l p-3">
+            <div className="max-w-md mx-auto bg-white rounded-xl  overflow-hidden md:max-w-2xl p-4">
+              <div className=" mb-5">
+                <p className="font-bold text-center">Uploaded Supporting Documents</p>
+              </div>
+              {uploads.map((data) => (
+                <div className="flex justify-between my-3">
+                  <p className="font-bold"><a href={`https://annualuploads.bespoque.dev/rhm/uploads/paye/tcc/${data.doc_name}`} target="_blank" className="no-underline hover:underline text-blue-500">{data.doc_title}</a></p>
+                  <span className="h-5 w-5 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <FiCheck
+                      size={15}
+                      className="stroke-current text-green-500"
+                    />
+                  </span>
+                </div>
+              ))}
+            </div>
+            <hr />
+            <div className="p-4">
+              {slipYear1.map((data) => (
+                <div className="flex justify-between my-3">
+                  {/* <p>Year 1</p> */}
+                  <p className="font-bold"> Year 1 <a href={`https://annualuploads.bespoque.dev/rhm/uploads/paye/payslip/${data.doc_name}`} target="_blank" className="no-underline hover:underline text-blue-500">{data.doc_title}</a></p>
+                  <span className="h-5 w-5 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <FiCheck
+                      size={15}
+                      className="stroke-current text-green-500"
+                    />
+                  </span>
 
-              <div className="mb-6 justify-self-center">
-                <div>
-                  <input readOnly value={formatNumber(payerDetails.incYr_3)} className="form-control w-full rounded" type="text"
-                  />
                 </div>
-              </div>
+              ))}
+              {slipYear2.map((data) => (
+                <div className="flex justify-between my-3">
+                  {/* <p>Year 2</p> */}
+                  <p className="font-bold"> Year 2 <a href={`https://annualuploads.bespoque.dev/rhm/uploads/paye/payslip/${data.doc_name}`} target="_blank" className="no-underline hover:underline text-blue-500">{data.doc_title}</a></p>
+                  <span className="h-5 w-5 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <FiCheck
+                      size={15}
+                      className="stroke-current text-green-500"
+                    />
+                  </span>
 
-              <div className="mb-6 justify-self-center">
-                <div>
-                  <input readOnly value={yrThreePaySl === undefined || yrThreePaySl === [] ? null : formatNumber(yrThreePaySl.consolidated_relief)} className="form-control w-full rounded" type="text"
-                  />
                 </div>
-              </div>
-              <div className="mb-6 justify-self-center">
-                <div>
-                  <input readOnly value={(yrThreePaySl === undefined || yrThreePaySl === [] ? null : formatNumber(Number(payerDetails.incYr_3) - (Number(yrThreePaySl.consolidated_relief) + Number(yrThreePaySl.other_relief))))} className="form-control w-full rounded" type="text"
-                  />
-                </div>
-              </div>
+              ))}
+              {slipYear3.map((data) => (
+                <div className="flex justify-between my-3">
+                  {/* <p>Year 3</p> */}
+                  <p className="font-bold"> Year 3 <a href={`https://annualuploads.bespoque.dev/rhm/uploads/paye/payslip/${data.doc_name}`} target="_blank" className="no-underline hover:underline text-blue-500">{data.doc_title}</a></p>
+                  <span className="h-5 w-5 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
+                    <FiCheck
+                      size={15}
+                      className="stroke-current text-green-500"
+                    />
+                  </span>
 
-              <div className="mb-6 justify-self-center">
-                <div>
-                  <input readOnly value={formatNumber(payerDetails.taxYr_3)} className="form-control w-full rounded" type="text"
-                  />
                 </div>
+              ))}
+
+            </div>
+          </div>
+        </div>
+
+        <div className={`flex justify-between border mb-3 rounded-lg bg-white w-full`}>
+
+          <div className="p-3">
+            <h6 className="text-right mb-6">Year 1</h6>
+            <div className="mb-6 grid grid-cols-2 ">
+              <label>Income year </label>
+              <div>
+                <input readOnly type="text" defaultValue={payerDetails.assmtYr_1} className="form-control w-full rounded"
+                />
+              </div>
+            </div>
+
+            <div className="mb-6 grid grid-cols-2 gap-3">
+              <label>Gross Income </label>
+              <div>
+                <input readOnly value={formatNumber(payerDetails.incYr_1)} className="form-control w-full rounded" type="text"
+                />
+              </div>
+            </div>
+
+            <div className="mb-6 grid grid-cols-2 gap-3">
+              <label>Consolidated Relief</label>
+              <div>
+                <input readOnly value={formatNumber(yrOnePaySl.consolidated_relief)} className="form-control w-full rounded" type="text"
+                />
+              </div>
+            </div>
+
+            <div className="mb-6 grid grid-cols-2 gap-3">
+              <label>Taxable Income</label>
+              <div>
+                <input readOnly value={formatNumber(Number(payerDetails.incYr_1) - (Number(yrOnePaySl.consolidated_relief) + Number(yrOnePaySl.other_relief)))} className="form-control w-full rounded" type="text"
+                />
+              </div>
+            </div>
+
+            <div className="mb-6 grid grid-cols-2 gap-3">
+              <label>Tax Payable</label>
+              <div>
+                <input readOnly value={formatNumber(payerDetails.taxYr_1)} className="form-control w-full rounded" type="text"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="p-3 grid justify-items-stretch">
+            <h6 className="text-center mb-6">Year 2</h6>
+            <div className="mb-6 justify-self-center">
+              <div>
+                <input readOnly value={payerDetails.assmtYr_2} className="form-control w-full rounded" type="text"
+                />
+              </div>
+            </div>
+
+            <div className="mb-6 justify-self-center">
+              <div>
+                <input readOnly value={formatNumber(payerDetails.incYr_2)} className="form-control w-full rounded" type="text"
+                />
+              </div>
+            </div>
+
+            <div className="mb-6 justify-self-center">
+              <div>
+                <input readOnly value={yrTwoPaySl === undefined || yrTwoPaySl === [] ? null : formatNumber(yrTwoPaySl.consolidated_relief)} className="form-control w-full rounded" type="text"
+                />
+              </div>
+            </div>
+
+
+            <div className="mb-6 justify-self-center">
+              <div>
+                <input readOnly value={formatNumber(yrTwoPaySl === undefined || yrTwoPaySl === [] ? null : formatNumber(Number(payerDetails.incYr_2) - (Number(yrTwoPaySl.consolidated_relief) + Number(yrTwoPaySl.other_relief))))} className="form-control w-full rounded" type="text"
+                />
+              </div>
+            </div>
+
+            <div className="mb-6 justify-self-center">
+              <div>
+                <input readOnly value={formatNumber(payerDetails.taxYr_2)} className="form-control w-full rounded" type="text"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="p-3 grid justify-items-stretch">
+            <h6 className="text-center mb-6">Year 3</h6>
+            <div className="mb-6 justify-self-center">
+              <div>
+                <input readOnly defaultValue={payerDetails.assmtYr_3} className="form-control w-full rounded" type="text"
+                />
+              </div>
+            </div>
+
+            <div className="mb-6 justify-self-center">
+              <div>
+                <input readOnly value={formatNumber(payerDetails.incYr_3)} className="form-control w-full rounded" type="text"
+                />
+              </div>
+            </div>
+
+            <div className="mb-6 justify-self-center">
+              <div>
+                <input readOnly value={yrThreePaySl === undefined || yrThreePaySl === [] ? null : formatNumber(yrThreePaySl.consolidated_relief)} className="form-control w-full rounded" type="text"
+                />
+              </div>
+            </div>
+            <div className="mb-6 justify-self-center">
+              <div>
+                <input readOnly value={(yrThreePaySl === undefined || yrThreePaySl === [] ? null : formatNumber(Number(payerDetails.incYr_3) - (Number(yrThreePaySl.consolidated_relief) + Number(yrThreePaySl.other_relief))))} className="form-control w-full rounded" type="text"
+                />
+              </div>
+            </div>
+
+            <div className="mb-6 justify-self-center">
+              <div>
+                <input readOnly value={formatNumber(payerDetails.taxYr_3)} className="form-control w-full rounded" type="text"
+                />
               </div>
             </div>
           </div>
         </div>
-     
+      </div>
+
 
       <style
         jsx>{
