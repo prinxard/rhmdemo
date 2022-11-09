@@ -399,6 +399,8 @@ export const UploadPayeeTCC = () => {
       )}
       <h6 className="p-2 font-bold">Upload Documents for PAYE TCC</h6>
       <Widget>
+        <small className="my-3">All files should not be more that 100kb</small>
+        <hr className="mb-2" />
         <div>
           <form onSubmit={onSubmitformSign}>
             <div className="flex justify-between mb-5">

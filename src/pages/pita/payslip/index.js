@@ -234,7 +234,7 @@ export default function payslip() {
             alert("Please provide Organization and Employee KGTIN")
         }
         else if (otherReliefWatch > 0 && watch_relief_notes === "") {
-            alert("Please fill out the reason for other relief")
+            alert("Please fill out the reason for other deduction")
         }
         else {
             setIsFetching(true)
@@ -258,6 +258,7 @@ export default function payslip() {
 
             axios.post(`${url.BASE_URL}paye/payslip`, data)
                 .then(function (response) {
+                    console.log("response", response);
                     setIsFetching(false)
                     toast.success("Created Successfully!");
                     setCreateError("")
@@ -558,7 +559,7 @@ export default function payslip() {
                                 />
                             </div>
                             <div className="form-group ">
-                                <p>Other Deduction (Include reason)</p>
+                                <p>Other Deduction</p>
                                 <FormatMoneyComponentReport
                                     name="other_relief"
                                     control={control}
