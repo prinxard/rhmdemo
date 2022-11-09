@@ -838,7 +838,6 @@ export const ViewSinglePayeTcc = ({ tccID, uploads, yrOnePaySl, yrTwoPaySl, yrTh
                 </div>
                 {uploads.map((data) => (
                   <div className="flex justify-between my-3">
-                    {/* <p className="font-bold"><a href={`https://annualuploads.bespoque.dev/rhm/uploads/da/objection/`} target="_blank" className="no-underline hover:underline text-blue-500">Name</a></p> */}
                     <p className="font-bold"><a href={`https://annualuploads.bespoque.dev/rhm/uploads/paye/tcc/${data.doc_name}`} target="_blank" className="no-underline hover:underline text-blue-500">{data.doc_title}</a></p>
                     <span className="h-5 w-5 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
                       <FiCheck
@@ -849,6 +848,8 @@ export const ViewSinglePayeTcc = ({ tccID, uploads, yrOnePaySl, yrTwoPaySl, yrTh
                   </div>
                 ))}
               </div>
+              <p className="font-bold text-center">Payslip</p>
+              <hr />
             </div>
           </div>
 

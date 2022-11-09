@@ -246,7 +246,8 @@ export default function payslip() {
         }
         else {
             setIsFetching(true)
-            data.basic = (data.basic).replace(/,/g, '')
+            // data.basic = (data.basic).replace(/,/g, '')
+            data.basic = grossInc
             data.other_allw = (data.other_allw).replace(/,/g, '')
             data.pension = (data.pension).replace(/,/g, '')
             data.nhf = (data.nhf).replace(/,/g, '')
@@ -262,7 +263,7 @@ export default function payslip() {
             data.other_relief = (data.other_relief).replace(/,/g, '')
             data.payroll_year = payroll_year.getFullYear()
             data.tax = tax
-            data.consolidated_relief = consolidatedRelief
+            data.consolidated_relief = consolidatedReliefS
 
             axios.post(`${url.BASE_URL}paye/payslip`, data)
                 .then(function (response) {
