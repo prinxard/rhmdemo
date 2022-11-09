@@ -83,8 +83,9 @@ export default function payslip() {
     let consolidatedIncome = (Number(basic) + Number(allowance));
     // console.log("Consl", consolidatedIncome);
 
-    consolidatedIncome = consolidatedIncome / no_months * 12;
-    totalRelief = totalRelief / no_months * 12;
+    // consolidatedIncome = consolidatedIncome / no_months * 12;
+    // totalRelief = totalRelief / no_months * 12;
+    
 
     let gross_inc = Number(consolidatedIncome) - Number(totalRelief);
     // console.log(gross_inc, ' gross')
@@ -153,6 +154,7 @@ export default function payslip() {
         //console.log(tax + ' 7');
     }
 
+    // tax = tax / 12 * no_months;
     tax = tax / 12 * no_months;
 
     // tax_paid = tax;
