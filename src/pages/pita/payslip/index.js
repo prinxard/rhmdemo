@@ -79,6 +79,7 @@ export default function payslip() {
     let allowance = (Number(housing) + Number(trans_allw) + Number(leave_allw) + Number(utilities) + Number(other_allw) + Number(benefits) + Number(month_13));
     let totalRelief = (Number(pension) + Number(nhf) + Number(lap));
 
+
     let consolidatedIncome = (Number(basic) + Number(allowance));
     // console.log("Consl", consolidatedIncome);
 
@@ -155,6 +156,12 @@ export default function payslip() {
 
     // tax = tax / 12 * no_months;
     tax = tax / 12 * no_months;
+
+    /////////////////////////////////////////////////////////////////
+    let consolidatedIncomeS = (Number(basic) + ((Number(allowance) / 12) * Number(no_months)));
+    let consolidatedReliefS = Number(consolidatedRelief) / 12 * Number(no_months);
+    let chargeableIncomeS = Number(chargeableIncome / 12) * Number(no_months);
+    let grossInc = (Number(consolidatedIncomeS / 12 * no_months));
 
     // tax_paid = tax;
 
@@ -582,15 +589,15 @@ export default function payslip() {
 
                             <div className="form-group">
                                 <p className="font-bold">Gross Income</p>
-                                <p className="font-bold">{formatNumber(gross_inc)}</p>
+                                <p className="font-bold">{formatNumber(grossInc)}</p>
                             </div>
                             <div className="form-group">
                                 <p className="font-bold">Consolidated Relief</p>
-                                <p className="font-bold">{formatNumber(consolidatedRelief)}</p>
+                                <p className="font-bold">{formatNumber(consolidatedReliefS)}</p>
                             </div>
                             <div className="form-group">
                                 <p className="font-bold">Taxable Income</p>
-                                <p className="font-bold">{formatNumber(gross_inc - ((consolidatedRelief + totalRelief)))}</p>
+                                <p className="font-bold">{formatNumber(chargeableIncomeS)}</p>
                             </div>
                             <div className="form-group">
                                 <p className="font-bold">Tax Payable</p>

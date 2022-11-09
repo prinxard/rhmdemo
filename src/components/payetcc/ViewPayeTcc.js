@@ -32,6 +32,7 @@ const SinglePayeTcc = () => {
         setIsFetching(true);
         axios.post(`${url.BASE_URL}paye/view-tcc`, id)
           .then(function (response) {
+            console.log("response", response);
             setIsFetching(false);
             let fetctTcc = response.data.body.tcc[0];
             let status = response.data.body.tcc[0].status
