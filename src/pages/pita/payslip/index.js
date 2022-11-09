@@ -44,7 +44,6 @@ export default function payslip() {
         { mode: "onBlur", }
     )
 
-
     const {
         register: registerForm,
         watch,
@@ -260,10 +259,11 @@ export default function payslip() {
 
             axios.post(`${url.BASE_URL}paye/payslip`, data)
                 .then(function (response) {
-                    console.log("response", response);
                     setIsFetching(false)
                     toast.success("Created Successfully!");
                     setCreateError("")
+                    router.push(`/pita/payslip/${response.data.body.payroll_year}_${response.data.body.id}`)
+
                 })
                 .catch(function (error) {
                     setIsFetching(false)

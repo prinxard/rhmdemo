@@ -3,6 +3,12 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 import Widget from '../../../components/widget';
 import setAuthToken from '../../../functions/setAuthToken';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from "axios";
+import url from "../../../config/url";
+import Loader from 'react-loader-spinner';
+import { FiCheck } from 'react-icons/fi';
 
 export default function UploadPayslip() {
     const [payrollId, setPayrollId] = useState("")
@@ -15,10 +21,12 @@ export default function UploadPayslip() {
     useEffect(() => {
         if (router && router.query) {
             let routerData = String(router.query.ref);
-            let payRID = routerData.split('_').shift();
-            let year = routerData.split('_').pop()
+            let payRID = routerData.split('_').pop();
+            let year = routerData.split('_').shift()
             setPayrollId(payRID)
             setPaySlipYear(year)
+            console.log("payRID", payRID);
+            console.log("year", year);
         }
     }, [router]);
 
@@ -49,11 +57,11 @@ export default function UploadPayslip() {
         e.preventDefault()
         setIsFetching(true)
         const formData = new FormData();
-        formData.append('payroll_id', tccId);
+        formData.append('payroll_id', payrollId);
         formData.append('doc_title', 'payslip');
         formData.append('doc_name', filePayslip);
         try {
-            const res = await axios.post(`${url.BASE_URL}paye/tcc/upload`, formData, {
+            const res = await axios.post(`${url.BASE_URL}paye/payslip/upload`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },
@@ -79,6 +87,21 @@ export default function UploadPayslip() {
     };
     return (
         <div>
+            <ToastContainer />
+            {isFetching && (
+                <div className="flex justify-center item mb-2">
+                    <Loader
+                        visible={isFetching}
+                        type="BallTriangle"
+                        color="#00FA9A"
+                        height={19}
+                        width={19}
+                        timeout={0}
+                        className="ml-2"
+                    />
+                    <p className="font-bold">Processing...</p>
+                </div>
+            )}
             <p>Upload Payslip</p>
             <Widget>
                 <small className="my-3 flex justify-center">file should not be more that 100kb</small>
@@ -86,7 +109,7 @@ export default function UploadPayslip() {
                 <form onSubmit={onSubmitPayslip}>
                     <div className="flex justify-between mb-5">
 
-                        <p>Payslip</p>
+                        <p>Upload Payslip for {payrollYear}</p>
                         <input
                             type="file"
                             className="hidden"

@@ -104,7 +104,6 @@ function index() {
         }
 
 
-
     };
 
     const verifiyKGTIN = (data) => {
@@ -196,6 +195,7 @@ function index() {
                 axios.get(`${url.BASE_URL}paye/payslip?id=tcc&kgtin=${kgtin}&year=${year3}`)
                     .then(function (response) {
                         setIsFetching(false)
+                        console.log("response", response);
                         setPayslipYear3(response.data.body.payroll[0]);
                         // setTaxpayerinfo(response.data.body)
                         // console.log("response", response);
