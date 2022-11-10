@@ -11,34 +11,38 @@ import { ViewDraftPayeTccTable } from "../tables/viewAllPayeTccTable";
 const DraftTccList = () => {
   const [tccdata, setTccData] = useState(() => []);
   const [isFetching, setIsFetching] = useState(() => true);
- 
+
   useEffect(() => {
     setAuthToken();
     let num = 1
-    const fetchPost = async () => {
-      try {
-        let res = await axios.get(`${url.BASE_URL}paye/list-tcc?status=Draft`);
-        res = res.data.body;
-        let records = [];
-        for (let i = 0; i < res.length; i++) {
-          let rec = res[i];
-          rec.serialNo = num + i
-          rec.prc_fee = formatNumber(rec.prc_fee)
-          rec.crt_time = dateformat(rec.crt_time, "dd mmm yyyy")
-          records.push(rec);
-        }
-        setIsFetching(false);
-        setTccData(() => records);
-      } catch (e) {
-        setIsFetching(false);
-      }
+    const fetchPost =  () => {
+
+       axios.get(`${url.BASE_URL}paye/list-tcc?status=Draft`)
+        .then(function (resonse) {
+          let res = resonse.data.body;
+          console.log("res", res);
+          let records = [];
+          for (let i = 0; i < res.length; i++) {
+            let rec = res[i];
+            rec.serialNo = num + i
+            rec.prc_fee = formatNumber(rec.prc_fee)
+            rec.crt_time = dateformat(rec.crt_time, "dd mmm yyyy")
+            records.push(rec);
+          }
+          setIsFetching(false);
+          setTccData(() => records);
+
+        }).catch(function (error) {
+          setIsFetching(false);
+
+        })
     };
     fetchPost();
   }, []);
 
 
-console.log(tccdata);
- 
+  console.log(tccdata);
+
 
 
   return (
@@ -57,7 +61,7 @@ console.log(tccdata);
           <p>Fetching data...</p>
         </div>
       )}
-          <ViewDraftPayeTccTable tccdata={tccdata} />
+      <ViewDraftPayeTccTable tccdata={tccdata} />
     </>
   );
 };

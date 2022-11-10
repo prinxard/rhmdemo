@@ -40,9 +40,9 @@ const PrintSingleTccPaye = () => {
             setYrThreePaySl(payslipY3)
             setPayeTccData(fetctTcc)
             setIsFetching(false);
-            let uploadsSign = uploads.find(v => v.doc_title === "scanned_signature").doc_name
+            let uploadsSign = uploads.find(v => v.doc_title === "scanned signature").doc_name
             setSignature(uploadsSign)
-            let uploadsPassport = uploads.find(v => v.doc_title === "passport").doc_name
+            let uploadsPassport = uploads.find(v => v.doc_title === "passport photo").doc_name
             setPassport(uploadsPassport)
 
           })
