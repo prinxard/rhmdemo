@@ -422,7 +422,7 @@ export default function payslip() {
                             <p className="font-bold">INCOME </p>
                             <p></p>
                             <div className="form-group ">
-                                <p>Annual Salary <small className="font-bold text-red-600">*</small></p>
+                                <p>Basic Annual Salary <small className="font-bold text-red-600">*</small></p>
                                 <FormatMoneyComponentReport
                                     ref={registerForm()}
                                     name="basic"
