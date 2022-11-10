@@ -366,7 +366,7 @@ export const ViewSinglePayslip = ({ paySlipData }) => {
                   </h6>
                   <div className="shadow-lg w-full">
                     <div className="w-full p-2">
-                      <h1 className="text-sm">Annual Salary</h1>
+                      <h1 className="text-sm">Basic Annual Salary</h1>
                       <span className="text-black font-semibold">
                         {formatNumber(data.basic)}
                       </span>
