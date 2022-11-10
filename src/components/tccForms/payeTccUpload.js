@@ -181,7 +181,7 @@ export const UploadPayeeTCC = () => {
     setIsFetching(true)
     const formData = new FormData();
     formData.append('tcc_id', tccId);
-    formData.append('doc_title', 'scanned_signature');
+    formData.append('doc_title', 'scanned signature');
     formData.append('doc_name', fileSign);
     formData.append('kgtin', kgtin);
     try {
@@ -215,7 +215,7 @@ export const UploadPayeeTCC = () => {
     setIsFetching(true)
     const formData = new FormData();
     formData.append('tcc_id', tccId);
-    formData.append('doc_title', 'passport');
+    formData.append('doc_title', 'passport photo');
     formData.append('doc_name', filePass);
     formData.append('kgtin', kgtin);
     try {
@@ -249,7 +249,7 @@ export const UploadPayeeTCC = () => {
     setIsFetching(true)
     const formData = new FormData();
     formData.append('tcc_id', tccId);
-    formData.append('doc_title', 'application_letter');
+    formData.append('doc_title', 'application letter');
     formData.append('doc_name', fileLetter);
     formData.append('kgtin', kgtin);
     try {
@@ -283,7 +283,7 @@ export const UploadPayeeTCC = () => {
     setIsFetching(true)
     const formData = new FormData();
     formData.append('tcc_id', tccId);
-    formData.append('doc_title', 'assessment_form');
+    formData.append('doc_title', 'assessment form');
     formData.append('doc_name', fileAssForm);
     formData.append('kgtin', kgtin);
     try {
@@ -317,7 +317,7 @@ export const UploadPayeeTCC = () => {
     setIsFetching(true)
     const formData = new FormData();
     formData.append('tcc_id', tccId);
-    formData.append('doc_title', 'intro_letter');
+    formData.append('doc_title', 'intro letter');
     formData.append('doc_name', fileIntroletter);
     formData.append('kgtin', kgtin);
     try {
@@ -351,7 +351,7 @@ export const UploadPayeeTCC = () => {
     setIsFetching(true)
     const formData = new FormData();
     formData.append('tcc_id', tccId);
-    formData.append('doc_title', 'staff_id');
+    formData.append('doc_title', 'staff id');
     formData.append('doc_name', fileStaffID);
     formData.append('kgtin', kgtin);
     try {
@@ -399,6 +399,8 @@ export const UploadPayeeTCC = () => {
       )}
       <h6 className="p-2 font-bold">Upload Documents for PAYE TCC</h6>
       <Widget>
+        <small className="my-3">All files should not be more that 100kb</small>
+        <hr className="mb-2" />
         <div>
           <form onSubmit={onSubmitformSign}>
             <div className="flex justify-between mb-5">

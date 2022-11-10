@@ -327,7 +327,7 @@ export const StartAssessment = () => {
 export const StartSingleIndividualAssessment = ({ kgtinVal, assessmentYear, payerprop, routerAssId }) => {
   let assessment_id = routerAssId
   let indvData = payerprop
-  
+
   const [toggleel, setToggle] = useState('hidden')
   const [togglee2, setToggle2] = useState('hidden')
   const [togglee3, setToggle3] = useState('hidden')
@@ -1536,7 +1536,11 @@ export const StartSingleIndividualAssessment = ({ kgtinVal, assessmentYear, paye
       <ToastContainer />
       <div className="block p-6 rounded-lg bg-white w-full">
         <div className="flex">
-          <h6 className="p-2">Taxpayer Information <small className="text-blue-600"><Link href={`/update-individual/${kgtinVal}`}>Edit</Link></small></h6>
+          <h6 className="p-2">Taxpayer Information
+            <small className="text-blue-600">
+              <Link href={`/update-individual/${kgtinVal}`}>Edit</Link>
+            </small>
+          </h6>
         </div>
         <p className="mb-3 font-bold"></p>
         <form>

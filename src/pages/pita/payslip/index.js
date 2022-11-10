@@ -44,7 +44,6 @@ export default function payslip() {
         { mode: "onBlur", }
     )
 
-
     const {
         register: registerForm,
         watch,
@@ -80,11 +79,13 @@ export default function payslip() {
     let allowance = (Number(housing) + Number(trans_allw) + Number(leave_allw) + Number(utilities) + Number(other_allw) + Number(benefits) + Number(month_13));
     let totalRelief = (Number(pension) + Number(nhf) + Number(lap));
 
+
     let consolidatedIncome = (Number(basic) + Number(allowance));
     // console.log("Consl", consolidatedIncome);
 
-    consolidatedIncome = consolidatedIncome / no_months * 12;
-    totalRelief = totalRelief / no_months * 12;
+    // consolidatedIncome = consolidatedIncome / no_months * 12;
+    // totalRelief = totalRelief / no_months * 12;
+    
 
     let gross_inc = Number(consolidatedIncome) - Number(totalRelief);
     // console.log(gross_inc, ' gross')
@@ -153,7 +154,14 @@ export default function payslip() {
         //console.log(tax + ' 7');
     }
 
+    // tax = tax / 12 * no_months;
     tax = tax / 12 * no_months;
+
+    /////////////////////////////////////////////////////////////////
+    let consolidatedIncomeS = (Number(basic) + ((Number(allowance) / 12) * Number(no_months)));
+    let consolidatedReliefS = Number(consolidatedRelief) / 12 * Number(no_months);
+    let chargeableIncomeS = Number(chargeableIncome / 12) * Number(no_months);
+    let grossInc = (Number(consolidatedIncomeS / 12 * no_months));
 
     // tax_paid = tax;
 
@@ -234,11 +242,12 @@ export default function payslip() {
             alert("Please provide Organization and Employee KGTIN")
         }
         else if (otherReliefWatch > 0 && watch_relief_notes === "") {
-            alert("Please fill out the reason for other relief")
+            alert("Please fill out the reason for other deduction")
         }
         else {
             setIsFetching(true)
-            data.basic = (data.basic).replace(/,/g, '')
+            // data.basic = (data.basic).replace(/,/g, '')
+            data.basic = grossInc
             data.other_allw = (data.other_allw).replace(/,/g, '')
             data.pension = (data.pension).replace(/,/g, '')
             data.nhf = (data.nhf).replace(/,/g, '')
@@ -254,13 +263,15 @@ export default function payslip() {
             data.other_relief = (data.other_relief).replace(/,/g, '')
             data.payroll_year = payroll_year.getFullYear()
             data.tax = tax
-            data.consolidated_relief = consolidatedRelief
+            data.consolidated_relief = consolidatedReliefS
 
             axios.post(`${url.BASE_URL}paye/payslip`, data)
                 .then(function (response) {
                     setIsFetching(false)
                     toast.success("Created Successfully!");
                     setCreateError("")
+                    router.push(`/pita/payslip/${response.data.body.payroll_year}_${response.data.body.id}`)
+
                 })
                 .catch(function (error) {
                     setIsFetching(false)
@@ -579,15 +590,15 @@ export default function payslip() {
 
                             <div className="form-group">
                                 <p className="font-bold">Gross Income</p>
-                                <p className="font-bold">{formatNumber(gross_inc)}</p>
+                                <p className="font-bold">{formatNumber(grossInc)}</p>
                             </div>
                             <div className="form-group">
                                 <p className="font-bold">Consolidated Relief</p>
-                                <p className="font-bold">{formatNumber(consolidatedRelief)}</p>
+                                <p className="font-bold">{formatNumber(consolidatedReliefS)}</p>
                             </div>
                             <div className="form-group">
                                 <p className="font-bold">Taxable Income</p>
-                                <p className="font-bold">{formatNumber(gross_inc - ((consolidatedRelief + totalRelief)))}</p>
+                                <p className="font-bold">{formatNumber(chargeableIncomeS)}</p>
                             </div>
                             <div className="form-group">
                                 <p className="font-bold">Tax Payable</p>
