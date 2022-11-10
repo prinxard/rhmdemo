@@ -866,7 +866,7 @@ export const ViewSinglePayeTcc = ({ tccID, slipYear1, slipYear2, slipYear3, uplo
               {slipYear2.map((data) => (
                 <div className="flex justify-between my-3">
 
-                  <p className="font-bold"> Year 2 <a href={`https://annualuploads.bespoque.dev/rhm-live/uploads/paye/payslip/${data.doc_name}`} target="_blank" className="no-underline hover:underline text-blue-500">{data.doc_title}</a></p>
+                  <p className="font-bold"> Year 2 <a href={`https://annualuploads.bespoque.dev/rhm/uploads/paye/payslip/${data.doc_name}`} target="_blank" className="no-underline hover:underline text-blue-500">{data.doc_title}</a></p>
                   <span className="h-5 w-5 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
                     <FiCheck
                       size={15}
