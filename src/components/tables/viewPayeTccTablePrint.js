@@ -162,8 +162,7 @@ export const ViewSinglePayeTccPrintTable = ({
   signature
 }) => {
 
-  let basdocurl = 'https://annualuploads.bespoque.dev/rhm/uploads/paye/tcc/'
-
+  let basdocurl = 'https://annualuploads.bespoque.dev/rhm-live/uploads/paye/tcc/'
 
   let date = PayeTccData.aprvPrint_time
   let due_date = new Date(date)
@@ -275,7 +274,7 @@ export const ViewSinglePayeTccPrintTable = ({
                   </div>
 
                   <div className="mt-1">
-                    <small className="leading-none block">TAX ID </small>
+                    <small className="leading-none block">TIN/KGTIN </small>
                     <small className="font-bold">{PayeTccData.tp_id}</small>
                   </div>
 
