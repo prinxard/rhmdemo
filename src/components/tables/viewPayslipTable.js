@@ -358,7 +358,6 @@ export const ViewSinglePayslip = ({ paySlipData }) => {
                 </div>
               </div>
 
-
               <div className="w-full">
                 <div className="uppercase lg:w-4/5 w-full px-2">
                   <h6 className="font-bold mb-2 text-base text-gray-500">
@@ -444,7 +443,7 @@ export const ViewSinglePayslip = ({ paySlipData }) => {
                     <div className="w-full p-2">
                       <h1 className="text-sm ">Taxable Income</h1>
                       <span className="text-black font-semibold">
-                        {formatNumber((Number(data.basic) + Number(data.housing) + Number(data.other_allw) + Number(data.trans_allw) + Number(data.leave_allw))- data.consolidated_relief)}
+                        {formatNumber((Number(data.basic) + Number(data.housing) + Number(data.other_allw) + Number(data.trans_allw) + Number(data.leave_allw)) - data.consolidated_relief)}
                       </span>
                     </div>
                     <div className="w-full p-2">
@@ -461,148 +460,6 @@ export const ViewSinglePayslip = ({ paySlipData }) => {
           ))}
         </div>
       </Widget>
-
-      {/* <div class="hidden sm:block" aria-hidden="true">
-        <div class="py-5">
-          <div class="border-t border-gray-200"></div>
-        </div>
-      </div>
-      {paySlipData.map((data) => (
-        <div>
-          <div class="mt-10 sm:mt-0">
-            <div class="md:grid md:grid-cols-3 md:gap-6">
-              <div class="md:col-span-1">
-                <div class="px-4 sm:px-0">
-                  <h3 class="text-lg font-medium leading-6 text-gray-900">Employment Details</h3>
-                </div>
-              </div>
-              <div class="mt-5 md:col-span-2 md:mt-0">
-                <form action="#" method="POST">
-                  <div class="overflow-hidden shadow sm:rounded-md">
-                    <div class="bg-white px-4 py-5 sm:p-6">
-                      <div class="grid grid-cols-6 gap-6">
-                        <div class="col-span-6 sm:col-span-3">
-                          <label for="first-name" class="block text-sm font-medium text-gray-700">Organization/Employer</label>
-                          <input type="text"  readOnly defaultValue={data.orgName}  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
-                        </div>
-
-                        <div class="col-span-6 sm:col-span-3">
-                          <label for="last-name" class="block text-sm font-medium text-gray-700">Taxpayer/Employee</label>
-                          <input type="text"  readOnly defaultValue={data.tpName} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
-                        </div>
-                        <div class="col-span-6 sm:col-span-3">
-                          <label for="last-name" class="block text-sm font-medium text-gray-700">Year </label>
-                          <input type="text" readOnly defaultValue={data.payroll_year} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
-                        </div>
-                        <div class="col-span-6 sm:col-span-3">
-                          <label for="first-name" class="block text-sm font-medium text-gray-700">Number of months</label>
-                          <input type="text" readOnly defaultValue={formatNumber(data.no_months)} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
-                        </div>
-
-                        <div class="col-span-6 sm:col-span-3">
-                          <label for="last-name" class="block text-sm font-medium text-gray-700">Gross Income</label>
-                          <input type="text" readOnly defaultValue={formatNumber(data.basic)} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
-                        </div>
-                        <div class="col-span-6 sm:col-span-3">
-                          <label for="last-name" class="block text-sm font-medium text-gray-700">Rank/G-Level</label>
-                          <input type="text" readOnly defaultValue={data.rank} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
-                        </div>
-
-                      </div>
-                    </div>
-
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-
-          <div class="hidden sm:block" aria-hidden="true">
-            <div class="py-5">
-              <div class="border-t border-gray-200"></div>
-            </div>
-          </div>
-
-          <div class="mt-10 sm:mt-0">
-            <div class="md:grid md:grid-cols-3 md:gap-6">
-              <div class="md:col-span-1">
-                <div class="px-4 sm:px-0">
-                  <h3 class="text-lg font-medium leading-6 text-gray-900">Other Details</h3>
-                </div>
-              </div>
-              <div class="mt-5 md:col-span-2 md:mt-0">
-                <form action="#" method="POST">
-                  <div class="overflow-hidden shadow sm:rounded-md">
-                    <div class="bg-white px-4 py-5 sm:p-6">
-                      <div class="grid grid-cols-6 gap-6">
-                        <div class="col-span-6 sm:col-span-3">
-                          <label for="first-name" class="block text-sm font-medium text-gray-700">Tax</label>
-                          <input type="text" readOnly defaultValue={formatNumber(data.tax)} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
-                        </div>
-
-                        <div class="col-span-6 sm:col-span-3">
-                          <label for="last-name" class="block text-sm font-medium text-gray-700">Consolidated Relief</label>
-                          <input type="text" readOnly defaultValue={formatNumber(data.consolidated_relief)} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
-                        </div>
-                        <div class="col-span-6 sm:col-span-3">
-                          <label for="first-name" class="block text-sm font-medium text-gray-700">Tax Office</label>
-                          <input type="text" readOnly defaultValue={data.tax_office} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
-                        </div>
-
-                        <div class="col-span-6 sm:col-span-3">
-                          <label for="last-name" class="block text-sm font-medium text-gray-700">Pension</label>
-                          <input type="text" readOnly defaultValue={formatNumber(data.pension)} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
-                        </div>
-                        <div class="col-span-6 sm:col-span-3">
-                          <label for="last-name" class="block text-sm font-medium text-gray-700">National Housing Fund (NHF)</label>
-                          <input type="text" readOnly defaultValue={formatNumber(data.nhf)} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
-                        </div>
-                        <div class="col-span-6 sm:col-span-3">
-                          <label for="first-name" class="block text-sm font-medium text-gray-700">Life Assurance (LAP)</label>
-                          <input type="text" readOnly defaultValue={formatNumber(data.lap)} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
-                        </div>
-
-                        <div class="col-span-6 sm:col-span-3">
-                          <label for="last-name" class="block text-sm font-medium text-gray-700">Leave Allowance</label>
-                          <input type="text" readOnly defaultValue={formatNumber(data.leave_allw)} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
-                        </div>
-                        <div class="col-span-6 sm:col-span-3">
-                          <label for="last-name" class="block text-sm font-medium text-gray-700">Transport Allowance</label>
-                          <input type="text" readOnly defaultValue={formatNumber(data.trans_allw)} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
-                        </div>
-                        <div class="col-span-6 sm:col-span-3">
-                          <label for="last-name" class="block text-sm font-medium text-gray-700">Other Allowance</label>
-                          <input type="text" readOnly defaultValue={formatNumber(data.other_allw)} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
-                        </div>
-                        <div class="col-span-6 sm:col-span-3">
-                          <label for="last-name" class="block text-sm font-medium text-gray-700">Housing Allowance</label>
-                          <input type="text" readOnly defaultValue={formatNumber(data.housing)} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
-                        </div>
-                        <div class="col-span-6 sm:col-span-3">
-                          <label for="last-name" class="block text-sm font-medium text-gray-700">Utilities</label>
-                          <input type="text" readOnly defaultValue={formatNumber(data.utilities)} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
-                        </div>
-                        <div class="col-span-6 sm:col-span-3">
-                          <label for="last-name" class="block text-sm font-medium text-gray-700">Upfront</label>
-                          <input type="text" readOnly defaultValue={formatNumber(data.upfront)} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
-                        </div>
-                        <div class="col-span-6 sm:col-span-3">
-                          <label for="last-name" class="block text-sm font-medium text-gray-700">Thirteenth Month</label>
-                          <input type="text" readOnly defaultValue={formatNumber(data.month_13)} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
-                        </div>
-                        <div class="col-span-6 sm:col-span-3">
-                          <label for="last-name" class="block text-sm font-medium text-gray-700">Benefits</label>
-                          <input type="text" readOnly defaultValue={formatNumber(data.benefits)} class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      ))} */}
     </>
   )
 };

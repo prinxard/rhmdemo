@@ -28,7 +28,7 @@ console.log("paySlipData", paySlipData);
             })
             .catch(function (error) {
               setIsFetching(false);
-              //   console.log(e);
+                console.log(error);
 
             })
       };
