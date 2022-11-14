@@ -136,7 +136,7 @@ const LeftSidebar = () => {
     return (
       <div className="left-sidebar left-sidebar-1">
         <Logo />
-        {navigationCreatorTcc.map((menu, i) => (
+        {navigationApproverTcc.map((menu, i) => (
           <React.Fragment key={i}>
             <Title>{menu.title}</Title>
             <ul>
