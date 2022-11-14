@@ -410,8 +410,8 @@ export const ViewSinglePayeTcc = ({ tccID, slipYear1, slipYear2, slipYear3, uplo
 
 
   const chairman = [1, 9, 39]
-  const Approval = [12, 1]
-  const verify = [2, 3, 1]
+  const Approval = [27, 1]
+  const verify = [30, 1]
   const Audit = [21, 1]
   const decoded = jwt.decode(auth);
   const userGroup = decoded.groups
