@@ -148,21 +148,22 @@ export default function PayeDashboard() {
     };
     return (
         <div>
+            <div className="flex justify-center"><Subtitle>PAYE DASHBOARD</Subtitle></div>
             <div className="flex gap-2 mb-4 flex-col lg:flex-row w-full">
-                <Card maxWidth="max-w-xs" decoration="top" decorationColor="indigo">
-                    <Metric>month</Metric>
+                <Card maxWidth="max-w-xs" decoration="top" decorationColor="green">
+                    <Metric>MONTH</Metric>
                     <Text>40 Payroll Schedule</Text>
                 </Card>
-                <Card maxWidth="max-w-xs" decoration="top" decorationColor="indigo">
-                    <Metric>Year</Metric>
+                <Card maxWidth="max-w-xs" decoration="top" decorationColor="green">
+                    <Metric>YEAR</Metric>
                     <Text>200 Payroll Schedule</Text>
                 </Card>
-                <Card maxWidth="max-w-xs" decoration="top" decorationColor="indigo">
-                    <Metric>Month</Metric>
+                <Card maxWidth="max-w-xs" decoration="top" decorationColor="green">
+                    <Metric>MONTH</Metric>
                     <Text>NGN 2,000,000 PAYE Collection</Text>
                 </Card>
                 <Card maxWidth="max-w-xs" decoration="top" decorationColor="indigo">
-                    <Metric>Year</Metric>
+                    <Metric>YEAR</Metric>
                     <Text>NGN 2,000,000 PAYE Collection</Text>
                 </Card>
 
@@ -241,15 +242,15 @@ export default function PayeDashboard() {
                             <TableHeaderCell>
                                 TaxPayer Name
                             </TableHeaderCell>
-                            <TableHeaderCell>
+                            {/* <TableHeaderCell>
                                 MDA
-                            </TableHeaderCell>
+                            </TableHeaderCell> */}
                             <TableHeaderCell>
                                 Bank
                             </TableHeaderCell>
-                            <TableHeaderCell>
+                            {/* <TableHeaderCell>
                                 Channel
-                            </TableHeaderCell>
+                            </TableHeaderCell> */}
                             <TableHeaderCell>
                                 Amount
                             </TableHeaderCell>
@@ -273,15 +274,15 @@ export default function PayeDashboard() {
                                 <TableCell>
                                     <Text>{item.name}</Text>
                                 </TableCell>
-                                <TableCell>
+                                {/* <TableCell>
                                     <Text>{item.mda}</Text>
-                                </TableCell>
+                                </TableCell> */}
                                 <TableCell>
                                     <Text>{item.bank}</Text>
                                 </TableCell>
-                                <TableCell>
+                                {/* <TableCell>
                                     <Text>{item.channel}</Text>
-                                </TableCell>
+                                </TableCell> */}
                                 <TableCell>
                                     <Text>{item.amount}</Text>
                                 </TableCell>
