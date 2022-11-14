@@ -12,6 +12,7 @@ import authentication from './authentication/auth.reducer';
 import individualNavigation from './navigation/individualNav';
 import navigationApprover from './navigation/navigationApprover';
 import navigationCreator from './navigation/navigationCreator';
+import navigationCreatorTcc from './navigation/navigationCreatorTcc';
 import navigationCreatorApprover from './navigation/navigationCreatorApprover';
 import navigationAdmin from './navigation/navigationAdmin';
 import navigationReport from './navigation/navigationReport';
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   navigation,
   navigationApprover,
   navigationCreator,
+  navigationCreatorTcc,
   navigationCreatorApprover,
   navigationAdmin,
   navigationReport,
