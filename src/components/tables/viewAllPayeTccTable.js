@@ -895,7 +895,6 @@ export const ViewSinglePayeTcc = ({ tccID, slipYear1, slipYear2, slipYear3, uplo
         </div>
 
         <div className={`flex justify-between border mb-3 rounded-lg bg-white w-full`}>
-
           <div className="p-3">
 
             <h6 className="text-right mb-6">Year 1</h6>
