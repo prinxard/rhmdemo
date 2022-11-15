@@ -172,7 +172,7 @@ export const ViewSinglePayeTccPrintTable = ({
   let Issdue_date = new Date(Issdate)
   let dateIssue = dateformat(Issdue_date, "dd mmm yyyy")
 
-
+console.log("PayeTccData", PayeTccData);
   // setAuthToken();
   // let ChangePrint = (e) => {
   //   e.preventDefault()
@@ -391,7 +391,7 @@ export const ViewSinglePayeTccPrintTable = ({
                 <div></div>
                 <div>
                   <QRCode
-                    value={`https://irs.kg.gov.ng/verify/fetch_tcc.php?ref=}`}
+                    value={`https://irs.kg.gov.ng/verify/fetch_tcc.php?ref=${PayeTccData.ref}`}
                     size={120}
                   />
                 </div>
