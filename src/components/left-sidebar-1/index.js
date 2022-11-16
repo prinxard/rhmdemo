@@ -29,7 +29,7 @@ const LeftSidebar = () => {
   let adminRange = [1]
   let reportRange = [39, 9, 20]
   let payeTccInitiator = [29]
-  let payeTccApprover = [30, 21, 30, 27]
+  let payeTccApprover = [30, 30, 27]
 
   let StaffType;
   if (authentication) {
