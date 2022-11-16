@@ -162,7 +162,7 @@ export const ViewSinglePayeTccPrintTable = ({
   signature
 }) => {
 
-  let basdocurl = 'https://annualuploads.bespoque.dev/rhm/uploads/paye/tcc/'
+  let basdocurl = 'https://annualuploads.bespoque.dev/rhm-live/uploads/paye/tcc/'
 
   let date = PayeTccData.aprvPrint_time
   let due_date = new Date(date)
@@ -172,25 +172,26 @@ export const ViewSinglePayeTccPrintTable = ({
   let Issdue_date = new Date(Issdate)
   let dateIssue = dateformat(Issdue_date, "dd mmm yyyy")
 
-
-  // setAuthToken();
-  // let ChangePrint = (e) => {
-  //   e.preventDefault()
-  //   let statusObj = {
-  //     id: tccID,
-  //     status: "Printed"
-  //   }
-  //   try {
-  //     let res = axios.post(`${url.BASE_URL}forma/tcc-status`, statusObj);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+  const componentRef = useRef();
+console.log("PayeTccData", PayeTccData);
+  setAuthToken();
+  let ChangePrint = (e) => {
+    e.preventDefault()
+    let statusObj = {
+      id: PayeTccData.id,
+      status: "Printed"
+    }
+    try {
+      let res = axios.put(`${url.BASE_URL}paye/tcc-status`, statusObj);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
 
   return (
     <>
-      {/* <div className="m-3 flex justify-end">
+      <div className="m-3 flex justify-end">
         <div onClick={ChangePrint}>
           <ReactToPrint
             pageStyle="@page { size: 7.5in 13in  }"
@@ -204,9 +205,9 @@ export const ViewSinglePayeTccPrintTable = ({
           />
         </div>
 
-      </div> */}
+      </div>
 
-      <section className="border p-2">
+      <section className="border p-2" ref={componentRef}>
         <div>
           <div className="flex justify-around bg-no-repeat bg-center" style={{ backgroundImage: `url(/images/background.png)` }}>
             <div>
@@ -391,7 +392,7 @@ export const ViewSinglePayeTccPrintTable = ({
                 <div></div>
                 <div>
                   <QRCode
-                    value={`https://irs.kg.gov.ng/verify/fetch_tcc.php?ref=}`}
+                    value={`https://irs.kg.gov.ng/verify/fetch_tcc.php?ref=${PayeTccData.ref}`}
                     size={120}
                   />
                 </div>

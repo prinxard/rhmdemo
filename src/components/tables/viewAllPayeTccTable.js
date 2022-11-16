@@ -410,8 +410,8 @@ export const ViewSinglePayeTcc = ({ tccID, slipYear1, slipYear2, slipYear3, uplo
 
 
   const chairman = [1, 9, 39]
-  const Approval = [12, 1]
-  const verify = [2, 3, 1]
+  const Approval = [27, 1]
+  const verify = [30, 1]
   const Audit = [21, 1]
   const decoded = jwt.decode(auth);
   const userGroup = decoded.groups
@@ -838,7 +838,7 @@ export const ViewSinglePayeTcc = ({ tccID, slipYear1, slipYear2, slipYear3, uplo
               </div>
               {uploads.map((data) => (
                 <div className="flex justify-between my-3">
-                  <p className="font-bold"><a href={`https://annualuploads.bespoque.dev/rhm/uploads/paye/tcc/${data.doc_name}`} target="_blank" className="no-underline hover:underline text-blue-500">{data.doc_title}</a></p>
+                  <p className="font-bold"><a href={`https://annualuploads.bespoque.dev/rhm-live/uploads/paye/tcc/${data.doc_name}`} target="_blank" className="no-underline hover:underline text-blue-500">{data.doc_title}</a></p>
                   <span className="h-5 w-5 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
                     <FiCheck
                       size={15}
@@ -853,7 +853,7 @@ export const ViewSinglePayeTcc = ({ tccID, slipYear1, slipYear2, slipYear3, uplo
               {slipYear1.map((data) => (
                 <div className="flex justify-between my-3">
 
-                  <p className="font-bold"> Year 1 <a href={`https://annualuploads.bespoque.dev/rhm/uploads/paye/payslip/${data.doc_name}`} target="_blank" className="no-underline hover:underline text-blue-500">{data.doc_title}</a></p>
+                  <p className="font-bold"> Year 1 <a href={`https://annualuploads.bespoque.dev/rhm-live/uploads/paye/payslip/${data.doc_name}`} target="_blank" className="no-underline hover:underline text-blue-500">{data.doc_title}</a></p>
                   <span className="h-5 w-5 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
                     <FiCheck
                       size={15}
@@ -866,7 +866,7 @@ export const ViewSinglePayeTcc = ({ tccID, slipYear1, slipYear2, slipYear3, uplo
               {slipYear2.map((data) => (
                 <div className="flex justify-between my-3">
 
-                  <p className="font-bold"> Year 2 <a href={`https://annualuploads.bespoque.dev/rhm/uploads/paye/payslip/${data.doc_name}`} target="_blank" className="no-underline hover:underline text-blue-500">{data.doc_title}</a></p>
+                  <p className="font-bold"> Year 2 <a href={`https://annualuploads.bespoque.dev/rhm-live/uploads/paye/payslip/${data.doc_name}`} target="_blank" className="no-underline hover:underline text-blue-500">{data.doc_title}</a></p>
                   <span className="h-5 w-5 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
                     <FiCheck
                       size={15}
@@ -879,7 +879,7 @@ export const ViewSinglePayeTcc = ({ tccID, slipYear1, slipYear2, slipYear3, uplo
               {slipYear3.map((data) => (
                 <div className="flex justify-between my-3">
 
-                  <p className="font-bold"> Year 3 <a href={`https://annualuploads.bespoque.dev/rhm/uploads/paye/payslip/${data.doc_name}`} target="_blank" className="no-underline hover:underline text-blue-500">{data.doc_title}</a></p>
+                  <p className="font-bold"> Year 3 <a href={`https://annualuploads.bespoque.dev/rhm-live/uploads/paye/payslip/${data.doc_name}`} target="_blank" className="no-underline hover:underline text-blue-500">{data.doc_title}</a></p>
                   <span className="h-5 w-5 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
                     <FiCheck
                       size={15}
@@ -895,7 +895,6 @@ export const ViewSinglePayeTcc = ({ tccID, slipYear1, slipYear2, slipYear3, uplo
         </div>
 
         <div className={`flex justify-between border mb-3 rounded-lg bg-white w-full`}>
-
           <div className="p-3">
 
             <h6 className="text-right mb-6">Year 1</h6>
@@ -949,6 +948,18 @@ export const ViewSinglePayeTcc = ({ tccID, slipYear1, slipYear2, slipYear3, uplo
                   <Link href={`/pita/payslip/${yrOnePaySl.payroll_year}_${yrOnePaySl.id}`}> Upload Payslip</Link>
                 </button>
               </div>
+              : ""
+            }
+            {statusTCC === "Draft" ?
+              <div className="mb-6 grid grid-cols-2 gap-3">
+                <label></label>
+                <button
+                  className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  <Link href={`/pita/payslip/${yrOnePaySl.payroll_year}_${yrOnePaySl.id}`}> Upload Payslip</Link>
+                </button>
+              </div>
 
               : ""}
           </div>
@@ -990,6 +1001,18 @@ export const ViewSinglePayeTcc = ({ tccID, slipYear1, slipYear2, slipYear3, uplo
                 />
               </div>
             </div>
+
+            {statusTCC === "Draft" ?
+              <div className="mb-6 justify-self-center">
+                <button
+                  className="btn bg-green-600 btn-default text-white btn-outlined w-full bg-transparent rounded-md"
+                  type="submit"
+                >
+                  <Link href={`/pita/payslip/${yrTwoPaySl.payroll_year}_${yrTwoPaySl.id}`}> Upload Payslip</Link>
+                </button>
+              </div>
+              : ""
+            }
             {statusTCC === "Draft" ?
               <div className="mb-6 justify-self-center">
                 <button
@@ -1039,6 +1062,17 @@ export const ViewSinglePayeTcc = ({ tccID, slipYear1, slipYear2, slipYear3, uplo
               </div>
             </div>
 
+            {statusTCC === "Draft" ?
+              <div className="mb-6 ">
+                <button
+                  className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent w-full rounded"
+                  type="submit"
+                >
+                  <Link href={`/pita/payslip/${yrThreePaySl.payroll_year}_${yrThreePaySl.id}`}> Upload Payslip</Link>
+                </button>
+              </div>
+              : ""
+            }
             {statusTCC === "Draft" ?
               <div className="mb-6 ">
                 <button
