@@ -18,6 +18,7 @@ const Layouts = ({ children }) => {
       '/email-confirmation',
       '/logout',
       '/reset-password',
+      '/verify-paye-tcc/',
       '/reset-password/update',
       '/forgot-password',
       '/lock-screen',
