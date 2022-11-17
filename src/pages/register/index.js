@@ -172,23 +172,7 @@ export default function index() {
                                         onChange={val => onChange(val.map(c => c.value))}
                                         labelledBy="Select group"
                                     />
-                                    // <Select
-                                    //     inputRef={ref}
-                                    //     classNamePrefix="addl-class"
-                                    //     options={options}
-                                    //     value={options.filter(c => value.includes(c.value))}
-                                    //     onChange={val => onChange(val.map(c => c.value).toString())}
-                                    //     isMulti
-                                    // />
-                                    // <Select
-                                    //     inputRef={ref}
-                                    //     value={options.filter(c => value.includes(c.value))}
-                                    //     // onChange={(val) => onChange(val.value)}
-                                    //     onChange={val => onChange(val.map(c => c.value).toString())}
-                                    //     options={options}
-                                    //     isMulti
-
-                                    // />
+            
                                 )}
 
                             />

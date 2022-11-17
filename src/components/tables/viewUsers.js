@@ -184,7 +184,7 @@ export default function UpdateUser({ user, groups }) {
 
   setAuthToken();
   const onSubmit = (data) => {
-
+    data.userGroup = data.userGroup.toString()
     if (passwordCompare === data.password) {
       setIsFetching4(true)
       delete data.password
@@ -321,7 +321,7 @@ export default function UpdateUser({ user, groups }) {
                       inputRef={ref}
                       options={options}
                       value={((options.filter(c => value.includes(c.value))))}
-                      onChange={val => onChange(val.map(c => c.value).toString())}
+                      onChange={val => onChange(val.map(c => c.value))}
                       labelledBy="Select group"
                     />
                   )}

@@ -86,9 +86,7 @@ export default function index() {
                     </section>
                     <section className="flex justify-end mt-8">
                         <CoatOfArms />
-                        {/* <p className="border-r-2 ml-2 border-black h-8 self-center"></p> */}
                         <KogiGov />
-
                         <KgirsLogo />
                     </section>
                     <div className="flex justify-between">
