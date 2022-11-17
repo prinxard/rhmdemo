@@ -27,7 +27,7 @@ const LeftSidebar = () => {
   let approverRange = [1, 2, 3, 12, 21, 27, 20]
   let creatorRange = [1, 4, 13, 15]
   let adminRange = [1]
-  let reportRange = [39, 1, 9, 20]
+  let reportRange = [39, 1, 9]
   let payeTccInitiator = [29, 1]
   let payeTccApprover = [1, 30, 21, 30]
 
