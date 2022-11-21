@@ -452,7 +452,7 @@ export const ViewSinglePayeTcc = ({ tccID, slipYear1, slipYear2, slipYear3, uplo
     try {
       let res = await axios.put(`${url.BASE_URL}paye/tcc-status`, auditTcc);
       setIsFetching(false)
-      router.push('/view/listpayetcc/alltcc')
+      router.push('/view/verified/alltcc')
       toast.success("Success!");
     } catch (error) {
       toast.error("Failed!");
@@ -471,7 +471,7 @@ export const ViewSinglePayeTcc = ({ tccID, slipYear1, slipYear2, slipYear3, uplo
     try {
       let res = await axios.put(`${url.BASE_URL}paye/tcc-status`, printAuth);
       setIsFetching(false)
-      router.push('/view/listpayetcc/alltcc')
+      router.push('/view/approved/alltcc')
       toast.success("Success!");
     } catch (error) {
       toast.error("Failed!");
@@ -490,7 +490,7 @@ export const ViewSinglePayeTcc = ({ tccID, slipYear1, slipYear2, slipYear3, uplo
     try {
       let res = await axios.put(`${url.BASE_URL}paye/tcc-status`, approveTcc);
       setIsFetching(false)
-      router.push('/view/listpayetcc/alltcc')
+      router.push('/view/audit/alltcc')
       toast.success("Success!");
     } catch (error) {
       toast.error("Failed!");
