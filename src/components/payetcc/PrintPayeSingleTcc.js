@@ -17,6 +17,8 @@ const PrintSingleTccPaye = () => {
   const [yrThreePaySl, setYrThreePaySl] = useState(() => []);
   const [passport, setPassport] = useState(() => []);
   const [signature, setSignature] = useState(() => []);
+  const [oldPass, setOldPass] = useState(() => []);
+  const [oldSign, setOldSig] = useState(() => []);
   const router = useRouter();
   useEffect(() => {
     if (router && router.query) {
@@ -30,6 +32,11 @@ const PrintSingleTccPaye = () => {
         axios.post(`${url.BASE_URL}paye/view-tcc`, id)
           .then(function (response) {
             let fetctTcc = response.data.body.tcc[0];
+            let oldTccPass = fetctTcc.passport
+            let oldTccSign = fetctTcc.signature
+            setOldPass(oldTccPass)
+            console.log("oldTccSign", oldTccSign);
+            console.log("oldTccPass", oldTccPass);
             console.log("response", response);
             let payslipY1 = response.data.body.payslipY1[0];
             let payslipY2 = response.data.body.payslipY2[0];
@@ -62,7 +69,7 @@ const PrintSingleTccPaye = () => {
     <>
       <SectionTitle subtitle="Print PAYE TCC" />
 
-      <Widget>
+      {/* <Widget> */}
 
         {isFetching ? (
           <div className="flex justify-center item mb-2">
@@ -85,9 +92,11 @@ const PrintSingleTccPaye = () => {
             yrThreePaySl={yrThreePaySl}
             passport={passport}
             signature={signature}
+            oldPass={oldPass}
+            oldSign={oldSign}
           />
         }
-      </Widget>
+      {/* </Widget> */}
     </>
   );
 };

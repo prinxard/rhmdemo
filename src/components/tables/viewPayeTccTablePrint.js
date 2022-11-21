@@ -159,7 +159,9 @@ export const ViewSinglePayeTccPrintTable = ({
   yrThreePaySl,
   PayeTccData,
   passport,
-  signature
+  signature,
+  oldPass,
+  oldSign
 }) => {
 
   let basdocurl = 'https://annualuploads.bespoque.dev/rhm-live/uploads/paye/tcc/'
@@ -171,9 +173,12 @@ export const ViewSinglePayeTccPrintTable = ({
   let Issdate = new Date()
   let Issdue_date = new Date(Issdate)
   let dateIssue = dateformat(Issdue_date, "dd mmm yyyy")
-
   const componentRef = useRef();
-console.log("PayeTccData", PayeTccData);
+
+  console.log("PayeTccData.passport", PayeTccData.passport);
+  // const base64StringPic = Buffer.from(oldPass).toString('base64')
+  // const base64StringSig = Buffer.from(oldSign).toString('base64')
+
   setAuthToken();
   let ChangePrint = (e) => {
     e.preventDefault()
@@ -188,13 +193,15 @@ console.log("PayeTccData", PayeTccData);
     }
   }
 
+  console.log("oldPass", oldPass);
+  console.log("passport", passport);
 
   return (
     <>
       <div className="m-3 flex justify-end">
         <div onClick={ChangePrint}>
           <ReactToPrint
-            pageStyle="@page { size: 7.5in 13in  }"
+            // pageStyle="@page { size: 7.5in 13in  }"
             trigger={() => <button className="btn w-32 bg-green-600 btn-default text-white
             btn-outlined bg-transparent rounded-md"
               type="submit"
@@ -207,10 +214,10 @@ console.log("PayeTccData", PayeTccData);
 
       </div>
 
-      <section className="border p-2" ref={componentRef}>
-        <div>
+      <section ref={componentRef}>
+        <div className="" >
           <div className="flex justify-around bg-no-repeat bg-center" style={{ backgroundImage: `url(/images/background.png)` }}>
-            <div>
+            <div className="border-2 p-4 mt-5">
               <div className="flex justify-between">
                 <div>
                   <h4>KOGI STATE GOVERNMENT</h4>
@@ -232,6 +239,7 @@ console.log("PayeTccData", PayeTccData);
               <div>
                 <div className="flex justify-between my-3">
                   <div className="flex">
+
                     <div>
                       <img
                         src={`${basdocurl}${passport}`}
@@ -300,7 +308,7 @@ console.log("PayeTccData", PayeTccData);
                           Year
                         </th>
                         <th>
-                        Gross Emoluments 
+                          Gross Emoluments
                         </th>
                         <th className="">
                           Taxable Income
@@ -376,8 +384,6 @@ console.log("PayeTccData", PayeTccData);
                         </td>
 
                       </tr>
-
-
                     </tbody>
                   </table>
                 </div>
@@ -405,8 +411,17 @@ console.log("PayeTccData", PayeTccData);
                   </div>
                 </div>
               </div>
-              <p>To verify certificate</p>
-              <p>-visit: <span><a href="https://irs.kg.gov.ng/verify-tcc/" target="_blank">  www.irs.kg.gov.ng/verify-tcc</a></span></p>
+                <div >
+                  <p>To verify certificate</p>
+                  <p>-visit: <span><a href="https://irs.kg.gov.ng/verify-tcc/" target="_blank">  www.irs.kg.gov.ng/verify-tcc</a></span></p>
+                </div>
+              <div className="flex justify-between">
+                <p></p>
+                <div className="font-bold">
+                  PAYE - {PayeTccData.id}
+                </div>
+                <p></p>
+              </div>
             </div>
           </div>
         </div>
