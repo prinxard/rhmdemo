@@ -239,18 +239,18 @@ export const Lines = ({ atoTrend }) => {
   let decAmtPaid
   let decUnassessedPay
 
-  const janPerfTrend = atoTrend.filter(data => data.month === "Jan");
-  const febPerfTrend = atoTrend.filter(data => data.month === "Feb");
+  const janPerfTrend = atoTrend.filter(data => data.month === "January");
+  const febPerfTrend = atoTrend.filter(data => data.month === "February");
   const marchPerfTrend = atoTrend.filter(data => data.month === "March");
   const aprilPerfTrend = atoTrend.filter(data => data.month === "April");
   const mayPerfTrend = atoTrend.filter(data => data.month === "May");
   const junePerfTrend = atoTrend.filter(data => data.month === "June");
   const julyPerfTrend = atoTrend.filter(data => data.month === "July");
-  const augPerfTrend = atoTrend.filter(data => data.month === "Aug");
-  const septPerfTrend = atoTrend.filter(data => data.month === "Sep");
-  const octPerfTrend = atoTrend.filter(data => data.month === "Oct");
-  const novPerfTrend = atoTrend.filter(data => data.month === "Nov");
-  const decPerfTrend = atoTrend.filter(data => data.month === "Dec");
+  const augPerfTrend = atoTrend.filter(data => data.month === "August");
+  const septPerfTrend = atoTrend.filter(data => data.month === "September");
+  const octPerfTrend = atoTrend.filter(data => data.month === "October");
+  const novPerfTrend = atoTrend.filter(data => data.month === "November");
+  const decPerfTrend = atoTrend.filter(data => data.month === "DeDecember");
 
   janPerfTrend.forEach((ind, i) => {
     janApprAss = Number(ind.assessedAmount)

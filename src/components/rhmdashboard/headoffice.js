@@ -256,18 +256,21 @@ export const Lines = ({ perfTrend }) => {
   let decAmtPaid
   let decUnassessedPay
 
-  const janPerfTrend = perfTrend.filter(data => data.month === "Jan");
-  const febPerfTrend = perfTrend.filter(data => data.month === "Feb");
+  const janPerfTrend = perfTrend.filter(data => data.month === "January");
+  const febPerfTrend = perfTrend.filter(data => data.month === "February");
   const marchPerfTrend = perfTrend.filter(data => data.month === "March");
   const aprilPerfTrend = perfTrend.filter(data => data.month === "April");
   const mayPerfTrend = perfTrend.filter(data => data.month === "May");
   const junePerfTrend = perfTrend.filter(data => data.month === "June");
   const julyPerfTrend = perfTrend.filter(data => data.month === "July");
-  const augPerfTrend = perfTrend.filter(data => data.month === "Aug");
-  const septPerfTrend = perfTrend.filter(data => data.month === "Sep");
-  const octPerfTrend = perfTrend.filter(data => data.month === "Oct");
-  const novPerfTrend = perfTrend.filter(data => data.month === "Nov");
-  const decPerfTrend = perfTrend.filter(data => data.month === "Dec");
+  const augPerfTrend = perfTrend.filter(data => data.month === "August");
+  const septPerfTrend = perfTrend.filter(data => data.month === "September");
+  const octPerfTrend = perfTrend.filter(data => data.month === "October");
+  const novPerfTrend = perfTrend.filter(data => data.month === "November");
+  const decPerfTrend = perfTrend.filter(data => data.month === "December");
+  console.log("perfTrend", perfTrend);
+  console.log("julyPerfTrend", julyPerfTrend);
+  console.log("augPerfTrend", augPerfTrend);
 
   janPerfTrend.forEach((ind, i) => {
     janApprAss = Number(ind.assessedAmount)
