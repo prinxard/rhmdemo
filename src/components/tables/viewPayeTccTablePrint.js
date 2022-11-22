@@ -193,8 +193,9 @@ export const ViewSinglePayeTccPrintTable = ({
     }
   }
 
-  console.log("oldPass", oldPass);
-  console.log("passport", passport);
+  // console.log("oldPass", oldPass);
+  // console.log("oldSign", oldSign);
+  // console.log("newpassport", passport);
 
   return (
     <>
@@ -238,23 +239,41 @@ export const ViewSinglePayeTccPrintTable = ({
 
               <div>
                 <div className="flex justify-between my-3">
-                  <div className="flex">
-
-                    <div>
-                      <img
-                        src={`${basdocurl}${passport}`}
-                        alt=""
-                        className="rounded h-16 w-16"
-                      />
+         
+                    {/* <div className="flex">
+                      <div>
+                        <img
+                          src={`data:image/png;base64,${base64StringPic}`}
+                          alt=""
+                          className="rounded h-16 w-16"
+                        />
+                      </div>
+                      <div className="self-end ml-2">
+                        <img
+                          src={`data:image/png;base64,${base64StringSig}`}
+                          alt=""
+                          className="rounded h-10 w-24"
+                        />
+                      </div>
+                    </div> */}
+                    
+                    <div className="flex">
+                      <div>
+                        <img
+                          src={`${basdocurl}${passport}`}
+                          alt=""
+                          className="rounded h-16 w-16"
+                        />
+                      </div>
+                      <div className="self-end ml-2">
+                        <img
+                          src={`${basdocurl}${signature}`}
+                          alt=""
+                          className="rounded h-10 w-24"
+                        />
+                      </div>
                     </div>
-                    <div className="self-end ml-2">
-                      <img
-                        src={`${basdocurl}${signature}`}
-                        alt=""
-                        className="rounded h-10 w-24"
-                      />
-                    </div>
-                  </div>
+             
                   <div className="flex">
                     <CoatOfArms />
                     <p className="border-r-2 ml-2 border-black h-8 self-center"></p>
@@ -411,10 +430,10 @@ export const ViewSinglePayeTccPrintTable = ({
                   </div>
                 </div>
               </div>
-                <div >
-                  <p>To verify certificate</p>
-                  <p>-visit: <span><a href="https://irs.kg.gov.ng/verify-tcc/" target="_blank">  www.irs.kg.gov.ng/verify-tcc</a></span></p>
-                </div>
+              <div >
+                <p>To verify certificate</p>
+                <p>-visit: <span><a href="https://irs.kg.gov.ng/verify-tcc/" target="_blank">  www.irs.kg.gov.ng/verify-tcc</a></span></p>
+              </div>
               <div className="flex justify-between">
                 <p></p>
                 <div className="font-bold">

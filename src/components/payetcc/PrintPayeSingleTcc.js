@@ -35,6 +35,7 @@ const PrintSingleTccPaye = () => {
             let oldTccPass = fetctTcc.passport
             let oldTccSign = fetctTcc.signature
             setOldPass(oldTccPass)
+            setOldSig(oldTccSign)
             console.log("oldTccSign", oldTccSign);
             console.log("oldTccPass", oldTccPass);
             console.log("response", response);

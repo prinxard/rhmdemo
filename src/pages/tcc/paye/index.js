@@ -45,6 +45,7 @@ function index() {
         { mode: "onBlur", }
     )
 
+    console.log("payslipYear1", payslipYear1);
 
     const watchYear1 = watch("assmtYr_1", "");
     const watchYear2 = watch("assmtYr_2", "");
@@ -83,7 +84,7 @@ function index() {
             data.taxYr_2 = (data.taxYr_2).replace(/,/g, '')
             data.taxYr_3 = (data.taxYr_3).replace(/,/g, '')
             data.tp_id = taxpayerInfo.KGTIN
-            data.employer = payslipYear1.orgName
+            data.employer = payslipYear1.paye_tp
 
             await axios.post(`${url.BASE_URL}paye/tcc`, data)
                 .then(function (response) {
