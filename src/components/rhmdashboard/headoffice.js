@@ -268,9 +268,7 @@ export const Lines = ({ perfTrend }) => {
   const octPerfTrend = perfTrend.filter(data => data.month === "October");
   const novPerfTrend = perfTrend.filter(data => data.month === "November");
   const decPerfTrend = perfTrend.filter(data => data.month === "December");
-  console.log("perfTrend", perfTrend);
-  console.log("julyPerfTrend", julyPerfTrend);
-  console.log("augPerfTrend", augPerfTrend);
+
 
   janPerfTrend.forEach((ind, i) => {
     janApprAss = Number(ind.assessedAmount)
