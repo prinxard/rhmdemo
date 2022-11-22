@@ -421,7 +421,7 @@ export const Lines = ({ perfTrend }) => {
           margin={{
             top: 5,
             right: 30,
-            left: 20,
+            left: 30,
             bottom: 5
           }}
         >
@@ -1472,7 +1472,7 @@ export const AssesmentCount = ({
                   margin={{
                     top: 5,
                     right: 30,
-                    left: 20,
+                    left: 30,
                     bottom: 5
                   }}
                 >
@@ -1528,7 +1528,7 @@ export const AssesmentCount = ({
                   margin={{
                     top: 5,
                     right: 15,
-                    left: 15,
+                    left: 33,
                     bottom: 5
                   }}
                 >
