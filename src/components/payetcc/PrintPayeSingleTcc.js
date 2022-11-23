@@ -17,8 +17,8 @@ const PrintSingleTccPaye = () => {
   const [yrThreePaySl, setYrThreePaySl] = useState(() => []);
   const [passport, setPassport] = useState(() => []);
   const [signature, setSignature] = useState(() => []);
-  const [oldPass, setOldPass] = useState(() => []);
-  const [oldSign, setOldSig] = useState(() => []);
+  const [oldPass, setOldPass] = useState("");
+  const [oldSign, setOldSig] = useState("");
   const router = useRouter();
   useEffect(() => {
     if (router && router.query) {

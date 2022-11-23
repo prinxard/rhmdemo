@@ -175,9 +175,14 @@ export const ViewSinglePayeTccPrintTable = ({
   let dateIssue = dateformat(Issdue_date, "dd mmm yyyy")
   const componentRef = useRef();
 
-  console.log("PayeTccData.passport", PayeTccData.passport);
-  // const base64StringPic = Buffer.from(oldPass).toString('base64')
-  // const base64StringSig = Buffer.from(oldSign).toString('base64')
+  if (oldPass === null) {
+    oldPass = ""
+  }
+  if (oldSign === null) {
+    oldSign = ""
+  }
+  const base64StringPic = Buffer.from(oldPass).toString('base64')
+  const base64StringSig = Buffer.from(oldSign).toString('base64')
 
   setAuthToken();
   let ChangePrint = (e) => {
@@ -193,9 +198,10 @@ export const ViewSinglePayeTccPrintTable = ({
     }
   }
 
-  // console.log("oldPass", oldPass);
-  // console.log("oldSign", oldSign);
-  // console.log("newpassport", passport);
+  console.log("oldPass", oldPass);
+  console.log("oldSign", oldSign);
+  console.log("newpassport", passport);
+  console.log("newsignature", signature);
 
   return (
     <>
@@ -239,8 +245,8 @@ export const ViewSinglePayeTccPrintTable = ({
 
               <div>
                 <div className="flex justify-between my-3">
-         
-                    {/* <div className="flex">
+                  {oldPass.type || oldSign.type ?
+                    <div className="flex">
                       <div>
                         <img
                           src={`data:image/png;base64,${base64StringPic}`}
@@ -255,8 +261,8 @@ export const ViewSinglePayeTccPrintTable = ({
                           className="rounded h-10 w-24"
                         />
                       </div>
-                    </div> */}
-                    
+                    </div>
+                    :
                     <div className="flex">
                       <div>
                         <img
@@ -273,7 +279,9 @@ export const ViewSinglePayeTccPrintTable = ({
                         />
                       </div>
                     </div>
-             
+                  }
+
+
                   <div className="flex">
                     <CoatOfArms />
                     <p className="border-r-2 ml-2 border-black h-8 self-center"></p>
