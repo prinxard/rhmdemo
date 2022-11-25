@@ -224,7 +224,7 @@ export const ViewSinglePayeTccPrintTable = ({
       <section ref={componentRef}>
         <div className="" >
           <div className="flex justify-around bg-no-repeat bg-center" style={{ backgroundImage: `url(/images/background.png)` }}>
-            <div className=" border-4 p-4 mt-5">
+            <div className="border-4 p-4 mt-5">
               <div className="flex justify-between">
                 <div>
                   <h4>KOGI STATE GOVERNMENT</h4>

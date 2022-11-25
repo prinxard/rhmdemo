@@ -165,6 +165,7 @@ export const ViewSingleTccPrintTable = ({
   addAss3
 }) => {
 
+  console.log("payerDetails", payerDetails);
 
   const componentRef = useRef();
   let year2
@@ -247,7 +248,7 @@ export const ViewSingleTccPrintTable = ({
   let date = printPrintTime
   let due_date = new Date(date)
   let dueDateYear = due_date.getFullYear()
- 
+
 
 
   let Issdate = new Date()
@@ -276,7 +277,7 @@ export const ViewSingleTccPrintTable = ({
       <div className="m-3 flex justify-end">
         <div onClick={ChangePrint}>
           <ReactToPrint
-            pageStyle='@page { size: auto; margin: 0mm; } @media print { body { -webkit-print-color-adjust: exact; padding: 40px !important; } }'
+            // pageStyle='@page { size: auto; margin: 0mm; } @media print { body { -webkit-print-color-adjust: exact; padding: 40px !important; } }'
             // pageStyle="@page { size: 7.5in 13in  }"
             trigger={() => <button className="btn w-32 bg-green-600 btn-default text-white
             btn-outlined bg-transparent rounded-md"
@@ -291,10 +292,10 @@ export const ViewSingleTccPrintTable = ({
       </div>
 
 
-      <section ref={componentRef} className="border p-2">
+      <section ref={componentRef} className="p-2">
         <div>
           <div className="flex justify-around bg-no-repeat bg-center" style={{ backgroundImage: `url(/images/background.png)` }}>
-            <div>
+            <div className="border-4 p-4 mt-5">
               <div className="flex justify-between">
                 <div>
                   <h4>KOGI STATE GOVERNMENT</h4>
@@ -314,8 +315,6 @@ export const ViewSingleTccPrintTable = ({
                   <p className="border font-bold p-2 text-center w-64">{`File No - ${ind.file_ref}`}</p>
                 </div>
               ))}
-
-
 
 
               {payerDetails.map((ind, i) => (
@@ -383,7 +382,7 @@ export const ViewSingleTccPrintTable = ({
 
                 <div className="w-10"></div>
                 <div>
-                  <table className="table divide-y mb-4 striped">
+                  <table className="table divide-y mb-4 ">
                     <thead >
                       <tr style={{ backgroundColor: "#d3fbc6" }}>
                         <th>
@@ -531,6 +530,13 @@ export const ViewSingleTccPrintTable = ({
               </div>
               <p>To verify certificate</p>
               <p>-visit: <span><a href="https://irs.kg.gov.ng/verify-tcc/" target="_blank">  www.irs.kg.gov.ng/verify-tcc</a></span></p>
+              <div className="flex justify-between">
+                <p></p>
+                <div className="font-bold">
+                  PAYE - {payerDetails[0].id}
+                </div>
+                <p></p>
+              </div>
             </div>
           </div>
         </div>
