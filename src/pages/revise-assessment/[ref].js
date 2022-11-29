@@ -557,7 +557,6 @@ export default function Revise() {
                   />
 
                   <div className="flex justify-evenly">
-
                     <label
                       htmlFor='customFile'
                       style={{ backgroundColor: "#84abeb" }}
@@ -592,9 +591,7 @@ export default function Revise() {
                     onClick={(e) => (e.target.value = null)}
                     required
                   />
-
                   <div className="flex justify-evenly">
-
                     <label
                       htmlFor='customFile2'
                       style={{ backgroundColor: "#84abeb" }}

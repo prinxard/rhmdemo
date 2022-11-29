@@ -134,8 +134,6 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
   };
 
 
-
-
   const ReviseAssessment = (e) => {
     revisedAssFields.file_ref = fileRef
     // console.log("revisedAssFields", revisedAssFields);
