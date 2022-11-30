@@ -480,6 +480,7 @@ export const ViewSinglePayeTcc = ({ tccID, slipYear1, slipYear2, slipYear3, uplo
     }
   }
 
+  
   const Approve = async (e) => {
     e.preventDefault()
     setIsFetching(true)
