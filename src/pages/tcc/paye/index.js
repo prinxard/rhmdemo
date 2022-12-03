@@ -417,7 +417,6 @@ function index() {
                             </div>
                         </div>
 
-
                     </div>
 
                     <div className="p-3 grid justify-items-stretch">
