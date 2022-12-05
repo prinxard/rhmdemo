@@ -37,6 +37,10 @@ function AnnualUploadsList({FilteredData}) {
             title: "Year",
             field: "year",
         },
+        {
+            title: "Status",
+            field: "status",
+        },
     ];
     let items = FilteredData
     return (
@@ -90,7 +94,7 @@ function AnnualUploadsList({FilteredData}) {
 
                 onRowClick={(event, rowData) => {
 
-                    window.open(`paye-annual/view-docs/${rowData.employerId}_${rowData.year}`, "_self")
+                    window.open(`paye-annual/view-docs/${rowData.employerId}_${rowData.year}_${rowData.status}`, "_self")
                     event.stopPropagation();
 
                 }}

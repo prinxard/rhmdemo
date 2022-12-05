@@ -392,6 +392,7 @@ export const ViewVerifiedTccTable = ({ tccdata }) => {
 export const ViewSinglePayeTcc = ({ tccID, slipYear1, slipYear2, slipYear3, uploads, yrOnePaySl, yrTwoPaySl, yrThreePaySl, payerDetails, statusTCC }) => {
   const [isFetching, setIsFetching] = useState(false)
   const [declineModal, setDeclineModal] = useState(false);
+  
   const { config, palettes, auth } = useSelector(
     (state) => ({
       config: state.config,
