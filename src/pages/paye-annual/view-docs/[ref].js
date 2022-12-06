@@ -92,7 +92,7 @@ function ViewAnnualDocs() {
                     console.log("docs", docStatus);
                     setStatus(docStatus)
                 } catch (error) {
-               
+
                     console.log(error)
                 }
             };
@@ -312,18 +312,18 @@ function ViewAnnualDocs() {
             )}
             <div>
 
+                <button
+                    className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                    onClick={() => router.back()}
+                >
+                    Back
+                </button>
                 {submitStatus === "Declined" ?
                     <div className="flex justify-between">
                     </div> :
                     <div className="mb-6">
                         <div>
-                            <button
-                                className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
-                                type="submit"
-                                onClick={() => router.back()}
-                            >
-                                Back
-                            </button>
                             {submitStatus === "Submitted" ?
                                 <div className="flex justify-between">
                                     <p></p>

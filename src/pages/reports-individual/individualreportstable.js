@@ -1,4 +1,4 @@
-import MaterialTable from "material-table";
+// import MaterialTable from "material-table";
 import Search from '@material-ui/icons/Search'
 import * as Icons from '../../components/Icons/index';
 import { Delete, Edit, MoreHoriz } from "@material-ui/icons";
@@ -17,6 +17,7 @@ import Clear from "@material-ui/icons/Clear";
 import { useRouter } from "next/router";
 import { shallowEqual, useSelector } from "react-redux";
 import jwt from "jsonwebtoken";
+import MaterialTable from '@material-table/core';
 
 
 const fields = [
