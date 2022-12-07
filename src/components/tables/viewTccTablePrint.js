@@ -533,7 +533,7 @@ export const ViewSingleTccPrintTable = ({
               <div className="flex justify-between">
                 <p></p>
                 <div className="font-bold">
-                  PAYE - {payerDetails[0].id}
+                  Direct Assessment - {payerDetails[0].id}
                 </div>
                 <p></p>
               </div>

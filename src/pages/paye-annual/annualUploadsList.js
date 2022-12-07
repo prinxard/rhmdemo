@@ -1,6 +1,7 @@
 import MaterialTable from '@material-table/core';
 import React from 'react'
 import ExportCsv from '@material-table/exporters/csv'
+import { AttachFile, Delete, Edit, MoreHoriz } from "@material-ui/icons";
 import Search from '@material-ui/icons/Search'
 import SaveAlt from '@material-ui/icons/SaveAlt'
 import ChevronLeft from '@material-ui/icons/ChevronLeft'
@@ -19,7 +20,7 @@ import jwt from "jsonwebtoken";
 import { formatNumber } from "accounting";
 
 function AnnualUploadsList({FilteredData}) {
-
+const router = useRouter()
     const fields = [
         {
             title: "KGTIN",
@@ -48,18 +49,25 @@ function AnnualUploadsList({FilteredData}) {
             <MaterialTable title="Annual Filing List"
                 data={items}
                 columns={fields}
-                // renderSummaryRow={({ column, data }) =>
-                //     column.field === "amount"
-                //         ? {
-                //             value: formatNumber(data.reduce((agg, row) => Number(agg) + (Number(row.amount)), 0)),
-                //             style: { fontWeight: "bold" },
-                //         }
-                //         : undefined
-                // }
+                actions={
+                    [
+
+                        {
+                            icon: MoreHoriz,
+                            tooltip: 'View schedule',
+                            onClick: (event, rowData) => router.push(`/paye-annual/view-csv/${rowData.employerId}_${rowData.year}`),
+                        },
+                        {
+                            icon: AttachFile,
+                            tooltip: 'view uploads',
+                            onClick: (event, rowData) => router.push(`/paye-annual/view-docs/${rowData.employerId}_${rowData.year}_${rowData.status}`),
+                        }
+                    ]}
                 options={{
                     search: false,
                     paging: true,
                     filtering: true,
+                    actionsColumnIndex: -1,
                     // Using the regular material-table
                     // exportButton: {
                     //     csv: true,
@@ -92,12 +100,12 @@ function AnnualUploadsList({FilteredData}) {
                     SortArrow: ArrowDownward
                 }}
 
-                onRowClick={(event, rowData) => {
+                // onRowClick={(event, rowData) => {
 
-                    window.open(`paye-annual/view-docs/${rowData.employerId}_${rowData.year}_${rowData.status}`, "_self")
-                    event.stopPropagation();
+                //     window.open(`paye-annual/view-docs/${rowData.employerId}_${rowData.year}_${rowData.status}`, "_self")
+                //     event.stopPropagation();
 
-                }}
+                // }}
             />
         </>
     )

@@ -26,6 +26,7 @@ const PrintSingleTccPaye = () => {
       let id = {
         id: tCCId
       }
+      console.log("Paye Id", id);
       setAuthToken();
       const fetchPost = () => {
 
