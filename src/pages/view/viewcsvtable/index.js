@@ -27,17 +27,21 @@ export default function Tablecsv() {
             let routerData = String(router.query.ref);
             let kgtin_year = routerData.split("_");
             let kgtin = kgtin_year[0]
-            let year = kgtin_year[1]
+            let year = `${kgtin_year[1]}-01-01`
+            // let yearFormat = `${year}-01-01`
             console.log("year", year);
             console.log("kgtin", kgtin);
-
+            let payload = {
+                "employer_id": kgtin,
+                "year": year
+            }
 
             setAuthToken();
             const fetchPost = async () => {
                 try {
-                    let res = await axios.get(
-                        `${url.BASE_URL}annual/view-annual-year?year=${year}&taxpayerid=${kgtin}`);
-                    res = res.data.body
+                    let res = await axios.post(
+                        `${url.BASE_URL}annual/view-annual`, payload);
+                    res = res.data.body.annualYr
                     let sum = {};
                     let records = [];
                     let salarySum = [];
