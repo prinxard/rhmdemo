@@ -37,18 +37,18 @@ export default function Tablecsv() {
                 try {
                     let res = await axios.get(
                         `${url.BASE_URL}annual/view-annual-year?year=${year}&taxpayerid=${kgtin}`);
-                        res = res.data.body
-                        let sum = {};
-                        let records = [];
-                        let salarySum = [];
-                        let reliefSum = [];
-                        let pensionSum = [];
-                        let nhisSum = [];
-                        let lapSum = [];
-                        let netTaxSum = [];
-                        console.log("res", res);
-                        let expTaxSum = [];
-                        for (let i = 0; i < res.length; i++) {
+                    res = res.data.body
+                    let sum = {};
+                    let records = [];
+                    let salarySum = [];
+                    let reliefSum = [];
+                    let pensionSum = [];
+                    let nhisSum = [];
+                    let lapSum = [];
+                    let netTaxSum = [];
+                    console.log("res", res);
+                    let expTaxSum = [];
+                    for (let i = 0; i < res.length; i++) {
                         let rec = res[i];
                         rec.salary = Number(rec.basic_salary);
                         rec.consolRel = Number(rec.con_rel_cal)
@@ -152,6 +152,13 @@ export default function Tablecsv() {
     return (
         <>
             <SectionTitle title="View Uploads" subtitle="Annual PAYE Returns" />
+            <button
+                className="btn my-3 bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
+                type="submit"
+                onClick={() => router.back()}
+            >
+                Back
+            </button>
             {isFetching && (
                 <div className="flex justify-center item mb-2">
                     <Loader
