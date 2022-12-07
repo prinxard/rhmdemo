@@ -397,7 +397,7 @@ function ViewAnnualDocs() {
                 <div className="grid justify-items-start">
 
                     <div className="font-semibold">
-                        Submission letter
+                        Cover letter for the submission of annual returns
                     </div>
 
                     <div className="flex">
@@ -409,7 +409,7 @@ function ViewAnnualDocs() {
                     </div>
 
                 </div>
-
+{/* 
                 <hr />
 
                 <div className="grid justify-items-start">
@@ -425,13 +425,13 @@ function ViewAnnualDocs() {
                             </div>
                         ))}
                     </div>
-                </div>
+                </div> */}
 
                 <hr />
 
                 <div className="grid justify-items-start">
                     <div className="font-semibold">
-                        Letter of expatriate order
+                        Letter of expatriate quota
                     </div>
 
                     <div className="flex">
@@ -492,7 +492,7 @@ function ViewAnnualDocs() {
                     </div>
                 </div>
 
-                <hr />
+                {/* <hr />
 
                 <div className="grid justify-items-start">
                     <div className="font-semibold">
@@ -505,7 +505,7 @@ function ViewAnnualDocs() {
                             </div>
                         ))}
                     </div>
-                </div>
+                </div> */}
 
                 <hr />
 
