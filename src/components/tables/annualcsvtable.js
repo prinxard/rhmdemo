@@ -1,4 +1,5 @@
 import React from 'react'
+import { formatNumber } from '../../functions/numbers';
 import Widget from '../widget';
 
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { formatNumber } from "accounting";
+import { formatNumber } from "../../../functions/numbers"
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Loader from "react-loader-spinner";
@@ -11,6 +11,7 @@ import { CustomPagination } from "../../../components/pagination/customPaginatio
 import setAuthToken from "../../../functions/setAuthToken";
 import url from '../../../config/url';
 import axios from "axios";
+import dateformat from "dateformat";
 
 export default function Tablecsv() {
     const [post, setPost] = useState(() => []);
@@ -36,18 +37,18 @@ export default function Tablecsv() {
                 try {
                     let res = await axios.get(
                         `${url.BASE_URL}annual/view-annual-year?year=${year}&taxpayerid=${kgtin}`);
-                    console.log("res", res);
-                    res = res.data.body
-                    let sum = {};
-                    let records = [];
-                    let salarySum = [];
-                    let reliefSum = [];
-                    let pensionSum = [];
-                    let nhisSum = [];
-                    let lapSum = [];
-                    let netTaxSum = [];
-                    let expTaxSum = [];
-                    for (let i = 0; i < res.length; i++) {
+                        res = res.data.body
+                        let sum = {};
+                        let records = [];
+                        let salarySum = [];
+                        let reliefSum = [];
+                        let pensionSum = [];
+                        let nhisSum = [];
+                        let lapSum = [];
+                        let netTaxSum = [];
+                        console.log("res", res);
+                        let expTaxSum = [];
+                        for (let i = 0; i < res.length; i++) {
                         let rec = res[i];
                         rec.salary = Number(rec.basic_salary);
                         rec.consolRel = Number(rec.con_rel_cal)
@@ -70,7 +71,7 @@ export default function Tablecsv() {
                         rec.lap = formatNumber(rec.lap);
                         rec.net_tax_ded = formatNumber(rec.net_tax_ded);
                         rec.tax_pay_cal = formatNumber(rec.tax_pay_cal);
-                        rec.con_rel_cal = (formatNumber(rec.con_rel_cal));
+                        rec.con_rel_cal = formatNumber(rec.con_rel_cal);
                         rec.basic_salary = formatNumber(rec.basic_salary);
                         rec.pension = formatNumber(rec.pension);
                         rec.name = rec.staff_names;
