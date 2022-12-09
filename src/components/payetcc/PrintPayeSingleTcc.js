@@ -20,6 +20,8 @@ const PrintSingleTccPaye = () => {
   const [oldPass, setOldPass] = useState("");
   const [oldSign, setOldSig] = useState("");
   const router = useRouter();
+
+  // console.log("yrTwoPaySl", yrTwoPaySl);
   useEffect(() => {
     if (router && router.query) {
       let tCCId = router.query.ref;
@@ -32,22 +34,22 @@ const PrintSingleTccPaye = () => {
 
         axios.post(`${url.BASE_URL}paye/view-tcc`, id)
           .then(function (response) {
-            let fetctTcc = response.data.body.tcc[0];
-            let oldTccPass = fetctTcc.passport
-            let oldTccSign = fetctTcc.signature
-            setOldPass(oldTccPass)
-            setOldSig(oldTccSign)
-            console.log("oldTccSign", oldTccSign);
-            console.log("oldTccPass", oldTccPass);
-            console.log("response", response);
-            let payslipY1 = response.data.body.payslipY1[0];
-            let payslipY2 = response.data.body.payslipY2[0];
-            let payslipY3 = response.data.body.payslipY3[0];
+            // let fetctTcc = response.data.body.tcc[0];
+            // let oldTccPass = response.data.body.tcc[0].passport
+            // let oldTccSign = response.data.body.tcc[0].signature
+            setOldPass(response.data.body.tcc[0].passport)
+            setOldSig(response.data.body.tcc[0].signature)
+            // console.log("oldTccSign", oldTccSign);
+            // console.log("oldTccPass", oldTccPass);
+            // let payslipY1 = response.data.body.payslipY1[0];
+            let payslipY2 = response.data.body?.payslipY2 ?? {};
+            let payslipY3 = response.data.body?.payslipY3 ?? {};
+            console.log("payslipY2", payslipY2);
             let uploads = response.data.body.tccUploads
-            setYrOnePaySl(payslipY1)
+            setYrOnePaySl(response.data.body.payslipY1[0])
             setYrTwoPaySl(payslipY2)
             setYrThreePaySl(payslipY3)
-            setPayeTccData(fetctTcc)
+            setPayeTccData(response.data.body.tcc[0])
             setIsFetching(false);
             let uploadsSign = uploads.find(v => v.doc_title === "scanned signature").doc_name
             setSignature(uploadsSign)
