@@ -57,15 +57,22 @@ function index() {
         if (data.taxYr_1 == 0 && data.incYr_1 == 0) {
             alert("Please provide Tax and Income figures for Year one")
         }
-        else if (watchYear1.getFullYear() === watchYear2.getFullYear() || watchYear1.getFullYear() === watchYear3.getFullYear() || watchYear2.getFullYear() === watchYear3.getFullYear()) {
-            alert("Cannot have same year twice")
-        }
+        // else if (data.assmtYr_2 === undefined) {
+        //     delete data.assmtYr_2
+        // }
+        // else if (data.assmtYr_3 === undefined) {
+        //     delete data.assmtYr_3
+        // }
+        // else if (watchYear1.getFullYear() === watchYear2.getFullYear() || watchYear1.getFullYear() === watchYear3.getFullYear() || watchYear2.getFullYear() === watchYear3.getFullYear()) {
+        //     alert("Cannot have same year twice")
+        // }
         else {
             setIsFetching(true)
             data.assmtYr_1 = (data.assmtYr_1).getFullYear()
 
             if (data.assmtYr_2 === undefined) {
                 delete data.assmtYr_2
+               
             } else {
                 data.assmtYr_2 = (data.assmtYr_2).getFullYear()
             }

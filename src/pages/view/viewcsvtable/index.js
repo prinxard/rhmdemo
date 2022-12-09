@@ -20,6 +20,8 @@ export default function Tablecsv() {
     const [currentPage, setCurrentPage] = useState(() => 1);
     const [postPerPage, setPostPerPage] = useState(10);
     const [query, setQuery] = useState(() => "");
+    const [routerKgtin, setRouterKgtin] = useState(() => "");
+    const [routerYear, setRouterYear] = useState(() => "");
     const router = useRouter();
 
     useEffect(() => {
@@ -27,13 +29,12 @@ export default function Tablecsv() {
             let routerData = String(router.query.ref);
             let kgtin_year = routerData.split("_");
             let kgtin = kgtin_year[0]
-            let year = `${kgtin_year[1]}-01-01`
-            // let yearFormat = `${year}-01-01`
-            console.log("year", year);
-            console.log("kgtin", kgtin);
+            let yearFormat = `${kgtin_year[1]}-01-01`
+            setRouterKgtin(kgtin)
+            setRouterYear(kgtin_year[1])
             let payload = {
                 "employer_id": kgtin,
-                "year": year
+                "year": yearFormat
             }
 
             setAuthToken();
@@ -70,7 +71,6 @@ export default function Tablecsv() {
                         expTaxSum.push(rec.expTax);
                         rec.year = dateformat(rec.year, "yyyy");
                         rec.tax = parseInt(rec.tax);
-                        // taxSum.push(rec.tax);
                         rec.nhis = formatNumber(rec.nhis);
                         rec.lap = formatNumber(rec.lap);
                         rec.net_tax_ded = formatNumber(rec.net_tax_ded);
@@ -156,13 +156,23 @@ export default function Tablecsv() {
     return (
         <>
             <SectionTitle title="View Uploads" subtitle="Annual PAYE Returns" />
-            <button
-                className="btn my-3 bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
-                type="submit"
-                onClick={() => router.back()}
-            >
-                Back
-            </button>
+            <div className="flex justify-between">
+                <button
+                    className="btn my-3 bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                    onClick={() => router.back()}
+                >
+                    Back
+                </button>
+                <button
+                    className="btn my-3 bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    type="submit"
+                    onClick={() => router.push(`/paye-annual/view-docs/${routerKgtin}_${routerYear}`)}
+                >
+                    View Documents
+                </button>
+
+            </div>
             {isFetching && (
                 <div className="flex justify-center item mb-2">
                     <Loader

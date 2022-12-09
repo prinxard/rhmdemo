@@ -61,8 +61,6 @@ function ViewAnnualDocs() {
             let docStatus = queryParams[2]
             setYear(year)
             setKgtin(kgtin)
-            console.log("year", year);
-            console.log("kgtin", kgtin);
             setTableListYear(year)
             let data = {
                 "employerId": kgtin,
@@ -311,14 +309,25 @@ function ViewAnnualDocs() {
 
             )}
             <div>
+                <div className="flex justify-between">
+                    <button
+                        className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                        onClick={() => router.back()}
+                    >
+                        Back
+                    </button>
 
-                <button
-                    className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
-                    type="submit"
-                    onClick={() => router.back()}
-                >
-                    Back
-                </button>
+                    <button
+                        className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
+                        type="submit"
+                        onClick={() => router.back(`/paye-annual/view-csv/${kgtin}_${year}`)}
+                    >
+                        View schedule
+                    </button>
+
+                </div>
+
                 {submitStatus === "Declined" ?
                     <div className="flex justify-between">
                     </div> :
@@ -409,7 +418,7 @@ function ViewAnnualDocs() {
                     </div>
 
                 </div>
-{/* 
+                {/* 
                 <hr />
 
                 <div className="grid justify-items-start">

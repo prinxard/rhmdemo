@@ -20,6 +20,7 @@ import jwt from "jsonwebtoken";
 import { formatNumber } from "accounting";
 
 function AnnualUploadsList({FilteredData}) {
+    console.log("FilteredData", FilteredData);
 const router = useRouter()
     const fields = [
         {
