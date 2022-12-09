@@ -198,6 +198,15 @@ export const ViewSinglePayeTccPrintTable = ({
     }
   }
 
+  let year2 = PayeTccData.assmtYr_2
+  let year3 = PayeTccData.assmtYr_3
+  if (year2 === null) {
+    year2 = ""
+  }
+  if (year3 === null) {
+    year3 = ""
+  }
+
   console.log("oldPass", oldPass);
   console.log("oldSign", oldSign);
   console.log("newpassport", passport);
@@ -292,7 +301,7 @@ export const ViewSinglePayeTccPrintTable = ({
                 <p>of <span className="font-bold">{PayeTccData.organization_name}</span></p>
                 <div>
                   <p>fully paid his/her Personal Income Tax for the past years, that is: <span>
-                    {`${PayeTccData.assmtYr_2 !== "" ? `${PayeTccData.assmtYr_1},` : PayeTccData.assmtYr_1} ${PayeTccData.assmtYr_3 !== "" ? `${PayeTccData.assmtYr_2},` : PayeTccData.assmtYr_2} ${PayeTccData.assmtYr_3}`}
+                    {`${year2 !== "" ? `${PayeTccData.assmtYr_1},` : PayeTccData.assmtYr_1} ${year3 !== "" ? `${year2},` : year2} ${year3}`}
                   </span>
                   </p>
                 </div>

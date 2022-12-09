@@ -34,6 +34,7 @@ const PrintSingleTccPaye = () => {
 
         axios.post(`${url.BASE_URL}paye/view-tcc`, id)
           .then(function (response) {
+            console.log("response", response);
             // let fetctTcc = response.data.body.tcc[0];
             // let oldTccPass = response.data.body.tcc[0].passport
             // let oldTccSign = response.data.body.tcc[0].signature
@@ -75,31 +76,31 @@ const PrintSingleTccPaye = () => {
 
       {/* <Widget> */}
 
-        {isFetching ? (
-          <div className="flex justify-center item mb-2">
-            <Loader
-              visible={isFetching}
-              type="BallTriangle"
-              color="#00FA9A"
-              height={19}
-              width={19}
-              timeout={0}
-              className="ml-2"
-            />
-            <p>Fetching data...</p>
-          </div>
-        ) :
-          <ViewSinglePayeTccPrintTable
-            PayeTccData={PayeTccData}
-            yrOnePaySl={yrOnePaySl}
-            yrTwoPaySl={yrTwoPaySl}
-            yrThreePaySl={yrThreePaySl}
-            passport={passport}
-            signature={signature}
-            oldPass={oldPass}
-            oldSign={oldSign}
+      {isFetching ? (
+        <div className="flex justify-center item mb-2">
+          <Loader
+            visible={isFetching}
+            type="BallTriangle"
+            color="#00FA9A"
+            height={19}
+            width={19}
+            timeout={0}
+            className="ml-2"
           />
-        }
+          <p>Fetching data...</p>
+        </div>
+      ) :
+        <ViewSinglePayeTccPrintTable
+          PayeTccData={PayeTccData}
+          yrOnePaySl={yrOnePaySl}
+          yrTwoPaySl={yrTwoPaySl}
+          yrThreePaySl={yrThreePaySl}
+          passport={passport}
+          signature={signature}
+          oldPass={oldPass}
+          oldSign={oldSign}
+        />
+      }
       {/* </Widget> */}
     </>
   );
