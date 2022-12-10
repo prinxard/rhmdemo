@@ -21,14 +21,12 @@ const PrintSingleTccPaye = () => {
   const [oldSign, setOldSig] = useState("");
   const router = useRouter();
 
-  // console.log("yrTwoPaySl", yrTwoPaySl);
   useEffect(() => {
     if (router && router.query) {
       let tCCId = router.query.ref;
       let id = {
         id: tCCId
       }
-      console.log("Paye Id", id);
       setAuthToken();
       const fetchPost = () => {
 
@@ -43,8 +41,8 @@ const PrintSingleTccPaye = () => {
             // console.log("oldTccSign", oldTccSign);
             // console.log("oldTccPass", oldTccPass);
             // let payslipY1 = response.data.body.payslipY1[0];
-            let payslipY2 = response.data.body?.payslipY2 ?? {};
-            let payslipY3 = response.data.body?.payslipY3 ?? {};
+            let payslipY2 = response.data.body?.payslipY2 ?? [];
+            let payslipY3 = response.data.body?.payslipY3 ?? [];
             console.log("payslipY2", payslipY2);
             let uploads = response.data.body.tccUploads
             setYrOnePaySl(response.data.body.payslipY1[0])

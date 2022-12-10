@@ -206,12 +206,33 @@ export const ViewSinglePayeTccPrintTable = ({
   if (year3 === null) {
     year3 = ""
   }
+  let year2ConRel
+  let year2OtherRelief
+  let year3ConRel
+  let year3OtherRelief
 
-  console.log("oldPass", oldPass);
-  console.log("oldSign", oldSign);
-  console.log("newpassport", passport);
-  console.log("newsignature", signature);
+  if (yrTwoPaySl[0] == undefined) {
+    year2ConRel = 0
+    year2OtherRelief = 0
+  }
+  else {
+    year2ConRel = yrTwoPaySl[0].consolidated_relief
+    year2OtherRelief = yrTwoPaySl[0].other_relief
+  }
 
+  if (yrThreePaySl[0] == undefined) {
+    year3ConRel = 0
+    year3OtherRelief = 0
+  }
+  else {
+    year3ConRel = yrThreePaySl[0].consolidated_relief
+    year3OtherRelief = yrThreePaySl[0].other_relief
+  }
+  // console.log("year2P", year2P);
+  console.log("Payable 1", (Number(PayeTccData.incYr_1) - (Number(yrOnePaySl.consolidated_relief) + Number(yrOnePaySl.other_relief))));
+  console.log("Payable 2", (Number(PayeTccData.incYr_2) - (Number(year2ConRel) + Number(year2OtherRelief))));
+  console.log("Payable 3", ((PayeTccData.incYr_3) + "" + ((year3ConRel) + "" + (year3OtherRelief))));
+  // console.log("Payable 3", ((PayeTccData.incYr_3) - ((yrThreePaySl.consolidated_relief) + (yrThreePaySl.other_relief))));
   return (
     <>
       <div className="m-3 flex justify-end">
@@ -369,7 +390,7 @@ export const ViewSinglePayeTccPrintTable = ({
                         </td>
 
                         <td className="">
-                          <p className="font-bold"> {formatNumber(Number(PayeTccData.incYr_1) - (Number(yrOnePaySl.consolidated_relief) + Number(yrOnePaySl.other_relief)))} </p>
+                          <p className="font-bold"> {formatNumber(Number(PayeTccData.incYr_1) - (Number(year2ConRel) + Number(year2OtherRelief)))} </p>
                         </td>
                         <td className="">
                           <p className="font-bold">{formatNumber(PayeTccData.taxYr_1)}</p>
@@ -388,7 +409,7 @@ export const ViewSinglePayeTccPrintTable = ({
                           <p className="font-bold">{formatNumber(PayeTccData.incYr_2)}</p>
                         </td>
                         <td className="">
-                          <p className="font-bold">{formatNumber(Number(PayeTccData.incYr_2) - (Number(yrTwoPaySl.consolidated_relief) + Number(yrTwoPaySl.other_relief)))}</p>
+                          <p className="font-bold">{formatNumber(Number(PayeTccData.incYr_2) - (Number(year3ConRel) + Number(year3ConRel)))}</p>
                         </td>
                         <td className="">
                           <p className="font-bold">{formatNumber(PayeTccData.taxYr_2)}</p>
@@ -409,7 +430,7 @@ export const ViewSinglePayeTccPrintTable = ({
                         </td>
 
                         <td className="">
-                          <p className="font-bold"> {formatNumber(Number(PayeTccData.incYr_3) - (Number(yrThreePaySl.consolidated_relief) + Number(yrThreePaySl.other_relief)))} </p>
+                          <p className="font-bold"> {formatNumber(Number(PayeTccData.incYr_3) - (Number(year3ConRel) + Number(year3OtherRelief)))} </p>
                         </td>
 
                         <td className="">
