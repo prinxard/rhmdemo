@@ -228,11 +228,7 @@ export const ViewSinglePayeTccPrintTable = ({
     year3ConRel = yrThreePaySl[0].consolidated_relief
     year3OtherRelief = yrThreePaySl[0].other_relief
   }
-  // console.log("year2P", year2P);
-  console.log("Payable 1", (Number(PayeTccData.incYr_1) - (Number(yrOnePaySl.consolidated_relief) + Number(yrOnePaySl.other_relief))));
-  console.log("Payable 2", (Number(PayeTccData.incYr_2) - (Number(year2ConRel) + Number(year2OtherRelief))));
-  console.log("Payable 3", ((PayeTccData.incYr_3) + "" + ((year3ConRel) + "" + (year3OtherRelief))));
-  // console.log("Payable 3", ((PayeTccData.incYr_3) - ((yrThreePaySl.consolidated_relief) + (yrThreePaySl.other_relief))));
+  
   return (
     <>
       <div className="m-3 flex justify-end">
