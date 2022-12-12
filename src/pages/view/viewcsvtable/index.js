@@ -22,6 +22,7 @@ export default function Tablecsv() {
     const [query, setQuery] = useState(() => "");
     const [routerKgtin, setRouterKgtin] = useState(() => "");
     const [routerYear, setRouterYear] = useState(() => "");
+    const [status, setStatus] = useState(() => "");
     const router = useRouter();
 
     useEffect(() => {
@@ -32,6 +33,7 @@ export default function Tablecsv() {
             let yearFormat = `${kgtin_year[1]}-01-01`
             setRouterKgtin(kgtin)
             setRouterYear(kgtin_year[1])
+            setStatus(kgtin_year[2])
             let payload = {
                 "employer_id": kgtin,
                 "year": yearFormat
@@ -127,8 +129,7 @@ export default function Tablecsv() {
             fetchPost();
         }
     }, [router]);
-    console.log("Annual sum", total);
-    console.log("Posts", post);
+  
     // Get current post
     const indexOfLastPost = currentPage * postPerPage;
     const indexOfFirstPost = indexOfLastPost - postPerPage;
@@ -167,12 +168,13 @@ export default function Tablecsv() {
                 <button
                     className="btn my-3 bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
                     type="submit"
-                    onClick={() => router.push(`/paye-annual/view-docs/${routerKgtin}_${routerYear}`)}
+                    onClick={() => router.push(`/paye-annual/view-docs/${routerKgtin}_${routerYear}_${status}`)}
                 >
                     View Documents
                 </button>
 
             </div>
+            <p className="text-center font-bold">Year {routerYear} - {status} </p>
             {isFetching && (
                 <div className="flex justify-center item mb-2">
                     <Loader
@@ -198,7 +200,7 @@ export default function Tablecsv() {
                     </div>
                 </div>
                 <div className="mt-4">
-
+                   
                     {query !== "" ? (
                         <>
                             <AnnulCsv remittance={searchedPost} total={total} />

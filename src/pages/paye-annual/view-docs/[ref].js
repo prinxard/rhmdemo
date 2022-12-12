@@ -59,6 +59,7 @@ function ViewAnnualDocs() {
             let kgtin = queryParams[0]
             let year = queryParams[1]
             let docStatus = queryParams[2]
+            setStatus(docStatus)
             setYear(year)
             setKgtin(kgtin)
             setTableListYear(year)
@@ -81,20 +82,6 @@ function ViewAnnualDocs() {
                 }
             };
             fetchPost();
-
-            const fetStatus = async () => {
-                try {
-
-                    let response = await axios.post(`${url.BASE_URL}annual/view-annual-status`, data)
-                    let docStatus = response.data.body.status;
-                    console.log("docs", docStatus);
-                    setStatus(docStatus)
-                } catch (error) {
-
-                    console.log(error)
-                }
-            };
-            fetStatus();
 
         }
     }, [router]);
@@ -321,7 +308,7 @@ function ViewAnnualDocs() {
                     <button
                         className="btn bg-purple-400 btn-default text-white btn-outlined bg-transparent rounded-md"
                         type="submit"
-                        onClick={() => router.back(`/paye-annual/view-csv/${kgtin}_${year}`)}
+                        onClick={() => router.back(`/paye-annual/view-csv/${kgtin}_${year}_${submitStatus}`)}
                     >
                         View schedule
                     </button>
@@ -402,7 +389,7 @@ function ViewAnnualDocs() {
                     className="form-control mb-3 rounded"
                 /> */}
 
-                <p className="font-bold flex justify-center">{tableListYear}</p>
+                <p className="font-bold flex justify-center">Year {tableListYear} - {submitStatus}</p>
                 <div className="grid justify-items-start">
 
                     <div className="font-semibold">

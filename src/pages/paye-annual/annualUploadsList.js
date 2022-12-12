@@ -43,6 +43,14 @@ const router = useRouter()
             title: "Status",
             field: "status",
         },
+        {
+            title: "Approved by",
+            field: "approvedBy",
+        },
+        {
+            title: "Approved Time",
+            field: "approvedTime",
+        },
     ];
     let items = FilteredData
     return (
@@ -56,7 +64,7 @@ const router = useRouter()
                         {
                             icon: MoreHoriz,
                             tooltip: 'View schedule',
-                            onClick: (event, rowData) => router.push(`/paye-annual/view-csv/${rowData.employerId}_${rowData.year}`),
+                            onClick: (event, rowData) => router.push(`/paye-annual/view-csv/${rowData.employerId}_${rowData.year}_${rowData.status}`),
                         },
                         {
                             icon: AttachFile,
