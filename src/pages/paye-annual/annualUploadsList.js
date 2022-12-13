@@ -50,6 +50,7 @@ const router = useRouter()
         {
             title: "Approved Time",
             field: "approvedTime",
+            type: "date"
         },
     ];
     let items = FilteredData
