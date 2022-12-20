@@ -310,21 +310,6 @@ export const ViewSinglePayeTccPrintTable = ({
                       </div>
                     </div>
                   }
-
-                  {/* <div>
-                    <img
-                      src={`data:image/png;base64,${base64StringPic}`}
-                      alt=""
-                      className="rounded h-16 w-16"
-                    />
-                  </div>
-                  <div className="self-end ml-2">
-                    <img
-                      src={`data:image/png;base64,${base64StringSig}`}
-                      alt=""
-                      className="rounded h-10 w-24"
-                    />
-                  </div> */}
                 </div>
                 <div>
                   <div>

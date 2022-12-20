@@ -23,15 +23,16 @@ const PrintSingleTcc = () => {
   const router = useRouter();
   useEffect(() => {
     if (router && router.query) {
-      let tCCId = router.query.ref;
+      let printId = router.query.ref;
+      console.log("First", printId);
       let id = {
-        id: tCCId
+        id: printId
+        // id: 165
       }
-      setTccID(tCCId)
-      console.log("DA Id", id);
+      setTccID(printId)
       setAuthToken();
       const fetchPost = () => {
-        axios.post(`${url.BASE_URL}forma/view-tcc`, id)
+        axios.post(`${url.BASE_URL}forma/view-tcc`, id )
           .then(function (res) {
             let fetctTcc = res.data.body;
             console.log(fetctTcc);
@@ -68,9 +69,7 @@ const PrintSingleTcc = () => {
   return (
     <>
       <SectionTitle subtitle="Print Tcc" />
-
       <Widget>
-
         <>
           {isFetching ? (
             <div className="flex justify-center item mb-2">
