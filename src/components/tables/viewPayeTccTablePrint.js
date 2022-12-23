@@ -340,7 +340,7 @@ export const ViewSinglePayeTccPrintTable = ({
 
               <div>
                 <p> <span className="font-bold">1.</span> This is to Certify that <span className="font-bold">{PayeTccData.taxpayer_name}</span></p>
-                <p><span className="font-bold">of</span> {PayeTccData.address}</p>
+                <p><span>of</span> <span className="font-bold"> {PayeTccData.address}</span></p>
                 <div>
                   <p>fully paid his/her Personal Income Tax for the past years, that is: <span>
                     {`${year2 !== "" ? `${PayeTccData.assmtYr_1},` : PayeTccData.assmtYr_1} ${year3 !== "" ? `${year2},` : year2} ${year3}`}

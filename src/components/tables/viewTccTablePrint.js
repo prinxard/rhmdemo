@@ -623,8 +623,8 @@ export const ViewSingleTccPrintTable = ({
               <div>
                 <p> <span className="font-bold">1.</span> This is to Certify that <span className="font-bold">{payerDetails[0].taxpayer_name}</span></p>
                 {payerDetails.map((data, i) => (
-                  <p><span className="font-bold">of </span>{data.address}</p>
-                ))}
+                  <p><span>of <span className="font-bold"> {data.address}</span></span></p>
+                ))} 
                 <div>
                   <p>fully paid his/her Personal Income Tax for the past years, that is: <span>
                     {`${secondYear !== "" ? `${firstYear},` : firstYear} ${thirdYear !== "" ? `${secondYear},` : secondYear} ${thirdYear}`}
