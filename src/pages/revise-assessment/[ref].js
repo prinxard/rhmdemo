@@ -10,7 +10,7 @@ import { FormatMoneyComponentReport } from '../../components/FormInput/formInput
 import { formatNumber } from '../../functions/numbers';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FiDelete } from 'react-icons/fi';
+import { FiTrash } from 'react-icons/fi';
 
 export default function Revise() {
   const [payerDetails, setpayerDetails] = useState([]);
@@ -533,7 +533,7 @@ export default function Revise() {
                       type="button"
                       onClick={() => handleServiceRemove(index)}
                     >
-                      <FiDelete
+                      <FiTrash
                         size={15}
                         className=" text-red-500"
                       />
