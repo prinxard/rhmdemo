@@ -439,14 +439,6 @@ console.log("objectionData", objectionData);
                 <label className="self-center font-bold">Proposed Income:</label>
                 <p className="font-bold">{formatNumber(objectionData.income)}</p>
               </div>
-              {/* <div className="mb-2 grid grid-cols-2 gap-2">
-                <label className="self-center font-bold">Tax:</label>
-                <p className="font-bold">{formatNumber(data.tp_tax)}</p>
-              </div> */}
-              <div className="mb-2 grid grid-cols-2 gap-2">
-                <label className="self-center font-bold">Dev levy:</label>
-                <p className="font-bold">{formatNumber(objectionData.dev_levy)}</p>
-              </div>
               <div className="mb-2 grid grid-cols-2 gap-2">
                 <label className="self-center font-bold"> Tax liability:</label>
                 <p className="font-bold">{formatNumber(objectionData.tp_tax)}</p>

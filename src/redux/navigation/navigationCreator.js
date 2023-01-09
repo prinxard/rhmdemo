@@ -205,6 +205,17 @@ const initialState = [
 
             ],
           },
+          {
+            url: '/',
+            title: 'Annual Filing',
+            items: [
+              {
+                title: 'Review Documents',
+                url: '/paye-annual',
+                items: [],
+              },
+            ],
+          },
           // {
           //   url: '/',
           //   title: 'Dashboard',

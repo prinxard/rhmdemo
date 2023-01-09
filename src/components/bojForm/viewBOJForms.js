@@ -167,7 +167,7 @@ export const StartBOJ = () => {
       let routerData = String(router.query.ref);
       let kgtin = routerData.split('_').pop()
       let assessId = routerData.split('_').shift()
-      // setAssessId(assessId)
+      setAssessId(assessId)
       let fetchboj = {
         KGTIN: kgtin,
         assessment_id: assessId

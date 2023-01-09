@@ -392,6 +392,7 @@ export const ViewVerifiedTccTable = ({ tccdata }) => {
 export const ViewSinglePayeTcc = ({ tccID, slipYear1, slipYear2, slipYear3, uploads, yrOnePaySl, yrTwoPaySl, yrThreePaySl, payerDetails, statusTCC }) => {
   const [isFetching, setIsFetching] = useState(false)
   const [declineModal, setDeclineModal] = useState(false);
+  
   const { config, palettes, auth } = useSelector(
     (state) => ({
       config: state.config,
@@ -452,7 +453,7 @@ export const ViewSinglePayeTcc = ({ tccID, slipYear1, slipYear2, slipYear3, uplo
     try {
       let res = await axios.put(`${url.BASE_URL}paye/tcc-status`, auditTcc);
       setIsFetching(false)
-      router.push('/view/listpayetcc/alltcc')
+      router.push('/view/listpayetcc/alltcc/verified')
       toast.success("Success!");
     } catch (error) {
       toast.error("Failed!");
@@ -471,7 +472,7 @@ export const ViewSinglePayeTcc = ({ tccID, slipYear1, slipYear2, slipYear3, uplo
     try {
       let res = await axios.put(`${url.BASE_URL}paye/tcc-status`, printAuth);
       setIsFetching(false)
-      router.push('/view/listpayetcc/alltcc')
+      router.push('/view/listpayetcc/alltcc/approved')
       toast.success("Success!");
     } catch (error) {
       toast.error("Failed!");
@@ -479,6 +480,9 @@ export const ViewSinglePayeTcc = ({ tccID, slipYear1, slipYear2, slipYear3, uplo
       setIsFetching(false)
     }
   }
+
+  
+
 
   const Approve = async (e) => {
     e.preventDefault()
@@ -490,7 +494,7 @@ export const ViewSinglePayeTcc = ({ tccID, slipYear1, slipYear2, slipYear3, uplo
     try {
       let res = await axios.put(`${url.BASE_URL}paye/tcc-status`, approveTcc);
       setIsFetching(false)
-      router.push('/view/listpayetcc/alltcc')
+      router.push('/view/listpayetcc/alltcc/audit')
       toast.success("Success!");
     } catch (error) {
       toast.error("Failed!");

@@ -154,6 +154,16 @@ const initialState = [
         icon: <Paye />,
         title: 'PAYE',
         items: [
+          // {
+          //   url: '/',
+          //   title: 'ANNUAL FIlING',
+          //   items: [
+          //     {
+          //       title: "Review Uploads",
+          //       url: "/"
+          //     }
+          //   ]
+          // },
           {
             url: '/',
             title: 'TCC',
@@ -210,6 +220,18 @@ const initialState = [
                 items: [],
               },
 
+            ],
+          },
+
+          {
+            url: '/',
+            title: 'Annual Filing',
+            items: [
+              {
+                title: 'Review Documents',
+                url: '/paye-annual',
+                items: [],
+              },
             ],
           },
           // {

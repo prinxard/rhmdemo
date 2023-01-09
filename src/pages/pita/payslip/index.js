@@ -56,6 +56,7 @@ export default function payslip() {
     )
 
     let otherReliefWatch = watch("other_relief", "0").replace(/,/g, '')
+    let upfrontWatch = watch("upfront", "0").replace(/,/g, '')
     let watch_relief_notes = watch("other_relief_notes", "")
     
 
@@ -76,7 +77,7 @@ export default function payslip() {
     let tax
 
 
-    let allowance = (Number(housing) + Number(trans_allw) + Number(leave_allw) + Number(utilities) + Number(other_allw) + Number(benefits) + Number(month_13));
+    let allowance = (Number(housing) + Number(trans_allw) + Number(leave_allw) + Number(upfrontWatch) + Number(utilities) + Number(other_allw) + Number(benefits) + Number(month_13));
     let totalRelief = (Number(pension) + Number(nhf) + Number(lap));
 
 
@@ -99,7 +100,7 @@ export default function payslip() {
         // console.log("Gross INC", gross_inc);
     }
 
-    let totalDeduction = consolidatedRelief + totalRelief;
+    let totalDeduction = consolidatedRelief + totalRelief + Number(otherReliefWatch);
     let chargeableIncome = consolidatedIncome - totalDeduction;
 
     //calculate tax

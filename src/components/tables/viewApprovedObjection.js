@@ -161,12 +161,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
             <div className="flex justify-center">
               {objNotice === "undertaxed" ?
                 <div className="text-justify text-base max-w-prose"  >
-                  {/* <div className="flex justify-between my-3">
-                    <p> <KgirsLogo /></p>
-                    <h3 className="self-center">KOGI STATE GOVERNMENT</h3>
-                    <p> <KogiGov /></p>
-                  </div> */}
-                  <p className="flex justify-between mb-3"> <span>File reference</span> {today}  </p>
+                  <p className="flex justify-between mb-3"> <span className="font-bold">{objectionData.file_ref}</span> {today}  </p>
                   <p>{payerName}</p>
                   <p>{tpKgtin}</p>
                   <p>{payerAddr}</p>
@@ -226,7 +221,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                         <h3 className="mt-9">KOGI STATE GOVERNMENT</h3>
                         <p align="right"> <KogiGov /></p>
                       </div> */}
-                      <p className="flex justify-between mb-3"> <span>File reference</span> {today}  </p>
+                      <p className="flex justify-between mb-3"> <span>{objectionData.file_ref}</span> {today}  </p>
                       <p>{payerName}</p>
                       <p>{tpKgtin}</p>
                       <p>{payerAddr}</p>
@@ -272,13 +267,8 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                     :
                     <div>
                       {objNotice === "PITA" ?
-                        <div className="text-justify text-base max-w-prose" >
-                          {/* <div className="flex justify-between my-3">
-                            <p align="left"> <KgirsLogo /></p>
-                            <h3 className="">KOGI STATE GOVERNMENT</h3>
-                            <p align="right"> <KogiGov /></p>
-                          </div> */}
-                          <p> {today} </p>
+                        <div className="text-justify text-base max-w-prose">
+                          <p className="flex justify-between mb-3"> <span>{objectionData.file_ref}</span> {today}  </p>
                           <p>{payerName}</p>
                           <p>{tpKgtin}</p>
                           <p>{payerAddr}</p>
@@ -333,7 +323,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                               <h3 className="">KOGI STATE GOVERNMENT</h3>
                               <p align="right"> <KogiGov /></p>
                             </div> */}
-                            <p> {today} </p>
+                            <p className="flex justify-between mb-3"> <span>{objectionData.file_ref}</span> {today}  </p>
                             <p>{payerName}</p>
                             <p>{tpKgtin}</p>
                             <p>{payerAddr}</p>

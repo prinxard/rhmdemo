@@ -110,6 +110,68 @@ const initialState = [
 
       {
         url: '/',
+        icon: <Paye />,
+        title: 'PAYE',
+        items: [
+          {
+            url: '/',
+            title: 'TCC',
+            items: [
+              // {
+              //   title: 'Create',
+              //   url: '/tcc/paye',
+              //   items: [],
+              // },
+              {
+                title: 'Draft',
+                url: '/view/listpayetcc/alltcc',
+                items: [],
+              },
+              {
+                title: 'Verified',
+                url: '/view/listpayetcc/alltcc/verified',
+                items: [],
+              },
+              {
+                title: 'Audit Checked',
+                url: '/view/listpayetcc/alltcc/audit',
+                items: [],
+              },
+              {
+                title: 'Pending E.C Sign',
+                url: '/view/listpayetcc/alltcc/approved',
+                items: [],
+              },
+              {
+                title: 'Print',
+                url: '/view/listpayetcc',
+                items: [],
+              },
+            ],
+          },
+          {
+            url: '/',
+            title: 'Income Details',
+            items: [
+              {
+                title: 'Create',
+                url: '/pita/payslip',
+                items: [],
+              },
+              {
+                title: 'view',
+                url: '/view/payslip',
+                items: [],
+              },
+
+            ],
+          },
+          
+        ],
+      },
+
+      {
+        url: '/',
         icon: <Collections />,
         title: 'Collections',
         items: [
