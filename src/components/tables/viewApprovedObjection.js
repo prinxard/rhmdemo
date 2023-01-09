@@ -181,7 +181,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                   <p>
                     We have reviewed your letter of complaint and objection along with
                     your previous tax records with Kogi State Internal Revenue Service.
-                    The Management have looked at the reasonability of your objection
+                    The Management has looked at the reasonability of your objection
                     and revised your assessment to <span className="font-bold">₦{formatNumber(recommendedTax)}  </span>
                     Instead of <span className="font-bold"> ₦{formatNumber(DATax)} </span>
                   </p><br />
@@ -239,7 +239,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                       <p>
                         We have reviewed your letter of complaint and objection along with
                         your previous tax records with Kogi State Internal Revenue Service.
-                        The Management have looked at the reasonability of your objection
+                        The Management has looked at the reasonability of your objection
                         and revised your assessment to <span className="font-bold">₦{formatNumber(recommendedTax)} </span>
                         Instead of <span className="font-bold"> ₦{formatNumber(DATax)} </span>
                       </p><br />
@@ -285,7 +285,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                           <br />
                           <p>
                             We have reviewed your letter of objection in line with section 24[A] of
-                            PITA 2011 as amended.The Management have looked at the reasonability of your objection
+                            PITA 2011 as amended.The Management has looked at the reasonability of your objection
                             and revised your assessment to <span className="font-bold">₦{formatNumber(recommendedTax)} </span>
                             Instead of <span className="font-bold"> ₦{formatNumber(DATax)} </span>
                           </p><br />
@@ -340,7 +340,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                             <br />
                             <p>
                               We have reviewed your letter of objection in line with section 24[A] of
-                              PITA 2011 as amended.The Management have looked at the reasonability of your objection
+                              PITA 2011 as amended.The Management has looked at the reasonability of your objection
                               and revised your assessment to <span className="font-bold">₦{formatNumber(recommendedTax)} </span>
                               Instead of <span className="font-bold"> ₦{formatNumber(DATax)} </span>
                             </p><br />
