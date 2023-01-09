@@ -294,6 +294,7 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
                 required={true}
               />
               <textarea name="verifiedcomment" ref={register()} required className="form-control mt-3 w-full rounded" minlength="10" maxlength="150" placeholder="comment"></textarea>
+              <input type="text" name="file_ref" ref={register()} required placeholder="Enter file ref" className="w-full rounded form-control"/>
               <div className="mt-2 flex justify-between">
                 <button onClick={verifyPopup}
                   className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
@@ -457,10 +458,6 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
               <div className="mb-2 grid grid-cols-2 gap-2">
                 <label className="self-center font-bold">Proposed Income:</label>
                 <p className="font-bold">{formatNumber(objectionData.income)}</p>
-              </div>
-              <div className="mb-2 grid grid-cols-2 gap-2">
-                <label className="self-center font-bold">Dev levy:</label>
-                <p className="font-bold">{formatNumber(objectionData.dev_levy)}</p>
               </div>
               <div className="mb-2 grid grid-cols-2 gap-2">
                 <label className="self-center font-bold"> Tax liability:</label>

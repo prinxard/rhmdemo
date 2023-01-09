@@ -87,7 +87,6 @@ export default function Revise() {
     if (router && router.query) {
       let routerData = String(router.query.ref);
       let kgtin = routerData.split('_').shift()
-      console.log("routerkgtin", kgtin);
       let assessId = routerData.split('_').pop()
       setAssessId(assessId)
       const fetchPost = async () => {
@@ -107,7 +106,6 @@ export default function Revise() {
             setIsFetching(false);
             console.log(error);
           })
-
 
       };
       fetchPost();
@@ -295,8 +293,6 @@ export default function Revise() {
   let totalDeduction;
   let consolidatedIncome
 
-  let dev_levy
-
   consolidatedIncome = Number(incomeFigure);
 
   totalRelief = 0;
@@ -374,9 +370,7 @@ export default function Revise() {
 
   let JsonTax = String(tax_paid)
 
-  dev_levy = "1000"
-
-  let finalTax = (Number(JsonTax) + Number(dev_levy))
+  let finalTax = Number(JsonTax)
 
   let TotalIncome = Number(incomeFigure)
 
@@ -495,10 +489,6 @@ export default function Revise() {
               <div className="mb-2 grid grid-cols-2 gap-2">
                 <label className="self-center font-bold">Tax:</label>
                 <p className="font-bold">{formatNumber(JsonTax)}</p>
-              </div>
-              <div className="mb-2 grid grid-cols-2 gap-2">
-                <label className="self-center font-bold">Dev levy:</label>
-                <input className="font-bold" name="dev_levy" readOnly ref={register()} defaultValue={(dev_levy)} />
               </div>
               <div className="mb-2 grid grid-cols-2 gap-2">
                 <label className="self-center font-bold"> Tax liability:</label>

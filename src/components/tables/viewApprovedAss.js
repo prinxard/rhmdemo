@@ -86,10 +86,8 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
   const [assessId, setAssessId] = useState('');
   const [createErrors, setCreateErrors] = useState([]);
   const [isFetching, setIsFetching] = useState(() => false);
-  const [fileRef, setFileRef] = useState('');
   const router = useRouter();
 
-  console.log("fileRef", fileRef);
   const { config, palettes, auth } = useSelector(
     (state) => ({
       config: state.config,
@@ -104,9 +102,6 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
   const decoded = jwt.decode(auth);
   const userGroup = decoded.groups
 
-  const handleChange = event => {
-    setFileRef(event.target.value);
-  };
 
   const toggleModal = () => {
     setModal(!modal);
@@ -135,15 +130,12 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
 
 
   const ReviseAssessment = (e) => {
-    revisedAssFields.file_ref = fileRef
-    // console.log("revisedAssFields", revisedAssFields);
     e.preventDefault()
     setIsFetching(true)
 
     axios.post(`${url.BASE_URL}forma/new-objection`, revisedAssFields)
       .then(function (response) {
         setRevisedModal(!revisedmodal);
-        console.log(revisedAssFields);
         setIsFetching(false)
         toast.success("Created successfully!");
         router.push(`/revise-assessment/${revisedAssFields.kgtin}_${response.data.body.assessment_id}`)
@@ -158,11 +150,9 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
           toast.error("Failed Try again!");
 
         }
-
       })
 
   };
-
 
 
   return (
@@ -214,7 +204,6 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
                 />
               </div>
               <p>Are you sure you want to create objection?</p>
-              <input required type="text" onChange={handleChange} placeholder="Please type in the file reference" className="form-control w-full rounded" />
               <div className="mt-2 flex justify-between">
                 <button onClick={toggleObjectionModal}
                   className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
@@ -282,9 +271,9 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
             }
           },
           {
-            icon: Redo,
+            icon: () => <Icons.Objection />,
             tooltip: 'Objection',
-            hidden: true,
+            // hidden: true,
             onClick: (event, rowData) => {
               event.preventDefault()
               setRevisedAssFields(

@@ -41,7 +41,6 @@ function ViewAnnualDocs() {
     const decoded = jwt.decode(auth);
     const userGroup = decoded.groups
 
-    console.log("submitStatus", submitStatus);
     const declinePopup = (e) => {
         // e.preventDefault()
         setDeclineModal(!declineModal);

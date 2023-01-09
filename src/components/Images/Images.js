@@ -1,4 +1,5 @@
 import Image from 'next/image';
+
 export const KgirsLogo = () => {
   return (
     <Image
@@ -10,6 +11,8 @@ export const KgirsLogo = () => {
     />
   );
 };
+
+
 export const KgirsLogoWatermark = () => {
   return (
     <Image
