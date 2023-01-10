@@ -154,7 +154,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
 
       </div>
 
-      <div className="">
+      <div className="mt-16">
         {objNotice === null ? "Objection type not available"
           :
           <div ref={componentRef} className="p-4 mt-5">
@@ -193,7 +193,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
 
                   <p>
                     You are by this expected to make payments to any Kogi State Internal
-                    Revenue Service Designated banks using the Assessment Id <span className="font-bold">{assessmentId}</span>.
+                    Revenue Service Designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
                     {/* Otherwise submit the following document for the year <span className="font-bold">{year}</span> to enable
                     us carry out proper assessment in consideration of your objection: */}
                     {/* Please accept the assurance of our highest regards. */}
@@ -209,7 +209,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                   </p>
                   <p>For:<span className="font-bold"> KOGI STATE INTERNAL REVENUE SERVICE </span></p><br /><br />
                   <p className="font-bold">Sule Salihu Enehe</p>
-                  Acting Executive Chairman
+                   Executive Chairman
 
                 </div>
                 :
@@ -224,7 +224,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                       <p className="flex justify-between mb-3"> <span>{objectionData.file_ref}</span> {today}  </p>
                       <p>{payerName}</p>
                       <p>{tpKgtin}</p>
-                      <p>{payerAddr}</p>
+                      <p className="w-64">{payerAddr}</p>
                       <p>Sir/Ma</p><br />
                       <div>
                         <p className="font-bold">RE: {objectionData.grounds}</p><br />
@@ -245,7 +245,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                       </p><br />
                       <p>
                         You are by this expected to make payments to any Kogi State Internal
-                        Revenue Service Designated banks using the Assessment Id <span className="font-bold">{assessmentId}</span>.
+                        Revenue Service Designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
                         {/* Otherwise submit the following document for the year <span className="font-bold">{year}</span> to enable
                         us carry out proper assessment in consideration of your objection: */}
                         {/* Please accept the assurance of our highest regards. */}
@@ -261,7 +261,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                       </p>
                       <p>For:<span className="font-bold"> KOGI STATE INTERNAL REVENUE SERVICE </span></p><br /><br />
                       <p className="font-bold">Sule Salihu Enehe</p>
-                      Acting Executive Chairman
+                       Executive Chairman
 
                     </div>
                     :
@@ -295,7 +295,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                           </p><br /> */}
                           <p>
                             You are by this expected to make payments to any Kogi State Internal
-                            Revenue Service Designated banks using the Assessment Id <span className="font-bold">{assessmentId}</span>.
+                            Revenue Service Designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
                             {/* Otherwise submit the following document for the year <span className="font-bold">{year}</span> to enable
                             us carry out proper assessment in consideration of your objection: */}
                             {/* Please accept the assurance of our highest regards. */}
@@ -311,7 +311,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                           </p>
                           <p>For:<span className="font-bold"> KOGI STATE INTERNAL REVENUE SERVICE </span></p><br /><br />
                           <p className="font-bold">Sule Salihu Enehe</p>
-                          Acting Executive Chairman
+                           Executive Chairman
 
                         </div> 
                         : 
@@ -350,7 +350,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                             </p><br />
                             <p>
                               You are by this expected to make payments to any Kogi State Internal
-                              Revenue Service Designated banks using the Assessment Id <span className="font-bold">{assessmentId}</span>.
+                              Revenue Service Designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
                               Otherwise submit the following document for the year <span className="font-bold">{year}</span> to enable
                               us carry out proper assessment in consideration of your objection:
                               {/* Please accept the assurance of our highest regards. */}
@@ -366,7 +366,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                             </p>
                             <p>For:<span className="font-bold"> KOGI STATE INTERNAL REVENUE SERVICE </span></p><br /><br />
                             <p className="font-bold">Sule Salihu Enehe</p>
-                            Acting Executive Chairman
+                             Executive Chairman
   
                           </div> : ""
                           }
