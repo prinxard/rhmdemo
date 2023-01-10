@@ -18,8 +18,7 @@ import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Clear from "@material-ui/icons/Clear";
 import MaterialTable from "material-table";
 import ReactToPrint from "react-to-print";
-import { KgirsLogo, KogiGov } from "../Images/Images";
-
+import { ToWords } from 'to-words';
 
 const fields = [
   {
@@ -164,7 +163,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                   <p className="flex justify-between mb-3"> <span className="font-bold">{objectionData.file_ref}</span> {today}  </p>
                   <p>{payerName}</p>
                   <p>{tpKgtin}</p>
-                  <p>{payerAddr}</p>
+                  <p className="w-64">{payerAddr}</p>
                   <p>Sir/Ma</p><br />
 
                   <div>
@@ -243,6 +242,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                         and revised your assessment to <span className="font-bold">₦{formatNumber(recommendedTax)} </span>
                         Instead of <span className="font-bold"> ₦{formatNumber(DATax)} </span>
                       </p><br />
+               
                       <p>
                         You are by this expected to make payments to any Kogi State Internal
                         Revenue Service Designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
@@ -271,7 +271,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                           <p className="flex justify-between mb-3"> <span>{objectionData.file_ref}</span> {today}  </p>
                           <p>{payerName}</p>
                           <p>{tpKgtin}</p>
-                          <p>{payerAddr}</p>
+                          <p className="w-64">{payerAddr}</p>
                           <p>Sir/Ma</p><br />
                           <div>
                             <p className="font-bold">RE: {objectionData.grounds}</p><br />
@@ -326,7 +326,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                             <p className="flex justify-between mb-3"> <span>{objectionData.file_ref}</span> {today}  </p>
                             <p>{payerName}</p>
                             <p>{tpKgtin}</p>
-                            <p>{payerAddr}</p>
+                            <p className="w-64">{payerAddr}</p>
                             <p>Sir/Ma</p><br />
                             <div>
                               <p className="font-bold">RE: {objectionData.grounds}</p><br />
