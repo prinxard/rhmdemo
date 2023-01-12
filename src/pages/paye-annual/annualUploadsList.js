@@ -1,6 +1,7 @@
-// import MaterialTable from "material-table";
 import MaterialTable from '@material-table/core';
+import React from 'react'
 import ExportCsv from '@material-table/exporters/csv'
+import { AttachFile, Delete, Edit, MoreHoriz } from "@material-ui/icons";
 import Search from '@material-ui/icons/Search'
 import SaveAlt from '@material-ui/icons/SaveAlt'
 import ChevronLeft from '@material-ui/icons/ChevronLeft'
@@ -17,103 +18,66 @@ import { useEffect } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import jwt from "jsonwebtoken";
 import { formatNumber } from "accounting";
-import Add from '@material-ui/icons/Add'
-import ViewColumn from '@material-ui/icons/ViewColumn'
-import FilterList from '@material-ui/icons/FilterList'
 
-
-const fields = [
-    {
-        title: "Name",
-        field: "taxpayerName",
-    },
-    {
-        title: "Taxpayer ID",
-        field: "t_payer",
-    },
-    {
-        title: "Assessment ID",
-        field: "assessment_id",
-    },
-    {
-        title: "MDA",
-        field: "mda",
-    },
-    {
-        title: "Revenue Item",
-        field: "revenueItem",
-    },
-    {
-        title: "Ref",
-        field: "ref",
-    },
-    {
-        title: "Bank",
-        field: "bank",
-    },
-    {
-        title: "Channel",
-        field: "channel_id",
-    },
-    {
-        title: "Amount",
-        field: "amount",
-        render: (expense) => formatNumber(expense.amount)
-    },
-
-    {
-        title: "Station",
-        field: "station",
-    },
-    {
-        title: "Transaction Date",
-        field: "tran_date",
-    },
-];
-
-
-export default function Reportstable({ FilteredData }) {
-    const router = useRouter();
-
+function AnnualUploadsList({FilteredData}) {
+    console.log("FilteredData", FilteredData);
+const router = useRouter()
+    const fields = [
+        {
+            title: "KGTIN",
+            field: "employerId",
+        },
+        {
+            title: "Name",
+            field: "taxpayerName",
+        },
+        {
+            title: "Number Of Employee",
+            field: "employeeCount",
+        },
+        {
+            title: "Year",
+            field: "year",
+        },
+        {
+            title: "Status",
+            field: "status",
+        },
+        {
+            title: "Approved by",
+            field: "approvedBy",
+        },
+        {
+            title: "Approved Time",
+            field: "approvedTime",
+            type: "date"
+        },
+    ];
     let items = FilteredData
-
-    console.log("items", items);
-
-    const { config, palettes, auth } = useSelector(
-        (state) => ({
-            config: state.config,
-            palettes: state.palettes,
-            auth: state.authentication.auth,
-        }),
-        shallowEqual
-    );
-
-    const reportRange = [39]
-    const decoded = jwt.decode(auth);
-    const userGroup = decoded.groups
-
-    useEffect(() => {
-
-    }, [router.query]);
-
-
     return (
         <>
-            <MaterialTable title="Report Data"
+            <MaterialTable title="Annual Filing List"
                 data={items}
                 columns={fields}
-                renderSummaryRow={({ column, data }) =>
-                    column.field === "amount"
-                        ? {
-                            value: formatNumber(data.reduce((agg, row) => Number(agg) + (Number(row.amount)), 0)),
-                            style: { fontWeight: "bold" },
+                actions={
+                    [
+
+                        {
+                            icon: MoreHoriz,
+                            tooltip: 'View schedule',
+                            onClick: (event, rowData) => router.push(`/paye-annual/view-csv/${rowData.employerId}_${rowData.year}_${rowData.status}`),
+                        },
+                        {
+                            icon: AttachFile,
+                            tooltip: 'view uploads',
+                            onClick: (event, rowData) => router.push(`/paye-annual/view-docs/${rowData.employerId}_${rowData.year}_${rowData.status}`),
                         }
-                        : undefined
-                }
+                    ]}
                 options={{
                     search: false,
                     paging: true,
                     filtering: true,
+                    actionsColumnIndex: -1,
                     // Using the regular material-table
                     // exportButton: {
                     //     csv: true,
@@ -123,10 +87,10 @@ export default function Reportstable({ FilteredData }) {
                     exportMenu: [
                         {
                             label: "Export CSV",
-                           
+
                             exportFunc: (cols, datas) =>
                                 ExportCsv(fields, items, "myCsvFileName"),
-                              
+
                         },
                     ],
                 }}
@@ -146,14 +110,15 @@ export default function Reportstable({ FilteredData }) {
                     SortArrow: ArrowDownward
                 }}
 
-                onRowClick={(event, rowData) => {
+                // onRowClick={(event, rowData) => {
 
-                    window.open(`collection-receipt/${rowData.idpymt}`, "_self")
-                    event.stopPropagation();
+                //     window.open(`paye-annual/view-docs/${rowData.employerId}_${rowData.year}_${rowData.status}`, "_self")
+                //     event.stopPropagation();
 
-                }}
+                // }}
             />
-
         </>
     )
 }
+
+export default AnnualUploadsList

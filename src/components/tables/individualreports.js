@@ -104,6 +104,7 @@ export const StartIndividualReportView = () => {
     setIsFetching(true)
     data.createdStart = startDate
     data.createdEnd = endDate
+    data.platform = ""
 
     axios.post(`${url.BASE_URL}taxpayer/list-individual`, data)
       .then(function (response) {

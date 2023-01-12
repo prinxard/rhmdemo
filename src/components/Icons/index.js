@@ -11,6 +11,18 @@ export const GettingStartedIcon = () => (
   />
 );
 
+export const Objection = () => {
+  return (
+    <Image
+      layout="fixed"
+      src="/images/rhmicons/objection.png"
+      alt="objection"
+      width={18}
+      height={18}
+    />
+  );
+};
+
 export const GetKgtinIcon = () => (
   <Image
     layout="fixed"

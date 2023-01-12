@@ -35,20 +35,20 @@ const SinglePayeTcc = () => {
         setIsFetching(true);
         axios.post(`${url.BASE_URL}paye/view-tcc`, id)
           .then(function (response) {
-            console.log("response", response);
             setIsFetching(false);
-            let fetctTcc = response.data.body.tcc[0];
-            let status = response.data.body.tcc[0].status
-            let payslipY1 = response.data.body.payslipY1[0];
-            let payslipY2 = response.data.body.payslipY2[0];
-            let payslipY3 = response.data.body.payslipY3[0];
+            // let fetctTcc = response.data.body.tcc[0];
+            // let status = response.data.body.tcc[0].status
+            // let payslipY1 = response.data.body.payslipY1[0];
+            // let payslipY2 = response.data.body.payslipY2[0];
+            console.log("response", response);
+            // let payslipY3 = response.data.body.payslipY3[0];
             let TccUpload = response.data.body.tccUploads;
             setTccUploads(TccUpload)
-            setTccStatus(status)
-            setTccData(fetctTcc)
-            setYrOnePaySl(payslipY1)
-            setYrTwoPaySl(payslipY2)
-            setYrThreePaySl(payslipY3)
+            setTccStatus(response.data.body.tcc[0].status)
+            setTccData(response.data.body.tcc[0])
+            setYrOnePaySl(response.data.body.payslipY1[0])
+            setYrTwoPaySl(response.data.body.payslipY2[0])
+            setYrThreePaySl(response.data.body.payslipY3[0])
             let uploadYear1 = response.data.body.payslipY1Upload
             let uploadYear2 = response.data.body.payslipY2Upload
             let uploadYear3 = response.data.body.payslipY3Upload

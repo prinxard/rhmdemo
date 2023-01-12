@@ -38,6 +38,7 @@ import { Controller, useForm } from "react-hook-form";
 import { FormatMoneyComponentBOJ, FormatMoneyComponentReport } from "../FormInput/formInputs";
 import { useRouter } from "next/router";
 import Reportstable from "../../pages/reports/reportstable";
+import MultipleCollection from "../../pages/collection-receipt/daily-collection/[ref]";
 
 
 export const StartReportView = () => {
@@ -48,6 +49,8 @@ export const StartReportView = () => {
   const [FilteredData, setFilteredData] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const [tableState, setTableState] = useState("hidden");
+  const [multipleSearchErr, setmultipleSearchErr] = useState([])
+  // const [multipleSearchData, setmultipleSearchData] = useState([])
 
 
   const router = useRouter();
@@ -102,6 +105,11 @@ export const StartReportView = () => {
     formState: { errors },
   } = useForm()
 
+  const {
+    register: registerCollSearch,
+    handleSubmit: handleColSubmit,
+  } = useForm()
+
 
   let startFigure = watch("amountStart", "0").replace(/,/g, '')
   let endFigure = watch("amountEnd", "0").replace(/,/g, '');
@@ -152,6 +160,27 @@ export const StartReportView = () => {
       })
   }
 
+  const ColSearch = (data) => {
+    console.log("data", data);
+    router.push(`/collection-receipt/daily-collection/${data.tranDate}`)
+    setIsFetching(true)
+    // axios.post(`${url.BASE_URL}collection/view-collections`, data)
+    //   .then(function (response) {
+    //     let search = response.data.body;
+    //     setIsFetching(false)
+    //     setmultipleSearchData(search)
+    //     console.log("search", search);
+    //   })
+    //   .catch(function (error) {
+    //     setIsFetching(false)
+    //     if (error.response) {
+    //       setmultipleSearchErr(error.response.data.message)
+    //     }
+
+    //   })
+  }
+
+  // console.log("main component data", multipleSearchData);
   return (
     <>
       <div className="">
@@ -237,7 +266,7 @@ export const StartReportView = () => {
                   <option value="Remita">Remita</option>
                   <option value="WebPay">WebPay</option>
                   <option value="Paytax">Paytax</option>
-                  
+
                 </select>
                 {/* <input type="text" ref={register()} name="channel_id" className="form-control w-full rounded font-light text-gray-500"
                   /> */}
@@ -269,6 +298,24 @@ export const StartReportView = () => {
 
         </form>
 
+        {/* <div className="overflow-x-auto mb-3 max-w-md bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
+          <p className="font-bold mb-3">Search by Collection date</p>
+          <form onSubmit={handleColSubmit(ColSearch)}>
+            <label>Date</label> <br />
+            <div className="flex gap-2">
+              <input ref={registerCollSearch()} required type="date" name="tranDate" className="form-control rounded font-light text-gray-500" />
+              <button className="btn w-32 bg-blue-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                type="submit"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </div> */}
+
+    
+
+
         {isFetching ? (
           <div className="flex justify-center item mb-2">
             <Loader
@@ -288,8 +335,6 @@ export const StartReportView = () => {
           </div>
         }
       </div>
-
-
     </>
   );
 };

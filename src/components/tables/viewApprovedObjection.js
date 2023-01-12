@@ -18,8 +18,7 @@ import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Clear from "@material-ui/icons/Clear";
 import MaterialTable from "material-table";
 import ReactToPrint from "react-to-print";
-import { KgirsLogo, KogiGov } from "../Images/Images";
-
+import { ToWords } from 'to-words';
 
 const fields = [
   {
@@ -154,22 +153,17 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
 
       </div>
 
-      <div className="">
+      <div className="mt-16">
         {objNotice === null ? "Objection type not available"
           :
           <div ref={componentRef} className="p-4 mt-5">
             <div className="flex justify-center">
               {objNotice === "undertaxed" ?
                 <div className="text-justify text-base max-w-prose"  >
-                  {/* <div className="flex justify-between my-3">
-                    <p> <KgirsLogo /></p>
-                    <h3 className="self-center">KOGI STATE GOVERNMENT</h3>
-                    <p> <KogiGov /></p>
-                  </div> */}
-                  <p className="flex justify-between mb-3"> <span>File reference</span> {today}  </p>
+                  <p className="flex justify-between mb-3"> <span className="font-bold">{objectionData.file_ref}</span> {today}  </p>
                   <p>{payerName}</p>
                   <p>{tpKgtin}</p>
-                  <p>{payerAddr}</p>
+                  <p className="w-64">{payerAddr}</p>
                   <p>Sir/Ma</p><br />
 
                   <div>
@@ -186,7 +180,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                   <p>
                     We have reviewed your letter of complaint and objection along with
                     your previous tax records with Kogi State Internal Revenue Service.
-                    The Management have looked at the reasonability of your objection
+                    The Management has looked at the reasonability of your objection
                     and revised your assessment to <span className="font-bold">₦{formatNumber(recommendedTax)}  </span>
                     Instead of <span className="font-bold"> ₦{formatNumber(DATax)} </span>
                   </p><br />
@@ -198,7 +192,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
 
                   <p>
                     You are by this expected to make payments to any Kogi State Internal
-                    Revenue Service Designated banks using the Assessment Id <span className="font-bold">{assessmentId}</span>.
+                    Revenue Service Designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
                     {/* Otherwise submit the following document for the year <span className="font-bold">{year}</span> to enable
                     us carry out proper assessment in consideration of your objection: */}
                     {/* Please accept the assurance of our highest regards. */}
@@ -214,7 +208,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                   </p>
                   <p>For:<span className="font-bold"> KOGI STATE INTERNAL REVENUE SERVICE </span></p><br /><br />
                   <p className="font-bold">Sule Salihu Enehe</p>
-                  Acting Executive Chairman
+                   Executive Chairman
 
                 </div>
                 :
@@ -226,10 +220,10 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                         <h3 className="mt-9">KOGI STATE GOVERNMENT</h3>
                         <p align="right"> <KogiGov /></p>
                       </div> */}
-                      <p className="flex justify-between mb-3"> <span>File reference</span> {today}  </p>
+                      <p className="flex justify-between mb-3"> <span>{objectionData.file_ref}</span> {today}  </p>
                       <p>{payerName}</p>
                       <p>{tpKgtin}</p>
-                      <p>{payerAddr}</p>
+                      <p className="w-64">{payerAddr}</p>
                       <p>Sir/Ma</p><br />
                       <div>
                         <p className="font-bold">RE: {objectionData.grounds}</p><br />
@@ -244,13 +238,14 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                       <p>
                         We have reviewed your letter of complaint and objection along with
                         your previous tax records with Kogi State Internal Revenue Service.
-                        The Management have looked at the reasonability of your objection
+                        The Management has looked at the reasonability of your objection
                         and revised your assessment to <span className="font-bold">₦{formatNumber(recommendedTax)} </span>
                         Instead of <span className="font-bold"> ₦{formatNumber(DATax)} </span>
                       </p><br />
+               
                       <p>
                         You are by this expected to make payments to any Kogi State Internal
-                        Revenue Service Designated banks using the Assessment Id <span className="font-bold">{assessmentId}</span>.
+                        Revenue Service Designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
                         {/* Otherwise submit the following document for the year <span className="font-bold">{year}</span> to enable
                         us carry out proper assessment in consideration of your objection: */}
                         {/* Please accept the assurance of our highest regards. */}
@@ -266,22 +261,17 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                       </p>
                       <p>For:<span className="font-bold"> KOGI STATE INTERNAL REVENUE SERVICE </span></p><br /><br />
                       <p className="font-bold">Sule Salihu Enehe</p>
-                      Acting Executive Chairman
+                       Executive Chairman
 
                     </div>
                     :
                     <div>
                       {objNotice === "PITA" ?
-                        <div className="text-justify text-base max-w-prose" >
-                          {/* <div className="flex justify-between my-3">
-                            <p align="left"> <KgirsLogo /></p>
-                            <h3 className="">KOGI STATE GOVERNMENT</h3>
-                            <p align="right"> <KogiGov /></p>
-                          </div> */}
-                          <p> {today} </p>
+                        <div className="text-justify text-base max-w-prose">
+                          <p className="flex justify-between mb-3"> <span>{objectionData.file_ref}</span> {today}  </p>
                           <p>{payerName}</p>
                           <p>{tpKgtin}</p>
-                          <p>{payerAddr}</p>
+                          <p className="w-64">{payerAddr}</p>
                           <p>Sir/Ma</p><br />
                           <div>
                             <p className="font-bold">RE: {objectionData.grounds}</p><br />
@@ -295,7 +285,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                           <br />
                           <p>
                             We have reviewed your letter of objection in line with section 24[A] of
-                            PITA 2011 as amended.The Management have looked at the reasonability of your objection
+                            PITA 2011 as amended.The Management has looked at the reasonability of your objection
                             and revised your assessment to <span className="font-bold">₦{formatNumber(recommendedTax)} </span>
                             Instead of <span className="font-bold"> ₦{formatNumber(DATax)} </span>
                           </p><br />
@@ -305,7 +295,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                           </p><br /> */}
                           <p>
                             You are by this expected to make payments to any Kogi State Internal
-                            Revenue Service Designated banks using the Assessment Id <span className="font-bold">{assessmentId}</span>.
+                            Revenue Service Designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
                             {/* Otherwise submit the following document for the year <span className="font-bold">{year}</span> to enable
                             us carry out proper assessment in consideration of your objection: */}
                             {/* Please accept the assurance of our highest regards. */}
@@ -321,7 +311,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                           </p>
                           <p>For:<span className="font-bold"> KOGI STATE INTERNAL REVENUE SERVICE </span></p><br /><br />
                           <p className="font-bold">Sule Salihu Enehe</p>
-                          Acting Executive Chairman
+                           Executive Chairman
 
                         </div> 
                         : 
@@ -333,10 +323,10 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                               <h3 className="">KOGI STATE GOVERNMENT</h3>
                               <p align="right"> <KogiGov /></p>
                             </div> */}
-                            <p> {today} </p>
+                            <p className="flex justify-between mb-3"> <span>{objectionData.file_ref}</span> {today}  </p>
                             <p>{payerName}</p>
                             <p>{tpKgtin}</p>
-                            <p>{payerAddr}</p>
+                            <p className="w-64">{payerAddr}</p>
                             <p>Sir/Ma</p><br />
                             <div>
                               <p className="font-bold">RE: {objectionData.grounds}</p><br />
@@ -350,7 +340,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                             <br />
                             <p>
                               We have reviewed your letter of objection in line with section 24[A] of
-                              PITA 2011 as amended.The Management have looked at the reasonability of your objection
+                              PITA 2011 as amended.The Management has looked at the reasonability of your objection
                               and revised your assessment to <span className="font-bold">₦{formatNumber(recommendedTax)} </span>
                               Instead of <span className="font-bold"> ₦{formatNumber(DATax)} </span>
                             </p><br />
@@ -360,7 +350,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                             </p><br />
                             <p>
                               You are by this expected to make payments to any Kogi State Internal
-                              Revenue Service Designated banks using the Assessment Id <span className="font-bold">{assessmentId}</span>.
+                              Revenue Service Designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
                               Otherwise submit the following document for the year <span className="font-bold">{year}</span> to enable
                               us carry out proper assessment in consideration of your objection:
                               {/* Please accept the assurance of our highest regards. */}
@@ -376,7 +366,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                             </p>
                             <p>For:<span className="font-bold"> KOGI STATE INTERNAL REVENUE SERVICE </span></p><br /><br />
                             <p className="font-bold">Sule Salihu Enehe</p>
-                            Acting Executive Chairman
+                             Executive Chairman
   
                           </div> : ""
                           }
