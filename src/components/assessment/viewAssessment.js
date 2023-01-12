@@ -96,7 +96,6 @@ export const StartAssessment = () => {
     axios.post(`${url.BASE_URL}forma/validate-assessment`, valAsses)
       .then(function (response) {
         setIsFetching(false)
-
         axios.post(`${url.BASE_URL}forma/new-assessment`, createAssesment)
           .then(function (response) {
             let assessment_id = response.data.body.assessment_id
