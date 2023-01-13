@@ -1,8 +1,32 @@
 import React from 'react'
 import '@tremor/react/dist/esm/tremor.css'
-import { Card, Title, AreaChart, Text, Metric, BarChart, Subtitle, LineChart, Table, TableHead, TableRow, TableHeaderCell, TableBody, TableCell, Badge } from "@tremor/react";
+import url from "../../../config/url";
+import { formatNumber } from "accounting";
+import {
+    Card, Title, Bold, AreaChart, Text,
+    Metric, BarChart, Subtitle, LineChart,
+    Table, TableHead, TableRow,
+    TableHeaderCell,
+    TableBody,
+    TableCell, Badge
+} from "@tremor/react";
+import UseFetcher from '../../fetcher/useFetcher';
+import Widget1 from '../../dashboard/widget-1';
+import { useEffect, useState } from 'react';
 
 export default function PayeDashboard() {
+    const [overview, setOverview] = useState([])
+    const { data, isLoading, isError } = UseFetcher(
+        `${url.BASE_URL}paye/dashboard`
+    );
+
+    useEffect(() => {
+        if (data) {
+            const payeCards = data.overview
+            setOverview(payeCards)
+        }
+    }, [data]);
+
     const chartdata = [
         {
             year: "Jan",
@@ -53,7 +77,7 @@ export default function PayeDashboard() {
         },
     ];
 
-    const data = [
+    const datajson = [
         {
             id: "1",
             kgtin: "222009991",
@@ -149,53 +173,47 @@ export default function PayeDashboard() {
     return (
         <div>
             <div className="flex justify-center"><Subtitle>PAYE DASHBOARD</Subtitle></div>
-            <div className="flex gap-2 mb-4 flex-col lg:flex-row w-full">
-                <Card maxWidth="max-w-xs" decoration="top" decorationColor="green">
-                    <Metric>MONTH</Metric>
-                    <Text>40 Payroll Schedule</Text>
-                </Card>
-                <Card maxWidth="max-w-xs" decoration="top" decorationColor="green">
-                    <Metric>YEAR</Metric>
-                    <Text>200 Payroll Schedule</Text>
-                </Card>
-                <Card maxWidth="max-w-xs" decoration="top" decorationColor="green">
-                    <Metric>MONTH</Metric>
-                    <Text>NGN 2,000,000 PAYE Collection</Text>
-                </Card>
-                <Card maxWidth="max-w-xs" decoration="top" decorationColor="indigo">
-                    <Metric>YEAR</Metric>
-                    <Text>NGN 2,000,000 PAYE Collection</Text>
-                </Card>
+            {overview.map((data) => (
+                <div className="flex my-10 flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
 
-            </div>
-            <div className="flex gap-2 mb-4 flex-col lg:flex-row w-full">
+                    <div className="w-full lg:w-1/4">
+                        <Widget1
+                            color="blue"
+                            title="No. Approved Assessments"
+                            description={formatNumber(data.monthPayroll)}
+                        // right={<TotalRemittance />}
+                        />
+                    </div>
 
-                <Card>
-                    <Title>Current Month</Title>
-                    <BarChart
-                        data={bardata}
-                        dataKey="name"
-                        categories={["collection"]}
-                        colors={["blue"]}
-                        valueFormatter={dataFormatter}
-                        marginTop="mt-6"
-                        yAxisWidth="w-12"
-                    />
-                </Card>
+                    <div className="w-full lg:w-1/4">
+                        <Widget1
+                            color="purple"
+                            title="Total Approved Amount"
+                            description={formatNumber(data.yearPayroll)}
+                        // right={<PendingRemittance />}
+                        />
+                    </div>
 
-                <Card>
-                    <Title>Current Year</Title>
-                    <LineChart
-                        data={chartdata}
-                        dataKey="year"
-                        categories={["collection"]}
-                        colors={["blue"]}
-                        valueFormatter={dataFormatter}
-                        marginTop="mt-6"
-                        yAxisWidth="w-10"
-                    />
-                </Card>
-            </div>
+                    <div className="w-full lg:w-1/4">
+                        <Widget1
+                            color="green"
+                            title="Assessed Amount Collected"
+                            description={formatNumber(data.monthAmount)}
+                        // right={<RevenueItems />}
+                        />
+                    </div>
+
+                    <div className="w-full lg:w-1/4">
+                        <Widget1
+                            color="red"
+                            title="Unassessed Amount Collected"
+                            description={formatNumber(data.yearAmount)}
+                        // right={<Unassessed />}
+                        />
+                    </div>
+                </div>
+
+            ))}
 
             <div className="flex gap-2 mb-4 flex-col lg:flex-row w-full">
                 <Card>
@@ -260,7 +278,7 @@ export default function PayeDashboard() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {data.map((item) => (
+                        {datajson.map((item) => (
                             <TableRow key={item.id}>
                                 <TableCell>
                                     {item.id}
