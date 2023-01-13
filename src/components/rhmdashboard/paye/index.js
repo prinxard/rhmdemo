@@ -180,7 +180,7 @@ export default function PayeDashboard() {
                         <Widget1
                             color="blue"
                             title="Month"
-                            description={formatNumber(data.monthPayroll)}
+                            description={`${formatNumber(data.monthPayroll)} Payroll Schedule`}
                         // right={<TotalRemittance />}
                         />
                     </div>
@@ -188,8 +188,8 @@ export default function PayeDashboard() {
                     <div className="w-full lg:w-1/4">
                         <Widget1
                             color="purple"
-                            title="Total Approved Amount"
-                            description={formatNumber(data.yearPayroll)}
+                            title="Year"
+                            description={`${formatNumber(data.yearPayroll)} Payroll Schedule`}
                         // right={<PendingRemittance />}
                         />
                     </div>
