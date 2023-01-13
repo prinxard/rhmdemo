@@ -179,7 +179,7 @@ export default function PayeDashboard() {
                     <div className="w-full lg:w-1/4">
                         <Widget1
                             color="blue"
-                            title="No. Approved Assessments"
+                            title="Month"
                             description={formatNumber(data.monthPayroll)}
                         // right={<TotalRemittance />}
                         />
