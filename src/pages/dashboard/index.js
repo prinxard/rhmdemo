@@ -42,7 +42,6 @@ const Index = () => {
   const { data, isLoading, isError } = UseFetcher(
     `${url.BASE_URL}forma/dashboard`
   );
-  console.log("data", data);
 
   useEffect(() => {
     if (data) {
@@ -78,7 +77,6 @@ const Index = () => {
     }
   }, [data]);
 
-  console.log("exceptions", exceptions);
 
   const tabsWithIcons = [
     {
