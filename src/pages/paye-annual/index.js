@@ -9,6 +9,7 @@ import url from '../../config/url';
 import axios from "axios";
 import setAuthToken from '../../functions/setAuthToken';
 import Loader from 'react-loader-spinner';
+import Widget1 from '../../components/dashboard/widget-1';
 
 
 function index() {
@@ -65,11 +66,37 @@ function index() {
                         </button>
                     </div>
                 </div>
-                <div>
-                    <p className="flex justify-between"> <span className="mr-3">No. of Submitted</span> <span className="font-bold">{yearReport?.Submitted || 0}</span></p>
+                <div className="grid grid-cols-2 gap-2">
+
+                    <Widget1
+                        color="blue"
+                        title="Submitted"
+                        description={yearReport?.Submitted || 0}
+                    // right={<TotalRemittance />}
+                    />
+                    <Widget1
+                        color="blue"
+                        title="Verified"
+                        description={yearReport?.Verified || 0}
+                    // right={<TotalRemittance />}
+                    />
+                    <Widget1
+                        color="blue"
+                        title="Verified"
+                        description={yearReport?.Verified || 0}
+                    // right={<TotalRemittance />}
+                    />
+                    <Widget1
+                        color="blue"
+                        title="Declined"
+                        description={yearReport?.Declined || 0}
+                    // right={<TotalRemittance />}
+                    />
+
+                    {/* <p className="flex justify-between"> <span className="mr-3">No. of Submitted</span> <span className="font-bold">{yearReport?.Submitted || 0}</span></p>
                     <p className="flex justify-between"> <span className="mr-3">No. of Verified</span> <span className="font-bold">{yearReport?.Verified || 0}</span></p>
                     <p className="flex justify-between"> <span className="mr-3">No. of Approved</span> <span className="font-bold">{yearReport?.Approved || 0}</span></p>
-                    <p className="flex justify-between"> <span className="mr-3">No. of Declined</span> <span className="font-bold">{yearReport?.Declined || 0}</span></p>
+                    <p className="flex justify-between"> <span className="mr-3">No. of Declined</span> <span className="font-bold">{yearReport?.Declined || 0}</span></p> */}
                 </div>
             </div>
             {isFetching ? (
