@@ -192,7 +192,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
 
                   <p>
                     You are by this expected to make payments to any Kogi State Internal
-                    Revenue Service Designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
+                    Revenue Service designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
                     {/* Otherwise submit the following document for the year <span className="font-bold">{year}</span> to enable
                     us carry out proper assessment in consideration of your objection: */}
                     {/* Please accept the assurance of our highest regards. */}
@@ -245,7 +245,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                
                       <p>
                         You are by this expected to make payments to any Kogi State Internal
-                        Revenue Service Designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
+                        Revenue Service designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
                         {/* Otherwise submit the following document for the year <span className="font-bold">{year}</span> to enable
                         us carry out proper assessment in consideration of your objection: */}
                         {/* Please accept the assurance of our highest regards. */}
@@ -295,7 +295,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                           </p><br /> */}
                           <p>
                             You are by this expected to make payments to any Kogi State Internal
-                            Revenue Service Designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
+                            Revenue Service designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
                             {/* Otherwise submit the following document for the year <span className="font-bold">{year}</span> to enable
                             us carry out proper assessment in consideration of your objection: */}
                             {/* Please accept the assurance of our highest regards. */}
@@ -350,7 +350,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                             </p><br />
                             <p>
                               You are by this expected to make payments to any Kogi State Internal
-                              Revenue Service Designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
+                              Revenue Service designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
                               Otherwise submit the following document for the year <span className="font-bold">{year}</span> to enable
                               us carry out proper assessment in consideration of your objection:
                               {/* Please accept the assurance of our highest regards. */}

@@ -36,8 +36,8 @@ function ViewAnnualDocs() {
 
     const chairman = [1, 9, 39]
     const Approval = [27, 1]
-    const verify = [30, 1, 27, 5, 12]
-    const Audit = [21, 1, 27, 5, 12]
+    const verify = [30, 1, 2, 29, 12]
+    const Audit = [21, 1, 2, 29, 12]
     const decoded = jwt.decode(auth);
     const userGroup = decoded.groups
 
