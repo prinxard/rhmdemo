@@ -70,6 +70,18 @@ function index() {
 
                     <Widget1
                         color="blue"
+                        title="Year"
+                        description={selectedYear || ""}
+                    // right={<TotalRemittance />}
+                    />
+                    <Widget1
+                        color="blue"
+                        title="Draft"
+                        description={yearReport?.Draft || 0}
+                    // right={<TotalRemittance />}
+                    />
+                    <Widget1
+                        color="blue"
                         title="Submitted"
                         description={yearReport?.Submitted || 0}
                     // right={<TotalRemittance />}
@@ -82,8 +94,8 @@ function index() {
                     />
                     <Widget1
                         color="blue"
-                        title="Verified"
-                        description={yearReport?.Verified || 0}
+                        title="Approved"
+                        description={yearReport?.Approved || 0}
                     // right={<TotalRemittance />}
                     />
                     <Widget1
