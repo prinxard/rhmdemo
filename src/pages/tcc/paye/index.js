@@ -111,7 +111,6 @@ function index() {
                 })
         }
 
-
     };
 
     const verifiyKGTIN = (data) => {
