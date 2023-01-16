@@ -50,7 +50,6 @@ const TccPrintList = () => {
   }, []);
 
 
-console.log(tccdata);
  
   return (
     <>

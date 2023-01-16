@@ -40,23 +40,25 @@ const Layout1 = ({ children }) => {
       router.push("/");
     }
 
-    if (
-      [
-        "/uploads",
-        "/uploads/annual",
-        "/uploads/monthly",
-        "/uploads/withholding",
-        "/view",
-        "/view/annual",
-        "/view/monthly",
-        "/view/withholding",
-      ].includes(pathname) &&
-      decoded?.type === "Individual"
-    ) {
-      router.push("/dashboard");
-    } else {
-      setAuthorizedRoute(true);
-    }
+    // if (
+    //   [
+    //     "/uploads",
+    //     "/uploads/annual",
+    //     "/uploads/monthly",
+    //     "/uploads/withholding",
+    //     "/view",
+    //     "/view/annual",
+    //     "/view/monthly",
+    //     "/view/withholding",
+    //   ].includes(pathname) &&
+    //   decoded?.type === "Individual"
+    // ) {
+    //   router.push("/dashboard");
+    // } else {
+    //   setAuthorizedRoute(true);
+    // }
+    setAuthorizedRoute(true);
+
   }, [pathname, auth]);
   return (
     <>

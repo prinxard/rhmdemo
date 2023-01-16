@@ -48,9 +48,6 @@ const TccList = () => {
     };
     fetchPost();
   }, []);
-
-
-console.log(tccdata);
  
 
 

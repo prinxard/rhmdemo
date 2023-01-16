@@ -13,9 +13,11 @@ import {
 import UseFetcher from '../../fetcher/useFetcher';
 import Widget1 from '../../dashboard/widget-1';
 import { useEffect, useState } from 'react';
+import { Unassessed } from '../../Icons';
 
 export default function PayeDashboard() {
     const [overview, setOverview] = useState([])
+    const [recentCol, setRecentCol] = useState([])
     const { data, isLoading, isError } = UseFetcher(
         `${url.BASE_URL}paye/dashboard`
     );
@@ -23,6 +25,9 @@ export default function PayeDashboard() {
     useEffect(() => {
         if (data) {
             const payeCards = data.overview
+            const reccol = data.recentCollection
+            const colCurrYr = data.collectionCurYr
+            setRecentCol(reccol)
             setOverview(payeCards)
         }
     }, [data]);
@@ -52,15 +57,15 @@ export default function PayeDashboard() {
 
     const bardata = [
         {
-            name: "Ankpa",
+            name: "Ank",
             "collection": 2488,
         },
         {
-            name: "Ayingba",
+            name: "Any",
             "collection": 1445,
         },
         {
-            name: "Kabba",
+            name: "Kbb",
             "collection": 743,
         },
         {
@@ -75,97 +80,32 @@ export default function PayeDashboard() {
             name: "Ajk",
             "collection": 743,
         },
+        {
+            name: "Isn",
+            "collection": 743,
+        },
+        {
+            name: "HQ",
+            "collection": 743,
+        },
+        {
+            name: "Adv",
+            "collection": 743,
+        },
+        {
+            name: "Kot",
+            "collection": 743,
+        },
+        {
+            name: "Okn",
+            "collection": 743,
+        },
+        {
+            name: "Idh",
+            "collection": 743,
+        },
     ];
 
-    const datajson = [
-        {
-            id: "1",
-            kgtin: "222009991",
-            ref:
-                "REF-2220099933",
-            status: "active",
-            name: "Chukwuma Ciroma Adekunle",
-            mda: "Internal Revenue Serivice",
-            bank: "Unity Bank PLC",
-            channel: "etranzact",
-            amount: "100,000",
-            station: "Head Office"
-        },
-        {
-            id: "2",
-            kgtin: "222009991",
-            ref:
-                "REF-2220099933",
-            status: "active",
-            name: "Chukwuma Ciroma Adekunle",
-            mda: "Internal Revenue Serivice",
-            bank: "Unity Bank PLC",
-            channel: "etranzact",
-            amount: "100,000",
-            station: "Head Office"
-        },
-        {
-            id: "3",
-            kgtin: "222009991",
-            ref: "REF-2220099933",
-            status: "active",
-            name: "Chukwuma Ciroma Adekunle",
-            mda: "Internal Revenue Serivice",
-            bank: "Unity Bank PLC",
-            channel: "etranzact",
-            amount: "100,000",
-            station: "Head Office"
-        },
-        {
-            id: "4",
-            kgtin: "222009991",
-            ref: "REF-2220099933",
-            status: "active",
-            name: "Chukwuma Ciroma Adekunle",
-            mda: "Internal Revenue Serivice",
-            bank: "Unity Bank PLC",
-            channel: "etranzact",
-            amount: "100,000",
-            station: "Head Office"
-        },
-        {
-            id: "5",
-            kgtin: "222009991",
-            ref: "REF-2220099933",
-            status: "active",
-            name: "Chukwuma Ciroma Adekunle",
-            mda: "Internal Revenue Serivice",
-            bank: "Unity Bank PLC",
-            channel: "etranzact",
-            amount: "100,000",
-            station: "Head Office"
-        },
-        {
-            id: "6",
-            kgtin: "222009991",
-            ref:
-                "REF-2220099933",
-            status: "active",
-            name: "Chukwuma Ciroma Adekunle",
-            mda: "Internal Revenue Serivice",
-            bank: "Unity Bank PLC",
-            channel: "etranzact",
-            amount: "100,000",
-            station: "Head Office"
-        },
-        {
-            id: "7",
-            kgtin: "222009991",
-            ref: "REF-2220099933",
-            status: "active",
-            name: "Chukwuma Ciroma Adekunle",
-            mda: "Internal Revenue Serivice",
-            bank: "Unity Bank PLC",
-            channel: "etranzact",
-            amount: "100,000",
-            station: "Head Office"
-        },
-    ];
 
     const dataFormatter = (number) => {
         return "₦ " + Intl.NumberFormat("us").format(number).toString();
@@ -197,8 +137,8 @@ export default function PayeDashboard() {
                     <div className="w-full lg:w-1/4">
                         <Widget1
                             color="green"
-                            title="Assessed Amount Collected"
-                            description={formatNumber(data.monthAmount)}
+                            title="Month"
+                            description={`${formatNumber(data.monthAmount)} - Paye Collection`}
                         // right={<RevenueItems />}
                         />
                     </div>
@@ -206,9 +146,9 @@ export default function PayeDashboard() {
                     <div className="w-full lg:w-1/4">
                         <Widget1
                             color="red"
-                            title="Unassessed Amount Collected"
-                            description={formatNumber(data.yearAmount)}
-                        // right={<Unassessed />}
+                            title="Year"
+                            description={`${formatNumber(data.yearAmount)} - Paye Collection`}
+                            // right={<Unassessed />}
                         />
                     </div>
                 </div>
@@ -248,9 +188,7 @@ export default function PayeDashboard() {
                 <Table marginTop="mt-5">
                     <TableHead>
                         <TableRow>
-                            <TableHeaderCell>
-                                SN
-                            </TableHeaderCell>
+                           
                             <TableHeaderCell>
                                 KGTIN
                             </TableHeaderCell>
@@ -258,52 +196,36 @@ export default function PayeDashboard() {
                                 Ref
                             </TableHeaderCell>
                             <TableHeaderCell>
-                                TaxPayer Name
-                            </TableHeaderCell>
-                            {/* <TableHeaderCell>
-                                MDA
-                            </TableHeaderCell> */}
-                            <TableHeaderCell>
-                                Bank
-                            </TableHeaderCell>
-                            {/* <TableHeaderCell>
                                 Channel
-                            </TableHeaderCell> */}
+                            </TableHeaderCell>
+    
                             <TableHeaderCell>
                                 Amount
                             </TableHeaderCell>
+                         
                             <TableHeaderCell>
                                 Station
                             </TableHeaderCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {datajson.map((item) => (
+                        {recentCol.map((item) => (
                             <TableRow key={item.id}>
+                    
                                 <TableCell>
-                                    {item.id}
-                                </TableCell>
-                                <TableCell>
-                                    <Text>{item.kgtin}</Text>
+                                    <Text>{item.t_payer}</Text>
                                 </TableCell>
                                 <TableCell>
                                     <Text>{item.ref}</Text>
                                 </TableCell>
                                 <TableCell>
-                                    <Text>{item.name}</Text>
+                                    <Text>{item.channel_id}</Text>
                                 </TableCell>
-                                {/* <TableCell>
-                                    <Text>{item.mda}</Text>
-                                </TableCell> */}
+                             
                                 <TableCell>
-                                    <Text>{item.bank}</Text>
+                                    <Text>{formatNumber(item.amount)}</Text>
                                 </TableCell>
-                                {/* <TableCell>
-                                    <Text>{item.channel}</Text>
-                                </TableCell> */}
-                                <TableCell>
-                                    <Text>{item.amount}</Text>
-                                </TableCell>
+                          
                                 <TableCell>
                                     <Text>{item.station}</Text>
                                 </TableCell>
