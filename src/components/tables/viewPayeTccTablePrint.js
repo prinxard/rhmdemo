@@ -206,10 +206,21 @@ export const ViewSinglePayeTccPrintTable = ({
   if (year3 === null) {
     year3 = ""
   }
+  let year1ConRel
+  let year1OtherRelief
   let year2ConRel
   let year2OtherRelief
   let year3ConRel
   let year3OtherRelief
+
+  if (yrOnePaySl[0] == undefined) {
+    year1ConRel = 0
+    year1OtherRelief = 0
+  }
+  else {
+    year1ConRel = yrOnePaySl[0].consolidated_relief
+    year1OtherRelief = yrOnePaySl[0].other_relief
+  }
 
   if (yrTwoPaySl[0] == undefined) {
     year2ConRel = 0
@@ -386,7 +397,7 @@ export const ViewSinglePayeTccPrintTable = ({
                         </td>
 
                         <td className="">
-                          <p className="font-bold"> {formatNumber(Number(PayeTccData.incYr_1) - (Number(year2ConRel) + Number(year2OtherRelief)))} </p>
+                          <p className="font-bold"> {formatNumber(Number(PayeTccData.incYr_1) - (Number(year1ConRel) + Number(year1OtherRelief)))} </p>
                         </td>
                         <td className="">
                           <p className="font-bold">{formatNumber(PayeTccData.taxYr_1)}</p>
@@ -405,7 +416,7 @@ export const ViewSinglePayeTccPrintTable = ({
                           <p className="font-bold">{formatNumber(PayeTccData.incYr_2)}</p>
                         </td>
                         <td className="">
-                          <p className="font-bold">{formatNumber(Number(PayeTccData.incYr_2) - (Number(year3ConRel) + Number(year3ConRel)))}</p>
+                          <p className="font-bold">{formatNumber(Number(PayeTccData.incYr_2) - (Number(year2ConRel) + Number(year2OtherRelief)))}</p>
                         </td>
                         <td className="">
                           <p className="font-bold">{formatNumber(PayeTccData.taxYr_2)}</p>

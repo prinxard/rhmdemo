@@ -1402,19 +1402,21 @@ export const AssesmentCount = ({
           <div className="w-full lg:w-1/5">
             <Widget1
               color="red"
-              title="Unassessed Amount Collected"
-              description={formatNumber(ind.unassessedAmountCollected)}
-              right={<Unassessed />}
-            />
-          </div>
-          <div className="w-full lg:w-1/5">
-            <Widget1
-              color="red"
               title="Outstanding Assessed Amount"
               description={formatNumber(ind.outstandingAmount)}
               right={<TaxReceipt />}
             />
           </div>
+
+          <div className="w-full lg:w-1/5">
+            <Widget1
+              color="red"
+              title="Unassessed Amount Collected"
+              description={formatNumber(ind.unassessedAmountCollected)}
+              right={<Unassessed />}
+            />
+          </div>
+
         </div>
 
       ))}
@@ -1553,7 +1555,7 @@ export const AssesmentCount = ({
 
 
       <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
-        
+
         <div className="w-full lg:w-2/2">
           <Section >
             <p className="text-sm my-3 font-bold text-center">SUMMARY</p>
