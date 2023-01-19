@@ -1403,7 +1403,7 @@ export const AssesmentCount = ({
             <Widget1
               color="red"
               title="Outstanding Assessed Amount"
-              description={formatNumber(ind.outstandingAmount)}
+              description={formatNumber(Number(ind.amountAssessed) - Number(ind.amountCollected))}
               right={<TaxReceipt />}
             />
           </div>
