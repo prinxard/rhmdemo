@@ -34,10 +34,9 @@ function ViewAnnualDocs() {
         shallowEqual
     );
 
-    const chairman = [1, 9, 39]
-    const Approval = [27, 1]
-    const verify = [30, 1, 2, 29, 12]
-    const Audit = [21, 1, 2, 29, 12]
+    
+    const verify = [29, 1]
+    const approve = [30, 1]
     const decoded = jwt.decode(auth);
     const userGroup = decoded.groups
 
@@ -350,7 +349,7 @@ function ViewAnnualDocs() {
                             {submitStatus === "Verified" ?
                                 <div className="flex justify-between">
                                     <p></p>
-                                    {userGroup.some(r => Audit.includes(r)) ?
+                                    {userGroup.some(r => approve.includes(r)) ?
                                         <div className="flex">
                                             <form onSubmit={ApproveDoc} className=" mr-3">
                                                 <button

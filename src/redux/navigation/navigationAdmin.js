@@ -297,6 +297,11 @@ const initialState = [
             url: '/reports',
             items: [],
           },
+          {
+            title: 'Manifest',
+            url: '/reports-manifest',
+            items: [],
+          },
           // {
           //   title: 'DA Receipt',
           //   url: '/da-receipt',
