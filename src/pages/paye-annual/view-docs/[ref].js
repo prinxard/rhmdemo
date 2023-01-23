@@ -260,7 +260,7 @@ function ViewAnnualDocs() {
                         </div>
 
                         <form onSubmit={handleSubmit(Decline)}>
-                            <textarea name="comment" ref={register()} required className="form-control w-full rounded" minlength="10" maxlength="50" placeholder="comment"></textarea>
+                            <textarea name="comment" ref={register()} required className="form-control w-full rounded" minlength="10" placeholder="comment"></textarea>
                             <div className="mt-2 flex justify-between">
                                 <button onClick={declinePopup}
                                     className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
