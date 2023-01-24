@@ -17,7 +17,8 @@ export const login = (data) => async (dispatch) => {
       const errors = e.response.data.message;
       dispatch({
         type: authActionTypes.SET_LOGIN_ERRORS,
-        payload: "Invalid login credentials",
+        payload: errors,
+        // payload: "Invalid login credentials",
       });
       setTimeout(() => {
         dispatch({ type: authActionTypes.SET_LOGIN_ERRORS, payload: null });

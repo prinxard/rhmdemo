@@ -181,7 +181,7 @@ export default function UpdateUser({ user, groups }) {
   })
 
   const stringUserGrp = String(userGrp)
-
+console.log(stringUserGrp);
   setAuthToken();
   const onSubmit = (data) => {
     data.userGroup = data.userGroup.toString()
@@ -193,7 +193,7 @@ export default function UpdateUser({ user, groups }) {
         .then(function (response) {
           setIsFetching4(false)
           toast.success("Updated Successfully!");
-          router.push("/dashboard")
+          // router.push("/dashboard")
         })
         .catch(function (error) {
           setIsFetching4(false)

@@ -45,7 +45,6 @@ function index() {
         { mode: "onBlur", }
     )
 
-    console.log("payslipYear1", payslipYear1);
 
     const watchYear1 = watch("assmtYr_1", "");
     const watchYear2 = watch("assmtYr_2", "");
@@ -110,7 +109,6 @@ function index() {
                     }
                 })
         }
-
 
     };
 
