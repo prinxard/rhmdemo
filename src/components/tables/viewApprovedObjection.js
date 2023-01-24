@@ -368,7 +368,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                             </ul>
                             <br />
                             <p>
-                              Yours Faithfully.
+                              Yours Faithfully..
                             </p>
                             <p>For:<span className="font-bold"> KOGI STATE INTERNAL REVENUE SERVICE </span></p><br /><br />
                             <SignatureCol />
