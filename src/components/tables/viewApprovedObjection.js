@@ -19,6 +19,7 @@ import Clear from "@material-ui/icons/Clear";
 import MaterialTable from "material-table";
 import ReactToPrint from "react-to-print";
 import { ToWords } from 'to-words';
+import { SignatureCol } from "../Images/Images";
 
 const fields = [
   {
@@ -254,9 +255,11 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                         <li>1. Audited financial statements</li>
                         <li>2. Bank accounts of the directors and</li>
                         <li>3. Any other relevant document to that effect</li>
-                      </ul>
+                        </ul>
                       <br /> */}
-                      <p><br />
+                      <br />
+                      <SignatureCol />
+                      <p>
                         Yours Faithfully.
                       </p>
                       <p>For:<span className="font-bold"> KOGI STATE INTERNAL REVENUE SERVICE </span></p><br /><br />
@@ -306,6 +309,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                             <li>3. Any other relevant document to that effect</li>
                           </ul> */}
                           <br />
+                          <SignatureCol />
                           <p>
                             Yours Faithfully.
                           </p>
@@ -361,6 +365,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                               <li>3. Any other relevant document to that effect</li>
                             </ul>
                             <br />
+                            <SignatureCol />
                             <p>
                               Yours Faithfully.
                             </p>
