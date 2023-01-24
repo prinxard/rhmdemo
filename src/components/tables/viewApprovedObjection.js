@@ -208,6 +208,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                     Yours Faithfully.
                   </p>
                   <p>For:<span className="font-bold"> KOGI STATE INTERNAL REVENUE SERVICE </span></p><br /><br />
+                  <SignatureCol />
                   <p className="font-bold">Sule Salihu Enehe</p>
                    Executive Chairman
 
@@ -258,11 +259,12 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                         </ul>
                       <br /> */}
                       <br />
-                      <SignatureCol />
+                      
                       <p>
                         Yours Faithfully.
                       </p>
                       <p>For:<span className="font-bold"> KOGI STATE INTERNAL REVENUE SERVICE </span></p><br /><br />
+                      <SignatureCol />
                       <p className="font-bold">Sule Salihu Enehe</p>
                        Executive Chairman
 
@@ -309,11 +311,11 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                             <li>3. Any other relevant document to that effect</li>
                           </ul> */}
                           <br />
-                          <SignatureCol />
                           <p>
                             Yours Faithfully.
                           </p>
                           <p>For:<span className="font-bold"> KOGI STATE INTERNAL REVENUE SERVICE </span></p><br /><br />
+                          <SignatureCol />
                           <p className="font-bold">Sule Salihu Enehe</p>
                            Executive Chairman
 
@@ -365,11 +367,11 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                               <li>3. Any other relevant document to that effect</li>
                             </ul>
                             <br />
-                            <SignatureCol />
                             <p>
                               Yours Faithfully.
                             </p>
                             <p>For:<span className="font-bold"> KOGI STATE INTERNAL REVENUE SERVICE </span></p><br /><br />
+                            <SignatureCol />
                             <p className="font-bold">Sule Salihu Enehe</p>
                              Executive Chairman
   
