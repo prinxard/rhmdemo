@@ -44,8 +44,8 @@ export default function SinglePayerProfile() {
     },
     {
       title: "Assessed Amount",
-      field: "gross_income",
-      render: (gross_income) => formatNumber(gross_income.gross_income)
+      field: "assmt_amount",
+      render: (amount) => formatNumber(amount.assmt_amount)
 
     },
     {
