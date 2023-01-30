@@ -34,10 +34,9 @@ function ViewAnnualDocs() {
         shallowEqual
     );
 
-    const chairman = [1, 9, 39]
-    const Approval = [27, 1]
-    const verify = [30, 1]
-    const Audit = [21, 1]
+    
+    const verify = [29, 1]
+    const approve = [30, 1]
     const decoded = jwt.decode(auth);
     const userGroup = decoded.groups
 
@@ -260,7 +259,7 @@ function ViewAnnualDocs() {
                         </div>
 
                         <form onSubmit={handleSubmit(Decline)}>
-                            <textarea name="comment" ref={register()} required className="form-control w-full rounded" minlength="10" maxlength="50" placeholder="comment"></textarea>
+                            <textarea name="comment" ref={register()} required className="form-control w-full rounded" minlength="10" placeholder="comment"></textarea>
                             <div className="mt-2 flex justify-between">
                                 <button onClick={declinePopup}
                                     className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
@@ -350,7 +349,7 @@ function ViewAnnualDocs() {
                             {submitStatus === "Verified" ?
                                 <div className="flex justify-between">
                                     <p></p>
-                                    {userGroup.some(r => Audit.includes(r)) ?
+                                    {userGroup.some(r => approve.includes(r)) ?
                                         <div className="flex">
                                             <form onSubmit={ApproveDoc} className=" mr-3">
                                                 <button

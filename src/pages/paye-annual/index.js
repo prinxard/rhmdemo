@@ -24,7 +24,6 @@ function index() {
 
     const SearchYear = () => {
         setAuthToken()
-        console.log("selectedYear", selectedYear);
         setIsFetching(true)
         axios.get(`${url.BASE_URL}annual/view-annual-year?year=${selectedYear}`)
             .then(function (response) {
@@ -42,7 +41,6 @@ function index() {
 
             })
     }
-    console.log("yearReport", yearReport);
     return (
         <>
             <div className="overflow-x-auto flex justify-around my-4 max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
@@ -70,6 +68,18 @@ function index() {
 
                     <Widget1
                         color="blue"
+                        title="Year"
+                        description={selectedYear || ""}
+                    // right={<TotalRemittance />}
+                    />
+                    <Widget1
+                        color="blue"
+                        title="Draft"
+                        description={yearReport?.Draft || 0}
+                    // right={<TotalRemittance />}
+                    />
+                    <Widget1
+                        color="blue"
                         title="Submitted"
                         description={yearReport?.Submitted || 0}
                     // right={<TotalRemittance />}
@@ -82,8 +92,8 @@ function index() {
                     />
                     <Widget1
                         color="blue"
-                        title="Verified"
-                        description={yearReport?.Verified || 0}
+                        title="Approved"
+                        description={yearReport?.Approved || 0}
                     // right={<TotalRemittance />}
                     />
                     <Widget1
@@ -93,10 +103,6 @@ function index() {
                     // right={<TotalRemittance />}
                     />
 
-                    {/* <p className="flex justify-between"> <span className="mr-3">No. of Submitted</span> <span className="font-bold">{yearReport?.Submitted || 0}</span></p>
-                    <p className="flex justify-between"> <span className="mr-3">No. of Verified</span> <span className="font-bold">{yearReport?.Verified || 0}</span></p>
-                    <p className="flex justify-between"> <span className="mr-3">No. of Approved</span> <span className="font-bold">{yearReport?.Approved || 0}</span></p>
-                    <p className="flex justify-between"> <span className="mr-3">No. of Declined</span> <span className="font-bold">{yearReport?.Declined || 0}</span></p> */}
                 </div>
             </div>
             {isFetching ? (

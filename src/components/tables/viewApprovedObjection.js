@@ -19,6 +19,7 @@ import Clear from "@material-ui/icons/Clear";
 import MaterialTable from "material-table";
 import ReactToPrint from "react-to-print";
 import { ToWords } from 'to-words';
+import { SignatureCol } from "../Images/Images";
 
 const fields = [
   {
@@ -192,7 +193,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
 
                   <p>
                     You are by this expected to make payments to any Kogi State Internal
-                    Revenue Service Designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
+                    Revenue Service designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
                     {/* Otherwise submit the following document for the year <span className="font-bold">{year}</span> to enable
                     us carry out proper assessment in consideration of your objection: */}
                     {/* Please accept the assurance of our highest regards. */}
@@ -204,9 +205,10 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                   </ul>
                   <br /> */}
                   <p><br />
-                    Yours Faithfully.
+                    Yours Faithfully..
                   </p>
                   <p>For:<span className="font-bold"> KOGI STATE INTERNAL REVENUE SERVICE </span></p><br /><br />
+                  <SignatureCol />
                   <p className="font-bold">Sule Salihu Enehe</p>
                    Executive Chairman
 
@@ -245,7 +247,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                
                       <p>
                         You are by this expected to make payments to any Kogi State Internal
-                        Revenue Service Designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
+                        Revenue Service designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
                         {/* Otherwise submit the following document for the year <span className="font-bold">{year}</span> to enable
                         us carry out proper assessment in consideration of your objection: */}
                         {/* Please accept the assurance of our highest regards. */}
@@ -254,12 +256,15 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                         <li>1. Audited financial statements</li>
                         <li>2. Bank accounts of the directors and</li>
                         <li>3. Any other relevant document to that effect</li>
-                      </ul>
+                        </ul>
                       <br /> */}
-                      <p><br />
-                        Yours Faithfully.
+                      <br />
+                      
+                      <p>
+                        Yours Faithfully..
                       </p>
                       <p>For:<span className="font-bold"> KOGI STATE INTERNAL REVENUE SERVICE </span></p><br /><br />
+                      <SignatureCol />
                       <p className="font-bold">Sule Salihu Enehe</p>
                        Executive Chairman
 
@@ -295,7 +300,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                           </p><br /> */}
                           <p>
                             You are by this expected to make payments to any Kogi State Internal
-                            Revenue Service Designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
+                            Revenue Service designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
                             {/* Otherwise submit the following document for the year <span className="font-bold">{year}</span> to enable
                             us carry out proper assessment in consideration of your objection: */}
                             {/* Please accept the assurance of our highest regards. */}
@@ -307,9 +312,10 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                           </ul> */}
                           <br />
                           <p>
-                            Yours Faithfully.
+                            Yours Faithfully..
                           </p>
                           <p>For:<span className="font-bold"> KOGI STATE INTERNAL REVENUE SERVICE </span></p><br /><br />
+                          <SignatureCol />
                           <p className="font-bold">Sule Salihu Enehe</p>
                            Executive Chairman
 
@@ -350,7 +356,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                             </p><br />
                             <p>
                               You are by this expected to make payments to any Kogi State Internal
-                              Revenue Service Designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
+                              Revenue Service designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
                               Otherwise submit the following document for the year <span className="font-bold">{year}</span> to enable
                               us carry out proper assessment in consideration of your objection:
                               {/* Please accept the assurance of our highest regards. */}
@@ -362,9 +368,10 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                             </ul>
                             <br />
                             <p>
-                              Yours Faithfully.
+                              Yours Faithfully..
                             </p>
                             <p>For:<span className="font-bold"> KOGI STATE INTERNAL REVENUE SERVICE </span></p><br /><br />
+                            <SignatureCol />
                             <p className="font-bold">Sule Salihu Enehe</p>
                              Executive Chairman
   

@@ -39,9 +39,10 @@ import { FormatMoneyComponentBOJ, FormatMoneyComponentReport } from "../FormInpu
 import { useRouter } from "next/router";
 import Reportstable from "../../pages/reports/reportstable";
 import MultipleCollection from "../../pages/collection-receipt/daily-collection/[ref]";
+import ReportstableManifest from "../../pages/reports-manifest/reportstablemanifest";
 
 
-export const StartReportView = () => {
+export const StartReportManifest = () => {
   const [fixedValues, SetFixValuesStart] = useState({ amount: 0 });
   const [fixedValuesend, SetFixValuesEnd] = useState({ amount: 0 });
   const [revenueItem, setRevenueItem] = useState([]);
@@ -144,7 +145,7 @@ export const StartReportView = () => {
     data.amountStart = startFigure
     data.amountEnd = endFigure
 
-    axios.post(`${url.BASE_URL}collection/view-collection-report`, data)
+    axios.post(`${url.BASE_URL}collection/collection-receipt`, data)
       .then(function (response) {
         let search = response.data.body;
         console.log("search", search);
@@ -331,7 +332,7 @@ export const StartReportView = () => {
           </div>
         ) :
           <div className={`${tableState}`}>
-            <Reportstable FilteredData={FilteredData} />
+            <ReportstableManifest FilteredData={FilteredData} />
           </div>
         }
       </div>
