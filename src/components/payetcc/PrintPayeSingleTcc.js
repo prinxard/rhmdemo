@@ -33,14 +33,8 @@ const PrintSingleTccPaye = () => {
         axios.post(`${url.BASE_URL}paye/view-tcc`, id)
           .then(function (response) {
             console.log("response", response);
-            // let fetctTcc = response.data.body.tcc[0];
-            // let oldTccPass = response.data.body.tcc[0].passport
-            // let oldTccSign = response.data.body.tcc[0].signature
             setOldPass(response.data.body.tcc[0].passport)
             setOldSig(response.data.body.tcc[0].signature)
-            // console.log("oldTccSign", oldTccSign);
-            // console.log("oldTccPass", oldTccPass);
-            // let payslipY1 = response.data.body.payslipY1[0];
             let payslipY2 = response.data.body?.payslipY2 ?? [];
             let payslipY3 = response.data.body?.payslipY3 ?? [];
             console.log("payslipY2", payslipY2);
@@ -72,7 +66,6 @@ const PrintSingleTccPaye = () => {
     <>
       <SectionTitle subtitle="Print PAYE TCC" />
 
-      {/* <Widget> */}
 
       {isFetching ? (
         <div className="flex justify-center item mb-2">
@@ -99,7 +92,6 @@ const PrintSingleTccPaye = () => {
           oldSign={oldSign}
         />
       }
-      {/* </Widget> */}
     </>
   );
 };

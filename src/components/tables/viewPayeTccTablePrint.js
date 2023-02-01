@@ -213,15 +213,15 @@ export const ViewSinglePayeTccPrintTable = ({
   let year3ConRel
   let year3OtherRelief
 
-  if (yrOnePaySl[0] == undefined) {
+  if (yrOnePaySl == undefined) {
     year1ConRel = 0
     year1OtherRelief = 0
   }
   else {
-    year1ConRel = yrOnePaySl[0].consolidated_relief
-    year1OtherRelief = yrOnePaySl[0].other_relief
+    year1ConRel = yrOnePaySl.consolidated_relief
+    year1OtherRelief = yrOnePaySl.other_relief
   }
-
+console.log("yrOnePaySl[0].consolidated_relief", yrOnePaySl);
   if (yrTwoPaySl[0] == undefined) {
     year2ConRel = 0
     year2OtherRelief = 0
@@ -397,7 +397,7 @@ export const ViewSinglePayeTccPrintTable = ({
                         </td>
 
                         <td className="">
-                          <p className="font-bold"> {formatNumber(Number(PayeTccData.incYr_1) - (Number(year1ConRel) + Number(year1OtherRelief)))} </p>
+                          <p className="font-bold"> {formatNumber(Number(PayeTccData.incYr_1) - ((Number(year1ConRel) + Number(year1OtherRelief))))} </p>
                         </td>
                         <td className="">
                           <p className="font-bold">{formatNumber(PayeTccData.taxYr_1)}</p>
@@ -416,7 +416,7 @@ export const ViewSinglePayeTccPrintTable = ({
                           <p className="font-bold">{formatNumber(PayeTccData.incYr_2)}</p>
                         </td>
                         <td className="">
-                          <p className="font-bold">{formatNumber(Number(PayeTccData.incYr_2) - (Number(year2ConRel) + Number(year2OtherRelief)))}</p>
+                          <p className="font-bold">{formatNumber(Number(PayeTccData.incYr_2) - ((Number(year2ConRel) + Number(year2OtherRelief))))}</p>
                         </td>
                         <td className="">
                           <p className="font-bold">{formatNumber(PayeTccData.taxYr_2)}</p>
@@ -426,7 +426,6 @@ export const ViewSinglePayeTccPrintTable = ({
                         </td>
 
                       </tr>
-
 
                       <tr>
                         <td className="">
