@@ -240,6 +240,9 @@ console.log("yrOnePaySl[0].consolidated_relief", yrOnePaySl);
     year3OtherRelief = yrThreePaySl[0].other_relief
   }
   
+  if (oldPass.data == []) {
+    console.log(true);
+  }else{console.log(false);}
   console.log("oldPass.data", typeof(oldPass.data));
 
   return (
@@ -288,7 +291,7 @@ console.log("yrOnePaySl[0].consolidated_relief", yrOnePaySl);
 
               <div className="flex justify-between">
                 <div className="ml-4">
-                  {oldPass.data != "" && oldSign.data != "" ?
+                  {Array.isArray(oldPass.data) && oldPass.data.length !== 0 || Array.isArray(oldSign.data) && oldSign.data.length !== 0 ?
                     <div className="flex">
                       <div>
                         <img
