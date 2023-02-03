@@ -240,6 +240,8 @@ console.log("yrOnePaySl[0].consolidated_relief", yrOnePaySl);
     year3OtherRelief = yrThreePaySl[0].other_relief
   }
   
+  console.log("oldPass.data", typeof(oldPass.data));
+
   return (
     <>
       <div className="m-3 flex justify-end">
@@ -286,7 +288,7 @@ console.log("yrOnePaySl[0].consolidated_relief", yrOnePaySl);
 
               <div className="flex justify-between">
                 <div className="ml-4">
-                  {oldPass.type || oldSign.type ?
+                  {oldPass.data != "" && oldSign.data != "" ?
                     <div className="flex">
                       <div>
                         <img
