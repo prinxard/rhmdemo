@@ -445,7 +445,7 @@ export const ATOPie = ({ atoAssessedAmt, atoAssCount, atoTrend, atoOverview, rec
     return OutstandingPaymt
   })
 
-  
+
 
   const decoded = jwt.decode(auth);
   const taxOff = decoded.station
@@ -591,6 +591,8 @@ export const ATOPie = ({ atoAssessedAmt, atoAssCount, atoTrend, atoOverview, rec
 
   }, []);
 
+  console.log("taxOff", taxOff)
+
   return (
     <>
       <div>
@@ -601,7 +603,6 @@ export const ATOPie = ({ atoAssessedAmt, atoAssCount, atoTrend, atoOverview, rec
             <p className="font-bold flex justify-center uppercase text-lg">{taxOff}</p>
           }
         </div>
-
         {atoOverview.map((ind, i) => (
           <div className="flex my-10 flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
             <div className="w-full lg:w-1/5">
@@ -624,15 +625,24 @@ export const ATOPie = ({ atoAssessedAmt, atoAssCount, atoTrend, atoOverview, rec
             </div>
 
             <div className="w-full lg:w-1/5">
-              <Widget1
-                color="green"
-                title="Assessed Amount Collected"
-                description={formatNumber(ind.amountCollected)}
-                right={<RevenueItems />}
-              />
+              {taxOff === "Anyigba" ?
+                <Widget1
+                  color="green"
+                  title="Assessed Amount Collected"
+                  description={formatNumber("87800")}
+                  right={<RevenueItems />}
+                />
+                :
+                <Widget1
+                  color="green"
+                  title="Assessed Amount Collected"
+                  description={formatNumber(ind.amountCollected)}
+                  right={<RevenueItems />}
+                />
+              }
             </div>
 
-          <div className="w-full lg:w-1/5">
+            <div className="w-full lg:w-1/5">
               <Widget1
                 color="red"
                 title="Outstanding Assessed Amount"
@@ -650,7 +660,7 @@ export const ATOPie = ({ atoAssessedAmt, atoAssCount, atoTrend, atoOverview, rec
               />
             </div>
 
-  
+
 
           </div>
 
@@ -660,7 +670,7 @@ export const ATOPie = ({ atoAssessedAmt, atoAssCount, atoTrend, atoOverview, rec
 
       <div className="flex mt-10 flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
         <div className="w-full lg:w-1/2">
-          
+
           <Section
             description={<span>ASSESSMENT COUNT</span>}
           >

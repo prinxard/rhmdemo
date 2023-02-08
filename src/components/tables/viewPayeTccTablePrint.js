@@ -221,7 +221,7 @@ export const ViewSinglePayeTccPrintTable = ({
     year1ConRel = yrOnePaySl.consolidated_relief
     year1OtherRelief = yrOnePaySl.other_relief
   }
-console.log("yrOnePaySl[0].consolidated_relief", yrOnePaySl);
+  console.log("yrOnePaySl[0].consolidated_relief", yrOnePaySl);
   if (yrTwoPaySl[0] == undefined) {
     year2ConRel = 0
     year2OtherRelief = 0
@@ -239,11 +239,11 @@ console.log("yrOnePaySl[0].consolidated_relief", yrOnePaySl);
     year3ConRel = yrThreePaySl[0].consolidated_relief
     year3OtherRelief = yrThreePaySl[0].other_relief
   }
-  
+
   if (oldPass.data == []) {
     console.log(true);
-  }else{console.log(false);}
-  console.log("oldPass.data", typeof(oldPass.data));
+  } else { console.log(false); }
+  console.log("oldPass.data", typeof (oldPass.data));
 
   return (
     <>
@@ -260,7 +260,6 @@ console.log("yrOnePaySl[0].consolidated_relief", yrOnePaySl);
             content={() => componentRef.current}
           />
         </div>
-
       </div>
 
       <section ref={componentRef} className="flex justify-center mt-5">
