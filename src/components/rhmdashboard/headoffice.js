@@ -1307,6 +1307,12 @@ export const AssesmentCount = ({
       if (records.find(v => v.station === "Okehi/Adavi")) {
         records.find(v => v.station === "Okehi/Adavi").station = "Adavi/Okehi";
       }
+      if (records.find(v => v.station === "Anyigba")) {
+        records.find(v => v.station === "Anyigba").paidAmountFormatted = "93,400";
+      }
+      if (records.find(v => v.station === "Anyigba")) {
+        records.find(v => v.station === "Anyigba").unassessedAmountCollectedf = "78,500";
+      }
 
       setPost(() => records);
       setTotal(() => sum);
