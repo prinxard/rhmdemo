@@ -48,6 +48,10 @@ const fields = [
     field: "tpName",
   },
   {
+    title: "Employee TIN",
+    field: "paye_tp",
+  },
+  {
     title: "Gross Salary",
     field: "basic",
     render: (basic) => formatNumber(basic.basic)
