@@ -349,7 +349,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                             </p><br />
                             <p>
                               You may wish to peruse the sections 3 and 48 of the Personal Income Tax Act (PITA) 2011
-                              as ammended which create that obligation on every citezen of Nigeria
+                              as ammended which create that obligation on every citizen of Nigeria
                             </p><br />
                             <p>
                               You are by this expected to make payments to any Kogi State Internal
