@@ -16,11 +16,11 @@ const ViewSingleApprovedObjection = () => {
   const [objNotice, setObjNotice] = useState("")
   const [createdTime, setCreatedTime] = useState("")
   const [year, setYear] = useState("")
-  const [recommendedTax, setRecommTax] = useState("")
+  const [recommendedTax, setRecommTax] = useState("0")
   const [objectionData, setObjectionData] = useState([])
   const [objUploads, setObjUploads] = useState([])
   const [tpKgtin, setTpKgtin] = useState([])
-  const [DATax, setAssessmentData] = useState([])
+  const [DATax, setAssessmentData] = useState("0")
   const [payerName, setName] = useState([])
   const [payerAddr, setAddr] = useState([])
 

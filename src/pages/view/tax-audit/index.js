@@ -5,6 +5,7 @@ import CertDesign from './cert-design';
 import { useRouter } from 'next/router';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { toWords } from 'number-to-words';
 
 export default function AuditCert() {
     const [fixedValues, Amount] = useState({ amount: 0 });
