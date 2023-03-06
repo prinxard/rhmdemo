@@ -19,7 +19,7 @@ const CertDesign = () => {
     if (!formData) {
         return <div>Loading...</div>;
     }
-    console.log("child", formData);
+  
     const numberInWords = toWords((formData.amount).replace(/,/g, ''));
     return (
         <>
@@ -91,9 +91,9 @@ const CertDesign = () => {
                             <p className="font-bold">Amount:</p>
                             <div className="col-span-3">
                                 <p className=""> {formData.amount} </p>
-                                {/* <small>
-                                    Test
-                                </small> */}
+                                <small>
+                                    {`(${numberInWords} Naira only)`}
+                                </small>
                             </div>
                         </div>
 
