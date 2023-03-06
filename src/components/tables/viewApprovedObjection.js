@@ -154,7 +154,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
 
       </div>
 
-      <div className="mt-16">
+      <div className="mt-32">
         {objNotice === null ? "Objection type not available"
           :
           <div ref={componentRef} className="p-4 mt-5">
