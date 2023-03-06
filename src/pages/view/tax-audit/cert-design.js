@@ -89,7 +89,7 @@ const CertDesign = () => {
                         <div className="grid grid-cols-6 gap-2">
                             <p className="font-bold">Amount:</p>
                             <div className="col-span-3">
-                                <p className=""> {formData.amount} </p>
+                                <p className=""> NGN {formData.amount} </p>
                                 {/* <small>
                                     Test
                                 </small> */}
