@@ -294,7 +294,10 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                             and revised your assessment to <span className="font-bold">₦{formatNumber(recommendedTax)} </span>
                             Instead of <span className="font-bold"> ₦{formatNumber(DATax)} </span>
                           </p><br />
-                   
+                          {/* <p>
+                            You may wish to persuse the sections 3 and 48 of the Persona Income Tax Act (PITA) 2011
+                            as ammended which create that obligation on every citezen of Nigeria
+                          </p><br /> */}
                           <p>
                             You are by this expected to make payments to any Kogi State Internal
                             Revenue Service designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
@@ -321,11 +324,6 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                         <div>
                           { objNotice === "document_review" ? 
                             <div className="text-justify text-base max-w-prose" >
-                            {/* <div className="flex justify-between my-3">
-                              <p align="left"> <KgirsLogo /></p>
-                              <h3 className="">KOGI STATE GOVERNMENT</h3>
-                              <p align="right"> <KogiGov /></p>
-                            </div> */}
                             <p className="flex justify-between mb-3"> <span>{objectionData.file_ref}</span> {today}  </p>
                             <p>{payerName}</p>
                             <p>{tpKgtin}</p>
