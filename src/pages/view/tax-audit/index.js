@@ -1,19 +1,15 @@
 import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import Link from 'next/link';
+import { Controller, useForm } from 'react-hook-form'
 import { FormatMoneyComponentReport } from '../../../components/FormInput/formInputs'
-
-export const certDesign = ()=>{
-    return(
-        <>
-        Display on new page
-        </>
-    )
-}
+import CertDesign from './cert-design';
+import { useRouter } from 'next/router';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function AuditCert() {
     const [fixedValues, Amount] = useState({ amount: 0 });
-    const [formData, setFormData] = useState("");
+    const [formData, setFormData] = useState(null);
+    const router = useRouter()
     console.log("form data", formData);
     const {
         register,
@@ -21,16 +17,17 @@ export default function AuditCert() {
         watch,
         control,
         formState: { errors },
-    } = useForm({mode: "onChange"})
-    // let inputAmount = watch("amount", "0").replace(/,/g, '')
+    } = useForm({ mode: "onChange" })
 
     const submitForm = (data) => {
-        console.log(data);
-         setFormData(data)
+        router.push({
+            pathname: '/view/tax-audit/cert-design',
+            query: { formData: JSON.stringify(data) },
+        });
     }
     return (
         <div>
-            <Link href="/AuditCert">link</Link>
+            <h5 className="text-center mb-4">Generate Tax Audit Certificate</h5>
             <form onSubmit={handleSubmit(submitForm)}>
                 <div className="grid grid-cols-2 gap-4">
                     <div className="form-group ">
@@ -42,7 +39,7 @@ export default function AuditCert() {
 
                     <div className="form-group">
                         <p>KGTIN</p>
-                        <input required type="text" name="kgtin"  className="form-control mb-4 w-full rounded font-light text-gray-500"
+                        <input required type="text" name="kgtin" className="form-control mb-4 w-full rounded font-light text-gray-500"
                             ref={register()}
                         />
                     </div>
@@ -80,12 +77,46 @@ export default function AuditCert() {
 
                     <div className="form-group ">
                         <p>Audit start date</p>
-                        <input required type="date" name="sdate" ref={register()} className="form-control mb-4 w-full rounded font-light text-gray-500" />
+                        <Controller
+                                name="sdate"
+                                control={control}
+                                // defaultValue={new Date()}
+                                render={({ onChange, value }) => {
+                                    return (
+                                        <DatePicker
+                                            className="form-control w-full rounded"
+                                            onChange={onChange}
+                                            selected={value}
+                                            showYearPicker
+                                            dateFormat="yyyy"
+                                            yearItemNumber={8}
+                                            placeholderText="Select Year"
+                                        />
+                                    );
+                                }}
+                            />
                     </div>
 
                     <div className="form-group ">
                         <p>Audit end date</p>
-                        <input required name="edate" type="date" ref={register()} className="form-control mb-4 w-full rounded font-light text-gray-500" />
+                        <Controller
+                                name="edate"
+                                control={control}
+                                // defaultValue={new Date()}
+                                render={({ onChange, value }) => {
+                                    return (
+                                        <DatePicker
+                                            className="form-control w-full rounded"
+                                            onChange={onChange}
+                                            selected={value}
+                                            showYearPicker
+                                            dateFormat="yyyy"
+                                            yearItemNumber={8}
+                                            placeholderText="Select Year"
+                                        />
+                                    );
+                                }}
+                            />
                     </div>
 
                     <div className="form-group">
@@ -105,6 +136,9 @@ export default function AuditCert() {
                     </button>
                 </div>
             </form>
+            <div className="hidden">
+                {formData && <CertDesign formData={formData} />}
+            </div>
         </div>
     )
 }
