@@ -19,6 +19,7 @@ const CertDesign = () => {
     if (!formData) {
         return <div>Loading...</div>;
     }
+
   
     const numberInWords = toWords((formData.amount).replace(/,/g, ''));
     return (
@@ -82,7 +83,7 @@ const CertDesign = () => {
 
                             <p className="">
                                 {
-                                    new Date(formData.sdate).getFullYear() === new Date(formData.edate).getFullYear() ?
+                                    new Date(formData.sdate).getFullYear() === new Date(formData.edate).getFullYear() || !formData.edate ?
                                         new Date(formData.sdate).getFullYear() : `${new Date(formData.sdate).getFullYear()} - ${new Date(formData.edate).getFullYear()}`
                                 }
                             </p>

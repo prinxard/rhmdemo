@@ -146,7 +146,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
       <div className="m-3 flex justify-end">
         <div>
           <ReactToPrint
-            pageStyle='@page { size: auto; margin: 0mm; } @media print { body { -webkit-print-color-adjust: exact; padding: 40px !important; } }'
+            pageStyle='@page { size: auto; margin-top: 30mm; } @media print { body { -webkit-print-color-adjust: exact; padding: 40px !important; } }'
             // pageStyle="@page { size: 7.5in 13in  }"
             trigger={() => <button
               type="submit" className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
@@ -159,7 +159,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
 
       </div>
 
-      <div className="mt-32">
+      <div className="mt-10">
         {objNotice === null ? "Objection type not available"
           :
           <div ref={componentRef} className="p-4 mt-5">
@@ -195,20 +195,11 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                     Management has waived recovery of such moneys as stipulated in
                     section 52[1] of PITA 2011 as amended.
                   </p><br />
-
                   <p>
                     You are by this expected to make payments to any Kogi State Internal
                     Revenue Service designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
-                    {/* Otherwise submit the following document for the year <span className="font-bold">{year}</span> to enable
-                    us carry out proper assessment in consideration of your objection: */}
-                    {/* Please accept the assurance of our highest regards. */}
                   </p>
-                  {/* <ul>
-                    <li>1. Audited financial statements</li>
-                    <li>2. Bank accounts of the directors and</li>
-                    <li>3. Any other relevant document to that effect</li>
-                  </ul>
-                  <br /> */}
+                  
                   <p><br />
                     Yours Faithfully..
                   </p>
@@ -253,16 +244,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                       <p>
                         You are by this expected to make payments to any Kogi State Internal
                         Revenue Service designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
-                        {/* Otherwise submit the following document for the year <span className="font-bold">{year}</span> to enable
-                        us carry out proper assessment in consideration of your objection: */}
-                        {/* Please accept the assurance of our highest regards. */}
                       </p>
-                      {/* <ul>
-                        <li>1. Audited financial statements</li>
-                        <li>2. Bank accounts of the directors and</li>
-                        <li>3. Any other relevant document to that effect</li>
-                        </ul>
-                      <br /> */}
                       <br />
 
                       <p>
@@ -303,16 +285,8 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                           <p>
                             You are by this expected to make payments to any Kogi State Internal
                             Revenue Service designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
-                            {/* Otherwise submit the following document for the year <span className="font-bold">{year}</span> to enable
-                            us carry out proper assessment in consideration of your objection: */}
-                            {/* Please accept the assurance of our highest regards. */}
                           </p><br />
-                          {/* <ul>
-                            <li>1. Audited financial statements</li>
-                            <li>2. Bank accounts of the directors and</li>
-                            <li>3. Any other relevant document to that effect</li>
-                          </ul> */}
-                          <br />
+                      
                           <p>
                             Yours Faithfully..
                           </p>
@@ -338,25 +312,24 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                               <p>
                                 We acknowledge the receipt of your letter dated
                                 <span className="font-bold"> {(timeCreated)}, </span>
-                                in respect to the objection of your Direct Assessment
-                              </p>
-                              <br />
+                                in respect to the objection of your Direct Assessment.
+                              </p><br />
+                              
                               <p>
                                 We have reviewed your letter of objection in line with section 24[A] of
                                 PITA 2011 as amended.The Management has looked at the reasonability of your objection
                                 and revised your assessment to <span className="font-bold">₦{formatNumber(recommendedTax)} <small>{`(${recTaxToWords} Naira only)`}</small> </span>
                                 Instead of <span className="font-bold"> ₦{formatNumber(DATax)} <small>{`(${DATaxToWords} Naira only)`}</small> </span>
                               </p><br />
-                              <p>
+                              {/* <p>
                                 You may wish to peruse the sections 3 and 48 of the Personal Income Tax Act (PITA) 2011
                                 as ammended which create that obligation on every citizen of Nigeria
-                              </p><br />
+                              </p><br /> */}
                               <p>
                                 You are by this expected to make payments to any Kogi State Internal
                                 Revenue Service designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
                                 Otherwise submit the following document for the year <span className="font-bold">{year}</span> to enable
                                 us carry out proper assessment in consideration of your objection:
-                                {/* Please accept the assurance of our highest regards. */}
                               </p><br />
                               <ul>
                                 <li>1. Audited financial statements</li>
@@ -367,7 +340,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                               <p>
                                 Yours Faithfully..
                               </p>
-                              <p>For:<span className="font-bold"> KOGI STATE INTERNAL REVENUE SERVICE </span></p><br /><br />
+                              <p>For:<span className="font-bold"> KOGI STATE INTERNAL REVENUE SERVICE </span></p><br />
                               <SignatureCol />
                               <p className="font-bold">Sule Salihu Enehe</p>
                               Executive Chairman
