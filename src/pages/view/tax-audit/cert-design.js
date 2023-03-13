@@ -20,7 +20,7 @@ const CertDesign = () => {
         return <div>Loading...</div>;
     }
 
-  
+
     const numberInWords = toWords((formData.amount).replace(/,/g, ''));
     return (
         <>
@@ -64,7 +64,14 @@ const CertDesign = () => {
                     <div className="my-3">
                         <p className="max-w-md text-sm max-w-prose text-justify">
                             This is to certify that all PAYE and Withholding Taxes due to Kogi State Government for the period of
-                            January, {new Date(formData.sdate).getFullYear()} to December, <span>{!formData.edate ? new Date(formData.sdate).getFullYear() : new Date(formData.edate).getFullYear()}</span> have been reconciled, agreed and paid with the details below;
+                            January, {new Date(formData.sdate).getFullYear()} to December,
+                            <span>
+                                {!formData.edate ?
+                                    new Date(formData.sdate).getFullYear() :
+                                    new Date(formData.edate).getFullYear()
+                                }
+                            </span>
+                            have been reconciled, agreed and paid with the details below;
                         </p>
                     </div>
                     <div className="mt-3">
