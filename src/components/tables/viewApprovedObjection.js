@@ -139,6 +139,18 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
 
   const recTaxToWords = toWords(recommendedTax)
   const DATaxToWords = toWords(DATax)
+  const pageStyle = `
+      @page {
+        size: A4;
+        margin: 30px 30px 30px 30px
+      }
+      @media print {
+        body {
+          margin: 0;
+          padding: 0;
+        }
+      }
+    `;
 
   return (
     <>
@@ -146,8 +158,8 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
       <div className="m-3 flex justify-end">
         <div>
           <ReactToPrint
-            pageStyle='@page { size: auto; margin-top: 30mm; } @media print { body { -webkit-print-color-adjust: exact; padding: 40px !important; } }'
-            // pageStyle="@page { size: 7.5in 13in  }"
+            // pageStyle='@page { size: auto; margin-top: 20mm; } @media print { body { -webkit-print-color-adjust: exact; padding: 40px !important; } }'
+            pageStyle={pageStyle}
             trigger={() => <button
               type="submit" className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
             >
