@@ -126,7 +126,17 @@ export const ViewApprovedObjectionTable = ({ submittedData }) => {
   );
 };
 
-export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, payerAddr, payerName, DATax, objNotice, assessmentId, createdTime, recommendedTax }) => {
+export const ViewApprovedObjectionSingle = ({ tpKgtin,
+  objectionData,
+  year,
+  payerAddr,
+  payerName,
+  DATax,
+  objNotice,
+  assessmentId,
+  createdTime,
+  recommendedTax
+}) => {
   const router = useRouter();
   const componentRef = useRef();
 
@@ -134,32 +144,32 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
   let today = new Date().toLocaleDateString('en-us', options);
   let timeCreated = new Date(createdTime).toDateString()
 
-  console.log("recommendedTax", recommendedTax);
   console.log("DATax", DATax);
 
   const recTaxToWords = toWords(recommendedTax)
   const DATaxToWords = toWords(DATax)
   const pageStyle = `
-      @page {
-        size: A4;
-        margin: 30px 30px 30px 30px
-      }
-      @media print {
-        body {
-          margin: 0;
-          padding: 0;
-        }
-      }
-    `;
+  @media print {
+    body {
+      padding: 0;
+      margin-top: 30mm; 
+    }
+    @page {
+      size: A4;
+      header: none;
+      footer: none;
+    }
+  }
+`;
 
   return (
     <>
+      <style>{pageStyle}</style>
 
       <div className="m-3 flex justify-end">
         <div>
           <ReactToPrint
-            // pageStyle='@page { size: auto; margin-top: 20mm; } @media print { body { -webkit-print-color-adjust: exact; padding: 40px !important; } }'
-            pageStyle={pageStyle}
+            // pageStyle='@page { size: auto; margin-top: 20mm; header: none; footer: none;} @media print { body { -webkit-print-color-adjust: exact; padding: 40px !important;} }'
             trigger={() => <button
               type="submit" className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
             >
@@ -168,7 +178,6 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
             content={() => componentRef.current}
           />
         </div>
-
       </div>
 
       <div className="mt-10">
@@ -211,7 +220,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                     You are by this expected to make payments to any Kogi State Internal
                     Revenue Service designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
                   </p>
-                  
+
                   <p><br />
                     Yours Faithfully..
                   </p>
@@ -225,11 +234,6 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                 <div>
                   {objNotice === "no_PITA" ?
                     <div className="text-justify text-base max-w-prose" >
-                      {/* <div className="flex justify-between my-3">
-                        <p align="left"> <KgirsLogo /></p>
-                        <h3 className="mt-9">KOGI STATE GOVERNMENT</h3>
-                        <p align="right"> <KogiGov /></p>
-                      </div> */}
                       <p className="flex justify-between mb-3"> <span>{objectionData.file_ref}</span> {today}  </p>
                       <p>{payerName}</p>
                       <p>{tpKgtin}</p>
@@ -293,12 +297,12 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                             and revised your assessment to <span className="font-bold">₦{formatNumber(recommendedTax)} <small>{`(${recTaxToWords} Naira only)`}</small> </span>
                             Instead of <span className="font-bold"> ₦{formatNumber(DATax)} <small>{`(${DATaxToWords} Naira only)`}</small> </span>
                           </p><br />
-                       
+
                           <p>
                             You are by this expected to make payments to any Kogi State Internal
                             Revenue Service designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
                           </p><br />
-                      
+
                           <p>
                             Yours Faithfully..
                           </p>
@@ -326,7 +330,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin, objectionData, year, paye
                                 <span className="font-bold"> {(timeCreated)}, </span>
                                 in respect to the objection of your Direct Assessment.
                               </p><br />
-                              
+
                               <p>
                                 We have reviewed your letter of objection in line with section 24[A] of
                                 PITA 2011 as amended.The Management has looked at the reasonability of your objection
