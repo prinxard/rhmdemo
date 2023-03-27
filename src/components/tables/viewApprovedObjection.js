@@ -152,7 +152,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin,
   @media print {
     body {
       padding: 0;
-      margin-top: 30mm; 
+      margin-top: 30px; 
     }
     @page {
       size: A4;
@@ -209,7 +209,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin,
                     your previous tax records with Kogi State Internal Revenue Service.
                     The Management has looked at the reasonability of your objection
                     and revised your assessment to <span className="font-bold">₦{formatNumber(recommendedTax)} <small>{`(${recTaxToWords} Naira only)`}</small> </span>
-                    Instead of <span className="font-bold"> ₦{formatNumber(DATax)} <small>{`(${DATaxToWords} Naira only)`}</small> </span>
+                    Instead of <span className="font-bold"> ₦{formatNumber(DATax)} <span>{`(${DATaxToWords} Naira only)`}</span> </span>
                   </p><br />
                   <p>
                     Please Take Note that you have been previously under assessed, but
@@ -253,8 +253,8 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin,
                         We have reviewed your letter of complaint and objection along with
                         your previous tax records with Kogi State Internal Revenue Service.
                         The Management has looked at the reasonability of your objection
-                        and revised your assessment to <span className="font-bold">₦{formatNumber(recommendedTax)} <small>{`(${recTaxToWords} Naira only)`}</small> </span>
-                        Instead of <span className="font-bold"> ₦{formatNumber(DATax)} <small>{`(${DATaxToWords} Naira only)`}</small> </span>
+                        and revised your assessment to <span className="font-bold">₦{formatNumber(recommendedTax)} <span>{`(${recTaxToWords} Naira only)`}</span> </span>
+                        Instead of <span className="font-bold"> ₦{formatNumber(DATax)} <span>{`(${DATaxToWords} Naira only)`}</span> </span>
                       </p><br />
 
                       <p>
@@ -295,7 +295,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin,
                             We have reviewed your letter of objection in line with section 24[A] of
                             PITA 2011 as amended.The Management has looked at the reasonability of your objection
                             and revised your assessment to <span className="font-bold">₦{formatNumber(recommendedTax)} <small>{`(${recTaxToWords} Naira only)`}</small> </span>
-                            Instead of <span className="font-bold"> ₦{formatNumber(DATax)} <small>{`(${DATaxToWords} Naira only)`}</small> </span>
+                            Instead of <span className="font-bold"> ₦{formatNumber(DATax)} <span>{`(${DATaxToWords} Naira only)`}</span> </span>
                           </p><br />
 
                           <p>
