@@ -152,7 +152,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin,
   @media print {
     body {
       padding: 0;
-      margin-top: 45mm; 
+      margin-top: 49mm; 
     }
     @page {
       size: A4;
@@ -187,7 +187,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin,
             <div className="flex justify-center">
               {objNotice === "undertaxed" ?
                 <div className="text-justify text-base max-w-prose"  >
-                  <p className="flex justify-between mb-3"> <span className="font-bold">{objectionData.file_ref}</span> {today}  </p>
+                  <p className="flex justify-between mt-3"> <span className="font-bold">{objectionData.file_ref}</span> {today}  </p>
                   <p>{payerName}</p>
                   <p>{tpKgtin}</p>
                   <p className="w-64">{payerAddr}</p>
@@ -234,7 +234,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin,
                 <div>
                   {objNotice === "no_PITA" ?
                     <div className="text-justify text-base max-w-prose" >
-                      <p className="flex justify-between mb-3"> <span>{objectionData.file_ref}</span> {today}  </p>
+                      <p className="flex justify-between mt-3"> <span>{objectionData.file_ref}</span> {today}  </p>
                       <p>{payerName}</p>
                       <p>{tpKgtin}</p>
                       <p className="w-64">{payerAddr}</p>
@@ -276,7 +276,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin,
                     <div>
                       {objNotice === "PITA" ?
                         <div className="text-justify text-base max-w-prose">
-                          <p className="flex justify-between mb-3"> <span>{objectionData.file_ref}</span> {today}  </p>
+                          <p className="flex justify-between mt-3"> <span>{objectionData.file_ref}</span> {today}  </p>
                           <p>{payerName}</p>
                           <p>{tpKgtin}</p>
                           <p className="w-64">{payerAddr}</p>
@@ -316,7 +316,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin,
                         <div>
                           {objNotice === "document_review" ?
                             <div className="text-justify text-base max-w-prose" >
-                              <p className="flex justify-between mb-3"> <span>{objectionData.file_ref}</span> {today}  </p>
+                              <p className="flex justify-between mt-3"> <span>{objectionData.file_ref}</span> {today}  </p>
                               <p>{payerName}</p>
                               <p>{tpKgtin}</p>
                               <p className="w-64">{payerAddr}</p>
