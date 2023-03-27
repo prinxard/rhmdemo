@@ -152,7 +152,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin,
   @media print {
     body {
       padding: 0;
-      margin-top: 40mm; 
+      margin-top: 45mm; 
     }
     @page {
       size: A4;
