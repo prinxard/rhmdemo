@@ -356,7 +356,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin,
                               <p>
                                 Yours Faithfully..
                               </p>
-                              <p>For:<span className="font-bold"> KOGI STATE INTERNAL REVENUE SERVICE </span></p><br />
+                              <p>For:<span className="font-bold">KOGI STATE INTERNAL REVENUE SERVICE </span></p><br />
                               <SignatureCol />
                               <p className="font-bold">Sule Salihu Enehe</p>
                               Executive Chairman
