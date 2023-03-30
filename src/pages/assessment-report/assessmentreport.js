@@ -102,6 +102,7 @@ const fields = [
   {
     title: "Created Time",
     field: "createtime",
+    type: 'date'
   },
 
 ];
