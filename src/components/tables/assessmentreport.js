@@ -105,19 +105,7 @@ export const StartAssessmentReportView = () => {
     formState: { errors },
   } = useForm()
 
-  // var d = new Date();
-  // var year = d.getFullYear();
-  // var month = d.getMonth();
-  // var day = d.getDate();
-  // var yearvar = new Date(year - 1, month, day);
 
-
-
-  // let startFigure = watch("amountStart", "").replace(/,/g, '')
-  // let endFigure = watch("amountEnd", "").replace(/,/g, '');
-
-  // console.log("startFigure", fixedValues);
-  // console.log("endFigure", fixedValuesend);
 
   let watchYear = watch("year", "");
 
