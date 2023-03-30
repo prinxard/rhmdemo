@@ -81,9 +81,9 @@ const fields = [
     field: "balance",
     render: (rowData) => {
       return (
-        Number(rowData.taxPaid) - (Number(rowData.tax) + Number(rowData.add_assmt)) < "0" ? <p style={{ color: "#FF0000", fontWeight: "bold" }}>{Number(rowData.taxPaid) - (Number(rowData.tax) + Number(rowData.add_assmt))}</p> :
-        Number(rowData.taxPaid) - (Number(rowData.tax) + Number(rowData.add_assmt)) > "0" ? <p style={{ color: "#8fce00", fontWeight: "bold" }}>{`+${Number(rowData.taxPaid) - (Number(rowData.tax) + Number(rowData.add_assmt))}`}</p> :
-        <p>{Number(rowData.taxPaid) - (Number(rowData.tax) + Number(rowData.add_assmt))}</p>
+        formatNumber(Number(rowData.taxPaid) - (Number(rowData.tax) + Number(rowData.add_assmt))) < "0" ? <p style={{ color: "#FF0000", fontWeight: "bold" }}>{formatNumber(Number(rowData.taxPaid) - (Number(rowData.tax) + Number(rowData.add_assmt)))}</p> :
+        formatNumber(Number(rowData.taxPaid) - (Number(rowData.tax) + Number(rowData.add_assmt))) > "0" ? <p style={{ color: "#8fce00", fontWeight: "bold" }}>{`+${formatNumber(Number(rowData.taxPaid) - (Number(rowData.tax) + Number(rowData.add_assmt)))}`}</p> :
+        <p>{formatNumber(Number(rowData.taxPaid) - (Number(rowData.tax) + Number(rowData.add_assmt)))}</p>
       )
     }
   },
