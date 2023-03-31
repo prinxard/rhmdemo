@@ -131,7 +131,7 @@ export const ViewTccTable = ({ tccdata }) => {
   );
 };
 
-export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assessmentData2, assessmentData3 }) => {
+export const ViewSingleTccTable = ({ tccID, addAsess, payerDetails, assessmentData, assessmentData2, assessmentData3 }) => {
   const [isFetching, setIsFetching] = useState(false)
   const [declineModal, setDeclineModal] = useState(false);
   const { config, palettes, auth } = useSelector(
@@ -142,7 +142,10 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
     }),
     shallowEqual
   );
-
+  let yroneAdd = (addAsess?.addAssyr1?.amount )
+  let yrtwoAdd = (addAsess?.addAssyr2?.amount )
+  let yrthreeAdd = (addAsess?.addAssyr3?.amount )
+  console.log("yroneAdd", yroneAdd);
   const router = useRouter();
   const {
     register,
@@ -531,21 +534,6 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
 
                     </div>
                   </div> :
-                        // <div className="flex mr-3">
-                  //   <button
-                  //     className="btn bg-green-600 mr-2 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  //     type="submit"
-                  //   >
-                  //     <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
-                  //   </button>
-
-                  //   <button
-                  //     className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  //     type="submit"
-                  //   >
-                  //     <Link href={`/tcc/${tccID}`}> Upload Docs</Link>
-                  //   </button>
-                  // </div>
                   ""
                 }
               </div>
@@ -653,7 +641,7 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
                   <div>
 
                     {assessmentData.map((ele, i) => (
-                      <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.tax)} type="text"
+                      <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(Number(ele.tax) + Number(yroneAdd))} type="text"
                       />
                     ))}
 
@@ -742,7 +730,7 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
                   <div>
 
                     {assessmentData2.map((ele, i) => (
-                      <input readOnly className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.tax)} type="text"
+                      <input readOnly className="form-control w-full rounded" key={i} defaultValue={formatNumber(Number(ele.tax) + Number(yrtwoAdd))} type="text"
                       />
                     ))}
                   </div>
@@ -819,7 +807,7 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
                   <div>
 
                     {assessmentData3.map((ele, i) => (
-                      <input readOnly className="form-control w-full rounded" key={i} defaultValue={(ele.year)} type="text"
+                      <input readOnly className="form-control w-full rounded" key={i} defaultValue={(Number(ele.year) + Number(yrthreeAdd))} type="text"
                       />
                     ))}
                   </div>
@@ -860,7 +848,6 @@ export const ViewSingleTccTable = ({ tccID, payerDetails, assessmentData, assess
                 {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" readOnly type="text" defaultValue={0} />
                   :
                   <div>
-
                     {assessmentData3.map((ele, i) => (
                       <input readOnly name="tax1" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.self_employed)} type="text"
                       />
