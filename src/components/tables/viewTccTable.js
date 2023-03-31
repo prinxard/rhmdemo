@@ -142,9 +142,9 @@ export const ViewSingleTccTable = ({ tccID, addAsess, payerDetails, assessmentDa
     }),
     shallowEqual
   );
-  let yroneAdd = (addAsess?.addAssyr1?.amount )
-  let yrtwoAdd = (addAsess?.addAssyr2?.amount )
-  let yrthreeAdd = (addAsess?.addAssyr3?.amount )
+  let yroneAdd = (addAsess?.addAssyr1?.amount || 0 )
+  let yrtwoAdd = (addAsess?.addAssyr2?.amount || 0 )
+  let yrthreeAdd = (addAsess?.addAssyr3?.amount || 0 )
   console.log("yroneAdd", yroneAdd);
   const router = useRouter();
   const {
@@ -730,7 +730,7 @@ export const ViewSingleTccTable = ({ tccID, addAsess, payerDetails, assessmentDa
                   <div>
 
                     {assessmentData2.map((ele, i) => (
-                      <input readOnly className="form-control w-full rounded" key={i} defaultValue={formatNumber(Number(ele.tax) + Number(yrtwoAdd))} type="text"
+                      <input readOnly className="form-control w-full rounded" key={i} defaultValue={formatNumber(Number(ele.tax) + Number(yrtwoAdd) )} type="text"
                       />
                     ))}
                   </div>
