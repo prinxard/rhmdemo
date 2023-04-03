@@ -49,17 +49,19 @@ const CertDesign = () => {
 
 
                 <div className="border p-6" ref={componentRef}>
-                    <p>KOGI STATE GOVERNMENT</p>
-                    <section className="flex justify-between">
-                        <p className="font-bold">TAX AUDIT CLEARANCE CERTIFICATE</p>
-                        <p></p>
-                    </section>
+                    <section className="flex justify-center">
+                        <div>
+                            <p>KOGI STATE GOVERNMENT</p>
+                            <p className="font-bold">TAX AUDIT CLEARANCE CERTIFICATE</p>
+                        </div>
 
+                    </section>
+                    {/* 
                     <section className="flex justify-end mt-8">
                         <CoatOfArms />
                         <KogiGov />
                         <KgirsLogo />
-                    </section>
+                    </section> */}
                     <p className="font-bold text-sm max-w-prose text-center">{formData.subject}</p>
                     <div className="my-3">
                         <p className="max-w-md text-sm max-w-prose text-justify">
