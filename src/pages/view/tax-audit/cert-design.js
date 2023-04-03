@@ -44,11 +44,11 @@ const CertDesign = () => {
                     />
                 </div>
             </div>
-            <div class="my-4">
+            <div>
                 <div className="flex justify-center" ref={componentRef}>
                     <div>
-                        <div>
-                        <h4 className="text-right">ORIGINAL</h4>
+                        <div className="my-16">
+                            <h4 className="text-right">ORIGINAL</h4>
                             <div className="my-3">
                                 <p className="font-bold text-center">{formData.subject}</p>
                                 <p className="max-w-md text-sm max-w-prose text-justify">
@@ -103,7 +103,7 @@ const CertDesign = () => {
                                     />
                                 </div>
                                 <div>
-                                    <SignatureCol />
+                                    {/* <SignatureCol /> */}
                                     <hr />
                                     <p className="font-bold">Sule Salihu Enehe</p>
                                     <p>Executive Chairman</p>
@@ -112,7 +112,7 @@ const CertDesign = () => {
                         </div>
                         <br /><br />
                         <div>
-                                <h4 className="text-right">DUPLICATE</h4>
+                            <h4 className="text-right">DUPLICATE</h4>
                             <div className="my-3">
                                 <p className="font-bold text-center">{formData.subject}</p>
                                 <p className="max-w-md text-sm max-w-prose text-justify">
@@ -167,7 +167,7 @@ const CertDesign = () => {
                                     />
                                 </div>
                                 <div>
-                                    <SignatureCol />
+                                    {/* <SignatureCol /> */}
                                     <hr />
                                     <p className="font-bold">Sule Salihu Enehe</p>
                                     <p>Executive Chairman</p>
