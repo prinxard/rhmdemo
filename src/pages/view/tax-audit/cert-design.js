@@ -47,9 +47,9 @@ const CertDesign = () => {
             <div>
                 <div className="flex justify-center" ref={componentRef}>
                     <div>
-                        <div className="my-16">
+                        <div className="mt-28">
                             <h4 className="text-right">ORIGINAL</h4>
-                            <div className="my-3">
+                            <div className="">
                                 <p className="font-bold text-center">{formData.subject}</p>
                                 <p className="max-w-md text-sm max-w-prose text-justify">
                                     This is to certify that all PAYE and Withholding Taxes due to Kogi State Government for the period of
@@ -111,9 +111,9 @@ const CertDesign = () => {
                             </div>
                         </div>
                         <br /><br />
-                        <div>
+                        <div className="mt-24">
                             <h4 className="text-right">DUPLICATE</h4>
-                            <div className="my-3">
+                            <div className="">
                                 <p className="font-bold text-center">{formData.subject}</p>
                                 <p className="max-w-md text-sm max-w-prose text-justify">
                                     This is to certify that all PAYE and Withholding Taxes due to Kogi State Government for the period of
