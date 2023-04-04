@@ -2,8 +2,10 @@ import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import QRCode from "react-qr-code";
 import ReactToPrint from "react-to-print";
-import { CoatOfArms, KgirsLogo, KogiGov, SignatureCol } from "../../../components/Images/Images";
 import { toWords } from 'number-to-words';
+import { useSelector } from "react-redux";
+import { shallowEqual } from "react-redux";
+
 
 const CertDesign = () => {
     const router = useRouter();
@@ -21,17 +23,19 @@ const CertDesign = () => {
     }
     const numberInWords = toWords((formData.amount).replace(/,/g, ''));
 
+
+
     return (
         <>
             <div className="flex justify-between my-3">
-                <button className="btn  bg-green-600 btn-default text-white
+                <button className="btn bg-green-600 btn-default text-white
                                 btn-outlined bg-transparent rounded-md"
                     type="submit"
                     onClick={() => router.back()}
                 >
                     Back
                 </button>
-                <div >
+                <div>
                     <ReactToPrint
                         pageStyle='@page { size: auto; margin: 0mm; } @media print { body { -webkit-print-color-adjust: exact; padding: 40px !important; } }'
                         trigger={() => <button className="btn w-32 bg-green-600 btn-default text-white
@@ -91,8 +95,6 @@ const CertDesign = () => {
                                         </small>
                                     </div>
                                 </div>
-
-
                             </div>
 
                             <div className="flex justify-between mt-4">
