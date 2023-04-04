@@ -103,7 +103,6 @@ const CertDesign = () => {
                                     />
                                 </div>
                                 <div>
-                                    {/* <SignatureCol /> */}
                                     <hr />
                                     <p className="font-bold">Sule Salihu Enehe</p>
                                     <p>Executive Chairman</p>
@@ -111,7 +110,7 @@ const CertDesign = () => {
                             </div>
                         </div>
                         <br /><br />
-                        <div className="mt-28">
+                        <div className="mt-32">
                             <h4 className="text-right">DUPLICATE</h4>
                             <div className="">
                                 <p className="font-bold text-center">{formData.subject}</p>
@@ -155,8 +154,6 @@ const CertDesign = () => {
                                         </small>
                                     </div>
                                 </div>
-
-
                             </div>
 
                             <div className="flex justify-between mt-4">
@@ -167,7 +164,6 @@ const CertDesign = () => {
                                     />
                                 </div>
                                 <div>
-                                    {/* <SignatureCol /> */}
                                     <hr />
                                     <p className="font-bold">Sule Salihu Enehe</p>
                                     <p>Executive Chairman</p>
