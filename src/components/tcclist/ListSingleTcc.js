@@ -15,6 +15,7 @@ const SingleTcc = () => {
   const [assess1, setAssess1] = useState(() => []);
   const [assess2, setAssess2] = useState(() => []);
   const [assess3, setAssess3] = useState(() => []);
+  const [addAsess, setAddAssess] = useState(() => []);
   const [tccID, setTccID] = useState(() => []);
   const router = useRouter();
   useEffect(() => {
@@ -33,7 +34,15 @@ const SingleTcc = () => {
           let firstass = fetctTcc.assessment1
           let secondass = fetctTcc.assessment2
           let thirdass = fetctTcc.assessment3
-          console.log(fetctTcc);
+          let addAssessmts = {
+            
+            addAssyr1: fetctTcc?.addAssessment1[0],
+            addAssyr2: fetctTcc?.addAssessment2[0],
+            addAssyr3: fetctTcc?.addAssessment3[0]
+           
+          }
+          setAddAssess( addAssessmts)
+          console.log("addAssessmts", addAssessmts);
           setTccData(tccdat)
           setAssess1(firstass)
           setAssess2(secondass)
@@ -76,6 +85,7 @@ const SingleTcc = () => {
               assessmentData={assess1}
               assessmentData2={assess2}
               assessmentData3={assess3}
+              addAsess={addAsess}
             />
           }
         </>
