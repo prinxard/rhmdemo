@@ -273,7 +273,7 @@ export const ViewApprovedTable = ({ ApprovedData }) => {
           {
             icon: () => <Icons.Objection />,
             tooltip: 'Objection',
-            hidden: false,
+            hidden: true,
             onClick: (event, rowData) => {
               event.preventDefault()
               setRevisedAssFields(
