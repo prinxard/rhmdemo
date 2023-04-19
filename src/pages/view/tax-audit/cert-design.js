@@ -12,6 +12,78 @@ const CertDesign = () => {
     const [formData, setFormData] = useState(null);
     const componentRef = useRef();
 
+
+function convertToNairaWords(amount) {
+  const words = [
+    "", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
+    "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen",
+    "seventeen", "eighteen", "nineteen"
+  ];
+  const tens = ["twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
+  const scales = ["", "thousand", "million", "billion", "trillion", "quadrillion", "quintillion"];
+
+  if (amount === 0) return "zero naira";
+
+  let nairaString = "";
+  let koboString = "";
+
+  if (amount < 0) {
+    nairaString += "minus ";
+    amount = Math.abs(amount);
+  }
+
+  let naira = Math.floor(amount);
+  let kobo = Math.round((amount - naira) * 100);
+
+  let scaleIndex = 0;
+
+  while (naira > 0) {
+    let chunk = naira % 1000;
+    naira = Math.floor(naira / 1000);
+
+    if (chunk > 0) {
+      if (chunk < 20) {
+        nairaString = words[chunk] + " " + scales[scaleIndex] + " " + nairaString;
+      } else {
+        let ones = chunk % 10;
+        let tensIndex = Math.floor(chunk / 10) % 10;
+        let hundreds = Math.floor(chunk / 100);
+
+        if (ones === 0 && tensIndex === 0) {
+          nairaString = words[hundreds] + " hundred " + scales[scaleIndex] + " " + nairaString;
+        } else if (tensIndex === 0) {
+          nairaString = words[hundreds] + " hundred " + words[ones] + " " + scales[scaleIndex] + " " + nairaString;
+        } else if (tensIndex === 1) {
+          nairaString = words[hundreds] + " hundred " + words[chunk] + " " + scales[scaleIndex] + " " + nairaString;
+        } else {
+          nairaString = words[hundreds] + " hundred " + tens[tensIndex - 2] + " " + words[ones] + " " + scales[scaleIndex] + " " + nairaString;
+        }
+      }
+    }
+
+    scaleIndex++;
+  }
+
+  if (kobo > 0) {
+    if (kobo < 20) {
+      koboString = words[kobo] + " kobo";
+    } else {
+      let ones = kobo % 10;
+      let tensIndex = Math.floor(kobo / 10) % 10;
+
+      if (ones === 0) {
+        koboString = tens[tensIndex - 2] + " kobo";
+      } else {
+        koboString = tens[tensIndex - 2] + " " + words[ones] + " kobo";
+      }
+    }
+  }
+
+  return nairaString.trim() + " naira " + koboString.trim();
+}
+
+
+
     useEffect(() => {
         if (router.query.formData) {
             setFormData(JSON.parse(router.query.formData));
@@ -21,8 +93,11 @@ const CertDesign = () => {
     if (!formData) {
         return <div>Loading...</div>;
     }
-    const numberInWords = toWords((formData.amount).replace(/,/g, ''));
-
+    // const numberInWords = toWords((formData.amount).replace(/,/g, ''));
+    const wordNum = (formData.amount).replace(/,/g, '')
+    const numberInWords = convertToNairaWords(wordNum);
+console.log("wordNum", wordNum);
+console.log(convertToNairaWords(100000.56));
     return (
         <>
             <div className="flex justify-between my-3">
@@ -89,7 +164,7 @@ const CertDesign = () => {
                                     <div className="col-span-3">
                                         <p className=""> {formData.amount} </p>
                                         <small>
-                                            {`(${numberInWords} Naira only)`}
+                                            {`(${numberInWords} only)`}
                                         </small>
                                     </div>
                                 </div>
@@ -110,7 +185,7 @@ const CertDesign = () => {
                             </div>
                         </div>
                         <br /><br />
-                        <div  style={{marginTop: "8.3rem"}}>
+                        <div style={{ marginTop: "8.3rem" }}>
                             <h4 className="text-right">DUPLICATE</h4>
                             <div className="">
                                 <p className="font-bold text-center">{formData.subject}</p>
@@ -150,7 +225,7 @@ const CertDesign = () => {
                                     <div className="col-span-3">
                                         <p className=""> {formData.amount} </p>
                                         <small>
-                                            {`(${numberInWords} Naira only)`}
+                                            {`(${numberInWords} only)`}
                                         </small>
                                     </div>
                                 </div>
