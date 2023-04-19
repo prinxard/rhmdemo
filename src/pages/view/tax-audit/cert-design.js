@@ -23,8 +23,6 @@ const CertDesign = () => {
     }
     const numberInWords = toWords((formData.amount).replace(/,/g, ''));
 
-
-
     return (
         <>
             <div className="flex justify-between my-3">
@@ -112,7 +110,7 @@ const CertDesign = () => {
                             </div>
                         </div>
                         <br /><br />
-                        <div className="mt-32">
+                        <div  style={{marginTop: "8.3rem"}}>
                             <h4 className="text-right">DUPLICATE</h4>
                             <div className="">
                                 <p className="font-bold text-center">{formData.subject}</p>
