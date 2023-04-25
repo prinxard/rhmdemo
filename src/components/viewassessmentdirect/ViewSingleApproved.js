@@ -11,6 +11,7 @@ import url from '../../config/url';
 import { afterComma, repVa } from '../../functions/numbers';
 import { ComponentToPrint, ViewSingleApprovedTable } from '../tables/viewApprovedAss';
 import ReactToPrint, { useReactToPrint } from 'react-to-print';
+import Link from 'next/dist/client/link';
 
 const ViewSingleApproved = () => {
   const router = useRouter();
@@ -28,6 +29,7 @@ const ViewSingleApproved = () => {
   const [land, setLand] = useState({})
   const [employed, setEmployed] = useState({})
   const [additionalAsse, setAdditionalAssessment] = useState([])
+  const [taxPayerDet, setTaxPayerDet] = useState({})
 
   const componentRef = useRef();
 
@@ -58,7 +60,8 @@ const ViewSingleApproved = () => {
           let landObj = IndData.land
           let employed = IndData.employed
           let additionalAssess = IndData.addAssessment
-          console.log(IndData);
+          let taxPayer = IndData.taxpayer[0]
+          setTaxPayerDet(taxPayer)
           setEmployed(employed)
           setLand(landObj)
           setVehicles(vechicles)
@@ -81,7 +84,7 @@ const ViewSingleApproved = () => {
     }
   }, [router]);
 
-  
+
 
   let ChangePrint = async (e) => {
     e.preventDefault()
@@ -101,11 +104,20 @@ const ViewSingleApproved = () => {
       // setIsFetching3(false)
     }
   }
-
   return (
     <>
-      <div className="flex justify-end">
-        <SectionTitle title="Print Approved Assessment" />
+      <div className="flex justify-end my-2">
+        {/* <SectionTitle title="Print Approved Assessment" /> */}
+        {/* {taxcalDa?.paymentStatus === "Paid" ?
+          <button className="btn w-32 mr-10 bg-white-600 btn-default text-dark
+                btn-outlined border-blue-500 rounded-md"
+          >
+            <Link href={`/collection-receipt/${taxPayerDet?.id}`}>
+              Get receipt
+            </Link>
+          </button>
+          : ""
+        } */}
         <div onClick={ChangePrint}>
           <ReactToPrint
             // pageStyle='@page { size: auto; margin: 0mm; } @media print { body { -webkit-print-color-adjust: exact; padding: 40px !important; } }'
@@ -119,6 +131,7 @@ const ViewSingleApproved = () => {
             content={() => componentRef.current}
           />
         </div>
+
       </div>
 
       <Widget>

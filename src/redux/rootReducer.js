@@ -17,6 +17,7 @@ import navigationCreatorTcc from './navigation/navigationCreatorTcc';
 import navigationCreatorApprover from './navigation/navigationCreatorApprover';
 import navigationAdmin from './navigation/navigationAdmin';
 import navigationReport from './navigation/navigationReport';
+import navigationAuditPrint from './navigation/navigationAuditPrint';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
@@ -37,6 +38,7 @@ const rootReducer = combineReducers({
   navigationAdmin,
   navigationReport,
   individualNavigation,
+  navigationAuditPrint,
   colors,
   config,
   leftSidebar,
