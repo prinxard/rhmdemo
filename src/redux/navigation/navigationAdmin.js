@@ -360,6 +360,11 @@ const initialState = [
                 url: '/view/users',
                 items: [],
               },
+              // {
+              //   title: 'Groups',
+              //   url: '/',
+              //   items: [],
+              // },
             ],
           },
           {
@@ -432,19 +437,18 @@ const initialState = [
               },
             ],
           },
-          {
-            title: 'Business Type',
-            items: [
-              { title: 'Create', url: '/settings/business-type/create', items: [] },
-              { title: 'View', url: '/settings/view-business-type', items: [] },
-              // {
-              //   title: 'Edit',
-              //   url: '/',
-              //   items: [],
-              // },
-            ],
-          },
-
+          // {
+          //   title: 'Business Type',
+          //   items: [
+          //     { title: 'Create', url: '/settings/business-type/create', items: [] },
+          //     { title: 'View', url: '/settings/view-business-type', items: [] },
+          //     // {
+          //     //   title: 'Edit',
+          //     //   url: '/',
+          //     //   items: [],
+          //     // },
+          //   ],
+          // },
           {
             title: 'Audit Receipt',
             items: [
