@@ -57,8 +57,10 @@ const fields = [
     title: "Status",
     field: "status",
   },
-
-
+  {
+    title: "Vet Status",
+    field: "vetstatus",
+  },
   {
     title: "Created Time",
     field: "createtime",

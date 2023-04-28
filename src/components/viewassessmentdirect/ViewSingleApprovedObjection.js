@@ -24,17 +24,25 @@ const ViewSingleApprovedObjection = () => {
   const [payerName, setName] = useState([])
   const [payerAddr, setAddr] = useState([])
 
-
+  const newUrl = 'https://bespoque.dev/rhm/'
+setAuthToken()
   useEffect(() => {
     if (router && router.query) {
       let routerData = String(router.query.ref);
       let kgtin = routerData.split('_').pop()
       let assessmentId = routerData.split('_').shift()
       setGlobalAssId(assessmentId)
-      setAuthToken()
+      let payLoad = { assessment_id: assessmentId }
       const fetchPost = async () => {
         try {
-          let res = await axios.post(`${url.BASE_URL}forma/view-objection`, { assessment_id: assessmentId });
+          // let res = await axios.post(`${newUrl}get-objection-single.php`, { assessment_id: assessmentId });
+          // const response = await fetch(`${newUrl}get-objection-single.php`, {
+          //   method: 'POST',
+          //   body: JSON.stringify(payLoad)
+          // });
+          // const jsonData = await response.json();
+          // console.log("jsonData", jsonData.body);
+          let res = await axios.post(`${newUrl}get-objection-single.php`, { assessment_id: assessmentId });
           console.log("res", res);
           let directTax = res.data.body.assessment[0].tax
           let tpName = res.data.body.taxpayer[0].tp_name

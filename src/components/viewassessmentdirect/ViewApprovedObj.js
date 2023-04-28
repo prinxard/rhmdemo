@@ -8,18 +8,21 @@ import Loader from "react-loader-spinner";
 import { ViewVerifiedObjectionTable } from "../tables/viewVerifiedObjection";
 import { ViewApprovedObjectionTable } from "../tables/viewApprovedObjection";
 
-
 const ViewApprovedObjection = () => {
   const [post, setPost] = useState(() => []);
   const [isFetching, setIsFetching] = useState(() => true);
 
+  const newUrl = 'https://bespoque.dev/rhm/'
+
   useEffect(() => {
     let num = 1
-    setAuthToken();
+    // setAuthToken();
     const fetchPost = async () => {
       try {
-        let res = await axios.get(`${url.BASE_URL}forma/objection?status=Approved`);
+        // let res = await axios.get(`${url.BASE_URL}forma/objection?status=Approved`);
+        let res = await axios.get(`${newUrl}get-objection-batch.php?status=Approved`);
         res = res.data.body;
+        console.log("res", res);
         let records = [];
         for (let i = 0; i < res.length; i++) {
           let rec = res[i];
