@@ -42,12 +42,10 @@ const fields = [
   {
     title: "Role",
     field: "role",
-    width: "10%"
   },
   {
     title: "Year",
     field: "groupname",
-    width: "10%"
   },
   
 ];
