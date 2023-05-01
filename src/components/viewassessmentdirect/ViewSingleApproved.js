@@ -108,16 +108,16 @@ const ViewSingleApproved = () => {
     <>
       <div className="flex justify-end my-2">
         {/* <SectionTitle title="Print Approved Assessment" /> */}
-        {/* {taxcalDa?.paymentStatus === "Paid" ?
+        {taxcalDa?.paymentStatus === "Paid" ?
           <button className="btn w-32 mr-10 bg-white-600 btn-default text-dark
                 btn-outlined border-blue-500 rounded-md"
           >
-            <Link href={`/collection-receipt/${taxPayerDet?.id}`}>
+            <Link href={`/collection-receipt/${globalAssId}`}>
               Get receipt
             </Link>
           </button>
           : ""
-        } */}
+        }
         <div onClick={ChangePrint}>
           <ReactToPrint
             // pageStyle='@page { size: auto; margin: 0mm; } @media print { body { -webkit-print-color-adjust: exact; padding: 40px !important; } }'
