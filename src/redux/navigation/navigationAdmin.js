@@ -363,6 +363,17 @@ const initialState = [
             ],
           },
           {
+            title: 'User Groups',
+            items: [
+              { title: 'Create', url: '/', items: [] },
+              {
+                title: 'View',
+                url: '/view/user-group',
+                items: [],
+              },
+            ],
+          },
+          {
             title: 'Revenue Items',
             items: [
               { title: 'Create', url: '/', items: [] },
