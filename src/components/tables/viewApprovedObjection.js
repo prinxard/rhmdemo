@@ -20,6 +20,8 @@ import MaterialTable from "material-table";
 import ReactToPrint from "react-to-print";
 import { SignatureCol } from "../Images/Images";
 import { toWords } from 'number-to-words';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const fields = [
   {
@@ -145,6 +147,8 @@ export const ViewApprovedObjectionSingle = ({
 
   const [showModal, setShowModal] = useState(false);
   const [textareaValue, setTextareaValue] = useState('');
+  const [disabled, setDisabled] = useState(false);
+  const [status, setStatus] = useState('');
 
   const { auth } = useSelector(
     (state) => ({
@@ -158,7 +162,7 @@ export const ViewApprovedObjectionSingle = ({
 
   const openModal = (text) => {
     text.preventDefault()
-    console.log("test", text.target.name);
+    setStatus(text.target.name);
     setShowModal(true);
   };
 
@@ -184,48 +188,36 @@ export const ViewApprovedObjectionSingle = ({
   }
 `;
 
-  // const handleSaveChanges = async (event) => {
-  //   event.preventDefault();
-  //   let payLoad = {
-  //     assessment_id: apprObjData.assessment_id,
-  //     id: apprObjData.id,
-  //     vetstatus: "",
-  //     vettedby: decoded.user,
-  //     vetcomment: textareaValue
-  //   }
-  //   console.log("payload", payLoad);
-  //   if (event.target.name === 'vet') {
-  //     console.log('Vet button clicked');
-  //   } else if (event.target.name === 'overrule') {
-  //     console.log('Overrule button clicked');
-  //   }
-  //   // try {
-  //   //   const response = await axios.post("https://bespoque.dev/rhm/update-objection-vet.php", payLoad);
-  //   //   console.log(response.data);
-  //   //   handleCloseModal();
-  //   // } catch (error) {
-  //   //   console.log(error);
-  //   // }
-  // };
-
-  const handleSaveChanges = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await axios.post('https://bespoque.dev/rhm/update-objection-vet.php', { objection: textareaValue });
-      console.log(response.data);
-      // Check which button was clicked
-      if (event.target.name === 'vet') {
-        console.log('Vet button clicked');
-      } else if (event.target.name === 'overrule') {
-        console.log('Overrule button clicked');
-      }
-      // Close modal
-      closeModal();
-    } catch (error) {
-      console.log(error);
+  const handleSaveChanges = async () => {
+    let payLoad = {
+      assessment_id: apprObjData.assessment_id,
+      id: apprObjData.id,
+      vetstatus: status,
+      vettedby: decoded.user,
+      vetcomment: textareaValue
     }
+    console.log("payLoad", payLoad);
+    if (textareaValue === "") {
+      alert("please add a comment")
+    } else {
+      setDisabled(true)
+      try {
+        const response = await fetch("https://bespoque.dev/rhm/update-objection-vet.php", payLoad, {
+          method: 'POST',
+        });
+        console.log("response.data", response.data);
+        toast.success("Saved Successfully!");
+        closeModal();
+        console.log("Success!");
+      } catch (error) {
+        setDisabled(false)
+        console.log(error);
+      }
+
+    }
+
   };
-  
+
 
   const router = useRouter();
   const componentRef = useRef();
@@ -240,6 +232,7 @@ export const ViewApprovedObjectionSingle = ({
 
   return (
     <>
+     <ToastContainer />
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none">
           <div className="relative w-auto max-w-3xl mx-auto my-6">
@@ -302,8 +295,8 @@ export const ViewApprovedObjectionSingle = ({
         <div className="m-3 flex justify-end">
           {apprObjData.vetstatus === "Pending" ?
             <div className="flex justify-between space-x-4">
-              <button className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md" onClick={(text)=> openModal(text)} name="vet">VET</button>
-              <button className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md" onClick={(text)=> openModal(text)} name="overrule">OVERRULE</button>
+              <button className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md" onClick={(text) => openModal(text)} name="VET">VET</button>
+              <button className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md" onClick={(text) => openModal(text)} name="OVERRULED">OVERRULE</button>
             </div> : ""
           }
         </div>
