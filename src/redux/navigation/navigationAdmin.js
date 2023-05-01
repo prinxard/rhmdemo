@@ -360,11 +360,6 @@ const initialState = [
                 url: '/view/users',
                 items: [],
               },
-              // {
-              //   title: 'Groups',
-              //   url: '/',
-              //   items: [],
-              // },
             ],
           },
           {
