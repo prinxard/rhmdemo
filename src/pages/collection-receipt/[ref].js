@@ -20,7 +20,7 @@ export default function index() {
 
     useEffect(() => {
         if (router && router.query) {
-            let paymentID = router?.query?.ref || "";
+            let paymentID = String(router?.query?.ref) || "";
             const fetchPost = () => {
                 setIsFetching(true)
                 if (paymentID.includes("FA")) {
