@@ -148,7 +148,7 @@ export default function Reportstable({ FilteredData }) {
 
                 onRowClick={(event, rowData) => {
 
-                    window.open(`collection-receipt/${rowData.assessment_id}`, "_self")
+                    window.open(`collection-receipt/${rowData.idpymt}`, "_self")
                     event.stopPropagation();
 
                 }}
