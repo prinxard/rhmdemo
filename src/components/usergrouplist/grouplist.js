@@ -22,7 +22,7 @@ const GroupList = () => {
   const [isFetching, setIsFetching] = useState(() => true);
 
   useEffect(() => {
-  
+
     let num = 1
     const fetchPost = async () => {
       // try {
@@ -49,6 +49,10 @@ const GroupList = () => {
         setIsFetching(false);
         const data = await response.json()
         console.log("data", data.body)
+        // for (let i = 0; i < res.length; i++) {
+        //   let rec = data.body[i]
+
+        // }
         setUserGrpData(data.body)
       } catch (error) {
         console.log(error.message)

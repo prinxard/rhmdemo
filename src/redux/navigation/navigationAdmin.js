@@ -365,10 +365,10 @@ const initialState = [
           {
             title: 'User Groups',
             items: [
-              { title: 'Create', url: '/', items: [] },
+              { title: 'Create', url: '/view/user-group/create', items: [] },
               {
                 title: 'View',
-                url: '/view/user-group',
+                url: '/view/user-group/list',
                 items: [],
               },
             ],

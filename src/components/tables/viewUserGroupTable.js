@@ -105,7 +105,8 @@ export const ViewGroupTable = ({ userGrpData }) => {
         }}
 
         onRowClick={(event, rowData) => {
-
+          window.open(`/view/user-group/edit?id=${rowData.id}`, "_self")
+          event.stopPropagation();
           // if (userGroup.some(r => reportRange.includes(r))) {
           //   ''
 
