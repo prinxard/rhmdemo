@@ -140,7 +140,7 @@ const initialState = [
                 items: [],
               },
               {
-                title: 'Approved',
+                title: 'Pending EC sign',
                 url: '/view/objection/approved',
                 items: [],
               },

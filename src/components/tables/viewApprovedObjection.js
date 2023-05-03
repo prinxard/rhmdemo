@@ -202,9 +202,19 @@ export const ViewApprovedObjectionSingle = ({
     } else {
       setDisabled(true)
       try {
-        const response = await fetch("https://bespoque.dev/rhm/update-objection-vet.php", payLoad, {
+        // const response = await fetch("https://bespoque.dev/rhm/update-objection-vet.php", payLoad, {
+        //   method: 'POST',
+        // });
+        const response = await fetch('https://bespoque.dev/rhm/update-objection-vet.php', {
           method: 'POST',
-        });
+          body: JSON.stringify({
+            "assessment_id": apprObjData.assessment_id,
+            "id": apprObjData.id,
+            "vetstatus": status,
+            "vettedby": decoded.user,
+            "vetcomment": textareaValue,
+          })
+        })
         console.log("response.data", response.data);
         toast.success("Saved Successfully!");
         closeModal();
@@ -232,7 +242,7 @@ export const ViewApprovedObjectionSingle = ({
 
   return (
     <>
-     <ToastContainer />
+      <ToastContainer />
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none">
           <div className="relative w-auto max-w-3xl mx-auto my-6">
@@ -256,7 +266,7 @@ export const ViewApprovedObjectionSingle = ({
                       required
                       id="textarea-content"
                       rows="5"
-                      placeholder="Enter textarea content here"
+                      placeholder="Enter comment here"
                       value={textareaValue}
                       onChange={handleTextareaChange}
                     />
@@ -295,8 +305,8 @@ export const ViewApprovedObjectionSingle = ({
         <div className="m-3 flex justify-end">
           {apprObjData.vetstatus === "Pending" ?
             <div className="flex justify-between space-x-4">
-              <button className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md" onClick={(text) => openModal(text)} name="VET">VET</button>
-              <button className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md" onClick={(text) => openModal(text)} name="OVERRULED">OVERRULE</button>
+              <button className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md" onClick={(text) => openModal(text)} name="VETTED">Sign</button>
+              <button className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md" onClick={(text) => openModal(text)} name="OVERRULE">Decline</button>
             </div> : ""
           }
         </div>
