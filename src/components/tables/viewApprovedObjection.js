@@ -215,9 +215,9 @@ export const ViewApprovedObjectionSingle = ({
           })
         })
         console.log("response.data", response.data);
-        // toast.success("Saved Successfully!");
-        // closeModal();
-        // router.push("/view/objection/approved")
+        toast.success("Saved Successfully!");
+        closeModal();
+        router.push("/view/objection/approved")
         console.log("Success!");
       } catch (error) {
         setDisabled(false)

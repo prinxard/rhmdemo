@@ -144,6 +144,11 @@ const initialState = [
                 url: '/view/objection/approved',
                 items: [],
               },
+              {
+                title: 'Print',
+                url: '/',
+                items: [],
+              },
             ],
           },
         ],
