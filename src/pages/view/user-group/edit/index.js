@@ -17,20 +17,16 @@ const index = () => {
         // handle form submission here
 
         try {
-            // const response = await fetch('https://bespoque.dev/rhm/new-usergroups.php', {
-            //     method: 'GET',
-            //     // body: JSON.stringify({ "groupname": groupName, "role": role })
-            // })
-            console.log("role", role);
-            console.log("groupName", groupName);
-            // const data = await response.json()
+            const response = await fetch('https://bespoque.dev/rhm/update-usergroups.php', {
+                method: 'POST',
+                body: JSON.stringify({ "groupname": groupName, "role": role, "id": userGroupData.id })
+            })
+            const data = await response.json()
             // console.log('Server Response:', data)
-            // // handle success
-            // toast.success("Created Successfully!");
-            // router.push('/view/user-group/list')
+            toast.success(data.message);
+            router.push('/view/user-group/list')
         } catch (error) {
             console.error('Server Error:', error)
-            // handle error
         } finally {
             setIsSubmitting(false)
         }
