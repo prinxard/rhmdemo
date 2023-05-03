@@ -11,8 +11,6 @@ import ReactToPrint from "react-to-print";
 import setAuthToken from '../../functions/setAuthToken';
 
 
-
-
 export default function index() {
     const [colData, setColData] = useState([]);
     const router = useRouter();
@@ -20,6 +18,7 @@ export default function index() {
     useEffect(() => {
         if (router && router.query) {
             let paymentID = router.query.ref;
+            // if paymentID.includes("FA")
             let paymentPayload = {
                 "idpymt": paymentID
             }
