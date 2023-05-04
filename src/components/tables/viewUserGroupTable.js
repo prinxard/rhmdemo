@@ -44,7 +44,7 @@ const fields = [
     field: "role",
   },
   {
-    title: "Year",
+    title: "Group name",
     field: "groupname",
   },
   
