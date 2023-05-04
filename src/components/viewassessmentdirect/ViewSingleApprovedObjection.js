@@ -42,6 +42,7 @@ const ViewSingleApprovedObjection = () => {
           });
           const objectData = await response.json();
           setApprObjData(objectData.body[0])
+          setIsFetching(false);
           // let directTax = res.data.body.assessment[0].tax
           // let tpName = res.data.body.taxpayer[0].tp_name
           // let tpAddr = res.data.body.taxpayer[0].address
