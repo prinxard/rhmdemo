@@ -146,7 +146,7 @@ const initialState = [
               },
               {
                 title: 'Print',
-                url: '/',
+                url: '/view/objection/vetted',
                 items: [],
               },
             ],
