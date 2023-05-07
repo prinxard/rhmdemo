@@ -126,7 +126,7 @@ export default function index() {
                             <div>
                                 <div className="grid grid-cols-6 gap-2">
                                     <p>PAID BY:</p>
-                                    <p className="font-bold col-span-2">{el.taxpayerName}</p>
+                                    <p className="font-bold col-span-2">{el?.taxpayerName || el?.taxPayerName}</p>
                                 </div>
                                 <div className="grid grid-cols-6 gap-2">
                                     <p>PAYER ID:</p>
@@ -134,7 +134,7 @@ export default function index() {
                                 </div>
                                 <div className="grid grid-cols-6 gap-2">
                                     <p>ADDRESS:</p>
-                                    <p className="font-bold col-span-2">{el.taxpayerAddress}</p>
+                                    <p className="font-bold col-span-2">{el?.taxpayerAddress || el?.taxPayerAddress}</p>
                                 </div>
                                 <div className="flex mt-10">
                                     <div className='w-16 border-b-2'>
@@ -167,13 +167,13 @@ export default function index() {
                             <div className="grid grid-cols-6 gap-2">
                                 <p>BEING:</p>
                                 <div className="col-span-3">
-                                    <p className="font-bold"> {`Payment for (${el.rev_sub})`} </p>
-                                    <small>{el.revenueItem}</small>
+                                    <p className="font-bold"> {`Payment for (${el?.details})`} </p>
+                                    {/* <small>{el.revenueItem}</small> */}
                                 </div>
                             </div>
                             <div className="grid grid-cols-6 gap-2">
                                 <p>PAID AT:</p>
-                                <p className="font-bold"> {el.bank} </p>
+                                <p className="font-bold"> {el?.bank || el?.channel_id} </p>
                             </div>
                             <div className="grid grid-cols-6 gap-2">
                                 <p>AGENCY:</p>
