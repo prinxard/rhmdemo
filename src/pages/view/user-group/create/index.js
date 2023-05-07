@@ -32,57 +32,41 @@ const index = () => {
         }
     }
     return (
-        <div className="flex justify-center items-center h-screen">
+        <>
             <ToastContainer />
-            <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                <div className="mb-4">
-                    <label className="block text-gray-700 font-bold mb-2" htmlFor="groupName">
-                        Group Name
-                    </label>
-                    <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="groupName"
-                        type="text"
-                        required
-                        placeholder="Enter group name"
-                        value={groupName}
-                        onChange={(event) => setGroupName(event.target.value)}
-                    />
-                </div>
-                <div className="mb-6">
-                    <label className="block text-gray-700 font-bold mb-2" htmlFor="role">
-                        Role
-                    </label>
-                    <input
-                        required
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="role"
-                        type="text"
-                        placeholder="Enter role"
-                        value={role}
-                        onChange={(event) => setRole(event.target.value)}
-                    />
-                </div>
-                {/* <div className="flex items-center justify-between">
-                    <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        type="submit"
-                    >
-                        Submit
-                    </button>
-                </div> */}
-                <div className="flex items-center justify-between">
-                    <button
-                        className={`${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-700'
-                            } text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline`}
-                        type="submit"
-                        disabled={isSubmitting}
-                    >
-                        {isSubmitting ? 'Saving...' : 'Submit'}
-                    </button>
+            <form onSubmit={handleSubmit} >
+                <div class="flex flex-wrap justify-center items-center">
+                    <div class="w-full sm:w-auto max-w-sm">
+                        <input type="text" className="w-full py-2 px-4 rounded-md border border-gray-300"
+                            required
+                            id="groupName"
+                            placeholder="Enter group name"
+                            value={groupName}
+                            onChange={(event) => setGroupName(event.target.value)}
+                        />
+                    </div>
+                    <div class="w-full sm:w-auto max-w-sm mt-4 sm:mt-0 ml-0 sm:ml-4">
+                        <input type="text" class="w-full py-2 px-4 rounded-md border border-gray-300"
+                            required
+                            id="role"
+                            placeholder="Enter role"
+                            value={role}
+                            onChange={(event) => setRole(event.target.value)}
+                        />
+                    </div>
+                    <div class="mt-4 sm:mt-0 ml-4">
+                        <button
+                            className={`${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-400 hover:bg-blue-700'
+                                } text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline`}
+                            type="submit"
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting ? 'Saving...' : 'Submit'}
+                        </button>
+                    </div>
                 </div>
             </form>
-        </div>
+        </>
     )
 }
 export default index
