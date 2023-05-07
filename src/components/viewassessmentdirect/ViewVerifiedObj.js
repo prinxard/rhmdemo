@@ -11,15 +11,20 @@ import { ViewVerifiedObjectionTable } from "../tables/viewVerifiedObjection";
 const ViewVerifiedObjection = () => {
   const [post, setPost] = useState(() => []);
   const [isFetching, setIsFetching] = useState(() => true);
-
+  const newUrl = 'https://bespoque.dev/rhm/'
   useEffect(() => {
     let num = 1
     setAuthToken();
     const fetchPost = async () => {
       try {
-        let res = await axios.get(`${url.BASE_URL}forma/objection?status=Verified`);
-        res = res.data.body;
+        // let res = await axios.get(`${url.BASE_URL}forma/objection?status=Verified`);
+        // res = res.data.body;
         let records = [];
+        const response = await fetch(`${newUrl}get-objection-batch.php?status=Verified`, {
+          method: 'GET',
+        });
+        const objectData = await response.json();
+        let res = objectData.body;
         for (let i = 0; i < res.length; i++) {
           let rec = res[i];
           rec.serialNo = num + i
