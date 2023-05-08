@@ -1,7 +1,7 @@
 import { formatNumber } from "../../functions/numbers";
 import * as Icons from '../Icons/index';
 import dateformat from "dateformat";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/router";
 import 'react-toastify/dist/ReactToastify.css';
 import jwt from "jsonwebtoken";
@@ -20,6 +20,8 @@ import MaterialTable from "material-table";
 import ReactToPrint from "react-to-print";
 import { SignatureCol } from "../Images/Images";
 import { toWords } from 'number-to-words';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const fields = [
   {
@@ -57,8 +59,6 @@ const fields = [
     title: "Status",
     field: "status",
   },
-
-
   {
     title: "Created Time",
     field: "createtime",
@@ -126,28 +126,50 @@ export const ViewApprovedObjectionTable = ({ submittedData }) => {
   );
 };
 
-export const ViewApprovedObjectionSingle = ({ tpKgtin,
-  objectionData,
-  year,
-  payerAddr,
-  payerName,
-  DATax,
-  objNotice,
-  assessmentId,
-  createdTime,
-  recommendedTax
+export const ViewApprovedObjectionSingle = ({
+  // tpKgtin,
+  // objectionData,
+  // year,
+  // payerAddr,
+  // payerName,
+  // DATax,
+  // objNotice,
+  // assessmentId,
+  // createdTime,
+  // recommendedTax
+  apprObjData
 }) => {
-  const router = useRouter();
-  const componentRef = useRef();
 
-  const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
-  let today = new Date().toLocaleDateString('en-us', options);
-  let timeCreated = new Date(createdTime).toDateString()
 
-  console.log("DATax", DATax);
+  const [showModal, setShowModal] = useState(false);
+  const [textareaValue, setTextareaValue] = useState('');
+  const [disabled, setDisabled] = useState(false);
+  const [status, setStatus] = useState('');
 
-  const recTaxToWords = toWords(recommendedTax)
-  const DATaxToWords = toWords(DATax)
+  const { auth } = useSelector(
+    (state) => ({
+      auth: state.authentication.auth,
+    }),
+    shallowEqual
+  );
+
+  const decoded = jwt.decode(auth);
+
+
+  const openModal = (text) => {
+    text.preventDefault()
+    setStatus(text.target.name);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  const handleTextareaChange = (event) => {
+    setTextareaValue(event.target.value);
+  };
+
   const pageStyle = `
   @media print {
     body {
@@ -162,39 +184,145 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin,
   }
 `;
 
+  const handleSaveChanges = async () => {
+    let bod = {
+      "assessment_id": apprObjData.assessment_id,
+      "id": apprObjData.id,
+      "vetstatus": status,
+      "vettedby": decoded.user,
+      "vetcomment": textareaValue,
+      "status": status
+    }
+    console.log("bod", bod);
+    if (textareaValue === "") {
+      alert("please add a comment")
+    } else {
+      setDisabled(true)
+      try {
+        const response = await fetch('https://bespoque.dev/rhm/update-objection-vet.php', {
+          method: 'POST',
+          body: JSON.stringify({
+            "assessment_id": apprObjData.assessment_id,
+            "id": apprObjData.id,
+            "vetstatus": status,
+            "vettedby": decoded.user,
+            "vetcomment": textareaValue,
+            "status": status
+          })
+        })
+        console.log("response.data", response.data);
+        toast.success("Saved Successfully!");
+        closeModal();
+        router.push("/view/objection/approved")
+        console.log("Success!");
+      } catch (error) {
+        setDisabled(false)
+        console.log(error);
+      }
+
+    }
+
+  };
+
+
+  const router = useRouter();
+  const componentRef = useRef();
+  const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
+  let today = new Date().toLocaleDateString('en-us', options);
+  let timeCreated = new Date(apprObjData.createtime).toDateString()
+
+  // const recTaxToWords = toWords(recommendedTax)
+  // const DATaxToWords = toWords(DATax)
+  const recTaxToWords = toWords(Number(apprObjData.tax) || 0)
+  const DATaxToWords = toWords(Number(apprObjData.tp_tax) || 0)
+
   return (
     <>
-      <style>{pageStyle}</style>
-
-      <div className="m-3 flex justify-end">
-        <div>
-          <ReactToPrint
-            // pageStyle='@page { size: auto; margin-top: 20mm; header: none; footer: none;} @media print { body { -webkit-print-color-adjust: exact; padding: 40px !important;} }'
-            trigger={() => <button
-              type="submit" className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-            >
-              Print
-            </button>}
-            content={() => componentRef.current}
-          />
+      <ToastContainer />
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none">
+          <div className="relative w-auto max-w-3xl mx-auto my-6">
+            <div className="relative flex flex-col w-full bg-white border-2 border-gray-300 rounded-lg shadow-lg outline-none focus:outline-none">
+              {/* modal header */}
+              <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
+                <h3 className="text-2xl font-semibold">Modal Header</h3>
+                <button className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none" onClick={closeModal}>
+                  <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">×</span>
+                </button>
+              </div>
+              {/* modal body */}
+              <div className="relative p-6 flex-auto">
+                <form>
+                  <div className="mb-4">
+                    <label className="block text-gray-700 font-bold mb-2" htmlFor="textarea-content">
+                      Textarea Content
+                    </label>
+                    <textarea
+                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      required
+                      id="textarea-content"
+                      rows="5"
+                      placeholder="Enter comment here"
+                      value={textareaValue}
+                      onChange={handleTextareaChange}
+                    />
+                  </div>
+                </form>
+              </div>
+              {/* modal footer */}
+              <div className="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
+                <button className="btn bg-green-600 text-white btn-default text-white btn-outlined bg-transparent rounded-md mr-2" onClick={closeModal} >
+                  Close
+                </button>
+                <button className="btn bg-blue-600 text-white btn-default text-white btn-outlined bg-transparent rounded-md" onClick={() => handleSaveChanges()}>
+                  Save Changes
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
+      <style>{pageStyle}</style>
+      {apprObjData.vetstatus === "VETTED" ?
+        <div className="m-3 flex justify-end">
+          <div>
+            <ReactToPrint
+              // pageStyle='@page { size: auto; margin-top: 20mm; header: none; footer: none;} @media print { body { -webkit-print-color-adjust: exact; padding: 40px !important;} }'
+              trigger={() => <button
+                type="submit" className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+              >
+                Print
+              </button>}
+              content={() => componentRef.current}
+            />
+          </div>
+        </div>
+        :
+        <div className="m-3 flex justify-end">
+          {apprObjData.vetstatus === "Pending" ?
+            <div className="flex justify-between space-x-4">
+              <button className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md" onClick={(text) => openModal(text)} name="VETTED">Sign</button>
+              <button className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md" onClick={(text) => openModal(text)} name="OVERRULED">Decline</button>
+            </div> : ""
+          }
+        </div>
+      }
 
       <div className="mt-10">
-        {objNotice === null ? "Objection type not available"
+        {apprObjData.notice === null ? "Objection type not available"
           :
           <div ref={componentRef} className="p-4 mt-5">
             <div className="flex justify-center">
-              {objNotice === "undertaxed" ?
+              {apprObjData.notice === "undertaxed" ?
                 <div className="text-justify text-base max-w-prose"  >
-                  <p className="flex justify-between mt-3"> <span className="font-bold">{objectionData.file_ref}</span> {today}  </p>
-                  <p>{payerName}</p>
-                  <p>{tpKgtin}</p>
-                  <p className="w-64">{payerAddr}</p>
+                  <p className="flex justify-between mt-3"> <span className="font-bold">{apprObjData.file_ref}</span> {today}  </p>
+                  <p>{apprObjData.taxpayername}</p>
+                  <p>{apprObjData.kgtin}</p>
+                  <p className="w-64">{apprObjData.taxpayeraaddress}</p>
                   <p>Sir/Ma</p><br />
 
                   <div>
-                    <p className="font-bold">RE: {objectionData.grounds}</p><br />
+                    <p className="font-bold">RE: {apprObjData.grounds}</p><br />
                   </div>
 
                   <p>The above Subject refers;</p>
@@ -208,8 +336,8 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin,
                     We have reviewed your letter of complaint and objection along with
                     your previous tax records with Kogi State Internal Revenue Service.
                     The Management has looked at the reasonability of your objection
-                    and revised your assessment to <span className="font-bold">₦{formatNumber(recommendedTax)} {`(${recTaxToWords} Naira only)`} </span>
-                    Instead of <span className="font-bold"> ₦{formatNumber(DATax)} <span>{`(${DATaxToWords} Naira only)`}</span> </span>
+                    and revised your assessment to <span className="font-bold">₦{formatNumber(apprObjData.tax)} {`(${recTaxToWords} Naira only)`} </span>
+                    Instead of <span className="font-bold"> ₦{formatNumber(apprObjData.tp_tax)} <span>{`(${DATaxToWords} Naira only)`}</span> </span>
                   </p><br />
                   <p>
                     Please Take Note that you have been previously under assessed, but
@@ -218,7 +346,7 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin,
                   </p><br />
                   <p>
                     You are by this expected to make payments to any Kogi State Internal
-                    Revenue Service designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
+                    Revenue Service designated banks using the Assessment ID <span className="font-bold">{apprObjData.assessment_id}</span>.
                   </p>
 
                   <p><br />
@@ -232,15 +360,15 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin,
                 </div>
                 :
                 <div>
-                  {objNotice === "no_PITA" ?
+                  {apprObjData.notice === "no_PITA" ?
                     <div className="text-justify text-base max-w-prose" >
-                      <p className="flex justify-between mt-3"> <span>{objectionData.file_ref}</span> {today}  </p>
-                      <p>{payerName}</p>
-                      <p>{tpKgtin}</p>
-                      <p className="w-64">{payerAddr}</p>
+                      <p className="flex justify-between mt-3"> <span>{apprObjData.file_ref}</span> {today}  </p>
+                      <p>{apprObjData.taxpayername}</p>
+                      <p>{apprObjData.kgtin}</p>
+                      <p className="w-64">{apprObjData.taxpayeraaddress}</p>
                       <p>Sir/Ma</p><br />
                       <div>
-                        <p className="font-bold">RE: {objectionData.grounds}</p><br />
+                        <p className="font-bold">RE: {apprObjData.grounds}</p><br />
                       </div>
                       <p>The above Subject refers;</p>
                       <p>
@@ -253,13 +381,13 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin,
                         We have reviewed your letter of complaint and objection along with
                         your previous tax records with Kogi State Internal Revenue Service.
                         The Management has looked at the reasonability of your objection
-                        and revised your assessment to <span className="font-bold">₦{formatNumber(recommendedTax)} <span>{`(${recTaxToWords} Naira only)`}</span> </span>
-                        Instead of <span className="font-bold"> ₦{formatNumber(DATax)} <span>{`(${DATaxToWords} Naira only)`}</span> </span>
+                        and revised your assessment to <span className="font-bold">₦{formatNumber(apprObjData.tax)} <span>{`(${recTaxToWords} Naira only)`}</span> </span>
+                        Instead of <span className="font-bold"> ₦{formatNumber(apprObjData.tp_tax)} <span>{`(${DATaxToWords} Naira only)`}</span> </span>
                       </p><br />
 
                       <p>
                         You are by this expected to make payments to any Kogi State Internal
-                        Revenue Service designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
+                        Revenue Service designated banks using the Assessment ID <span className="font-bold">{apprObjData.assessment_id}</span>.
                       </p>
                       <br />
 
@@ -274,15 +402,15 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin,
                     </div>
                     :
                     <div>
-                      {objNotice === "PITA" ?
+                      {apprObjData.notice === "PITA" ?
                         <div className="text-justify text-base max-w-prose">
-                          <p className="flex justify-between mt-3"> <span>{objectionData.file_ref}</span> {today}  </p>
-                          <p>{payerName}</p>
-                          <p>{tpKgtin}</p>
-                          <p className="w-64">{payerAddr}</p>
+                          <p className="flex justify-between mt-3"> <span>{apprObjData.file_ref}</span> {today}  </p>
+                          <p>{apprObjData.taxpayername}</p>
+                          <p>{apprObjData.kgtin}</p>
+                          <p className="w-64">{apprObjData.taxpayeraaddress}</p>
                           <p>Sir/Ma</p><br />
                           <div>
-                            <p className="font-bold">RE: {objectionData.grounds}</p><br />
+                            <p className="font-bold">RE: {apprObjData.grounds}</p><br />
                           </div>
                           <p>The above Subject refers;</p>
                           <p>
@@ -294,13 +422,13 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin,
                           <p>
                             We have reviewed your letter of objection in line with section 24[A] of
                             PITA 2011 as amended.The Management has looked at the reasonability of your objection
-                            and revised your assessment to <span className="font-bold">₦{formatNumber(recommendedTax)} <span>{`(${recTaxToWords} Naira only)`}</span> </span>
-                            Instead of <span className="font-bold"> ₦{formatNumber(DATax)} <span>{`(${DATaxToWords} Naira only)`}</span> </span>
+                            and revised your assessment to <span className="font-bold">₦{formatNumber(apprObjData.tax)} <span>{`(${recTaxToWords} Naira only)`}</span> </span>
+                            Instead of <span className="font-bold"> ₦{formatNumber(apprObjData.tp_tax)} <span>{`(${DATaxToWords} Naira only)`}</span> </span>
                           </p><br />
 
                           <p>
                             You are by this expected to make payments to any Kogi State Internal
-                            Revenue Service designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
+                            Revenue Service designated banks using the Assessment ID <span className="font-bold">{apprObjData.assessment_id}</span>.
                           </p><br />
 
                           <p>
@@ -314,15 +442,15 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin,
                         </div>
                         :
                         <div>
-                          {objNotice === "document_review" ?
+                          {apprObjData.notice === "document_review" ?
                             <div className="text-justify text-base max-w-prose" >
-                              <p className="flex justify-between mt-3"> <span>{objectionData.file_ref}</span> {today}  </p>
-                              <p>{payerName}</p>
-                              <p>{tpKgtin}</p>
-                              <p className="w-64">{payerAddr}</p>
+                              <p className="flex justify-between mt-3"> <span>{apprObjData.file_ref}</span> {today}  </p>
+                              <p>{apprObjData.taxpayername}</p>
+                              <p>{apprObjData.kgtin}</p>
+                              <p className="w-64">{apprObjData.taxpayeraaddress}</p>
                               <p>Sir/Ma</p><br />
                               <div>
-                                <p className="font-bold">RE: {objectionData.grounds}</p><br />
+                                <p className="font-bold">RE: {apprObjData.grounds}</p><br />
                               </div>
                               <p>The above Subject refers;</p>
                               <p>
@@ -334,8 +462,8 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin,
                               <p>
                                 We have reviewed your letter of objection in line with section 24[A] of
                                 PITA 2011 as amended.The Management has looked at the reasonability of your objection
-                                and revised your assessment to <span className="font-bold">₦{formatNumber(recommendedTax)} {`(${recTaxToWords} Naira only)`} </span>
-                                Instead of <span className="font-bold"> ₦{formatNumber(DATax)} {`(${DATaxToWords} Naira only)`} </span>
+                                and revised your assessment to <span className="font-bold">₦{formatNumber(apprObjData.tax)} {`(${recTaxToWords} Naira only)`} </span>
+                                Instead of <span className="font-bold"> ₦{formatNumber(apprObjData.tp_tax)} {`(${DATaxToWords} Naira only)`} </span>
                               </p><br />
                               <p>
                                 You may wish to peruse the sections 3 and 48 of the Personal Income Tax Act (PITA) 2011
@@ -343,8 +471,8 @@ export const ViewApprovedObjectionSingle = ({ tpKgtin,
                               </p><br />
                               <p>
                                 You are by this expected to make payments to any Kogi State Internal
-                                Revenue Service designated banks using the Assessment ID <span className="font-bold">{assessmentId}</span>.
-                                Otherwise submit the following document for the year <span className="font-bold">{year}</span> to enable
+                                Revenue Service designated banks using the Assessment ID <span className="font-bold">{apprObjData.assessment_id}</span>.
+                                Otherwise submit the following document for the year <span className="font-bold">{apprObjData.year}</span> to enable
                                 us carry out proper assessment in consideration of your objection:
                               </p><br />
                               <ul>

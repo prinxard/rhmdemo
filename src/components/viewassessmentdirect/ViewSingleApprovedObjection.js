@@ -23,40 +23,47 @@ const ViewSingleApprovedObjection = () => {
   const [DATax, setAssessmentData] = useState("0")
   const [payerName, setName] = useState([])
   const [payerAddr, setAddr] = useState([])
+  const [apprObjData, setApprObjData] = useState({})
 
-
+  const newUrl = 'https://bespoque.dev/rhm/'
   useEffect(() => {
     if (router && router.query) {
       let routerData = String(router.query.ref);
       let kgtin = routerData.split('_').pop()
       let assessmentId = routerData.split('_').shift()
       setGlobalAssId(assessmentId)
-      setAuthToken()
+      let payLoad = { assessment_id: assessmentId }
       const fetchPost = async () => {
         try {
-          let res = await axios.post(`${url.BASE_URL}forma/view-objection`, { assessment_id: assessmentId });
-          console.log("res", res);
-          let directTax = res.data.body.assessment[0].tax
-          let tpName = res.data.body.taxpayer[0].tp_name
-          let tpAddr = res.data.body.taxpayer[0].address
-          let objData = res.data.body.obj
-          let objDataNotice = objData.notice
-          let createTime = objData.createtime
-          let payerkgtin = objData.kgtin
-          let assessYear = objData.year
-          let mainTax = objData.tax
-          let objDoc = res.data.body.objUpload
-          setTpKgtin(payerkgtin)
-          setAddr(tpAddr)
-          setName(tpName)
-          setAssessmentData(directTax)
-          setYear(assessYear)
-          setRecommTax(mainTax)
-          setCreatedTime(createTime)
-          setObjNotice(objDataNotice)
-          setObjectionData(objData);
-          setObjUploads(objDoc)
+          // let res = await axios.post(`${url.BASE_URL}forma/view-objection`, { assessment_id: assessmentId });
+          const response = await fetch(`${newUrl}get-objection-single.php`, {
+            method: 'POST',
+            body: JSON.stringify(payLoad)
+          });
+          const objectData = await response.json();
+          setApprObjData(objectData.body[0])
           setIsFetching(false);
+          // let directTax = res.data.body.assessment[0].tax
+          // let tpName = res.data.body.taxpayer[0].tp_name
+          // let tpAddr = res.data.body.taxpayer[0].address
+          // let objData = res.data.body.obj
+          // let objDataNotice = objData.notice
+          // let createTime = objData.createtime
+          // let payerkgtin = objData.kgtin
+          // let assessYear = objData.year
+          // let mainTax = objData.tax
+          // let objDoc = res.data.body.objUpload
+          // setTpKgtin(payerkgtin)
+          // setAddr(tpAddr)
+          // setName(tpName)
+          // setAssessmentData(directTax)
+          // setYear(assessYear)
+          // setRecommTax(mainTax)
+          // setCreatedTime(createTime)
+          // setObjNotice(objDataNotice)
+          // setObjectionData(objData);
+          // setObjUploads(objDoc)
+          // setIsFetching(false);
         } catch (err) {
           setIsFetching(false);
           console.log(err);
@@ -66,13 +73,12 @@ const ViewSingleApprovedObjection = () => {
     }
   }, [router]);
 
-
   return (
 
     <>
 
       <SectionTitle title="Objection notice" />
- 
+
       <Widget>
 
         {isFetching ? (
@@ -88,19 +94,23 @@ const ViewSingleApprovedObjection = () => {
             />
             <p>Fetching data...</p>
           </div>
-        ) : <ViewApprovedObjectionSingle
-          createdTime={createdTime}
-          DATax={DATax}
-          year={year}
-          objNotice={objNotice}
-          payerName={payerName}
-          payerAddr={payerAddr}
-          assessmentId={globalAssId}
-          recommendedTax={recommendedTax}
-          tpKgtin={tpKgtin}
-          objUploads={objUploads}
-          objectionData={objectionData}
-        />}
+        ) :
+          <ViewApprovedObjectionSingle
+            // createdTime={createdTime}
+            // DATax={DATax}
+            // year={year}
+            // objNotice={objNotice}
+            // payerName={payerName}
+            // payerAddr={payerAddr}
+            // assessmentId={globalAssId}
+            // recommendedTax={recommendedTax}
+            // tpKgtin={tpKgtin}
+            // objUploads={objUploads}
+            // objectionData={objectionData}
+            apprObjData={apprObjData}
+          />
+          // <p>Test</p>
+        }
       </Widget>
     </>
   );

@@ -180,6 +180,11 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
   };
 
   const VerifyObjection = (data) => {
+    // data.tax = (data.tax).replace(/,/g, '')
+    // data.assessment_id = routerAssId
+    // data.status = "Verified"
+    // data.notice = objNotice
+    // console.log("data", data);
     if (objNotice === "") {
       alert("Please select the type of objection noctice")
     } else {
@@ -294,7 +299,7 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
                 required={true}
               />
               <textarea name="verifiedcomment" ref={register()} required className="form-control mt-3 w-full rounded" minlength="10" maxlength="150" placeholder="comment"></textarea>
-              <input type="text" name="file_ref" ref={register()} required placeholder="Enter file ref" className="w-full rounded form-control"/>
+              <input type="text" name="file_ref" ref={register()} required placeholder="Enter file ref" className="w-full rounded form-control" />
               <div className="mt-2 flex justify-between">
                 <button onClick={verifyPopup}
                   className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
@@ -437,35 +442,35 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
 
       <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
         <div className="w-full lg:w-1/2 max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
-         
-            <form>
-              <div className="mb-2">
-                <input type="text" defaultValue={routerAssId} name="" className="form-control w-full rounded font-light text-gray-500"
-                />
-              </div>
 
-              <div className="mb-2">
-                <label> Reason for Objection</label>
-                <textarea type="text" defaultValue={objectionData.grounds} readOnly name="" className="form-control w-full rounded font-light text-gray-500"
-                />
-              </div>
+          <form>
+            <div className="mb-2">
+              <input type="text" defaultValue={routerAssId} name="" className="form-control w-full rounded font-light text-gray-500"
+              />
+            </div>
 
-              <div className="">
-                <hr />
-              </div>
+            <div className="mb-2">
+              <label> Reason for Objection</label>
+              <textarea type="text" defaultValue={objectionData.grounds} readOnly name="" className="form-control w-full rounded font-light text-gray-500"
+              />
+            </div>
+
+            <div className="">
+              <hr />
+            </div>
 
 
-              <div className="mb-2 grid grid-cols-2 gap-2">
-                <label className="self-center font-bold">Proposed Income:</label>
-                <p className="font-bold">{formatNumber(objectionData.income)}</p>
-              </div>
-              <div className="mb-2 grid grid-cols-2 gap-2">
-                <label className="self-center font-bold"> Tax liability:</label>
-                <p className="font-bold">{formatNumber(objectionData.tp_tax)}</p>
-              </div>
-            </form>
+            <div className="mb-2 grid grid-cols-2 gap-2">
+              <label className="self-center font-bold">Proposed Income:</label>
+              <p className="font-bold">{formatNumber(objectionData.income)}</p>
+            </div>
+            <div className="mb-2 grid grid-cols-2 gap-2">
+              <label className="self-center font-bold"> Tax liability:</label>
+              <p className="font-bold">{formatNumber(objectionData.tp_tax)}</p>
+            </div>
+          </form>
 
-      
+
         </div>
 
 

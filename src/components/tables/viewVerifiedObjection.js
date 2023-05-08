@@ -145,7 +145,6 @@ export const ViewVerifiedObjection = ({ tpKgtin, objUploads, objectionData }) =>
     control,
     formState: { errors },
   } = useForm()
-  console.log("objectionData", objectionData);
   const { config, palettes, auth } = useSelector(
     (state) => ({
       config: state.config,
@@ -157,14 +156,7 @@ export const ViewVerifiedObjection = ({ tpKgtin, objUploads, objectionData }) =>
 
   let daAssessmentId = objectionData.da_assessment_id
   let objectionStatus = objectionData.status
-console.log("objectionData", objectionData);
 
-  // objectionData.forEach(element => {
-  //   daAssessmentId = element.da_assessment_id
-  // });
-  // objectionData.forEach(element => {
-  //   objectionStatus = element.status
-  // });
 
   const approvePopup = () => {
     setapproveModal(!approveModal);
@@ -190,7 +182,6 @@ console.log("objectionData", objectionData);
       })
   }
 
-
   setAuthToken();
   useEffect(() => {
     if (router && router.query) {
@@ -203,15 +194,9 @@ console.log("objectionData", objectionData);
         await axios.post(`${url.BASE_URL}taxpayer/view-taxpayers`, { KGTIN: kgtin })
           .then(function (response) {
             let IndData = response.data.body
-            console.log("IndData", IndData);
             setIsFetching(false);
             setpayerDetails(IndData)
-            // axios.post(`${url.BASE_URL}forma/view-objection`, { assessment_id: assessId })
-            //   .then(function (response) {
-            //     setUploadedDocs(response.data.body.objUpload)
-            //   }).catch(function (error) {
-            //     console.log(error);
-            //   })
+
           }).catch(function (error) {
             setIsFetching(false);
             console.log(error);
@@ -324,15 +309,11 @@ console.log("objectionData", objectionData);
           <div className="flex justify-between">
             <div>
               <p className="font-bold">Verifier Comment</p>
-              {/* {objectionData.map((data) => ( */}
-                <p>{objectionData.verifiedcomment}</p>
-              {/* ))} */}
-            <div>
-              <p className="font-bold">Revised Tax</p>
-              {/* {objectionData.map((data)=>( */}
+              <p>{objectionData.verifiedcomment}</p>
+              <div>
+                <p className="font-bold">Revised Tax</p>
                 <p className="font-bold">{formatNumber(objectionData.tax)}</p>
-              {/* ))} */}
-            </div>
+              </div>
             </div>
 
             <div className="flex my-2">
@@ -417,35 +398,35 @@ console.log("objectionData", objectionData);
 
       <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
         <div className="w-full lg:w-1/2 max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-4">
-       
-            <form>
-              <div className="mb-2">
-                <input type="text" defaultValue={routerAssId} name="" className="form-control w-full rounded font-light text-gray-500"
-                />
-              </div>
 
-              <div className="mb-2">
-                <label> Reason for Objection</label>
-                <textarea type="text" defaultValue={objectionData.grounds} readOnly name="" className="form-control w-full rounded font-light text-gray-500"
-                />
-              </div>
+          <form>
+            <div className="mb-2">
+              <input type="text" defaultValue={routerAssId} name="" className="form-control w-full rounded font-light text-gray-500"
+              />
+            </div>
 
-              <div className="">
-                <hr />
-              </div>
+            <div className="mb-2">
+              <label> Reason for Objection</label>
+              <textarea type="text" defaultValue={objectionData.grounds} readOnly name="" className="form-control w-full rounded font-light text-gray-500"
+              />
+            </div>
+
+            <div className="">
+              <hr />
+            </div>
 
 
-              <div className="mb-2 grid grid-cols-2 gap-2">
-                <label className="self-center font-bold">Proposed Income:</label>
-                <p className="font-bold">{formatNumber(objectionData.income)}</p>
-              </div>
-              <div className="mb-2 grid grid-cols-2 gap-2">
-                <label className="self-center font-bold"> Tax liability:</label>
-                <p className="font-bold">{formatNumber(objectionData.tp_tax)}</p>
-              </div>
-            </form>
+            <div className="mb-2 grid grid-cols-2 gap-2">
+              <label className="self-center font-bold">Proposed Income:</label>
+              <p className="font-bold">{formatNumber(objectionData.income)}</p>
+            </div>
+            <div className="mb-2 grid grid-cols-2 gap-2">
+              <label className="self-center font-bold"> Tax liability:</label>
+              <p className="font-bold">{formatNumber(objectionData.tp_tax)}</p>
+            </div>
+          </form>
 
-         
+
         </div>
 
 

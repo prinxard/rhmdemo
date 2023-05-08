@@ -11,15 +11,20 @@ import { ViewSubmittedObjectionTable } from "../tables/viewSubmittedObjection";
 const ViewSubmittedObjection = () => {
   const [post, setPost] = useState(() => []);
   const [isFetching, setIsFetching] = useState(() => true);
-
+  const newUrl = 'https://bespoque.dev/rhm/'
   useEffect(() => {
     let num = 1
     setAuthToken();
     const fetchPost = async () => {
       try {
-        let res = await axios.get(`${url.BASE_URL}forma/objection?status=Submitted`);
-        res = res.data.body;
+        // let res = await axios.get(`${url.BASE_URL}forma/objection?status=Submitted`);
+        // res = res.data.body;
         let records = [];
+        const response = await fetch(`${newUrl}get-objection-batch.php?status=Submitted`, {
+          method: 'GET',
+        });
+        const objectData = await response.json();
+        let res = objectData.body;
         for (let i = 0; i < res.length; i++) {
           let rec = res[i];
           rec.serialNo = num + i
@@ -57,7 +62,7 @@ const ViewSubmittedObjection = () => {
           <p>Fetching data...</p>
         </div>
       )}
-     
+
       <ViewSubmittedObjectionTable submittedData={post} />
     </>
   );

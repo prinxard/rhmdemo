@@ -8,18 +8,23 @@ import Loader from "react-loader-spinner";
 import { ViewVerifiedObjectionTable } from "../tables/viewVerifiedObjection";
 import { ViewApprovedObjectionTable } from "../tables/viewApprovedObjection";
 
-
 const ViewApprovedObjection = () => {
   const [post, setPost] = useState(() => []);
   const [isFetching, setIsFetching] = useState(() => true);
 
+  const newUrl = 'https://bespoque.dev/rhm/'
+
   useEffect(() => {
     let num = 1
-    setAuthToken();
+    // setAuthToken();
     const fetchPost = async () => {
       try {
-        let res = await axios.get(`${url.BASE_URL}forma/objection?status=Approved`);
-        res = res.data.body;
+        // let res = await axios.get(`${url.BASE_URL}forma/objection?status=Approved`);
+        const response = await fetch(`${newUrl}get-objection-batch.php?status=Approved`, {
+          method: 'GET',
+        });
+        const objectData = await response.json();
+        let res = objectData.body;
         let records = [];
         for (let i = 0; i < res.length; i++) {
           let rec = res[i];
@@ -29,6 +34,12 @@ const ViewApprovedObjection = () => {
           rec.createtime = dateformat(rec.createtime, "dd mmm yyyy")
           records.push(rec);
         }
+        records.map(() => {
+          if (records.find(v => v.status === "Approved")) {
+            records.find(v => v.status === "Approved").status = "Pending EC Sign";
+          }
+
+        })
 
         setIsFetching(false);
         setPost(() => records);
@@ -39,7 +50,7 @@ const ViewApprovedObjection = () => {
     };
     fetchPost();
   }, []);
-console.log(post);
+  console.log(post);
 
 
   return (
@@ -58,7 +69,7 @@ console.log(post);
           <p>Fetching data...</p>
         </div>
       )}
-     
+
       <ViewApprovedObjectionTable submittedData={post} />
     </>
   );
