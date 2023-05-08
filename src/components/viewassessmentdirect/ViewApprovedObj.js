@@ -35,6 +35,12 @@ const ViewApprovedObjection = () => {
           rec.createtime = dateformat(rec.createtime, "dd mmm yyyy")
           records.push(rec);
         }
+        records.map(() => {
+          if (records.find(v => v.status === "Approved")) {
+            records.find(v => v.status === "Approved").status = "Pending EC Sign";
+          }
+
+        })
 
         setIsFetching(false);
         setPost(() => records);
@@ -45,7 +51,7 @@ const ViewApprovedObjection = () => {
     };
     fetchPost();
   }, []);
-console.log(post);
+  console.log(post);
 
 
   return (
@@ -64,7 +70,7 @@ console.log(post);
           <p>Fetching data...</p>
         </div>
       )}
-     
+
       <ViewApprovedObjectionTable submittedData={post} />
     </>
   );

@@ -36,7 +36,12 @@ const ViewVettedObjection = () => {
           rec.createtime = dateformat(rec.createtime, "dd mmm yyyy")
           records.push(rec);
         }
+        records.map(() => {
+          if (records.find(v => v.status === "VETTED")) {
+            records.find(v => v.status === "VETTED").status = "Print";
+          }
 
+        })
         setIsFetching(false);
         setPost(() => records);
       } catch (e) {

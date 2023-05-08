@@ -60,10 +60,6 @@ const fields = [
     field: "status",
   },
   {
-    title: "Vet Status",
-    field: "vetstatus",
-  },
-  {
     title: "Created Time",
     field: "createtime",
   },
