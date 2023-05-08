@@ -20,7 +20,6 @@ const ViewApprovedObjection = () => {
     const fetchPost = async () => {
       try {
         // let res = await axios.get(`${url.BASE_URL}forma/objection?status=Approved`);
-        // let res = await axios.get(`${newUrl}get-objection-batch.php?status=Approved`);
         const response = await fetch(`${newUrl}get-objection-batch.php?status=Approved`, {
           method: 'GET',
         });
