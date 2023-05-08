@@ -40,12 +40,12 @@ const fields = [
   //   width: "10%"
   // },
   {
-    title: "Role",
-    field: "role",
-  },
-  {
     title: "Group name",
     field: "groupname",
+  },
+  {
+    title: "Role",
+    field: "role",
   },
   
 ];
