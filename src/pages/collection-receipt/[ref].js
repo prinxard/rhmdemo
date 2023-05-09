@@ -173,7 +173,12 @@ export default function index() {
                             </div>
                             <div className="grid grid-cols-6 gap-2">
                                 <p>PAID AT:</p>
+                                {el?.channel_id === "Offline" ?
+                                <p className="font-bold"> {`POS ${el?.channel_id}`} </p>
+                                :
                                 <p className="font-bold"> {el?.bank || el?.channel_id} </p>
+                                
+                                }
                             </div>
                             <div className="grid grid-cols-6 gap-2">
                                 <p>AGENCY:</p>
