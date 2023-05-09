@@ -464,28 +464,28 @@ const initialState = [
               },
             ],
           },
-          {
-            title: 'User Groups',
-            items: [
-              { title: 'Create', url: '/view/user-group/create', items: [] },
-              {
-                title: 'View',
-                url: '/view/user-group/list',
-                items: [],
-              },
-            ],
-          },
-          {
-            title: 'Access Rights',
-            items: [
-              { title: 'Create', url: '/', items: [] },
-              {
-                title: 'View',
-                url: '/',
-                items: [],
-              },
-            ],
-          },
+          // {
+          //   title: 'User Groups',
+          //   items: [
+          //     { title: 'Create', url: '/view/user-group/create', items: [] },
+          //     {
+          //       title: 'View',
+          //       url: '/view/user-group/list',
+          //       items: [],
+          //     },
+          //   ],
+          // },
+          // {
+          //   title: 'Access Rights',
+          //   items: [
+          //     { title: 'Create', url: '/', items: [] },
+          //     {
+          //       title: 'View',
+          //       url: '/',
+          //       items: [],
+          //     },
+          //   ],
+          // },
 
         ],
       },
