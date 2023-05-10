@@ -477,12 +477,12 @@ const initialState = [
             ],
           },
           {
-            title: 'Access Rights',
+            title: 'Permissions',
             items: [
-              { title: 'Create', url: '/', items: [] },
+              { title: 'Create', url: '/view/access-rights/create', items: [] },
               {
                 title: 'View',
-                url: '/',
+                url: '/view/access-rights/list',
                 items: [],
               },
             ],

@@ -16,17 +16,19 @@ import * as Icons from '../Icons/index';
 import { ViewTccTable } from "../tables/viewTccTable";
 import { ViewBOJTable } from "../tables/viewBojTable";
 import { ViewGroupTable } from "../tables/viewUserGroupTable";
+import { RightsTable } from "../tables/viewAccessRightsTable";
 
-const GroupList = () => {
-  const [userGrpData, setUserGrpData] = useState(() => []);
+const AccessList = () => {
+  const [rightsData, setRightsData] = useState(() => []);
   const [isFetching, setIsFetching] = useState(() => true);
 
   useEffect(() => {
 
     let num = 1
     const fetchPost = async () => {
+
       try {
-        const response = await fetch('https://bespoque.dev/rhm/get-usergroups-batch.php')
+        const response = await fetch('https://bespoque.dev/rhm/get-permissions-batch.php')
         setIsFetching(false);
         const data = await response.json()
         console.log("data", data.body)
@@ -34,7 +36,7 @@ const GroupList = () => {
         //   let rec = data.body[i]
 
         // }
-        setUserGrpData(data.body)
+        setRightsData(data.body)
       } catch (error) {
         console.log(error.message)
         setIsFetching(false);
@@ -50,7 +52,7 @@ const GroupList = () => {
 
   return (
     <>
-      <SectionTitle subtitle="User group list" />
+      <SectionTitle subtitle="Permissions list" />
 
       {isFetching && (
         <div className="flex justify-center item mb-2">
@@ -66,9 +68,9 @@ const GroupList = () => {
           <p>Fetching data...</p>
         </div>
       )}
-      <ViewGroupTable userGrpData={userGrpData} />
+      <RightsTable rightsData={rightsData} />
     </>
   );
 };
 
-export default GroupList;
+export default AccessList;
