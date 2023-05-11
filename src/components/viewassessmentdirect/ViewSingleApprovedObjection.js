@@ -25,7 +25,7 @@ const ViewSingleApprovedObjection = () => {
   const [payerAddr, setAddr] = useState([])
   const [apprObjData, setApprObjData] = useState({})
 
-  const newUrl = 'https://bespoque.dev/rhm/'
+  const newUrl = 'https://bespoque.dev/rhm-live/'
   useEffect(() => {
     if (router && router.query) {
       let routerData = String(router.query.ref);

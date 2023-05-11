@@ -13,7 +13,7 @@ const ViewVettedObjection = () => {
   const [post, setPost] = useState(() => []);
   const [isFetching, setIsFetching] = useState(() => true);
 
-  const newUrl = 'https://bespoque.dev/rhm/'
+  const newUrl = 'https://bespoque.dev/rhm-live/'
 
   useEffect(() => {
     let num = 1
