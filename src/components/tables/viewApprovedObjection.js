@@ -303,9 +303,9 @@ export const ViewApprovedObjectionSingle = ({
               {apprObjData.notice === "undertaxed" ?
                 <div className="text-justify text-base max-w-prose"  >
                   <p className="flex justify-between mt-3"> <span className="font-bold">{apprObjData.file_ref}</span> {today}  </p>
-                  <p>{apprObjData.taxpayername}</p>
+                  <p>{apprObjData.taxPayerName}</p>
                   <p>{apprObjData.kgtin}</p>
-                  <p className="w-64">{apprObjData.taxpayeraaddress}</p>
+                  <p className="w-64">{apprObjData.taxPayerAddress}</p>
                   <p>Sir/Ma</p><br />
 
                   <div>
@@ -350,9 +350,9 @@ export const ViewApprovedObjectionSingle = ({
                   {apprObjData.notice === "no_PITA" ?
                     <div className="text-justify text-base max-w-prose" >
                       <p className="flex justify-between mt-3"> <span>{apprObjData.file_ref}</span> {today}  </p>
-                      <p>{apprObjData.taxpayername}</p>
+                      <p>{apprObjData.taxPayerName}</p>
                       <p>{apprObjData.kgtin}</p>
-                      <p className="w-64">{apprObjData.taxpayeraaddress}</p>
+                      <p className="w-64">{apprObjData.taxPayerAddress}</p>
                       <p>Sir/Ma</p><br />
                       <div>
                         <p className="font-bold">RE: {apprObjData.grounds}</p><br />
@@ -392,9 +392,9 @@ export const ViewApprovedObjectionSingle = ({
                       {apprObjData.notice === "PITA" ?
                         <div className="text-justify text-base max-w-prose">
                           <p className="flex justify-between mt-3"> <span>{apprObjData.file_ref}</span> {today}  </p>
-                          <p>{apprObjData.taxpayername}</p>
+                          <p>{apprObjData.taxPayerName}</p>
                           <p>{apprObjData.kgtin}</p>
-                          <p className="w-64">{apprObjData.taxpayeraaddress}</p>
+                          <p className="w-64">{apprObjData.taxPayerAddress}</p>
                           <p>Sir/Ma</p><br />
                           <div>
                             <p className="font-bold">RE: {apprObjData.grounds}</p><br />
@@ -432,9 +432,9 @@ export const ViewApprovedObjectionSingle = ({
                           {apprObjData.notice === "document_review" ?
                             <div className="text-justify text-base max-w-prose" >
                               <p className="flex justify-between mt-3"> <span>{apprObjData.file_ref}</span> {today}  </p>
-                              <p>{apprObjData.taxpayername}</p>
+                              <p>{apprObjData.taxPayerName}</p>
                               <p>{apprObjData.kgtin}</p>
-                              <p className="w-64">{apprObjData.taxpayeraaddress}</p>
+                              <p className="w-64">{apprObjData.taxPayerAddress}</p>
                               <p>Sir/Ma</p><br />
                               <div>
                                 <p className="font-bold">RE: {apprObjData.grounds}</p><br />
