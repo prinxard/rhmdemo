@@ -2,15 +2,12 @@
 import Search from '@material-ui/icons/Search'
 import * as Icons from '../../components/Icons/index';
 import { Delete, Edit, MoreHoriz } from "@material-ui/icons";
-import ViewColumn from '@material-ui/icons/ViewColumn'
 import SaveAlt from '@material-ui/icons/SaveAlt'
 import ChevronLeft from '@material-ui/icons/ChevronLeft'
 import ChevronRight from '@material-ui/icons/ChevronRight'
 import FirstPage from '@material-ui/icons/FirstPage'
 import LastPage from '@material-ui/icons/LastPage'
-import Add from '@material-ui/icons/Add'
 import Check from '@material-ui/icons/Check'
-import FilterList from '@material-ui/icons/FilterList'
 import Remove from '@material-ui/icons/Remove'
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Clear from "@material-ui/icons/Clear";
@@ -18,6 +15,7 @@ import { useRouter } from "next/router";
 import { shallowEqual, useSelector } from "react-redux";
 import jwt from "jsonwebtoken";
 import MaterialTable from '@material-table/core';
+import { ExportCsv, ExportPdf } from "@material-table/exporters";
 
 
 
@@ -73,6 +71,7 @@ export default function IndividualReportstable({ FilteredData }) {
         shallowEqual
     );
 
+
     const reportRange = [39, 9, 20]
     const decoded = jwt.decode(auth);
     const userGroup = decoded.groups
@@ -80,6 +79,7 @@ export default function IndividualReportstable({ FilteredData }) {
 
     return (
         <>
+
             <MaterialTable title="Individual Taxpayer Data"
                 data={items}
                 columns={fields}
@@ -105,10 +105,18 @@ export default function IndividualReportstable({ FilteredData }) {
                     paging: true,
                     filtering: true,
                     actionsColumnIndex: -1,
-                    exportButton: {
-                        csv: true,
-                        pdf: false
-                    },
+                    exportMenu: [
+                        {
+                            label: "Export PDF",
+                            exportFunc: (cols, datas) =>
+                                ExportPdf(cols, datas, "myPdfFileName"),
+                        },
+                        {
+                            label: "Export CSV",
+                            exportFunc: (cols, datas) =>
+                                ExportCsv(cols, datas, "myCsvFileName"),
+                        },
+                    ],
                     exportAllData: true,
                 }}
                 icons={{

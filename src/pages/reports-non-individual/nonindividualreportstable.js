@@ -1,6 +1,6 @@
-import MaterialTable from "material-table";
+import MaterialTable from '@material-table/core';
 import Search from '@material-ui/icons/Search'
-import ViewColumn from '@material-ui/icons/ViewColumn'
+import { ExportCsv, ExportPdf } from "@material-table/exporters";
 import { Delete, Edit, MoreHoriz } from "@material-ui/icons";
 import SaveAlt from '@material-ui/icons/SaveAlt'
 import ChevronLeft from '@material-ui/icons/ChevronLeft'
@@ -15,7 +15,6 @@ import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Clear from "@material-ui/icons/Clear";
 import * as Icons from '../../components/Icons/index';
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import jwt from "jsonwebtoken";
 
@@ -91,6 +90,18 @@ export default function NonIndividualReportstable({ FilteredData }) {
                         csv: true,
                         pdf: false
                     },
+                    exportMenu: [
+                        {
+                            label: "Export PDF",
+                            exportFunc: (cols, datas) =>
+                                ExportPdf(cols, datas, "myPdfFileName"),
+                        },
+                        {
+                            label: "Export CSV",
+                            exportFunc: (cols, datas) =>
+                                ExportCsv(cols, datas, "myCsvFileName"),
+                        },
+                    ],
                     exportAllData: true,
 
                 }}
