@@ -39,6 +39,10 @@ const fields = [
     field: "assessment_id",
   },
   {
+    title: "Name",
+    field: "taxPayerName",
+  },
+  {
     title: "Year",
     field: "year",
   },
@@ -74,7 +78,7 @@ const fields = [
 
 export const ViewSubmittedObjectionTable = ({ submittedData }) => {
   let items = submittedData;
-
+  console.log("items", items);
   const { auth } = useSelector(
     (state) => ({
       config: state.config,

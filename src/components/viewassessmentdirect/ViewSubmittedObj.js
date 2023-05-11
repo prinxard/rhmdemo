@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import dateformat from "dateformat";
 import Loader from "react-loader-spinner";
 import { ViewSubmittedObjectionTable } from "../tables/viewSubmittedObjection";
+import { formatNumber } from "../../functions/numbers";
 
 
 const ViewSubmittedObjection = () => {
@@ -20,6 +21,7 @@ const ViewSubmittedObjection = () => {
         });
         const objectData = await response.json();
         let res = objectData.body;
+        console.log("res", res);
         for (let i = 0; i < res.length; i++) {
           let rec = res[i];
           rec.serialNo = num + i
@@ -40,7 +42,7 @@ const ViewSubmittedObjection = () => {
   }, []);
 
 
-
+console.log("post", post);
   return (
     <>
       {isFetching && (
