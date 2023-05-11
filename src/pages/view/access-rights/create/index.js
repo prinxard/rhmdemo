@@ -9,7 +9,7 @@ const index = () => {
     const [permission, setPermission] = useState('')
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [userGrpData, setUserGrpData] = useState(() => []);
-    const [isFetching, setIsFetching] = useState(() => true);
+    const [isFetching, setIsFetching] = useState(() => false);
     const router = useRouter()
     useEffect(() => {
 
@@ -29,7 +29,7 @@ const index = () => {
     }, []);
 
     console.log("userGrpData", userGrpData);
-    
+
     async function handleSubmit(event) {
         event.preventDefault()
         setIsSubmitting(true)
@@ -37,14 +37,14 @@ const index = () => {
         try {
             const response = await fetch('https://bespoque.dev/rhm/new-permission-group.php', {
                 method: 'POST',
-                body: JSON.stringify({ "groupname": groupName, "role": role })
+                body: JSON.stringify({ "usergroup": groupName, "permission": permission })
             })
 
             const data = await response.json()
             console.log('Server Response:', data)
             // handle success
-            toast.success("Created Successfully!");
-            router.push('/view/user-group/list')
+            toast.success(response.message);
+            router.push('/view/access-rights/list/')
         } catch (error) {
             console.error('Server Error:', error)
             // handle error
