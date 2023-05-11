@@ -127,16 +127,6 @@ export const ViewApprovedObjectionTable = ({ submittedData }) => {
 };
 
 export const ViewApprovedObjectionSingle = ({
-  // tpKgtin,
-  // objectionData,
-  // year,
-  // payerAddr,
-  // payerName,
-  // DATax,
-  // objNotice,
-  // assessmentId,
-  // createdTime,
-  // recommendedTax
   apprObjData
 }) => {
 
@@ -230,9 +220,6 @@ export const ViewApprovedObjectionSingle = ({
   const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
   let today = new Date().toLocaleDateString('en-us', options);
   let timeCreated = new Date(apprObjData.createtime).toDateString()
-
-  // const recTaxToWords = toWords(recommendedTax)
-  // const DATaxToWords = toWords(DATax)
   const recTaxToWords = toWords(Number(apprObjData.tax) || 0)
   const DATaxToWords = toWords(Number(apprObjData.tp_tax) || 0)
 
@@ -287,7 +274,6 @@ export const ViewApprovedObjectionSingle = ({
         <div className="m-3 flex justify-end">
           <div>
             <ReactToPrint
-              // pageStyle='@page { size: auto; margin-top: 20mm; header: none; footer: none;} @media print { body { -webkit-print-color-adjust: exact; padding: 40px !important;} }'
               trigger={() => <button
                 type="submit" className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
               >

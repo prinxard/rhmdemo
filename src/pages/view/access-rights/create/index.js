@@ -54,7 +54,7 @@ const index = () => {
     }
     return (
         <>
-        
+
             <ToastContainer />
             {isFetching && (
                 <div className="flex justify-center item mb-2">
@@ -81,13 +81,6 @@ const index = () => {
                             <option value="">Select usergroup</option>
                             {userGrpData.map((group) => <option key={group.id} value={group.id}>{`${group.groupname + " - " + group.role}`}</option>)}
                         </select>
-                        {/* <input type="text" className="w-full py-2 px-4 rounded-md border border-gray-300"
-                            required
-                            id="groupName"
-                            placeholder="Enter group name"
-                            value={groupName}
-                            onChange={(event) => setGroupName(event.target.value)}
-                        /> */}
                     </div>
                     <div className="w-full sm:w-auto max-w-sm mt-4 sm:mt-0 ml-0 sm:ml-4">
                         <input type="text" class="w-full py-2 px-4 rounded-md border border-gray-300"

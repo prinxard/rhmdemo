@@ -15,7 +15,6 @@ const index = () => {
     async function handleSubmit(event) {
         event.preventDefault()
         setIsSubmitting(true)
-        // handle form submission here
 
         try {
             const response = await fetch('https://bespoque.dev/rhm/update-permission-group.php', {

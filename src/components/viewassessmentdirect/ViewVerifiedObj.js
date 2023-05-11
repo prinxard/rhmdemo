@@ -17,8 +17,6 @@ const ViewVerifiedObjection = () => {
     setAuthToken();
     const fetchPost = async () => {
       try {
-        // let res = await axios.get(`${url.BASE_URL}forma/objection?status=Verified`);
-        // res = res.data.body;
         let records = [];
         const response = await fetch(`${newUrl}get-objection-batch.php?status=Verified`, {
           method: 'GET',

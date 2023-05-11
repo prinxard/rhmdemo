@@ -41,7 +41,6 @@ export default function index() {
                 <div>
                     <ReactToPrint
                         pageStyle='@page { size: auto; margin: 0mm; } @media print { body { -webkit-print-color-adjust: exact; padding: 40px !important; } }'
-                        // pageStyle="@page { size: 7.5in 13in  }"
                         trigger={() => <button className="btn w-32 bg-green-600 btn-default text-white
                             btn-outlined bg-transparent rounded-md"
                             type="submit"

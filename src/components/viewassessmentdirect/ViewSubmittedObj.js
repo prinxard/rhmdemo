@@ -1,8 +1,5 @@
-import url from "../../config/url";
 import setAuthToken from "../../functions/setAuthToken";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { formatNumber } from "../../functions/numbers";
 import dateformat from "dateformat";
 import Loader from "react-loader-spinner";
 import { ViewSubmittedObjectionTable } from "../tables/viewSubmittedObjection";
@@ -17,8 +14,6 @@ const ViewSubmittedObjection = () => {
     setAuthToken();
     const fetchPost = async () => {
       try {
-        // let res = await axios.get(`${url.BASE_URL}forma/objection?status=Submitted`);
-        // res = res.data.body;
         let records = [];
         const response = await fetch(`${newUrl}get-objection-batch.php?status=Submitted`, {
           method: 'GET',
