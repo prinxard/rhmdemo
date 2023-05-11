@@ -25,7 +25,6 @@ import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Clear from "@material-ui/icons/Clear";
 import MaterialTable from "material-table";
 import { FiCheck } from "react-icons/fi";
-import { FormatMoneyComponentReport } from "../FormInput/formInputs";
 
 const fields = [
   {
@@ -437,12 +436,7 @@ export const ViewVerifiedObjection = ({ tpKgtin, objUploads, objectionData }) =>
             </div>
             {objUploads.map((data) => (
               <div className="flex justify-between my-3">
-                {/* <button
-                  className="btn my-2 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                >
-                  <a href={``} target="_blank" >{data.doc_name}</a>
-                </button> */}
-                <p className="font-bold"><a href={`https://annualuploads.bespoque.dev/rhm/uploads/da/objection/${data.file_name}`} target="_blank" className="no-underline hover:underline text-blue-500">{data.doc_name}</a></p>
+                <p className="font-bold"><a href={`https://annualuploads.bespoque.dev/rhm-live/uploads/da/objection/${data.file_name}`} target="_blank" className="no-underline hover:underline text-blue-500">{data.doc_name}</a></p>
                 <span className="h-5 w-5 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
                   <FiCheck
                     size={15}

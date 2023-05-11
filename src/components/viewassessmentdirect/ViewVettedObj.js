@@ -1,27 +1,19 @@
-import url from "../../config/url";
-import setAuthToken from "../../functions/setAuthToken";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { formatNumber } from "../../functions/numbers";
 import dateformat from "dateformat";
 import Loader from "react-loader-spinner";
-import { ViewVerifiedObjectionTable } from "../tables/viewVerifiedObjection";
-import { ViewApprovedObjectionTable } from "../tables/viewApprovedObjection";
 import { ViewVetObjectionTable } from "../tables/viewVetObjection";
 
 const ViewVettedObjection = () => {
   const [post, setPost] = useState(() => []);
   const [isFetching, setIsFetching] = useState(() => true);
 
-  const newUrl = 'https://bespoque.dev/rhm/'
+  const newUrl = 'https://bespoque.dev/rhm-live/'
 
   useEffect(() => {
     let num = 1
-    // setAuthToken();
     const fetchPost = async () => {
       try {
-        // let res = await axios.get(`${url.BASE_URL}forma/objection?status=Approved`);
-        // let res = await axios.get(`${newUrl}get-objection-batch.php?status=Approved`);
         const response = await fetch(`${newUrl}get-objection-batch.php?status=VETTED`, {
           method: 'GET',
         });

@@ -464,6 +464,28 @@ const initialState = [
               },
             ],
           },
+          {
+            title: 'User Groups',
+            items: [
+              { title: 'Create', url: '/view/user-group/create', items: [] },
+              {
+                title: 'View',
+                url: '/view/user-group/list',
+                items: [],
+              },
+            ],
+          },
+          {
+            title: 'Permissions',
+            items: [
+              { title: 'Create', url: '/view/access-rights/create', items: [] },
+              {
+                title: 'View',
+                url: '/view/access-rights/list',
+                items: [],
+              },
+            ],
+          },
           // {
           //   title: 'User Groups',
           //   items: [

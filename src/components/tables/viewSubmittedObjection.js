@@ -136,7 +136,6 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
   const [payerDetails, setpayerDetails] = useState([]);
   const [isFetching, setIsFetching] = useState(() => false);
   const [routerAssId, setAssessId] = useState('');
-  // const [uploadedDocs, setUploadedDocs] = useState([]);
   const [verifyModal, setVerifyModal] = useState(false);
   const [declineModal, setDeclineModal] = useState(false);
   const [fixedValues, fixValues] = useState({ amount: "" });
@@ -165,13 +164,6 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
   let daAssessmentId = objectionData.da_assessment_id
   let objectionStatus = objectionData.status
 
-  // objectionData.forEach(element => {
-  //   daAssessmentId = element.da_assessment_id
-  // });
-  // objectionData.forEach(element => {
-  //   objectionStatus = element.status
-  // });
-
   const verifyPopup = () => {
     setVerifyModal(!verifyModal);
   };
@@ -180,11 +172,6 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
   };
 
   const VerifyObjection = (data) => {
-    // data.tax = (data.tax).replace(/,/g, '')
-    // data.assessment_id = routerAssId
-    // data.status = "Verified"
-    // data.notice = objNotice
-    // console.log("data", data);
     if (objNotice === "") {
       alert("Please select the type of objection noctice")
     } else {
@@ -237,15 +224,8 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
         await axios.post(`${url.BASE_URL}taxpayer/view-taxpayers`, { KGTIN: kgtin })
           .then(function (response) {
             let IndData = response.data.body
-            console.log("IndData", IndData);
             setIsFetching(false);
             setpayerDetails(IndData)
-            // axios.post(`${url.BASE_URL}forma/view-objection`, { assessment_id: assessId })
-            //   .then(function (response) {
-            //     setUploadedDocs(response.data.body.objUpload)
-            //   }).catch(function (error) {
-            //     console.log(error);
-            //   })
           }).catch(function (error) {
             setIsFetching(false);
             console.log(error);
@@ -481,7 +461,7 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
             </div>
             {objUploads.map((data) => (
               <div className="flex justify-between my-3">
-                <p className="font-bold"><a href={`https://annualuploads.bespoque.dev/rhm/uploads/da/objection/${data.file_name}`} target="_blank" className="no-underline hover:underline text-blue-500">{data.doc_name}</a></p>
+                <p className="font-bold"><a href={`https://annualuploads.bespoque.dev/rhm-live/uploads/da/objection/${data.file_name}`} target="_blank" className="no-underline hover:underline text-blue-500">{data.doc_name}</a></p>
                 <span className="h-5 w-5 bg-green-100 text-white flex items-center justify-center rounded-full text-lg font-display font-bold">
                   <FiCheck
                     size={15}

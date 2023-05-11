@@ -127,16 +127,6 @@ export const ViewApprovedObjectionTable = ({ submittedData }) => {
 };
 
 export const ViewApprovedObjectionSingle = ({
-  // tpKgtin,
-  // objectionData,
-  // year,
-  // payerAddr,
-  // payerName,
-  // DATax,
-  // objNotice,
-  // assessmentId,
-  // createdTime,
-  // recommendedTax
   apprObjData
 }) => {
 
@@ -199,7 +189,7 @@ export const ViewApprovedObjectionSingle = ({
     } else {
       setDisabled(true)
       try {
-        const response = await fetch('https://bespoque.dev/rhm/update-objection-vet.php', {
+        const response = await fetch('https://bespoque.dev/rhm-live/update-objection-vet.php', {
           method: 'POST',
           body: JSON.stringify({
             "assessment_id": apprObjData.assessment_id,
@@ -230,9 +220,6 @@ export const ViewApprovedObjectionSingle = ({
   const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
   let today = new Date().toLocaleDateString('en-us', options);
   let timeCreated = new Date(apprObjData.createtime).toDateString()
-
-  // const recTaxToWords = toWords(recommendedTax)
-  // const DATaxToWords = toWords(DATax)
   const recTaxToWords = toWords(Number(apprObjData.tax) || 0)
   const DATaxToWords = toWords(Number(apprObjData.tp_tax) || 0)
 
@@ -245,7 +232,7 @@ export const ViewApprovedObjectionSingle = ({
             <div className="relative flex flex-col w-full bg-white border-2 border-gray-300 rounded-lg shadow-lg outline-none focus:outline-none">
               {/* modal header */}
               <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
-                <h3 className="text-2xl font-semibold">Modal Header</h3>
+                <h3 className="text-2xl font-semibold">EC Approval</h3>
                 <button className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none" onClick={closeModal}>
                   <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">×</span>
                 </button>
@@ -287,7 +274,6 @@ export const ViewApprovedObjectionSingle = ({
         <div className="m-3 flex justify-end">
           <div>
             <ReactToPrint
-              // pageStyle='@page { size: auto; margin-top: 20mm; header: none; footer: none;} @media print { body { -webkit-print-color-adjust: exact; padding: 40px !important;} }'
               trigger={() => <button
                 type="submit" className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
               >
