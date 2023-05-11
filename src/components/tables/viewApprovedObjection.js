@@ -222,6 +222,7 @@ export const ViewApprovedObjectionSingle = ({
   let timeCreated = new Date(apprObjData.createtime).toDateString()
   const recTaxToWords = toWords(Number(apprObjData.tax) || 0)
   const DATaxToWords = toWords(Number(apprObjData.tp_tax) || 0)
+  console.log("apprObjData", apprObjData);
 
   return (
     <>
