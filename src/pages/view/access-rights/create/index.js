@@ -27,7 +27,9 @@ const index = () => {
         };
         fetchPost();
     }, []);
+
     console.log("userGrpData", userGrpData);
+    
     async function handleSubmit(event) {
         event.preventDefault()
         setIsSubmitting(true)
@@ -52,6 +54,7 @@ const index = () => {
     }
     return (
         <>
+        
             <ToastContainer />
             {isFetching && (
                 <div className="flex justify-center item mb-2">
@@ -68,15 +71,15 @@ const index = () => {
                 </div>
             )}
             <form onSubmit={handleSubmit} >
-                <div class="flex flex-wrap justify-center items-center">
-                    <div class="w-full sm:w-auto max-w-sm">
+                <div className="flex flex-wrap justify-center items-center">
+                    <div className="w-full sm:w-auto max-w-sm">
                         <select className="w-full py-2 px-4 rounded-md border border-gray-300"
                             required
                             value={groupName}
                             onChange={(event) => setGroupName(event.target.value)}
                         >
                             <option value="">Select usergroup</option>
-                            {userGrpData.map((group) => <option key={group.id} value={group.id}>{group.groupname}</option>)}
+                            {userGrpData.map((group) => <option key={group.id} value={group.id}>{`${group.groupname + " - " + group.role}`}</option>)}
                         </select>
                         {/* <input type="text" className="w-full py-2 px-4 rounded-md border border-gray-300"
                             required
@@ -86,11 +89,11 @@ const index = () => {
                             onChange={(event) => setGroupName(event.target.value)}
                         /> */}
                     </div>
-                    <div class="w-full sm:w-auto max-w-sm mt-4 sm:mt-0 ml-0 sm:ml-4">
+                    <div className="w-full sm:w-auto max-w-sm mt-4 sm:mt-0 ml-0 sm:ml-4">
                         <input type="text" class="w-full py-2 px-4 rounded-md border border-gray-300"
                             required
                             id="permission"
-                            placeholder="Enter permission"
+                            placeholder="eg. Ability to Decline verified Assessment"
                             value={permission}
                             onChange={(event) => setPermission(event.target.value)}
                         />
