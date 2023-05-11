@@ -63,6 +63,7 @@ const index = () => {
                     <div class="w-full sm:w-auto max-w-sm">
                         <input type="text" className="w-full py-2 px-4 rounded-md border border-gray-300"
                             required
+                            readOnly
                             id="groupName"
                             defaultValue={usergroup}
                             onChange={(event) => setUserGroup(event.target.value)}
