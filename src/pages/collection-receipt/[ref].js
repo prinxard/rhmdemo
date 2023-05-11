@@ -34,6 +34,12 @@ export default function index() {
             fetchPost();
         }
     }, [router]);
+    let a = {
+        da_assessment_id:"FA-1683796613",
+        kgtin:"2247021192",
+        station:"Head Office",
+        year:2018
+    }
 
     return (
         <div className='rounded-lg p-6 bg-white border border-gray-100 dark:bg-gray-900 dark:border-gray-800'>
