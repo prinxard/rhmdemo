@@ -20,12 +20,12 @@ import jwt from "jsonwebtoken";
 
 
 const fields = [
-    // {
-    //     title: "SN",
-    //     field: "serialNo",
-    //     filtering: false,
-    //     width: "10%"
-    // },
+    {
+        title: "SN",
+        field: "serialNo",
+        filtering: false,
+        width: "10%"
+    },
     {
         title: "KGTIN",
         field: "KGTIN",

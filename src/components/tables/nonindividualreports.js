@@ -104,11 +104,17 @@ export const StartNonIndividualReportView = () => {
     setIsFetching(true)
     data.createdStart = startDate
     data.createdEnd = endDate
-
+    let num = 1
+    let records = [];
     axios.post(`${url.BASE_URL}taxpayer/list-non-individual`, data)
       .then(function (response) {
         let search = response.data.body;
-        setFilteredData(search)
+        for (let i = 0; i < search.length; i++) {
+          let rec = search[i];
+          rec.serialNo = num + i
+          records.push(rec);
+        }
+        setFilteredData(records)
         console.log("FilteredData", FilteredData);
         setIsFetching(false)
         setTableState('')

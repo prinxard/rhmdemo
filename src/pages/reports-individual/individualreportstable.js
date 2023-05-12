@@ -20,12 +20,12 @@ import { ExportCsv, ExportPdf } from "@material-table/exporters";
 
 
 const fields = [
-    // {
-    //     title: "SN",
-    //     field: "serialNo",
-    //     filtering: false,
-    //     width: "10%"
-    // },
+    {
+        title: "SN",
+        field: "serialNo",
+        filtering: false,
+        width: "10%"
+    },
     {
         title: "KGTIN",
         field: "KGTIN",
