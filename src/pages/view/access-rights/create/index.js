@@ -83,13 +83,13 @@ const index = () => {
                         </select>
                     </div>
                     <div className="w-full sm:w-auto max-w-sm mt-4 sm:mt-0 ml-0 sm:ml-4">
-                        <input type="text" class="w-full py-2 px-4 rounded-md border border-gray-300"
+                        <textarea type="text" class="w-full py-2 px-4 rounded-md border border-gray-300"
                             required
                             id="permission"
                             placeholder="eg. Ability to Decline verified Assessment"
                             value={permission}
                             onChange={(event) => setPermission(event.target.value)}
-                        />
+                        > </textarea>
                     </div>
                     <div class="mt-4 sm:mt-0 ml-4">
                         <button

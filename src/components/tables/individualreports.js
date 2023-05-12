@@ -106,13 +106,20 @@ export const StartIndividualReportView = () => {
     data.createdEnd = endDate
     data.platform = ""
 
+    let num = 1
+    let records = [];
     axios.post(`${url.BASE_URL}taxpayer/list-individual`, data)
       .then(function (response) {
         let search = response.data.body;
-        setFilteredData(search)
-        console.log("search", search);
+        for (let i = 0; i < search.length; i++) {
+          let rec = search[i];
+          rec.serialNo = num + i
+          records.push(rec);
+        }
+        setFilteredData(records)
         setIsFetching(false)
         setTableState('')
+        console.log("records", records);
       })
       .catch(function (error) {
         setTableState('')
@@ -120,7 +127,6 @@ export const StartIndividualReportView = () => {
 
       })
   }
-
   return (
     <>
       <div>
