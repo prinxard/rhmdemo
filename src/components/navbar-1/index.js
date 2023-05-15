@@ -19,7 +19,7 @@ const Navbar = () => {
   );
   const decoded = jwt.decode(auth);
   const userName = decoded.staffName
- 
+
   let { rightSidebar, collapsed } = { ...config };
   const dispatch = useDispatch();
   return (
@@ -39,8 +39,12 @@ const Navbar = () => {
         </button>
 
         <span className="ml-auto"></span>
+        <div className='flex justify-center mr-20'>
+          <a href='https://rhmsupport.irs.kg.gov.ng/' target='_blank'>Contact support</a>
+        </div>
 
-          <p>{userName}</p>
+        <p>{userName}</p>
+
         <Dropdown5 />
         <button
           className="btn-transparent flex items-center justify-center h-16 w-8 mx-4"
