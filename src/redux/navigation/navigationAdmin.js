@@ -488,6 +488,13 @@ const initialState = [
           // },
 
         ],
+
+      },
+      {
+        url: 'https://support-rhm.vercel.app/',
+        icon: <RhmDashboard />,
+        title: 'Contact support',
+        items: [],
       },
     ],
   },
