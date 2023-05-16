@@ -516,7 +516,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                 </table>
 
               ))}
-             
+
               <table width='800'>
                 <tr>
                   <td width='400' height='1072' valign='top'><table width='377' height='1286' className='tb'>

@@ -20,12 +20,14 @@ import { useState } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import jwt from "jsonwebtoken";
 import { formatNumber } from "accounting";
-import { WarningRounded } from '@material-ui/icons';
+import { Delete, WarningRounded } from '@material-ui/icons';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from 'react-loader-spinner';
 import axios from "axios";
 import url from '../../config/url';
+import setAuthToken from '../../functions/setAuthToken';
+import { ProcessorSpinner } from '../../components/spiner';
 
 
 
@@ -120,21 +122,23 @@ export default function AssessmentReportstable({ FilteredData }) {
   const [revisedAssFields, setRevisedAssFields] = useState({});
   const [revisedmodal, setRevisedModal] = useState(false);
   const [isFetching, setIsFetching] = useState(() => false);
+  const [assessId, setAssessId] = useState('');
+  const [modal, setModal] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
   const router = useRouter();
 
   let items = FilteredData
   console.log("items", items);
 
-  const { config, palettes, auth } = useSelector(
+  const { auth } = useSelector(
     (state) => ({
-      config: state.config,
-      palettes: state.palettes,
       auth: state.authentication.auth,
     }),
     shallowEqual
   );
 
-  const reportRange = [39]
+  const DeleteRange = [1, 12]
+  const reportRange = [39, 9, 20]
   const decoded = jwt.decode(auth);
   const userGroup = decoded.groups
 
@@ -143,6 +147,25 @@ export default function AssessmentReportstable({ FilteredData }) {
   };
   const toggleObjectionModal = () => {
     setRevisedModal(!revisedmodal);
+  };
+
+  setAuthToken();
+  const DeleteAssessment = async (data) => {
+    data.preventDefault()
+    setIsProcessing(true)
+    let deleteOBJ = {
+      assessment_id: assessId
+    }
+    try {
+      await axios.delete(`${url.BASE_URL}forma/del-assessment`, { data: deleteOBJ })
+      setIsProcessing(false)
+      toast.success("Deleted Successfully!");
+      toggleModal()
+      window.location.reload()
+    } catch (error) {
+      toast.error("Failed Try again!");
+      setIsProcessing(false)
+    }
   };
 
 
@@ -174,6 +197,7 @@ export default function AssessmentReportstable({ FilteredData }) {
   return (
     <>
       <ToastContainer />
+      {isProcessing && <ProcessorSpinner />}
       {isFetching && (
         <div className="flex justify-start item mb-2">
           <Loader
@@ -186,6 +210,39 @@ export default function AssessmentReportstable({ FilteredData }) {
             className="ml-2"
           />
           <p className="font-bold">Processing...</p>
+        </div>
+      )}
+      {modal && (
+        <div className="modal">
+          {/* <div onClick={toggleModal} className="overlay"></div> */}
+          <div className="modal-content" width="300">
+            <form onSubmit={DeleteAssessment}>
+              <div className="flex justify-center">
+                <WarningRounded
+                  size={15}
+                  className="text-yellow-400"
+                />
+              </div>
+              <p>Are you sure you want to delete?</p>
+              <div className="mt-2 flex justify-between">
+                <button onClick={toggleModal}
+                  className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                >
+                  Cancel
+                </button>
+                <div>
+
+                </div>
+                <button
+                  className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                  type="submit"
+                >
+                  Continue
+                </button>
+
+              </div>
+            </form>
+          </div>
         </div>
       )}
       {revisedmodal && (
@@ -224,6 +281,32 @@ export default function AssessmentReportstable({ FilteredData }) {
         data={items}
         columns={fields}
         actions={[
+          () => {
+            if (userGroup.some(r => DeleteRange.includes(r))) {
+              return {
+                icon: Delete,
+                tooltip: 'Delete Assessment',
+                onClick: (event, rowData) => {
+                  event.preventDefault()
+                  setAssessId(rowData.assessment_id)
+                  setModal(true)
+                },
+              };
+            }
+            else {
+              return {
+
+                icon: Delete,
+                tooltip: 'Delete Assessment',
+                hidden: true,
+                onClick: (event, rowData) => {
+                  event.preventDefault()
+                  setAssessId(rowData.assessment_id)
+                  setModal(true)
+                }
+              };
+            }
+          },
           {
             icon: () => <Icons.Objection />,
             tooltip: 'Objection',
