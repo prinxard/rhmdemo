@@ -166,7 +166,7 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
 
   const decoded = jwt.decode(auth);
   const userGroup = decoded.groups
-  const verify = [30, 1]
+  const verify = [12, 1]
 
   let daAssessmentId = objectionData.da_assessment_id
   let objectionStatus = objectionData.status
