@@ -410,7 +410,7 @@ export const ViewSinglePayeTcc = ({ tccID, slipYear1, slipYear2, slipYear3, uplo
 
 
 
-  const chairman = [1, 9, 39]
+  const chairman = [1, 9]
   const Approval = [27, 1]
   const verify = [30, 1]
   const Audit = [21, 1]
@@ -578,31 +578,12 @@ export const ViewSinglePayeTcc = ({ tccID, slipYear1, slipYear2, slipYear3, uplo
       <div>
         {statusTCC === "Declined" ?
           <div className="flex justify-between">
-            {/* <button
-                className="btn bg-green-600 mb-3 btn-default text-white btn-outlined bg-transparent rounded-md"
-                type="submit"
-              >
-                <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
-              </button>
-              <div>
-                <p className="font-bold">Reason for decline</p>
-                {payerDetails.map((el) => (
-                  <p className="mb-3">{el.comments}</p>
-                ))}
-              </div> */}
           </div> :
           <div className="mb-6">
             <div>
               {statusTCC === "Draft" ?
                 <div className="flex justify-between">
                   <div className="flex mr-3">
-                    {/* <button
-                        className="btn bg-green-600 mr-2 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
-                      </button> */}
-
                     <button
                       className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
                       type="submit"
@@ -640,20 +621,6 @@ export const ViewSinglePayeTcc = ({ tccID, slipYear1, slipYear2, slipYear3, uplo
               {statusTCC === "Verified" ?
                 <div className="flex justify-between">
                   <div className="flex mr-3">
-                    {/* <button
-                        className="btn bg-green-600 mr-2 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
-                      </button> */}
-
-                    {/* <button
-                        className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        <Link href={`/tcc/paye/${tccID}_${payerDetails.tp_id}`}> Upload Docs</Link>
-                      </button> */}
-
                   </div>
                   {userGroup.some(r => Audit.includes(r)) ?
                     <div className="flex">
@@ -682,21 +649,7 @@ export const ViewSinglePayeTcc = ({ tccID, slipYear1, slipYear2, slipYear3, uplo
             <div>
               {statusTCC === "Audit Checked" ?
                 <div className="flex justify-between">
-                  <div className="flex mr-3">
-                    {/* <button
-                        className="btn bg-green-600 mr-2 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
-                      </button> */}
-
-                    {/* <button
-                        className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        <Link href={`/tcc/paye/${tccID}_${payerDetails.tp_id}`}> Upload Docs</Link>
-                      </button> */}
-
+                  <div className="flex mr-3">  
                   </div>
                   {userGroup.some(r => Approval.includes(r)) ?
                     <div className="flex">
@@ -725,20 +678,6 @@ export const ViewSinglePayeTcc = ({ tccID, slipYear1, slipYear2, slipYear3, uplo
               {statusTCC === "Approved" ?
                 <div className="flex justify-between">
                   <div className="flex mr-3">
-                    {/* <button
-                        className="btn bg-green-600 mr-2 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
-                      </button> */}
-
-                    {/* <button
-                        className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        <Link href={`/tcc/paye/${tccID}_${payerDetails.tp_id}`}> Upload Docs</Link>
-                      </button> */}
-
                   </div>
                   {userGroup.some(r => chairman.includes(r)) ?
                     <div className="flex">
@@ -768,20 +707,6 @@ export const ViewSinglePayeTcc = ({ tccID, slipYear1, slipYear2, slipYear3, uplo
               {statusTCC === "Authorized for print" ?
                 <div className="flex justify-between">
                   <div className="flex mr-3">
-                    {/* <button
-                        className="btn bg-green-600 mr-2 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        <Link href={`/view-tcc-docs/${tccID}`}> View Documents</Link>
-                      </button> */}
-
-                    {/* <button
-                        className="btn bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-                        type="submit"
-                      >
-                        <Link href={`/tcc/paye/${tccID}_${payerDetails.tp_id}`}> Upload Docs</Link>
-                      </button> */}
-
                   </div>
                 </div> :
                 ""

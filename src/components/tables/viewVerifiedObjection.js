@@ -144,14 +144,17 @@ export const ViewVerifiedObjection = ({ tpKgtin, objUploads, objectionData }) =>
     control,
     formState: { errors },
   } = useForm()
-  const { config, palettes, auth } = useSelector(
+  const { auth } = useSelector(
     (state) => ({
-      config: state.config,
-      palettes: state.palettes,
       auth: state.authentication.auth,
     }),
     shallowEqual
   );
+
+  // const Approval = [2, 3, 1]
+  const Approval = [27, 1]
+  const decoded = jwt.decode(auth);
+  const userGroup = decoded.groups
 
   let daAssessmentId = objectionData.da_assessment_id
   let objectionStatus = objectionData.status
@@ -223,10 +226,6 @@ export const ViewVerifiedObjection = ({ tpKgtin, objUploads, objectionData }) =>
         setIsFetching(false)
       })
   }
-
-  const Approval = [2, 3, 1]
-  const decoded = jwt.decode(auth);
-  const userGroup = decoded.groups
 
 
   return (
@@ -306,35 +305,40 @@ export const ViewVerifiedObjection = ({ tpKgtin, objUploads, objectionData }) =>
       <div>
         {objectionStatus === "Verified" ?
           <div className="flex justify-between">
-            <div>
-              <p className="font-bold">Verifier Comment</p>
-              <p>{objectionData.verifiedcomment}</p>
-              <div>
-                <p className="font-bold">Revised Tax</p>
-                <p className="font-bold">{formatNumber(objectionData.tax)}</p>
-              </div>
-            </div>
+            {userGroup.some(r => Approval.includes(r)) ?
+              <>
+                <div>
+                  <p className="font-bold">Verifier Comment</p>
+                  <p>{objectionData.verifiedcomment}</p>
+                  <div>
+                    <p className="font-bold">Revised Tax</p>
+                    <p className="font-bold">{formatNumber(objectionData.tax)}</p>
+                  </div>
+                </div>
 
-            <div className="flex my-2">
-              <div className=" mr-3">
-                <button onClick={approvePopup}
-                  className="btn bg-green-400  mr-3 btn-default text-white btn-outlined bg-transparent rounded-md"
-                  type="submit"
-                >
-                  Approve
-                </button>
-              </div>
-              <div className=" mr-3">
-                <button onClick={declinePopup}
-                  className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                <div className="flex my-2">
+                  <div className=" mr-3">
+                    <button onClick={approvePopup}
+                      className="btn bg-green-400  mr-3 btn-default text-white btn-outlined bg-transparent rounded-md"
+                      type="submit"
+                    >
+                      Approve
+                    </button>
+                  </div>
+                  <div className=" mr-3">
+                    <button onClick={declinePopup}
+                      className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
 
-                >
-                  Decline
-                </button>
-              </div>
-            </div>
+                    >
+                      Decline
+                    </button>
+                  </div>
+                </div>
+              </>
+              :
+              ""
 
-
+            }
           </div> : ""
         }
       </div>

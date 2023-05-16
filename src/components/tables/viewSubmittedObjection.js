@@ -156,14 +156,17 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
   let objNotice = watch("noticeobjection", "")
   console.log(objNotice);
 
-  const { config, palettes, auth } = useSelector(
+  const { auth } = useSelector(
     (state) => ({
-      config: state.config,
-      palettes: state.palettes,
       auth: state.authentication.auth,
     }),
     shallowEqual
   );
+
+
+  const decoded = jwt.decode(auth);
+  const userGroup = decoded.groups
+  const verify = [30, 1]
 
   let daAssessmentId = objectionData.da_assessment_id
   let objectionStatus = objectionData.status
@@ -242,9 +245,7 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
   }, [router]);
 
 
-  const Approval = [2, 3, 1]
-  const decoded = jwt.decode(auth);
-  const userGroup = decoded.groups
+
 
 
   return (
@@ -335,35 +336,37 @@ export const ViewObjection = ({ tpKgtin, objUploads, objectionData }) => {
       <div>
         {objectionStatus === "Submitted" ?
           <div className="flex justify-end">
-            <form className="mr-3">
-              <select ref={register()} name="noticeobjection" className="form-control w-full rounded font-light text-gray-500">
-                <option value="">Type of Objection</option>
-                <option value="undertaxed">Undertaxed</option>
-                <option value="PITA">Downward with PITA</option>
-                <option value="no_PITA">Downward without PITA</option>
-                <option value="document_review">Document Review</option>
-              </select>
-            </form>
+            {userGroup.some(r => verify.includes(r)) ?
+              <>
+                <form className="mr-3">
+                  <select ref={register()} name="noticeobjection" className="form-control w-full rounded font-light text-gray-500">
+                    <option value="">Type of Objection</option>
+                    <option value="undertaxed">Undertaxed</option>
+                    <option value="PITA">Downward with PITA</option>
+                    <option value="no_PITA">Downward without PITA</option>
+                    <option value="document_review">Document Review</option>
+                  </select>
+                </form>
 
-            <div className="flex my-2">
-
-              <div className="mr-3">
-                <button onClick={verifyPopup}
-                  className="btn bg-purple-400 mr-3 btn-default text-white btn-outlined bg-transparent rounded-md"
-                >
-                  Verify
-                </button>
-              </div>
-              <div className=" mr-3">
-                <button onClick={declinePopup}
-                  className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
-
-                >
-                  Decline
-                </button>
-              </div>
-            </div>
-
+                <div className="flex my-2">
+                  <div className="mr-3">
+                    <button onClick={verifyPopup}
+                      className="btn bg-purple-400 mr-3 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    >
+                      Verify
+                    </button>
+                  </div>
+                  <div className=" mr-3">
+                    <button onClick={declinePopup}
+                      className="btn bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md"
+                    >
+                      Decline
+                    </button>
+                  </div>
+                </div>
+              </>
+              : ""
+            }
           </div> : ""
         }
       </div>

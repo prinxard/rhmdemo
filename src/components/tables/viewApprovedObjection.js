@@ -144,7 +144,8 @@ export const ViewApprovedObjectionSingle = ({
   );
 
   const decoded = jwt.decode(auth);
-
+  const userGroup = decoded.groups
+  const chairman = [1, 9]
 
   const openModal = (text) => {
     text.preventDefault()
@@ -242,9 +243,6 @@ export const ViewApprovedObjectionSingle = ({
               <div className="relative p-6 flex-auto">
                 <form>
                   <div className="mb-4">
-                    <label className="block text-gray-700 font-bold mb-2" htmlFor="textarea-content">
-                      Textarea Content
-                    </label>
                     <textarea
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       required
@@ -272,6 +270,7 @@ export const ViewApprovedObjectionSingle = ({
       )}
       <style>{pageStyle}</style>
       {apprObjData.vetstatus === "VETTED" ?
+
         <div className="m-3 flex justify-end">
           <div>
             <ReactToPrint
@@ -288,8 +287,14 @@ export const ViewApprovedObjectionSingle = ({
         <div className="m-3 flex justify-end">
           {apprObjData.vetstatus === "Pending" ?
             <div className="flex justify-between space-x-4">
-              <button className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md" onClick={(text) => openModal(text)} name="VETTED">Sign</button>
-              <button className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md" onClick={(text) => openModal(text)} name="OVERRULED">Decline</button>
+              {userGroup.some(r => chairman.includes(r)) ?
+                <>
+                  <button className="btn w-32 bg-green-600 btn-default text-white btn-outlined bg-transparent rounded-md" onClick={(text) => openModal(text)} name="VETTED">Sign</button>
+                  <button className="btn w-32 bg-red-600 btn-default text-white btn-outlined bg-transparent rounded-md" onClick={(text) => openModal(text)} name="OVERRULED">Decline</button>
+                </>
+                :
+                ""
+              }
             </div> : ""
           }
         </div>
