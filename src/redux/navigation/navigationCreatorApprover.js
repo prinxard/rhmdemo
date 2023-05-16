@@ -118,6 +118,32 @@ const initialState = [
               },
             ],
           },
+          {
+            url: '/',
+            titlejec: 'Objection',
+            items: [
+              {
+                title: 'Submitted',
+                url: '/view/objection/submitted',
+                items: [],
+              },
+              {
+                title: 'Verified',
+                url: '/view/objection/verified',
+                items: [],
+              },
+              // {
+              //   title: 'Pending EC sign',
+              //   url: '/view/objection/approved',
+              //   items: [],
+              // },
+              {
+                title: 'Print',
+                url: '/view/objection/vetted',
+                items: [],
+              },
+            ],
+          },
           // {
           //   url: '/',
           //   title: 'Tax Clearance (TCC)',

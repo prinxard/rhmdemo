@@ -143,7 +143,7 @@ const initialState = [
       // },
       {
         url: '/',
-        title: 'Objection',
+        titlejec: 'Objection',
         items: [
           {
             title: 'Submitted',
