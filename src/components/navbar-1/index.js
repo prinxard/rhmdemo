@@ -40,7 +40,7 @@ const Navbar = () => {
 
         <span className="ml-auto"></span>
         <div className='flex justify-center mr-20'>
-          <a href='https://rhmsupport.irs.kg.gov.ng/' target='_blank'>Contact support</a>
+          <a href='https://support-rhm.vercel.app/' target='_blank'>Contact support</a>
         </div>
 
         <p>{userName}</p>
