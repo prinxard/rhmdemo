@@ -266,14 +266,14 @@ export const StartTcc = () => {
       )}
 
       <div className="border mb-3 p-6 rounded-lg bg-white w-full">
-        <div className="mb-2 grid grid-cols-4 gap-2">
+        <div className="mb-2 grid grid-cols-3 gap-2">
           <label className="self-center">Enter Taxpayer KGTIN</label>
 
           <div className="place-self-start">
             <input onChange={event => setKgtEentered(event.target.value)} type="text" placeholder="Enter KGTIN" />
           </div>
 
-          <div className="self-center block">
+          <div className="self-center">
             <a
               onClick={verifiyKGTIN}
               style={{ backgroundColor: "#84abeb" }}
@@ -284,10 +284,11 @@ export const StartTcc = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-4 gap-2">
-          <div></div>
-          <small className={`${validmsg}`}>{payerDetails.tp_name}</small>
-          <small className={`text-red-600 ${invalidmsg}`}>{invalidkgtinmessage}</small>
+        <div className="flex justify-center">
+          <div>
+            <small className={`${validmsg}`}>{payerDetails.tp_name}</small>
+            <small className={`text-red-600 ${invalidmsg}`}>{invalidkgtinmessage}</small>
+          </div>
         </div>
 
       </div>
@@ -468,6 +469,20 @@ export const StartTcc = () => {
                 </div>
               }
             </div>
+            <div className="mb-6 grid grid-cols-2 gap-3">
+              <label>Type</label>
+              {assessmentData == null || assessmentData == "" || assessmentData == undefined ? <input className="form-control w-full rounded" readOnly type="text" />
+                :
+                <div>
+
+                  {assessmentData.map((ele, i) => (
+                    <input readOnly name="other_income" className="form-control w-full rounded" key={i} defaultValue={ele?.assessment_type} ref={register()} type="text"
+                    />
+                  ))}
+
+                </div>
+              }
+            </div>
           </div>
 
           <div className="p-3 grid justify-items-stretch">
@@ -569,6 +584,21 @@ export const StartTcc = () => {
               }
             </div>
 
+            <div className="mb-6 justify-self-center">
+
+              {assessmentData2 == null || assessmentData2 == "" || assessmentData2 == undefined ? <input className="form-control w-full rounded" readOnly type="text" />
+                :
+                <div>
+
+                  {assessmentData2.map((ele, i) => (
+                    <input readOnly name="other_income" className="form-control w-full rounded" key={i} defaultValue={ele?.assessment_type} ref={register()} type="text"
+                    />
+                  ))}
+
+                </div>
+              }
+            </div>
+
           </div>
 
           <div className="p-3 grid justify-items-stretch">
@@ -661,6 +691,21 @@ export const StartTcc = () => {
 
                   {assessmentData3.map((ele, i) => (
                     <input readOnly name="other_income" className="form-control w-full rounded" key={i} defaultValue={formatNumber(ele.other_income)} ref={register()} type="text"
+                    />
+                  ))}
+
+                </div>
+              }
+            </div>
+
+            <div className="mb-6 justify-self-center">
+
+              {assessmentData3 == null || assessmentData3 == "" || assessmentData3 == undefined ? <input className="form-control w-full rounded" readOnly type="text" />
+                :
+                <div>
+
+                  {assessmentData3.map((ele, i) => (
+                    <input readOnly name="other_income" className="form-control w-full rounded" key={i} defaultValue={ele?.assessment_type} ref={register()} type="text"
                     />
                   ))}
 
