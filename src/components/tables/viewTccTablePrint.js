@@ -477,7 +477,7 @@ export const ViewSingleTccPrintTable = ({
                           </td>
                           <td className="">
                             {assessmentData2.map((ind, i) => (
-                              <p className="font-bold">{ind?.assessment_type}</p>
+                              <p>{ind?.assessment_type}</p>
                             ))}
                           </td>
                           {/* <td className="">
