@@ -1,6 +1,5 @@
 import { RhmDashboard, ManageTaxpayer, DirectAssessment, Paye, Collections, Settings } from '../../components/Icons/index';
 
-// Added non individual navigation to side menu
 
 const initialState = [
   {
@@ -18,11 +17,6 @@ const initialState = [
         icon: <ManageTaxpayer />,
         title: 'Manage Taxpayer',
         items: [
-          // {
-          //   title: 'Dashboard',
-          //   url: '/',
-          //   items: [],
-          // },
           {
             title: 'Individual',
             items: [
@@ -159,16 +153,6 @@ const initialState = [
         icon: <Paye />,
         title: 'PAYE',
         items: [
-          // {
-          //   url: '/',
-          //   title: 'ANNUAL FIlING',
-          //   items: [
-          //     {
-          //       title: "Review Uploads",
-          //       url: "/"
-          //     }
-          //   ]
-          // },
           {
             url: '/',
             title: 'TCC',
@@ -203,11 +187,6 @@ const initialState = [
                 url: '/view/listpayetcc',
                 items: [],
               },
-              // {
-              //   title: 'Unassessed Collections',
-              //   url: '/unassessed-report',
-              //   items: [],
-              // },
             ],
           },
           {
@@ -292,11 +271,6 @@ const initialState = [
         icon: <Collections />,
         title: 'Collections',
         items: [
-          // {
-          //   url: '/',
-          //   title: 'Dashboard',
-          //   items: [],
-          // },
           {
             title: 'View',
             url: '/reports',
