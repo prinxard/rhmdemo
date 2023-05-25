@@ -648,7 +648,7 @@ export const ATOPie = ({ atoAssessedAmt, atoAssCount, atoTrend, atoOverview, rec
                   <Widget1
                     color="red"
                     title="Outstanding Assessed Amount"
-                    description={formatNumber(Number(ind.amountAssessed) - Number("1333310"))}
+                    description={formatNumber(Number(ind.amountAssessed) - Number("2421160"))}
                     right={<TaxReceipt />}
                   />
                   :
@@ -667,7 +667,7 @@ export const ATOPie = ({ atoAssessedAmt, atoAssCount, atoTrend, atoOverview, rec
                   <Widget1
                     color="red"
                     title="Unassessed Amount Collected"
-                    description={formatNumber("335800")}
+                    description={formatNumber(" 357600")}
                     right={<Unassessed />}
                   />
                   :
