@@ -1308,10 +1308,10 @@ export const AssesmentCount = ({
         records.find(v => v.station === "Okehi/Adavi").station = "Adavi/Okehi";
       }
       if (records.find(v => v.station === "Anyigba")) {
-        records.find(v => v.station === "Anyigba").paidAmountFormatted = "1,333,310";
+        records.find(v => v.station === "Anyigba").paidAmountFormatted = "2,421,160";
       }
       if (records.find(v => v.station === "Anyigba")) {
-        records.find(v => v.station === "Anyigba").unassessedAmountCollectedf = "335,800";
+        records.find(v => v.station === "Anyigba").unassessedAmountCollectedf = "357,600";
       }
 
       setPost(() => records);
