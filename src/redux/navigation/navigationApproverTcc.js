@@ -146,6 +146,11 @@ const initialState = [
         title: 'Objection',
         items: [
           {
+            title: 'Draft',
+            url: '/view/objection/draft',
+            items: [],
+          },
+          {
             title: 'Submitted',
             url: '/view/objection/submitted',
             items: [],

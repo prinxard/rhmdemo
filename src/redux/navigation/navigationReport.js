@@ -99,6 +99,11 @@ const initialState = [
               //   items: [],
               // },
               {
+                title: 'Draft',
+                url: '/view/objection/draft',
+                items: [],
+              },
+              {
                 title: 'Pending EC sign',
                 url: '/view/objection/approved',
                 items: [],

@@ -123,6 +123,11 @@ const initialState = [
             titlejec: 'Objection',
             items: [
               {
+                title: 'Draft',
+                url: '/view/objection/draft',
+                items: [],
+              },
+              {
                 title: 'Submitted',
                 url: '/view/objection/submitted',
                 items: [],
