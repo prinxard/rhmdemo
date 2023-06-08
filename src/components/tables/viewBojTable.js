@@ -394,7 +394,7 @@ export const ViewSingleBojTable = ({ additionalAsse, payerprop, assId, payerArr,
                 ))}
               </tr>
               <tr>
-                <td className="font-bold">KGTIN</td>
+                <td className="font-bold">Tax Id</td>
                 <td className="pl-3" >{data.KGTIN}</td>
               </tr>
               <tr>

@@ -38,7 +38,7 @@ const columns = [
     width: "10%"
   },
   {
-    title: "KGTIN",
+    title: "Tax Id",
     field: "kgtin",
   },
   {
@@ -1784,7 +1784,7 @@ export const ViewSinglePendingTable = ({ indvData, pensDeduct,
               </div>
 
               <div className="form-group mb-6">
-                <p>KGTIN</p>
+                <p>Tax Id</p>
 
                 <input type="text" className="form-control w-full rounded font-light text-gray-500"
                   value={data.KGTIN} disabled />

@@ -29,7 +29,7 @@ const AccountSettings2 = ({message = null}) => {
   let items = [
     {
      
-      label: 'KGTIN',
+      label: 'Tax Id',
       error: {required: 'Please enter a valid first name'},
       name: 'first-name',
       type: 'text',

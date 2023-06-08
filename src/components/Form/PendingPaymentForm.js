@@ -171,7 +171,7 @@ const NewPaymentForm = () => {
             <div className="flex flex-col lg:flex-row lg:flex-wrap w-full lg:space-x-4">
               <div className="w-full lg:w-1/4">
                 <NewFormInput
-                  label="KGTIN/TIN"
+                  label="Tax Id"
                   required
                   ref={register}
                   value={personalInfo.KGTIN}
@@ -374,7 +374,7 @@ const NewPaymentForm = () => {
                             <table className="table-fixed w-full">
                               <tbody className="divide-y">
                                 <tr>
-                                  <td>KGTIN</td>
+                                  <td>Tax Id</td>
                                   <td>{dat.KGTIN}</td>
                                 </tr>
                                 <tr className="">

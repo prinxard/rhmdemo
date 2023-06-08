@@ -27,7 +27,7 @@ const fields = [
         width: "10%"
     },
     {
-        title: "KGTIN",
+        title: "Tax Id",
         field: "KGTIN",
     },
     {

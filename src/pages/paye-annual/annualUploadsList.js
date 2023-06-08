@@ -24,7 +24,7 @@ function AnnualUploadsList({FilteredData}) {
 const router = useRouter()
     const fields = [
         {
-            title: "KGTIN",
+            title: "Tax Id",
             field: "employerId",
         },
         {

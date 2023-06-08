@@ -456,7 +456,7 @@ export const ATOPie = ({ atoAssessedAmt, atoAssCount, atoTrend, atoOverview, rec
       key: "serialNo",
     },
     {
-      name: "KGTIN",
+      name: "Tax Id",
       key: "kgtin",
     },
     {

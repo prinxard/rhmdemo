@@ -43,7 +43,7 @@ const fields = [
     field: "file_ref",
   },
   {
-    title: "KGTIN",
+    title: "Tax Id",
     field: "tp_id",
   },
   {

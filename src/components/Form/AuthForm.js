@@ -102,10 +102,10 @@ const AuthForm = () => {
                 readOnly
               />
               {errors.kgtin && errors.kgtin.type === "minLength" && (
-                <p className="text-red-600">KGTIN or TIN must be 10 digits</p>
+                <p className="text-red-600">Tax Id must be 10 digits</p>
               )}
               {errors.kgtin && errors.kgtin.type === "maxLength" && (
-                <p className="text-red-600">KGTIN or TIN must be 10 digits</p>
+                <p className="text-red-600">Tax Id must be 10 digits</p>
               )}
 
               <Input

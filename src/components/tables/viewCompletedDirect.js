@@ -42,7 +42,7 @@ const fields = [
     field: "year",
   },
   {
-    title: "KGTIN",
+    title: "Tax id",
     field: "kgtin",
   },
   {
@@ -522,7 +522,7 @@ console.log("assobj", assobj);
                 ))}
               </tr>
               <tr>
-                <td className="font-bold">KGTIN</td>
+                <td className="font-bold">Tax Id</td>
                 <td className="pl-3" >{data.KGTIN}</td>
               </tr>
               <tr>

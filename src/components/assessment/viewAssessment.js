@@ -131,7 +131,7 @@ export const StartAssessment = () => {
       setIsFetching(false)
       let userpayer = res.data.body
       setpayerDetails(userpayer)
-      Setvalidkgtinmessage("KGTIN is Valid");
+      Setvalidkgtinmessage("Tax ID is Valid");
       setDisabled(false)
       setvalidmsg('')
       setinvalidmsg('hidden')
@@ -140,7 +140,7 @@ export const StartAssessment = () => {
       setDisabled(true)
       setinvalidmsg('')
       setvalidmsg('hidden')
-      Setinvalidkgtinmessage("Invalid KGTIN");
+      Setinvalidkgtinmessage("Invalid Tax ID");
     }
   };
 
@@ -218,7 +218,7 @@ export const StartAssessment = () => {
 
               <div className="w-full lg:w-2/5">
                 <div className="">
-                  <input ref={register()} type="text" name="kgtin" placeholder="Enter KGTIN" />
+                  <input ref={register()} type="text" name="kgtin" placeholder="Enter Tax ID" />
                 </div>
               </div>
 
@@ -1554,7 +1554,7 @@ export const StartSingleIndividualAssessment = ({ kgtinVal, assessmentYear, paye
             </div>
 
             <div className="form-group mb-6">
-              <p>KGTIN</p>
+              <p>Tax Id</p>
 
               <input type="text" className="form-control w-full rounded font-light text-gray-500"
                 value={indvData.KGTIN} disabled />

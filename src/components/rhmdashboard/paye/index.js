@@ -190,7 +190,7 @@ export default function PayeDashboard() {
                         <TableRow>
                            
                             <TableHeaderCell>
-                                KGTIN
+                                Tax Id
                             </TableHeaderCell>
                             <TableHeaderCell>
                                 Ref

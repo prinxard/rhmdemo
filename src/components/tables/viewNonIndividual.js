@@ -27,7 +27,7 @@ const columns = [
   },
 
   {
-    title: "KGTIN",
+    title: "Tax Id",
     field: "KGTIN",
   },
 
@@ -99,7 +99,7 @@ export const ViewNonIndividualTable = ({ nonIndData }) => {
 
 const singleFields = [
   {
-    name: 'KGTIN',
+    name: 'Tax Id',
     key: 'KGTIN',
   },
   {
@@ -184,7 +184,7 @@ export const ViewSingleNonIndividualTable = ({ indvdata }) => {
 
             <tbody className="divide-y ">
               <tr className="">
-                <td>KGTIN</td>
+                <td>Tax Id</td>
                 <td>{items.KGTIN}</td>
               </tr>
               <tr className="">

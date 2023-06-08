@@ -39,7 +39,7 @@ const fields = [
     field: "year",
   },
   {
-    title: "KGTIN",
+    title: "Tax Id",
     field: "kgtin",
   },
   {

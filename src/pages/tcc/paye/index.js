@@ -246,10 +246,10 @@ function index() {
             <div className="border mb-3 p-6 rounded-lg bg-white w-full">
                 <p className="text-red-600">{kgtinErr}</p>
                 <form onSubmit={handleSubmitkgtin(verifiyKGTIN)} className="mb-2 grid grid-cols-4 gap-2">
-                    <label className="self-center">Enter Taxpayer KGTIN</label>
+                    <label className="self-center">Enter Tax Id</label>
 
                     <div className="place-self-start">
-                        <input type="text" name='KGTIN' className="form-control w-full rounded" ref={registerkgtin()} placeholder="Enter KGTIN" />
+                        <input type="text" name='KGTIN' className="form-control w-full rounded" ref={registerkgtin()} placeholder="Enter Tax Id" />
                     </div>
 
                     <div className="self-center block">
@@ -258,7 +258,7 @@ function index() {
                             style={{ backgroundColor: "#84abeb" }}
                             className="btn btn-default text-white btn-outlined bg-transparent rounded-md"
                         >
-                            Verify KGTIN
+                            Verify Tax Id
                         </button>
                     </div>
                 </form>
@@ -282,9 +282,9 @@ function index() {
                         </div>
 
                         <div className="mb-6 grid grid-cols-3 gap-2">
-                            <label>KGTIN:</label>
+                            <label>Tax Id:</label>
                             <div>
-                                <input ref={register()} value={taxpayerInfo.KGTIN} readOnly name="KGTIN" type="text" className="form-control w-full rounded" placeholder="KGTIN" />
+                                <input ref={register()} value={taxpayerInfo.KGTIN} readOnly name="KGTIN" type="text" className="form-control w-full rounded" placeholder="Tax Id" />
                             </div>
                         </div>
 

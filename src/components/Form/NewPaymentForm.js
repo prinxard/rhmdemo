@@ -438,7 +438,7 @@ const NewPaymentForm = () => {
                             <table className="table-fixed w-full">
                               <tbody className="divide-y">
                                 <tr>
-                                  <td>KGTIN</td>
+                                  <td>Tax Id</td>
                                   <td>{dat.KGTIN}</td>
                                 </tr>
                                 <tr className="">

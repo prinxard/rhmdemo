@@ -317,7 +317,7 @@ export const ViewSinglePayslip = ({ paySlipData }) => {
                       </span>
                     </div>
                     <div className="  w-full p-2">
-                      <h1 className="text-sm">Organization KGTIN</h1>
+                      <h1 className="text-sm">Organization Tax Id</h1>
                       <span className="text-black font-semibold">
                         {data.org_id}
                       </span>
@@ -329,7 +329,7 @@ export const ViewSinglePayslip = ({ paySlipData }) => {
                       </span>
                     </div>
                     <div className="  w-full p-2">
-                      <h1 className="text-sm">Taxpayer KGTIN</h1>
+                      <h1 className="text-sm">Taxpayer Id</h1>
                       <span className="text-black font-semibold">
                         {data.paye_tp}
                       </span>

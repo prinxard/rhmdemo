@@ -41,7 +41,7 @@ const columns = [
     field: "ref",
   },
   {
-    title: "KGTIN",
+    title: "Tax Id",
     field: "t_payer",
   },
   {

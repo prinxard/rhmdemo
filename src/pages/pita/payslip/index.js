@@ -240,7 +240,7 @@ export default function payslip() {
     const createPayslip = (data) => {
         console.log(data);
         if (data.org_id === "" || data.paye_tp === "") {
-            alert("Please provide Organization and Employee KGTIN")
+            alert("Please provide Organization and Employee Tax Id")
         }
         else if (otherReliefWatch > 0 && watch_relief_notes === "") {
             alert("Please fill out the reason for other deduction")
@@ -309,7 +309,7 @@ export default function payslip() {
                     <div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:">
                         <div className="w-full lg:w-1/2 ">
                             <form onSubmit={handleSubmit(searchOrg)} className="flex">
-                                <input ref={register()} required name="search" className="form-control rounded font-light text-gray-500" type="text" placeholder="organization kgtin/name" />
+                                <input ref={register()} required name="search" className="form-control rounded font-light text-gray-500" type="text" placeholder="organization Tax id/name" />
                                 <button
                                     style={{ backgroundColor: "#84abeb" }}
                                     className="btn btn-default text-white btn-outlined ml-2 bg-transparent rounded-md"
@@ -328,7 +328,7 @@ export default function payslip() {
                         <div className="w-full lg:w-1/2">
                             <form className="flex" onSubmit={handleSubmitTp(searchTp)}>
 
-                                <input ref={registerTp()} required type="text" name="search" defaultValue={payerKGTIN} placeholder="kgtin, name, or phone" className="form-control rounded font-light text-gray-500" />
+                                <input ref={registerTp()} required type="text" name="search" defaultValue={payerKGTIN} placeholder="Tax id, name, or phone" className="form-control rounded font-light text-gray-500" />
                                 <button
 
                                     style={{ backgroundColor: "#84abeb" }}

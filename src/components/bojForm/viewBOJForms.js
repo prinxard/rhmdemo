@@ -361,7 +361,7 @@ export const StartBOJ = () => {
               </div>
 
               <div className="form-group mb-6">
-                <p>KGTIN</p>
+                <p>Tax Id</p>
 
                 <input type="text" className="form-control w-full rounded font-light text-gray-500"
                   value={payerDetails.KGTIN} disabled />

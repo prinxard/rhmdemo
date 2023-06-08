@@ -43,7 +43,7 @@ const fields = [
     field: "file_ref",
   },
   {
-    title: "KGTIN",
+    title: "Tax Id",
     field: "tp_id",
   },
   {
@@ -560,7 +560,7 @@ export const ViewSingleTccTable = ({ tccID, addAsess, payerDetails, assessmentDa
               </div>
 
               <div className="mb-6 grid grid-cols-3 gap-2">
-                <label>KGTIN:</label>
+                <label>Tax Id:</label>
                 {payerDetails == null || payerDetails == "" || payerDetails == undefined ? <input readOnly name="tp_id" type="text" />
                   :
                   <div>

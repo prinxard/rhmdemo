@@ -43,7 +43,7 @@ const fields = [
     field: "file_ref",
   },
   {
-    title: "KGTIN",
+    title: "Tax Id",
     field: "tp_id",
   },
   {
@@ -296,23 +296,23 @@ export const ViewSingleTccPrintTable = ({
           <div className="px-16">
             <div >
               <div className="flex justify-center mt-16">
-                <CoatOfArms />
+                {/* <CoatOfArms />
                 <p className="border-r-2 ml-2 border-black h-8 self-center"></p>
-                <KogiGov />
+                <KogiGov /> */}
               </div>
               <div className="flex justify-center">
                 <div>
-                  <h4 className="text-green-600">KOGI STATE GOVERNMENT</h4>
+                  {/* <h4 className="text-green-600">KOGI STATE GOVERNMENT</h4>
                   <div className="text-center">
                     <h6 className="text-red-600">TAX CLEARANCE CERTIFICATE</h6>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div className="grid justify-items-center mt-5 ml-12">
                 <div className="flex">
-                  <KgirsLogo />
+                  {/* <KgirsLogo /> */}
                   <div>
-                    <p className="self-center w-48 font-bold text-green-600">KOGI STATE INTERNAL REVENUE SERVICE</p>
+                    {/* <p className="self-center w-48 font-bold text-green-600">KOGI STATE INTERNAL REVENUE SERVICE</p> */}
                   </div>
                 </div>
               </div>
@@ -537,16 +537,16 @@ export const ViewSingleTccPrintTable = ({
                 </div>
                 <div className="flex justify-between mt-4">
                   <div className="flex flex-col">
-                    <SignatureCol />
+                    {/* <SignatureCol />
                     <hr />
                     <p className="font-bold text-center">Sule Salihu Enehe</p>
-                    <p className="font-bold text-center">Executive Chairman</p>
+                    <p className="font-bold text-center">Executive Chairman</p> */}
                   </div>
                 </div>
               </div>
               <div className="mb-12">
                 <p>To verify certificate</p>
-                <p>-visit: <span><a href="https://irs.kg.gov.ng/verify-tcc/" target="_blank">  www.irs.kg.gov.ng/verify-tcc</a></span></p>
+                {/* <p>-visit: <span><a href="https://irs.kg.gov.ng/verify-tcc/" target="_blank">  www.irs.kg.gov.ng/verify-tcc</a></span></p> */}
               </div>
             </div>
           </div>

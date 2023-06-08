@@ -267,10 +267,10 @@ export const StartTcc = () => {
 
       <div className="border mb-3 p-6 rounded-lg bg-white w-full">
         <div className="mb-2 grid grid-cols-3 gap-2">
-          <label className="self-center">Enter Taxpayer KGTIN</label>
+          <label className="self-center">Enter Taxpayer Id</label>
 
           <div className="place-self-start">
-            <input onChange={event => setKgtEentered(event.target.value)} type="text" placeholder="Enter KGTIN" />
+            <input onChange={event => setKgtEentered(event.target.value)} type="text" placeholder="Enter Tax Id" />
           </div>
 
           <div className="self-center">
@@ -279,7 +279,7 @@ export const StartTcc = () => {
               style={{ backgroundColor: "#84abeb" }}
               className="btn btn-default text-white btn-outlined bg-transparent rounded-md"
             >
-              Verify KGTIN
+              Verify Tax Id
             </a>
           </div>
         </div>
@@ -310,10 +310,10 @@ export const StartTcc = () => {
             </div>
 
             <div className="mb-6 grid grid-cols-3 gap-2">
-              <label>KGTIN:</label>
+              <label>Tax Id:</label>
               {payerDetails === [] || payerDetails === "" || payerDetails === undefined ?
                 <div>
-                  <input ref={register({ required: "KGTIN is required" })} readOnly name="tp_id" type="text" className="form-control w-full rounded" placeholder="KGTIN" />
+                  <input ref={register({ required: "Tax Id is required" })} readOnly name="tp_id" type="text" className="form-control w-full rounded" placeholder="Tax Id" />
                   {errors.tp_id && <p className="text-red-600">{errors.tp_id.message}</p>}
                 </div>
                 :

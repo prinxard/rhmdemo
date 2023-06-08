@@ -5,7 +5,7 @@ export const FormHeader = ({ text }) => (
   <>
     <div className="flex justify-evenly">
 
-      <KgirsLogo />
+      {/* <KgirsLogo /> */}
 
       <RHMLogo />
     </div>

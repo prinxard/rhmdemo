@@ -43,7 +43,7 @@ const fields = [
     field: "year",
   },
   {
-    title: "KGTIN",
+    title: "Tax Id",
     field: "kgtin",
   },
   {
@@ -446,12 +446,12 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
       <div className="mt-4" ref={ref}>
 
         <div align="center">
-          <div className="flex justify-evenly">
+          {/* <div className="flex justify-evenly">
             <p align="left"> <KgirsLogo /></p>
             <h3 className="mt-9">KOGI STATE GOVERNMENT</h3>
             <p align="right"> <KogiGov /></p>
-          </div>
-          <h5>Kogi State Internal Revenue Service</h5>
+          </div> */}
+          {/* <h5>Kogi State Internal Revenue Service</h5> */}
           <h6>Notice Of Assessment</h6>
         </div>
         <table width='800' height='1200' align='center' className='print'>
@@ -499,7 +499,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                         ))}
                       </tr>
                       <tr>
-                        <td><strong>KGTIN</strong></td>
+                        <td><strong>Tax Id</strong></td>
                         <p key={idx}>{data.KGTIN}</p>
                       </tr>
                       <tr>
@@ -763,7 +763,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
 
                         </div>
                       </div>
-                      <div className="flex mt-4 justify-center">
+                      {/* <div className="flex mt-4 justify-center">
                         <Signature />
                       </div>
                       <div className="flex justify-center">
@@ -772,7 +772,7 @@ export const ViewSingleApprovedTable = React.forwardRef((props, ref) => {
                           <p>Executive Chaiman</p>
                           <p>Kogi State Internal Revenue Service</p>
                         </div>
-                      </div>
+                      </div> */}
 
                       <div className="mb-3 mt-4">
                         <p>Prepared By:</p>

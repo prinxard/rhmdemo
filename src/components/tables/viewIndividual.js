@@ -22,7 +22,7 @@ const columns = [
     width: "10%"
   },
   {
-    title: "KGTIN",
+    title: "Tax Id",
     field: "KGTIN",
   },
   {
@@ -114,7 +114,7 @@ export const ViewIndividualSingleTable = ({ indvdata, payerKgtin }) => {
 
             <tbody className="divide-y ">
               <tr className="">
-                <td>KGTIN</td>
+                <td>Tax Id</td>
                 {items.map((ind, i) => (
                   <td key={i}>{ind.KGTIN}</td>
                 ))}

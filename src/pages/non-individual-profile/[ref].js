@@ -103,7 +103,7 @@ export default function SinglePayerProfile() {
       field: "file_ref",
     },
     {
-      title: "KGTIN",
+      title: "Tax Id",
       field: "tp_id",
     },
     {
@@ -314,7 +314,7 @@ export default function SinglePayerProfile() {
                     </div>
                     <p className="font-bold text-center my-2"><em>Taxpayer details</em> </p>
                     <section className='mb-2'>
-                      <p>TIN/KGTIN</p>
+                      <p>Tax Id</p>
                       <p className="font-bold">{payerProfile.KGTIN}</p>
                     </section>
                     <section className='mb-2'>

@@ -118,9 +118,9 @@ export default function index() {
                             <p className="font-bold">{el.ref}</p>
                         </section>
                         <section className="flex justify-end mt-8">
-                            <CoatOfArms />
+                            {/* <CoatOfArms />
                             <KogiGov />
-                            <KgirsLogo />
+                            <KgirsLogo /> */}
                         </section>
                         <div className="flex justify-between">
                             <div>
@@ -197,7 +197,7 @@ export default function index() {
                         <div className="flex justify-between">
                             <div></div>
                             <div className="mt-2">
-                                <SignatureCol />
+                                {/* <SignatureCol /> */}
                                 <hr />
                                 Authorized Signatory
                             </div>
