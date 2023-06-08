@@ -37,6 +37,17 @@ export const RHMLogo = () => {
     />
   );
 };
+export const AbiaLogo = () => {
+  return (
+    <Image
+      layout="fixed"
+      src="/images/logoabia.png"
+      alt="login"
+      width={270}
+      height={100}
+    />
+  );
+};
 
 export const Signature = () => {
   return (
