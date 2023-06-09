@@ -25,7 +25,7 @@ export default function index() {
                 "idpymt": paymentID
             }
             const fetchPost = async () => {
-                setIsFetching(true)
+                
                 if (paymentID.includes("FA")) {
                     try {
                         let response = await fetch(`${urlNew}getpayment.php?paymentref=${paymentID}&by=assessment`, {
@@ -58,6 +58,7 @@ export default function index() {
                         let res = await axios.post(`${url.BASE_URL}collection/view-collections`, paymentPayload);
                         res = res.data.body;
                         setColData(res)
+                        setIsFetching(false)
                     } catch (e) {
                         console.log(e);
                         setIsFetching(false)
@@ -112,7 +113,7 @@ export default function index() {
                 </div>
                 {colData.map((el, i) => (
                     <div className="border p-6" ref={componentRef}>
-                        <p>KOGI STATE GOVERNMENT</p>
+                        {/* <p>KOGI STATE GOVERNMENT</p> */}
                         <section className="flex justify-between">
                             <p className="font-bold">REVENUE RECEIPT</p>
                             <p className="font-bold">{el.ref}</p>
